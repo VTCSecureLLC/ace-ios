@@ -228,8 +228,10 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 			index = 0;
 		} else if ((vsize.width == MS_VIDEO_SIZE_VGA_W) && (vsize.height == MS_VIDEO_SIZE_VGA_H)) {
 			index = 1;
-		} else {
+		} else if ((vsize.width == MS_VIDEO_SIZE_CIF_W) && (vsize.height == MS_VIDEO_SIZE_CIF_H)) {
 			index = 2;
+		} else {
+			index = 3;
 		}
 		[self setInteger:index forKey:@"video_preferred_size_preference"];
 	}
@@ -607,6 +609,10 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 			bw = 512;
 			break;
 		case 2:
+			MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+			bw = 380;
+			break;
+		case 3:
 		default:
 			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
 			bw = 380;

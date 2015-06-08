@@ -144,6 +144,7 @@ struct codec_name_pref_table codec_pref_table[]={
 	{ "g729", 8000, "g729_preference"},
 	{ "mp4v-es", 90000, "mp4v-es_preference"},
 	{ "h264", 90000, "h264_preference"},
+	{ "h263-1998", 90000, "h263-1998_preference"},
 	{ "vp8", 90000, "vp8_preference"},
     { "mpeg4-generic", 16000, "aaceld_16k_preference"},
     { "mpeg4-generic", 22050, "aaceld_22k_preference"},
@@ -529,24 +530,13 @@ void linphone_iphone_log_handler(int lev, const char *fmt, va_list args){
 	NSString* format = [[NSString alloc] initWithUTF8String:fmt];
 	NSString* formatedString = [[NSString alloc] initWithFormat:format arguments:args];
 	//since \r are interpreted like \n, avoid double new lines when logging packets
-	NSLogv([formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"], nil);
+	NSLog([formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"], nil);
 }
 
 //Error/warning log handler
 static void linphone_iphone_log(struct _LinphoneCore * lc, const char * message) {
 	NSString* log = [NSString stringWithCString:message encoding:[NSString defaultCStringEncoding]];
 	NSLog(log, NULL);
-
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        if([[LinphoneManager instance].logs count] >= LINPHONE_LOGS_MAX_ENTRY) {
-//            [[LinphoneManager instance].logs removeObjectAtIndex:0];
-//        }
-//        [[LinphoneManager instance].logs addObject:log];
-//
-//        // Post event
-//        NSDictionary *dict = [NSDictionary dictionaryWithObject:log forKey:@"log"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneLogsUpdate object:[LinphoneManager instance] userInfo:dict];
-//    });
 }
 
 
