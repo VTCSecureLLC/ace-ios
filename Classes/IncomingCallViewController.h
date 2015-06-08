@@ -22,6 +22,8 @@
 #import "UICompositeViewController.h"
 #import "TPMultiLayoutViewController.h"
 #include "linphone/linphonecore.h"
+#import <AVFoundation/AVFoundation.h>
+
 
 @protocol IncomingCallViewDelegate <NSObject>
 
@@ -38,6 +40,9 @@
 @property (nonatomic, strong) IBOutlet UIImageView* avatarImage;
 @property (nonatomic, assign) LinphoneCall* call;
 @property (nonatomic, strong) id<IncomingCallViewDelegate> delegate;
+@property (strong)  NSTimer *cameraLedFlasherTimer,*vibratorTimer,*flashBackgroundColorTimer ;
+@property (strong) AVCaptureDevice *device;
+
 
 - (IBAction)onAcceptClick:(id) event;
 - (IBAction)onDeclineClick:(id) event;

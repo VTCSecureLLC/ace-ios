@@ -684,7 +684,7 @@ static RootViewManager* rootViewManagerInstance = nil;
                 // controller is already presented, don't bother animating a transition
                 controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
             }
-            AudioServicesPlaySystemSound(lm.sounds.vibrate);
+            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
 			if(controller != nil) {
 				[controller setCall:call];
 				[controller setDelegate:self];

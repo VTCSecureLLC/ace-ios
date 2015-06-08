@@ -4,16 +4,16 @@
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or   
- *  (at your option) any later version.                                 
- *                                                                      
- *  This program is distributed in the hope that it will be useful,     
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of      
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       
- *  GNU General Public License for more details.                
- *                                                                      
- *  You should have received a copy of the GNU General Public License   
- *  along with this program; if not, write to the Free Software         
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -22,6 +22,9 @@
 #import "FastAddressBook.h"
 #import "PhoneMainView.h"
 #import "UILinphone.h"
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioServices.h>
 
 @implementation IncomingCallViewController
 
@@ -44,21 +47,100 @@
 
 #pragma mark - ViewController Functions
 
+
+-(void) toggleBackgroundColor {
+    if (self.view.backgroundColor == [UIColor redColor]) [self.view setBackgroundColor:[UIColor whiteColor]];
+    else [self.view setBackgroundColor:[UIColor redColor]];
+}
+
+-(void) viewDidLoad {
+    [super viewDidLoad];
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    self.device = nil;
+    if (captureDeviceClass != nil) {
+        self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if (![self.device hasTorch] || ![self.device hasFlash]) self.device = nil;
+    }
+}
+
+- (void) toggleCameraLed {
+    if (self.device != nil){
+        [self.device lockForConfiguration:nil];
+        if (self.device.torchMode == AVCaptureTorchModeOff){
+            [self.device setTorchMode:AVCaptureTorchModeOn];
+            [self.device setFlashMode:AVCaptureFlashModeOn];
+        } else {
+            [self.device setTorchMode:AVCaptureTorchModeOff];
+            [self.device setFlashMode:AVCaptureFlashModeOff];
+        }
+        [self.device unlockForConfiguration];
+    }
+}
+
+- (void) vibrate {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+}
+
+- (void) stopFlashCameraLed {
+    if (self.cameraLedFlasherTimer != nil) {
+        [self.cameraLedFlasherTimer invalidate];
+        self.cameraLedFlasherTimer = nil;
+        Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+        if (captureDeviceClass != nil) {
+            AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+            if ([device hasTorch] && [device hasFlash]){
+                [device lockForConfiguration:nil];
+                if (device.torchMode == AVCaptureTorchModeOn) {
+                    [device setTorchMode:AVCaptureTorchModeOff];
+                    [device setFlashMode:AVCaptureFlashModeOff];            }
+                [device unlockForConfiguration];
+            }
+        }
+    }
+}
+
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(callUpdateEvent:) 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(callUpdateEvent:)
                                                  name:kLinphoneCallUpdate
                                                object:nil];
+    
+    // VTC Secure -
+    // Red flashing + Vibrate + Camera Flash if possible
+    
+    
+    self.flashBackgroundColorTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                                  target:self
+                                                                selector:@selector(toggleBackgroundColor)
+                                                                userInfo:nil
+                                                                 repeats:YES];
+    
+    self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                                  target:self
+                                                                selector:@selector(toggleCameraLed)
+                                                                userInfo:nil
+                                                                 repeats:YES];
+                                                                 
+    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                                  target:self
+                                                                selector:@selector(vibrate)
+                                                                userInfo:nil
+                                                                 repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self.view.layer removeAllAnimations];
+    [self stopFlashCameraLed];
+    [self.vibratorTimer invalidate];
+    [self.flashBackgroundColorTimer invalidate];
     [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self 
-                                                 name:kLinphoneCallUpdate
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kLinphoneCallUpdate
+                                                  object:nil];
 }
 
 
@@ -85,16 +167,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 #pragma mark - Event Functions
 
-- (void)callUpdateEvent:(NSNotification*)notif {  
+- (void)callUpdateEvent:(NSNotification*)notif {
     LinphoneCall *acall = [[notif.userInfo objectForKey: @"call"] pointerValue];
     LinphoneCallState astate = [[notif.userInfo objectForKey: @"state"] intValue];
     [self callUpdate:acall state:astate];
 }
 
 
-#pragma mark - 
+#pragma mark -
 
-- (void)callUpdate:(LinphoneCall *)acall state:(LinphoneCallState)astate {  
+- (void)callUpdate:(LinphoneCall *)acall state:(LinphoneCallState)astate {
     if(call == acall && (astate == LinphoneCallEnd || astate == LinphoneCallError)) {
         [delegate incomingCallAborted:call];
         [self dismiss];
@@ -117,7 +199,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     const LinphoneAddress* addr = linphone_call_get_remote_address(call);
     if (addr != NULL) {
         BOOL useLinphoneAddress = true;
-        // contact name 
+        // contact name
         char* lAddress = linphone_address_as_string_uri_only(addr);
         if(lAddress) {
             NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
@@ -140,10 +222,10 @@ static UICompositeViewDescription *compositeDescription = nil;
         if(useLinphoneAddress) {
             const char* lDisplayName = linphone_address_get_display_name(addr);
             const char* lUserName = linphone_address_get_username(addr);
-            if (lDisplayName) 
-                address = [NSString stringWithUTF8String:lDisplayName];
-            else if(lUserName) 
-                address = [NSString stringWithUTF8String:lUserName];
+            if (lDisplayName)
+            address = [NSString stringWithUTF8String:lDisplayName];
+            else if(lUserName)
+            address = [NSString stringWithUTF8String:lUserName];
         }
     }
     

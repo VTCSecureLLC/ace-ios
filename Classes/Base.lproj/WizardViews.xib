@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WizardViewController">
@@ -12,7 +12,6 @@
                 <outlet property="connectAccountButton" destination="38" id="134"/>
                 <outlet property="connectAccountUsername" destination="68" id="9qb-9c-Y0k"/>
                 <outlet property="connectAccountView" destination="52" id="71"/>
-                <outlet property="createAccountButton" destination="36" id="135"/>
                 <outlet property="createAccountUsername" destination="74" id="ptL-W1-8vl"/>
                 <outlet property="createAccountView" destination="44" id="70"/>
                 <outlet property="externalAccountButton" destination="39" id="133"/>
@@ -24,7 +23,6 @@
                 <outlet property="provisionedUsername" destination="MyR-eX-QTa" id="gmr-FI-hpH"/>
                 <outlet property="purchaseButton" destination="uIp-br-8Kv" id="Ov2-V4-LLx"/>
                 <outlet property="registerButton" destination="77" id="A9h-Es-kxv"/>
-                <outlet property="remoteProvisioningButton" destination="Kbn-dL-C5h" id="PPk-DJ-nEb"/>
                 <outlet property="transportChooser" destination="Nrv-SM-lMf" id="7iR-aG-eQf"/>
                 <outlet property="validateAccountView" destination="101" id="112"/>
                 <outlet property="welcomeView" destination="21" id="28"/>
@@ -84,26 +82,8 @@
                     <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <size key="shadowOffset" width="-1" height="-1"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="36" userLabel="createAccountButton" customClass="UILinphoneButton">
-                    <rect key="frame" x="34" y="220" width="255" height="72"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <accessibility key="accessibilityConfiguration" label="Create linphone.org account">
-                        <bool key="isElement" value="YES"/>
-                    </accessibility>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <state key="normal" title="Create an account on linphone.org" backgroundImage="button_background_default.png">
-                        <color key="titleColor" red="0.35686274509999999" green="0.39607843139999999" blue="0.43529411759999997" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted" backgroundImage="button_background_over.png">
-                        <color key="titleColor" red="0.72549019609999998" green="0.76862745099999996" blue="0.79607843140000001" alpha="1" colorSpace="deviceRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="onCreateAccountClick:" destination="-1" eventType="touchUpInside" id="42"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="38" userLabel="connectAccountButton" customClass="UILinphoneButton">
-                    <rect key="frame" x="34" y="304" width="255" height="72"/>
+                    <rect key="frame" x="33" y="106" width="255" height="72"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration" label="Sign in linphone.org account">
                         <bool key="isElement" value="YES"/>
@@ -121,7 +101,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="39" userLabel="externalAccountButton" customClass="UILinphoneButton">
-                    <rect key="frame" x="33" y="387" width="255" height="72"/>
+                    <rect key="frame" x="32" y="198" width="255" height="72"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration" label="Sign in SIP account">
                         <bool key="isElement" value="YES"/>
@@ -136,24 +116,6 @@
                     </state>
                     <connections>
                         <action selector="onExternalAccountClick:" destination="-1" eventType="touchUpInside" id="43"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="Kbn-dL-C5h" userLabel="remoteProvisioningButton" customClass="UILinphoneButton">
-                    <rect key="frame" x="34" y="471" width="255" height="72"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <accessibility key="accessibilityConfiguration" label="Remote provisioning">
-                        <bool key="isElement" value="YES"/>
-                    </accessibility>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <state key="normal" title="Remote Provisioning" backgroundImage="button_background_default.png">
-                        <color key="titleColor" red="0.35686274509999999" green="0.39607843139999999" blue="0.43529411759999997" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted" backgroundImage="button_background_over.png">
-                        <color key="titleColor" red="0.72549019609999998" green="0.76862745099999996" blue="0.79607843140000001" alpha="1" colorSpace="deviceRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="onRemoteProvisioningClick:" destination="-1" eventType="touchUpInside" id="Ruh-fu-0Vu"/>
                     </connections>
                 </button>
             </subviews>
