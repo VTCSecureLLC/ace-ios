@@ -152,6 +152,9 @@
                               forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
         self->currentCall = FALSE;
+        
+        self.outgoingRingCountLabel.hidden = YES;
+        self.outgoingRingCountLabel.tag = 0;
 
         self->detailsRightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(doDetailsSwipe:)];
         [detailsRightSwipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -329,6 +332,22 @@
 }
 
 
+
+
+
+- (void) displayIncrementedOutgoingRingCount {
+    self.outgoingRingCountLabel.hidden = NO;
+    self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:++self.outgoingRingCountLabel.tag] stringValue];
+}
+
+- (void) stopOutgoingRingCount {
+    if (self.outgoingRingCountTimer != nil) [self.outgoingRingCountTimer invalidate];
+    self.outgoingRingCountLabel.hidden = YES;
+    self.outgoingRingCountLabel.tag = 0;
+    self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:self.outgoingRingCountLabel.tag] stringValue];
+    self.outgoingRingCountTimer = nil;
+}
+
 #pragma mark -
 
 - (void)update {
@@ -349,14 +368,22 @@
             [stateImage setImage:[UIImage imageNamed:@"call_state_ringing_default.png"]];
             [stateImage setHidden:false];
             [pauseButton setHidden:true];
+            if (self.outgoingRingCountTimer == nil) self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+                                                                  target:self
+                                                                selector:@selector(displayIncrementedOutgoingRingCount)
+                                                                userInfo:nil
+                                                                 repeats:YES];
         } else if(state == LinphoneCallOutgoingInit || state == LinphoneCallOutgoingProgress){
             [stateImage setImage:[UIImage imageNamed:@"call_state_outgoing_default.png"]];
             [stateImage setHidden:false];
             [pauseButton setHidden:true];
+            [self stopOutgoingRingCount];
         } else {
             [stateImage setHidden:true];
             [pauseButton setHidden:false];
             [pauseButton update];
+            [self stopOutgoingRingCount];
+
         }
         [removeButton setHidden:true];
         if(firstCell) {
