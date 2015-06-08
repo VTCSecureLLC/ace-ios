@@ -29,6 +29,8 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @implementation LinphoneAppDelegate
 
 @synthesize configURL;
@@ -167,6 +169,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+	[Crashlytics startWithAPIKey:@"e727fa43831b5dba2cee9b8d0a4ddca21a88fef3"];
+	
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
 

@@ -51,6 +51,7 @@
 			<array>
 				<string>HD (960x720)</string>
 				<string>VGA (640x480)</string>
+				<string>CIF (352×288)</string>
 				<string>QVGA (320x240)</string>
 			</array>
 			<key>Type</key>
@@ -59,7 +60,8 @@
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
-				<integer>2</integer>
+				<string>2</string>
+				<integer>4</integer>
 			</array>
 		</dict>
 		<dict>
@@ -75,6 +77,16 @@
 			<string>mp4v-es_preference</string>
 			<key>Title</key>
 			<string>MPEG-4</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>h263-1998_preference</string>
+			<key>Title</key>
+			<string>H263-1998</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
