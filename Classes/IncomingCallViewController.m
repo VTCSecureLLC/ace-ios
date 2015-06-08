@@ -114,22 +114,24 @@
     
     
     self.flashBackgroundColorTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
-                                                                  target:self
-                                                                selector:@selector(toggleBackgroundColor)
-                                                                userInfo:nil
-                                                                 repeats:YES];
+                                                                      target:self
+                                                                    selector:@selector(toggleBackgroundColor)
+                                                                    userInfo:nil
+                                                                     repeats:YES];
+    [self.flashBackgroundColorTimer fire];
     
     self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                                   target:self
                                                                 selector:@selector(toggleCameraLed)
                                                                 userInfo:nil
                                                                  repeats:YES];
-                                                                 
+    [self.cameraLedFlasherTimer fire];
     self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                                  target:self
-                                                                selector:@selector(vibrate)
-                                                                userInfo:nil
-                                                                 repeats:YES];
+                                                          target:self
+                                                        selector:@selector(vibrate)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    [self.vibratorTimer fire];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

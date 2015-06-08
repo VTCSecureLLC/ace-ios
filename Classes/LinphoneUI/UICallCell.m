@@ -337,7 +337,12 @@
 
 - (void) displayIncrementedOutgoingRingCount {
     self.outgoingRingCountLabel.hidden = NO;
-    self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:++self.outgoingRingCountLabel.tag] stringValue];
+    [UIView transitionWithView:self.outgoingRingCountLabel
+        duration:0.5f
+        options:UIViewAnimationOptionTransitionCrossDissolve
+        animations:^{
+            self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:++self.outgoingRingCountLabel.tag] stringValue];
+    } completion:nil];
 }
 
 - (void) stopOutgoingRingCount {
@@ -368,11 +373,14 @@
             [stateImage setImage:[UIImage imageNamed:@"call_state_ringing_default.png"]];
             [stateImage setHidden:false];
             [pauseButton setHidden:true];
-            if (self.outgoingRingCountTimer == nil) self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+            if (self.outgoingRingCountTimer == nil) {
+                self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                                   target:self
                                                                 selector:@selector(displayIncrementedOutgoingRingCount)
                                                                 userInfo:nil
                                                                  repeats:YES];
+                [self.outgoingRingCountTimer fire];
+            }
         } else if(state == LinphoneCallOutgoingInit || state == LinphoneCallOutgoingProgress){
             [stateImage setImage:[UIImage imageNamed:@"call_state_outgoing_default.png"]];
             [stateImage setHidden:false];
