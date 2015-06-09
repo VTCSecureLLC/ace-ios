@@ -139,6 +139,7 @@
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
 		C6F476511B27131900F4C2A7 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */; };
 		C6F476531B27157D00F4C2A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F476521B27157D00F4C2A7 /* CoreLocation.framework */; };
+		C6F476571B27326200F4C2A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6F476561B27326200F4C2A7 /* InfoPlist.strings */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254315AE204D00D493FA /* options_add_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8253F15AE204D00D493FA /* options_add_disabled.png */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
@@ -1072,6 +1073,7 @@
 		C6F4764F1B27131800F4C2A7 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinphoneLocationManager.h; sourceTree = "<group>"; };
 		C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinphoneLocationManager.m; sourceTree = "<group>"; };
 		C6F476521B27157D00F4C2A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C6F476561B27326200F4C2A7 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9B3A6FD15B485DB006F52EE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
@@ -2253,6 +2255,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C6F476561B27326200F4C2A7 /* InfoPlist.strings */,
 				D3C714B2159DB84400705B8E /* hold.wav */,
 				F0B4FB5C1A65550B00637027 /* Images.xcassets */,
 				F0B89C2318DC90850050B60E /* images */,
@@ -3831,6 +3834,7 @@
 				D3D51250160B213900946DF8 /* setup_cancel_over~ipad.png in Resources */,
 				D3D51255160B35CB00946DF8 /* chat_message_background.9.png in Resources */,
 				D3D51257160B35CB00946DF8 /* chat_message_background.9@2x.png in Resources */,
+				C6F476571B27326200F4C2A7 /* InfoPlist.strings in Resources */,
 				D3D5126C160B3A8E00946DF8 /* WizardViews.xib in Resources */,
 				D3D51270160B3AD400946DF8 /* WizardViewController~ipad.xib in Resources */,
 				D3328646160B5BC300E6435D /* dialer_alt_disabled_landscape.png in Resources */,

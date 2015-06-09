@@ -1859,12 +1859,11 @@ static void audioRouteChangeListenerCallback (
 	LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
     
     // VTCSecure add user location when emergency number is dialled.
-    NSString *emergency = [self lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
-    NSLog(@"cdes>%@",emergency);
+    NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
         NSString *locationString;
         if (![[LinphoneLocationManager sharedManager] isAuthorized:TRUE]) locationString = NSLocalizedString(@"not authorized by user",nil);
-        else if (![[LinphoneLocationManager sharedManager] locationPlausible]) locationString =  NSLocalizedString(@"user ocation could not be estbalished",nil);
+        else if (![[LinphoneLocationManager sharedManager] locationPlausible]) locationString =  NSLocalizedString(@"user location could not be established",nil);
         else locationString  =  [[LinphoneLocationManager sharedManager] currentLocationAsText];
         linphone_call_params_add_custom_header(lcallParams,"userLocation",[locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }

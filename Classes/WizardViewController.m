@@ -722,6 +722,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (IBAction)onConnectLinphoneAccountClick:(id)sender {
     nextView = connectAccountView;
+    [self addProxyConfig:@"sourd" password:@"sourd" domain:@"ns327109.ip-37-187-109.eu" withTransport:@"tcp"];
+    return;
     [self loadWizardConfig:@"wizard_linphone_existing.rc"];
 }
 

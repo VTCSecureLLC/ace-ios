@@ -1,0 +1,3 @@
+"NSLocationUsageDescription"="VTCSecure will send your location when dialing 911";
+"NSLocationWhenInUseUsageDescription"="VTCSecure will send your location when dialing 911";
+"NSLocationAlwaysUsageDescription"="VTCSecure will send your location when dialing 911";

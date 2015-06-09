@@ -34,16 +34,8 @@
     self.serviceStarted = false;
 }
 
-
-- (void)stopMonitoring{
-    [self.locationManager stopMonitoringSignificantLocationChanges];
-    self.serviceStarted = false;
-    
-}
-
 - (void)startMonitoring{
     self.serviceStarted = true;
-    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         [self.locationManager requestWhenInUseAuthorization];
     }
@@ -64,20 +56,17 @@
 }
 
 -(BOOL)isAuthorized:(BOOL)askUserIfUnknown  {
-    
     int status = CLLocationManager.authorizationStatus;
-    
-    if (status == kCLAuthorizationStatusNotDetermined){ // If we don't know, we then need to know ...
+    if (status == kCLAuthorizationStatusNotDetermined){
         if (!askUserIfUnknown) return NO;
-        self.phoneReportToTheApp = dispatch_semaphore_create(0);// Means service is not started yet
-        [self startMonitoring]; // Will ask user
-        while (CLLocationManager.authorizationStatus == kCLAuthorizationStatusNotDetermined) {sleep(500);};
-    } else { // We know so we assume service is needed to start it of not started yet
+        self.phoneReportToTheApp = dispatch_semaphore_create(0);
+        [self startMonitoring];
+    } else {
         if (!self.serviceStarted) {
             [self startMonitoring];
         }
     }
-    if (status == kCLAuthorizationStatusNotDetermined) status = CLLocationManager.authorizationStatus; // need to re-fetch if we didn't know.
+    if (status == kCLAuthorizationStatusNotDetermined) status = CLLocationManager.authorizationStatus;
     
     BOOL result = false;
     
@@ -86,11 +75,8 @@
     } else {
         result = status == kCLAuthorizationStatusAuthorized;
     }
-    
     return result;
 }
-
-
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     if (self.phoneReportToTheApp != nil) dispatch_semaphore_signal(self.phoneReportToTheApp);
@@ -98,7 +84,6 @@
         NSLog(@"locationManager didFailWithError: kCLErrorDenied");
     }
 }
-
 
 -(BOOL)locationPlausible {
     return self.locationManager != nil && self.locationManager.location != nil && self.locationManager.location.coordinate.latitude != 0 && self.locationManager.location.coordinate.longitude != 0;
