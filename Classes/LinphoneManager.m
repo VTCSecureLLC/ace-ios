@@ -2138,6 +2138,12 @@ static void audioRouteChangeListenerCallback (
 	return lp_config_get_int(configDb, [section UTF8String], [key UTF8String], -1);
 }
 
+
+- (float)lpConfigFloatForKey:(NSString*)key forSection:(NSString *)section {
+	if (!key) return -1;
+	return lp_config_get_float(configDb, [section UTF8String], [key UTF8String], -1);
+}
+
 - (void)lpConfigSetBool:(BOOL)value forKey:(NSString*)key {
 	[self lpConfigSetBool:value forKey:key forSection:[NSString stringWithUTF8String:LINPHONERC_APPLICATION_KEY]];
 }

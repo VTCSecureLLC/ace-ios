@@ -112,21 +112,25 @@
     // VTC Secure -
     // Red flashing + Vibrate + Camera Flash if possible
     
-    
-    self.flashBackgroundColorTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+        ;
+
+
+    NSLog(@"cdes>%f",[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashred_frequency" forSection:@"vtcsecure"]);
+        
+    self.flashBackgroundColorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashred_frequency" forSection:@"vtcsecure"]
                                                                       target:self
                                                                     selector:@selector(toggleBackgroundColor)
                                                                     userInfo:nil
                                                                      repeats:YES];
     [self.flashBackgroundColorTimer fire];
     
-    self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+    self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
                                                                   target:self
                                                                 selector:@selector(toggleCameraLed)
                                                                 userInfo:nil
                                                                  repeats:YES];
     [self.cameraLedFlasherTimer fire];
-    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
                                                           target:self
                                                         selector:@selector(vibrate)
                                                         userInfo:nil

@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
                BuildableName = "linphone.app"
-               BlueprintName = "linphone"
+               BlueprintName = "VTCSecure"
                ReferencedContainer = "container:linphone.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "linphone.app"
-            BlueprintName = "linphone"
+            BlueprintName = "VTCSecure"
             ReferencedContainer = "container:linphone.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,7 +78,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "linphone.app"
-            BlueprintName = "linphone"
+            BlueprintName = "VTCSecure"
             ReferencedContainer = "container:linphone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -102,7 +102,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "linphone.app"
-            BlueprintName = "linphone"
+            BlueprintName = "VTCSecure"
             ReferencedContainer = "container:linphone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

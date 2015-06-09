@@ -81,3 +81,11 @@ stun=stun.linphone.org
 [misc]
 history_max_size=30
 max_calls=3
+
+[vtcsecure]
+incoming_flashlight_frequency=0.1
+incoming_flashred_frequency=0.1
+incoming_vibrate_frequency=2.0
+outgoing_ring_duration=2.0
+
+

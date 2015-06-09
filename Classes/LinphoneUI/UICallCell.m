@@ -341,7 +341,7 @@
         duration:0.5f
         options:UIViewAnimationOptionTransitionCrossDissolve
         animations:^{
-            self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:++self.outgoingRingCountLabel.tag] stringValue];
+            self.outgoingRingCountLabel.text = [[NSNumber numberWithLong:++self.outgoingRingCountLabel.tag] stringValue];
     } completion:nil];
 }
 
@@ -349,7 +349,7 @@
     if (self.outgoingRingCountTimer != nil) [self.outgoingRingCountTimer invalidate];
     self.outgoingRingCountLabel.hidden = YES;
     self.outgoingRingCountLabel.tag = 0;
-    self.outgoingRingCountLabel.text = [[NSNumber numberWithInt:self.outgoingRingCountLabel.tag] stringValue];
+    self.outgoingRingCountLabel.text = [[NSNumber numberWithLong:self.outgoingRingCountLabel.tag] stringValue];
     self.outgoingRingCountTimer = nil;
 }
 
@@ -374,7 +374,7 @@
             [stateImage setHidden:false];
             [pauseButton setHidden:true];
             if (self.outgoingRingCountTimer == nil) {
-                self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+                self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
                                                                   target:self
                                                                 selector:@selector(displayIncrementedOutgoingRingCount)
                                                                 userInfo:nil

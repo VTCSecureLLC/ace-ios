@@ -25,6 +25,7 @@
 #import "CoreTelephony/CTCall.h"
 
 #import "LinphoneCoreSettingsStore.h"
+#import "LinphoneLocationManager.h"
 
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
@@ -111,6 +112,7 @@
             [self fixRing];
         }
     }
+    [[LinphoneLocationManager sharedManager] startMonitoring];
 }
 
 - (UIUserNotificationCategory*)getMessageNotificationCategory {

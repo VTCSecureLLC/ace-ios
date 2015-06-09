@@ -175,6 +175,7 @@ typedef struct _LinphoneManagerSounds {
 - (NSInteger)lpConfigIntForKey:(NSString*)key;
 - (void)lpConfigSetInt:(NSInteger)value forKey:(NSString*)key forSection:(NSString*)section;
 - (NSInteger)lpConfigIntForKey:(NSString*)key forSection:(NSString*)section;
+- (float)lpConfigFloatForKey:(NSString*)key forSection:(NSString *)section;
 - (void)lpConfigSetBool:(BOOL)value forKey:(NSString*)key;
 - (BOOL)lpConfigBoolForKey:(NSString*)key;
 - (void)lpConfigSetBool:(BOOL)value forKey:(NSString*)key forSection:(NSString*)section;
