@@ -59,6 +59,10 @@
     return self.locationManager.location;
 }
 
+- (NSString*)currentLocationAsText{
+    return [NSString stringWithFormat:@"%f,%f",self.locationManager.location.coordinate.latitude,self.locationManager.location.coordinate.longitude ];
+}
+
 -(BOOL)isAuthorized:(BOOL)askUserIfUnknown  {
     
     int status = CLLocationManager.authorizationStatus;

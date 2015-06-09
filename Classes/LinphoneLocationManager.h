@@ -13,6 +13,7 @@
 
 
 - (CLLocation*)recentLocation;
+- (NSString*)currentLocationAsText;
 
 - (void)startMonitoring;
 
