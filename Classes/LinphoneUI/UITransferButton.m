@@ -60,7 +60,16 @@
 #pragma mark -
 
 - (void)touchUp:(id) sender {
-    [[LinphoneManager instance] call:[addressField text] displayName:nil transfer:TRUE];
+
+    NSString *address = [addressField text];
+    NSString *displayName = nil;
+
+    if (addressField.sipDomain != nil) {
+        address = [NSString stringWithFormat:@"%@@%@",address,addressField.sipDomain ];
+        displayName = address;
+    }
+
+    [[LinphoneManager instance] call:address displayName:displayName transfer:TRUE];
 }
 
 @end

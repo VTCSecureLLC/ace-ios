@@ -336,6 +336,9 @@
     LOGI(@"%@ - state = %ld", NSStringFromSelector(_cmd), (long)application.applicationState);
 
     [self fixRing];
+    
+    
+    
 
     if([notification.userInfo objectForKey:@"callId"] != nil) {
         BOOL auto_answer = TRUE;
