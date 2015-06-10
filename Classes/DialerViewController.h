@@ -36,7 +36,7 @@
 
 @property (nonatomic, assign) BOOL transferMode;
 
-@property (nonatomic, strong) IBOutlet UITextField* addressField;
+@property (nonatomic, strong) IBOutlet UIAddressTextField* addressField;
 @property (nonatomic, strong) IBOutlet UIButton* addContactButton;
 @property (nonatomic, strong) IBOutlet UICallButton* callButton;
 @property (nonatomic, strong) IBOutlet UICallButton* addCallButton;
@@ -59,6 +59,7 @@
 @property (nonatomic, strong) IBOutlet UIView* backgroundView;
 @property (nonatomic, strong) IBOutlet UIView* videoPreview;
 @property (nonatomic, strong) IBOutlet UICamSwitch* videoCameraSwitch;
+@property (strong, nonatomic) IBOutlet UILabel *sipDomainLabel;
 
 - (IBAction)onAddContactClick: (id) event;
 - (IBAction)onBackClick: (id) event;

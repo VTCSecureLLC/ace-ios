@@ -65,6 +65,12 @@
     NSString *address = [addressField text];
     NSString *displayName = nil;
 
+    if (addressField.sipDomain != nil) {
+        address = [NSString stringWithFormat:@"%@@%@",address,addressField.sipDomain ];
+        displayName = address;
+    }
+    
+
     if( [address length] == 0){
         const MSList* logs = linphone_core_get_call_logs([LinphoneManager getLc]);
         while( logs ){

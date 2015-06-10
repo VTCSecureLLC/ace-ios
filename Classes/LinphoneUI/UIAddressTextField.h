@@ -20,5 +20,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIAddressTextField : UITextField
-
+@property (strong) NSString *sipDomain;
 @end

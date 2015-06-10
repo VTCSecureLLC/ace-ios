@@ -18,11 +18,11 @@
  */              
 
 #import <UIKit/UIKit.h>
-
+#import "UIAddressTextField.h"
 
 @interface UICallButton : UIButton {
 }
 
-@property (nonatomic, strong) IBOutlet UITextField* addressField;
+@property (nonatomic, strong) IBOutlet UIAddressTextField* addressField;
 
 @end

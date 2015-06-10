@@ -70,12 +70,12 @@
 }
 
 - (void)dealloc {
-
-
-
+    
+    
+    
     // Remove all observers
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
 }
 
 
@@ -104,42 +104,43 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    self.sipDomainLabel.text=@"";
+    self.addressField.sipDomain = nil;
     // Set observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(callUpdateEvent:)
                                                  name:kLinphoneCallUpdate
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(coreUpdateEvent:)
                                                  name:kLinphoneCoreUpdate
                                                object:nil];
-
+    
     // technically not needed, but older versions of linphone had this button
     // disabled by default. In this case, updating by pushing a new version with
     // xcode would result in the callbutton being disabled all the time.
     // We force it enabled anyway now.
     [callButton setEnabled:TRUE];
-
+    
     // Update on show
     LinphoneManager *mgr    = [LinphoneManager instance];
     LinphoneCore* lc        = [LinphoneManager getLc];
     LinphoneCall* call      = linphone_core_get_current_call(lc);
     LinphoneCallState state = (call != NULL)?linphone_call_get_state(call): 0;
     [self callUpdate:call state:state];
-
+    
     if([LinphoneManager runningOnIpad]) {
         BOOL videoEnabled = linphone_core_video_enabled(lc);
         BOOL previewPref  = [mgr lpConfigBoolForKey:@"preview_preference"];
-
-		if( videoEnabled && previewPref ) {
+        
+        if( videoEnabled && previewPref ) {
             linphone_core_set_native_preview_window_id(lc, (unsigned long)videoPreview);
-
-			if( !linphone_core_video_preview_enabled(lc)){
-				linphone_core_enable_video_preview(lc, TRUE);
-			}
-			
+            
+            if( !linphone_core_video_preview_enabled(lc)){
+                linphone_core_enable_video_preview(lc, TRUE);
+            }
+            
             [backgroundView setHidden:FALSE];
             [videoCameraSwitch setHidden:FALSE];
         } else {
@@ -149,9 +150,9 @@ static UICompositeViewDescription *compositeDescription = nil;
             [videoCameraSwitch setHidden:TRUE];
         }
     }
-
+    
     [addressField setText:@""];
-
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
         // fix placeholder bar color in iOS7
@@ -162,17 +163,17 @@ static UICompositeViewDescription *compositeDescription = nil;
         addressField.attributedPlaceholder = placeHolderString;
     }
 #endif
-
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     // Remove observer
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kLinphoneCallUpdate
                                                   object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kLinphoneCoreUpdate
                                                   object:nil];
@@ -180,22 +181,22 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-	[zeroButton    setDigit:'0'];
-	[oneButton     setDigit:'1'];
-	[twoButton     setDigit:'2'];
-	[threeButton   setDigit:'3'];
-	[fourButton    setDigit:'4'];
-	[fiveButton    setDigit:'5'];
-	[sixButton     setDigit:'6'];
-	[sevenButton   setDigit:'7'];
-	[eightButton   setDigit:'8'];
-	[nineButton    setDigit:'9'];
-	[starButton    setDigit:'*'];
-	[sharpButton   setDigit:'#'];
-
+    
+    [zeroButton    setDigit:'0'];
+    [oneButton     setDigit:'1'];
+    [twoButton     setDigit:'2'];
+    [threeButton   setDigit:'3'];
+    [fourButton    setDigit:'4'];
+    [fiveButton    setDigit:'5'];
+    [sixButton     setDigit:'6'];
+    [sevenButton   setDigit:'7'];
+    [eightButton   setDigit:'8'];
+    [nineButton    setDigit:'9'];
+    [starButton    setDigit:'*'];
+    [sharpButton   setDigit:'#'];
+    
     [addressField setAdjustsFontSizeToFitWidth:TRUE]; // Not put it in IB: issue with placeholder size
-
+    
     if([LinphoneManager runningOnIpad]) {
         if ([LinphoneManager instance].frontCamId != nil) {
             // only show camera switch button if we have more than 1 camera
@@ -213,19 +214,19 @@ static UICompositeViewDescription *compositeDescription = nil;
     CGRect frame = [videoPreview frame];
     switch (toInterfaceOrientation) {
         case UIInterfaceOrientationPortrait:
-            [videoPreview setTransform: CGAffineTransformMakeRotation(0)];
-            break;
+        [videoPreview setTransform: CGAffineTransformMakeRotation(0)];
+        break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            [videoPreview setTransform: CGAffineTransformMakeRotation(M_PI)];
-            break;
+        [videoPreview setTransform: CGAffineTransformMakeRotation(M_PI)];
+        break;
         case UIInterfaceOrientationLandscapeLeft:
-            [videoPreview setTransform: CGAffineTransformMakeRotation(M_PI / 2)];
-            break;
+        [videoPreview setTransform: CGAffineTransformMakeRotation(M_PI / 2)];
+        break;
         case UIInterfaceOrientationLandscapeRight:
-            [videoPreview setTransform: CGAffineTransformMakeRotation(-M_PI / 2)];
-            break;
+        [videoPreview setTransform: CGAffineTransformMakeRotation(-M_PI / 2)];
+        break;
         default:
-            break;
+        break;
     }
     [videoPreview setFrame:frame];
 }
@@ -256,82 +257,82 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 #pragma mark - Debug Functions
 -(void)presentMailViewWithTitle:(NSString*)subject forRecipients:(NSArray*)recipients attachLogs:(BOOL)attachLogs {
-	if( [MFMailComposeViewController canSendMail] ){
-		MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-		if( controller ){
-			controller.mailComposeDelegate = self;
-			[controller setSubject:subject];
-			[controller setToRecipients:recipients];
-
-			if( attachLogs ){
-				char * filepath = linphone_core_compress_log_collection([LinphoneManager getLc]);
-				if (filepath == NULL) {
-					LOGE(@"Cannot sent logs: file is NULL");
-					return;
-				}
-
-				NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-				NSString *filename = [appName stringByAppendingString:@".gz"];
-				NSString *mimeType = @"text/plain";
-
-				if ([filename hasSuffix:@".gz"]) {
-					mimeType = @"application/gzip";
-					filename = [appName stringByAppendingString:@".gz"];
-				} else {
-					LOGE(@"Unknown extension type: %@, cancelling email", filename);
-					return;
-				}
-				[controller setMessageBody:NSLocalizedString(@"Application logs", nil) isHTML:NO];
-				[controller addAttachmentData:[NSData dataWithContentsOfFile:[NSString stringWithUTF8String:filepath]] mimeType:mimeType fileName:filename];
-
-				ms_free(filepath);
-
-			}
-			self.modalPresentationStyle = UIModalPresentationPageSheet;
-			[self.view.window.rootViewController presentViewController:controller animated:TRUE completion:^{}];
-		}
-
-	} else {
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:subject
-														message:NSLocalizedString(@"Error: no mail account configured", nil)
-													   delegate:nil
-											  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-											  otherButtonTitles: nil];
-		[alert show];
-	}
+    if( [MFMailComposeViewController canSendMail] ){
+        MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+        if( controller ){
+            controller.mailComposeDelegate = self;
+            [controller setSubject:subject];
+            [controller setToRecipients:recipients];
+            
+            if( attachLogs ){
+                char * filepath = linphone_core_compress_log_collection([LinphoneManager getLc]);
+                if (filepath == NULL) {
+                    LOGE(@"Cannot sent logs: file is NULL");
+                    return;
+                }
+                
+                NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+                NSString *filename = [appName stringByAppendingString:@".gz"];
+                NSString *mimeType = @"text/plain";
+                
+                if ([filename hasSuffix:@".gz"]) {
+                    mimeType = @"application/gzip";
+                    filename = [appName stringByAppendingString:@".gz"];
+                } else {
+                    LOGE(@"Unknown extension type: %@, cancelling email", filename);
+                    return;
+                }
+                [controller setMessageBody:NSLocalizedString(@"Application logs", nil) isHTML:NO];
+                [controller addAttachmentData:[NSData dataWithContentsOfFile:[NSString stringWithUTF8String:filepath]] mimeType:mimeType fileName:filename];
+                
+                ms_free(filepath);
+                
+            }
+            self.modalPresentationStyle = UIModalPresentationPageSheet;
+            [self.view.window.rootViewController presentViewController:controller animated:TRUE completion:^{}];
+        }
+        
+    } else {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:subject
+                                                        message:NSLocalizedString(@"Error: no mail account configured", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                              otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 
 - (BOOL)displayDebugPopup:(NSString*)address {
-	LinphoneManager* mgr = [LinphoneManager instance];
-	NSString* debugAddress = [mgr lpConfigStringForKey:@"debug_popup_magic" withDefault:@""];
-	if( ![debugAddress isEqualToString:@""] && [address isEqualToString:debugAddress]){
-
-
-		DTAlertView* alertView = [[DTAlertView alloc] initWithTitle:NSLocalizedString(@"Debug", nil)
-															message:NSLocalizedString(@"Choose an action", nil)];
-
-		[alertView addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
-
-		[alertView addButtonWithTitle:NSLocalizedString(@"Send logs", nil) block:^{
-			NSString* appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-			NSString* logsAddress = [mgr lpConfigStringForKey:@"debug_popup_email" withDefault:@"linphone-ios@linphone.org"];
-			[self presentMailViewWithTitle:appName forRecipients:@[logsAddress] attachLogs:true];
-		}];
-
-		BOOL debugEnabled   = [[LinphoneManager instance] lpConfigBoolForKey:@"debugenable_preference"];
-		NSString* actionLog = (debugEnabled ? NSLocalizedString(@"Disable logs", nil) : NSLocalizedString(@"Enable logs", nil));
-		[alertView addButtonWithTitle:actionLog block:^{
-			// enable / disable
-			BOOL enableDebug = ![mgr lpConfigBoolForKey:@"debugenable_preference"];
-			[mgr lpConfigSetBool:enableDebug forKey:@"debugenable_preference"];
-			[mgr setLogsEnabled:enableDebug];
-		}];
-
-		[alertView show];
-		return true;
-	}
-	return false;
+    LinphoneManager* mgr = [LinphoneManager instance];
+    NSString* debugAddress = [mgr lpConfigStringForKey:@"debug_popup_magic" withDefault:@""];
+    if( ![debugAddress isEqualToString:@""] && [address isEqualToString:debugAddress]){
+        
+        
+        DTAlertView* alertView = [[DTAlertView alloc] initWithTitle:NSLocalizedString(@"Debug", nil)
+                                                            message:NSLocalizedString(@"Choose an action", nil)];
+        
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
+        
+        [alertView addButtonWithTitle:NSLocalizedString(@"Send logs", nil) block:^{
+            NSString* appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+            NSString* logsAddress = [mgr lpConfigStringForKey:@"debug_popup_email" withDefault:@"linphone-ios@linphone.org"];
+            [self presentMailViewWithTitle:appName forRecipients:@[logsAddress] attachLogs:true];
+        }];
+        
+        BOOL debugEnabled   = [[LinphoneManager instance] lpConfigBoolForKey:@"debugenable_preference"];
+        NSString* actionLog = (debugEnabled ? NSLocalizedString(@"Disable logs", nil) : NSLocalizedString(@"Enable logs", nil));
+        [alertView addButtonWithTitle:actionLog block:^{
+            // enable / disable
+            BOOL enableDebug = ![mgr lpConfigBoolForKey:@"debugenable_preference"];
+            [mgr lpConfigSetBool:enableDebug forKey:@"debugenable_preference"];
+            [mgr setLogsEnabled:enableDebug];
+        }];
+        
+        [alertView show];
+        return true;
+    }
+    return false;
 }
 
 
@@ -401,8 +402,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - MFComposeMailDelegate
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-	[controller dismissViewControllerAnimated:TRUE completion:^{}];
-	[self.navigationController setNavigationBarHidden:TRUE animated:FALSE];
+    [controller dismissViewControllerAnimated:TRUE completion:^{}];
+    [self.navigationController setNavigationBarHidden:TRUE animated:FALSE];
 }
 
 
@@ -416,7 +417,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [ContactSelection enableEmailFilter:FALSE];
     ContactsViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[ContactsViewController compositeViewDescription] push:TRUE], ContactsViewController);
     if(controller != nil) {
-
+        
     }
 }
 
@@ -425,9 +426,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (IBAction)onAddressChange: (id)sender {
-	if( [self displayDebugPopup:self.addressField.text] ){
-		self.addressField.text = @"";
-	}
+    if( [self displayDebugPopup:self.addressField.text] ){
+        self.addressField.text = @"";
+    }
     if([[addressField text] length] > 0) {
         [addContactButton setEnabled:TRUE];
         [eraseButton setEnabled:TRUE];
@@ -439,6 +440,39 @@ static UICompositeViewDescription *compositeDescription = nil;
         [addCallButton setEnabled:FALSE];
         [transferButton setEnabled:FALSE];
     }
+}
+
+// VTCSecure - select a domain
+
+- (IBAction)domainSelectorClicked:(id)sender {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIP Providers",nil)
+                                                                   message:@"Select the SIP provider of the person you wish to call."
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+
+   
+
+    NSString *providerCSV = [[LinphoneManager instance] lpConfigStringForKey:@"external_domains" forSection:@"vtcsecure"];
+    if (providerCSV) {
+        NSArray * providers = [providerCSV componentsSeparatedByString:@","];
+        for (NSString *provider in providers) {
+            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:provider style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                            self.sipDomainLabel.text = [@"@" stringByAppendingString:provider];
+                                                            self.addressField.sipDomain = provider;
+                                                            }];
+            [alert addAction:providerAction];
+
+        }
+    }
+     UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
+                            style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                            self.sipDomainLabel.text = @"";
+                                                            self.addressField.sipDomain = nil;
+                                                            }];
+    [alert addAction:none];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

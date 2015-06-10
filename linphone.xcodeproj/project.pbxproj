@@ -137,6 +137,7 @@
 		7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
+		C6AABD5F1B27891F001FE888 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C6AABD5E1B27891F001FE888 /* atbutton.png */; };
 		C6F476511B27131900F4C2A7 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */; };
 		C6F476531B27157D00F4C2A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F476521B27157D00F4C2A7 /* CoreLocation.framework */; };
 		C6F476571B27326200F4C2A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6F476561B27326200F4C2A7 /* InfoPlist.strings */; };
@@ -1070,6 +1071,7 @@
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C6AABD5E1B27891F001FE888 /* atbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atbutton.png; sourceTree = "<group>"; };
 		C6F4764F1B27131800F4C2A7 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinphoneLocationManager.h; sourceTree = "<group>"; };
 		C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinphoneLocationManager.m; sourceTree = "<group>"; };
 		C6F476521B27157D00F4C2A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -2563,6 +2565,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C6AABD5E1B27891F001FE888 /* atbutton.png */,
 				D3D52A751614495300DEB00A /* accept_default_landscape~ipad.png */,
 				D3F83F741582253100336684 /* accept_default.png */,
 				D3D52A761614495300DEB00A /* accept_default~ipad.png */,
@@ -3887,6 +3890,7 @@
 				1599105916F746B2007BF52B /* route_bluetooth_on_default_landscape.png in Resources */,
 				1599105B16F746B2007BF52B /* route_phone_off_default_landscape.png in Resources */,
 				1599105D16F746B2007BF52B /* route_phone_off_disabled_landscape.png in Resources */,
+				C6AABD5F1B27891F001FE888 /* atbutton.png in Resources */,
 				1599105F16F746B2007BF52B /* route_phone_off_over_landscape.png in Resources */,
 				1599106116F746B2007BF52B /* route_phone_on_default_landscape.png in Resources */,
 				1599106316F746B2007BF52B /* route_speaker_off_default_landscape.png in Resources */,

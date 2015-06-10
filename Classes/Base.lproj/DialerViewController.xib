@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DialerViewController">
@@ -20,6 +20,7 @@
                 <outlet property="oneButton" destination="38" id="191"/>
                 <outlet property="sevenButton" destination="34" id="197"/>
                 <outlet property="sharpButton" destination="41" id="232"/>
+                <outlet property="sipDomainLabel" destination="BEx-pW-gf2" id="nM8-1w-KOE"/>
                 <outlet property="sixButton" destination="33" id="196"/>
                 <outlet property="starButton" destination="39" id="199"/>
                 <outlet property="threeButton" destination="29" id="193"/>
@@ -43,9 +44,26 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7cY-lA-GEY">
+                            <rect key="frame" x="260" y="2" width="60" height="58"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" backgroundImage="atbutton.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="domainSelectorClicked:" destination="-1" eventType="touchUpInside" id="3Kr-rZ-Xjn"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sipDomainLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BEx-pW-gf2">
+                            <rect key="frame" x="35" y="37" width="250" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter SIP address or phone number..." adjustsFontSizeToFit="NO" minimumFontSize="15" id="4" userLabel="addressField" customClass="UIAddressTextField">
-                            <rect key="frame" x="5" y="0.0" width="310" height="60"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="8" y="0.0" width="260" height="39"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" label="Enter a address"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -327,6 +345,7 @@
         <image name="add_contact_default.png" width="213" height="138"/>
         <image name="add_contact_disabled.png" width="213" height="138"/>
         <image name="add_contact_over.png" width="213" height="138"/>
+        <image name="atbutton.png" width="256" height="256"/>
         <image name="back_default.png" width="213" height="138"/>
         <image name="back_disabled.png" width="213" height="138"/>
         <image name="back_over.png" width="213" height="138"/>
