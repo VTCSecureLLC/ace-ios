@@ -138,6 +138,9 @@
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
 		C6AABD5F1B27891F001FE888 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C6AABD5E1B27891F001FE888 /* atbutton.png */; };
+		C6DF75DD1B296490009A2321 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DA1B296490009A2321 /* Security.framework */; };
+		C6DF75DE1B296490009A2321 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DB1B296490009A2321 /* libc++.dylib */; };
+		C6DF75DF1B296490009A2321 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DC1B296490009A2321 /* Fabric.framework */; };
 		C6F476511B27131900F4C2A7 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */; };
 		C6F476531B27157D00F4C2A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F476521B27157D00F4C2A7 /* CoreLocation.framework */; };
 		C6F476571B27326200F4C2A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6F476561B27326200F4C2A7 /* InfoPlist.strings */; };
@@ -1072,6 +1075,9 @@
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C6AABD5E1B27891F001FE888 /* atbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atbutton.png; sourceTree = "<group>"; };
+		C6DF75DA1B296490009A2321 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C6DF75DB1B296490009A2321 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		C6DF75DC1B296490009A2321 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C6F4764F1B27131800F4C2A7 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinphoneLocationManager.h; sourceTree = "<group>"; };
 		C6F476501B27131800F4C2A7 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinphoneLocationManager.m; sourceTree = "<group>"; };
 		C6F476521B27157D00F4C2A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1928,6 +1934,7 @@
 				226F2ED81344B0EF00F6EF27 /* libmsamr.a in Frameworks */,
 				223148E61178A09900637D6A /* libmsilbc.a in Frameworks */,
 				226183B0147259670037138E /* libmssilk.a in Frameworks */,
+				C6DF75DD1B296490009A2321 /* Security.framework in Frameworks */,
 				22AA8AFE13D7125600B30535 /* libmsx264.a in Frameworks */,
 				22A10F3B11F8960300373793 /* libortp.a in Frameworks */,
 				226F2ED71344B0EF00F6EF27 /* libopencore-amrnb.a in Frameworks */,
@@ -1939,8 +1946,10 @@
 				226183AD1472527D0037138E /* libSKP_SILK_SDK.a in Frameworks */,
 				227A04591B21D73D00ED69E3 /* Crashlytics.framework in Frameworks */,
 				22276E8513C73D3100210156 /* libswscale.a in Frameworks */,
+				C6DF75DE1B296490009A2321 /* libc++.dylib in Frameworks */,
 				7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */,
 				22AA8AFD13D7125600B30535 /* libx264.a in Frameworks */,
+				C6DF75DF1B296490009A2321 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2289,6 +2298,9 @@
 				C6F476521B27157D00F4C2A7 /* CoreLocation.framework */,
 				227A04581B21D73D00ED69E3 /* Crashlytics.framework */,
 				F0FF66AA1ACAEEB0008A4486 /* IOKit.framework */,
+				C6DF75DA1B296490009A2321 /* Security.framework */,
+				C6DF75DB1B296490009A2321 /* libc++.dylib */,
+				C6DF75DC1B296490009A2321 /* Fabric.framework */,
 				F0B026F21AA710AF00FF49F7 /* libiconv.dylib */,
 				F05BAA611A5D594E00411815 /* libz.dylib */,
 				22B5F03410CE6B2F00777D97 /* AddressBook.framework */,

@@ -8,3 +8,4 @@ Classes/LinphoneIOSVersion.h
 Pods/
 build
 test-reports
+Crashlytics.framework/
