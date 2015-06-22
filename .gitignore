@@ -88,3 +88,14 @@ build/macos/pkg-distribution.xml
 tester/record_for_lc_*.wav
 tester/record-call_with_file_player.wav
 tester/ZIDCache*.xml
+liblinphone-sdk
+liblinphone-iphone-sdk*.zip
+xcuserdata/
+Classes/LinphoneIOSVersion.h
+Pods/
+build
+test-reports
+WORK
+Makefile
+OUTPUT
+git-clang-format.diff

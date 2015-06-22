@@ -30,7 +30,9 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+
 
 @implementation LinphoneAppDelegate
 
@@ -171,8 +173,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-	[Crashlytics startWithAPIKey:@"e727fa43831b5dba2cee9b8d0a4ddca21a88fef3"];
-	
+	[Fabric with:@[CrashlyticsKit]];
+
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
 

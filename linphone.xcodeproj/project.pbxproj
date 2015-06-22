@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
-		15017E701773578400784ACB /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15017E6F1773578400784ACB /* libxml2.a */; };
 		1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; };
 		1599105316F746B2007BF52B /* route_bluetooth_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104316F746B2007BF52B /* route_bluetooth_off_default_landscape.png */; };
 		1599105516F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104416F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png */; };
@@ -42,6 +41,8 @@
 		15AF3C9A16F37A5D00FC52EC /* routes_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9516F37A5D00FC52EC /* routes_disabled.png */; };
 		15AF3C9C16F37A5D00FC52EC /* routes_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9616F37A5D00FC52EC /* routes_over.png */; };
 		15AF3C9E16F37A5D00FC52EC /* routes_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9716F37A5D00FC52EC /* routes_selected.png */; };
+		15F728731B16FF8B00A1C901 /* libilbcrfc3951.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22331B15E83B008C0621 /* libilbcrfc3951.a */; };
+		15F728741B16FF9A00A1C901 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1D3623260D0F684500981E51 /* LinphoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LinphoneAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -59,7 +60,6 @@
 		22276E8513C73D3100210156 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22276E8213C73D3100210156 /* libswscale.a */; };
 		22276E8713C73D8A00210156 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22276E8613C73D8A00210156 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		22276E8913C73DC000210156 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22276E8813C73DC000210156 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		223148E41178A08200637D6A /* libilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E31178A08200637D6A /* libilbc.a */; };
 		223148E61178A09900637D6A /* libmsilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E51178A09900637D6A /* libmsilbc.a */; };
 		2234C8E915EE2F7F00E18E83 /* chat_message_delivered.png in Resources */ = {isa = PBXBuildFile; fileRef = 2234C8E715EE2F7F00E18E83 /* chat_message_delivered.png */; };
 		2234C8EB15EE2F7F00E18E83 /* chat_message_not_delivered.png in Resources */ = {isa = PBXBuildFile; fileRef = 2234C8E815EE2F7F00E18E83 /* chat_message_not_delivered.png */; };
@@ -73,8 +73,10 @@
 		224567C2107B968500F10948 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224567C1107B968500F10948 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2248E90E12F7E4CF00220D9C /* UIDigitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2248E90D12F7E4CF00220D9C /* UIDigitButton.m */; };
 		22509042196BD902007863F6 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
-		225CB2FA11ABB76400628906 /* linphone-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 225CB2F911ABB76400628906 /* linphone-banner.png */; };
-		226183AD1472527D0037138E /* libSKP_SILK_SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AA1472527D0037138E /* libSKP_SILK_SDK.a */; };
+		225F6C011B380DE600A570DC /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 225F6C001B380DE600A570DC /* libxml2.a */; };
+		225F6C081B380E0000A570DC /* libSKP_SILK_SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AA1472527D0037138E /* libSKP_SILK_SDK.a */; };
+		225F6C091B380E1B00A570DC /* libilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E31178A08200637D6A /* libilbc.a */; };
+		225F6C0C1B38284E00A570DC /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 225F6C0B1B38284E00A570DC /* Crashlytics.framework */; };
 		226183AE1472527D0037138E /* libsrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AB1472527D0037138E /* libsrtp.a */; };
 		226183B0147259670037138E /* libmssilk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AF147259670037138E /* libmssilk.a */; };
 		2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264B6D111200342002C2C53 /* SystemConfiguration.framework */; };
@@ -85,7 +87,6 @@
 		226F2ED81344B0EF00F6EF27 /* libmsamr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED51344B0EF00F6EF27 /* libmsamr.a */; };
 		2274401A106F31BD006EC466 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22744019106F31BD006EC466 /* CoreAudio.framework */; };
 		2274402F106F335E006EC466 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274402E106F335E006EC466 /* AudioToolbox.framework */; };
-		227A04591B21D73D00ED69E3 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227A04581B21D73D00ED69E3 /* Crashlytics.framework */; };
 		228697C411AC29B800E9E0CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228697C311AC29B800E9E0CA /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22968A5E12F875C600588287 /* UISpeakerButton.m */; };
 		22A10F3B11F8960300373793 /* libortp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD2C10765B400068D98F /* libortp.a */; };
@@ -115,15 +116,11 @@
 		630CF5571AF7CE1500539F7A /* UITextField+DoneButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 630CF5561AF7CE1500539F7A /* UITextField+DoneButton.m */; };
 		631C4FB119D2A8F2004BFE77 /* UIDigitButtonLongPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 631C4FB019D2A8F2004BFE77 /* UIDigitButtonLongPlus.m */; };
 		631C4FB719D2C3A6004BFE77 /* UIDigitButtonLongVoiceMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 631C4FB619D2C3A6004BFE77 /* UIDigitButtonLongVoiceMail.m */; };
-		6359DE7F1ADEB54200EA15C0 /* InAppProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359DE7D1ADEB54200EA15C0 /* InAppProductsViewController.m */; };
-		6359DE801ADEB54200EA15C0 /* InAppProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6359DE7E1ADEB54200EA15C0 /* InAppProductsViewController.xib */; };
-		6359DE841ADEB64100EA15C0 /* InAppProductsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359DE821ADEB64100EA15C0 /* InAppProductsCell.m */; };
-		6359DE851ADEB64100EA15C0 /* InAppProductsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6359DE831ADEB64100EA15C0 /* InAppProductsCell.xib */; };
-		6359DE8B1ADF9EB900EA15C0 /* InAppProductsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359DE8A1ADF9EB900EA15C0 /* InAppProductsTableViewController.m */; };
 		636316D11A1DEBCB0009B839 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 636316D31A1DEBCB0009B839 /* AboutViewController.xib */; };
 		636316D41A1DEC650009B839 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 636316D61A1DEC650009B839 /* SettingsViewController.xib */; };
 		636316D91A1DECC90009B839 /* PhoneMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 636316D71A1DECC90009B839 /* PhoneMainView.xib */; };
 		636316DE1A1DEF2F0009B839 /* UIButtonShrinkable.m in Sources */ = {isa = PBXBuildFile; fileRef = 636316DD1A1DEF2F0009B839 /* UIButtonShrinkable.m */; };
+		637157A11B283FE200C91677 /* FileTransferDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 637157A01B283FE200C91677 /* FileTransferDelegate.m */; };
 		639CEAFD1A1DF4D9004DE38F /* UIStateBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639CEAFF1A1DF4D9004DE38F /* UIStateBar.xib */; };
 		639CEB001A1DF4E4004DE38F /* UIHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639CEB021A1DF4E4004DE38F /* UIHistoryCell.xib */; };
 		639CEB031A1DF4EB004DE38F /* UICompositeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639CEB051A1DF4EB004DE38F /* UICompositeViewController.xib */; };
@@ -316,7 +313,6 @@
 		D36C43F7158F61EA0048BA40 /* call_state_play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = D36C43F0158F61EA0048BA40 /* call_state_play_over.png */; };
 		D36FB2D51589EF7C0036F6F2 /* UIPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FB2D41589EF7C0036F6F2 /* UIPauseButton.m */; };
 		D37295DB158B3C9600D2C0C7 /* video_off_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D37295DA158B3C9600D2C0C7 /* video_off_disabled.png */; };
-		D374D3FD16071762003D25FF /* ImageSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = D374D3FC16071762003D25FF /* ImageSharing.m */; };
 		D377BBFA15A19DA6002B696B /* video_on_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D377BBF915A19DA6002B696B /* video_on_disabled.png */; };
 		D378906515AC373B00BD776C /* ContactDetailsLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D378906315AC373B00BD776C /* ContactDetailsLabelViewController.m */; };
 		D378AB2A15DCDB4A0098505D /* ImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D378AB2915DCDB490098505D /* ImagePickerViewController.m */; };
@@ -746,26 +742,21 @@
 		F0BB8C191936245300974404 /* libbellesip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223CA7E516D9255800EF1BEC /* libbellesip.a */; };
 		F0BB8C1A1936245300974404 /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		F0BB8C1B1936245300974404 /* libgsm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD2910765B400068D98F /* libgsm.a */; };
-		F0BB8C1C1936245300974404 /* libilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E31178A08200637D6A /* libilbc.a */; };
 		F0BB8C1D1936245300974404 /* libmsamr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED51344B0EF00F6EF27 /* libmsamr.a */; };
 		F0BB8C1E1936245300974404 /* libmsbcg729.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226CDADE14E2D0B800513B67 /* libmsbcg729.a */; };
 		F0BB8C1F1936245300974404 /* libmsilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E51178A09900637D6A /* libmsilbc.a */; };
 		F0BB8C201936245300974404 /* libmssilk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AF147259670037138E /* libmssilk.a */; };
-		F0BB8C211936245300974404 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; };
 		F0BB8C221936245300974404 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED41344B0EF00F6EF27 /* libopencore-amrnb.a */; };
 		F0BB8C231936245300974404 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED31344B0EF00F6EF27 /* libopencore-amrwb.a */; };
 		F0BB8C241936245300974404 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AF73C11754C0D000BE8398 /* libopus.a */; };
 		F0BB8C251936245300974404 /* libortp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD2C10765B400068D98F /* libortp.a */; };
 		F0BB8C261936245300974404 /* libpolarssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B0E35F173C010400A476B8 /* libpolarssl.a */; };
-		F0BB8C271936245300974404 /* libSKP_SILK_SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AA1472527D0037138E /* libSKP_SILK_SDK.a */; };
 		F0BB8C281936245300974404 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD2F10765B400068D98F /* libspeex.a */; };
 		F0BB8C291936245300974404 /* libspeexdsp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD3010765B400068D98F /* libspeexdsp.a */; };
 		F0BB8C2A1936245300974404 /* libsrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AB1472527D0037138E /* libsrtp.a */; };
 		F0BB8C2B1936245300974404 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22276E8213C73D3100210156 /* libswscale.a */; };
 		F0BB8C2C1936245300974404 /* libtunnel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D30BF33216A427BC00AF0026 /* libtunnel.a */; };
 		F0BB8C2D1936245300974404 /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
-		F0BB8C2E1936245300974404 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFB13D7125500B30535 /* libx264.a */; };
-		F0BB8C2F1936245300974404 /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15017E6F1773578400784ACB /* libxml2.a */; };
 		F0BB8C301936246600974404 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274402E106F335E006EC466 /* AudioToolbox.framework */; };
 		F0BB8C331936247C00974404 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D32B6E2E15A5C0AC0033019F /* libsqlite3.dylib */; };
 		F0BB8C35193624C800974404 /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BB8C34193624C800974404 /* libresolv.9.dylib */; };
@@ -914,7 +905,8 @@
 
 /* Begin PBXFileReference section */
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
-		15017E6F1773578400784ACB /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = "liblinphone-sdk/apple-darwin/lib/libxml2.a"; sourceTree = "<group>"; };
+		152F22331B15E83B008C0621 /* libilbcrfc3951.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libilbcrfc3951.a; path = "liblinphone-sdk/apple-darwin/lib/libilbcrfc3951.a"; sourceTree = "<group>"; };
+		152F22351B15E889008C0621 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		1560821E18EEF26100765332 /* libmsopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmsopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmsopenh264.a"; sourceTree = "<group>"; };
 		1599104316F746B2007BF52B /* route_bluetooth_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = route_bluetooth_off_default_landscape.png; path = Resources/route_bluetooth_off_default_landscape.png; sourceTree = "<group>"; };
 		1599104416F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = route_bluetooth_off_disabled_landscape.png; path = Resources/route_bluetooth_off_disabled_landscape.png; sourceTree = "<group>"; };
@@ -990,7 +982,8 @@
 		2248E90C12F7E4CF00220D9C /* UIDigitButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDigitButton.h; sourceTree = "<group>"; };
 		2248E90D12F7E4CF00220D9C /* UIDigitButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDigitButton.m; sourceTree = "<group>"; };
 		22509041196BD902007863F6 /* libopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/libopenh264.a"; sourceTree = "<group>"; };
-		225CB2F911ABB76400628906 /* linphone-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "linphone-banner.png"; path = "liblinphone-sdk/apple-darwin/share/pixmaps/linphone/linphone-banner.png"; sourceTree = "<group>"; };
+		225F6C001B380DE600A570DC /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = "liblinphone-sdk/apple-darwin/lib/libxml2.a"; sourceTree = "<group>"; };
+		225F6C0B1B38284E00A570DC /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		226183AA1472527D0037138E /* libSKP_SILK_SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSKP_SILK_SDK.a; path = "liblinphone-sdk/apple-darwin/lib/libSKP_SILK_SDK.a"; sourceTree = "<group>"; };
 		226183AB1472527D0037138E /* libsrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libsrtp.a"; sourceTree = "<group>"; };
 		226183AF147259670037138E /* libmssilk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmssilk.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmssilk.a"; sourceTree = "<group>"; };
@@ -1004,7 +997,6 @@
 		2274402E106F335E006EC466 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		22744043106F33FC006EC466 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		22744056106F9BC9006EC466 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		227A04581B21D73D00ED69E3 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		228697C311AC29B800E9E0CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		22968A5D12F875C600588287 /* UISpeakerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISpeakerButton.h; sourceTree = "<group>"; };
 		22968A5E12F875C600588287 /* UISpeakerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISpeakerButton.m; sourceTree = "<group>"; };
@@ -1047,14 +1039,6 @@
 		631C4FB519D2C3A6004BFE77 /* UIDigitButtonLongVoiceMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDigitButtonLongVoiceMail.h; sourceTree = "<group>"; };
 		631C4FB619D2C3A6004BFE77 /* UIDigitButtonLongVoiceMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDigitButtonLongVoiceMail.m; sourceTree = "<group>"; };
 		633E388219FFB0F400936D1C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		6359DE7C1ADEB54200EA15C0 /* InAppProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppProductsViewController.h; sourceTree = "<group>"; };
-		6359DE7D1ADEB54200EA15C0 /* InAppProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppProductsViewController.m; sourceTree = "<group>"; };
-		6359DE7E1ADEB54200EA15C0 /* InAppProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InAppProductsViewController.xib; sourceTree = "<group>"; };
-		6359DE811ADEB64100EA15C0 /* InAppProductsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppProductsCell.h; sourceTree = "<group>"; };
-		6359DE821ADEB64100EA15C0 /* InAppProductsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppProductsCell.m; sourceTree = "<group>"; };
-		6359DE831ADEB64100EA15C0 /* InAppProductsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InAppProductsCell.xib; sourceTree = "<group>"; };
-		6359DE891ADF9EB900EA15C0 /* InAppProductsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppProductsTableViewController.h; sourceTree = "<group>"; };
-		6359DE8A1ADF9EB900EA15C0 /* InAppProductsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppProductsTableViewController.m; sourceTree = "<group>"; };
 		636316D21A1DEBCB0009B839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		636316D51A1DEC650009B839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
 		636316D81A1DECC90009B839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PhoneMainView.xib; sourceTree = "<group>"; };
@@ -1062,6 +1046,8 @@
 		636316DB1A1DEDD80009B839 /* ru */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/HistoryDetailsViewController.strings; sourceTree = "<group>"; };
 		636316DC1A1DEECB0009B839 /* UIButtonShrinkable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButtonShrinkable.h; sourceTree = "<group>"; };
 		636316DD1A1DEF2F0009B839 /* UIButtonShrinkable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButtonShrinkable.m; sourceTree = "<group>"; };
+		6371579F1B283FE200C91677 /* FileTransferDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileTransferDelegate.h; path = Utils/FileTransferDelegate.h; sourceTree = "<group>"; };
+		637157A01B283FE200C91677 /* FileTransferDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileTransferDelegate.m; path = Utils/FileTransferDelegate.m; sourceTree = "<group>"; };
 		639CEAFE1A1DF4D9004DE38F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UIStateBar.xib; sourceTree = "<group>"; };
 		639CEB011A1DF4E4004DE38F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UIHistoryCell.xib; sourceTree = "<group>"; };
 		639CEB041A1DF4EB004DE38F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UICompositeViewController.xib; sourceTree = "<group>"; };
@@ -1289,8 +1275,6 @@
 		D36FB2D31589EF7C0036F6F2 /* UIPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPauseButton.h; sourceTree = "<group>"; };
 		D36FB2D41589EF7C0036F6F2 /* UIPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPauseButton.m; sourceTree = "<group>"; };
 		D37295DA158B3C9600D2C0C7 /* video_off_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_off_disabled.png; path = Resources/video_off_disabled.png; sourceTree = "<group>"; };
-		D374D3FB16071762003D25FF /* ImageSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSharing.h; sourceTree = "<group>"; };
-		D374D3FC16071762003D25FF /* ImageSharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSharing.m; sourceTree = "<group>"; };
 		D377BBF915A19DA6002B696B /* video_on_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_on_disabled.png; path = Resources/video_on_disabled.png; sourceTree = "<group>"; };
 		D378906215AC373B00BD776C /* ContactDetailsLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailsLabelViewController.h; sourceTree = "<group>"; };
 		D378906315AC373B00BD776C /* ContactDetailsLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailsLabelViewController.m; sourceTree = "<group>"; };
@@ -1897,12 +1881,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				225F6C091B380E1B00A570DC /* libilbc.a in Frameworks */,
+				225F6C081B380E0000A570DC /* libSKP_SILK_SDK.a in Frameworks */,
+				225F6C011B380DE600A570DC /* libxml2.a in Frameworks */,
 				C6F476531B27157D00F4C2A7 /* CoreLocation.framework in Frameworks */,
 				F0B026F31AA710AF00FF49F7 /* libiconv.dylib in Frameworks */,
 				F05BAA621A5D594E00411815 /* libz.dylib in Frameworks */,
 				1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */,
 				22509042196BD902007863F6 /* libopenh264.a in Frameworks */,
-				15017E701773578400784ACB /* libxml2.a in Frameworks */,
 				22AF73C21754C0D100BE8398 /* libopus.a in Frameworks */,
 				57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */,
 				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
@@ -1915,6 +1901,7 @@
 				22405EEE1600B4E400B92522 /* AssetsLibrary.framework in Frameworks */,
 				2274402F106F335E006EC466 /* AudioToolbox.framework in Frameworks */,
 				224567C2107B968500F10948 /* AVFoundation.framework in Frameworks */,
+				225F6C0C1B38284E00A570DC /* Crashlytics.framework in Frameworks */,
 				228697C411AC29B800E9E0CA /* CFNetwork.framework in Frameworks */,
 				2274401A106F31BD006EC466 /* CoreAudio.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -1936,7 +1923,6 @@
 				22276E8313C73D3100210156 /* libavcodec.a in Frameworks */,
 				22276E8413C73D3100210156 /* libavutil.a in Frameworks */,
 				220FAD3210765B400068D98F /* libgsm.a in Frameworks */,
-				223148E41178A08200637D6A /* libilbc.a in Frameworks */,
 				F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */,
 				D37EE10916032DA4003608A6 /* libmediastreamer_base.a in Frameworks */,
 				D37EE10A16032DA4003608A6 /* libmediastreamer_voip.a in Frameworks */,
@@ -1952,8 +1938,6 @@
 				220FAD3810765B400068D98F /* libspeex.a in Frameworks */,
 				220FAD3910765B400068D98F /* libspeexdsp.a in Frameworks */,
 				226183AE1472527D0037138E /* libsrtp.a in Frameworks */,
-				226183AD1472527D0037138E /* libSKP_SILK_SDK.a in Frameworks */,
-				227A04591B21D73D00ED69E3 /* Crashlytics.framework in Frameworks */,
 				22276E8513C73D3100210156 /* libswscale.a in Frameworks */,
 				C6DF75DE1B296490009A2321 /* libc++.dylib in Frameworks */,
 				7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */,
@@ -1977,6 +1961,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15F728741B16FF9A00A1C901 /* libxml2.dylib in Frameworks */,
+				15F728731B16FF8B00A1C901 /* libilbcrfc3951.a in Frameworks */,
 				F0A54B0C1AD56F4600C22733 /* libc++.dylib in Frameworks */,
 				F0A54B0D1AD56F4600C22733 /* libstdc++.dylib in Frameworks */,
 				F08D468D1AA86849001E8CB5 /* libiconv.dylib in Frameworks */,
@@ -1994,7 +1980,6 @@
 				F0BB8C1A1936245300974404 /* libbzrtp.a in Frameworks */,
 				F0BB8C121936240300974404 /* libcunit.a in Frameworks */,
 				F0BB8C1B1936245300974404 /* libgsm.a in Frameworks */,
-				F0BB8C1C1936245300974404 /* libilbc.a in Frameworks */,
 				F0BB8C131936242400974404 /* liblinphone.a in Frameworks */,
 				F0BB8C10193623F300974404 /* liblinphonetester.a in Frameworks */,
 				F0BB8C141936242400974404 /* libmediastreamer_base.a in Frameworks */,
@@ -2003,21 +1988,17 @@
 				F0BB8C1E1936245300974404 /* libmsbcg729.a in Frameworks */,
 				F0BB8C1F1936245300974404 /* libmsilbc.a in Frameworks */,
 				F0BB8C201936245300974404 /* libmssilk.a in Frameworks */,
-				F0BB8C211936245300974404 /* libmsx264.a in Frameworks */,
 				F0BB8C221936245300974404 /* libopencore-amrnb.a in Frameworks */,
 				F0BB8C231936245300974404 /* libopencore-amrwb.a in Frameworks */,
 				F0BB8C241936245300974404 /* libopus.a in Frameworks */,
 				F0BB8C251936245300974404 /* libortp.a in Frameworks */,
 				F0BB8C261936245300974404 /* libpolarssl.a in Frameworks */,
-				F0BB8C271936245300974404 /* libSKP_SILK_SDK.a in Frameworks */,
 				F0BB8C281936245300974404 /* libspeex.a in Frameworks */,
 				F0BB8C291936245300974404 /* libspeexdsp.a in Frameworks */,
 				F0BB8C2A1936245300974404 /* libsrtp.a in Frameworks */,
 				F0BB8C2B1936245300974404 /* libswscale.a in Frameworks */,
 				F0BB8C2C1936245300974404 /* libtunnel.a in Frameworks */,
 				F0BB8C2D1936245300974404 /* libvpx.a in Frameworks */,
-				F0BB8C2E1936245300974404 /* libx264.a in Frameworks */,
-				F0BB8C2F1936245300974404 /* libxml2.a in Frameworks */,
 				F0BB8BD81936208100974404 /* UIKit.framework in Frameworks */,
 				F0BB8BD61936208100974404 /* Foundation.framework in Frameworks */,
 			);
@@ -2082,21 +2063,11 @@
 				D38187D415FE346B00C3EDCA /* HistoryViewController.xib */,
 				D378AB2815DCDB480098505D /* ImagePickerViewController.h */,
 				D378AB2915DCDB490098505D /* ImagePickerViewController.m */,
-				D374D3FB16071762003D25FF /* ImageSharing.h */,
-				D374D3FC16071762003D25FF /* ImageSharing.m */,
 				22405EFD1601C19000B92522 /* ImageViewController.h */,
 				22405EFE1601C19100B92522 /* ImageViewController.m */,
 				D37EE11016035793003608A6 /* ImageViewController.xib */,
-				6359DE811ADEB64100EA15C0 /* InAppProductsCell.h */,
-				6359DE821ADEB64100EA15C0 /* InAppProductsCell.m */,
-				6359DE831ADEB64100EA15C0 /* InAppProductsCell.xib */,
 				63E59A3D1ADE6ECB00646FB3 /* InAppProductsManager.h */,
 				63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */,
-				6359DE891ADF9EB900EA15C0 /* InAppProductsTableViewController.h */,
-				6359DE8A1ADF9EB900EA15C0 /* InAppProductsTableViewController.m */,
-				6359DE7C1ADEB54200EA15C0 /* InAppProductsViewController.h */,
-				6359DE7D1ADEB54200EA15C0 /* InAppProductsViewController.m */,
-				6359DE7E1ADEB54200EA15C0 /* InAppProductsViewController.xib */,
 				D31AAF5C159B3919002C6B02 /* InCallTableViewController.h */,
 				D31AAF5D159B3919002C6B02 /* InCallTableViewController.m */,
 				D3F83EE91582021700336684 /* InCallViewController.h */,
@@ -2305,8 +2276,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				225F6C0B1B38284E00A570DC /* Crashlytics.framework */,
+				225F6C001B380DE600A570DC /* libxml2.a */,
 				C6F476521B27157D00F4C2A7 /* CoreLocation.framework */,
-				227A04581B21D73D00ED69E3 /* Crashlytics.framework */,
 				F0FF66AA1ACAEEB0008A4486 /* IOKit.framework */,
 				C6DF75DA1B296490009A2321 /* Security.framework */,
 				C6DF75DB1B296490009A2321 /* libc++.dylib */,
@@ -2367,7 +2339,6 @@
 				D30BF33216A427BC00AF0026 /* libtunnel.a */,
 				7066FC0B13E830E400EFC6DC /* libvpx.a */,
 				22AA8AFB13D7125500B30535 /* libx264.a */,
-				15017E6F1773578400784ACB /* libxml2.a */,
 				F0B89C2118DC89E30050B60E /* MediaPlayer.framework */,
 				D37DC7171594AF3400B2A5EB /* MessageUI.framework */,
 				226EF06B15FA256B005865C7 /* MobileCoreServices.framework */,
@@ -2393,6 +2364,8 @@
 				D37EE15F160377D7003608A6 /* DTFoundation */,
 				D32B9DFA15A2F131000B6DEC /* FastAddressBook.h */,
 				D32B9DFB15A2F131000B6DEC /* FastAddressBook.m */,
+				6371579F1B283FE200C91677 /* FileTransferDelegate.h */,
+				637157A01B283FE200C91677 /* FileTransferDelegate.m */,
 				D3ED40141602172200BF332B /* GrowingTextView */,
 				D3807FC715C2894A005BE9BC /* InAppSettingsKit */,
 				D3B90E1115C2CB5700F64F8C /* NinePatch.xcodeproj */,
@@ -2822,7 +2795,6 @@
 				D3432A5D158A4446001C6B0B /* led_error.png */,
 				D3432A6F158A45AF001C6B0B /* led_inprogress.png */,
 				D3012CC31610467D007CD926 /* linphone_logo.png */,
-				225CB2F911ABB76400628906 /* linphone-banner.png */,
 				D3EA5416159858A80037DC6B /* list_delete_default.png */,
 				D3EA5417159858A80037DC6B /* list_delete_over.png */,
 				D354981815876FE7000081D8 /* list_details_default.png */,
@@ -3183,7 +3155,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				2247673A129C3B9C002B94B4 /* CopyFiles */,
-				227A04521B21D1DC00ED69E3 /* ShellScript */,
+				225F6C0A1B38282700A570DC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3388,7 +3360,6 @@
 			files = (
 				22F254811073D99800AC9B3F /* ringback.wav in Resources */,
 				2237D4091084D7A9001383EE /* ring.wav in Resources */,
-				225CB2FA11ABB76400628906 /* linphone-banner.png in Resources */,
 				636316D11A1DEBCB0009B839 /* AboutViewController.xib in Resources */,
 				2242E313125235120061DDCE /* ring.caf in Resources */,
 				D38187C915FE346400C3EDCA /* FirstLoginViewController.xib in Resources */,
@@ -3404,7 +3375,6 @@
 				D38327F71580FE3A00FA0D23 /* settings_default.png in Resources */,
 				D38327F81580FE3A00FA0D23 /* settings_selected.png in Resources */,
 				D38327F91580FE3A00FA0D23 /* chat_default.png in Resources */,
-				6359DE801ADEB54200EA15C0 /* InAppProductsViewController.xib in Resources */,
 				D38327FA1580FE3A00FA0D23 /* chat_selected.png in Resources */,
 				D3832800158100E400FA0D23 /* contacts_over.png in Resources */,
 				D3832801158100E400FA0D23 /* history_over.png in Resources */,
@@ -3442,7 +3412,6 @@
 				D3F83F581582223B00336684 /* numpad_five_default.png in Resources */,
 				D3F83F5A1582223B00336684 /* numpad_five_over.png in Resources */,
 				D3F83F5C1582223B00336684 /* numpad_six_default.png in Resources */,
-				6359DE851ADEB64100EA15C0 /* InAppProductsCell.xib in Resources */,
 				636316D91A1DECC90009B839 /* PhoneMainView.xib in Resources */,
 				D3F83F5E1582223B00336684 /* numpad_six_over.png in Resources */,
 				D3F83F601582223B00336684 /* numpad_seven_default.png in Resources */,
@@ -3985,7 +3954,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		227A04521B21D1DC00ED69E3 /* ShellScript */ = {
+		225F6C0A1B38282700A570DC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3996,7 +3965,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run e727fa43831b5dba2cee9b8d0a4ddca21a88fef3 b48c10cd27410c248ee8637f855d91c30d2778b4c6342644e686a74e35ff05e7";
+			shellScript = "./Fabric.framework/run e727fa43831b5dba2cee9b8d0a4ddca21a88fef3 b48c10cd27410c248ee8637f855d91c30d2778b4c6342644e686a74e35ff05e7";
 		};
 		63DCC71D1A07B08E00916627 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4131,18 +4100,15 @@
 				D3807FFC15C2894A005BE9BC /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
-				6359DE8B1ADF9EB900EA15C0 /* InAppProductsTableViewController.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,
-				6359DE7F1ADEB54200EA15C0 /* InAppProductsViewController.m in Sources */,
+				637157A11B283FE200C91677 /* FileTransferDelegate.m in Sources */,
 				D378AB2A15DCDB4A0098505D /* ImagePickerViewController.m in Sources */,
-				6359DE841ADEB64100EA15C0 /* InAppProductsCell.m in Sources */,
 				22405F001601C19200B92522 /* ImageViewController.m in Sources */,
 				D3ED40191602172200BF332B /* HPGrowingTextView.m in Sources */,
 				D3ED401B1602172200BF332B /* HPTextViewInternal.m in Sources */,
 				D37EE162160377D7003608A6 /* DTActionSheet.m in Sources */,
-				D374D3FD16071762003D25FF /* ImageSharing.m in Sources */,
 				D35E91F4160CA10B0023116B /* UILinphoneTextField.m in Sources */,
 				D35E91F8160CA4FF0023116B /* UILinphoneButton.m in Sources */,
 				D306459E1611EC2A00BB571E /* UILoadingImageView.m in Sources */,

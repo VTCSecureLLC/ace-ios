@@ -36,14 +36,15 @@ display=1
 capture=1
 show_local=0
 enabled=1
-size=qvga
+size=vga
 automatically_initiate=0
 automatically_accept=0
+preset=high-fps
 
 [net]
 firewall_policy=0
-download_bw=380
-upload_bw=380
+download_bw=660
+upload_bw=660
 
 [sound]
 playback_dev_id=AU: Audio Unit Receiver
@@ -60,6 +61,7 @@ backgroundmode_preference=1
 autoanswer_notif_preference=1
 voiceproc_preference=1
 enable_log_collect=0
+repeat_call_notification=1
 
 [default_values]
 reg_expires=600
@@ -73,7 +75,7 @@ username_length=4
 expires=1314000
 push_notification=1
 transport=tls
-sharing_server=https://www.linphone.org:444/upload.php
+sharing_server=https://www.linphone.org:444/lft.php
 ice=1
 stun=stun.linphone.org
 
