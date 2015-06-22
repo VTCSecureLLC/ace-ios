@@ -41,11 +41,11 @@
                     <color key="textColor" red="0.35686275360000003" green="0.3960784376" blue="0.43529412150000002" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" text="http://www.linphone.org" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="57" userLabel="linkLabel">
+                <label opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" text="http://www.vtcsecure.com" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="57" userLabel="linkLabel">
                     <rect key="frame" x="10" y="200" width="300" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.81176471709999998" green="0.29803922770000002" blue="0.16078431900000001" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="textColor" red="1" green="0.54901960780000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Linphone iPhone 1.0 (placeholder)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="65" userLabel="linphoneIphoneVersionLabel">
@@ -62,20 +62,14 @@
                     <color key="textColor" red="0.35686275360000003" green="0.3960784376" blue="0.43529412150000002" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="© 2010 Belledonne Communications " textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="58" userLabel="copyrightLabel">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="© 2015 VTCSecure " textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="58" userLabel="copyrightLabel">
                     <rect key="frame" x="10" y="300" width="300" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GNU General Public License V2 " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61" userLabel="licenseLabel">
-                    <rect key="frame" x="10" y="244" width="300" height="36"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <webView contentMode="scaleToFill" id="69" userLabel="licenseView">
+                <webView hidden="YES" contentMode="scaleToFill" id="69" userLabel="licenseView">
                     <rect key="frame" x="10" y="380" width="300" height="210"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
