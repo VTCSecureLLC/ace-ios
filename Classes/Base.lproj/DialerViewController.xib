@@ -65,7 +65,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7cY-lA-GEY">
-                            <rect key="frame" x="275" y="2" width="45" height="42"/>
+                            <rect key="frame" x="284" y="8" width="36" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <state key="normal" backgroundImage="atbutton.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -345,7 +345,7 @@
         <image name="add_contact_default.png" width="213" height="138"/>
         <image name="add_contact_disabled.png" width="213" height="138"/>
         <image name="add_contact_over.png" width="213" height="138"/>
-        <image name="atbutton.png" width="256" height="256"/>
+        <image name="atbutton.png" width="300" height="300"/>
         <image name="back_default.png" width="213" height="138"/>
         <image name="back_disabled.png" width="213" height="138"/>
         <image name="back_over.png" width="213" height="138"/>

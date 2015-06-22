@@ -26,6 +26,7 @@
 #import "LinphoneManager.h"
 #import "PhoneMainView.h"
 #import "Utils.h"
+#import "UILinphone.h"
 
 #include "linphone/linphonecore.h"
 
@@ -448,9 +449,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIP Providers",nil)
                                                                    message:@"Select the SIP provider of the person you wish to call."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-
+    alert.view.tintColor = LINPHONE_MAIN_COLOR;
    
-
     NSString *providerCSV = [[LinphoneManager instance] lpConfigStringForKey:@"external_domains" forSection:@"vtcsecure"];
     if (providerCSV) {
         NSArray * providers = [providerCSV componentsSeparatedByString:@","];

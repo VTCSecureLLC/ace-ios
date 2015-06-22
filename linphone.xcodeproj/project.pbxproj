@@ -138,7 +138,7 @@
 		7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
-		C6AABD5F1B27891F001FE888 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C6AABD5E1B27891F001FE888 /* atbutton.png */; };
+		C61151BD1B37A75400C53C3E /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C61151BC1B37A75400C53C3E /* atbutton.png */; };
 		C6DF75DD1B296490009A2321 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DA1B296490009A2321 /* Security.framework */; };
 		C6DF75DE1B296490009A2321 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DB1B296490009A2321 /* libc++.dylib */; };
 		C6DF75DF1B296490009A2321 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DF75DC1B296490009A2321 /* Fabric.framework */; };
@@ -807,6 +807,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C61151BA1B37A74700C53C3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0C7737D1A94822600E0C486 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9CC9673B1AD4B1B600576D13;
+			remoteInfo = KIFFramework;
+		};
 		D3554ED015CA79AA00478841 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3554EC515CA79A900478841 /* XMLRPC.xcodeproj */;
@@ -1076,7 +1083,7 @@
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		C6AABD5E1B27891F001FE888 /* atbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atbutton.png; sourceTree = "<group>"; };
+		C61151BC1B37A75400C53C3E /* atbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atbutton.png; path = Resources/atbutton.png; sourceTree = "<group>"; };
 		C6DF75DA1B296490009A2321 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C6DF75DB1B296490009A2321 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		C6DF75DC1B296490009A2321 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -2580,7 +2587,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
-				C6AABD5E1B27891F001FE888 /* atbutton.png */,
+				C61151BC1B37A75400C53C3E /* atbutton.png */,
 				D3D52A751614495300DEB00A /* accept_default_landscape~ipad.png */,
 				D3F83F741582253100336684 /* accept_default.png */,
 				D3D52A761614495300DEB00A /* accept_default~ipad.png */,
@@ -3132,6 +3139,7 @@
 				F0C7738B1A94822700E0C486 /* Test Host.app */,
 				F0C7738D1A94822700E0C486 /* KIF Tests - XCTest.xctest */,
 				F0C7738F1A94822700E0C486 /* KIF Tests-OCUnit.octest */,
+				C61151BB1B37A74700C53C3E /* KIF.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3315,6 +3323,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C61151BB1B37A74700C53C3E /* KIF.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KIF.framework;
+			remoteRef = C61151BA1B37A74700C53C3E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D3554ED115CA79AA00478841 /* libXMLRPC.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -3411,6 +3426,7 @@
 				F01A77EB18ED989B00E287CA /* shortring.caf in Resources */,
 				D3F83F24158205A100336684 /* video_off_default.png in Resources */,
 				D3F83F26158205A100336684 /* video_off_over.png in Resources */,
+				C61151BD1B37A75400C53C3E /* atbutton.png in Resources */,
 				D3F83F28158205A100336684 /* video_on_default.png in Resources */,
 				D3F83F2A158205A100336684 /* video_on_over.png in Resources */,
 				D3F83F441582223B00336684 /* numpad_zero_default.png in Resources */,
@@ -3906,7 +3922,6 @@
 				1599105916F746B2007BF52B /* route_bluetooth_on_default_landscape.png in Resources */,
 				1599105B16F746B2007BF52B /* route_phone_off_default_landscape.png in Resources */,
 				1599105D16F746B2007BF52B /* route_phone_off_disabled_landscape.png in Resources */,
-				C6AABD5F1B27891F001FE888 /* atbutton.png in Resources */,
 				1599105F16F746B2007BF52B /* route_phone_off_over_landscape.png in Resources */,
 				1599106116F746B2007BF52B /* route_phone_on_default_landscape.png in Resources */,
 				1599106316F746B2007BF52B /* route_speaker_off_default_landscape.png in Resources */,
