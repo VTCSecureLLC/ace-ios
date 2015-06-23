@@ -27,4 +27,4 @@ incoming_flashred_frequency=0.3
 incoming_vibrate_frequency=2.0
 outgoing_ring_duration=2.8
 emergency_username=911
-external_domains=domain1.com,domain2.com,domain3.com
+external_domains=Sorenson.com,ZVRS.com,CAAG.com,PurpleVRS.com,GlobalVRS.com,Convo.com
