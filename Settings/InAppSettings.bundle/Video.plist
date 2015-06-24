@@ -154,9 +154,9 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>h263-1998_preference</string>
+			<string>h263_preference</string>
 			<key>Title</key>
-			<string>H263-1998</string>
+			<string>H263</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
