@@ -18,11 +18,7 @@ register_only_when_network_is_up=1
 auto_net_state_mon=0
 keepalive_period=30000
 ping_with_options=0
-rtcp_xr_enabled=1
-rtcp_xr_rcvr_rtt_mode=all
-rtcp_xr_rcvr_rtt_max_size=10000
-rtcp_xr_stat_summary_enabled=1
-rtcp_xr_voip_metrics_enabled=1
+
 
 [rtp]
 audio_rtp_port=7076
@@ -30,6 +26,11 @@ video_rtp_port=9078
 audio_jitt_comp=60
 video_jitt_comp=60
 nortp_timeout=30
+rtcp_xr_enabled=0
+rtcp_xr_rcvr_rtt_mode=all
+rtcp_xr_rcvr_rtt_max_size=10000
+rtcp_xr_stat_summary_enabled=1
+rtcp_xr_voip_metrics_enabled=1
 
 [video]
 display=1

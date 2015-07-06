@@ -1963,7 +1963,7 @@ static void audioRouteChangeListenerCallback (
 		}
 		// NSLocalizedString(@"IC_MSG", nil); // Fake for genstrings
 		// NSLocalizedString(@"IM_MSG", nil); // Fake for genstrings
-#ifdef DEBUG
+#ifdef USE_APN_DEV
 #define APPMODE_SUFFIX @"dev"
 #else
 #define APPMODE_SUFFIX @"prod"
