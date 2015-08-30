@@ -5,6 +5,7 @@
 Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makefiles and shell scripts.
 
 * Xcode (download from apple or using appstore application)
+*  You need to install command line tools using the terminal: xcode-select --install
 * [Java SE](http://www.oracle.com/technetwork/java/javase/downloads/index.html) or openJDK
  This is required to generate a C sourcefile from SIP grammar using [antlr3](http://www.antlr3.org/) generator.
 * [HomeBrew](http://brew.sh) or [Macports](http://www.macports.org/).
