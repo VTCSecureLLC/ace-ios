@@ -1,12 +1,11 @@
 # Linphone on iPhone
 
-[![Build Status](https://travis-ci.org/BelledonneCommunications/linphone-iphone.svg?branch=master)](https://travis-ci.org/BelledonneCommunications/linphone-iphone)
-
 ## Build prerequisite
 
 Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makefiles and shell scripts.
 
 * Xcode (download from apple or using appstore application)
+*  You need to install command line tools using the terminal: xcode-select --install
 * [Java SE](http://www.oracle.com/technetwork/java/javase/downloads/index.html) or openJDK
  This is required to generate a C sourcefile from SIP grammar using [antlr3](http://www.antlr3.org/) generator.
 * [HomeBrew](http://brew.sh) or [Macports](http://www.macports.org/).
@@ -16,7 +15,7 @@ Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makef
 
 * Using HomeBrew:
 
-        brew install autoconf automake pkg-config doxygen nasm gettext wget yasm optipng imagemagick coreutils intltool
+        brew install autoconf automake pkg-config doxygen nasm gettext wget yasm optipng imagemagick coreutils intltool cmake
         brew link gettext --force
         # antlr3.2 is faster than default homebrew version 3.4 - you can install official antlr3 though
         brew tap Gui13/linphone
@@ -24,7 +23,7 @@ Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makef
 
 * Using MacPorts:
 
-        sudo port install autoconf automake pkgconfig doxygen antlr3 nasm gettext wget yasm optipng ImageMagick coreutils intltool
+        sudo port install autoconf automake pkgconfig doxygen antlr3 nasm gettext wget yasm optipng ImageMagick coreutils intltool cmake
 
 ### System linking
 
