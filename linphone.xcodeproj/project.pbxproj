@@ -74,7 +74,6 @@
 		2248E90E12F7E4CF00220D9C /* UIDigitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2248E90D12F7E4CF00220D9C /* UIDigitButton.m */; };
 		22509042196BD902007863F6 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
 		225F6C081B380E0000A570DC /* libSKP_SILK_SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AA1472527D0037138E /* libSKP_SILK_SDK.a */; };
-		225F6C091B380E1B00A570DC /* libilbc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223148E31178A08200637D6A /* libilbc.a */; };
 		225F6C0C1B38284E00A570DC /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 225F6C0B1B38284E00A570DC /* Crashlytics.framework */; };
 		226183AE1472527D0037138E /* libsrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AB1472527D0037138E /* libsrtp.a */; };
 		226183B0147259670037138E /* libmssilk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AF147259670037138E /* libmssilk.a */; };
@@ -90,8 +89,6 @@
 		22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22968A5E12F875C600588287 /* UISpeakerButton.m */; };
 		22A10F3B11F8960300373793 /* libortp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 220FAD2C10765B400068D98F /* libortp.a */; };
 		22A7D83E1B289EB30065E5D3 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 22A7D83D1B289EB30065E5D3 /* wizard_vtcsecure_existing.rc */; };
-		22AA8AFD13D7125600B30535 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFB13D7125500B30535 /* libx264.a */; };
-		22AA8AFE13D7125600B30535 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; };
 		22AA8B0113D83F6300B30535 /* UICamSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AA8B0013D83F6300B30535 /* UICamSwitch.m */; };
 		22AF73C21754C0D100BE8398 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AF73C11754C0D000BE8398 /* libopus.a */; };
 		22B5EFA310CE50BD00777D97 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B5EFA210CE50BD00777D97 /* AddressBookUI.framework */; };
@@ -1890,7 +1887,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F024BA1B910C6C000BC09F /* libxml2.2.dylib in Frameworks */,
-				225F6C091B380E1B00A570DC /* libilbc.a in Frameworks */,
 				225F6C081B380E0000A570DC /* libSKP_SILK_SDK.a in Frameworks */,
 				C6F476531B27157D00F4C2A7 /* CoreLocation.framework in Frameworks */,
 				F05BAA621A5D594E00411815 /* libz.dylib in Frameworks */,
@@ -1939,7 +1935,6 @@
 				226183B0147259670037138E /* libmssilk.a in Frameworks */,
 				C6DF75DD1B296490009A2321 /* Security.framework in Frameworks */,
 				22A10F3B11F8960300373793 /* libortp.a in Frameworks */,
-				22AA8AFE13D7125600B30535 /* libmsx264.a in Frameworks */,
 				226F2ED71344B0EF00F6EF27 /* libopencore-amrnb.a in Frameworks */,
 				226F2ED61344B0EF00F6EF27 /* libopencore-amrwb.a in Frameworks */,
 				226CDAE014E2D0B800513B67 /* libmsbcg729.a in Frameworks */,
@@ -1949,7 +1944,6 @@
 				22276E8513C73D3100210156 /* libswscale.a in Frameworks */,
 				C6DF75DE1B296490009A2321 /* libc++.dylib in Frameworks */,
 				7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */,
-				22AA8AFD13D7125600B30535 /* libx264.a in Frameworks */,
 				F0B026F31AA710AF00FF49F7 /* libiconv.dylib in Frameworks */,
 				C6DF75DF1B296490009A2321 /* Fabric.framework in Frameworks */,
 			);
