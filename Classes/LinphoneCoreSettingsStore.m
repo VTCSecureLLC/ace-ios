@@ -31,7 +31,6 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	if (self) {
 		dict = [[NSMutableDictionary alloc] init];
 		changedDict = [[NSMutableDictionary alloc] init];
-		[self transformLinphoneCoreToKeys];
 	}
 	return self;
 }
@@ -515,6 +514,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 			// was a new proxy config, add it
 			linphone_core_add_proxy_config(lc, proxyCfg);
 			linphone_core_set_default_proxy_config(lc, proxyCfg);
+			// reload address book to prepend proxy config domain to contacts' phone number
+			[[[LinphoneManager instance] fastAddressBook] reload];
 		}
 
 	bad_proxy:

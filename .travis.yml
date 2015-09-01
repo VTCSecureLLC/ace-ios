@@ -1,24 +1,14 @@
 language: objective-c
-xcode_project: linphone.xcodeproj
-xcode_scheme: linphone
-xcode_sdk: iphonesimulator8.1
-
-branches:
-  only:
-    - master
 
 env:
     global:
-        - VERSION="8.1"
         - secure: "JPPcWdmNIJiR3YcIwe0LRYce6qDdsiagO+eKKAp7eVk/wD9UHbz96Ms2FFkXxPhRJB1PA6Pf8FpAzIL2YRiJL9jRtKHSvtdF1cSto+57XyBkCsw7PkMVUIxp7fg6Wiwn3H3tucF8jisIkv/Pn7R+9EqePkZSqqu3+ig5AX9ApQ4="
+        - KIF_SCREENSHOTS=$PWD/Screens
 
 before_install:
-    - brew update
-    - brew install doxygen nasm gettext yasm optipng imagemagick coreutils intltool
-    - brew outdated cmake || brew upgrade cmake
-    - brew link gettext --force
-    - brew tap Gui13/linphone
-    - brew install antlr3.2
+    - brew update 1>/dev/null
+    - brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr
+    - brew upgrade cmake
     - wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl
     - chmod +x gas-preprocessor.pl
     - sudo mv gas-preprocessor.pl /usr/local/bin
@@ -27,10 +17,13 @@ before_install:
     - git submodule update --init --recursive
 
 install:
-    - ./prepare.py all
-    - make -s 1>/dev/null
-    - mkdir -p Screens
-    - export KIF_SCREENSHOTS=`pwd`/Screens
+    - ./prepare.py -d x86_64 -G Ninja
+    - make -j4 -s 1>/dev/null
+    - mkdir -p $KIF_SCREENSHOTS
+
+script:
+    - xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination name='iPhone 6' build 1>/dev/null
+    - xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination name='iPhone 6' test
 
 after_script:
     - ./Tools/imgur_upload.sh

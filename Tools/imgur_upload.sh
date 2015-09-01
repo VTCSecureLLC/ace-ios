@@ -1,18 +1,17 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # Install underscore-cli for hacking
 if ! which underscore &> /dev/null; then
 	npm install -g underscore-cli
 fi
 
-cd Screens
+cd $KIF_SCREENSHOTS
 
-if "*.png" 2>/dev/null; then
+if [ ! -z "$(find . -name "*.png")" ]; then
 	# Prepare location to collect delete commands
 	if test "$TRAVIS_BUILD_NUMBER" = ""; then
 		TRAVIS_BUILD_NUMBER="dev"
 	fi
-	output_dir="Screens"
 	download_cmds=""
 
 	# curl from http://imgur.com/tools/imgurbash.sh via http://imgur.com/tools
@@ -28,12 +27,12 @@ if "*.png" 2>/dev/null; then
 		if [ "$succeeded" != "true" ]; then
 			echo "There was a problem uploading \"$filepath\": $result"
 		else
-			download_cmds="${download_cmds}wget $(echo "$result" | underscore extract 'data.link')\n"
+			download_cmds="${download_cmds}\nwget $(echo "$result" | underscore extract 'data.link')"
 		fi
 	done
 	echo "All uploads complete!"
 	echo ""
-	echo "Download via: $download_cmds"
+	printf "Download via: $download_cmds\n"
 else
 	echo "Could not find any PNG in $PWD, something must be broken!"
 fi

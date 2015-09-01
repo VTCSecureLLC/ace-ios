@@ -29,7 +29,7 @@
 #include "linphone/linphonecore.h"
 
 @implementation UIChatRoomCell {
-	FileTransferDelegate* ftd;
+	FileTransferDelegate *ftd;
 }
 
 @synthesize innerView;
@@ -47,7 +47,7 @@
 
 static const CGFloat CELL_MIN_HEIGHT = 50.0f;
 static const CGFloat CELL_MIN_WIDTH = 150.0f;
-//static const CGFloat CELL_MAX_WIDTH = 320.0f;
+// static const CGFloat CELL_MAX_WIDTH = 320.0f;
 static const CGFloat CELL_MESSAGE_X_MARGIN = 26.0f + 10.0f;
 static const CGFloat CELL_MESSAGE_Y_MARGIN = 36.0f;
 static const CGFloat CELL_FONT_SIZE = 17.0f;
@@ -57,15 +57,15 @@ static UIFont *CELL_FONT = nil;
 
 #pragma mark - Lifecycle Functions
 
-- (id)initWithIdentifier:(NSString*)identifier {
+- (id)initWithIdentifier:(NSString *)identifier {
 	if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier]) != nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UIChatRoomCell"
-									  owner:self
-									options:nil];
-		imageTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageClick:)];
+		[[NSBundle mainBundle] loadNibNamed:@"UIChatRoomCell" owner:self options:nil];
+		imageTapGestureRecognizer =
+			[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageClick:)];
 		[messageImageView addGestureRecognizer:imageTapGestureRecognizer];
 
-		resendTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onResendClick:)];
+		resendTapGestureRecognizer =
+			[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onResendClick:)];
 		[dateLabel addGestureRecognizer:resendTapGestureRecognizer];
 		[statusImage addGestureRecognizer:resendTapGestureRecognizer];
 
@@ -74,8 +74,8 @@ static UIFont *CELL_FONT = nil;
 
 		// shift message box, otherwise it will collide with the bubble
 		CGRect messageCoords = [messageText frame];
-		messageCoords.origin.x   += 2;
-		messageCoords.origin.y   += 2;
+		messageCoords.origin.x += 2;
+		messageCoords.origin.y += 2;
 		messageCoords.size.width -= 5;
 		[messageText setFrame:messageCoords];
 		messageText.allowSelectAll = TRUE;
@@ -86,35 +86,56 @@ static UIFont *CELL_FONT = nil;
 
 - (void)dealloc {
 	[self disconnectFromFileDelegate];
+	if (self->chat) {
+		linphone_chat_message_unref(self->chat);
+		linphone_chat_message_set_user_data(self->chat, NULL);
+		linphone_chat_message_cbs_set_msg_state_changed(linphone_chat_message_get_callbacks(self->chat), NULL);
+		self->chat = NULL;
+	}
 }
 
 #pragma mark -
 
 - (void)setChatMessage:(LinphoneChatMessage *)message {
 	if (message != self->chat) {
+		if (self->chat) {
+			linphone_chat_message_unref(self->chat);
+			linphone_chat_message_set_user_data(self->chat, NULL);
+			linphone_chat_message_cbs_set_msg_state_changed(linphone_chat_message_get_callbacks(self->chat), NULL);
+		}
 		self->chat = message;
 		messageImageView.image = nil;
 		[self disconnectFromFileDelegate];
-		for (FileTransferDelegate *aftd in [[LinphoneManager instance] fileTransferDelegates]) {
-			if (message &&
-				linphone_chat_message_get_storage_id(aftd.message) == linphone_chat_message_get_storage_id(message)) {
-				LOGI(@"Chat message [%p] with file transfer delegate [%p], connecting to it!", message,
-					 linphone_chat_message_get_user_data(message));
-				[self connectToFileDelegate:aftd];
-				break;
+		if (self->chat) {
+			linphone_chat_message_ref(self->chat);
+			linphone_chat_message_set_user_data(self->chat, (void *)CFBridgingRetain(self));
+			linphone_chat_message_cbs_set_msg_state_changed(linphone_chat_message_get_callbacks(self->chat),
+															message_status);
+
+			const LinphoneContent *c = linphone_chat_message_get_file_transfer_information(message);
+			if (c) {
+				const char *name = linphone_content_get_name(c);
+				for (FileTransferDelegate *aftd in [[LinphoneManager instance] fileTransferDelegates]) {
+					if (linphone_chat_message_get_file_transfer_information(aftd.message) &&
+						strcmp(name, linphone_content_get_name(
+										 linphone_chat_message_get_file_transfer_information(aftd.message))) == 0) {
+						LOGI(@"Chat message [%p] with file transfer delegate [%p], connecting to it!", message, aftd);
+						[self connectToFileDelegate:aftd];
+						break;
+					}
+				}
 			}
 		}
 		[self update];
 	}
-
 }
 
-+ (NSString*)decodeTextMessage:(const char*)text {
-	NSString* decoded = [NSString stringWithUTF8String:text];
-	if( decoded == nil ){
++ (NSString *)decodeTextMessage:(const char *)text {
+	NSString *decoded = [NSString stringWithUTF8String:text];
+	if (decoded == nil) {
 		// couldn't decode the string as UTF8, do a lossy conversion
 		decoded = [NSString stringWithCString:text encoding:NSASCIIStringEncoding];
-		if( decoded == nil ){
+		if (decoded == nil) {
 			decoded = @"(invalid string)";
 		}
 	}
@@ -122,19 +143,19 @@ static UIFont *CELL_FONT = nil;
 }
 
 - (void)update {
-	if(chat == nil) {
+	if (chat == nil) {
 		LOGW(@"Cannot update chat room cell: null chat");
 		return;
 	}
-	const char*      url = linphone_chat_message_get_external_body_url(chat);
-	const char*     text = linphone_chat_message_get_text(chat);
+	const char *url = linphone_chat_message_get_external_body_url(chat);
+	const char *text = linphone_chat_message_get_text(chat);
 	BOOL is_external =
 		(url && (strstr(url, "http") == url)) || linphone_chat_message_get_file_transfer_information(chat);
-	NSString* localImage = [LinphoneManager getMessageAppDataForKey:@"localimage" inMessage:chat];
+	NSString *localImage = [LinphoneManager getMessageAppDataForKey:@"localimage" inMessage:chat];
 
 	// this is an image (either to download or already downloaded)
 	if (is_external || localImage) {
-		if(localImage) {
+		if (localImage) {
 			if (messageImageView.image == nil) {
 				NSURL *imageUrl = [NSURL URLWithString:localImage];
 				messageText.hidden = YES;
@@ -175,16 +196,18 @@ static UIFont *CELL_FONT = nil;
 		// simple text message
 	} else {
 		[messageText setHidden:FALSE];
-		if ( text ){
-			NSString* nstext = [UIChatRoomCell decodeTextMessage:text];
+		if (text) {
+			NSString *nstext = [UIChatRoomCell decodeTextMessage:text];
 
 			/* We need to use an attributed string here so that data detector don't mess
 			* with the text style. See http://stackoverflow.com/a/20669356 */
 
-			NSAttributedString* attr_text = [[NSAttributedString alloc]
-										  initWithString:nstext
-										  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0],
-													   NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
+			NSAttributedString *attr_text =
+				[[NSAttributedString alloc] initWithString:nstext
+												attributes:@{
+													NSFontAttributeName : [UIFont systemFontOfSize:17.0],
+													NSForegroundColorAttributeName : [UIColor darkGrayColor]
+												}];
 			messageText.attributedText = attr_text;
 
 		} else {
@@ -207,9 +230,10 @@ static UIFont *CELL_FONT = nil;
 	LinphoneChatMessageState state = linphone_chat_message_get_state(chat);
 	BOOL outgoing = linphone_chat_message_is_outgoing(chat);
 
-	if( !outgoing ){
+	if (!outgoing) {
+		[statusImage setAccessibilityValue:@"incoming"];
 		statusImage.hidden = TRUE; // not useful for incoming chats..
-	} else if (state== LinphoneChatMessageStateInProgress) {
+	} else if (state == LinphoneChatMessageStateInProgress) {
 		[statusImage setImage:[UIImage imageNamed:@"chat_message_inprogress.png"]];
 		[statusImage setAccessibilityValue:@"in progress"];
 		statusImage.hidden = FALSE;
@@ -222,13 +246,13 @@ static UIFont *CELL_FONT = nil;
 		[statusImage setAccessibilityValue:@"not delivered"];
 		statusImage.hidden = FALSE;
 
-		NSAttributedString* resend_text = [[NSAttributedString alloc]
-										   initWithString:NSLocalizedString(@"Resend", @"Resend")
-										   attributes:@{NSForegroundColorAttributeName: [UIColor redColor]}];
+		NSAttributedString *resend_text =
+			[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Resend", @"Resend")
+											attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}];
 		[dateLabel setAttributedText:resend_text];
 	}
 
-	if( outgoing){
+	if (outgoing) {
 		[messageText setAccessibilityLabel:@"Outgoing message"];
 	} else {
 		[messageText setAccessibilityLabel:@"Incoming message"];
@@ -240,72 +264,74 @@ static UIFont *CELL_FONT = nil;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
-	if(animated) {
+	if (animated) {
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
 	}
-	if(editing) {
+	if (editing) {
 		[deleteButton setAlpha:1.0f];
 	} else {
 		[deleteButton setAlpha:0.0f];
 	}
-	if(animated) {
+	if (animated) {
 		[UIView commitAnimations];
 	}
 }
 
-+ (CGSize)viewSize:(LinphoneChatMessage*)chat width:(int)width {
++ (CGSize)viewSize:(LinphoneChatMessage *)chat width:(int)width {
 	CGSize messageSize;
-	const char* url  = linphone_chat_message_get_external_body_url(chat);
-	const char* text = linphone_chat_message_get_text(chat);
-	NSString* messageText = text ? [UIChatRoomCell decodeTextMessage:text] : @"";
+	const char *url = linphone_chat_message_get_external_body_url(chat);
+	const char *text = linphone_chat_message_get_text(chat);
+	NSString *messageText = text ? [UIChatRoomCell decodeTextMessage:text] : @"";
 	if (url == nil && linphone_chat_message_get_file_transfer_information(chat) == NULL) {
-		if(CELL_FONT == nil) {
+		if (CELL_FONT == nil) {
 			CELL_FONT = [UIFont systemFontOfSize:CELL_FONT_SIZE];
 		}
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 
-		if( [[[UIDevice currentDevice] systemVersion] doubleValue] >= 7){
-			messageSize = [messageText
-						   boundingRectWithSize:CGSizeMake(width - CELL_MESSAGE_X_MARGIN, CGFLOAT_MAX)
-						   options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading)
-						   attributes:@{NSFontAttributeName: CELL_FONT}
-						   context:nil].size;
+		if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7) {
+			messageSize = [messageText boundingRectWithSize:CGSizeMake(width - CELL_MESSAGE_X_MARGIN, CGFLOAT_MAX)
+													options:(NSStringDrawingUsesLineFragmentOrigin |
+															 NSStringDrawingTruncatesLastVisibleLine |
+															 NSStringDrawingUsesFontLeading)
+												 attributes:@{
+													 NSFontAttributeName : CELL_FONT
+												 } context:nil]
+							  .size;
 		} else
 #endif
 		{
-			messageSize = [messageText sizeWithFont: CELL_FONT
-									 constrainedToSize: CGSizeMake(width - CELL_MESSAGE_X_MARGIN, 10000.0f)
-										 lineBreakMode: NSLineBreakByTruncatingTail];
+			messageSize = [messageText sizeWithFont:CELL_FONT
+								  constrainedToSize:CGSizeMake(width - CELL_MESSAGE_X_MARGIN, 10000.0f)
+									  lineBreakMode:NSLineBreakByTruncatingTail];
 		}
 	} else {
 		messageSize = CGSizeMake(CELL_IMAGE_WIDTH, CELL_IMAGE_HEIGHT);
 	}
 	messageSize.height += CELL_MESSAGE_Y_MARGIN;
-	if(messageSize.height < CELL_MIN_HEIGHT)
+	if (messageSize.height < CELL_MIN_HEIGHT)
 		messageSize.height = CELL_MIN_HEIGHT;
 	messageSize.width += CELL_MESSAGE_X_MARGIN;
-	if(messageSize.width < CELL_MIN_WIDTH)
+	if (messageSize.width < CELL_MIN_WIDTH)
 		messageSize.width = CELL_MIN_WIDTH;
 	return messageSize;
 }
 
-+ (CGFloat)height:(LinphoneChatMessage*)chatMessage width:(int)width {
++ (CGFloat)height:(LinphoneChatMessage *)chatMessage width:(int)width {
 	return [UIChatRoomCell viewSize:chatMessage width:width].height;
 }
-
 
 #pragma mark - View Functions
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	if(chat != nil) {
+	if (chat != nil) {
 		// Resize inner
 		CGRect innerFrame;
 		BOOL is_outgoing = linphone_chat_message_is_outgoing(chat);
 		innerFrame.size = [UIChatRoomCell viewSize:chat width:[self frame].size.width];
-		if(!is_outgoing) { // Inverted
+		if (!is_outgoing) { // Inverted
 			innerFrame.origin.x = 0.0f;
 			innerFrame.origin.y = 0.0f;
 		} else {
@@ -315,14 +341,14 @@ static UIFont *CELL_FONT = nil;
 		[innerView setFrame:innerFrame];
 
 		CGRect messageFrame = [bubbleView frame];
-		messageFrame.origin.y = ([innerView frame].size.height - messageFrame.size.height)/2;
-		if(!is_outgoing) { // Inverted
-			UIImage* image = [UIImage imageNamed:@"chat_bubble_incoming"];
+		messageFrame.origin.y = ([innerView frame].size.height - messageFrame.size.height) / 2;
+		if (!is_outgoing) { // Inverted
+			UIImage *image = [UIImage imageNamed:@"chat_bubble_incoming"];
 			image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(26, 32, 34, 56)];
 			[backgroundImage setImage:image];
 			messageFrame.origin.y += 5;
 		} else {
-			UIImage* image = [UIImage imageNamed:@"chat_bubble_outgoing"];
+			UIImage *image = [UIImage imageNamed:@"chat_bubble_outgoing"];
 			image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(14, 15, 25, 40)];
 			[backgroundImage setImage:image];
 			messageFrame.origin.y -= 5;
@@ -331,21 +357,23 @@ static UIFont *CELL_FONT = nil;
 	}
 }
 
-
 #pragma mark - Action Functions
 
 - (IBAction)onDeleteClick:(id)event {
-	if(chat != NULL) {
+	if (chat != NULL) {
 		if (ftd.message != nil) {
 			[ftd cancel];
 		}
 		UIView *view = [self superview];
 		// Find TableViewCell
-		while(view != nil && ![view isKindOfClass:[UITableView class]]) view = [view superview];
-		if(view != nil) {
-			UITableView *tableView = (UITableView*) view;
+		while (view != nil && ![view isKindOfClass:[UITableView class]])
+			view = [view superview];
+		if (view != nil) {
+			UITableView *tableView = (UITableView *)view;
 			NSIndexPath *indexPath = [tableView indexPathForCell:self];
-			[[tableView dataSource] tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+			[[tableView dataSource] tableView:tableView
+						   commitEditingStyle:UITableViewCellEditingStyleDelete
+							forRowAtIndexPath:indexPath];
 		}
 	}
 }
@@ -353,7 +381,6 @@ static UIFont *CELL_FONT = nil;
 - (IBAction)onDownloadClick:(id)event {
 	if (ftd.message == nil) {
 		ftd = [[FileTransferDelegate alloc] init];
-		[[[LinphoneManager instance] fileTransferDelegates] addObject:ftd];
 		[self connectToFileDelegate:ftd];
 		[ftd download:chat];
 		_cancelButton.hidden = NO;
@@ -362,11 +389,11 @@ static UIFont *CELL_FONT = nil;
 }
 
 - (IBAction)onCancelDownloadClick:(id)sender {
-	[ftd cancel];
+	FileTransferDelegate *tmp = ftd;
 	[self disconnectFromFileDelegate];
+	[tmp cancel];
 	[self update];
 }
-
 
 - (IBAction)onImageClick:(id)event {
 	LinphoneChatMessageState state = linphone_chat_message_get_state(self->chat);
@@ -387,7 +414,8 @@ static UIFont *CELL_FONT = nil;
 }
 
 - (IBAction)onResendClick:(id)event {
-	if( chat == nil ) return;
+	if (chat == nil)
+		return;
 
 	LinphoneChatMessageState state = linphone_chat_message_get_state(self->chat);
 	if (state == LinphoneChatMessageStateNotDelivered) {
@@ -423,10 +451,37 @@ static UIFont *CELL_FONT = nil;
 		}
 	}
 }
+#pragma mark - State changed handling
+static void message_status(LinphoneChatMessage *msg, LinphoneChatMessageState state) {
+	UIChatRoomCell *thiz = (__bridge UIChatRoomCell *)linphone_chat_message_get_user_data(msg);
+	LOGI(@"State for message [%p] changed to %s", msg, linphone_chat_message_state_to_string(state));
+	if (linphone_chat_message_get_file_transfer_information(msg) != NULL) {
+		if (state == LinphoneChatMessageStateDelivered || state == LinphoneChatMessageStateNotDelivered) {
+			// we need to refresh the tableview because the filetransfer delegate unreffed
+			// the chat message before state was LinphoneChatMessageStateFileTransferDone -
+			// if we are coming back from another view between unreffing and change of state,
+			// the transient message will not be found and it will not appear in the list of
+			// message, so we must refresh the table when we change to this state to ensure that
+			// all transient messages apppear
+			//		ChatRoomViewController *controller = DYNAMIC_CAST(
+			//			[[PhoneMainView instance] changeCurrentView:[ChatRoomViewController compositeViewDescription]
+			// push:TRUE],
+			//			ChatRoomViewController);
+			//		[controller.tableController setChatRoom:linphone_chat_message_get_chat_room(msg)];
+			// This is breaking interface too much, it must be fixed in file transfer cb.. meanwhile, disabling it.
+
+			if (thiz->ftd) {
+				[thiz->ftd stopAndDestroy];
+				thiz->ftd = nil;
+			}
+		}
+	}
+	[thiz update];
+}
 
 #pragma mark - LinphoneFileTransfer Notifications Handling
 
-- (void)connectToFileDelegate:(FileTransferDelegate*)aftd {
+- (void)connectToFileDelegate:(FileTransferDelegate *)aftd {
 	ftd = aftd;
 	_fileTransferProgress.progress = 0;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -445,7 +500,7 @@ static UIFont *CELL_FONT = nil;
 	ftd = nil;
 }
 
-- (void)onFileTransferSendUpdate:(NSNotification*)notif {
+- (void)onFileTransferSendUpdate:(NSNotification *)notif {
 	LinphoneChatMessageState state = [[[notif userInfo] objectForKey:@"state"] intValue];
 
 	if (state == LinphoneChatMessageStateInProgress) {
@@ -461,7 +516,7 @@ static UIFont *CELL_FONT = nil;
 		[self update];
 	}
 }
-- (void)onFileTransferRecvUpdate:(NSNotification*)notif {
+- (void)onFileTransferRecvUpdate:(NSNotification *)notif {
 	LinphoneChatMessageState state = [[[notif userInfo] objectForKey:@"state"] intValue];
 	if (state == LinphoneChatMessageStateInProgress) {
 		float progress = [[[notif userInfo] objectForKey:@"progress"] floatValue];
