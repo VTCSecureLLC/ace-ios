@@ -1920,7 +1920,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
     
     // VTCSecure add user location when emergency number is dialled.
-/*NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
+NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
         NSString *locationString;
         if (![[LinphoneLocationManager sharedManager] isAuthorized:TRUE]) locationString = NSLocalizedString(@"not authorized by user",nil);
@@ -1928,7 +1928,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         else locationString  =  [[LinphoneLocationManager sharedManager] currentLocationAsText];
         linphone_call_params_add_custom_header(lcallParams,"userLocation",[locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }
- */
+
     
 	if([self lpConfigBoolForKey:@"edge_opt_preference"]) {
 		bool low_bandwidth = self.network == network_2g;

@@ -104,6 +104,9 @@
 		34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */; };
 		344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDEF14850AE9007420B6 /* libc++.1.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		344ABDF214850AE9007420B6 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDF014850AE9007420B6 /* libstdc++.6.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		50263EF91B977D4700B20603 /* LinphoneLocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF71B977D4700B20603 /* LinphoneLocationManager.h */; };
+		50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF81B977D4700B20603 /* LinphoneLocationManager.m */; };
+		50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50263EFB1B977D9800B20603 /* CoreLocation.framework */; };
 		57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B0E35F173C010400A476B8 /* libpolarssl.a */; };
 		57F005C415EE2CCF00914747 /* linphonerc in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C315EE2CCF00914747 /* linphonerc */; };
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
@@ -1024,6 +1027,9 @@
 		34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoZoomHandler.m; path = LinphoneUI/VideoZoomHandler.m; sourceTree = "<group>"; };
 		344ABDEF14850AE9007420B6 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "usr/lib/libc++.1.dylib"; sourceTree = SDKROOT; };
 		344ABDF014850AE9007420B6 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		50263EF71B977D4700B20603 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinphoneLocationManager.h; path = Classes/LinphoneLocationManager.h; sourceTree = "<group>"; };
+		50263EF81B977D4700B20603 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LinphoneLocationManager.m; path = Classes/LinphoneLocationManager.m; sourceTree = "<group>"; };
+		50263EFB1B977D9800B20603 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		57B0E35F173C010400A476B8 /* libpolarssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpolarssl.a; path = "liblinphone-sdk/apple-darwin/lib/libpolarssl.a"; sourceTree = "<group>"; };
 		57F005C315EE2CCF00914747 /* linphonerc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = linphonerc; path = Resources/linphonerc; sourceTree = "<group>"; };
 		57F005C615EE2D9200914747 /* linphonerc-factory */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory"; path = "Resources/linphonerc-factory"; sourceTree = "<group>"; };
@@ -1879,6 +1885,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */,
 				63A4280A1B26F576000DAB93 /* libSKP_SILK_SDK.a in Frameworks */,
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				152F22341B15E83B008C0621 /* libilbcrfc3951.a in Frameworks */,
@@ -2208,6 +2215,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				50263EF71B977D4700B20603 /* LinphoneLocationManager.h */,
+				50263EF81B977D4700B20603 /* LinphoneLocationManager.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				F0938158188E629800A55DFA /* iTunesArtwork */,
@@ -2263,6 +2272,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50263EFB1B977D9800B20603 /* CoreLocation.framework */,
 				63EA4C941B50189D00922857 /* libmswebrtc.a */,
 				63158FAC1B468E0E00969917 /* ImageOptim.sh */,
 				152F22351B15E889008C0621 /* libxml2.dylib */,
@@ -4054,6 +4064,8 @@
 				D3807FC115C28940005BE9BC /* DCRoundSwitchKnobLayer.m in Sources */,
 				D3807FC315C28940005BE9BC /* DCRoundSwitchOutlineLayer.m in Sources */,
 				D3807FC515C28940005BE9BC /* DCRoundSwitchToggleLayer.m in Sources */,
+				50263EF91B977D4700B20603 /* LinphoneLocationManager.h in Sources */,
+				50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */,
 				D3807FE815C2894A005BE9BC /* IASKAppSettingsViewController.m in Sources */,
 				D3807FEA15C2894A005BE9BC /* IASKAppSettingsWebViewController.m in Sources */,
 				D3807FEC15C2894A005BE9BC /* IASKSpecifierValuesViewController.m in Sources */,
