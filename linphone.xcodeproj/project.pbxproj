@@ -3966,14 +3966,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		225F6C0A1B38282700A570DC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e727fa43831b5dba2cee9b8d0a4ddca21a88fef3 b48c10cd27410c248ee8637f855d91c30d2778b4c6342644e686a74e35ff05e7";
 		};
