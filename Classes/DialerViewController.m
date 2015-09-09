@@ -101,6 +101,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+    self.sipDomainLabel.text=@"";
+    self.addressField.sipDomain = nil;
 	// Set observer
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(callUpdateEvent:)
