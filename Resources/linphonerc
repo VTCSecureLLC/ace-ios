@@ -5,7 +5,7 @@ edge_ping_time=10
 edge_bw=10
 
 [sip]
-contact="Linphone iPhone" <sip:linphone.iphone@unknown-host>
+contact="VTCSecure iPhone" <sip:vtcsecure.iphone@unknown-host>
 keepalive_period=30000
 sip_port=-1
 sip_tcp_port=-1
@@ -17,11 +17,7 @@ register_only_when_network_is_up=1
 auto_net_state_mon=0
 keepalive_period=30000
 ping_with_options=0
-rtcp_xr_enabled=1
-rtcp_xr_rcvr_rtt_mode=all
-rtcp_xr_rcvr_rtt_max_size=10000
-rtcp_xr_stat_summary_enabled=1
-rtcp_xr_voip_metrics_enabled=1
+
 
 [rtp]
 audio_rtp_port=7076
@@ -29,20 +25,26 @@ video_rtp_port=9078
 audio_jitt_comp=60
 video_jitt_comp=60
 nortp_timeout=30
+rtcp_xr_enabled=0
+rtcp_xr_rcvr_rtt_mode=all
+rtcp_xr_rcvr_rtt_max_size=10000
+rtcp_xr_stat_summary_enabled=1
+rtcp_xr_voip_metrics_enabled=1
 
 [video]
 display=1
 capture=1
 show_local=0
 enabled=1
-size=qvga
+size=vga
 automatically_initiate=0
 automatically_accept=0
+preset=high-fps
 
 [net]
 firewall_policy=0
-download_bw=380
-upload_bw=380
+download_bw=660
+upload_bw=660
 
 [sound]
 playback_dev_id=AU: Audio Unit Receiver
@@ -59,6 +61,7 @@ backgroundmode_preference=1
 autoanswer_notif_preference=1
 voiceproc_preference=1
 enable_log_collect=0
+repeat_call_notification=1
 
 [default_values]
 reg_expires=600
@@ -80,3 +83,12 @@ stun=stun.linphone.org
 [misc]
 history_max_size=30
 max_calls=3
+
+[vtcsecure]
+incoming_flashlight_frequency=0.3
+incoming_flashred_frequency=0.3
+incoming_vibrate_frequency=2.0
+outgoing_ring_duration=2.8
+emergency_username=911
+external_domains=Sorenson.com,ZVRS.com,CAAG.com,PurpleVRS.com,GlobalVRS.com,Convo.com
+
