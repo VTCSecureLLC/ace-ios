@@ -48,7 +48,7 @@
                             <rect key="frame" x="35" y="37" width="250" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" red="1" green="0.54901960780000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter SIP address or phone number..." adjustsFontSizeToFit="NO" minimumFontSize="15" id="4" userLabel="addressField" customClass="UIAddressTextField">
@@ -56,7 +56,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" label="Enter a address"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                             <connections>
@@ -121,21 +121,8 @@
                                 <outlet property="addressField" destination="4" id="242"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="30" userLabel="4" customClass="UIDigitButton">
-                            <rect key="frame" x="0.0" y="73" width="107" height="54"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="4"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_four_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" image="numpad_four_over.png"/>
-                            <connections>
-                                <outlet property="addressField" destination="4" id="243"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="31" userLabel="5" customClass="UIDigitButton">
-                            <rect key="frame" x="108" y="73" width="106" height="54"/>
+                            <rect key="frame" x="107" y="73" width="107" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="5"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
@@ -236,6 +223,19 @@
                             <state key="highlighted" image="numpad_sharp_over.png"/>
                             <connections>
                                 <outlet property="addressField" destination="4" id="251"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="30" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="0.0" y="73" width="107" height="54"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <accessibility key="accessibilityConfiguration" label="4"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                            <state key="normal" image="numpad_four_default.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" image="numpad_four_over.png"/>
+                            <connections>
+                                <outlet property="addressField" destination="4" id="243"/>
                             </connections>
                         </button>
                     </subviews>
@@ -356,10 +356,10 @@
         <image name="call_disabled.png" width="214" height="138"/>
         <image name="call_over.png" width="214" height="138"/>
         <image name="dialer_address_background.png" width="640" height="135"/>
-        <image name="numpad_eight_default.png" width="220" height="113"/>
-        <image name="numpad_eight_over.png" width="220" height="113"/>
-        <image name="numpad_five_default.png" width="220" height="113"/>
-        <image name="numpad_five_over.png" width="220" height="113"/>
+        <image name="numpad_eight_default.png" width="210" height="113"/>
+        <image name="numpad_eight_over.png" width="210" height="113"/>
+        <image name="numpad_five_default.png" width="210" height="113"/>
+        <image name="numpad_five_over.png" width="210" height="113"/>
         <image name="numpad_four_default.png" width="210" height="113"/>
         <image name="numpad_four_over.png" width="210" height="113"/>
         <image name="numpad_nine_default.png" width="210" height="113"/>
@@ -376,10 +376,10 @@
         <image name="numpad_star_over.png" width="210" height="113"/>
         <image name="numpad_three_default.png" width="210" height="113"/>
         <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_default.png" width="220" height="113"/>
-        <image name="numpad_two_over.png" width="220" height="113"/>
-        <image name="numpad_zero_default.png" width="220" height="113"/>
-        <image name="numpad_zero_over.png" width="220" height="113"/>
+        <image name="numpad_two_default.png" width="210" height="113"/>
+        <image name="numpad_two_over.png" width="210" height="113"/>
+        <image name="numpad_zero_default.png" width="210" height="113"/>
+        <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="transfer_call_default.png" width="214" height="138"/>
         <image name="transfer_call_disabled.png" width="214" height="138"/>
         <image name="transfer_call_over.png" width="214" height="138"/>
