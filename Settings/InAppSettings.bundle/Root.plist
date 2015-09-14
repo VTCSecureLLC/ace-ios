@@ -243,6 +243,14 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>Resource</string>
+			<key>Title</key>
+			<string>Resource</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Development debug actions</string>
 			<key>Type</key>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>Deaf/HoH ACE Resources</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>contact_button</string>
+			<key>Title</key>
+			<string>Email ACE Team</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>web_button</string>
+			<key>Title</key>
+			<string>Website: VTCSecure</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>
