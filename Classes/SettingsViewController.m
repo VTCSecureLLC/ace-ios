@@ -112,7 +112,7 @@
 	// Background View
 	UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
 	cell.selectedBackgroundView = selectedBackgroundView;
-	[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+    [selectedBackgroundView setBackgroundColor:LINPHONE_MAIN_COLOR];//LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
 	return cell;
 }
 
@@ -142,8 +142,9 @@
 									  forControlEvents:UIControlEventValueChanged];
 		[((IASKSwitchEx *)cell.accessoryView)setOnTintColor:LINPHONE_MAIN_COLOR];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont systemFontSize];
+        cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont systemFontSize];
 		cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont systemFontSize];
+      //  cell.tintColor = LINPHONE_MAIN_COLOR;
 	} else {
 		cell = [super newCellForIdentifier:identifier];
 	}
@@ -178,7 +179,7 @@
 }
 
 - (void)initIASKAppSettingsViewControllerEx {
-	[self.view setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:LINPHONE_MAIN_COLOR];//[UIColor clearColor]];
 
 	// Force kIASKSpecifierValuesViewControllerIndex
 	static int kIASKSpecifierValuesViewControllerIndex = 0;
@@ -222,8 +223,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	[self.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
+    [self.tableView setBackgroundColor:LINPHONE_MAIN_COLOR];//[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[self.tableView setBackgroundView:nil];					  // Can't do it in Xib: issue with ios4
+ //   [[self view] setBackgroundColor:LINPHONE_MAIN_COLOR];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -262,7 +264,7 @@
 	}
 
 	if ([cell isKindOfClass:[IASKPSTitleValueSpecifierViewCell class]]) {
-		cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;//LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
 	} else {
 		cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;
 	}
@@ -270,7 +272,8 @@
 	// Background View
 	UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
 	cell.selectedBackgroundView = selectedBackgroundView;
-	[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+    [selectedBackgroundView setBackgroundColor:LINPHONE_MAIN_COLOR];//LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+    //cell.tintColor=LINPHONE_MAIN_COLOR;
 	return cell;
 }
 
@@ -291,7 +294,7 @@
 #pragma mark - Lifecycle Functions
 
 - (void)initUINavigationBarEx {
-	[self setTintColor:[LINPHONE_MAIN_COLOR adjustHue:5.0f / 180.0f saturation:0.0f brightness:0.0f alpha:0.0f]];
+    [self setTintColor:LINPHONE_MAIN_COLOR];//[LINPHONE_MAIN_COLOR adjustHue:5.0f / 180.0f saturation:0.0f brightness:0.0f alpha:0.0f]];
 }
 
 - (id)init {
@@ -321,6 +324,9 @@
 - (void)drawRect:(CGRect)rect {
 	UIImage *img = [UIImage imageNamed:@"toolsbar_background.png"];
 	[img drawInRect:rect];
+    //self.tintColor=LINPHONE_MAIN_COLOR;
+//    self.tableView.backgroundColor=LINPHONE_MAIN_COLOR;
+
 }
 
 @end
@@ -344,7 +350,7 @@
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
 		[view setBackgroundColor:LINPHONE_SETTINGS_BG_IOS7];
 	else
-		[view setBackgroundColor:[UIColor clearColor]];
+        [view setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -352,9 +358,9 @@
 
 	[viewController viewWillAppear:animated]; // Force view
 	UILabel *labelTitleView = [[UILabel alloc] init];
-	labelTitleView.backgroundColor = [UIColor clearColor];
-	labelTitleView.textColor = [UIColor colorWithRed:0x41 / 255.0f green:0x48 / 255.0f blue:0x4f / 255.0f alpha:1.0];
-	labelTitleView.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+   // labelTitleView.backgroundColor = LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
+    labelTitleView.textColor = LINPHONE_MAIN_COLOR;//[UIColor colorWithRed:0x41 / 255.0f green:0x48 / 255.0f blue:0x4f / 255.0f alpha:1.0];
+	//labelTitleView.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.5];
 	labelTitleView.font = [UIFont boldSystemFontOfSize:20];
 	labelTitleView.shadowOffset = CGSizeMake(0, 1);
 	labelTitleView.textAlignment = NSTextAlignmentCenter;
@@ -426,12 +432,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 	settingsController.delegate = self;
 	settingsController.showCreditsFooter = FALSE;
 	settingsController.settingsStore = settingsStore;
-
-	[navigationController.view setBackgroundColor:[UIColor clearColor]];
+    settingsController.view.backgroundColor =LINPHONE_MAIN_COLOR;
+    [navigationController.view setBackgroundColor:LINPHONE_MAIN_COLOR];//[UIColor clearColor]];
 
 	navigationController.view.frame = self.view.frame;
 	[navigationController pushViewController:settingsController animated:FALSE];
 	[self.view addSubview:navigationController.view];
+   // [self.view addSubview:navigationController.view.tintColor= LINPHONE_MAIN_COLOR];
+    //[self.view.backgroundColor=LINPHONE_MAIN_COLOR];
+    //[self.tableView.backgroundColor=LINPHONE_MAIN_COLOR];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
