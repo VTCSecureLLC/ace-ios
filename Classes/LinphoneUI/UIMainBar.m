@@ -419,7 +419,9 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)onChatClick:(id)event {
-	[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
+    [[PhoneMainView instance] changeCurrentView:[HelpViewController compositeViewDescription]];
+
+    //[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
 }
 
 #pragma mark - TPMultiLayoutViewController Functions

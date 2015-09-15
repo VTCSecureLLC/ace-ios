@@ -669,6 +669,9 @@
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
 		737AE6D41B9A6D2200AAFC40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */; };
+		73FC50131BA887F200A02E21 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FC50101BA887F200A02E21 /* HelpViewController.m */; };
+		73FC50141BA887F200A02E21 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73FC50111BA887F200A02E21 /* HelpViewController.xib */; };
+		73FC50151BA887F200A02E21 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 73FC50121BA887F200A02E21 /* ja.lproj */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254315AE204D00D493FA /* options_add_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8253F15AE204D00D493FA /* options_add_disabled.png */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
@@ -2103,6 +2106,10 @@
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		73FC500F1BA887F200A02E21 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		73FC50101BA887F200A02E21 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		73FC50111BA887F200A02E21 /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		73FC50121BA887F200A02E21 /* ja.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ja.lproj; path = Classes/ja.lproj; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
@@ -2998,6 +3005,9 @@
 			isa = PBXGroup;
 			children = (
 				22E0A81D111C44E100B04932 /* AboutViewController.h */,
+				73FC500F1BA887F200A02E21 /* HelpViewController.h */,
+				73FC50101BA887F200A02E21 /* HelpViewController.m */,
+				73FC50111BA887F200A02E21 /* HelpViewController.xib */,
 				22E0A81C111C44E100B04932 /* AboutViewController.m */,
 				636316D31A1DEBCB0009B839 /* AboutViewController.xib */,
 				D32B6E2715A5BC430033019F /* ChatRoomTableViewController.h */,
@@ -3195,6 +3205,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				73FC50121BA887F200A02E21 /* ja.lproj */,
 				737AE6CD1B9A6D2200AAFC40 /* Security.framework */,
 				737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */,
 				737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */,
@@ -5018,6 +5029,7 @@
 				50B007D61BA09C79002C5723 /* route_phone_off_default_landscape.png in Resources */,
 				50B006771BA09C79002C5723 /* accept_over_landscape~ipad.png in Resources */,
 				F088488A19FF8C41007FFCF3 /* UIContactCell.xib in Resources */,
+				73FC50141BA887F200A02E21 /* HelpViewController.xib in Resources */,
 				D38187E115FE349700C3EDCA /* UICallBar.xib in Resources */,
 				D31C9C90158A1C1000756B45 /* call_status_incoming.png in Resources */,
 				D31C9C92158A1C1000756B45 /* call_status_missed.png in Resources */,
@@ -5325,6 +5337,7 @@
 				50B007A51BA09C79002C5723 /* options_default~ipad.png in Resources */,
 				D3C31A5E15BD8DED008ED271 /* options_transfer_disabled_landscape.png in Resources */,
 				50B0079F1BA09C79002C5723 /* options_add_over_landscape~ipad.png in Resources */,
+				73FC50151BA887F200A02E21 /* ja.lproj in Resources */,
 				50B007D71BA09C79002C5723 /* route_phone_off_default.png in Resources */,
 				50B006E41BA09C79002C5723 /* chat_send_disabled.png in Resources */,
 				D3C31A6015BD8DED008ED271 /* options_transfer_over_landscape.png in Resources */,
@@ -5980,6 +5993,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
+				73FC50131BA887F200A02E21 /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
 				D3A55FBC15877E5E003FD403 /* UIContactCell.m in Sources */,
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,

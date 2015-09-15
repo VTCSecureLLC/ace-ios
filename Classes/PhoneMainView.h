@@ -34,6 +34,7 @@
 #import "ContactDetailsViewController.h"
 #import "ContactDetailsLabelViewController.h"
 #import "ImagePickerViewController.h"
+#import "HelpViewController.h"
 #import "HistoryViewController.h"
 #import "HistoryDetailsViewController.h"
 #import "InCallViewController.h"
