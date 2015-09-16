@@ -32,11 +32,13 @@
 @synthesize avatarImage;
 @synthesize call;
 @synthesize delegate;
+@synthesize ringCountLabel;
+
 
 #pragma mark - Lifecycle Functions
 
 - (id)init {
-	return [super initWithNibName:@"IncomingCallViewController" bundle:[NSBundle mainBundle]];
+    return [super initWithNibName:@"IncomingCallViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void)dealloc {
@@ -45,14 +47,32 @@
 
 #pragma mark - ViewController Functions
 
+- (void)displayIncrementedRingCount {
+    ringCountLabel.hidden = NO;
+    [UIView transitionWithView: ringCountLabel
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        ringCountLabel.text = [@(ringCountLabel.text.intValue + 1) stringValue];
+                    }
+                    completion:nil];
+}
+
+- (void)stopRingCount {
+    ringCountLabel.hidden = YES;
+    ringCountLabel.text = @"0";
+}
 
 -(void) toggleBackgroundColor {
+    
     if (self.view.backgroundColor == [UIColor redColor]) [self.view setBackgroundColor:[UIColor whiteColor]];
     else [self.view setBackgroundColor:[UIColor redColor]];
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    ringCountLabel.hidden = YES;
+    ringCountLabel.text = @"0";
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     self.device = nil;
     if (captureDeviceClass != nil) {
@@ -76,6 +96,7 @@
 }
 
 - (void) vibrate {
+    [self displayIncrementedRingCount];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
@@ -137,6 +158,7 @@
     [self stopFlashCameraLed];
     [self.vibratorTimer invalidate];
     [self.flashBackgroundColorTimer invalidate];
+    [self stopRingCount];
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kLinphoneCallUpdate
