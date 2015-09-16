@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallBar">
@@ -67,7 +67,7 @@
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_one_default.png">
+                            <state key="normal" backgroundImage="numpad_one_default.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted" image="numpad_one_over.png"/>
@@ -482,7 +482,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.050980392156862744" green="0.13333333333333333" blue="0.17647058823529413" alpha="0.0" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
@@ -936,10 +936,10 @@
         <image name="micro_off_over_landscape.png" width="130" height="163"/>
         <image name="micro_on_default.png" width="160" height="134"/>
         <image name="micro_on_default_landscape.png" width="130" height="163"/>
-        <image name="numpad_eight_default.png" width="220" height="113"/>
-        <image name="numpad_eight_over.png" width="220" height="113"/>
-        <image name="numpad_five_default.png" width="220" height="113"/>
-        <image name="numpad_five_over.png" width="220" height="113"/>
+        <image name="numpad_eight_default.png" width="210" height="113"/>
+        <image name="numpad_eight_over.png" width="210" height="113"/>
+        <image name="numpad_five_default.png" width="210" height="113"/>
+        <image name="numpad_five_over.png" width="210" height="113"/>
         <image name="numpad_four_default.png" width="210" height="113"/>
         <image name="numpad_four_over.png" width="210" height="113"/>
         <image name="numpad_nine_default.png" width="210" height="113"/>
@@ -956,10 +956,10 @@
         <image name="numpad_star_over.png" width="210" height="113"/>
         <image name="numpad_three_default.png" width="210" height="113"/>
         <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_default.png" width="220" height="113"/>
-        <image name="numpad_two_over.png" width="220" height="113"/>
-        <image name="numpad_zero_default.png" width="220" height="113"/>
-        <image name="numpad_zero_over.png" width="220" height="113"/>
+        <image name="numpad_two_default.png" width="210" height="113"/>
+        <image name="numpad_two_over.png" width="210" height="113"/>
+        <image name="numpad_zero_default.png" width="210" height="113"/>
+        <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="options_add_default.png" width="155" height="137"/>
         <image name="options_add_default_landscape.png" width="129" height="109"/>
         <image name="options_add_disabled.png" width="155" height="137"/>

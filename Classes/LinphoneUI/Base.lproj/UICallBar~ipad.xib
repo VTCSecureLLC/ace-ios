@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallBar">
@@ -739,10 +739,10 @@
         <image name="micro_off_over_landscape.png" width="159" height="170"/>
         <image name="micro_on_default.png" width="159" height="170"/>
         <image name="micro_on_default_landscape.png" width="159" height="170"/>
-        <image name="numpad_eight_default.png" width="220" height="113"/>
-        <image name="numpad_eight_over.png" width="220" height="113"/>
-        <image name="numpad_five_default.png" width="220" height="113"/>
-        <image name="numpad_five_over.png" width="220" height="113"/>
+        <image name="numpad_eight_default.png" width="210" height="113"/>
+        <image name="numpad_eight_over.png" width="210" height="113"/>
+        <image name="numpad_five_default.png" width="210" height="113"/>
+        <image name="numpad_five_over.png" width="210" height="113"/>
         <image name="numpad_four_default.png" width="210" height="113"/>
         <image name="numpad_four_over.png" width="210" height="113"/>
         <image name="numpad_nine_default.png" width="210" height="113"/>
@@ -759,10 +759,10 @@
         <image name="numpad_star_over.png" width="210" height="113"/>
         <image name="numpad_three_default.png" width="210" height="113"/>
         <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_default.png" width="220" height="113"/>
-        <image name="numpad_two_over.png" width="220" height="113"/>
-        <image name="numpad_zero_default.png" width="220" height="113"/>
-        <image name="numpad_zero_over.png" width="220" height="113"/>
+        <image name="numpad_two_default.png" width="210" height="113"/>
+        <image name="numpad_two_over.png" width="210" height="113"/>
+        <image name="numpad_zero_default.png" width="210" height="113"/>
+        <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="options_add_default.png" width="162" height="137"/>
         <image name="options_add_default_landscape.png" width="162" height="137"/>
         <image name="options_add_disabled_landscape.png" width="162" height="137"/>
