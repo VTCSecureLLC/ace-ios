@@ -110,14 +110,14 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Chat" backgroundImage="chat_default.png">
+                    <state key="normal" title="Resource" backgroundImage="resources_default.png">
                         <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="chat_selected.png">
+                    <state key="selected" backgroundImage="resources_over.png">
                         <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="chat_over.png">
+                    <state key="highlighted" backgroundImage="resources_over.png">
                         <color key="titleColor" red="0.72549019609999998" green="0.76862745099999996" blue="0.79607843140000001" alpha="1" colorSpace="deviceRGB"/>
                     </state>
                     <connections>
@@ -258,9 +258,6 @@
         </view>
     </objects>
     <resources>
-        <image name="chat_default.png" width="128" height="154"/>
-        <image name="chat_over.png" width="128" height="154"/>
-        <image name="chat_selected.png" width="128" height="154"/>
         <image name="contacts_default.png" width="128" height="154"/>
         <image name="contacts_over.png" width="128" height="154"/>
         <image name="contacts_selected.png" width="128" height="154"/>
@@ -273,6 +270,8 @@
         <image name="history_notification.png" width="43" height="43"/>
         <image name="history_over.png" width="128" height="154"/>
         <image name="history_selected.png" width="128" height="154"/>
+        <image name="resources_default.png" width="128" height="154"/>
+        <image name="resources_over.png" width="128" height="154"/>
         <image name="settings_default.png" width="128" height="154"/>
         <image name="settings_over.png" width="128" height="154"/>
         <image name="settings_selected.png" width="128" height="154"/>

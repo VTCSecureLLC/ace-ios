@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-         tableData = [NSArray arrayWithObjects:@"Email ACE Team", @"Website: VTCSecure", nil];
+         tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
     // Do any additional setup after loading the view from its nib.
 }
 

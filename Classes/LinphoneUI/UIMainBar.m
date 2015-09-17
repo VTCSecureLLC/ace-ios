@@ -158,11 +158,11 @@ static NSString *const kDisappearAnimation = @"disappear";
 	{
 		UIButton *chatButtonLandscape = (UIButton *)[landscapeView viewWithTag:[chatButton tag]];
 		// Set selected+over background: IB lack !
-		[chatButton setBackgroundImage:[UIImage imageNamed:@"chat_selected.png"]
+		[chatButton setBackgroundImage:[UIImage imageNamed:@"resources_selected.png"]
 							  forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
 		// Set selected+over background: IB lack !
-		[chatButtonLandscape setBackgroundImage:[UIImage imageNamed:@"chat_selected_landscape.png"]
+		[chatButtonLandscape setBackgroundImage:[UIImage imageNamed:@"resources_selected~ipad.png"]
 									   forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
 		[LinphoneUtils buttonFixStatesForTabs:chatButton];
