@@ -15,12 +15,14 @@
 @implementation HelpViewController{
     
     NSArray *tableData;
+    NSArray *tableImages;
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-         tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
+    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
+    tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -39,6 +41,8 @@
     }
     
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
+    cell.imageView.image = [tableImages objectAtIndex:indexPath.row];
+
     return cell;
 }
 - (void)didReceiveMemoryWarning {
