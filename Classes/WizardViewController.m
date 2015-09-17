@@ -30,6 +30,8 @@
 
 #import "DTAlertView.h"
 
+#define DATEPICKER_HEIGHT 230
+
 typedef enum _ViewElement {
     ViewElement_Username            = 100,
     ViewElement_Password            = 101,
@@ -52,6 +54,8 @@ typedef enum _ViewElement {
 @synthesize externalAccountView;
 @synthesize validateAccountView;
 @synthesize provisionedAccountView;
+@synthesize serviceSelectionView;
+@synthesize loginView;
 @synthesize waitView;
 
 @synthesize backButton;
@@ -85,19 +89,7 @@ typedef enum _ViewElement {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-
-
-
-
-
-
-
-
-
-
 }
-
 
 #pragma mark - UICompositeViewDelegate Functions
 
@@ -125,6 +117,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    UIImage *image = [UIImage imageNamed:@"backArrow.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.selectProviderButton.frame.size.width - 41, 0, 41, 41)];
+    [imageView setContentMode:UIViewContentModeCenter];
+    [imageView setImage:image];
+    imageView.transform = CGAffineTransformMakeRotation(M_PI);
+    [self.selectProviderButton addSubview:imageView];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(registrationUpdateEvent:)
                                                  name:kLinphoneRegistrationUpdate
@@ -185,6 +184,29 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.buttonVideoRelayService.layer setBorderWidth:1.0];
+    [self.buttonVideoRelayService.layer setCornerRadius:5];
+    [self.buttonIPRelay.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.buttonIPRelay.layer setBorderWidth:1.0];
+    [self.buttonIPRelay.layer setCornerRadius:5];
+    [self.buttonIPCTS.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.buttonIPCTS.layer setBorderWidth:1.0];
+    [self.buttonIPCTS.layer setCornerRadius:5];
+    [self.buttonLogin.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.buttonLogin.layer setBorderWidth:1.0];
+    [self.buttonLogin.layer setCornerRadius:5];
+    [self.selectProviderButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.selectProviderButton.layer setBorderWidth:1.0];
+    [self.selectProviderButton.layer setCornerRadius:5];
+    [self.viewUsernameBG.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.viewUsernameBG.layer setBorderWidth:1.0];
+    [self.viewUsernameBG.layer setCornerRadius:5];
+    [self.viewPasswordBG.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.viewPasswordBG.layer setBorderWidth:1.0];
+    [self.viewPasswordBG.layer setCornerRadius:5];
+    
+    
     [viewTapGestureRecognizer setCancelsTouchesInView:FALSE];
     [viewTapGestureRecognizer setDelegate:self];
     [contentView addGestureRecognizer:viewTapGestureRecognizer];
@@ -308,7 +330,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"hide_wizard_welcome_view_preference"] == true) {
         [self changeView:choiceView back:FALSE animation:FALSE];
     } else {
-        [self changeView:welcomeView back:FALSE animation:FALSE];
+        [self changeView:serviceSelectionView back:FALSE animation:FALSE];
     }
     [waitView setHidden:TRUE];
 }
@@ -501,7 +523,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     [self clearProxyConfig];
 
+//    NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%@", self.textFieldDomain.text, self.textFieldPort.text];
     linphone_proxy_config_enable_register(proxyCfg, true);
+//    linphone_proxy_config_set_server_addr(proxyCfg, [serverAddress UTF8String]);
 	linphone_core_add_auth_info(lc, info);
     linphone_core_add_proxy_config(lc, proxyCfg);
 	linphone_core_set_default_proxy_config(lc, proxyCfg);
@@ -698,6 +722,30 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 #pragma mark - Action Functions
+
+- (IBAction)onVideoRelayServiceClick:(id)sender {
+    [self changeView:loginView back:FALSE animation:TRUE];
+}
+
+- (IBAction)onIPRelayClick:(id)sender {
+    [self changeView:loginView back:FALSE animation:TRUE];
+}
+
+- (IBAction)onIPCTSClick:(id)sender {
+    [self changeView:loginView back:FALSE animation:TRUE];
+}
+
+- (IBAction)onSelectProviderClick:(id)sender {
+    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT)
+                                                    SourceList:@[@"Provider1", @"Provider2", @"Provider3", @"Provider4", @"Provider5"]];
+    providerPickerView.delegate = self;
+    providerPickerView.frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    [self.view addSubview:providerPickerView];
+}
+
+- (IBAction)onLoginClick:(id)sender {
+    [self apiSignIn];
+}
 
 - (IBAction)onStartClick:(id)sender {
     [self changeView:choiceView back:FALSE animation:TRUE];
@@ -1170,6 +1218,134 @@ static UICompositeViewDescription *compositeDescription = nil;
         }
     }
     return YES;
+}
+
+#pragma mark - UICustomPicker Delegate
+
+- (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
+    [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
+}
+
+- (void)apiSignIn {
+//    NSDictionary *userDict = @{ @"user" : @{
+//                                        @"email" : self.textFieldUsername.text,
+//                                        @"password" : self.textFieldPassword.text
+//                                        }
+//                                };
+//    
+//    NSError *jsonSerializationError = nil;
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDict
+//                                                       options:NSJSONWritingPrettyPrinted error:&jsonSerializationError];
+//    
+//    if(jsonSerializationError) {
+//        NSLog(@"JSON Encoding Failed: %@", [jsonSerializationError localizedDescription]);
+//    }
+//    else
+//    {
+//        NSLog(@"JSON Request: %@", [[NSString alloc] initWithData:jsonData
+//                                                         encoding:NSUTF8StringEncoding]);
+//        
+//    }
+//    
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/users/sign_in", @"https://crm.videoremoteassistance.com"]];
+//    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    NSArray *cookies = [cookieStorage cookiesForURL:url];
+//    for (NSHTTPCookie *cookie in cookies) {
+//        [cookieStorage deleteCookie:cookie];
+//    }
+//    
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody: jsonData];
+//    
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response,
+//                                               NSData *data, NSError *connectionError)
+//     {
+//         NSInteger response_code = -1;
+//         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+//             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+//             response_code = [httpResponse statusCode];
+//         }
+//         if (connectionError.code == kCFURLErrorUserCancelledAuthentication) response_code = 401;
+//         
+//         NSLog(@"VisualAccessHomeViewController apiSignIn response_code = %ld",(long)response_code);
+//         
+//         if (connectionError)
+//         {
+//             NSLog(@"%@",[connectionError localizedDescription]);
+//             if(response_code && (response_code == 401 || response_code == 403)) {
+//                 [self showAlert:@"Login or password is incorrect"];
+//             } else {
+//                 [self showAlert:[connectionError localizedDescription]];
+//             }
+//         }
+//         else
+//         {
+//             if (data.length > 0 && connectionError == nil)
+//             {
+//                 NSError* jsonDeSerializationError = nil;
+//                 NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data
+//                                                                          options:kNilOptions
+//                                                                            error:&jsonDeSerializationError];
+//                 if(jsonDeSerializationError) {
+//                     NSLog(@"JSON Decoding Failed: %@", [jsonDeSerializationError localizedDescription]);
+//                     [self showAlert:@"The server responded with bad data"];
+//                 } else {
+//                     NSLog(@"Successfully logged in");
+//                     
+//                     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:response
+//                                                                        options:NSJSONWritingPrettyPrinted error:nil];
+//                     NSLog(@"JSON Response: %@", [[NSString alloc] initWithData:jsonData
+//                                                                       encoding:NSUTF8StringEncoding]);
+//                     
+//                     NSString *password = [response objectForKey:@"auth_token"];
+//                     NSString *username = [response objectForKey:@"pbx_extension"];
+//                     
+//                     [[LinphoneManager instance] lpConfigSetString:password forKey:@"password_preference"];
+//                     [[LinphoneManager instance] lpConfigSetString:username forKey:@"username_preference"];
+//                     
+//                     NSString *full_name =
+//                     [NSString stringWithFormat:@"%@ %@",
+//                      [response objectForKey:@"first_name"],
+//                      [response objectForKey:@"last_name"]];
+//                     
+//                     LinphoneCore *lc = [LinphoneManager getLc];
+//                     LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
+//                     
+//                     
+//                     linphone_address_set_display_name(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+//                     linphone_address_set_username(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+//
+//                     [self verificationSignInWithUsername:username
+//                                                 password:password
+//                                                   domain:@"pbx.videoremoteassistance.com"
+//                                            withTransport:@"UDP"];
+//                 }
+//             }
+//         }
+//     }];
+    
+    [self verificationSignInWithUsername:self.textFieldUsername.text
+                                password:self.textFieldPassword.text
+                                  domain:self.textFieldDomain.text
+                           withTransport:@"TCP"];
+}
+
+-(void) showAlert:(NSString*)message{
+    NSLog(@"VisualAccessHomeViewController showAlert %@",message);
+    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"VisualAccess"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 @end

@@ -21,6 +21,7 @@
 #import <XMLRPCConnectionDelegate.h>
 #import "UICompositeViewController.h"
 #import "UILinphoneTextField.h"
+#import "UICustomPicker.h"
 #import "LinphoneUI/UILinphoneButton.h"
 
 @interface WizardViewController : TPMultiLayoutViewController
@@ -28,13 +29,15 @@
     UICompositeViewDelegate,
     XMLRPCConnectionDelegate,
     UIGestureRecognizerDelegate,
-    UIAlertViewDelegate>
+    UIAlertViewDelegate,
+    UICustomPickerDelegate>
 {
     @private
     UITextField *activeTextField;
     UIView *currentView;
     UIView *nextView;
     NSMutableArray *historyViews;
+    UICustomPicker *providerPickerView;
 }
 
 @property (nonatomic, strong) IBOutlet UIScrollView *contentView;
@@ -46,6 +49,16 @@
 @property (nonatomic, strong) IBOutlet UIView *externalAccountView;
 @property (nonatomic, strong) IBOutlet UIView *validateAccountView;
 @property (strong, nonatomic) IBOutlet UIView *provisionedAccountView;
+@property (strong, nonatomic) IBOutlet UIView *serviceSelectionView;
+@property (strong, nonatomic) IBOutlet UIView *loginView;
+@property (weak, nonatomic) IBOutlet UIButton *buttonVideoRelayService;
+@property (weak, nonatomic) IBOutlet UIButton *buttonIPRelay;
+@property (weak, nonatomic) IBOutlet UIButton *buttonIPCTS;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
+@property (weak, nonatomic) IBOutlet UIView *viewUsernameBG;
+@property (weak, nonatomic) IBOutlet UIView *viewPasswordBG;
+
+
 
 @property (nonatomic, strong) IBOutlet UIView *waitView;
 
@@ -55,6 +68,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *connectAccountButton;
 @property (nonatomic, strong) IBOutlet UIButton *externalAccountButton;
 @property (strong, nonatomic) IBOutlet UIButton *remoteProvisioningButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectProviderButton;
 @property (strong, nonatomic) IBOutlet UILinphoneButton *registerButton;
 @property (strong, nonatomic) IBOutlet UILinphoneButton *purchaseButton;
 
@@ -65,6 +79,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *provisionedUsername;
 @property (strong, nonatomic) IBOutlet UITextField *provisionedPassword;
 @property (strong, nonatomic) IBOutlet UITextField *provisionedDomain;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldUsername;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldDomain;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldPort;
+
 
 @property (nonatomic, strong) IBOutlet UIImageView *choiceViewLogoImageView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *transportChooser;
