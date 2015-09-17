@@ -114,7 +114,7 @@
                         <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="resources_over.png">
+                    <state key="selected" backgroundImage="resources_selected.png">
                         <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="highlighted" backgroundImage="resources_over.png">
@@ -272,6 +272,7 @@
         <image name="history_selected.png" width="128" height="154"/>
         <image name="resources_default.png" width="128" height="154"/>
         <image name="resources_over.png" width="128" height="154"/>
+        <image name="resources_selected.png" width="128" height="154"/>
         <image name="settings_default.png" width="128" height="154"/>
         <image name="settings_over.png" width="128" height="154"/>
         <image name="settings_selected.png" width="128" height="154"/>

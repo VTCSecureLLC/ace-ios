@@ -388,7 +388,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 	} else {
 		settingsButton.selected = FALSE;
 	}
-	if ([view equal:[ChatViewController compositeViewDescription]]) {
+	if ([view equal:[HelpViewController compositeViewDescription]]) {
 		chatButton.selected = TRUE;
 	} else {
 		chatButton.selected = FALSE;
