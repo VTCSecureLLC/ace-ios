@@ -42,7 +42,7 @@
 @property (nonatomic, strong) id<IncomingCallViewDelegate> delegate;
 @property (strong)  NSTimer *cameraLedFlasherTimer,*vibratorTimer,*flashBackgroundColorTimer ;
 @property (strong) AVCaptureDevice *device;
-
+@property (strong, nonatomic) IBOutlet UILabel *ringCountLabel;
 
 - (IBAction)onAcceptClick:(id) event;
 - (IBAction)onDeclineClick:(id) event;

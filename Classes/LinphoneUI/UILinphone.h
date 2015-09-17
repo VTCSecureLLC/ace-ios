@@ -19,9 +19,9 @@
 
 #import <UIKit/UIColor.h>
 
-#define LINPHONE_MAIN_COLOR       [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0f]
+#define LINPHONE_MAIN_COLOR       [UIColor colorWithRed:140.0f/255.0f green:201.0f/255.0f blue:229.0f/255.0f alpha:1.0f]
 #define LINPHONE_SETTINGS_BG_IOS7 [UIColor colorWithRed:164/255. green:175/255. blue:183/255. alpha:1.0]//[UIColor colorWithWhite:0.88 alpha:1.0]
-#define LINPHONE_TABLE_CELL_BACKGROUND_COLOR [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0f]
+#define LINPHONE_TABLE_CELL_BACKGROUND_COLOR [UIColor colorWithRed:14.0f/255.0f green:46.0f/255.0f blue:60.0f/255.0f alpha:1.0f]
 
 @interface UIColor (LightAndDark)
 
