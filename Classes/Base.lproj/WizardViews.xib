@@ -753,10 +753,9 @@
         <image name="button_background_default.png" width="550" height="101"/>
         <image name="button_background_over.png" width="550" height="101"/>
         <image name="field_background.png" width="542" height="88"/>
-        <image name="logo.png" width="958" height="801"/>
         <image name="keyIcon.png" width="17" height="23"/>
+        <image name="logo.png" width="958" height="801"/>
         <image name="personIcon.png" width="22" height="23"/>
-
         <image name="setup_welcome_logo.png" width="179" height="161"/>
         <image name="vatrpLogo.png" width="175" height="72"/>
     </resources>

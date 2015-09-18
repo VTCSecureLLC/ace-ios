@@ -285,7 +285,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if ([[LinphoneManager instance] lpConfigBoolForKey:@"hide_wizard_welcome_view_preference"] == true) {
 		[self changeView:choiceView back:FALSE animation:FALSE];
 	} else {
-		[self changeView:welcomeView back:FALSE animation:FALSE];
+		[self changeView:serviceSelectionView back:FALSE animation:FALSE];
 	}
 	[waitView setHidden:TRUE];
 }
