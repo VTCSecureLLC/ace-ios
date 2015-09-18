@@ -665,6 +665,8 @@
 		7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
+		730B7EE61BACB3E800C948B9 /* VATRP Images in Resources */ = {isa = PBXBuildFile; fileRef = 730B7EE51BACB3E800C948B9 /* VATRP Images */; };
+		730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 730B7EEE1BACB57100C948B9 /* UICustomPicker.m */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
@@ -2103,6 +2105,9 @@
 		7066FC0B13E830E400EFC6DC /* libvpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvpx.a; path = "liblinphone-sdk/apple-darwin/lib/libvpx.a"; sourceTree = "<group>"; };
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		730B7EE51BACB3E800C948B9 /* VATRP Images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "VATRP Images"; path = "Resources/VATRP Images"; sourceTree = "<group>"; };
+		730B7EED1BACB57100C948B9 /* UICustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomPicker.h; sourceTree = "<group>"; };
+		730B7EEE1BACB57100C948B9 /* UICustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomPicker.m; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -3104,6 +3109,8 @@
 		2214EB7012F84668002A5394 /* LinphoneUI */ = {
 			isa = PBXGroup;
 			children = (
+				730B7EED1BACB57100C948B9 /* UICustomPicker.h */,
+				730B7EEE1BACB57100C948B9 /* UICustomPicker.m */,
 				D35E757F159328EA0066B1C1 /* UIAddressTextField.h */,
 				D35E7580159328EB0066B1C1 /* UIAddressTextField.m */,
 				22C7555E1317E59C007BC101 /* UIBluetoothButton.h */,
@@ -3236,6 +3243,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				730B7EE51BACB3E800C948B9 /* VATRP Images */,
 				73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */,
 				D3C714B2159DB84400705B8E /* hold.wav */,
 				F0B4FB5C1A65550B00637027 /* Images.xcassets */,
@@ -5231,6 +5239,7 @@
 				D3D14E7C15A711700074A527 /* avatar_shadow_small.png in Resources */,
 				D38187B915FE342200C3EDCA /* ContactDetailsViewController.xib in Resources */,
 				50B006EF1BA09C79002C5723 /* contact_back_over.png in Resources */,
+				730B7EE61BACB3E800C948B9 /* VATRP Images in Resources */,
 				D3128FEF15AABE4E00A2147A /* contact_back_default.png in Resources */,
 				50B007F01BA09C79002C5723 /* security_pending.png in Resources */,
 				D3128FF115AABE4E00A2147A /* contact_back_over.png in Resources */,
@@ -6063,6 +6072,7 @@
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
+				730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,
 				637157A11B283FE200C91677 /* FileTransferDelegate.m in Sources */,

@@ -2,7 +2,6 @@
 # BUILDING THE SDK
 
 Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makefiles and shell scripts.
-
 * GPL third parties versus non GPL third parties
 
  This SDK can be generated in 2 flavors. First is with GPL third parties, it means liblinphone includes GPL third parties like FFMPEG or X264.
