@@ -4729,7 +4729,7 @@
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = Z2V957B3D6;
+						DevelopmentTeam = N35DF75MHS;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -7418,7 +7418,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 			};
 			name = Debug;
@@ -7462,7 +7462,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -7507,7 +7507,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -7552,7 +7552,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
