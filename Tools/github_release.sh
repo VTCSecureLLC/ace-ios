@@ -11,8 +11,6 @@ curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin
 
 chmod 755 /tmp/github-release
 
-bundle install
-
 tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-$(git rev-parse --short HEAD)
 
 /tmp/github-release release \
