@@ -45,8 +45,6 @@
 		2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264B6D111200342002C2C53 /* SystemConfiguration.framework */; };
 		226CDAE014E2D0B800513B67 /* libmsbcg729.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226CDADE14E2D0B800513B67 /* libmsbcg729.a */; };
 		226EF06C15FA256B005865C7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226EF06B15FA256B005865C7 /* MobileCoreServices.framework */; };
-		226F2ED61344B0EF00F6EF27 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED31344B0EF00F6EF27 /* libopencore-amrwb.a */; };
-		226F2ED71344B0EF00F6EF27 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED41344B0EF00F6EF27 /* libopencore-amrnb.a */; };
 		226F2ED81344B0EF00F6EF27 /* libmsamr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED51344B0EF00F6EF27 /* libmsamr.a */; };
 		2274401A106F31BD006EC466 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22744019106F31BD006EC466 /* CoreAudio.framework */; };
 		2274402F106F335E006EC466 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274402E106F335E006EC466 /* AudioToolbox.framework */; };
@@ -833,13 +831,6 @@
 			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
 			remoteInfo = KIF;
 		};
-		630589FE1B4E816A00EFAE36 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 630589F21B4E816900EFAE36 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
-			remoteInfo = "KIF-OCUnit";
-		};
 		63058A001B4E816A00EFAE36 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 630589F21B4E816900EFAE36 /* KIF.xcodeproj */;
@@ -853,13 +844,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
 			remoteInfo = "KIF Tests";
-		};
-		63058A041B4E816A00EFAE36 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 630589F21B4E816900EFAE36 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB60ECEB177F8DB3005A041A;
-			remoteInfo = "KIF Tests-OCUnit";
 		};
 		63058A061B4E816A00EFAE36 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2468,8 +2452,6 @@
 				223148E61178A09900637D6A /* libmsilbc.a in Frameworks */,
 				226183B0147259670037138E /* libmssilk.a in Frameworks */,
 				22A10F3B11F8960300373793 /* libortp.a in Frameworks */,
-				226F2ED71344B0EF00F6EF27 /* libopencore-amrnb.a in Frameworks */,
-				226F2ED61344B0EF00F6EF27 /* libopencore-amrwb.a in Frameworks */,
 				226CDAE014E2D0B800513B67 /* libmsbcg729.a in Frameworks */,
 				220FAD3810765B400068D98F /* libspeex.a in Frameworks */,
 				220FAD3910765B400068D98F /* libspeexdsp.a in Frameworks */,
@@ -2916,10 +2898,8 @@
 			isa = PBXGroup;
 			children = (
 				630589FD1B4E816A00EFAE36 /* libKIF.a */,
-				630589FF1B4E816A00EFAE36 /* libKIF-OCUnit.a */,
 				63058A011B4E816A00EFAE36 /* Test Host.app */,
 				63058A031B4E816A00EFAE36 /* KIF Tests - XCTest.xctest */,
-				63058A051B4E816A00EFAE36 /* KIF Tests-OCUnit.octest */,
 				63058A071B4E816A00EFAE36 /* KIF.framework */,
 			);
 			name = Products;
@@ -4330,13 +4310,6 @@
 			remoteRef = 630589FC1B4E816A00EFAE36 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		630589FF1B4E816A00EFAE36 /* libKIF-OCUnit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKIF-OCUnit.a";
-			remoteRef = 630589FE1B4E816A00EFAE36 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		63058A011B4E816A00EFAE36 /* Test Host.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -4349,13 +4322,6 @@
 			fileType = wrapper.cfbundle;
 			path = "KIF Tests - XCTest.xctest";
 			remoteRef = 63058A021B4E816A00EFAE36 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		63058A051B4E816A00EFAE36 /* KIF Tests-OCUnit.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "KIF Tests-OCUnit.octest";
-			remoteRef = 63058A041B4E816A00EFAE36 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		63058A071B4E816A00EFAE36 /* KIF.framework */ = {
@@ -5672,6 +5638,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -5764,6 +5731,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -5853,6 +5821,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -5943,6 +5912,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
