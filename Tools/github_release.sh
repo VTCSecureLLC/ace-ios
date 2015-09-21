@@ -1,11 +1,12 @@
 #!/bin/bash
-set -x
 
 ./Tools/prepare_crashlytics.sh
 if [ -f fabric.properties ] ; then
   source fabric.properties
   ./Fabric.framework/run $apiKey $apiSecret
 fi
+
+set -x
 
 curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin-amd64-github-release.tar.bz2 | bunzip2 -cd | tar xf - --strip=3 -C /tmp/
 
