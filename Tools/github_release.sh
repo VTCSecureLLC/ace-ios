@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$TRAVIS_BRANCH" ] ; then
+  echo "TRAVIS_BRANCH not found. Deploy skipped"
+  exit 0
+fi
+
 ./Tools/prepare_crashlytics.sh
 if [ -f fabric.properties ] ; then
   source fabric.properties

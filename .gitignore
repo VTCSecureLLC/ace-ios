@@ -100,3 +100,4 @@ Makefile
 OUTPUT
 git-clang-format.diff
 fabric.properties
+linphone.xcodeproj/project.xcworkspace/

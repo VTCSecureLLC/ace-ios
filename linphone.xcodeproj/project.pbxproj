@@ -5982,7 +5982,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "./Tools/travis_script.sh\n";
+			shellScript = "./Tools/github_release.sh\n";
 		};
 		D33CF34715D3985000CD4B85 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
