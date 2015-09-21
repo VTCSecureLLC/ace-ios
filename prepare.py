@@ -212,7 +212,7 @@ def check_tools():
         ret = 1
     else:
         sdk_platform_path = Popen("xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
-        sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/usr/bin/strings")
+        sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/SDKs/iPhoneSimulator.sdk/Developer/usr/bin/strings")
         if not os.path.isfile(sdk_strings_path):
             strings_path = find_executable("strings")
             print("strings binary missing, please run 'sudo ln -s {} {}'.".format(strings_path, sdk_strings_path))

@@ -137,7 +137,7 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 }
 
 + (BOOL)isAuthorized {
-	return !ABAddressBookGetAuthorizationStatus ||
+	return //!ABAddressBookGetAuthorizationStatus ||
 		   ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized;
 }
 
