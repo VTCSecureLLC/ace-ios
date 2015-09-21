@@ -211,12 +211,14 @@ def check_tools():
         print("iOS SDK not found, please install Xcode from AppStore or equivalent.")
         ret = 1
     else:
-        sdk_platform_path = Popen("xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
-        sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/SDKs/iPhoneSimulator.sdk/Developer/usr/bin/strings")
-        if not os.path.isfile(sdk_strings_path):
-            strings_path = find_executable("strings")
-            print("strings binary missing, please run 'sudo ln -s {} {}'.".format(strings_path, sdk_strings_path))
-            ret = 1
+        xcode_version = float(Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1])
+        if xcode_version < 7.0:
+            sdk_platform_path = Popen("xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
+            sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/usr/bin/strings")
+            if not os.path.isfile(sdk_strings_path):
+                strings_path = find_executable("strings")
+                print("strings binary missing, please run 'sudo ln -s {} {}'.".format(strings_path, sdk_strings_path))
+                ret = 1
 
     if ret == 1:
         print("Failed to detect required tools, aborting.")
@@ -383,7 +385,7 @@ lipo:
 \t\tfi ; \\
 \t\tif ! test -f $$library_path ; then \\
 \t\t\techo "[$$all_archs] Generating dummy $$lib static library." ; \\
-\t\t\tcp -f submodules/binaries/libdummy.a $$library_path ; \\
+\t\t\tcp -f submodules/binaries/libdummy.a   $$library_path ; \\
 \t\tfi \\
 \tdone
 
