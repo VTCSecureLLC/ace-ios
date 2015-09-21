@@ -6,24 +6,26 @@ env:
   - secure: VCTz+HCb5paQhQbJKTVWFF6PwKBlLesLCyRH/azxx+EQr5nDRFjRnS6MhSy4xc4FhIxoJt/irOBdWdKcslEr6cDMlWfnyLp5iLMC705UGslB8lHqW6mqW+pUTGk6T9Pk3NPFrzEp904Iy0KSSMmQnxy38jG6h/Uur9/BRYe/CpFRrFjvKCzKfp6wlSk8y0OhnoEl4L0d0qZ3UoM9GPCN9Q3d5Qjp5RVGRBjC/hPe51kenuJKBf/GX+gINx5m/TmwgZxvOljF7uPPAg3PL0DwSfN9Fn72ZME81EK+9NgB0BYbStarY0rSUj+sMmeV9XbrsN1ge/ysUPFJjDx72TBB07+Wc1ZKoj2uh57mA21D9Dm68gVtXhNfG/XGHhqZcuw/7HvAXNS+Po3/3WA5y9JgdG7Dl/uIT0YHKmSYb+KFVqLawGY9VKd577oOCjy4XBf49WGeZh/DxFc0KqcQF0Go+OZq2zeFfCHV2bwCT2NgXHwoHkTA1CKD+2duMYfsrc3OSXwlaFn6M/Fbwu306I1ieFavERaDeardXsh3yjBbtFpKgWxLmmAAjYJ7sBbbxZbGvCTrgGoyrVzDqIOdoRzMv9lq0iDIiZIcK94O+CJnLAPG2t4XLSEzYuJdOvUem8KoJgzekkU65nzt//gVqxeti9xE0UvMUDQKzQUtinVXbyw=
   - secure: yNq1M3Yx8IMejG3pvIRhJacmTF/qCAYmuCf1pNntOLT+upZHKEtPsvGkmGNm/m+hQHgyiE0SPzTOYCBo71olXfYWgpWrWHnamthpCoxi/V1WRjYJ+xl9059tQw/gxm/8+Uy5fOTIAKz7e1JhxyvvGHYwBDfgE/8bgoiONQ+9jGcRAyCUChmrFeZMNQY39KMmecgTl2FiQC+FdJnoaO5n77+NWZWVofv+iF+D4N1Pp/mg9dWmLxxE14bfONZpZdRqBFuQXaeapoNSIYKwniOAJ6YRlWyfEXdVI2vt68ZnNIyxWNt7Zfj7tleDhEKXdS99wihqMUUEk7NqINgC4Ctyx9XJ3G6EY57iSIoXzSjy6kKBP3QsfLhBjHMgJd1jgn7OhOEaCB7FPZCTKPDIsF8sZ9nN5lWSJNUbYZh6Jqwu5hJs/nMWztfQEzDDwXIVr1FV+hMO7KPwcbi+i4/uxLjzj5tNDrCVn/Tf3kW0H8F6SIs7AjCGY5NqHbztp6fM7OcZ+IkiV6u7xiqj6iUYabOJTntTO7Lowlp8rSbGf+exN0HG2rThZQ/eDOwc68WOYKMEh0pXkO6sOuYx3AB0PeSvccGO5aOxkM0Y/BiBrW+TaKqSZscnumuPFcCWd9lLsIBauW5gwNeVMfFZ8hHNWAINlemImLrtig9LdyB0BV9wpMk=
 before_install:
-    - brew update 1>/dev/null
-    - brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr
-    - brew upgrade cmake
-    - wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl
-    - chmod +x gas-preprocessor.pl
-    - sudo mv gas-preprocessor.pl /usr/local/bin
-    - sudo ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
-    - sudo ln -s /usr/bin/strings /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/strings
-    - git submodule update --init --recursive
-
+- brew update 1>/dev/null
+- brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr
+- brew upgrade cmake
+- wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl
+- chmod +x gas-preprocessor.pl
+- sudo mv gas-preprocessor.pl /usr/local/bin
+- sudo ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
+- sudo ln -s /usr/bin/strings /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/strings
+- git submodule update --init --recursive
 install:
-    - ./prepare.py -d x86_64 -G Ninja
-    - make -j4 -s 1>/dev/null
-    - mkdir -p $KIF_SCREENSHOTS
-
+- "./prepare.py -d x86_64 -G Ninja"
+- make -j4 -s 1>/dev/null
+- mkdir -p $KIF_SCREENSHOTS
 script:
-    - xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination name='iPhone 6' build 1>/dev/null
-    - xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination name='iPhone 6' test
-
+- xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination
+  name='iPhone 6' build 1>/dev/null
+- xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination
+  name='iPhone 6' test
 after_script:
-    - ./Tools/imgur_upload.sh
+- "./Tools/imgur_upload.sh"
+notifications:
+  flowdock:
+    secure: 5GSBa/4AwUApi6dYjIyDiOsdQF4i+ZtKvSKzVjHqWNZMqqxrhjH8Ft/WhUpk+0Q304+ATMYSo2pTsYcgLMfIeqvi/B3mF3EGivb+g2TrXNXHPqjfEcAHRfy2DX00ssftNKZ3a7ynIDb8Oq7CREEV/ls8GBHK8EyBEtjhPNgr8qjexKCS7ATDp2OxDKw8ZnabMlWgO7kSbnEVJ6J3wyHyBGxS7IUJBRexxS2cIpXQUezH1rY0YrpOIzz8yRxYUCsguTxpAuWP7Q//jFZawK2RX88bbTEFDptzTiycyotktW9O/lRxUvKz/2dZmFTBcuw20db7qohEoOwb1yxj9AKjR7ipT8YtTsdO5fr72A8SPbgYHwH7ydT6Telpv+G062VZrYQ8JTxLjXwz8y4/+5jFj7B+ad7wsOa9yhg0vfZokLNKmsQP9zCgrOw8bLuLOJ+PuEOmF1dHyAmiapjWzLbn8Hj+VxqT8UNycvnuCApkZ3Sl/Ij1lID/EE1Ltyi6t/8VSX8XoRvPN5Wpt0jV5qO8kJLQuOZxQuu2N99+SF/nAQcMsdaf6EP9G6CAaUQ1Gv+HFv9L6bglJ7mYrMhvVoKS9tKGNzhFxarW5jHCCGmA9l2Akqdw1owHz+R6JELC8vJzv7fFyqgh10IWuTtRaxhq4qhZD2S/mAA3Pl6IqgCBqPw=
