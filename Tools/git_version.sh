@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # git_version.sh
 #
@@ -21,7 +21,14 @@
 # Created by Gautier Pelloux-Prayer on 2014/11/03.
 # Generate Classes/git_version.h which contains GIT_VERSION preprocessor macro
 
-linphone_ios_version=$(git describe --always)
+short_sha1=$(git rev-parse --short HEAD)
+major_minor_patch=$(bundle exec semver format '%M.%m.%p')
+special_build=$(bundle exec semver format '%M.%m.%p')
+
+defaults write linphone-Info.plist CFBundleShortVersionString "$major_minor_patch"
+defaults write linphone-Info.plist CFBundleVersion "${TRAVIS_BUILD_NUMBER:-1}"
+
+linphone_ios_version="$(bundle exec semver format '%M.%m.%p')-${TRAVIS_BUILD_NUMBER:-1}-${short_sha1}"
 
 printf "/* LinphoneIOSVersion.h
  *
@@ -44,3 +51,4 @@ printf "/* LinphoneIOSVersion.h
 
 #define LINPHONE_IOS_VERSION \"$linphone_ios_version\"
 " > $(dirname $0)/../Classes/LinphoneIOSVersion.h
+
