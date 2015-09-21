@@ -5973,16 +5973,16 @@
 		};
 		737AE6CC1B9A6CAC00AAFC40 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 94910afa144e5bc572147139fc837ba1fc2c9612 f7be99dc57532cfc62c4e199f017bd5adf7d14ab69cfc5b1d87df62fd58e54d2";
+			shellScript = "./Tools/prepare_crashlytics.sh\nif [ -f fabric.properties ] ; then\n  source fabric.properties\n  ./Fabric.framework/run $apiKey $apiSecret\nfi\n";
 		};
 		D33CF34715D3985000CD4B85 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

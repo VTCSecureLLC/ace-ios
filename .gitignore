@@ -99,3 +99,4 @@ WORK
 Makefile
 OUTPUT
 git-clang-format.diff
+fabric.properties
