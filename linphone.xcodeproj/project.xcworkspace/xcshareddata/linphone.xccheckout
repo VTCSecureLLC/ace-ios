@@ -7,51 +7,27 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D8DB7527-CDBD-4227-98D5-F7366D2B55FD</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>linphone</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</key>
-		<string>github.com:VTCSecureLLC/linphone-iphone.git</string>
-		<key>10265E242415D473A6A613214DB7AC3EE3D43F93</key>
-		<string>https://github.com/kif-framework/KIF.git</string>
-		<key>B9A509D4F3D25560F565CB53A09A75E2140C5232</key>
-		<string>git://github.com/VTCSecureLLC/linphone.git</string>
+		<string>https://github.com/zackm0571/linphone-iphone.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>linphone.xcodeproj/project.xcworkspace</string>
+	<string>linphone.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</key>
 		<string>../..</string>
-		<key>10265E242415D473A6A613214DB7AC3EE3D43F93</key>
-		<string>../..Classes/KIF/</string>
-		<key>B9A509D4F3D25560F565CB53A09A75E2140C5232</key>
-		<string>../..submodules/linphone/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:VTCSecureLLC/linphone-iphone.git</string>
+	<string>https://github.com/zackm0571/linphone-iphone.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
 	<string>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>10265E242415D473A6A613214DB7AC3EE3D43F93</string>
-			<key>IDESourceControlWCCName</key>
-			<string>KIF</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B9A509D4F3D25560F565CB53A09A75E2140C5232</string>
-			<key>IDESourceControlWCCName</key>
-			<string>linphone</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

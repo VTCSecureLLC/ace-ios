@@ -23,7 +23,7 @@ brew cask install java
 
 [ -x /usr/bin/xcode-select ] || sudo ln -s /usr/bin/true /usr/bin/xcode-select
 
-brew install doxygen nasm yasm optipng imagemagick coreutils intltool gettext ninja cmake make
+brew install doxygen nasm yasm optipng imagemagick coreutils intltool gettext ninja cmake 
 
 [ -e /usr/local/bin/make ] || ln -s /usr/local/bin/gmake /usr/local/bin/make
 
