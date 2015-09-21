@@ -1,5 +1,14 @@
 #!/bin/bash
-set -x
+
+if [ -z "$TRAVIS_BRANCH" ] ; then
+  echo "TRAVIS_BRANCH not found. Deploy skipped"
+  exit 0
+fi
+
+if [ "$TRAVIS_BRANCH" != "master" ] ; then
+  echo "TRAVIS_BRANCH is not master. Deploy skipped"
+  exit 0
+fi
 
 ./Tools/prepare_crashlytics.sh
 if [ -f fabric.properties ] ; then
@@ -7,11 +16,11 @@ if [ -f fabric.properties ] ; then
   ./Fabric.framework/run $apiKey $apiSecret
 fi
 
+set -x
+
 curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin-amd64-github-release.tar.bz2 | bunzip2 -cd | tar xf - --strip=3 -C /tmp/
 
 chmod 755 /tmp/github-release
-
-bundle install
 
 tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-$(git rev-parse --short HEAD)
 
