@@ -160,7 +160,9 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     [Fabric with:@[[Crashlytics class]]];
+
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
 

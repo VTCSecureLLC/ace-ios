@@ -1,5 +1,5 @@
 [submodule "submodules/linphone"]
- 	path = submodules/linphone
+	path = submodules/linphone
 	url = git://github.com/VTCSecureLLC/linphone.git
 [submodule "submodules/externals/gsm"]
 	path = submodules/externals/gsm
@@ -57,7 +57,7 @@
 	url = git://git.linphone.org/polarssl.git
 [submodule "submodules/externals/opus"]
 	path = submodules/externals/opus
-	url = git://git.opus-codec.org/opus.git
+	url = git://github.com/VTCSecureLLC/opus.git
 	ignore = dirty
 [submodule "submodules/externals/libxml2"]
 	path = submodules/externals/libxml2

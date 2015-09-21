@@ -150,6 +150,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	[addressField setText:@""];
 
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
 		// fix placeholder bar color in iOS7
@@ -231,6 +232,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	[self callUpdate:call state:state];
 }
+
 
 - (void)coreUpdateEvent:(NSNotification *)notif {
 	if ([LinphoneManager runningOnIpad]) {

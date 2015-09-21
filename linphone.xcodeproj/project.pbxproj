@@ -665,15 +665,17 @@
 		7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
-		730B7EDE1BAC4D2A00C948B9 /* Global1.png in Resources */ = {isa = PBXBuildFile; fileRef = 730B7EDD1BAC4D2A00C948B9 /* Global1.png */; };
-		7330B8B41BAA243C00EF6744 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7330B8B21BAA243C00EF6744 /* HelpViewController.m */; };
-		7330B8B51BAA243C00EF6744 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8B31BAA243C00EF6744 /* HelpViewController.xib */; };
-		7330B8CD1BAB17AE00EF6744 /* resources_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8C71BAB17AE00EF6744 /* resources_default.png */; };
-		7330B8CE1BAB17AE00EF6744 /* resources_default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8C81BAB17AE00EF6744 /* resources_default~ipad.png */; };
-		7330B8CF1BAB17AE00EF6744 /* resources_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8C91BAB17AE00EF6744 /* resources_over.png */; };
-		7330B8D01BAB17AE00EF6744 /* resources_over~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8CA1BAB17AE00EF6744 /* resources_over~ipad.png */; };
-		7330B8D11BAB17AE00EF6744 /* resources_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8CB1BAB17AE00EF6744 /* resources_selected.png */; };
-		7330B8D21BAB17AE00EF6744 /* resources_selected~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7330B8CC1BAB17AE00EF6744 /* resources_selected~ipad.png */; };
+		730B7EE61BACB3E800C948B9 /* VATRP Images in Resources */ = {isa = PBXBuildFile; fileRef = 730B7EE51BACB3E800C948B9 /* VATRP Images */; };
+		730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 730B7EEE1BACB57100C948B9 /* UICustomPicker.m */; };
+		73400CB11BAF8628002C358D /* Global1.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAA1BAF8628002C358D /* Global1.png */; };
+		73400CB21BAF8628002C358D /* resources_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAB1BAF8628002C358D /* resources_default.png */; };
+		73400CB31BAF8628002C358D /* resources_default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAC1BAF8628002C358D /* resources_default~ipad.png */; };
+		73400CB41BAF8628002C358D /* resources_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAD1BAF8628002C358D /* resources_over.png */; };
+		73400CB51BAF8628002C358D /* resources_over~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAE1BAF8628002C358D /* resources_over~ipad.png */; };
+		73400CB61BAF8628002C358D /* resources_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAF1BAF8628002C358D /* resources_selected.png */; };
+		73400CB71BAF8628002C358D /* resources_selected~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CB01BAF8628002C358D /* resources_selected~ipad.png */; };
+		73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73400CBC1BAF8CAA002C358D /* HelpViewController.m */; };
+		73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73400CBD1BAF8CAA002C358D /* HelpViewController.xib */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
@@ -2112,19 +2114,19 @@
 		7066FC0B13E830E400EFC6DC /* libvpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvpx.a; path = "liblinphone-sdk/apple-darwin/lib/libvpx.a"; sourceTree = "<group>"; };
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		730B7ED41BAC4B3200C948B9 /* Gobal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Gobal1.png; path = Resources/Gobal1.png; sourceTree = "<group>"; };
-		730B7EDD1BAC4D2A00C948B9 /* Global1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Global1.png; path = Resources/Global1.png; sourceTree = "<group>"; };
-		7330B8B11BAA243C00EF6744 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
-		7330B8B21BAA243C00EF6744 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
-		7330B8B31BAA243C00EF6744 /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
-		7330B8C71BAB17AE00EF6744 /* resources_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_default.png; path = Resources/resources_default.png; sourceTree = "<group>"; };
-		7330B8C81BAB17AE00EF6744 /* resources_default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_default~ipad.png"; path = "Resources/resources_default~ipad.png"; sourceTree = "<group>"; };
-		7330B8C91BAB17AE00EF6744 /* resources_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_over.png; path = Resources/resources_over.png; sourceTree = "<group>"; };
-		7330B8CA1BAB17AE00EF6744 /* resources_over~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_over~ipad.png"; path = "Resources/resources_over~ipad.png"; sourceTree = "<group>"; };
-		7330B8CB1BAB17AE00EF6744 /* resources_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_selected.png; path = Resources/resources_selected.png; sourceTree = "<group>"; };
-		7330B8CC1BAB17AE00EF6744 /* resources_selected~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_selected~ipad.png"; path = "Resources/resources_selected~ipad.png"; sourceTree = "<group>"; };
-		7330B8D31BAB21ED00EF6744 /* resources_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_selected.png; path = Resources/resources_selected.png; sourceTree = "<group>"; };
-		7330B8D41BAB21ED00EF6744 /* resources_selected~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_selected~ipad.png"; path = "Resources/resources_selected~ipad.png"; sourceTree = "<group>"; };
+		730B7EE51BACB3E800C948B9 /* VATRP Images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "VATRP Images"; path = "Resources/VATRP Images"; sourceTree = "<group>"; };
+		730B7EED1BACB57100C948B9 /* UICustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomPicker.h; sourceTree = "<group>"; };
+		730B7EEE1BACB57100C948B9 /* UICustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomPicker.m; sourceTree = "<group>"; };
+		73400CAA1BAF8628002C358D /* Global1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Global1.png; path = Resources/Global1.png; sourceTree = "<group>"; };
+		73400CAB1BAF8628002C358D /* resources_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_default.png; path = Resources/resources_default.png; sourceTree = "<group>"; };
+		73400CAC1BAF8628002C358D /* resources_default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_default~ipad.png"; path = "Resources/resources_default~ipad.png"; sourceTree = "<group>"; };
+		73400CAD1BAF8628002C358D /* resources_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_over.png; path = Resources/resources_over.png; sourceTree = "<group>"; };
+		73400CAE1BAF8628002C358D /* resources_over~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_over~ipad.png"; path = "Resources/resources_over~ipad.png"; sourceTree = "<group>"; };
+		73400CAF1BAF8628002C358D /* resources_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_selected.png; path = Resources/resources_selected.png; sourceTree = "<group>"; };
+		73400CB01BAF8628002C358D /* resources_selected~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_selected~ipad.png"; path = "Resources/resources_selected~ipad.png"; sourceTree = "<group>"; };
+		73400CBB1BAF8CAA002C358D /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		73400CBC1BAF8CAA002C358D /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		73400CBD1BAF8CAA002C358D /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -3027,11 +3029,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				73400CBB1BAF8CAA002C358D /* HelpViewController.h */,
+				73400CBC1BAF8CAA002C358D /* HelpViewController.m */,
+				73400CBD1BAF8CAA002C358D /* HelpViewController.xib */,
 				50263EF71B977D4700B20603 /* LinphoneLocationManager.h */,
 				50263EF81B977D4700B20603 /* LinphoneLocationManager.m */,
-				7330B8B11BAA243C00EF6744 /* HelpViewController.h */,
-				7330B8B21BAA243C00EF6744 /* HelpViewController.m */,
-				7330B8B31BAA243C00EF6744 /* HelpViewController.xib */,
 				22E0A81D111C44E100B04932 /* AboutViewController.h */,
 				22E0A81C111C44E100B04932 /* AboutViewController.m */,
 				636316D31A1DEBCB0009B839 /* AboutViewController.xib */,
@@ -3131,6 +3133,8 @@
 		2214EB7012F84668002A5394 /* LinphoneUI */ = {
 			isa = PBXGroup;
 			children = (
+				730B7EED1BACB57100C948B9 /* UICustomPicker.h */,
+				730B7EEE1BACB57100C948B9 /* UICustomPicker.m */,
 				D35E757F159328EA0066B1C1 /* UIAddressTextField.h */,
 				D35E7580159328EB0066B1C1 /* UIAddressTextField.m */,
 				22C7555E1317E59C007BC101 /* UIBluetoothButton.h */,
@@ -3230,7 +3234,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				730B7EDD1BAC4D2A00C948B9 /* Global1.png */,
 				737AE6CD1B9A6D2200AAFC40 /* Security.framework */,
 				737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */,
 				737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */,
@@ -3262,6 +3265,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				730B7EE51BACB3E800C948B9 /* VATRP Images */,
 				73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */,
 				D3C714B2159DB84400705B8E /* hold.wav */,
 				F0B4FB5C1A65550B00637027 /* Images.xcassets */,
@@ -3647,18 +3651,16 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
-				7330B8D31BAB21ED00EF6744 /* resources_selected.png */,
-				7330B8D41BAB21ED00EF6744 /* resources_selected~ipad.png */,
-				730B7ED41BAC4B3200C948B9 /* Gobal1.png */,
+				73400CAA1BAF8628002C358D /* Global1.png */,
+				73400CAB1BAF8628002C358D /* resources_default.png */,
+				73400CAC1BAF8628002C358D /* resources_default~ipad.png */,
+				73400CAD1BAF8628002C358D /* resources_over.png */,
+				73400CAE1BAF8628002C358D /* resources_over~ipad.png */,
+				73400CAF1BAF8628002C358D /* resources_selected.png */,
+				73400CB01BAF8628002C358D /* resources_selected~ipad.png */,
 				50B004911BA09C74002C5723 /* accept_default_landscape~ipad.png */,
 				50B004921BA09C74002C5723 /* accept_default.png */,
 				50B004931BA09C74002C5723 /* accept_default~ipad.png */,
-				7330B8C71BAB17AE00EF6744 /* resources_default.png */,
-				7330B8C81BAB17AE00EF6744 /* resources_default~ipad.png */,
-				7330B8C91BAB17AE00EF6744 /* resources_over.png */,
-				7330B8CA1BAB17AE00EF6744 /* resources_over~ipad.png */,
-				7330B8CB1BAB17AE00EF6744 /* resources_selected.png */,
-				7330B8CC1BAB17AE00EF6744 /* resources_selected~ipad.png */,
 				50B004941BA09C74002C5723 /* accept_over_landscape~ipad.png */,
 				50B004951BA09C74002C5723 /* accept_over.png */,
 				50B004961BA09C74002C5723 /* accept_over~ipad.png */,
@@ -4874,10 +4876,9 @@
 				50B006841BA09C79002C5723 /* add_contact_over.png in Resources */,
 				70571E1A13FABCB000CDD3C2 /* rootca.pem in Resources */,
 				D347347E1580E5F8003C7B8C /* history_default.png in Resources */,
-				7330B8D11BAB17AE00EF6744 /* resources_selected.png in Resources */,
-				7330B8D21BAB17AE00EF6744 /* resources_selected~ipad.png in Resources */,
 				50B007FA1BA09C79002C5723 /* setup_back_default_landscape~ipad.png in Resources */,
 				D347347F1580E5F8003C7B8C /* history_selected.png in Resources */,
+				73400CB21BAF8628002C358D /* resources_default.png in Resources */,
 				50B008451BA09C79002C5723 /* video_off_disabled.png in Resources */,
 				50B0072A1BA09C79002C5723 /* dialer_padding_left.png in Resources */,
 				50B006CF1BA09C79002C5723 /* chat_edit_default.png in Resources */,
@@ -4986,7 +4987,6 @@
 				D3F83F6C1582223B00336684 /* numpad_sharp_default.png in Resources */,
 				50B006831BA09C79002C5723 /* add_contact_disabled~ipad.png in Resources */,
 				D3F83F6E1582223B00336684 /* numpad_sharp_over.png in Resources */,
-				7330B8D01BAB17AE00EF6744 /* resources_over~ipad.png in Resources */,
 				50B007561BA09C79002C5723 /* incall_padding_left_landscape.png in Resources */,
 				50B007441BA09C79002C5723 /* history_details_add_over.png in Resources */,
 				D3F83F721582223B00336684 /* numpad_star_default.png in Resources */,
@@ -5269,6 +5269,7 @@
 				D3D14E7C15A711700074A527 /* avatar_shadow_small.png in Resources */,
 				D38187B915FE342200C3EDCA /* ContactDetailsViewController.xib in Resources */,
 				50B006EF1BA09C79002C5723 /* contact_back_over.png in Resources */,
+				730B7EE61BACB3E800C948B9 /* VATRP Images in Resources */,
 				D3128FEF15AABE4E00A2147A /* contact_back_default.png in Resources */,
 				50B007F01BA09C79002C5723 /* security_pending.png in Resources */,
 				D3128FF115AABE4E00A2147A /* contact_back_over.png in Resources */,
@@ -5319,7 +5320,6 @@
 				D3E84F1E15B00F4100420DAC /* cancel_default.png in Resources */,
 				D3E84F2015B00F4100420DAC /* cancel_over.png in Resources */,
 				D3E84F2615B00F4100420DAC /* dialer_alt_back_default.png in Resources */,
-				7330B8CE1BAB17AE00EF6744 /* resources_default~ipad.png in Resources */,
 				D3E84F2815B00F4100420DAC /* dialer_alt_back_over.png in Resources */,
 				D3E84F2A15B00F4100420DAC /* dialer_alt_background.png in Resources */,
 				50B008101BA09C79002C5723 /* setup_start_disabled.png in Resources */,
@@ -5334,6 +5334,7 @@
 				D3157A9015B446CB00DD8C4C /* history_details_back_default.png in Resources */,
 				D3157A9215B446CB00DD8C4C /* history_details_back_over.png in Resources */,
 				D3119E7215B6A4710005D4A4 /* contacts_back_default.png in Resources */,
+				73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */,
 				50B007261BA09C79002C5723 /* dialer_alt_over.png in Resources */,
 				50B007141BA09C79002C5723 /* dialer_alt_back_default_landscape~ipad.png in Resources */,
 				50B007EA1BA09C79002C5723 /* routes_over_landscape.png in Resources */,
@@ -5363,7 +5364,6 @@
 				50B007531BA09C79002C5723 /* history_selected~ipad.png in Resources */,
 				50B006BE1BA09C79002C5723 /* cell_call_first.png in Resources */,
 				D3C31A4C15BD8DED008ED271 /* micro_on_over_landscape.png in Resources */,
-				7330B8B51BAA243C00EF6744 /* HelpViewController.xib in Resources */,
 				D3C31A4E15BD8DED008ED271 /* options_add_default_landscape.png in Resources */,
 				D3C31A5015BD8DED008ED271 /* options_add_disabled_landscape.png in Resources */,
 				D3C31A5215BD8DED008ED271 /* options_add_over_landscape.png in Resources */,
@@ -5477,6 +5477,7 @@
 				D3A74EF215C69392001500B9 /* dialer_alt_default~ipad.png in Resources */,
 				50B007F31BA09C79002C5723 /* settings_default~ipad.png in Resources */,
 				50B007951BA09C79002C5723 /* numpad_zero_over.png in Resources */,
+				73400CB41BAF8628002C358D /* resources_over.png in Resources */,
 				50B0083A1BA09C79002C5723 /* transfer_call_default~ipad.png in Resources */,
 				D3A74EF415C69392001500B9 /* dialer_alt_over~ipad.png in Resources */,
 				D3A74EF615C69392001500B9 /* hangup_default~ipad.png in Resources */,
@@ -5513,6 +5514,7 @@
 				50B007E61BA09C79002C5723 /* routes_default_landscape.png in Resources */,
 				D3A74F0C15C69392001500B9 /* micro_on_default~ipad.png in Resources */,
 				D3A74F0E15C69392001500B9 /* micro_on_disabled~ipad.png in Resources */,
+				73400CB11BAF8628002C358D /* Global1.png in Resources */,
 				50B008191BA09C79002C5723 /* speaker_off_default.png in Resources */,
 				50B0082B1BA09C79002C5723 /* speaker_on_over_landscape.png in Resources */,
 				D3A74F1015C69392001500B9 /* micro_on_over~ipad.png in Resources */,
@@ -5528,7 +5530,6 @@
 				50B0082E1BA09C79002C5723 /* speaker_on_over~ipad.png in Resources */,
 				50B006881BA09C79002C5723 /* avatar_shadow_small.png in Resources */,
 				F070E6371A2622EC00E17AFD /* incall_padding_right_landscape.png in Resources */,
-				7330B8CD1BAB17AE00EF6744 /* resources_default.png in Resources */,
 				50B007751BA09C79002C5723 /* micro_on_disabled_landscape~ipad.png in Resources */,
 				D3A74F1E15C69392001500B9 /* options_selected~ipad.png in Resources */,
 				50B0080E1BA09C79002C5723 /* setup_start_default~ipad.png in Resources */,
@@ -5541,7 +5542,6 @@
 				50B006791BA09C79002C5723 /* accept_over~ipad.png in Resources */,
 				D3A74F2615C69392001500B9 /* pause_off_default~ipad.png in Resources */,
 				50B007E21BA09C79002C5723 /* route_speaker_off_over_landscape.png in Resources */,
-				730B7EDE1BAC4D2A00C948B9 /* Global1.png in Resources */,
 				D3A74F2815C69392001500B9 /* pause_off_over~ipad.png in Resources */,
 				D3A74F2A15C69392001500B9 /* pause_on_default~ipad.png in Resources */,
 				D3A74F2C15C69392001500B9 /* pause_on_over~ipad.png in Resources */,
@@ -5551,6 +5551,7 @@
 				F0C1F9111A28781F009402C9 /* corner-left-top.png in Resources */,
 				50B007A11BA09C79002C5723 /* options_add_over~ipad.png in Resources */,
 				D3A74F3015C69392001500B9 /* settings_default~ipad.png in Resources */,
+				73400CB31BAF8628002C358D /* resources_default~ipad.png in Resources */,
 				D3A74F3215C69392001500B9 /* settings_over_landscape~ipad.png in Resources */,
 				50B007061BA09C79002C5723 /* contacts_over~ipad.png in Resources */,
 				D3A74F3415C69392001500B9 /* settings_over~ipad.png in Resources */,
@@ -5623,6 +5624,7 @@
 				50B007AB1BA09C79002C5723 /* options_over_landscape~ipad.png in Resources */,
 				50B008401BA09C79002C5723 /* video_off_default_landscape~ipad.png in Resources */,
 				50B007DE1BA09C79002C5723 /* route_speaker_off_default_landscape.png in Resources */,
+				73400CB51BAF8628002C358D /* resources_over~ipad.png in Resources */,
 				50B006F61BA09C79002C5723 /* contact_ok_default.png in Resources */,
 				50B0072C1BA09C79002C5723 /* dialer_selected.png in Resources */,
 				50B007B31BA09C79002C5723 /* options_transfer_default_landscape~ipad.png in Resources */,
@@ -5746,6 +5748,7 @@
 				D3F5F9071609A86700D3DA1A /* history_delete_default.png in Resources */,
 				D3F5F9091609A86700D3DA1A /* history_delete_over.png in Resources */,
 				50B0074F1BA09C79002C5723 /* history_over.png in Resources */,
+				73400CB61BAF8628002C358D /* resources_selected.png in Resources */,
 				50B0072D1BA09C79002C5723 /* field_background.9.png in Resources */,
 				D3F5F90B1609A86700D3DA1A /* logo_linphone_trame_background.png in Resources */,
 				D3F5F90D1609A86700D3DA1A /* setup_back_disabled~ipad.png in Resources */,
@@ -5774,6 +5777,7 @@
 				50B0080A1BA09C79002C5723 /* setup_cancel_over.png in Resources */,
 				50B007E51BA09C79002C5723 /* route_speaker_on_default.png in Resources */,
 				50B0075C1BA09C79002C5723 /* led_error.png in Resources */,
+				73400CB71BAF8628002C358D /* resources_selected~ipad.png in Resources */,
 				50B0081A1BA09C79002C5723 /* speaker_off_default~ipad.png in Resources */,
 				D3F5F9271609A86700D3DA1A /* setup_start_over_landscape~ipad.png in Resources */,
 				50B006851BA09C79002C5723 /* add_contact_over~ipad.png in Resources */,
@@ -5874,7 +5878,6 @@
 				15AF3C9C16F37A5D00FC52EC /* routes_over.png in Resources */,
 				15AF3C9E16F37A5D00FC52EC /* routes_selected.png in Resources */,
 				1599105316F746B2007BF52B /* route_bluetooth_off_default_landscape.png in Resources */,
-				7330B8CF1BAB17AE00EF6744 /* resources_over.png in Resources */,
 				50B006EA1BA09C79002C5723 /* conference_over_landscape.png in Resources */,
 				1599105516F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png in Resources */,
 				1599105716F746B2007BF52B /* route_bluetooth_off_over_landscape.png in Resources */,
@@ -6039,7 +6042,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
-				7330B8B41BAA243C00EF6744 /* HelpViewController.m in Sources */,
+				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
 				D3A55FBC15877E5E003FD403 /* UIContactCell.m in Sources */,
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,
@@ -6107,6 +6110,7 @@
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
+				730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,
 				637157A11B283FE200C91677 /* FileTransferDelegate.m in Sources */,
