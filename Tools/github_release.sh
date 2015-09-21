@@ -1,20 +1,21 @@
 #!/bin/bash
 
-if [ -z "$TRAVIS_BRANCH" ] ; then
-  echo "TRAVIS_BRANCH not found. Deploy skipped"
-  exit 0
+if [ ! -f fabric.properties ] ; then
+  if [ -z "$TRAVIS_BRANCH" ] ; then
+    echo "TRAVIS_BRANCH not found. Deploy skipped"
+    exit 0
+  fi
+
+  if [ "$TRAVIS_BRANCH" != "master" ] ; then
+    echo "TRAVIS_BRANCH is not master. Deploy skipped"
+    exit 0
+  fi
+
+  ./Tools/prepare_crashlytics.sh
 fi
 
-if [ "$TRAVIS_BRANCH" != "master" ] ; then
-  echo "TRAVIS_BRANCH is not master. Deploy skipped"
-  exit 0
-fi
-
-./Tools/prepare_crashlytics.sh
-if [ -f fabric.properties ] ; then
-  source fabric.properties
-  ./Fabric.framework/run $apiKey $apiSecret
-fi
+source fabric.properties
+./Fabric.framework/run $apiKey $apiSecret
 
 set -x
 
