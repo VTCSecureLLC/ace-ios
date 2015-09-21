@@ -674,6 +674,8 @@
 		73400CB51BAF8628002C358D /* resources_over~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAE1BAF8628002C358D /* resources_over~ipad.png */; };
 		73400CB61BAF8628002C358D /* resources_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAF1BAF8628002C358D /* resources_selected.png */; };
 		73400CB71BAF8628002C358D /* resources_selected~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CB01BAF8628002C358D /* resources_selected~ipad.png */; };
+		73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73400CBC1BAF8CAA002C358D /* HelpViewController.m */; };
+		73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73400CBD1BAF8CAA002C358D /* HelpViewController.xib */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
@@ -1528,8 +1530,8 @@
 		34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoZoomHandler.m; path = LinphoneUI/VideoZoomHandler.m; sourceTree = "<group>"; };
 		344ABDEF14850AE9007420B6 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "usr/lib/libc++.1.dylib"; sourceTree = SDKROOT; };
 		344ABDF014850AE9007420B6 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		50263EF71B977D4700B20603 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LinphoneLocationManager.h; path = Classes/LinphoneLocationManager.h; sourceTree = "<group>"; };
-		50263EF81B977D4700B20603 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LinphoneLocationManager.m; path = Classes/LinphoneLocationManager.m; sourceTree = "<group>"; };
+		50263EF71B977D4700B20603 /* LinphoneLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinphoneLocationManager.h; sourceTree = "<group>"; };
+		50263EF81B977D4700B20603 /* LinphoneLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinphoneLocationManager.m; sourceTree = "<group>"; };
 		50263EFB1B977D9800B20603 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		50B004891BA09C06002C5723 /* atbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atbutton.png; path = Resources/atbutton.png; sourceTree = "<group>"; };
 		50B004911BA09C74002C5723 /* accept_default_landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "accept_default_landscape~ipad.png"; path = "Resources/accept_default_landscape~ipad.png"; sourceTree = "<group>"; };
@@ -2122,6 +2124,9 @@
 		73400CAE1BAF8628002C358D /* resources_over~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_over~ipad.png"; path = "Resources/resources_over~ipad.png"; sourceTree = "<group>"; };
 		73400CAF1BAF8628002C358D /* resources_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_selected.png; path = Resources/resources_selected.png; sourceTree = "<group>"; };
 		73400CB01BAF8628002C358D /* resources_selected~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_selected~ipad.png"; path = "Resources/resources_selected~ipad.png"; sourceTree = "<group>"; };
+		73400CBB1BAF8CAA002C358D /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		73400CBC1BAF8CAA002C358D /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		73400CBD1BAF8CAA002C358D /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -3024,6 +3029,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				73400CBB1BAF8CAA002C358D /* HelpViewController.h */,
+				73400CBC1BAF8CAA002C358D /* HelpViewController.m */,
+				73400CBD1BAF8CAA002C358D /* HelpViewController.xib */,
+				50263EF71B977D4700B20603 /* LinphoneLocationManager.h */,
+				50263EF81B977D4700B20603 /* LinphoneLocationManager.m */,
 				22E0A81D111C44E100B04932 /* AboutViewController.h */,
 				22E0A81C111C44E100B04932 /* AboutViewController.m */,
 				636316D31A1DEBCB0009B839 /* AboutViewController.xib */,
@@ -3228,8 +3238,6 @@
 				737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */,
 				737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */,
 				737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */,
-				50263EF71B977D4700B20603 /* LinphoneLocationManager.h */,
-				50263EF81B977D4700B20603 /* LinphoneLocationManager.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				F0938158188E629800A55DFA /* iTunesArtwork */,
@@ -5326,6 +5334,7 @@
 				D3157A9015B446CB00DD8C4C /* history_details_back_default.png in Resources */,
 				D3157A9215B446CB00DD8C4C /* history_details_back_over.png in Resources */,
 				D3119E7215B6A4710005D4A4 /* contacts_back_default.png in Resources */,
+				73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */,
 				50B007261BA09C79002C5723 /* dialer_alt_over.png in Resources */,
 				50B007141BA09C79002C5723 /* dialer_alt_back_default_landscape~ipad.png in Resources */,
 				50B007EA1BA09C79002C5723 /* routes_over_landscape.png in Resources */,
@@ -6033,6 +6042,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
+				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
 				D3A55FBC15877E5E003FD403 /* UIContactCell.m in Sources */,
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,
