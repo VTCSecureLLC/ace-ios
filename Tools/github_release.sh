@@ -5,6 +5,11 @@ if [ -z "$TRAVIS_BRANCH" ] ; then
   exit 0
 fi
 
+if [ "$TRAVIS_BRANCH" != "master" ] ; then
+  echo "TRAVIS_BRANCH is not master. Deploy skipped"
+  exit 0
+fi
+
 ./Tools/prepare_crashlytics.sh
 if [ -f fabric.properties ] ; then
   source fabric.properties
