@@ -4256,7 +4256,7 @@
 					};
 					F0F951FF1A6AEB1000254160 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 2FTR9775R5;
+						DevelopmentTeam = Z2V957B3D6;
 						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
 				};
@@ -5647,6 +5647,7 @@
 				GCC_PREFIX_HEADER = linphone_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					VIDEO_ENABLED,
+					HAVE_OPENH264,
 					HAVE_SILK,
 					HAVE_SSL,
 					DEBUG,
@@ -5741,6 +5742,7 @@
 					VIDEO_ENABLED,
 					HAVE_SILK,
 					HAVE_SSL,
+					HAVE_OPENH264,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -6456,7 +6458,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 			};
 			name = Debug;
@@ -6501,7 +6503,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6547,7 +6549,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6593,7 +6595,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
