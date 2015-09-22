@@ -10,7 +10,6 @@
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		152F22341B15E83B008C0621 /* libilbcrfc3951.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22331B15E83B008C0621 /* libilbcrfc3951.a */; };
 		152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
-		1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; };
 		15F728731B16FF8B00A1C901 /* libilbcrfc3951.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22331B15E83B008C0621 /* libilbcrfc3951.a */; };
 		15F728741B16FF9A00A1C901 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1D3623260D0F684500981E51 /* LinphoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LinphoneAppDelegate.m */; };
@@ -39,7 +38,6 @@
 		2242E313125235120061DDCE /* ring.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2242E312125235120061DDCE /* ring.caf */; };
 		224567C2107B968500F10948 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224567C1107B968500F10948 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2248E90E12F7E4CF00220D9C /* UIDigitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2248E90D12F7E4CF00220D9C /* UIDigitButton.m */; };
-		22509042196BD902007863F6 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
 		226183AE1472527D0037138E /* libsrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AB1472527D0037138E /* libsrtp.a */; };
 		226183B0147259670037138E /* libmssilk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226183AF147259670037138E /* libmssilk.a */; };
 		2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264B6D111200342002C2C53 /* SystemConfiguration.framework */; };
@@ -406,6 +404,10 @@
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
 		737AE6D41B9A6D2200AAFC40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */; };
+		73F2D1701BB207C900EA91D1 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED41344B0EF00F6EF27 /* libopencore-amrnb.a */; };
+		73F2D1711BB207C900EA91D1 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED31344B0EF00F6EF27 /* libopencore-amrwb.a */; };
+		73F2D1721BB2097E00EA91D1 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; };
+		73F2D1731BB2099000EA91D1 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
@@ -2400,14 +2402,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73F2D1731BB2099000EA91D1 /* libopenh264.a in Frameworks */,
+				73F2D1721BB2097E00EA91D1 /* libmsopenh264.a in Frameworks */,
+				73F2D1701BB207C900EA91D1 /* libopencore-amrnb.a in Frameworks */,
+				73F2D1711BB207C900EA91D1 /* libopencore-amrwb.a in Frameworks */,
 				50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */,
 				63A4280A1B26F576000DAB93 /* libSKP_SILK_SDK.a in Frameworks */,
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				152F22341B15E83B008C0621 /* libilbcrfc3951.a in Frameworks */,
 				F0B026F31AA710AF00FF49F7 /* libiconv.dylib in Frameworks */,
 				F05BAA621A5D594E00411815 /* libz.dylib in Frameworks */,
-				1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */,
-				22509042196BD902007863F6 /* libopenh264.a in Frameworks */,
 				22AF73C21754C0D100BE8398 /* libopus.a in Frameworks */,
 				57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */,
 				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
@@ -4160,7 +4164,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				63DCC71D1A07B08E00916627 /* Run Script */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
-				D33CF34715D3985000CD4B85 /* ShellScript */,
+				D33CF34715D3985000CD4B85 /* Run Script */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				2247673A129C3B9C002B94B4 /* CopyFiles */,
 				737AE6CC1B9A6CAC00AAFC40 /* ShellScript */,
@@ -4256,7 +4260,7 @@
 					};
 					F0F951FF1A6AEB1000254160 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = Z2V957B3D6;
+						DevelopmentTeam = 2FTR9775R5;
 						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
 				};
@@ -4996,13 +5000,14 @@
 			shellPath = /bin/sh;
 			shellScript = "./Tools/github_release.sh\n";
 		};
-		D33CF34715D3985000CD4B85 /* ShellScript */ = {
+		D33CF34715D3985000CD4B85 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -6458,7 +6463,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 			};
 			name = Debug;
@@ -6503,7 +6508,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6549,7 +6554,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6595,7 +6600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vtcsecure.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
