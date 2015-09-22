@@ -15,7 +15,10 @@ if [ ! -f fabric.properties ] ; then
 fi
 
 source fabric.properties
-./Fabric.framework/run $apiKey $apiSecret
+./Crashlytics.framework/run $apiKey $apiSecret
+bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-$(git rev-parse --short HEAD) > LastCommit.txt
+git log -1 --pretty=format:%B >> LastCommit.txt
+./Crashlytics.framework/submit $apiKey $apiSecret -notesPath LastCommit.txt
 
 set -x
 
