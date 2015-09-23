@@ -65,7 +65,7 @@
 
 -(void) toggleBackgroundColor {
      self.view.backgroundColor = [UIColor whiteColor];
-    [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
+    [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
         
         [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
             self.view.backgroundColor = [UIColor redColor];
@@ -136,8 +136,9 @@
     // VTC Secure -
     // Red flashing + Vibrate + Camera Flash if possible
     
+    
+    
     [self toggleBackgroundColor];
-
     
     self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
                                                                   target:self
