@@ -17,14 +17,12 @@ before_install:
 - git submodule update --init --recursive
 - bundle install
 install:
-- "./prepare.py -d x86_64 -G Ninja"
+- "./prepare.py -d all -G Ninja"
 - make -j4 -s 1>/dev/null
 script:
-- xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination
-  name='iPhone 6' build 1>/dev/null
+- xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos build 1>/dev/null
 after_success:
-- xctool -project linphone.xcodeproj -scheme linphone -sdk iphonesimulator -destination
-  name='iPhone 6' archive
+- xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos archive 1>/dev/null
 notifications:
   flowdock:
     secure: 5GSBa/4AwUApi6dYjIyDiOsdQF4i+ZtKvSKzVjHqWNZMqqxrhjH8Ft/WhUpk+0Q304+ATMYSo2pTsYcgLMfIeqvi/B3mF3EGivb+g2TrXNXHPqjfEcAHRfy2DX00ssftNKZ3a7ynIDb8Oq7CREEV/ls8GBHK8EyBEtjhPNgr8qjexKCS7ATDp2OxDKw8ZnabMlWgO7kSbnEVJ6J3wyHyBGxS7IUJBRexxS2cIpXQUezH1rY0YrpOIzz8yRxYUCsguTxpAuWP7Q//jFZawK2RX88bbTEFDptzTiycyotktW9O/lRxUvKz/2dZmFTBcuw20db7qohEoOwb1yxj9AKjR7ipT8YtTsdO5fr72A8SPbgYHwH7ydT6Telpv+G062VZrYQ8JTxLjXwz8y4/+5jFj7B+ad7wsOa9yhg0vfZokLNKmsQP9zCgrOw8bLuLOJ+PuEOmF1dHyAmiapjWzLbn8Hj+VxqT8UNycvnuCApkZ3Sl/Ij1lID/EE1Ltyi6t/8VSX8XoRvPN5Wpt0jV5qO8kJLQuOZxQuu2N99+SF/nAQcMsdaf6EP9G6CAaUQ1Gv+HFv9L6bglJ7mYrMhvVoKS9tKGNzhFxarW5jHCCGmA9l2Akqdw1owHz+R6JELC8vJzv7fFyqgh10IWuTtRaxhq4qhZD2S/mAA3Pl6IqgCBqPw=

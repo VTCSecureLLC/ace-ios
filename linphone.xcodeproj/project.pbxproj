@@ -7430,7 +7430,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 			};
 			name = Debug;
@@ -7474,7 +7474,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -7519,7 +7519,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -7564,7 +7564,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94439018-63e0-4f91-8499-104c2fa3f17e";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/linphone.app/linphone";
 				VALIDATE_PRODUCT = YES;
 			};
