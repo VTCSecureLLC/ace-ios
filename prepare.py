@@ -387,7 +387,7 @@ veryclean: $(addprefix veryclean-,$(packages))
 generate-dummy-%:
 \t@echo "[{archs}] Generating dummy $* static library." ; \\
 \tprintf "void $*_init() {{}}" | tr '-' '_' > .dummy.c ; \\
-\tfor arch in {archs}; do clang -c .dummy.c -arch $$arch -o .dummy-$$arch.a; done ; \\
+\tfor arch in {archs}; do clang -mios-simulator-version-min=6.0 -c .dummy.c -arch $$arch -o .dummy-$$arch.a; done ; \\
 \tlipo -create -output .dummy.a .dummy-*.a ; \\
 \trm .dummy-*.a .dummy.c
 
