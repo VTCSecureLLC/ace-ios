@@ -153,8 +153,8 @@
 
 
 		_outgoingRingCountLabel.hidden = YES;
-        outgoingRingLabel.hidden = YES;
-        _outgoingRingCountLabel.text = @"0";
+		outgoingRingLabel.hidden = YES;
+		_outgoingRingCountLabel.text = @"0";
 
 		self->detailsRightSwipeGestureRecognizer =
 			[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(doDetailsSwipe:)];
@@ -319,7 +319,7 @@
 
 - (void)displayIncrementedOutgoingRingCount {
 	_outgoingRingCountLabel.hidden = NO;
-    outgoingRingLabel.hidden = NO;
+	outgoingRingLabel.hidden = NO;
 	[UIView transitionWithView:_outgoingRingCountLabel
 					  duration:0.5f
 					   options:UIViewAnimationOptionTransitionCrossDissolve
@@ -333,7 +333,7 @@
 	if (_outgoingRingCountTimer != nil)
 		[_outgoingRingCountTimer invalidate];
 	_outgoingRingCountLabel.hidden = YES;
-    outgoingRingLabel.hidden = YES;
+	outgoingRingLabel.hidden = YES;
 	_outgoingRingCountLabel.text = @"0";
 	_outgoingRingCountTimer = nil;
 }

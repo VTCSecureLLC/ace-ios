@@ -138,11 +138,9 @@
     
     // VTC Secure -
     // Red flashing + Vibrate + Camera Flash if possible
-    
-    
-    
+
     [self toggleBackgroundColor];
-    
+
     self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
                                                                   target:self
                                                                 selector:@selector(toggleCameraLed)

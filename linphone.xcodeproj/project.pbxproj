@@ -64,7 +64,6 @@
 		34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */; };
 		344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDEF14850AE9007420B6 /* libc++.1.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		344ABDF214850AE9007420B6 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDF014850AE9007420B6 /* libstdc++.6.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
-		50263EF91B977D4700B20603 /* LinphoneLocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF71B977D4700B20603 /* LinphoneLocationManager.h */; };
 		50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF81B977D4700B20603 /* LinphoneLocationManager.m */; };
 		50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50263EFB1B977D9800B20603 /* CoreLocation.framework */; };
 		50B0048A1BA09C06002C5723 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B004891BA09C06002C5723 /* atbutton.png */; };
@@ -5118,7 +5117,6 @@
 				D3807FC115C28940005BE9BC /* DCRoundSwitchKnobLayer.m in Sources */,
 				D3807FC315C28940005BE9BC /* DCRoundSwitchOutlineLayer.m in Sources */,
 				D3807FC515C28940005BE9BC /* DCRoundSwitchToggleLayer.m in Sources */,
-				50263EF91B977D4700B20603 /* LinphoneLocationManager.h in Sources */,
 				50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */,
 				D3807FE815C2894A005BE9BC /* IASKAppSettingsViewController.m in Sources */,
 				D3807FEA15C2894A005BE9BC /* IASKAppSettingsWebViewController.m in Sources */,
