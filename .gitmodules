@@ -32,7 +32,7 @@
 	url = git://git.linphone.org/msx264.git
 [submodule "submodules/externals/libvpx"]
 	path = submodules/externals/libvpx
-	url = git://git.linphone.org/libvpx
+	url = git://github.com/shareefalis/libvpx.git
 	ignore = dirty
 [submodule "submodules/bzrtp"]
 	path = submodules/bzrtp
