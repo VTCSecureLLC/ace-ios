@@ -33,7 +33,7 @@
 @synthesize call;
 @synthesize delegate;
 @synthesize ringCountLabel;
-
+@synthesize ringLabel;
 
 #pragma mark - Lifecycle Functions
 
@@ -49,6 +49,7 @@
 
 - (void)displayIncrementedRingCount {
     ringCountLabel.hidden = NO;
+    ringLabel.hidden = NO;
     [UIView transitionWithView: ringCountLabel
                       duration:0.5f
                        options:UIViewAnimationOptionTransitionCrossDissolve
@@ -60,6 +61,7 @@
 
 - (void)stopRingCount {
     ringCountLabel.hidden = YES;
+    ringLabel.hidden = YES;
     ringCountLabel.text = @"0";
 }
 
@@ -77,6 +79,7 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
     ringCountLabel.hidden = YES;
+    ringLabel.hidden = YES;
     ringCountLabel.text = @"0";
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     self.device = nil;
