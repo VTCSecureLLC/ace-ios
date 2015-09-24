@@ -43,6 +43,7 @@
 @property (strong)  NSTimer *cameraLedFlasherTimer,*vibratorTimer,*flashBackgroundColorTimer ;
 @property (strong) AVCaptureDevice *device;
 @property (strong, nonatomic) IBOutlet UILabel *ringCountLabel;
+@property (strong, nonatomic) IBOutlet UILabel *ringLabel;
 
 - (IBAction)onAcceptClick:(id) event;
 - (IBAction)onDeclineClick:(id) event;

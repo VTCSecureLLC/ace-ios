@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallCell">
@@ -24,6 +24,7 @@
                 <outlet property="headerView" destination="36" id="42"/>
                 <outlet property="otherView" destination="77" id="78"/>
                 <outlet property="outgoingRingCountLabel" destination="v7L-WQ-vV7" id="Da8-NN-jxR"/>
+                <outlet property="outgoingRingLabel" destination="7rh-Pu-quB" id="J85-LI-erv"/>
                 <outlet property="pauseButton" destination="47" id="48"/>
                 <outlet property="removeButton" destination="49" id="50"/>
                 <outlet property="stateImage" destination="18" id="33"/>
@@ -61,7 +62,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" label="Contact avatar">
-                                        <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
+                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         <bool key="isElement" value="YES"/>
                                     </accessibility>
                                 </imageView>
@@ -396,7 +397,7 @@
                             <rect key="frame" x="224" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Call state">
-                                <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
+                                <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                         </imageView>
@@ -485,9 +486,4 @@
         <image name="call_state_play_over.png" width="43" height="46"/>
         <image name="cell_call_first.png" width="640" height="125"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

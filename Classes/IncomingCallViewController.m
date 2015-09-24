@@ -33,7 +33,7 @@
 @synthesize call;
 @synthesize delegate;
 @synthesize ringCountLabel;
-
+@synthesize ringLabel;
 
 #pragma mark - Lifecycle Functions
 
@@ -49,6 +49,7 @@
 
 - (void)displayIncrementedRingCount {
     ringCountLabel.hidden = NO;
+    ringLabel.hidden = NO;
     [UIView transitionWithView: ringCountLabel
                       duration:0.5f
                        options:UIViewAnimationOptionTransitionCrossDissolve
@@ -60,12 +61,13 @@
 
 - (void)stopRingCount {
     ringCountLabel.hidden = YES;
+    ringLabel.hidden = YES;
     ringCountLabel.text = @"0";
 }
 
 -(void) toggleBackgroundColor {
      self.view.backgroundColor = [UIColor whiteColor];
-    [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
+    [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
         
         [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
             self.view.backgroundColor = [UIColor redColor];
@@ -77,6 +79,7 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
     ringCountLabel.hidden = YES;
+    ringLabel.hidden = YES;
     ringCountLabel.text = @"0";
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     self.device = nil;
@@ -135,10 +138,9 @@
     
     // VTC Secure -
     // Red flashing + Vibrate + Camera Flash if possible
-    
+
     [self toggleBackgroundColor];
 
-    
     self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
                                                                   target:self
                                                                 selector:@selector(toggleCameraLed)
