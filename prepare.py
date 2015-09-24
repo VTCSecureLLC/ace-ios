@@ -238,7 +238,7 @@ def check_tools():
         error("iOS SDK not found, please install Xcode from AppStore or equivalent.")
         reterr = 1
     else:
-        xcode_version = float(Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1])
+        xcode_version = float(Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1].split('.')[0])
         if xcode_version < 7.0:
             sdk_platform_path = Popen("xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
             sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/usr/bin/strings")
