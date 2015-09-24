@@ -18,7 +18,7 @@ before_install:
 - bundle install
 install:
 - "./prepare.py -d all -G Ninja"
-- make -j4 -s 1>/dev/null
+- ./Tools/travis_script.sh
 script:
 - xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos build 1>/dev/null
 after_success:
