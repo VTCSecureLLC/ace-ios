@@ -30,9 +30,10 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
 
+#import <HockeySDK/HockeySDK.h>
 
 @implementation LinphoneAppDelegate
 
@@ -161,7 +162,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [Fabric with:@[[Crashlytics class]]];
+    //[Fabric with:@[[Crashlytics class]]];
+    
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+
 
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
