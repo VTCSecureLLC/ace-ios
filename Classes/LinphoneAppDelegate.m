@@ -33,7 +33,7 @@
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
 
-#import <HockeySDK/HockeySDK.h>
+@import <HockeySDK/HockeySDK.h>
 
 @implementation LinphoneAppDelegate
 

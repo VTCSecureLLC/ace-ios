@@ -33,7 +33,7 @@ tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-$(git rev-parse --short HE
     --repo ace-iphone \
     --tag $tag \
     --name "Travis-CI Automated $tag" \
-    --description "This is an automatically generated tag that will eventually be expired" \
+    --description "$(git log -1 --pretty=format:%B)" \
     --pre-release
 
 find . -name '*.ipa' -print | while read ipa; do
