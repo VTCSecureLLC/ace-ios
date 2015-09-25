@@ -59,6 +59,11 @@
 		22F2508E107141E100AC9B3F /* DialerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2508C107141E100AC9B3F /* DialerViewController.m */; };
 		22F254811073D99800AC9B3F /* ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22F254801073D99800AC9B3F /* ringback.wav */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D91D1BB5C6340099B552 /* HockeySDK.framework */; settings = {ASSET_TAGS = (); }; };
+		3192D9221BB5C6340099B552 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3192D91F1BB5C6340099B552 /* HockeySDK.xcconfig */; settings = {ASSET_TAGS = (); }; };
+		3192D9231BB5C6340099B552 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3192D9201BB5C6340099B552 /* HockeySDKResources.bundle */; settings = {ASSET_TAGS = (); }; };
+		3192D9251BB5C6B40099B552 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D9241BB5C6B40099B552 /* CoreText.framework */; };
+		3192D9271BB5C8F60099B552 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D9261BB5C8F60099B552 /* QuickLook.framework */; };
 		340751971506459A00B89C47 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340751961506459A00B89C47 /* CoreTelephony.framework */; };
 		340751E7150F38FD00B89C47 /* UIVideoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 340751E6150F38FD00B89C47 /* UIVideoButton.m */; };
 		34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */; };
@@ -1033,6 +1038,11 @@
 		22F254801073D99800AC9B3F /* ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ringback.wav; path = Resources/ringback.wav; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3192D91D1BB5C6340099B552 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		3192D91F1BB5C6340099B552 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
+		3192D9201BB5C6340099B552 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		3192D9241BB5C6B40099B552 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		3192D9261BB5C8F60099B552 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* linphone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linphone_Prefix.pch; sourceTree = "<group>"; };
 		340751961506459A00B89C47 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		340751E5150F38FC00B89C47 /* UIVideoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVideoButton.h; sourceTree = "<group>"; };
@@ -2405,6 +2415,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3192D9271BB5C8F60099B552 /* QuickLook.framework in Frameworks */,
+				70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */,
+				737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */,
+				226EF06C15FA256B005865C7 /* MobileCoreServices.framework in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				3192D9251BB5C6B40099B552 /* CoreText.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				22405EEE1600B4E400B92522 /* AssetsLibrary.framework in Frameworks */,
 				73E3E1E41BB34A1A00295CF3 /* libvo-amrwbenc.a in Frameworks */,
 				73E3E1E21BB34A0800295CF3 /* libmsamr.a in Frameworks */,
 				226CDAE014E2D0B800513B67 /* libmsbcg729.a in Frameworks */,
@@ -2425,30 +2443,25 @@
 				22AF73C21754C0D100BE8398 /* libopus.a in Frameworks */,
 				57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */,
 				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
+				3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */,
 				223CA7E716D9255800EF1BEC /* libbellesip.a in Frameworks */,
 				737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */,
 				045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */,
-				737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */,
 				D30562151671DC4900C97967 /* libNinePatch.a in Frameworks */,
 				D30562161671DC4900C97967 /* libXMLRPC.a in Frameworks */,
 				737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */,
 				22B5F03510CE6B2F00777D97 /* AddressBook.framework in Frameworks */,
 				22B5EFA310CE50BD00777D97 /* AddressBookUI.framework in Frameworks */,
-				22405EEE1600B4E400B92522 /* AssetsLibrary.framework in Frameworks */,
 				2274402F106F335E006EC466 /* AudioToolbox.framework in Frameworks */,
 				224567C2107B968500F10948 /* AVFoundation.framework in Frameworks */,
 				228697C411AC29B800E9E0CA /* CFNetwork.framework in Frameworks */,
 				2274401A106F31BD006EC466 /* CoreAudio.framework in Frameworks */,
-				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				22276E8913C73DC000210156 /* CoreMedia.framework in Frameworks */,
 				340751971506459A00B89C47 /* CoreTelephony.framework in Frameworks */,
 				22276E8713C73D8A00210156 /* CoreVideo.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				F0B89C2218DC89E30050B60E /* MediaPlayer.framework in Frameworks */,
 				D37DC7181594AF3400B2A5EB /* MessageUI.framework in Frameworks */,
-				226EF06C15FA256B005865C7 /* MobileCoreServices.framework in Frameworks */,
 				70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */,
-				70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */,
 				2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */,
@@ -2810,6 +2823,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3192D9261BB5C8F60099B552 /* QuickLook.framework */,
+				3192D9241BB5C6B40099B552 /* CoreText.framework */,
 				73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */,
 				50263EFB1B977D9800B20603 /* CoreLocation.framework */,
 				63EA4C941B50189D00922857 /* libmswebrtc.a */,
@@ -2888,9 +2903,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3192D91C1BB5C6340099B552 /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				3192D91D1BB5C6340099B552 /* HockeySDK.framework */,
+				3192D91E1BB5C6340099B552 /* Resources */,
+			);
+			name = HockeySDK.embeddedframework;
+			path = "HockeySDK-iOS/HockeySDK.embeddedframework";
+			sourceTree = SOURCE_ROOT;
+		};
+		3192D91E1BB5C6340099B552 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3192D91F1BB5C6340099B552 /* HockeySDK.xcconfig */,
+				3192D9201BB5C6340099B552 /* HockeySDKResources.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		630589DD1B4E810900EFAE36 /* TestsUI */ = {
 			isa = PBXGroup;
 			children = (
+				3192D91C1BB5C6340099B552 /* HockeySDK.embeddedframework */,
 				63058A0A1B4E81B700EFAE36 /* Info.plist */,
 				630589F21B4E816900EFAE36 /* KIF.xcodeproj */,
 				630589DE1B4E810900EFAE36 /* ChatTester.h */,
@@ -4251,7 +4286,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 2FTR9775R5;
+						DevelopmentTeam = N35DF75MHS;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -4715,6 +4750,7 @@
 				C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */,
 				50B007F41BA09C79002C5723 /* settings_over_landscape~ipad.png in Resources */,
 				50B006F01BA09C79002C5723 /* contact_cancel_default.png in Resources */,
+				3192D9231BB5C6340099B552 /* HockeySDKResources.bundle in Resources */,
 				C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */,
 				C9C8254915AE204D00D493FA /* transfer_call_over.png in Resources */,
 				50B007E81BA09C79002C5723 /* routes_disabled_landscape.png in Resources */,
@@ -4825,6 +4861,7 @@
 				50B007DD1BA09C79002C5723 /* route_phone_on_default.png in Resources */,
 				50B007CD1BA09C79002C5723 /* pause_on_over~ipad.png in Resources */,
 				F0C1F9141A28781F009402C9 /* logo.png in Resources */,
+				3192D9221BB5C6340099B552 /* HockeySDK.xcconfig in Resources */,
 				50B0076F1BA09C79002C5723 /* micro_off_over~ipad.png in Resources */,
 				50B007E61BA09C79002C5723 /* routes_default_landscape.png in Resources */,
 				73400CB11BAF8628002C358D /* Global1.png in Resources */,
@@ -5650,7 +5687,10 @@
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5684,7 +5724,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.vatrp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.iphone;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -5743,7 +5783,10 @@
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -5775,7 +5818,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.vatrp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.iphone;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -5833,7 +5876,10 @@
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -5866,7 +5912,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.vatrp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.iphone;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -5925,7 +5971,10 @@
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -5957,7 +6006,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.vatrp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.iphone;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
