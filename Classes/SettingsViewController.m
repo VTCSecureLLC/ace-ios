@@ -179,7 +179,7 @@
 }
 
 - (void)initIASKAppSettingsViewControllerEx {
-    [self.view setBackgroundColor:LINPHONE_MAIN_COLOR];//[UIColor clearColor]];
+    [self.view setBackgroundColor:[UIColor clearColor]];
 
 	// Force kIASKSpecifierValuesViewControllerIndex
 	static int kIASKSpecifierValuesViewControllerIndex = 0;
@@ -223,7 +223,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-    [self.tableView setBackgroundColor:LINPHONE_MAIN_COLOR];//[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
+    [self.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[self.tableView setBackgroundView:nil];					  // Can't do it in Xib: issue with ios4
  //   [[self view] setBackgroundColor:LINPHONE_MAIN_COLOR];
 }
@@ -264,9 +264,9 @@
 	}
 
 	if ([cell isKindOfClass:[IASKPSTitleValueSpecifierViewCell class]]) {
-        cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;//LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
+        cell.detailTextLabel.textColor = [UIColor whiteColor];//LINPHONE_MAIN_COLOR;//LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
 	} else {
-		cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;
+        cell.detailTextLabel.textColor = [UIColor whiteColor];//LINPHONE_MAIN_COLOR;
 	}
 
 	// Background View

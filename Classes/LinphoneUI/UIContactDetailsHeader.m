@@ -184,7 +184,7 @@
 		[cell.detailTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
 		[cell.detailTextField setAutocorrectionType:UITextAutocorrectionTypeNo];
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeDefault];
-		[cell setBackgroundColor:[UIColor whiteColor]];
+        [cell setBackgroundColor:[UIColor whiteColor]];
 	}
 
 	// setup placeholder
