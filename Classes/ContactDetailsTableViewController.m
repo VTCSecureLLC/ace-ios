@@ -502,7 +502,8 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *kCellId = @"ContactDetailsCell";
-	UIEditableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
+    tableView.backgroundColor =[UIColor whiteColor];
+    UIEditableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
 	if (cell == nil) {
 		cell = [[UIEditableTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:kCellId];
 		[cell.detailTextField setDelegate:self];
@@ -512,8 +513,13 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 
 		// Background View
 		UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
-		cell.selectedBackgroundView = selectedBackgroundView;
-		[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+        [selectedBackgroundView setBackgroundColor:LINPHONE_MAIN_COLOR];
+        cell.selectedBackgroundView = selectedBackgroundView;
+        // cell.contentView.backgroundColor =LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
+        cell.contentView.tintColor = [UIColor whiteColor];
+        cell.textLabel.textColor =LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
+        cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+        cell.contentView.backgroundColor=[UIColor whiteColor];
 	}
 
 	NSMutableArray *sectionDict = [self getSectionData:[indexPath section]];

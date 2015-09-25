@@ -100,8 +100,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 		// Background View
 		UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
-		cell.selectedBackgroundView = selectedBackgroundView;
-		[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+        [selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+        cell.selectedBackgroundView = selectedBackgroundView;
+        cell.contentView.tintColor = [UIColor whiteColor];
+        cell.textLabel.textColor =[UIColor whiteColor];
+        cell.textLabel.highlightedTextColor = [UIColor whiteColor];
 	}
 	NSString *key = [[dataList allKeys] objectAtIndex:[indexPath row]];
 	[cell.textLabel setText:[dataList objectForKey:key]];

@@ -127,8 +127,9 @@
 		cell = [[UIHistoryCell alloc] initWithIdentifier:kCellId];
 		// Background View
 		UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
+        [selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
+
 		cell.selectedBackgroundView = selectedBackgroundView;
-		[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
 	}
 
 	LinphoneCallLog *log = [[callLogs objectAtIndex:[indexPath row]] pointerValue];
