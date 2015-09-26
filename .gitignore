@@ -103,3 +103,4 @@ fabric.properties
 linphone.xcodeproj/project.xcworkspace/
 submodules/tunnel
 submodules/binaries/dummy-*.a
+LastCommit.txt
