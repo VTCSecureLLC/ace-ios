@@ -40,20 +40,5 @@ if [ -n "$GITHUB_TOKEN" ]; then
     --description "$(git log -1 --pretty=format:%B)" \
     --pre-release
 
-  find . -name '*.ipa' -print | while read ipa; do
-
-    ls -la "$ipa"
-
-    echo "Uploading $ipa github release $tag"
-
-    /tmp/github-release upload \
-      --user VTCSecureLLC \
-      --repo ace-iphone \
-      --tag $tag \
-      --name $(basename "$ipa") \
-      --file "$ipa"
-
-  done
-
 fi
 
