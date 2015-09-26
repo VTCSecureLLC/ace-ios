@@ -1650,7 +1650,6 @@
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvo-amrwbenc.a"; path = "liblinphone-sdk/apple-darwin/lib/libvo-amrwbenc.a"; sourceTree = "<group>"; };
 		73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wizard_vtcsecure_existing.rc; path = Resources/wizard_vtcsecure_existing.rc; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -2763,7 +2762,6 @@
 				737AE6CD1B9A6D2200AAFC40 /* Security.framework */,
 				737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */,
 				737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */,
-				737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				F0938158188E629800A55DFA /* iTunesArtwork */,
