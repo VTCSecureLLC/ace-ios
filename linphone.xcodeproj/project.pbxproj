@@ -406,7 +406,6 @@
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		737AE6D31B9A6D2200AAFC40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CF1B9A6D2200AAFC40 /* Fabric.framework */; };
-		737AE6D41B9A6D2200AAFC40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6D01B9A6D2200AAFC40 /* Crashlytics.framework */; };
 		73E3E1DC1BB348E600295CF3 /* libmswebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EA4C941B50189D00922857 /* libmswebrtc.a */; };
 		73E3E1DD1BB348E600295CF3 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; };
 		73E3E1E21BB34A0800295CF3 /* libmsamr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED51344B0EF00F6EF27 /* libmsamr.a */; };
@@ -2473,7 +2472,6 @@
 				220FAD3210765B400068D98F /* libgsm.a in Frameworks */,
 				F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */,
 				D37EE10916032DA4003608A6 /* libmediastreamer_base.a in Frameworks */,
-				737AE6D41B9A6D2200AAFC40 /* Crashlytics.framework in Frameworks */,
 				D37EE10A16032DA4003608A6 /* libmediastreamer_voip.a in Frameworks */,
 				22A10F3B11F8960300373793 /* libortp.a in Frameworks */,
 				220FAD3810765B400068D98F /* libspeex.a in Frameworks */,
@@ -4209,7 +4207,6 @@
 				D33CF34715D3985000CD4B85 /* Run Script */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				2247673A129C3B9C002B94B4 /* CopyFiles */,
-				737AE6CC1B9A6CAC00AAFC40 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5030,19 +5027,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = $SRCROOT/Tools/git_version.sh;
-		};
-		737AE6CC1B9A6CAC00AAFC40 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Tools/github_release.sh\n";
 		};
 		D33CF34715D3985000CD4B85 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
