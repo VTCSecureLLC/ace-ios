@@ -986,7 +986,7 @@
         <image name="pause_off_over_landscape.png" width="130" height="163"/>
         <image name="pause_on_default.png" width="209" height="136"/>
         <image name="pause_on_default_landscape.png" width="130" height="163"/>
-        <image name="route_bluetooth_off_default.png" width="160" height="127"/>
+        <image name="route_bluetooth_off_default.png" width="130" height="114"/>
         <image name="route_bluetooth_off_default_landscape.png" width="130" height="114"/>
         <image name="route_bluetooth_off_disabled.png" width="160" height="127"/>
         <image name="route_bluetooth_off_disabled_landscape.png" width="130" height="114"/>
