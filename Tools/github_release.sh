@@ -22,6 +22,8 @@ git log -1 --pretty=format:%B >> LastCommit.txt
 
 set -x
 
+if [ -n "$GITHUB_TOKEN" ]; then
+
 curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin-amd64-github-release.tar.bz2 | bunzip2 -cd | tar xf - --strip=3 -C /tmp/
 
 chmod 755 /tmp/github-release
@@ -50,4 +52,6 @@ find . -name '*.ipa' -print | while read ipa; do
       --file "$ipa"
 
 done
+
+fi
 
