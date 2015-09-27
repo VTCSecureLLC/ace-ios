@@ -42,7 +42,9 @@ IFS=/ GITHUB_REPO=($TRAVIS_REPO_SLUG)
 # Create a GitHub release if credentials are available
 
 set +x
-if [ -n "$GITHUB_TOKEN" ]; then
+if [ -z "$GITHUB_TOKEN" ]; then
+  echo GITHUB_TOKEN is not defined. Not creating a GitHub release.
+else
   set -x
 
   curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin-amd64-github-release.tar.bz2 | \
