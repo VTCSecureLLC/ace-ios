@@ -22,7 +22,7 @@ script:
 - xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
   Debug build 1>/dev/null
 after_success:
-- "./Tools/github_release.sh"
+- "./Tools/release.sh"
 notifications:
   flowdock:
     secure: XulX1WBdwcW09KFJOfPgRNzb08jGavzPPfpj9slg5Xk9Ib83cduJo04wVanbA92xVBsgLPNPvuu441LFqNRn3w6xbVDA75JyTmT1ih+W8VaaBZLfovrAbmpBEpXk3VUqn7UID+Hl/rkfYO+9fw+qPzJnomRMZ04ldc8hUfHH3ImfO3B8dMt1IMSaoy88A7f4/Vm4EGXWDDY35ZJxO560w5Rr9QgiALllpHdgxHDScJK73RceDi75gUfvNIZqW7c/AQI7dJ6QbQ15Esw2i/x5eHIGMYCheXPiazW6/3GONrz5cmcZ7ecEDPLMVvzKS38DN5iAFwZ5kFixS/h30WhcVsT6ZWPcDWHyJGNWGRqpwJn/IROCb+0f6Y2BtZ4ReDEq5nHPviZvN4eTi9uvWs8jE+8wh2DpJ9VfAu8UADouzxfK7W/A5YgcQA+6Q98anlAICfwCsobcS72MWa4MoUFscKlxe8byqL+ZZWxoEGq79s6OIMuVtTqpNEaLCDflHUAv9q+hDXXyTHMGhrCplQ7b8yfv7JAmmareqnz6V+FsGj3gd6sbLK+W9TQ8y8wnJAX6ZZvfIIPbqzKHc12I5Y0jJmkTLfrrMfE5kQ8uK9GquAvMsjySNYO6+0ljcLi09+yo40gi+tcRXTYtjhjqr8O5Qj0N0I+39xF/TPiaMXKqBmk=
