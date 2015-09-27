@@ -12,7 +12,7 @@ fi
 
 set -xe
 
-XCARCHIVE_FILE=/tmp/ACE.xcarchive
+XCARCHIVE_FILE=/tmp/ace-ios.xcarchive
 
 xctool -project linphone.xcodeproj \
        -scheme linphone \
@@ -29,6 +29,8 @@ git log -1 --pretty=format:%B >> LastCommit.txt
 
 tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-${SHA1}
 
+IFS=/ GITHUB_REPO=($TRAVIS_REPO_SLUG)
+
 if [ -n "$GITHUB_TOKEN" ]; then
 
   curl -sL https://github.com/aktau/github-release/releases/download/v0.6.2/darwin-amd64-github-release.tar.bz2 | \
@@ -38,8 +40,8 @@ if [ -n "$GITHUB_TOKEN" ]; then
   chmod 755 /tmp/github-release
 
   /tmp/github-release release \
-    --user VTCSecureLLC \
-    --repo ace-ios \
+    --user ${GITHUB_REPO[0]:-VTCSecureLLC} \
+    --repo ${GITHUB_REPO[1]:-ace-mac} \
     --tag $tag \
     --name "Travis-CI Automated $tag" \
     --description "$(git log -1 --pretty=format:%B)" \
@@ -48,7 +50,7 @@ if [ -n "$GITHUB_TOKEN" ]; then
 fi
 
 if [ -n "$HOCKEYAPP_TOKEN" ]; then
-  IPA_FILE=/tmp/ACE.ipa
+  IPA_FILE=/tmp/ace-ios.ipa
 
   xcodebuild -exportArchive \
              -exportFormat ipa \
