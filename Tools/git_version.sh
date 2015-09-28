@@ -25,8 +25,8 @@ short_sha1=$(git rev-parse --short HEAD)
 major_minor_patch=$(bundle exec semver format '%M.%m.%p')
 special_build=$(bundle exec semver format '%M.%m.%p')
 
-defaults write linphone-Info.plist CFBundleShortVersionString "$major_minor_patch"
-defaults write linphone-Info.plist CFBundleVersion "${TRAVIS_BUILD_NUMBER:-1}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $major_minor_patch" linphone-Info.plist
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${TRAVIS_BUILD_NUMBER:-1}" linphone-Info.plist
 
 linphone_ios_version="$(bundle exec semver format '%M.%m.%p')-${TRAVIS_BUILD_NUMBER:-1}-${short_sha1}"
 
