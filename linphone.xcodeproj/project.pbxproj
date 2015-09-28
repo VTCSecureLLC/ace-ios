@@ -59,9 +59,9 @@
 		22F2508E107141E100AC9B3F /* DialerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2508C107141E100AC9B3F /* DialerViewController.m */; };
 		22F254811073D99800AC9B3F /* ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22F254801073D99800AC9B3F /* ringback.wav */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D91D1BB5C6340099B552 /* HockeySDK.framework */; settings = {ASSET_TAGS = (); }; };
-		3192D9221BB5C6340099B552 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3192D91F1BB5C6340099B552 /* HockeySDK.xcconfig */; settings = {ASSET_TAGS = (); }; };
-		3192D9231BB5C6340099B552 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3192D9201BB5C6340099B552 /* HockeySDKResources.bundle */; settings = {ASSET_TAGS = (); }; };
+		3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D91D1BB5C6340099B552 /* HockeySDK.framework */; };
+		3192D9221BB5C6340099B552 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3192D91F1BB5C6340099B552 /* HockeySDK.xcconfig */; };
+		3192D9231BB5C6340099B552 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3192D9201BB5C6340099B552 /* HockeySDKResources.bundle */; };
 		3192D9251BB5C6B40099B552 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D9241BB5C6B40099B552 /* CoreText.framework */; };
 		3192D9271BB5C8F60099B552 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3192D9261BB5C8F60099B552 /* QuickLook.framework */; };
 		340751971506459A00B89C47 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340751961506459A00B89C47 /* CoreTelephony.framework */; };
@@ -5024,7 +5024,7 @@
 		};
 		D33CF34715D3985000CD4B85 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -5032,7 +5032,7 @@
 			name = "Run Script";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Tools/ImageOptim.sh\n";
 		};
