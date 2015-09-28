@@ -176,6 +176,7 @@ struct codec_name_pref_table codec_pref_table[]={
 			// these two codecs should not be hidden, even if not supported
 			&&
 			strcmp(codec_pref_table[i].prefname, "h264_preference") != 0 &&
+                        strcmp(codec_pref_table[i].prefname, "h263_preference") != 0 &&
 			strcmp(codec_pref_table[i].prefname, "mp4v-es_preference") != 0) {
 			[set addObject:[NSString stringWithUTF8String:codec_pref_table[i].prefname]];
 		}

@@ -212,8 +212,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 		const LinphoneVideoPolicy *pol;
 		pol = linphone_core_get_video_policy(lc);
-		[self setBool:(pol->automatically_initiate)forKey:@"start_video_preference"];
-		[self setBool:(pol->automatically_accept)forKey:@"accept_video_preference"];
+		[self setBool:(pol->automatically_initiate) forKey:@"start_video_preference"];
+		[self setBool:(pol->automatically_accept) forKey:@"accept_video_preference"];
 		[self setBool:linphone_core_self_view_enabled(lc) forKey:@"self_video_preference"];
 		BOOL previewEnabled = [lm lpConfigBoolForKey:@"preview_preference" withDefault:YES];
 		[self setBool:previewEnabled forKey:@"preview_preference"];
