@@ -37,7 +37,7 @@ tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-${SHA1}
 
 # Prepare other variables
 
-IFS=/ GITHUB_REPO=($TRAVIS_REPO_SLUG)
+IFS=/ GITHUB_REPO=($TRAVIS_REPO_SLUG); IFS=" "
 
 # Create a GitHub release if credentials are available
 

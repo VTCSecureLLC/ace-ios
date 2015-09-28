@@ -20,7 +20,7 @@ install:
 - "./Tools/travis_script.sh"
 script:
 - xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
-  Debug build 1>/dev/null
+  Debug build CODE_SIGNING_REQUIRED=NO 1>/dev/null
 after_success:
 - "./Tools/release.sh"
 notifications:
