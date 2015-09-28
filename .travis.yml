@@ -16,7 +16,7 @@ before_install:
 - git submodule update --init --recursive
 - bundle install
 install:
-- "./prepare.py -d all -G Ninja"
+- "./prepare.py -d all -G Ninja -DENABLE_WEBRTC_AEC=ON --enable-non-free-codecs"
 - "./Tools/travis_script.sh"
 script:
 - xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
