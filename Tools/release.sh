@@ -76,7 +76,7 @@ if [ -n "$HOCKEYAPP_TOKEN" ]; then
              -exportFormat ipa \
              -archivePath $XCARCHIVE_FILE \
              -exportPath $IPA_FILE \
-             -exportProvisioningProfile 'iOSTeam Provisioning Profile: com.vtcsecure.*'
+             -exportProvisioningProfile 'com.vtcsecure.ace.ios development'
 
   # Create a dSYM zip file from the archive build
 
