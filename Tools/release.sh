@@ -19,8 +19,10 @@ set -e
 if [ -n "${BUCKET}" ]; then
   which aws || brew install awscli
   aws s3 sync --quiet s3://${BUCKET}/ sync/
+  cd sync
   chmod 755 apply.sh
-  . ./sync/apply.sh
+  . ./apply.sh ios
+  cd ..
 fi
 
 # Generate an archive for this project
