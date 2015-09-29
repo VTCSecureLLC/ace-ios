@@ -106,7 +106,7 @@
 - (void) vibrate {
     [self displayIncrementedRingCount];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    [self onAcceptClick:nil];
+   // [self onAcceptClick:nil];
 
 }
 

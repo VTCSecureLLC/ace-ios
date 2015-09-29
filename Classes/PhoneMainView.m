@@ -668,7 +668,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 
 		if (callIDFromPush && autoAnswer) {
 			// accept call automatically
-			[lm acceptCall:call];
+			//[lm acceptCall:call];
 
 		} else {
 
