@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # Only deploy master branch builds
 
@@ -38,15 +39,11 @@ xctool -project linphone.xcodeproj \
        archive \
        -archivePath $XCARCHIVE_FILE \
        CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" \
-       PROVISIONING_PROFILE="$PROVISIONING_PROFILE" \
-       1>/dev/null
+       PROVISIONING_PROFILE="$PROVISIONING_PROFILE"
 
 # Prepare semantic versioning tag
 
 SHA1=$(git rev-parse --short HEAD)
-
-echo "$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-${SHA1} > LastCommit.txt
-git log -1 --pretty=format:%B >> LastCommit.txt
 
 tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-${SHA1}
 
@@ -105,7 +102,7 @@ if [ -n "$HOCKEYAPP_TOKEN" ]; then
              --token $HOCKEYAPP_TOKEN \
              --file $IPA_FILE \
              --dsym $DSYM_ZIP_FILE \
-             --notes LastCommit.txt \
+             --notes "$(git log -1 --pretty=format:%B)" \
              --notify \
              --commit-sha ${SHA1} \
              --build-server-url "https://travis-ci.org/${TRAVIS_REPO_SLUG}/builds/${TRAVIS_BUILD_ID}" \
