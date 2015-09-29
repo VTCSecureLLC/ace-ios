@@ -19,7 +19,7 @@ touch /tmp/make.out
 MUTED_PID=$!
 
 echo "Running make for dependencies"
-make -j4 -s >> /tmp/make.out 2>&1
+make >> /tmp/make.out 2>&1
 
 MAKE_RESULT=$?
 
