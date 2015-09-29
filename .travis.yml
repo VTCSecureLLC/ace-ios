@@ -32,8 +32,7 @@ install:
 - "./prepare.py -d all -G Ninja -DENABLE_WEBRTC_AEC=ON --enable-non-free-codecs"
 - "./Tools/travis_script.sh"
 script:
-- xctool -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
-  Debug build CODE_SIGNING_REQUIRED=NO 1>/dev/null
+- xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration Debug build CODE_SIGNING_REQUIRED=NO
 after_success:
 - "./Tools/release.sh"
 notifications:
