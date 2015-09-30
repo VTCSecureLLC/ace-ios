@@ -33,7 +33,7 @@ install:
 - "./Tools/travis_script.sh"
 script:
 - xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration Debug build
-  CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS=""
+  CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS="" 1>/dev/null
 after_success:
 - "./Tools/release.sh"
 notifications:
