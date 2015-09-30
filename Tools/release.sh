@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -e
 
 # Only deploy master branch builds
 
@@ -15,8 +15,20 @@ fi
 
 # Prepare codesigning keys
 
-set -e
-
+if [ -z "${AWS_ACCESS_KEY_ID}" ]; then
+  echo "Missing AWS_ACCESS_KEY_ID"
+  unset BUCKET
+fi
+if [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
+  echo "Missing AWS_SECRET_ACCESS_KEY"
+  unset BUCKET
+fi
+if [ -z "${CODE_SIGN_IDENTITY}" ]; then
+  echo "Missing CODE_SIGN_IDENTITY"
+fi
+if [ -z "${PROVISIONING_PROFILE}" ]; then
+  echo "Missing PROVISIONING_PROFILE"
+fi
 if [ -n "${BUCKET}" ]; then
   which aws || brew install awscli
   aws s3 sync --quiet s3://${BUCKET}/apple/ sync/
