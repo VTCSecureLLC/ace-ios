@@ -23,12 +23,6 @@ if [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
   echo "Missing AWS_SECRET_ACCESS_KEY"
   unset BUCKET
 fi
-if [ -z "${CODE_SIGN_IDENTITY}" ]; then
-  echo "Missing CODE_SIGN_IDENTITY"
-fi
-if [ -z "${PROVISIONING_PROFILE}" ]; then
-  echo "Missing PROVISIONING_PROFILE"
-fi
 if [ -n "${BUCKET}" ]; then
   which aws || brew install awscli
   aws s3 sync --quiet s3://${BUCKET}/apple/ sync/
@@ -37,6 +31,12 @@ if [ -n "${BUCKET}" ]; then
   chmod 755 apply.sh
   . ./apply.sh ios
   cd ..
+fi
+if [ -z "${CODE_SIGN_IDENTITY}" ]; then
+  echo "Missing CODE_SIGN_IDENTITY"
+fi
+if [ -z "${PROVISIONING_PROFILE}" ]; then
+  echo "Missing PROVISIONING_PROFILE"
 fi
 
 # Generate an archive for this project
@@ -53,11 +53,15 @@ xctool -project linphone.xcodeproj \
        CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" \
        PROVISIONING_PROFILE="$PROVISIONING_PROFILE"
 
+echo "Generated archive"
+
 # Prepare semantic versioning tag
 
 SHA1=$(git rev-parse --short HEAD)
 
 tag="$(bundle exec semver)-${TRAVIS_BUILD_NUMBER:-1}"-${SHA1}
+
+echo "Version $tag"
 
 # Prepare other variables
 
@@ -90,7 +94,9 @@ fi
 # Release via HockeyApp if credentials are available
 
 set +x
-if [ -n "$HOCKEYAPP_TOKEN" ]; then
+if [ -z "$HOCKEYAPP_TOKEN" ]; then
+  echo HOCKEYAPP_TOKEN is not defined. Not deploying via HockeyApp.
+else
   set -x
   IPA_FILE=/tmp/ace-ios.ipa
 
@@ -101,6 +107,8 @@ if [ -n "$HOCKEYAPP_TOKEN" ]; then
              -archivePath $XCARCHIVE_FILE \
              -exportPath $IPA_FILE \
              -exportProvisioningProfile 'com.vtcsecure.ace.ios development'
+
+  echo Created IPA file
 
   # Create a dSYM zip file from the archive build
 
