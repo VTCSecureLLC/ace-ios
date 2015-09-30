@@ -83,7 +83,7 @@ else
 
   /tmp/github-release release \
     --user ${GITHUB_REPO[0]:-VTCSecureLLC} \
-    --repo ${GITHUB_REPO[1]:-ace-mac} \
+    --repo ${GITHUB_REPO[1]:-ace-ios} \
     --tag $tag \
     --name "Travis-CI Automated $tag" \
     --description "$(git log -1 --pretty=format:%B)" \
