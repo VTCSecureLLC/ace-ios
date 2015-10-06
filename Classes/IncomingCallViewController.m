@@ -106,6 +106,8 @@
 - (void) vibrate {
     [self displayIncrementedRingCount];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+   // [self onAcceptClick:nil];
+
 }
 
 - (void) stopFlashCameraLed {
@@ -130,7 +132,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+  
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(callUpdateEvent:)
                                                  name:kLinphoneCallUpdate

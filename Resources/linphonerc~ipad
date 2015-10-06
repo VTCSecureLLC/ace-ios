@@ -37,8 +37,8 @@ capture=1
 show_local=1
 enabled=1
 size=vga
-automatically_initiate=1
-automatically_accept=1
+automatically_initiate=0
+automatically_accept=0
 preset=high-fps
 
 [net]
@@ -58,7 +58,7 @@ edge_opt_preference=0
 use_system_contacts=0
 start_at_boot_preference=1
 backgroundmode_preference=1
-autoanswer_notif_preference=0
+autoanswer_notif_preference=1
 voiceproc_preference=1
 enable_log_collect=0
 repeat_call_notification=1

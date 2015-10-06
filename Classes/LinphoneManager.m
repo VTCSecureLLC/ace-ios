@@ -1862,6 +1862,13 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 #pragma mark - Call Functions
 
 - (void)acceptCall:(LinphoneCall *)call {
+    @try {
+        [LinphoneManager getLc];
+    }
+    @catch (NSException *exception) {
+        [self createLinphoneCore];
+    }
+    
 	LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, call);
 	if ([self lpConfigBoolForKey:@"edge_opt_preference"]) {
 		bool low_bandwidth = self.network == network_2g;
