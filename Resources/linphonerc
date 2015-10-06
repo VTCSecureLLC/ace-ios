@@ -40,7 +40,6 @@ size=cif
 automatically_initiate=1
 automatically_accept=1
 preset=high-fps
-video_preferred_fps_preference=30
 
 [net]
 firewall_policy=0
