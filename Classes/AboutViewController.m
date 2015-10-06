@@ -21,6 +21,7 @@
 #import "LinphoneManager.h"
 #include "linphone/lpconfig.h"
 #include "LinphoneIOSVersion.h"
+#import "PhoneMainView.h"
 
 @implementation AboutViewController
 
@@ -52,9 +53,8 @@
 
 	[linkLabel addGestureRecognizer:linkTapGestureRecognizer];
 
-	UIScrollView *scrollView = (UIScrollView *)self.view;
-	[scrollView addSubview:contentView];
-	[scrollView setContentSize:[contentView bounds].size];
+	[self.scrollView addSubview:contentView];
+	[self.scrollView setContentSize:[contentView bounds].size];
 
 	[linphoneLabel setText:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
 
@@ -150,6 +150,20 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 
 	return YES;
+}
+
+#pragma mark - Action Functions
+
+- (IBAction)onBackClick:(id)event {
+    [self dismiss];
+}
+
+#pragma mark -
+
+- (void)dismiss {
+    if ([[[PhoneMainView instance] currentView] equal:[AboutViewController compositeViewDescription]]) {
+        [[PhoneMainView instance] popCurrentView];
+    }
 }
 
 @end
