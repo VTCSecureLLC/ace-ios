@@ -536,7 +536,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 + (IASKSpecifier *)filterSpecifier:(IASKSpecifier *)specifier {
-	if (linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
+	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		if ([[specifier key] isEqualToString:@"transport_preference"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[specifier specifierDict]];
 			NSMutableArray *titles = [NSMutableArray arrayWithArray:[dict objectForKey:@"Titles"]];
@@ -593,7 +593,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
 
-	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
+	if (linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		[hiddenKeys addObject:@"media_encryption_preference"];
 	}
 

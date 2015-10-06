@@ -118,14 +118,13 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>udp</string>
+			<string>tls</string>
 			<key>Key</key>
 			<string>transport_preference</string>
 			<key>Title</key>
 			<string>Transport</string>
 			<key>Titles</key>
 			<array>
-				<string>UDP</string>
 				<string>TCP</string>
 				<string>TLS</string>
 			</array>
@@ -133,7 +132,6 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<string>udp</string>
 				<string>tcp</string>
 				<string>tls</string>
 			</array>
