@@ -78,7 +78,7 @@
 			<key>Key</key>
 			<string>autoanswer_notif_preference</string>
 			<key>Title</key>
-			<string>Auto-answer after notification</string>
+			<string>Auto-answer Calls</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

@@ -34,11 +34,11 @@ rtcp_xr_voip_metrics_enabled=1
 [video]
 display=1
 capture=1
-show_local=0
+show_local=1
 enabled=1
-size=vga
-automatically_initiate=0
-automatically_accept=0
+size=cif
+automatically_initiate=1
+automatically_accept=1
 preset=high-fps
 
 [net]
