@@ -114,7 +114,7 @@
 				<integer>30</integer>
 			</array>
 			<key>DefaultValue</key>
-			<string>6</string>
+			<string>0</string>
 		</dict>
 		<dict>
 			<key>Key</key>

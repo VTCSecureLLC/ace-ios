@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Only deploy master branch builds
 
@@ -37,8 +38,6 @@ fi
 if [ -z "${PROVISIONING_PROFILE}" ]; then
   echo "Missing PROVISIONING_PROFILE"
 fi
-
-set -e
 
 # Generate an archive for this project
 
