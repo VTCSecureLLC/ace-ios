@@ -11,38 +11,6 @@
 		152F22341B15E83B008C0621 /* libilbcrfc3951.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22331B15E83B008C0621 /* libilbcrfc3951.a */; };
 		152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; settings = {ATTRIBUTES = (Weak, ); }; };
-		1599105316F746B2007BF52B /* route_bluetooth_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104316F746B2007BF52B /* route_bluetooth_off_default_landscape.png */; };
-		1599105516F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104416F746B2007BF52B /* route_bluetooth_off_disabled_landscape.png */; };
-		1599105716F746B2007BF52B /* route_bluetooth_off_over_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104516F746B2007BF52B /* route_bluetooth_off_over_landscape.png */; };
-		1599105916F746B2007BF52B /* route_bluetooth_on_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104616F746B2007BF52B /* route_bluetooth_on_default_landscape.png */; };
-		1599105B16F746B2007BF52B /* route_phone_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104716F746B2007BF52B /* route_phone_off_default_landscape.png */; };
-		1599105D16F746B2007BF52B /* route_phone_off_disabled_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104816F746B2007BF52B /* route_phone_off_disabled_landscape.png */; };
-		1599105F16F746B2007BF52B /* route_phone_off_over_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104916F746B2007BF52B /* route_phone_off_over_landscape.png */; };
-		1599106116F746B2007BF52B /* route_phone_on_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104A16F746B2007BF52B /* route_phone_on_default_landscape.png */; };
-		1599106316F746B2007BF52B /* route_speaker_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104B16F746B2007BF52B /* route_speaker_off_default_landscape.png */; };
-		1599106516F746B2007BF52B /* route_speaker_off_disabled_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104C16F746B2007BF52B /* route_speaker_off_disabled_landscape.png */; };
-		1599106716F746B2007BF52B /* route_speaker_off_over_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104D16F746B2007BF52B /* route_speaker_off_over_landscape.png */; };
-		1599106916F746B2007BF52B /* route_speaker_on_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104E16F746B2007BF52B /* route_speaker_on_default_landscape.png */; };
-		1599106B16F746B2007BF52B /* routes_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599104F16F746B2007BF52B /* routes_default_landscape.png */; };
-		1599106D16F746B2007BF52B /* routes_disabled_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599105016F746B2007BF52B /* routes_disabled_landscape.png */; };
-		1599106F16F746B2007BF52B /* routes_over_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599105116F746B2007BF52B /* routes_over_landscape.png */; };
-		1599107116F746B2007BF52B /* routes_selected_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1599105216F746B2007BF52B /* routes_selected_landscape.png */; };
-		15AF3C5416F37A3E00FC52EC /* route_bluetooth_off_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C4C16F37A3E00FC52EC /* route_bluetooth_off_default.png */; };
-		15AF3C5616F37A3E00FC52EC /* route_bluetooth_off_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C4D16F37A3E00FC52EC /* route_bluetooth_off_disabled.png */; };
-		15AF3C5816F37A3E00FC52EC /* route_bluetooth_off_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C4E16F37A3E00FC52EC /* route_bluetooth_off_over.png */; };
-		15AF3C5C16F37A3E00FC52EC /* route_bluetooth_on_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C5016F37A3E00FC52EC /* route_bluetooth_on_default.png */; };
-		15AF3C6C16F37A4A00FC52EC /* route_phone_off_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C6416F37A4A00FC52EC /* route_phone_off_default.png */; };
-		15AF3C6E16F37A4A00FC52EC /* route_phone_off_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C6516F37A4A00FC52EC /* route_phone_off_disabled.png */; };
-		15AF3C7016F37A4A00FC52EC /* route_phone_off_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C6616F37A4A00FC52EC /* route_phone_off_over.png */; };
-		15AF3C7416F37A4A00FC52EC /* route_phone_on_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C6816F37A4A00FC52EC /* route_phone_on_default.png */; };
-		15AF3C8416F37A5500FC52EC /* route_speaker_off_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C7C16F37A5500FC52EC /* route_speaker_off_default.png */; };
-		15AF3C8616F37A5500FC52EC /* route_speaker_off_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C7D16F37A5500FC52EC /* route_speaker_off_disabled.png */; };
-		15AF3C8816F37A5500FC52EC /* route_speaker_off_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C7E16F37A5500FC52EC /* route_speaker_off_over.png */; };
-		15AF3C8C16F37A5500FC52EC /* route_speaker_on_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C8016F37A5500FC52EC /* route_speaker_on_default.png */; };
-		15AF3C9816F37A5D00FC52EC /* routes_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9416F37A5D00FC52EC /* routes_default.png */; };
-		15AF3C9A16F37A5D00FC52EC /* routes_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9516F37A5D00FC52EC /* routes_disabled.png */; };
-		15AF3C9C16F37A5D00FC52EC /* routes_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9616F37A5D00FC52EC /* routes_over.png */; };
-		15AF3C9E16F37A5D00FC52EC /* routes_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AF3C9716F37A5D00FC52EC /* routes_selected.png */; };
 		15F728731B16FF8B00A1C901 /* libilbcrfc3951.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22331B15E83B008C0621 /* libilbcrfc3951.a */; };
 		15F728741B16FF9A00A1C901 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1D3623260D0F684500981E51 /* LinphoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LinphoneAppDelegate.m */; };
@@ -2492,7 +2460,6 @@
 				73F2D1701BB207C900EA91D1 /* libopencore-amrnb.a in Frameworks */,
 				73F2D1711BB207C900EA91D1 /* libopencore-amrwb.a in Frameworks */,
 				50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */,
-				63A4280A1B26F576000DAB93 /* libSKP_SILK_SDK.a in Frameworks */,
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				152F22341B15E83B008C0621 /* libilbcrfc3951.a in Frameworks */,
 				F0B026F31AA710AF00FF49F7 /* libiconv.dylib in Frameworks */,
@@ -2512,11 +2479,10 @@
 				D37EE10A16032DA4003608A6 /* libmediastreamer_voip.a in Frameworks */,
 				63C5109E1B8F2603008A415A /* libopencore-amrnb.a in Frameworks */,
 				63C5109F1B8F2603008A415A /* libopencore-amrwb.a in Frameworks */,
-				22509042196BD902007863F6 /* libopenh264.a in Frameworks */,
 				22AF73C21754C0D100BE8398 /* libopus.a in Frameworks */,
 				22A10F3B11F8960300373793 /* libortp.a in Frameworks */,
 				57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */,
-                223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
+				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
 				3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */,
 				223CA7E716D9255800EF1BEC /* libbellesip.a in Frameworks */,
 				737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */,
@@ -3045,8 +3011,6 @@
 			isa = PBXGroup;
 			children = (
 				3192D91C1BB5C6340099B552 /* HockeySDK.embeddedframework */,
-				63058A0A1B4E81B700EFAE36 /* Info.plist */,
-				630589F21B4E816900EFAE36 /* KIF.xcodeproj */,
 				63B910B91B8B5356004641C9 /* CallTester.h */,
 				63B910BA1B8B5356004641C9 /* CallTester.m */,
 				630589DE1B4E810900EFAE36 /* ChatTester.h */,
@@ -5170,7 +5134,7 @@
 			shellPath = /bin/sh;
 			shellScript = "test -f liblinphone-sdk/apple-darwin/share/linphone/rootca.pem || (echo 'liblinphone SDK not found. Please refer to the README: you have to compile liblinphone SDK before building Linphone application.' && exit 1)";
 		};
-		D33CF34715D3985000CD4B85 /* ShellScript */ = {
+		D33CF34715D3985000CD4B85 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (

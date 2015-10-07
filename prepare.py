@@ -144,14 +144,21 @@ def extract_from_xcode_project_with_regex(regex):
     for line in lines:
         m = regex.search(line)
         if m is not None:
-            l += [m.group(2)]
+            try:
+                if m.group(2) is not None:
+                    l += [m.group(2)]
+            except Exception:
+                ##print(m)
+                pass
+
     return list(set(l))
 
 
 def extract_deployment_target():
     regex = re.compile("IPHONEOS_DEPLOYMENT_TARGET = (.*);")
-    return extract_from_xcode_project_with_regex(regex)[0]
-
+    if len(extract_from_xcode_project_with_regex(regex)) is not 0:
+        return extract_from_xcode_project_with_regex(regex)[0]
+    return ""
 
 def extract_libs_list():
     # name = libspeexdsp.a; path = "liblinphone-sdk/apple-darwin/lib/libspeexdsp.a"; sourceTree = "<group>"; };
@@ -249,7 +256,7 @@ def check_tools():
         error("iOS SDK not found, please install Xcode from AppStore or equivalent.")
         reterr = 1
     else:
-       xcode_version = int(
+        xcode_version = int(
             Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1].split(".")[0])
         if xcode_version < 7:
             sdk_platform_path = Popen(
