@@ -231,7 +231,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		} else if ((vsize.width == MS_VIDEO_SIZE_QVGA_W) && (vsize.height == MS_VIDEO_SIZE_QVGA_H)) {
 			index = 3;
 		}  else {
-			index = 3;
+			index = 2;
 		}
 		[self setInteger:index forKey:@"video_preferred_size_preference"];
 		[self setInteger:linphone_core_get_preferred_framerate(lc) forKey:@"video_preferred_fps_preference"];

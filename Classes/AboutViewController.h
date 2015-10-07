@@ -24,6 +24,7 @@
 @interface AboutViewController : UIViewController<UICompositeViewDelegate, UIWebViewDelegate> {
 }
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UILabel *linphoneLabel;
 @property (nonatomic, strong) IBOutlet UILabel *linphoneIphoneVersionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *linphoneCoreVersionLabel;

@@ -34,9 +34,9 @@ rtcp_xr_voip_metrics_enabled=1
 [video]
 display=1
 capture=1
-show_local=0
+show_local=1
 enabled=1
-size=vga
+size=cif
 automatically_initiate=1
 automatically_accept=1
 preset=high-fps
@@ -58,7 +58,7 @@ edge_opt_preference=0
 use_system_contacts=0
 start_at_boot_preference=1
 backgroundmode_preference=1
-autoanswer_notif_preference=0
+autoanswer_notif_preference=1
 voiceproc_preference=1
 enable_log_collect=0
 repeat_call_notification=1
@@ -92,3 +92,5 @@ outgoing_ring_duration=2.8
 emergency_username=911
 external_domains=Sorenson.com,ZVRS.com,CAAG.com,PurpleVRS.com,GlobalVRS.com,Convo.com
 
+[proxy_default_values]
+avpf=1
