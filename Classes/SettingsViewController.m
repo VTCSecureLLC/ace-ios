@@ -593,7 +593,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
 
-	if (linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
+	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		[hiddenKeys addObject:@"media_encryption_preference"];
 	}
 
