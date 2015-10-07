@@ -645,7 +645,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		}
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
-			[self setInteger:6 forKey:@"video_preferred_fps_preference"];
+			[self setInteger:0 forKey:@"video_preferred_fps_preference"];
 			[self setInteger:bw forKey:@"download_bandwidth_preference"];
 		}
 		linphone_core_set_preferred_framerate(lc, [self integerForKey:@"video_preferred_fps_preference"]);
