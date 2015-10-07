@@ -47,7 +47,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="21" userLabel="welcomeView">
+        <view tag="170" contentMode="scaleToFill" id="21" userLabel="welcomeView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -303,7 +303,7 @@
             <color key="backgroundColor" red="0.0" green="0.21960784310000001" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="927" y="1520"/>
         </view>
-        <view contentMode="scaleToFill" id="33" userLabel="choiceView">
+        <view tag="171" contentMode="scaleToFill" id="33" userLabel="choiceView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -363,7 +363,7 @@
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="550" y="295"/>
         </view>
-        <view contentMode="scaleToFill" id="44" userLabel="createAccountView">
+        <view tag="172" contentMode="scaleToFill" id="44" userLabel="createAccountView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -454,7 +454,7 @@
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="927" y="295"/>
         </view>
-        <view contentMode="scaleToFill" id="52" userLabel="connectAccountView">
+        <view tag="173" contentMode="scaleToFill" id="52" userLabel="connectAccountView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -516,7 +516,7 @@
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="178" y="904"/>
         </view>
-        <view contentMode="scaleToFill" id="56" userLabel="externalAccountView">
+        <view tag="174" contentMode="scaleToFill" id="56" userLabel="externalAccountView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -599,7 +599,7 @@
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="550" y="912"/>
         </view>
-        <view contentMode="scaleToFill" id="xVK-hL-6pe" userLabel="provisionedAccountView">
+        <view tag="175" contentMode="scaleToFill" id="xVK-hL-6pe" userLabel="provisionedAccountView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

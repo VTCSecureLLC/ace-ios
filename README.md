@@ -20,7 +20,6 @@ Here's how to launch Linphone for iPhone (more details below):
 
 Linphone for iPhone depends on liblinphone SDK. This SDK is generated from makefiles and shell scripts.
 
-
  To generate the liblinphone multi-arch SDK in GPL mode, simply invoke:
 
         ./prepare.py [options] && make

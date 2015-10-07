@@ -35,9 +35,9 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, 'submodules/cmake-builder')
 try:
     import prepare
-except:
+except Exception as e:
     error(
-        "Could not find prepare module, probably missing submodules/cmake-builder? Try running:\ngit submodule update --init --recursive")
+        "Could not find prepare module: {}, probably missing submodules/cmake-builder? Try running:\ngit submodule update --init --recursive".format(e))
     exit(1)
 
 
@@ -112,7 +112,8 @@ class PlatformListAction(argparse.Action):
 
 def gpl_disclaimer(platforms):
     cmakecache = 'WORK/ios-{arch}/cmake/CMakeCache.txt'.format(arch=platforms[0])
-    gpl_third_parties_enabled = "ENABLE_GPL_THIRD_PARTIES:BOOL=YES" in open(cmakecache).read() or "ENABLE_GPL_THIRD_PARTIES:BOOL=ON" in open(cmakecache).read()
+    gpl_third_parties_enabled = "ENABLE_GPL_THIRD_PARTIES:BOOL=YES" in open(
+        cmakecache).read() or "ENABLE_GPL_THIRD_PARTIES:BOOL=ON" in open(cmakecache).read()
 
     if gpl_third_parties_enabled:
         warning("\n***************************************************************************"
@@ -135,10 +136,8 @@ def gpl_disclaimer(platforms):
                 "\n***************************************************************************")
 
 
-def extract_libs_list():
+def extract_from_xcode_project_with_regex(regex):
     l = []
-    # name = libspeexdsp.a; path = "liblinphone-sdk/apple-darwin/lib/libspeexdsp.a"; sourceTree = "<group>"; };
-    regex = re.compile("name = (\")*(lib(\S+))\.a(\")*; path = \"liblinphone-sdk/apple-darwin/")
     f = open('linphone.xcodeproj/project.pbxproj', 'r')
     lines = f.readlines()
     f.close()
@@ -147,6 +146,17 @@ def extract_libs_list():
         if m is not None:
             l += [m.group(2)]
     return list(set(l))
+
+
+def extract_deployment_target():
+    regex = re.compile("IPHONEOS_DEPLOYMENT_TARGET = (.*);")
+    return extract_from_xcode_project_with_regex(regex)[0]
+
+
+def extract_libs_list():
+    # name = libspeexdsp.a; path = "liblinphone-sdk/apple-darwin/lib/libspeexdsp.a"; sourceTree = "<group>"; };
+    regex = re.compile("name = \"*(lib\S+)\.a(\")*; path = \"liblinphone-sdk/apple-darwin/")
+    return extract_from_xcode_project_with_regex(regex)
 
 
 missing_dependencies = {}
@@ -228,7 +238,8 @@ def check_tools():
         sudo mv gas-preprocessor.pl {}""".format(package_manager_info[detect_package_manager() + "-binary-path"]))
         reterr = 1
 
-    if not os.path.isdir("submodules/linphone/mediastreamer2") or not os.path.isdir("submodules/linphone/oRTP"):
+
+    if not os.path.isdir("submodules/linphone/mediastreamer2/src") or not os.path.isdir("submodules/linphone/oRTP/src"):
         error("Missing some git submodules. Did you run:\n\tgit submodule update --init --recursive")
         reterr = 1
 
@@ -238,16 +249,16 @@ def check_tools():
         error("iOS SDK not found, please install Xcode from AppStore or equivalent.")
         reterr = 1
     else:
-        xcode_version = float(Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1].split('.')[0])
-        if xcode_version < 7.0:
-            sdk_platform_path = Popen("xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
+       xcode_version = int(
+            Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1].split(".")[0])
+        if xcode_version < 7:
+            sdk_platform_path = Popen(
+                "xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
             sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/usr/bin/strings")
             if not os.path.isfile(sdk_strings_path):
                 strings_path = find_executable("strings")
-                error("strings binary missing, please run:\n\tsudo ln -s {} {}'.".format(strings_path, sdk_strings_path))
+                error("strings binary missing, please run:\n\tsudo ln -s {} {}".format(strings_path, sdk_strings_path))
                 reterr = 1
-
-
     return reterr
 
 
@@ -260,13 +271,12 @@ def install_git_hook():
 
 
 def generate_makefile(platforms, generator):
-    libs_list = extract_libs_list()
     packages = os.listdir('WORK/ios-' + platforms[0] + '/Build')
     packages.sort()
     arch_targets = ""
     for arch in platforms:
         arch_targets += """
-{arch}: all-{arch}
+{arch}: {arch}-build
 
 {arch}-build:
 \t@for package in $(packages); do \\
@@ -282,6 +292,9 @@ def generate_makefile(platforms, generator):
 \t@for package in $(packages); do \\
 \t\t$(MAKE) {arch}-veryclean-$$package; \\
 \tdone
+
+{arch}-build-dummy_libraries:
+\t{generator} WORK/ios-{arch}/cmake EP_dummy_libraries
 
 {arch}-build-%: package-in-list-%
 \trm -f WORK/ios-{arch}/Stamp/EP_$*/EP_$*-update; \\
@@ -338,20 +351,12 @@ def generate_makefile(platforms, generator):
     makefile = """
 archs={archs}
 packages={packages}
-libs_list={libs_list}
 LINPHONE_IPHONE_VERSION=$(shell git describe --always)
 
 .PHONY: all
-.SILENT: lipo
+.SILENT: sdk
 
 all: build
-
-{arch_targets}
-all-%:
-\t@for package in $(packages); do \\
-\t\trm -f WORK/ios-$*/Stamp/EP_$$package/EP_$$package-update; \\
-\tdone
-\t{generator} WORK/ios-$*/cmake
 
 package-in-list-%:
 \tif ! grep -q " $* " <<< " $(packages) "; then \\
@@ -359,39 +364,21 @@ package-in-list-%:
 \t\texit 3; \\
 \tfi
 
-build-%: package-in-list-%
-\t@for arch in $(archs); do \\
-\t\techo "==== starting build of $* for arch $$arch ===="; \\
-\t\t$(MAKE) $$arch-build-$*; \\
-\tdone
+build-%: package-in-list-% $(addsuffix -build-%, $(archs))
+\t@echo "Build of $* terminated"
 
-clean-%: package-in-list-%
-\t@for arch in $(archs); do \\
-\t\techo "==== starting clean of $* for arch $$arch ===="; \\
-\t\t$(MAKE) $$arch-clean-$*; \\
-\tdone
+clean-%: package-in-list-% $(addsuffix -clean, $(archs))
+\t@echo "Clean of $* terminated"
 
-veryclean-%: package-in-list-%
-\t@for arch in $(archs); do \\
-\t\techo "==== starting veryclean of $* for arch $$arch ===="; \\
-\t\t$(MAKE) $$arch-veryclean-$*; \\
-\tdone; \\
-\techo "Run 'make build-$*' to rebuild $* correctly."
-
-build: libs
+veryclean-%: package-in-list-% $(addsuffix -veryclean, $(archs))
+\t@echo "Veryclean of $* terminated"
 
 clean: $(addprefix clean-,$(packages))
 
 veryclean: $(addprefix veryclean-,$(packages))
 
-generate-dummy-%:
-\t@echo "[{archs}] Generating dummy $* static library." ; \\
-\tprintf "void $*_init() {{}}" | tr '-' '_' > .dummy.c ; \\
-\tfor arch in {archs}; do clang -mios-simulator-version-min=6.0 -c .dummy.c -arch $$arch -o .dummy-$$arch.a; done ; \\
-\tlipo -create -output .dummy.a .dummy-*.a ; \\
-\trm .dummy-*.a .dummy.c
 
-lipo:
+sdk:
 \tarchives=`find liblinphone-sdk/{first_arch}-apple-darwin.ios -name *.a` && \\
 \trm -rf liblinphone-sdk/apple-darwin && \\
 \tmkdir -p liblinphone-sdk/apple-darwin && \\
@@ -409,27 +396,16 @@ lipo:
 \t\t{multiarch} \\
 \t\techo "[{archs}] Mixing `basename $$archive` in $$destpath"; \\
 \t\tlipo -create $$all_paths -output $$destpath; \\
-\tdone && \\
-\tfor lib in {libs_list} ; do \\
-\t\tif [ $${{lib:0:5}} = "libms" ] ; then \\
-\t\t\tlibrary_path=liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/$${{lib}}.a ; \\
-\t\telse \\
-\t\t\tlibrary_path=liblinphone-sdk/apple-darwin/lib/$${{lib}}.a ; \\
-\t\tfi ; \\
-\t\tif ! test -f $$library_path ; then \\
-\t\t\t$(MAKE) generate-dummy-$$lib ; \\
-\t\t\tmv .dummy.a $$library_path ; \\
-\t\tfi \\
 \tdone
 
-libs: $(addprefix all-,$(archs))
-\t$(MAKE) lipo
+build: $(addsuffix -build, $(archs))
+\t$(MAKE) sdk
 
 ipa: build
 \txcodebuild -configuration Release \\
-\t&& xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/linphone.app -o linphone-iphone.ipa
+\t&& xcrun -sdk iphoneos PackageApplication -v build/Release-iphoneos/linphone.app -o $$PWD/linphone-iphone.ipa
 
-sdk: libs
+zipsdk: sdk
 \techo "Generating SDK zip file for version $(LINPHONE_IPHONE_VERSION)"
 \tzip -r liblinphone-iphone-sdk-$(LINPHONE_IPHONE_VERSION).zip \\
 \tliblinphone-sdk/apple-darwin \\
@@ -443,10 +419,12 @@ pull-transifex:
 
 push-transifex:
 \t./Tools/i18n_generate_strings_files.sh && \\
-\ttx push -s -t -f --no-interactive
+\ttx push -s -f --no-interactive
 
 zipres:
 \t@tar -czf ios_assets.tar.gz Resources iTunesArtwork
+
+{arch_targets}
 
 help-prepare-options:
 \t@echo "prepare.py was previously executed with the following options:"
@@ -461,24 +439,25 @@ help: help-prepare-options
 \t@echo ""
 \t@echo "Available targets:"
 \t@echo ""
-\t@echo "   * all       : builds all architectures and creates the liblinphone sdk"
-\t@echo "   * zipres    : creates a tar.gz file with all the resources (images)"
+\t@echo "   * all or build: builds all architectures and creates the liblinphone SDK"
+\t@echo "   * sdk: creates the liblinphone SDK. Use this only after a full build"
+\t@echo "   * zipsdk: generates a ZIP archive of liblinphone-sdk/apple-darwin containing the SDK. Use this only after SDK is built."
+\t@echo "   * zipres: creates a tar.gz file with all the resources (images)"
 \t@echo ""
 \t@echo "=== Advanced usage ==="
 \t@echo ""
-\t@echo "   *            build-[package] : builds the package for all architectures"
-\t@echo "   *            clean-[package] : clean the package for all architectures"
+\t@echo "   * build-[package]: builds the package for all architectures"
+\t@echo "   * clean-[package]: cleans package compilation for all architectures"
+\t@echo "   * veryclean-[package]: cleans the package for all architectures"
 \t@echo ""
-\t@echo "   *     [{arch_opts}]-build-[package] : builds a package for the selected architecture"
-\t@echo "   *     [{arch_opts}]-clean-[package] : clean the package for the selected architecture"
+\t@echo "   * [{arch_opts}]-build-[package]: builds a package for the selected architecture"
+\t@echo "   * [{arch_opts}]-clean-[package]: cleans package compilation for the selected architecture"
+\t@echo "   * [{arch_opts}]-veryclean-[package]: cleans the package for the selected architecture"
 \t@echo ""
-\t@echo "   * sdk  : re-add all generated libraries to the SDK. Use this only after a full build."
-\t@echo "   * libs : after a rebuild of a subpackage, will mix the new libs in liblinphone-sdk/apple-darwin directory"
 """.format(archs=' '.join(platforms), arch_opts='|'.join(platforms),
            first_arch=platforms[0], options=' '.join(sys.argv),
            arch_targets=arch_targets, packages=' '.join(packages),
-           libs_list=' '.join(libs_list), multiarch=multiarch,
-           generator=generator)
+           multiarch=multiarch, generator=generator)
     f = open('Makefile', 'w')
     f.write(makefile)
     f.close()
@@ -501,11 +480,11 @@ def main(argv=None):
     argparser.add_argument(
         '-f', '--force', help="Force preparation, even if working directory already exist.", action='store_true')
     argparser.add_argument(
-        '--enable-gpl-third-parties', help="Enable GPL third parties such as FFMpeg, x264.", action='store_true')
+        '--disable-gpl-third-parties', help="Disable GPL third parties such as FFMpeg, x264.", action='store_true')
     argparser.add_argument(
         '--enable-non-free-codecs', help="Enable non-free codecs such as OpenH264, MPEG4, etc.. Final application must comply with their respective license (see README.md).", action='store_true')
     argparser.add_argument(
-        '-G' '--generator', help="CMake build system generator (default: Unix Makefiles).", default='Unix Makefiles', choices=['Unix Makefiles', 'Ninja'], dest='generator')
+        '-G' '--generator', help="CMake build system generator (default: Unix Makefiles, use cmake -h to get the complete list).", default='Unix Makefiles', dest='generator')
     argparser.add_argument(
         '-L', '--list-cmake-variables', help="List non-advanced CMake cache variables.", action='store_true', dest='list_cmake_variables')
     argparser.add_argument(
@@ -518,19 +497,18 @@ def main(argv=None):
     args, additional_args = argparser.parse_known_args()
 
     additional_args += ["-G", args.generator]
-    if args.generator == 'Ninja':
-        if not check_is_installed("ninja", "it"):
-            return 1
-        generator = 'ninja -C'
-    else:
-        generator = '$(MAKE) -C'
 
     if check_tools() != 0:
         return 1
 
-    additional_args += ["-DENABLE_DEBUG_LOGS={}".format("YES" if args.debug_verbose else "NO")]
-    additional_args += ["-DENABLE_NON_FREE_CODECS={}".format("YES" if args.enable_non_free_codecs else "NO")]
-    additional_args += ["-DENABLE_GPL_THIRD_PARTIES={}".format("YES" if args.enable_gpl_third_parties else "NO")]
+    additional_args += ["-DLINPHONE_IOS_DEPLOYMENT_TARGET=" + extract_deployment_target()]
+    additional_args += ["-DLINPHONE_BUILDER_DUMMY_LIBRARIES=" + ' '.join(extract_libs_list())]
+    if args.debug_verbose is True:
+        additional_args += ["-DENABLE_DEBUG_LOGS=YES"]
+    if args.enable_non_free_codecs is True:
+        additional_args += ["-DENABLE_NON_FREE_CODECS=YES"]
+    if args.disable_gpl_third_parties is True:
+        additional_args += ["-DENABLE_GPL_THIRD_PARTIES=NO"]
 
     if args.tunnel or os.path.isdir("submodules/tunnel"):
         if not os.path.isdir("submodules/tunnel"):
@@ -546,10 +524,12 @@ def main(argv=None):
     if args.list_features:
         tmpdir = tempfile.mkdtemp(prefix="linphone-iphone")
         tmptarget = IOSarm64Target()
+        tmptarget.abs_cmake_dir = tmpdir
 
         option_regex = re.compile("ENABLE_(.*):(.*)=(.*)")
         option_list = [""]
-        for line in Popen(tmptarget.cmake_command("Debug", False, True, additional_args),
+        build_type = 'Debug' if args.debug else 'Release'
+        for line in Popen(tmptarget.cmake_command(build_type, False, True, additional_args),
                           cwd=tmpdir, shell=False, stdout=PIPE).stdout.readlines():
             match = option_regex.match(line)
             if match is not None:
@@ -560,17 +540,21 @@ def main(argv=None):
         shutil.rmtree(tmpdir)
         return 0
 
-    selected_platforms = []
+    selected_platforms_dup = []
     for platform in args.platform:
         if platform == 'all':
-            selected_platforms += archs_device + archs_simu
+            selected_platforms_dup += archs_device + archs_simu
         elif platform == 'devices':
-            selected_platforms += archs_device
+            selected_platforms_dup += archs_device
         elif platform == 'simulators':
-            selected_platforms += archs_simu
+            selected_platforms_dup += archs_simu
         else:
-            selected_platforms += [platform]
-    selected_platforms = list(set(selected_platforms))
+            selected_platforms_dup += [platform]
+    # unify platforms but keep provided order
+    selected_platforms = []
+    for x in selected_platforms_dup:
+        if x not in selected_platforms:
+            selected_platforms.append(x)
 
     for platform in selected_platforms:
         target = targets[platform]
@@ -590,7 +574,18 @@ def main(argv=None):
             os.remove('Makefile')
     elif selected_platforms:
         install_git_hook()
-        generate_makefile(selected_platforms, generator)
+
+        # only generated makefile if we are using Ninja or Makefile
+        if args.generator == 'Ninja':
+            if not check_is_installed("ninja", "it"):
+                return 1
+            generate_makefile(selected_platforms, 'ninja -C')
+        elif args.generator == "Unix Makefiles":
+            generate_makefile(selected_platforms, '$(MAKE) -C')
+        elif args.generator == "Xcode":
+            print("You can now open Xcode project with: open WORK/cmake/Project.xcodeproj")
+        else:
+            print("Not generating meta-makefile for generator {}.".format(args.generator))
 
     return 0
 
