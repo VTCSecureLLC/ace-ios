@@ -266,7 +266,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)reset {
-	[self clearProxyConfig];
+	[[LinphoneManager instance] removeAllAccounts];
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"pushnotification_preference"];
 
 	LinphoneCore *lc = [LinphoneManager getLc];
@@ -276,7 +276,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 		LOGE(@"cannot set transport");
 	}
 
-	[[LinphoneManager instance] lpConfigSetString:@"" forKey:@"sharing_server_preference"];
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"ice_preference"];
 	[[LinphoneManager instance] lpConfigSetString:@"" forKey:@"stun_preference"];
 	linphone_core_set_stun_server(lc, NULL);
@@ -404,21 +403,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 
 	// Set current view
+	LOGI(@"Changig assistant view %d -> %d", currentView.tag, view.tag);
 	currentView = view;
 	[contentView insertSubview:view atIndex:0];
 	[view setFrame:[contentView bounds]];
 	[contentView setContentSize:[view bounds].size];
-}
-
-- (void)clearProxyConfig {
-	linphone_core_clear_proxy_config([LinphoneManager getLc]);
-	linphone_core_clear_all_auth_info([LinphoneManager getLc]);
-}
-
-- (void)setDefaultSettings:(LinphoneProxyConfig *)proxyCfg {
-	LinphoneManager *lm = [LinphoneManager instance];
-
-	[lm configurePushTokenForProxyConfig:proxyCfg];
 }
 
 - (BOOL)addProxyConfig:(NSString *)username
@@ -478,9 +467,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneAuthInfo *info = linphone_auth_info_new([username UTF8String], NULL, [password UTF8String], NULL, NULL,
 													linphone_proxy_config_get_domain(proxyCfg));
 
-	[self setDefaultSettings:proxyCfg];
-
-	[self clearProxyConfig];
+	LinphoneManager *lm = [LinphoneManager instance];
+	[lm configurePushTokenForProxyConfig:proxyCfg];
+	[lm removeAllAccounts];
 
 
 //    NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%@", self.textFieldDomain.text, self.textFieldPort.text];
@@ -495,8 +484,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)addProvisionedProxy:(NSString *)username withPassword:(NSString *)password withDomain:(NSString *)domain {
-	[self clearProxyConfig];
-
+	[[LinphoneManager instance] removeAllAccounts];
 	LinphoneProxyConfig *proxyCfg = linphone_core_create_proxy_config([LinphoneManager getLc]);
 
 	const char *addr = linphone_proxy_config_get_domain(proxyCfg);
@@ -598,6 +586,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	case LinphoneRegistrationFailed: {
 		[waitView setHidden:true];
+		if ([message isEqualToString:@"Forbidden"]) {
+			message = NSLocalizedString(@"Incorrect username or password.", nil);
+		}
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 														message:message
 													   delegate:nil
@@ -620,13 +611,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	linphone_core_set_provisioning_uri([LinphoneManager getLc],
 									   [fullPath cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 	[[LinphoneManager instance] lpConfigSetInt:1 forKey:@"transient_provisioning" forSection:@"misc"];
-
-	// For some reason, video preview hangs for 15seconds when resetting linphone core from here...
-	// to avoid it, we disable it before and reenable it after core restart.
-	BOOL hasPreview = linphone_core_video_preview_enabled([LinphoneManager getLc]);
-	linphone_core_enable_video_preview([LinphoneManager getLc], FALSE);
 	[[LinphoneManager instance] resetLinphoneCore];
-	linphone_core_enable_video_preview([LinphoneManager getLc], hasPreview);
 }
 
 #pragma mark - UITextFieldDelegate Functions
@@ -1019,9 +1004,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 												  otherButtonTitles:nil, nil];
 		[errorView show];
 	} else if ([response object] != nil) { // Don't handle if not object: HTTP/Communication Error
-		NSString *value = [response object];
 		if ([[request method] isEqualToString:@"check_account"]) {
-			if ([value integerValue] == 1) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				UIAlertView *errorView =
 					[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check issue", nil)
 											   message:NSLocalizedString(@"Username already exists", nil)
@@ -1037,7 +1021,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 				[self createAccount:identity password:password email:email];
 			}
 		} else if ([[request method] isEqualToString:@"create_account_with_useragent"]) {
-			if ([value integerValue] == 0) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:0]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 				[self changeView:validateAccountView back:FALSE animation:TRUE];
@@ -1053,7 +1037,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 				[errorView show];
 			}
 		} else if ([[request method] isEqualToString:@"check_account_validated"]) {
-			if ([value integerValue] == 1) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 				[self addProxyConfig:username password:password domain:nil withTransport:nil];

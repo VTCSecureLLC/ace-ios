@@ -50,9 +50,9 @@
 
 #pragma mark - ViewController Functions
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	self.tableView.accessibilityIdentifier = @"ChatRoom list";
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.tableView.accessibilityIdentifier = @"Chat list";
 	[self loadData];
 }
 
@@ -75,17 +75,20 @@ static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRo
 
 - (MSList *)sortChatRooms {
 	MSList *sorted = nil;
-	MSList *unsorted = linphone_core_get_chat_rooms([LinphoneManager getLc]);
-	MSList *iter = unsorted;
+	const MSList *unsorted = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+	const MSList *iter = unsorted;
 
 	while (iter) {
 		// store last message in user data
 		LinphoneChatRoom *chat_room = iter->data;
 		MSList *history = linphone_chat_room_get_history(iter->data, 1);
-		LinphoneChatMessage *last_msg = history ? history->data : NULL;
+		LinphoneChatMessage *last_msg = NULL;
+		if (history) {
+			last_msg = linphone_chat_message_ref(history->data);
+			ms_list_free(history);
+		}
 		linphone_chat_room_set_user_data(chat_room, last_msg);
 		sorted = ms_list_insert_sorted(sorted, chat_room, (MSCompareFunc)sorted_history_comparison);
-
 		iter = iter->next;
 	}
 	return sorted;
@@ -171,13 +174,16 @@ static void chatTable_free_chatrooms(void *data) {
 			linphone_chat_room_set_user_data(chatRoom, NULL);
 		}
 
+		FileTransferDelegate *ftdToDelete = nil;
 		for (FileTransferDelegate *ftd in [[LinphoneManager instance] fileTransferDelegates]) {
 			if (linphone_chat_message_get_chat_room(ftd.message) == chatRoom) {
-				[ftd cancel];
+				ftdToDelete = ftd;
+				break;
 			}
 		}
-		linphone_chat_room_delete_history(chatRoom);
-		linphone_chat_room_unref(chatRoom);
+		[ftdToDelete cancel];
+
+		linphone_core_delete_chat_room(linphone_chat_room_get_lc(chatRoom), chatRoom);
 		data = ms_list_remove(data, chatRoom);
 
 		// will force a call to [self loadData]

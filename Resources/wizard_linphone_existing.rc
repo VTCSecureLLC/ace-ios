@@ -3,14 +3,13 @@
 
 	<section name="proxy_default_values">
 		<entry name="reg_proxy" overwrite="true">&lt;sip:sip.linphone.org;transport=tls&gt;</entry>
-		<entry name="reg_route" overwrite="true">&lt;sip:sip.linphone.org;transport=tls&gt;</entry>
 		<entry name="reg_identity" overwrite="true">sip:?@sip.linphone.org</entry>
 		<entry name="reg_expires" overwrite="true">1314000</entry>
 		<entry name="reg_sendregister" overwrite="true">1</entry>
 		<entry name="publish" overwrite="true">0</entry>
 		<entry name="dial_escape_plus" overwrite="true">0</entry>
 		<entry name="avpf" overwrite="true">1</entry>
-		<entry name="quality_reporting_collector" overwrite="true">sip:voip-metrics@sip.linphone.org</entry>
+		<entry name="quality_reporting_collector" overwrite="true">sip:voip-metrics@sip.linphone.org;transport=tls</entry>
 		<entry name="quality_reporting_enabled" overwrite="true">1</entry>
 		<entry name="quality_reporting_interval" overwrite="true">180</entry>
 		<entry name="realm" overwrite="true">sip.linphone.org</entry>
@@ -22,10 +21,10 @@
 
 	<section name="app">
 		<entry name="pushnotification_preference" overwrite="true">1</entry>
-		<entry name="sharing_server_preference" overwrite="true">https://www.linphone.org:444/lft.php</entry>
 		<entry name="ice_preference" overwrite="true">1</entry>
 		<entry name="stun_preference" overwrite="true">stun.linphone.org</entry>
 		<entry name="random_port_preference" overwrite="true">1</entry>
+		<entry name="file_transfer_migration_done" overwrite="true">1</entry>
 	</section>
 
 	<section name="net">
@@ -37,5 +36,9 @@
 		<entry name="sip_port" overwrite="true">-1</entry>
 		<entry name="sip_tcp_port" overwrite="true">-1</entry>
 		<entry name="sip_tls_port" overwrite="true">-1</entry>
+	</section>
+
+	<section name="misc">
+		<entry name="file_transfer_server_url" overwrite="true">https://www.linphone.org:444/lft.php</entry>
 	</section>
 </config>

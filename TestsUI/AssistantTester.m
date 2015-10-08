@@ -6,10 +6,10 @@
 //
 //
 
-#import "WizardTester.h"
+#import "AssistantTester.h"
 #import <KIF/KIF.h>
 
-@implementation WizardTester
+@implementation AssistantTester
 
 - (void)beforeEach {
 	[super beforeEach];
@@ -29,11 +29,6 @@
 	[tester tapViewWithAccessibilityLabel:@"Dialer"];
 }
 
-#pragma mark - State
-
-+ (void)switchToValidAccountWithTester:(KIFTestCase *)testCase {
-}
-
 #pragma mark - Utilities
 
 - (void)_linphoneLogin:(NSString *)username withPW:(NSString *)pw {
@@ -47,22 +42,16 @@
 }
 
 - (void)_externalLoginWithProtocol:(NSString *)protocol {
-
-	[self setInvalidAccountSet:true];
 	[tester tapViewWithAccessibilityLabel:@"Start"];
 	[tester tapViewWithAccessibilityLabel:@"Sign in SIP account"];
 
 	[tester enterText:[self me] intoViewWithAccessibilityLabel:@"Username"];
-	[tester enterText:@"testtest" intoViewWithAccessibilityLabel:@"Password"];
+	[tester enterText:[self me] intoViewWithAccessibilityLabel:@"Password"];
 	[tester enterText:[self accountDomain] intoViewWithAccessibilityLabel:@"Domain"];
 	[tester tapViewWithAccessibilityLabel:protocol];
 
 	[tester tapViewWithAccessibilityLabel:@"Sign in"];
-
-	// check the registration state
-	UIView *regState = [tester waitForViewWithAccessibilityLabel:@"Registration state"];
-	[tester waitForTimeInterval:1];
-	[tester expectView:regState toContainText:@"Registered"];
+	[self waitForRegistration];
 }
 
 #pragma mark - Tests
@@ -100,24 +89,22 @@
 }
 
 - (void)testLinphoneLogin {
-
-	[self _linphoneLogin:[self me] withPW:@"testtest"];
+	[self _linphoneLogin:@"testios" withPW:@"testtest"];
 
 	// check the registration state
-	UIView *regState = [tester waitForViewWithAccessibilityLabel:@"Registration state"];
-	[tester waitForTimeInterval:1];
-	[tester expectView:regState toContainText:@"Registered"];
+	[self waitForRegistration];
 }
 
 - (void)testLinphoneLoginWithBadPassword {
-	[self _linphoneLogin:[self me] withPW:@"badPass"];
+	[self _linphoneLogin:@"testios" withPW:@"badPass"];
 
 	[self setInvalidAccountSet:true];
 
 	UIView *alertViewText =
 		[tester waitForViewWithAccessibilityLabel:@"Registration failure" traits:UIAccessibilityTraitStaticText];
 	if (alertViewText) {
-		UIView *reason = [tester waitForViewWithAccessibilityLabel:@"Forbidden" traits:UIAccessibilityTraitStaticText];
+		UIView *reason = [tester waitForViewWithAccessibilityLabel:@"Incorrect username or password."
+															traits:UIAccessibilityTraitStaticText];
 		if (reason == nil) {
 			[tester fail];
 		} else {
@@ -129,4 +116,11 @@
 	}
 }
 
+- (void)testRemoteProvisioning {
+	[tester tapViewWithAccessibilityLabel:@"Start"];
+	[tester tapViewWithAccessibilityLabel:@"Remote provisioning"];
+	[tester enterTextIntoCurrentFirstResponder:@"smtp.linphone.org/testios_xml"];
+	[tester tapViewWithAccessibilityLabel:@"Fetch"];
+	[self waitForRegistration];
+}
 @end

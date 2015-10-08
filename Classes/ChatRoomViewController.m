@@ -157,9 +157,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[messageBackgroundImage setImage:[TUNinePatchCache imageOfSize:[messageBackgroundImage bounds].size
 												 forNinePatchNamed:@"chat_message_background"]];
 
-	BOOL fileSharingEnabled =
-		[[LinphoneManager instance] lpConfigStringForKey:@"sharing_server_preference"] != NULL &&
-		[[[LinphoneManager instance] lpConfigStringForKey:@"sharing_server_preference"] length] > 0;
+	BOOL fileSharingEnabled = linphone_core_get_file_transfer_server([LinphoneManager getLc]) != NULL;
 	[pictureButton setEnabled:fileSharingEnabled];
 }
 
@@ -280,8 +278,6 @@ static void message_status(LinphoneChatMessage *msg, LinphoneChatMessageState st
 		linphone_chat_message_set_external_body_url(msg, [[externalUrl absoluteString] UTF8String]);
 	}
 
-	linphone_chat_room_send_message2(chatRoom, msg, message_status, (__bridge void *)(self));
-
 	if (internalUrl) {
 		// internal url is saved in the appdata for display and later save
 		[LinphoneManager setValueInMessageAppData:[internalUrl absoluteString] forKey:@"localimage" inMessage:msg];
@@ -289,6 +285,9 @@ static void message_status(LinphoneChatMessage *msg, LinphoneChatMessageState st
 
 	[tableController addChatEntry:msg];
 	[tableController scrollToBottom:true];
+
+	linphone_chat_room_send_message2(chatRoom, msg, message_status, (__bridge void *)(self));
+
 	return TRUE;
 }
 

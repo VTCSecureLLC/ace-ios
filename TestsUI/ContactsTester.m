@@ -14,8 +14,11 @@
 
 #pragma mark - Setup
 
-- (void)beforeAll {
-	[super beforeAll];
+- (void)beforeEach {
+	[super beforeEach];
+	if ([tester tryFindingTappableViewWithAccessibilityLabel:@"Back" error:nil]) {
+		[tester tapViewWithAccessibilityLabel:@"Back"];
+	}
 	[tester tapViewWithAccessibilityLabel:@"Contacts"];
 }
 
@@ -63,14 +66,23 @@
 	}
 
 	[tester tapViewWithAccessibilityLabel:@"Edit"];
-	[tester tapViewWithAccessibilityLabel:@"Back"];
 }
 
 #pragma mark - Tests
 
+- (void)testCallContactWithInvalidPhoneNumber {
+	NSString *contactName = [self getUUID];
+	NSString *phone = @"+5 15 #0664;447*46";
+	[self createContact:contactName lastName:@"dummy" phoneNumber:phone SIPAddress:nil];
+	[tester tapViewWithAccessibilityLabel:[@"Linphone, " stringByAppendingString:phone]];
+	[tester waitForViewWithAccessibilityLabel:[phone stringByAppendingString:@" is not registered."]];
+	[tester tapViewWithAccessibilityLabel:@"Cancel"];
+}
+
 - (void)testDeleteContact {
 	NSString *contactName = [self getUUID];
 	[self createContact:contactName lastName:@"dummy" phoneNumber:@"0102030405" SIPAddress:[self me]];
+	[tester tapViewWithAccessibilityLabel:@"Back"];
 
 	NSString *fullName = [contactName stringByAppendingString:@" dummy"];
 
@@ -137,8 +149,6 @@
 	NSString *contactName = [self getUUID];
 	NSString *fullName = [contactName stringByAppendingString:@" dummy"];
 	[self createContact:contactName lastName:@"dummy" phoneNumber:nil SIPAddress:nil];
-
-	[tester tapViewWithAccessibilityLabel:fullName traits:UIAccessibilityTraitStaticText];
 
 	/* Phone number */
 	NSArray *phones = @[ @"01234", @"56789" ];
