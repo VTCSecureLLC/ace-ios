@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Globals
+HOCKEYAPP_TEAM_IDS=${HOCKEYAPP_TEAM_IDS:-47813}
+HOCKEYAPP_APP_ID=${HOCKEYAPP_APP_ID:-387e68d79a17889131eed3ecf97effd7}
+
 # Only deploy master branch builds
 
 if [ -z "$TRAVIS_BRANCH" ] ; then
@@ -130,8 +134,9 @@ else
     -F "mandatory=0" \
     -F "ipa=@$IPA_FILE" \
     -F "dsym=@$DSYM_ZIP_FILE" \
+    -F "teams=${HOCKEYAPP_TEAM_IDS}" \
     -H "X-HockeyAppToken: ${HOCKEYAPP_TOKEN}" \
-    https://rink.hockeyapp.net/api/2/apps/387e68d79a17889131eed3ecf97effd7/app_versions/upload \
+    https://rink.hockeyapp.net/api/2/apps/${HOCKEYAPP_APP_ID}/app_versions/upload \
   | python -m json.tool
 
   # Distribute via HockeyApp
