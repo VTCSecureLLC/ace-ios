@@ -53,13 +53,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>1</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-=======
 	<string>8</string>
->>>>>>> 1190843732b53bc3033a9b2f12518551ba588818
 	<key>UIApplicationExitsOnSuspend</key>
 	<false/>
 	<key>UIBackgroundModes</key>
