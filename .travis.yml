@@ -30,8 +30,9 @@ before_install:
 - git submodule update --init --recursive
 - bundle install
 install:
-- "./prepare.py -d all -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES
-  --enable-non-free-codecs --enable-gpl-third-parties"
+- "./prepare.py -d all -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES 
+  -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES
+  -enable-non-free-codecs --enable-gpl-third-parties"
 - "./Tools/travis_script.sh"
 script:
 - xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
