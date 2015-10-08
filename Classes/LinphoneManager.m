@@ -527,7 +527,8 @@ exit_dbmigration:
 			// we want to enable quality reporting for the proxies that are on linphone.org
 			if (addr && strstr(addr, "sip.linphone.org") != 0) {
 				LOGI(@"Migrating proxy config to send quality report");
-				linphone_proxy_config_set_quality_reporting_collector(proxy, "sip:voip-metrics@sip.linphone.org");
+				linphone_proxy_config_set_quality_reporting_collector(
+					proxy, "sip:voip-metrics@sip.linphone.org;transport=tls");
 				linphone_proxy_config_set_quality_reporting_interval(proxy, 180);
 				linphone_proxy_config_enable_quality_reporting(proxy, TRUE);
 			}
@@ -706,7 +707,7 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 					data->notification.repeatInterval = 0;
 
 					data->notification.alertBody =
-						[NSString stringWithFormat:NSLocalizedString(@"Incoming call from %@", nil), address];
+						[NSString stringWithFormat:NSLocalizedString(@"IC_MSG", nil), address];
 					data->notification.alertAction = NSLocalizedString(@"Answer", nil);
 					data->notification.userInfo = @{ @"callId" : callId, @"timer" : [NSNumber numberWithInt:1] };
 					data->notification.applicationIconBadgeNumber = 1;
@@ -980,7 +981,7 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
 			if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
 				notif.category = @"incoming_msg";
 			}
-			notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"Incoming message from %@", nil), address];
+			notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"IM_MSG", nil), address];
 			notif.alertAction = NSLocalizedString(@"Show", nil);
 			notif.soundName = @"msg.caf";
 			notif.userInfo = @{ @"from" : address, @"from_addr" : remote_uri, @"call-id" : callID };
@@ -1371,8 +1372,7 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 										[zrtpSecretsFileName cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 	linphone_core_set_chat_database_path(theLinphoneCore,
 										 [chatDBFileName cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-	linphone_core_set_call_logs_database_path(theLinphoneCore,
-											  [chatDBFileName cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+
 	[self migrationLinphoneSettings];
 
 	[self setupNetworkReachabilityCallback];
@@ -2057,7 +2057,8 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		for (int i = 0; i < [tokenData length]; ++i) {
 			[tokenString appendFormat:@"%02X", (unsigned int)tokenBuffer[i]];
 		}
-
+// NSLocalizedString(@"IC_MSG", nil); // Fake for genstrings
+// NSLocalizedString(@"IM_MSG", nil); // Fake for genstrings
 #ifdef USE_APN_DEV
 #define APPMODE_SUFFIX @"dev"
 #else
