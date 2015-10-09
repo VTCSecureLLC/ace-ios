@@ -78,7 +78,7 @@ const int kLinphoneAudioVbrCodecDefaultBitrate = 36; /*you can override this fro
 
 extern void libmsilbc_init(void);
 extern void libmsamr_init(void);
-//extern void libmsx264_init(void);
+extern void libmsx264_init(void);
 extern void libmsopenh264_init(void);
 extern void libmssilk_init(void);
 extern void libmsbcg729_init(void);
@@ -1480,7 +1480,7 @@ static BOOL libStarted = FALSE;
 	libmsilbc_init();
 	libmssilk_init();
 	libmsamr_init();
-//	libmsx264_init();
+	libmsx264_init();
 	libmsopenh264_init();
 	libmsbcg729_init();
 	libmswebrtc_init();
@@ -1948,8 +1948,6 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		[error show];
 		return;
 	}
-    LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
-    
     // VTCSecure add user location when emergency number is dialled.
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
