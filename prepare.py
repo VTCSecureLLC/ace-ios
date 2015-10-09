@@ -483,6 +483,8 @@ def main(argv=None):
     argparser.add_argument(
         '--disable-gpl-third-parties', help="Disable GPL third parties such as FFMpeg, x264.", action='store_true')
     argparser.add_argument(
+        '--enable-gpl-third-parties', help="Enable GPL third parties such as FFMpeg, x264.", action='store_true')
+    argparser.add_argument(
         '--enable-non-free-codecs', help="Enable non-free codecs such as OpenH264, MPEG4, etc.. Final application must comply with their respective license (see README.md).", action='store_true')
     argparser.add_argument(
         '-G' '--generator', help="CMake build system generator (default: Unix Makefiles, use cmake -h to get the complete list).", default='Unix Makefiles', dest='generator')
@@ -510,6 +512,8 @@ def main(argv=None):
         additional_args += ["-DENABLE_NON_FREE_CODECS=YES"]
     if args.disable_gpl_third_parties is True:
         additional_args += ["-DENABLE_GPL_THIRD_PARTIES=NO"]
+    if args.enable_gpl_third_parties is True:
+        additional_args += ["-DENABLE_GPL_THIRD_PARTIES=YES"]
 
     if args.tunnel or os.path.isdir("submodules/tunnel"):
         if not os.path.isdir("submodules/tunnel"):
