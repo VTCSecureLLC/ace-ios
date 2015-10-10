@@ -35,9 +35,9 @@ install:
   --enable-non-free-codecs --enable-gpl-third-parties"
 - "./Tools/travis_script.sh"
 script:
-- "xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
+- xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
   Debug build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS=""
-  1>/tmp/build.log || tail -1000 /tmp/build.log"
+  1>/tmp/build.log || tail -1000 /tmp/build.log
 after_success:
 - "./Tools/release.sh"
 notifications:
