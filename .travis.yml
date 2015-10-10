@@ -12,10 +12,7 @@ env:
 before_install:
 - brew update 1>/dev/null
 - brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr
-- pwd
 - mkdir -p tmp; pushd tmp; git clone https://cmake.org/cmake.git && cd cmake &&  ./bootstrap &&  make clean && make -j4 && make install ; popd
-- pwd
-- cd /Users/travis/build/VTCSecureLLC/ace-ios
 - wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl 
 - chmod +x gas-preprocessor.pl
 - sudo mv gas-preprocessor.pl /usr/local/bin
@@ -33,15 +30,14 @@ before_install:
 - git submodule update --init --recursive
 - bundle install
 install:
-- pwd
 - "./prepare.py -d all -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES 
   -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES
   --enable-non-free-codecs --enable-gpl-third-parties"
 - "./Tools/travis_script.sh"
 script:
-- xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
+- "xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration
   Debug build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS=""
-  1>/dev/null
+  1>/tmp/build.log || tail -1000 /tmp/build.log"
 after_success:
 - "./Tools/release.sh"
 notifications:
