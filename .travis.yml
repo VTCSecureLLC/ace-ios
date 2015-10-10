@@ -13,8 +13,9 @@ before_install:
 - brew update 1>/dev/null
 - brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr
 - pwd
-- mkdir -p tmp ; cd tmp ; git clone https://cmake.org/cmake.git && cd cmake &&  ./bootstrap &&  make clean && make -j4 && make install ; cd ..
+- mkdir -p tmp; pushd tmp; git clone https://cmake.org/cmake.git && cd cmake &&  ./bootstrap &&  make clean && make -j4 && make install ; popd
 - pwd
+- cd /Users/travis/build/VTCSecureLLC/ace-ios
 - wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl 
 - chmod +x gas-preprocessor.pl
 - sudo mv gas-preprocessor.pl /usr/local/bin
