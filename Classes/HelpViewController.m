@@ -7,7 +7,7 @@
 //
 
 #import "HelpViewController.h"
-
+#import <HockeySDK/HockeySDK.h>
 @interface HelpViewController ()
 
 @end
@@ -30,6 +30,15 @@
 {
     return [tableData count];
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+    if(indexPath.row == 1){
+        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeView];
+    }
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *tableIdentifier = @"TableItem";
