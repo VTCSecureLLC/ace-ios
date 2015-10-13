@@ -8,6 +8,7 @@
 
 #import "HelpViewController.h"
 #import <HockeySDK/HockeySDK.h>
+#import <sys/utsname.h>
 @interface HelpViewController ()
 
 @end
@@ -34,7 +35,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
   
     if(indexPath.row == 1){
-        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeView];
+        
+        NSMutableArray *deviceStats = [[NSMutableArray alloc] init];
+        
+        struct utsname systemInfo;
+        uname(&systemInfo);
+        
+        NSString *deviceInfo = [NSString stringWithFormat:@"\n \n \n%@ %@ %@ \n\n ACE: %@",
+                                [NSString stringWithCString:systemInfo.machine
+                                                   encoding:NSUTF8StringEncoding], [[UIDevice currentDevice] systemName], [[UIDevice currentDevice] systemVersion], @"Beta"];
+        [deviceStats addObject:deviceInfo];
+        
+        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:deviceStats];
     }
     
 }
