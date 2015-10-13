@@ -1948,6 +1948,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		[error show];
 		return;
 	}
+    LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
     // VTCSecure add user location when emergency number is dialled.
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
