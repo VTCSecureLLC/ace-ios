@@ -145,7 +145,7 @@ def extract_from_xcode_project_with_regex(regex):
     for line in lines:
         m = regex.search(line)
         if m is not None:
-            l += [m.group(2)]
+            l += [m.group(1)]
     return list(set(l))
 
 
