@@ -2,7 +2,7 @@
 set -x
 LOGFILE=/tmp/build_script.out
 
-echo "Running make"
+echo "Building"
 
 touch $LOGFILE
 
