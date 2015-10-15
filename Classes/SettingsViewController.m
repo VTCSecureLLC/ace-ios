@@ -627,6 +627,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if (!linphone_core_video_enabled([LinphoneManager getLc])) {
 		[hiddenKeys addObject:@"video_menu"];
 	}
+    
+    // Later changed to actully check for rtt support.
+    if (true) {
+        [hiddenKeys addObject:@"rtt_menu"];
+    }
 
 	if (!linphone_core_get_video_preset([LinphoneManager getLc]) ||
 		strcmp(linphone_core_get_video_preset([LinphoneManager getLc]), "custom") != 0) {

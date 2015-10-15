@@ -1915,7 +1915,13 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		}
 		linphone_call_params_enable_low_bandwidth(lcallParams, low_bandwidth);
 	}
-
+    // Add text to accept all incoming text but only if we have text enabled.
+    if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
+        linphone_call_params_enable_realtime_text(lcallParams, linphone_call_params_realtime_text_enabled(lcallParams));
+    }
+    else {
+        linphone_call_params_enable_realtime_text(lcallParams, NO);
+    }
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
 
@@ -1949,6 +1955,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		return;
 	}
     LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
+    // Adding text to all placed calls.
+    if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
+        linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
+    }
     // VTCSecure add user location when emergency number is dialled.
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
@@ -1988,6 +1998,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		LinphoneProxyConfig *proxyCfg;
 		linphone_core_get_default_proxy(theLinphoneCore, &proxyCfg);
 		LinphoneCallParams *lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
+        // Adding text to call.
+        if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
+            linphone_call_params_enable_realtime_text(lcallParams, true);
+        }
 		if ([self lpConfigBoolForKey:@"edge_opt_preference"] && (self.network == network_2g)) {
 			LOGI(@"Enabling low bandwidth mode");
 			linphone_call_params_enable_low_bandwidth(lcallParams, YES);

@@ -24,10 +24,11 @@
 
 #import "UICompositeViewController.h"
 #import "InCallTableViewController.h"
+#import "ExtenableTextField.h"
 
 @class VideoViewController;
 
-@interface InCallViewController : UIViewController <UIGestureRecognizerDelegate, UICompositeViewDelegate> {
+@interface InCallViewController : UIViewController <UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
     @private
     UITapGestureRecognizer* singleFingerTap;
     NSTimer* hideControlsTimer;
@@ -46,5 +47,13 @@
 @property (nonatomic, strong) IBOutlet UIView* videoPreview;
 @property (nonatomic, strong) IBOutlet UICamSwitch* videoCameraSwitch;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* videoWaitingForFirstImage;
+
+
+/* Properties used for text */
+@property (strong, nonatomic) IBOutlet UIScrollView *textscroll;
+@property (nonatomic, retain) IBOutlet ExtenableTextField *incomingTextField;
+@property (nonatomic, retain) IBOutlet ExtenableTextField *outgoingTextLabel;
+@property (strong, nonatomic) IBOutlet UIButton *keyboardButton;
+
 
 @end

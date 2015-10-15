@@ -221,6 +221,12 @@
 	if (bgStartId != UIBackgroundTaskInvalid)
 		[[UIApplication sharedApplication] endBackgroundTask:bgStartId];
 
+    // Enable Text in call.
+    
+    [[LinphoneManager instance] lpConfigSetBool:YES forKey:@"rtt"];
+    bool realtimeEnabled = [[LinphoneManager instance] lpConfigBoolForKey:@"rtt"];
+    NSLog(@"%d", realtimeEnabled);
+    
 	return YES;
 }
 
