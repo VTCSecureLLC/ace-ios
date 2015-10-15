@@ -46,7 +46,7 @@ You can enable non-free codecs by using `--enable-non-free-codecs` and `-DENABLE
         ./prepare.py --list-features
 
 You can for instance enable X264 by using:
-        ./prepare.py --enable-non-free-codecs -DENABLE_X264=ON [other options]
+        ./prepare.py -DENABLE_X264=ON [other options]
 
 ## Built architectures
 
@@ -73,7 +73,7 @@ After the SDK is built, just open the Linphone Xcode project with Xcode, and pre
 
  The liblinphone SDK is compiled with third parties code that are subject to patent license, specially: AMR, SILK G729 and H264 codecs.
  Linphone controls the embedding of these codecs by generating dummy libraries when there are not available. You can enable them using `prepare.py`
- script (see `--enable-non-free-codecs` option). Before embedding patent codecs in the final application, **make sure to have the right to do so**.
+ script (see `--enable-non-free-codecs` option). Before embedding these 4 codecs in the final application, **make sure to have the right to do so**.
 
 # Testing the application
 
@@ -84,7 +84,7 @@ Simply press `⌘U` and the default simulator / device will launch and try to pa
 
 # Limitations and known bugs
 
-* Video capture will not work in simulator (simulator limitation).
+* Video capture will not work in simulator (not implemented in it).
 
 # Debugging the SDK
 
