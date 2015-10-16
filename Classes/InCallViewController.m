@@ -574,7 +574,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
-    
     // Send a character.
     NSLog(@"Add characters");
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);

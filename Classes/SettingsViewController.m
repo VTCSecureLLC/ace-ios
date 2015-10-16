@@ -472,8 +472,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[settingsController hiddenKeys]];
 	NSMutableArray *keys = [NSMutableArray array];
 	BOOL removeFromHiddenKeys = TRUE;
-
-	if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
+    
+    // Make sure we can change the rtt settings.
+    if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
+        BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
+    } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];
 	} else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
@@ -627,11 +631,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if (!linphone_core_video_enabled([LinphoneManager getLc])) {
 		[hiddenKeys addObject:@"video_menu"];
 	}
-    
-    // Later changed to actully check for rtt support.
-    if (true) {
-        [hiddenKeys addObject:@"rtt_menu"];
-    }
 
 	if (!linphone_core_get_video_preset([LinphoneManager getLc]) ||
 		strcmp(linphone_core_get_video_preset([LinphoneManager getLc]), "custom") != 0) {
