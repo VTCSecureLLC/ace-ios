@@ -4386,7 +4386,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = HGRD8GR6YU;
+						DevelopmentTeam = N35DF75MHS;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -5824,7 +5824,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios.text;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -5912,7 +5912,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios.text;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -6000,7 +6000,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios.text;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -6088,7 +6088,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios.text;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
