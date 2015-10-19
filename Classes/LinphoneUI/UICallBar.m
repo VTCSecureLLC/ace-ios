@@ -594,6 +594,4 @@
     BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
     linphone_core_mute_mic([LinphoneManager getLc], isCallAudioMuted);
 }
-
-
 @end
