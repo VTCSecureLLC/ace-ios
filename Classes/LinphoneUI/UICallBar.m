@@ -318,6 +318,10 @@
 		[self hidePad:TRUE];
 		[self hideOptions:TRUE];
 		[self hideRoutes:TRUE];
+            
+        case LinphoneCallConnected:
+                [self initUserCallPrefs];
+            break;
 	default:
 		break;
 	}
@@ -584,5 +588,12 @@
 	}
 	view.autoresizingMask = [[attributes objectForKey:@"autoresizingMask"] integerValue];
 }
+
+-(void) initUserCallPrefs{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
+    linphone_core_mute_mic([LinphoneManager getLc], isCallAudioMuted);
+}
+
 
 @end
