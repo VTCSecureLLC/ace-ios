@@ -83,7 +83,7 @@
 	ignore = dirty
 [submodule "submodules/cmake-builder"]
 	path = submodules/cmake-builder
-	url = https://github.com/VTCSecureLLC/linphone-cmake-builder
+	url = git://git.linphone.org/linphone-cmake-builder
 [submodule "submodules/externals/vo-amrwbenc"]
 	path = submodules/externals/vo-amrwbenc
 	url = git://git.linphone.org/vo-amrwbenc
