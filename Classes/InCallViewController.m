@@ -99,7 +99,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	UIDevice *device = [UIDevice currentDevice];
 	device.proximityMonitoringEnabled = YES;
-
+    
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
 }
@@ -616,6 +616,21 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
         }
     }
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+        return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (BOOL) shouldAutorotate
+{
+    return TRUE;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    //	Prefer (force) landscape if currently in landscape
+    return UIInterfaceOrientationLandscapeRight;
 }
 
 /* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
