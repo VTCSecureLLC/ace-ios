@@ -1943,7 +1943,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		[error show];
 		return;
 	}
-    LinphoneCallParams* lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
+    LinphoneCallParams* lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
     // Adding text to all placed calls.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
         linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
@@ -1975,7 +1975,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		// Finally we can make the call
 		LinphoneProxyConfig *proxyCfg;
 		linphone_core_get_default_proxy(theLinphoneCore, &proxyCfg);
-		LinphoneCallParams *lcallParams = linphone_core_create_default_call_parameters(theLinphoneCore);
+		LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
         // Adding text to call.
         if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
             linphone_call_params_enable_realtime_text(lcallParams, true);
