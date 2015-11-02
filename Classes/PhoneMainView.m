@@ -434,7 +434,8 @@ static RootViewManager *rootViewManagerInstance = nil;
 - (void)updateApplicationBadgeNumber {
 	int count = 0;
 	count += linphone_core_get_missed_calls_count([LinphoneManager getLc]);
-	count += [LinphoneManager unreadMessageCount];
+    //Remove Unread Messages Count on iPhone
+    //count += [LinphoneManager unreadMessageCount];
 	count += linphone_core_get_calls_nb([LinphoneManager getLc]);
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
 }
