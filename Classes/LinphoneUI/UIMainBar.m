@@ -60,10 +60,12 @@ static NSString *const kDisappearAnimation = @"disappear";
 											 selector:@selector(callUpdate:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(textReceived:)
-												 name:kLinphoneTextReceived
-											   object:nil];
+    //Remove Unread Messages Count on iPhone
+
+//	[[NSNotificationCenter defaultCenter] addObserver:self
+//											 selector:@selector(textReceived:)
+//												 name:kLinphoneTextReceived
+//											   object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(settingsUpdate:)
 												 name:kLinphoneSettingsUpdate
@@ -242,53 +244,60 @@ static NSString *const kDisappearAnimation = @"disappear";
 	}
 }
 
-- (void)textReceived:(NSNotification *)notif {
-	[self updateUnreadMessage:TRUE];
-}
+//Remove Unread Messages Count on iPhone
+
+//- (void)textReceived:(NSNotification *)notif {
+//	[self updateUnreadMessage:TRUE];
+//}
 
 #pragma mark -
 
 - (void)update:(BOOL)appear {
 	[self updateView:[[PhoneMainView instance] firstView]];
 	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:appear];
-	[self updateUnreadMessage:appear];
+    
+    //Remove Unread Messages Count on iPhone
+
+    //[self updateUnreadMessage:appear];
 }
 
-- (void)updateUnreadMessage:(BOOL)appear {
-	int unreadMessage = [LinphoneManager unreadMessageCount];
-	if (unreadMessage > 0) {
-		if ([chatNotificationView isHidden]) {
-			[chatNotificationView setHidden:FALSE];
-			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
-				if (appear) {
-					[self appearAnimation:kAppearAnimation
-								   target:chatNotificationView
-							   completion:^(BOOL finished) {
-								 [self startBounceAnimation:kBounceAnimation target:chatNotificationView];
-								 [chatNotificationView.layer removeAnimationForKey:kAppearAnimation];
-							   }];
-				} else {
-					[self startBounceAnimation:kBounceAnimation target:chatNotificationView];
-				}
-			}
-		}
-		[chatNotificationLabel setText:[NSString stringWithFormat:@"%i", unreadMessage]];
-	} else {
-		if (![chatNotificationView isHidden]) {
-			[self stopBounceAnimation:kBounceAnimation target:chatNotificationView];
-			if (appear) {
-				[self disappearAnimation:kDisappearAnimation
-								  target:chatNotificationView
-							  completion:^(BOOL finished) {
-								[chatNotificationView setHidden:TRUE];
-								[chatNotificationView.layer removeAnimationForKey:kDisappearAnimation];
-							  }];
-			} else {
-				[chatNotificationView setHidden:TRUE];
-			}
-		}
-	}
-}
+//Remove Unread Messages Count on iPhone
+
+//- (void)updateUnreadMessage:(BOOL)appear {
+//	int unreadMessage = [LinphoneManager unreadMessageCount];
+//	if (unreadMessage > 0) {
+//		if ([chatNotificationView isHidden]) {
+//			[chatNotificationView setHidden:FALSE];
+//			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+//				if (appear) {
+//					[self appearAnimation:kAppearAnimation
+//								   target:chatNotificationView
+//							   completion:^(BOOL finished) {
+//								 [self startBounceAnimation:kBounceAnimation target:chatNotificationView];
+//								 [chatNotificationView.layer removeAnimationForKey:kAppearAnimation];
+//							   }];
+//				} else {
+//					[self startBounceAnimation:kBounceAnimation target:chatNotificationView];
+//				}
+//			}
+//		}
+//		[chatNotificationLabel setText:[NSString stringWithFormat:@"%i", unreadMessage]];
+//	} else {
+//		if (![chatNotificationView isHidden]) {
+//			[self stopBounceAnimation:kBounceAnimation target:chatNotificationView];
+//			if (appear) {
+//				[self disappearAnimation:kDisappearAnimation
+//								  target:chatNotificationView
+//							  completion:^(BOOL finished) {
+//								[chatNotificationView setHidden:TRUE];
+//								[chatNotificationView.layer removeAnimationForKey:kDisappearAnimation];
+//							  }];
+//			} else {
+//				[chatNotificationView setHidden:TRUE];
+//			}
+//		}
+//	}
+//}
 
 - (void)updateMissedCall:(int)missedCall appear:(BOOL)appear {
 	if (missedCall > 0) {

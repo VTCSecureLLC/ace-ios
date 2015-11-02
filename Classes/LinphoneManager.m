@@ -2095,20 +2095,23 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	return cachePath;
 }
 
-+ (int)unreadMessageCount {
-	int count = 0;
-	const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
-	const MSList *item = rooms;
-	while (item) {
-		LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
-		if (room) {
-			count += linphone_chat_room_get_unread_messages_count(room);
-		}
-		item = item->next;
-	}
 
-	return count;
-}
+//Remove Unread Messages Count on iPhone
+
+//+ (int)unreadMessageCount {
+//	int count = 0;
+//	const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+//	const MSList *item = rooms;
+//	while (item) {
+//		LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
+//		if (room) {
+//			count += linphone_chat_room_get_unread_messages_count(room);
+//		}
+//		item = item->next;
+//	}
+//
+//	return count;
+//}
 
 + (BOOL)copyFile:(NSString *)src destination:(NSString *)dst override:(BOOL)override {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
