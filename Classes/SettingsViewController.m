@@ -508,6 +508,22 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
 	}
+    
+    else if ([@"mute_microphone_preference" compare:notif.object] == NSOrderedSame) {
+        BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
+        linphone_core_mute_mic([LinphoneManager getLc], isMuted);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults synchronize];
+
+    }
+    else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
+        BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
+        [[LinphoneManager instance] setSpeakerEnabled:isSpeakerEnabled];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
+        [defaults synchronize];
+    }
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
