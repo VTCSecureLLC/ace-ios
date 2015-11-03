@@ -130,7 +130,9 @@ typedef struct _LinphoneManagerSounds {
 + (BOOL)isCodecSupported: (const char*)codecName;
 + (NSSet *)unsupportedCodecs;
 + (NSString *)getUserAgent;
-+ (int)unreadMessageCount;
+
+//Remove Unread Messages Count on iPhone
+//+ (int)unreadMessageCount;
 
 - (void)playMessageSound;
 - (void)resetLinphoneCore;
