@@ -784,10 +784,17 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 	// Enable speaker when video
 	if (state == LinphoneCallIncomingReceived || state == LinphoneCallOutgoingInit || state == LinphoneCallConnected ||
 		state == LinphoneCallStreamsRunning) {
-		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled) {
+        
+          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL enableSpeaker = [defaults boolForKey:@"isSpeakerEnabled"];
+		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled && enableSpeaker == YES) {
 			[self setSpeakerEnabled:TRUE];
 			speaker_already_enabled = TRUE;
 		}
+        else{
+            [self setSpeakerEnabled:FALSE];
+            speaker_already_enabled = FALSE;
+        }
 	}
 
 	if (state == LinphoneCallConnected && !mCallCenter) {
@@ -2103,20 +2110,23 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	return cachePath;
 }
 
-+ (int)unreadMessageCount {
-	int count = 0;
-	const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
-	const MSList *item = rooms;
-	while (item) {
-		LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
-		if (room) {
-			count += linphone_chat_room_get_unread_messages_count(room);
-		}
-		item = item->next;
-	}
 
-	return count;
-}
+//Remove Unread Messages Count on iPhone
+
+//+ (int)unreadMessageCount {
+//	int count = 0;
+//	const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+//	const MSList *item = rooms;
+//	while (item) {
+//		LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
+//		if (room) {
+//			count += linphone_chat_room_get_unread_messages_count(room);
+//		}
+//		item = item->next;
+//	}
+//
+//	return count;
+//}
 
 + (BOOL)copyFile:(NSString *)src destination:(NSString *)dst override:(BOOL)override {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
