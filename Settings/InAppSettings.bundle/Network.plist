@@ -172,6 +172,30 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>Key</key>
+			<string>max_upload_preference</string>
+			<key>Title</key>
+			<string>Max Upload</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>620</integer>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>max_download_preference</string>
+			<key>Title</key>
+			<string>Max Download</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>620</integer>
+		</dict>
 	</array>
 </dict>
 </plist>
