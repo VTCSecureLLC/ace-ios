@@ -525,6 +525,15 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults synchronize];
     }
 
+    else if([@"max_upload_preference" compare:notif.object] == NSOrderedSame){
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
+        NSLog(@"Upload set to %d", [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
+    }
+    else if([@"max_download_preference" compare:notif.object] == NSOrderedSame){
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_download_preference"] intValue]);
+                NSLog(@"Downloadx` set to %d", [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
+    }
+
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
 			[hiddenKeys removeObject:key];
