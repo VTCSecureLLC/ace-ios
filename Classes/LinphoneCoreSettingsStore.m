@@ -147,11 +147,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 						snprintf(tmp, sizeof(tmp) - 1, "%s", linphone_address_get_domain(proxy_addr));
 					[self setCString:tmp forKey:@"proxy_preference"];
 				}
-				const char *tname = "udp";
+				const char *tname = "tcp";
 				switch (linphone_address_get_transport(proxy_addr)) {
-				case LinphoneTransportTcp:
-					tname = "tcp";
-					break;
 				case LinphoneTransportTls:
 					tname = "tls";
 					break;
@@ -180,7 +177,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 			[self setObject:@"" forKey:@"password_preference"];
 			[self setObject:@"" forKey:@"domain_preference"];
 			[self setObject:@"" forKey:@"proxy_preference"];
-			[self setCString:"udp" forKey:@"transport_preference"];
+			[self setCString:"tcp" forKey:@"transport_preference"];
 			[self setBool:FALSE forKey:@"outbound_proxy_preference"];
 			[self setBool:FALSE forKey:@"avpf_preference"];
 			// actually in Advanced section but proxy config dependent
@@ -430,10 +427,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		LinphoneAddress *proxy_addr = linphone_address_new(proxy);
 
 		if (proxy_addr) {
-			LinphoneTransportType type = LinphoneTransportUdp;
-			if ([transport isEqualToString:@"tcp"])
-				type = LinphoneTransportTcp;
-			else if ([transport isEqualToString:@"tls"])
+			LinphoneTransportType type = LinphoneTransportTcp;
+			if ([transport isEqualToString:@"tls"])
 				type = LinphoneTransportTls;
 
 			linphone_address_set_transport(proxy_addr, type);
