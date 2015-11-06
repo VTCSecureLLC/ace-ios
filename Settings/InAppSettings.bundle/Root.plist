@@ -184,6 +184,16 @@
 		</dict>
 		<dict>
 			<key>Key</key>
+			<string>rtt_menu</string>
+			<key>File</key>
+			<string>Text</string>
+			<key>Title</key>
+			<string>Text</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
 			<string>audio_menu</string>
 			<key>File</key>
 			<string>Audio</string>
@@ -285,6 +295,16 @@
 			<string>Battery alert</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Auto answer call immediately</string>
+			<key>Key</key>
+			<string>enable_auto_answer_preference</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 	</array>
 	<key>StringsTable</key>

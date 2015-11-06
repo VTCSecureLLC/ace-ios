@@ -356,7 +356,7 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	[UINavigationControllerEx removeBackground:viewController.view];
 
-	[viewController viewWillAppear:animated]; // Force view
+	[viewController view]; // Force view
 	UILabel *labelTitleView = [[UILabel alloc] init];
    // labelTitleView.backgroundColor = LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
     labelTitleView.textColor = LINPHONE_MAIN_COLOR;//[UIColor colorWithRed:0x41 / 255.0f green:0x48 / 255.0f blue:0x4f / 255.0f alpha:1.0];
@@ -472,8 +472,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSMutableSet *hiddenKeys = [NSMutableSet setWithSet:[settingsController hiddenKeys]];
 	NSMutableArray *keys = [NSMutableArray array];
 	BOOL removeFromHiddenKeys = TRUE;
-
-	if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
+    
+    // Make sure we can change the rtt settings.
+    if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
+        BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
+    } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];
 	} else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
@@ -504,6 +508,29 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
 	}
+    
+    else if ([@"mute_microphone_preference" compare:notif.object] == NSOrderedSame) {
+        BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
+        linphone_core_mute_mic([LinphoneManager getLc], isMuted);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults synchronize];
+
+    }
+    else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
+        BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
+        [[LinphoneManager instance] setSpeakerEnabled:isSpeakerEnabled];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
+        [defaults synchronize];
+    }
+
+    else if([@"max_upload_preference" compare:notif.object] == NSOrderedSame){
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
+    }
+    else if([@"max_download_preference" compare:notif.object] == NSOrderedSame){
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_download_preference"] intValue]);
+    }
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
@@ -516,24 +543,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 #pragma mark -
-
-+ (IASKSpecifier *)disableCodecSpecifier:(IASKSpecifier *)specifier {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[specifier specifierDict]];
-
-	NSMutableString *type = [NSMutableString stringWithString:[dict objectForKey:kIASKType]];
-	[type setString:kIASKPSTitleValueSpecifier];
-	[dict setObject:type forKey:kIASKType];
-
-	NSMutableArray *values =
-		[NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], nil];
-	[dict setObject:values forKey:kIASKValues];
-
-	NSString *title = NSLocalizedString(@"Disabled, build from sources to enable", nil);
-	NSMutableArray *titles = [NSMutableArray arrayWithObjects:title, title, nil];
-	[dict setObject:titles forKey:kIASKTitles];
-
-	return [[IASKSpecifier alloc] initWithSpecifier:dict];
-}
 
 + (IASKSpecifier *)filterSpecifier:(IASKSpecifier *)specifier {
 	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
@@ -578,14 +587,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 		}
 	}
 
-	// Add "build from source" if MPEG4 or H264 disabled
-	if ([[specifier key] isEqualToString:@"h264_preference"] && ![LinphoneManager isCodecSupported:"h264"]) {
-		return [SettingsViewController disableCodecSpecifier:specifier];
-	}
-	if ([[specifier key] isEqualToString:@"mp4v-es_preference"] && ![LinphoneManager isCodecSupported:"mp4v-es"]) {
-		return [SettingsViewController disableCodecSpecifier:specifier];
-	}
-
 	return specifier;
 }
 
@@ -593,7 +594,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
 
-	if (linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
+	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		[hiddenKeys addObject:@"media_encryption_preference"];
 	}
 
@@ -623,6 +624,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	if (!linphone_core_video_supported([LinphoneManager getLc]))
 		[hiddenKeys addObject:@"video_menu"];
+
+	if (![LinphoneManager isCodecSupported:"h264"]) {
+		[hiddenKeys addObject:@"h264_preference"];
+	}
+	if (![LinphoneManager isCodecSupported:"mp4v-es"]) {
+		[hiddenKeys addObject:@"mp4v-es_preference"];
+	}
 
 	if (![LinphoneManager isNotIphone3G])
 		[hiddenKeys addObject:@"silk_24k_preference"];
@@ -770,32 +778,31 @@ static UICompositeViewDescription *compositeDescription = nil;
 	} else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();
 	} else if ([key isEqual:@"send_logs_button"]) {
-		char *filepath = linphone_core_compress_log_collection(lc);
-		if (filepath == NULL) {
-			LOGE(@"Cannot sent logs: file is NULL");
-			return;
+		NSString *message;
+
+		if ([LinphoneManager.instance lpConfigBoolForKey:@"send_logs_include_linphonerc_and_chathistory"]) {
+			message = NSLocalizedString(
+				@"Warning: an email will be created with 3 attachments:\n- Application "
+				@"logs\n- Linphone configuration\n- Chats history.\nThey may contain "
+				@"private informations (MIGHT contain clear-text password!).\nYou can remove one or several "
+				@"of these attachments before sending your email, however there are all "
+				@"important to diagnostize your issue.",
+				nil);
+		} else {
+			message = NSLocalizedString(@"Warning: an email will be created with application " @"logs. It may contain "
+										@"private informations (but no password!).\nThese logs are "
+										@"important to diagnostize your issue.",
+										nil);
 		}
 
-		NSString *filename = [[NSString stringWithUTF8String:filepath] componentsSeparatedByString:@"/"].lastObject;
-		NSString *mimeType;
-		if ([filename hasSuffix:@".jpg"]) {
-			mimeType = @"image/jpeg";
-		} else if ([filename hasSuffix:@".png"]) {
-			mimeType = @"image/png";
-		} else if ([filename hasSuffix:@".pdf"]) {
-			mimeType = @"application/pdf";
-		} else if ([filename hasSuffix:@".txt"]) {
-			mimeType = @"text/plain";
-		} else if ([filename hasSuffix:@".gz"]) {
-			mimeType = @"application/gzip";
-		} else {
-			LOGE(@"Unknown extension type: %@, cancelling email", filename);
-			return;
-		}
-		[self emailAttachment:[NSData dataWithContentsOfFile:[NSString stringWithUTF8String:filepath]]
-					 mimeType:mimeType
-						 name:filename];
-		ms_free(filepath);
+		DTAlertView *alert =
+			[[DTAlertView alloc] initWithTitle:NSLocalizedString(@"Sending logs", nil) message:message];
+		[alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
+		[alert addButtonWithTitle:NSLocalizedString(@"I got it, continue", nil)
+							block:^{
+							  [self sendEmailWithDebugAttachments];
+							}];
+		[alert show];
 	}
 }
 
@@ -808,45 +815,84 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[self goToWizard];
 }
 
-#pragma mark - Mail composer for send log
-- (void)emailAttachment:(NSData *)attachment mimeType:(NSString *)type name:(NSString *)attachmentName {
-	if (attachmentName == nil || type == nil || attachmentName == nil) {
-		LOGE(@"Trying to email attachment but mandatory field is missing");
-		return;
+#pragma mark - Mail composer for sending logs
+
+- (void)sendEmailWithDebugAttachments {
+	LinphoneCore *lc = [LinphoneManager getLc];
+	NSMutableArray *attachments = [[NSMutableArray alloc] initWithCapacity:3];
+
+	// retrieve linphone logs if available
+	char *filepath = linphone_core_compress_log_collection(lc);
+	if (filepath != NULL) {
+		NSString *filename = [[NSString stringWithUTF8String:filepath] componentsSeparatedByString:@"/"].lastObject;
+		NSString *mimeType = nil;
+		if ([filename hasSuffix:@".txt"]) {
+			mimeType = @"text/plain";
+		} else if ([filename hasSuffix:@".gz"]) {
+			mimeType = @"application/gzip";
+		} else {
+			LOGE(@"Unknown extension type: %@, not attaching logs", filename);
+		}
+
+		if (mimeType != nil) {
+			[attachments addObject:@[ [NSString stringWithUTF8String:filepath], mimeType, filename ]];
+		}
 	}
 
+	if ([LinphoneManager.instance lpConfigBoolForKey:@"send_logs_include_linphonerc_and_chathistory"]) {
+		// retrieve linphone rc
+		[attachments
+			addObject:@[ [LinphoneManager documentFile:@"linphonerc"], @"text/plain", @"linphone-configuration.rc" ]];
+
+		// retrieve historydb
+		[attachments addObject:@[
+			[LinphoneManager documentFile:@"linphone_chats.db"],
+			@"application/x-sqlite3",
+			@"linphone-chats-history.db"
+		]];
+	}
+
+	[self emailAttachments:attachments];
+	ms_free(filepath);
+}
+- (void)emailAttachments:(NSArray *)attachments {
+	NSString *error = nil;
 #if TARGET_IPHONE_SIMULATOR
-	UIAlertView *error = [[UIAlertView alloc]
-			initWithTitle:NSLocalizedString(@"Cannot send email", nil)
-				  message:NSLocalizedString(
-							  @"Simulator cannot send emails. To test this feature, please use a real device.", nil)
-				 delegate:nil
-		cancelButtonTitle:NSLocalizedString(@"Continue", nil)
-		otherButtonTitles:nil];
-	[error show];
+	error = @"Cannot send emails on the Simulator. To test this feature, please use a real device.";
 #else
-	if ([MFMailComposeViewController canSendMail] == YES) {
+	if ([MFMailComposeViewController canSendMail] == NO) {
+		error = NSLocalizedString(
+			@"Your device is not configured to send emails. Please configure mail application prior to send logs.",
+			nil);
+	}
+#endif
+
+	if (error != nil) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot send email", nil)
+														message:error
+													   delegate:nil
+											  cancelButtonTitle:NSLocalizedString(@"Continue", nil)
+											  otherButtonTitles:nil];
+		[alert show];
+	} else {
 		MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
 		picker.mailComposeDelegate = self;
 
-		[picker setSubject:NSLocalizedString(@"Linphone Logs", nil)];
+		[picker setSubject:@"Linphone iOS Logs"];
 		[picker setToRecipients:[NSArray arrayWithObjects:@"linphone-iphone@belledonne-communications.com", nil]];
-		[picker setMessageBody:NSLocalizedString(@"Linphone logs", nil) isHTML:NO];
-		[picker addAttachmentData:attachment mimeType:type fileName:attachmentName];
-
+		[picker setMessageBody:@"Here are information about an issue I had on my device.\nI was "
+							   @"doing ...\nI expected Linphone to ...\nInstead, I got an "
+							   @"unexpected result: ..."
+						isHTML:NO];
+		for (NSArray *attachment in attachments) {
+			if ([[NSFileManager defaultManager] fileExistsAtPath:attachment[0]]) {
+				[picker addAttachmentData:[NSData dataWithContentsOfFile:attachment[0]]
+								 mimeType:attachment[1]
+								 fileName:attachment[2]];
+			}
+		}
 		[self presentViewController:picker animated:true completion:nil];
-	} else {
-		UIAlertView *error = [[UIAlertView alloc]
-				initWithTitle:NSLocalizedString(@"Cannot send email", nil)
-					  message:NSLocalizedString(@"Your device is not configured to send emails. Please configure mail "
-												@"application prior to send logs.",
-												nil)
-					 delegate:nil
-			cancelButtonTitle:NSLocalizedString(@"Continue", nil)
-			otherButtonTitles:nil];
-		[error show];
 	}
-#endif
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller

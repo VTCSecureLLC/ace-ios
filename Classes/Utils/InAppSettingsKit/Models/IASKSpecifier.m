@@ -251,16 +251,15 @@
 	return !boxedResult || [boxedResult boolValue];
 }
 
-- (NSTextAlignment)textAlignment
-{
-    if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
-        return NSTextAlignmentLeft;
-    } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
-        return NSTextAlignmentCenter;
-    } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
-        return NSTextAlignmentRight;
-    }
-    if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
+- (NSTextAlignment)textAlignment {
+	if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
+		return NSTextAlignmentLeft;
+	} else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
+		return NSTextAlignmentCenter;
+	} else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
+		return NSTextAlignmentRight;
+	}
+	if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
 		return NSTextAlignmentCenter;
 	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
 		return NSTextAlignmentRight;

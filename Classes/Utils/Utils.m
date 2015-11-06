@@ -20,30 +20,25 @@
 #import "Utils.h"
 #include "linphone/linphonecore.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <sys/utsname.h>
 
 @implementation LinphoneLogger
-
-+ (void)logv:(OrtpLogLevel)severity
-		file:(const char *)file
-		line:(int)line
-	  format:(NSString *)format
-		args:(va_list)args {
-	NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-	int filesize = 20;
-	if (severity <= ORTP_DEBUG) {
-		// lol: ortp_debug(XXX) can be disabled at compile time, but ortp_log(ORTP_DEBUG, xxx) will always be valid even
-		//      not in debug build...
-		ortp_debug("%*s:%3d - %s", filesize, file + MAX((int)strlen(file) - filesize, 0), line, [str UTF8String]);
-	} else {
-		ortp_log(severity, "%*s:%3d - %s", filesize, file + MAX((int)strlen(file) - filesize, 0), line,
-				 [str UTF8String]);
-	}
-}
 
 + (void)log:(OrtpLogLevel)severity file:(const char *)file line:(int)line format:(NSString *)format, ... {
 	va_list args;
 	va_start(args, format);
-	[LinphoneLogger logv:severity file:file line:line format:format args:args];
+	NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+	const char *utf8str = [str cStringUsingEncoding:NSString.defaultCStringEncoding];
+	int filesize = 20;
+	const char *filename = strchr(file, '/') ? strrchr(file, '/') + 1 : file;
+	if (severity <= ORTP_DEBUG) {
+		// lol: ortp_debug(XXX) can be disabled at compile time, but ortp_log(ORTP_DEBUG, xxx) will always be valid even
+		//      not in debug build...
+		ortp_debug("%*s:%3d - %s", filesize, filename + MAX((int)strlen(filename) - filesize, 0), line, utf8str);
+	} else {
+		ortp_log(severity, "%*s:%3d - %s", filesize, filename + MAX((int)strlen(filename) - filesize, 0), line,
+				 utf8str);
+	}
 	va_end(args);
 }
 
@@ -304,6 +299,13 @@ void linphone_iphone_log_handler(int lev, const char *fmt, va_list args) {
 		return [dict objectForKey:key];
 	}
 	return nil;
+}
+
++ (NSString *)deviceName {
+	struct utsname systemInfo;
+	uname(&systemInfo);
+
+	return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
 @end

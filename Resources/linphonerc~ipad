@@ -20,8 +20,8 @@ ping_with_options=0
 
 
 [rtp]
-audio_rtp_port=7076
-video_rtp_port=9078
+audio_rtp_port=7200-7299
+video_rtp_port=9200-9299
 audio_jitt_comp=60
 video_jitt_comp=60
 nortp_timeout=30
@@ -36,7 +36,7 @@ display=1
 capture=1
 show_local=1
 enabled=1
-size=vga
+size=cif
 automatically_initiate=1
 automatically_accept=1
 preset=high-fps
@@ -58,7 +58,7 @@ edge_opt_preference=0
 use_system_contacts=0
 start_at_boot_preference=1
 backgroundmode_preference=1
-autoanswer_notif_preference=0
+autoanswer_notif_preference=1
 voiceproc_preference=1
 enable_log_collect=0
 repeat_call_notification=1

@@ -99,7 +99,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	UIDevice *device = [UIDevice currentDevice];
 	device.proximityMonitoringEnabled = YES;
-
+    
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
 }
@@ -139,6 +139,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Enable tap
 	[singleFingerTap setEnabled:TRUE];
+    // Hide fields.
+    self.textscroll.hidden = YES;
+    self.keyboardButton.hidden = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -172,6 +175,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+    
+    // We listen for incoming text.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
 }
 
 - (void)viewDidUnload {
@@ -217,6 +223,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	case LinphoneCallConnected:
 	case LinphoneCallStreamsRunning: {
+        // check realtime text.
+        if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call))){
+            self.textscroll.hidden = NO;
+            self.keyboardButton.hidden = NO;
+        }
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
 			[self displayVideoCall:animated];
@@ -542,5 +553,102 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 	}
 }
 
+
+#pragma mark TextHandling
+
+/* A field that must be implemented for the text protocol */
+- (BOOL)hasText {
+    return YES;
+}
+
+/* Can become first responder. This is inly possible in calls with text. */
+- (BOOL)canBecomeFirstResponder {
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if (call)
+    {
+        if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call)))
+            return YES;
+    }
+    return NO;
+}
+
+/* Called when text is inserted */
+- (void)insertText:(NSString *)theText {
+    // Send a character.
+    NSLog(@"Add characters");
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneChatRoom* room = linphone_call_get_chat_room(call);
+    LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
+    [self.outgoingTextLabel appendWithString:theText];
+    for (int i = 0; i != theText.length; i++)
+        linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
+}
+/* Called when backspace is inserted */
+- (void)deleteBackward {
+    
+    // Send a backspace.
+    NSLog(@"Remove one sign.");
+    if (self.outgoingTextLabel.text.length == 0)
+        return;
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneChatRoom* room = linphone_call_get_chat_room(call);
+    LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
+    [self.outgoingTextLabel removeLast];
+    linphone_chat_message_put_char(msg, (char)8);
+}
+
+/* Text is recevied and should be handled. */
+- (void)textComposeEvent:(NSNotification *)notif {
+    LinphoneChatRoom *room = [[[notif userInfo] objectForKey:@"room"] pointerValue];
+    if (room) {
+        uint32_t c = linphone_chat_room_get_char(room);
+        
+        if (c == 0x2028 || c == 10){ // In case of enter.
+            [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:@"\n" waitUntilDone:NO];
+        }
+        else if (c == '\b' || c == 8){ // In case of backspace.
+            [self performSelectorOnMainThread:@selector(runonmainthreadremove) withObject:nil waitUntilDone:NO];
+        }
+        else// In case of everything else except empty.
+        {
+            NSLog(@"The logging: %d", c);
+            NSString * string = [NSString stringWithFormat:@"%C", (unichar)c];
+            [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
+        }
+    }
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+        return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (BOOL) shouldAutorotate
+{
+    return TRUE;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    //	Prefer (force) landscape if currently in landscape
+    return UIInterfaceOrientationLandscapeRight;
+}
+
+/* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
+-(void)runonmainthread:(NSString*)text{
+    [self.incomingTextField appendWithString:text];
+}
+
+/* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
+-(void)runonmainthreadremove{
+    [self.incomingTextField removeLast];
+}
+
+/* The keyboard button is pressed. We wanna show / hide the keyboard. */
+- (IBAction)keyboardButtonClicked:(id)sender {
+    if (self.isFirstResponder)
+        [self resignFirstResponder];
+    else
+        [self becomeFirstResponder];
+}
 
 @end

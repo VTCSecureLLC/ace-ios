@@ -130,7 +130,9 @@ typedef struct _LinphoneManagerSounds {
 + (BOOL)isCodecSupported: (const char*)codecName;
 + (NSSet *)unsupportedCodecs;
 + (NSString *)getUserAgent;
-+ (int)unreadMessageCount;
+
+//Remove Unread Messages Count on iPhone
+//+ (int)unreadMessageCount;
 
 - (void)playMessageSound;
 - (void)resetLinphoneCore;
@@ -192,6 +194,8 @@ typedef struct _LinphoneManagerSounds {
 - (float)lpConfigFloatForKey:(NSString*)key forSection:(NSString *)section;
 
 - (void)silentPushFailed:(NSTimer*)timer;
+
+- (void)removeAllAccounts;
 
 @property (readonly) BOOL isTesting;
 @property (readonly, strong) FastAddressBook* fastAddressBook;

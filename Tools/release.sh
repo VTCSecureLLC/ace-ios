@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Globals
+HOCKEYAPP_TEAM_IDS=${HOCKEYAPP_TEAM_IDS:-47813}
+HOCKEYAPP_APP_ID=${HOCKEYAPP_APP_ID:-387e68d79a17889131eed3ecf97effd7}
+
 # Only deploy master branch builds
 
 if [ -z "$TRAVIS_BRANCH" ] ; then
@@ -117,15 +121,33 @@ else
   DSYM_ZIP_FILE=${IPA_FILE}.dsym.zip
   (cd $(dirname $DSYM_DIR) ; zip -r $DSYM_ZIP_FILE $(basename $DSYM_DIR) )
 
+  echo "Uploading to HockeyApp"
+  curl \
+    -F "status=2" \
+    -F "notify=1" \
+    -F "commit_sha=${SHA1}" \
+    -F "build_server_url=https://travis-ci.org/${TRAVIS_REPO_SLUG}/builds/${TRAVIS_BUILD_ID}" \
+    -F "repository_url=http://github.com/${TRAVIS_REPO_SLUG}" \
+    -F "release_type=2" \
+    -F "notes=$(git log -1 --pretty=format:%B)" \
+    -F "notes_type=1" \
+    -F "mandatory=0" \
+    -F "ipa=@$IPA_FILE" \
+    -F "dsym=@$DSYM_ZIP_FILE" \
+    -F "teams=${HOCKEYAPP_TEAM_IDS}" \
+    -H "X-HockeyAppToken: ${HOCKEYAPP_TOKEN}" \
+    https://rink.hockeyapp.net/api/2/apps/${HOCKEYAPP_APP_ID}/app_versions/upload \
+  | python -m json.tool
+
   # Distribute via HockeyApp
 
-  bundle exec ipa distribute:hockeyapp \
-             --token $HOCKEYAPP_TOKEN \
-             --file $IPA_FILE \
-             --dsym $DSYM_ZIP_FILE \
-             --notes "$(git log -1 --pretty=format:%B)" \
-             --notify \
-             --commit-sha ${SHA1} \
-             --build-server-url "https://travis-ci.org/${TRAVIS_REPO_SLUG}/builds/${TRAVIS_BUILD_ID}" \
-             --repository-url "https://github.com/${TRAVIS_REPO_SLUG}"
+  #bundle exec ipa distribute:hockeyapp \
+  #           --token $HOCKEYAPP_TOKEN \
+  #           --file $IPA_FILE \
+  #           --dsym $DSYM_ZIP_FILE \
+  #           --notes "$(git log -1 --pretty=format:%B)" \
+  #           --notify \
+  #           --commit-sha ${SHA1} \
+  #           --build-server-url "https://travis-ci.org/${TRAVIS_REPO_SLUG}/builds/${TRAVIS_BUILD_ID}" \
+  #           --repository-url "https://github.com/${TRAVIS_REPO_SLUG}"
 fi

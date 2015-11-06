@@ -266,7 +266,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)reset {
-	[self clearProxyConfig];
+	[[LinphoneManager instance] removeAllAccounts];
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"pushnotification_preference"];
 
 	LinphoneCore *lc = [LinphoneManager getLc];
@@ -276,7 +276,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 		LOGE(@"cannot set transport");
 	}
 
-	[[LinphoneManager instance] lpConfigSetString:@"" forKey:@"sharing_server_preference"];
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"ice_preference"];
 	[[LinphoneManager instance] lpConfigSetString:@"" forKey:@"stun_preference"];
 	linphone_core_set_stun_server(lc, NULL);
@@ -404,21 +403,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 
 	// Set current view
+	LOGI(@"Changig assistant view %d -> %d", currentView.tag, view.tag);
 	currentView = view;
 	[contentView insertSubview:view atIndex:0];
 	[view setFrame:[contentView bounds]];
 	[contentView setContentSize:[view bounds].size];
-}
-
-- (void)clearProxyConfig {
-	linphone_core_clear_proxy_config([LinphoneManager getLc]);
-	linphone_core_clear_all_auth_info([LinphoneManager getLc]);
-}
-
-- (void)setDefaultSettings:(LinphoneProxyConfig *)proxyCfg {
-	LinphoneManager *lm = [LinphoneManager instance];
-
-	[lm configurePushTokenForProxyConfig:proxyCfg];
 }
 
 - (BOOL)addProxyConfig:(NSString *)username
@@ -430,8 +419,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSString *server_address = domain;
 
 	char normalizedUserName[256];
-	linphone_proxy_config_normalize_number(proxyCfg, [username cStringUsingEncoding:[NSString defaultCStringEncoding]],
-										   normalizedUserName, sizeof(normalizedUserName));
+	linphone_proxy_config_normalize_number(proxyCfg, [username UTF8String], normalizedUserName,
+										   sizeof(normalizedUserName));
 
 	const char *identity = linphone_proxy_config_get_identity(proxyCfg);
 	if (!identity || !*identity)
@@ -460,7 +449,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 			linphone_address_destroy(parsedAddress);
 		UIAlertView *errorView =
 			[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check error(s)", nil)
-									   message:NSLocalizedString(@"Please enter a valid username", nil)
+									   message:NSLocalizedString(@"Please enter a valid username.", nil)
 									  delegate:nil
 							 cancelButtonTitle:NSLocalizedString(@"Continue", nil)
 							 otherButtonTitles:nil, nil];
@@ -478,9 +467,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneAuthInfo *info = linphone_auth_info_new([username UTF8String], NULL, [password UTF8String], NULL, NULL,
 													linphone_proxy_config_get_domain(proxyCfg));
 
-	[self setDefaultSettings:proxyCfg];
-
-	[self clearProxyConfig];
+	LinphoneManager *lm = [LinphoneManager instance];
+	[lm configurePushTokenForProxyConfig:proxyCfg];
+	[lm removeAllAccounts];
 
 
 //    NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%@", self.textFieldDomain.text, self.textFieldPort.text];
@@ -495,16 +484,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)addProvisionedProxy:(NSString *)username withPassword:(NSString *)password withDomain:(NSString *)domain {
-	[self clearProxyConfig];
-
+	[[LinphoneManager instance] removeAllAccounts];
 	LinphoneProxyConfig *proxyCfg = linphone_core_create_proxy_config([LinphoneManager getLc]);
 
 	const char *addr = linphone_proxy_config_get_domain(proxyCfg);
 	char normalizedUsername[256];
 	LinphoneAddress *linphoneAddress = linphone_address_new(addr);
 
-	linphone_proxy_config_normalize_number(proxyCfg, [username cStringUsingEncoding:[NSString defaultCStringEncoding]],
-										   normalizedUsername, sizeof(normalizedUsername));
+	linphone_proxy_config_normalize_number(proxyCfg, [username UTF8String], normalizedUsername,
+										   sizeof(normalizedUsername));
 
 	linphone_address_set_username(linphoneAddress, normalizedUsername);
 	linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
@@ -526,8 +514,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (NSString *)identityFromUsername:(NSString *)username {
 	char normalizedUserName[256];
 	LinphoneAddress *linphoneAddress = linphone_address_new("sip:user@domain.com");
-	linphone_proxy_config_normalize_number(NULL, [username cStringUsingEncoding:[NSString defaultCStringEncoding]],
-										   normalizedUserName, sizeof(normalizedUserName));
+	linphone_proxy_config_normalize_number(NULL, [username UTF8String], normalizedUserName, sizeof(normalizedUserName));
 	linphone_address_set_username(linphoneAddress, normalizedUserName);
 	linphone_address_set_domain(
 		linphoneAddress, [[[LinphoneManager instance] lpConfigStringForKey:@"domain" forSection:@"wizard"] UTF8String]);
@@ -598,6 +585,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	case LinphoneRegistrationFailed: {
 		[waitView setHidden:true];
+		if ([message isEqualToString:@"Forbidden"]) {
+			message = NSLocalizedString(@"Incorrect username or password.", nil);
+		}
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 														message:message
 													   delegate:nil
@@ -617,16 +607,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)loadWizardConfig:(NSString *)rcFilename {
 	NSString *fullPath = [@"file://" stringByAppendingString:[LinphoneManager bundleFile:rcFilename]];
-	linphone_core_set_provisioning_uri([LinphoneManager getLc],
-									   [fullPath cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+	linphone_core_set_provisioning_uri([LinphoneManager getLc], [fullPath UTF8String]);
 	[[LinphoneManager instance] lpConfigSetInt:1 forKey:@"transient_provisioning" forSection:@"misc"];
-
-	// For some reason, video preview hangs for 15seconds when resetting linphone core from here...
-	// to avoid it, we disable it before and reenable it after core restart.
-	BOOL hasPreview = linphone_core_video_preview_enabled([LinphoneManager getLc]);
-	linphone_core_enable_video_preview([LinphoneManager getLc], FALSE);
 	[[LinphoneManager instance] resetLinphoneCore];
-	linphone_core_enable_video_preview([LinphoneManager getLc], hasPreview);
 }
 
 #pragma mark - UITextFieldDelegate Functions
@@ -784,11 +767,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 				   withTransport:(NSString *)transport {
 	NSMutableString *errors = [NSMutableString string];
 	if ([username length] == 0) {
-		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid username.\n", nil)]];
+		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid username.", nil)]];
+		[errors appendString:@"\n"];
 	}
 
 	if (domain != nil && [domain length] == 0) {
-		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid domain.\n", nil)]];
+		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid domain.", nil)]];
+		[errors appendString:@"\n"];
 	}
 
 	if ([errors length]) {
@@ -861,27 +846,29 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSInteger username_length = [[LinphoneManager instance] lpConfigIntForKey:@"username_length" forSection:@"wizard"];
 	NSInteger password_length = [[LinphoneManager instance] lpConfigIntForKey:@"password_length" forSection:@"wizard"];
 
-	if ([username length] < username_length) {
-		[errors
-			appendString:[NSString stringWithFormat:NSLocalizedString(
-														@"The username is too short (minimum %d characters).\n", nil),
-													username_length]];
+	if (username_length > (int)username.length) {
+		[errors appendString:[NSString stringWithFormat:NSLocalizedString(
+															@"The username is too short (minimum %d characters).", nil),
+														username_length]];
+		[errors appendString:@"\n"];
 	}
 
-	if ([password length] < password_length) {
-		[errors
-			appendString:[NSString stringWithFormat:NSLocalizedString(
-														@"The password is too short (minimum %d characters).\n", nil),
-													password_length]];
+	if (password_length > (int)password.length) {
+		[errors appendString:[NSString stringWithFormat:NSLocalizedString(
+															@"The password is too short (minimum %d characters).", nil),
+														password_length]];
+		[errors appendString:@"\n"];
 	}
 
 	if (![password2 isEqualToString:password]) {
-		[errors appendString:NSLocalizedString(@"The passwords are different.\n", nil)];
+		[errors appendString:NSLocalizedString(@"The passwords are different.", nil)];
+		[errors appendString:@"\n"];
 	}
 
 	NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".+@.+\\.[A-Za-z]{2}[A-Za-z]*"];
 	if (![emailTest evaluateWithObject:email]) {
-		[errors appendString:NSLocalizedString(@"The email is invalid.\n", nil)];
+		[errors appendString:NSLocalizedString(@"The email is invalid.", nil)];
+		[errors appendString:@"\n"];
 	}
 
 	if ([errors length]) {
@@ -920,7 +907,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSMutableString *errors = [NSMutableString string];
 	if ([username length] == 0) {
 
-		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid username.\n", nil)]];
+		[errors appendString:[NSString stringWithFormat:NSLocalizedString(@"Please enter a valid username.", nil)]];
+		[errors appendString:@"\n"];
 	}
 
 	if ([errors length]) {
@@ -1019,9 +1007,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 												  otherButtonTitles:nil, nil];
 		[errorView show];
 	} else if ([response object] != nil) { // Don't handle if not object: HTTP/Communication Error
-		NSString *value = [response object];
 		if ([[request method] isEqualToString:@"check_account"]) {
-			if ([value integerValue] == 1) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				UIAlertView *errorView =
 					[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check issue", nil)
 											   message:NSLocalizedString(@"Username already exists", nil)
@@ -1037,7 +1024,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 				[self createAccount:identity password:password email:email];
 			}
 		} else if ([[request method] isEqualToString:@"create_account_with_useragent"]) {
-			if ([value integerValue] == 0) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:0]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 				[self changeView:validateAccountView back:FALSE animation:TRUE];
@@ -1053,7 +1040,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 				[errorView show];
 			}
 		} else if ([[request method] isEqualToString:@"check_account_validated"]) {
-			if ([value integerValue] == 1) {
+			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 				[self addProxyConfig:username password:password domain:nil withTransport:nil];

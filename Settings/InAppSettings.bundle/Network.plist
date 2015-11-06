@@ -173,24 +173,28 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>Simple</string>
 			<key>Key</key>
-			<string>adaptive_rate_algorithm_preference</string>
+			<string>max_upload_preference</string>
 			<key>Title</key>
-			<string>Adaptive rate algorithm</string>
-			<key>Titles</key>
-			<array>
-				<string>Simple</string>
-				<string>Stateful</string>
-			</array>
+			<string>Max Upload</string>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Values</key>
-			<array>
-				<string>Simple</string>
-				<string>Stateful</string>
-			</array>
+			<string>PSTextFieldSpecifier</string>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>620</integer>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>max_download_preference</string>
+			<key>Title</key>
+			<string>Max Download</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>620</integer>
 		</dict>
 	</array>
 </dict>
