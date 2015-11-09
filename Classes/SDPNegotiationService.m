@@ -1,11 +1,3 @@
-//
-//  SDPNegotiationService.m
-//  ACE
-//
-//  Created by Zack Matthews on 11/9/15.
-//  Copyright © 2015 Home. All rights reserved.
-//
-
 #import "SDPNegotiationService.h"
 
 @implementation SDPNegotiationService
@@ -72,7 +64,6 @@ struct codec_name_pref_table codec_pref_table[]={
         if( (available == NULL)
            // these two codecs should not be hidden, even if not supported
            && strcmp(codec_pref_table[i].prefname, "h264_preference") != 0
-           && strcmp(codec_pref_table[i].prefname, "mp4v-es_preference") != 0
            )
         {
             [set addObject:[NSString stringWithUTF8String:codec_pref_table[i].prefname]];
