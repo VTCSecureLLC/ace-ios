@@ -126,9 +126,7 @@ typedef struct _LinphoneManagerSounds {
 + (LinphoneCore*) getLc;
 + (BOOL)runningOnIpad;
 + (BOOL)isNotIphone3G;
-+ (NSString *)getPreferenceForCodec: (const char*) name withRate: (int) rate;
 + (BOOL)isCodecSupported: (const char*)codecName;
-+ (NSSet *)unsupportedCodecs;
 + (NSString *)getUserAgent;
 
 //Remove Unread Messages Count on iPhone
