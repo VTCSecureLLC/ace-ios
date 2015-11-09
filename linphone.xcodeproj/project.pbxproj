@@ -71,10 +71,10 @@
 		34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */; };
 		344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDEF14850AE9007420B6 /* libc++.1.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		344ABDF214850AE9007420B6 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDF014850AE9007420B6 /* libstdc++.6.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
-		4A2BABA51BC50EAE00640476 /* backArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA11BC50EAE00640476 /* backArrow@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA61BC50EAE00640476 /* keyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA21BC50EAE00640476 /* keyIcon@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA71BC50EAE00640476 /* personIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA31BC50EAE00640476 /* personIcon@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA81BC50EAE00640476 /* vatrpLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA41BC50EAE00640476 /* vatrpLogo@2x.png */; settings = {ASSET_TAGS = (); }; };
+		4A2BABA51BC50EAE00640476 /* backArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA11BC50EAE00640476 /* backArrow@2x.png */; };
+		4A2BABA61BC50EAE00640476 /* keyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA21BC50EAE00640476 /* keyIcon@2x.png */; };
+		4A2BABA71BC50EAE00640476 /* personIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA31BC50EAE00640476 /* personIcon@2x.png */; };
+		4A2BABA81BC50EAE00640476 /* vatrpLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA41BC50EAE00640476 /* vatrpLogo@2x.png */; };
 		50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF81B977D4700B20603 /* LinphoneLocationManager.m */; };
 		50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50263EFB1B977D9800B20603 /* CoreLocation.framework */; };
 		50B0048A1BA09C06002C5723 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B004891BA09C06002C5723 /* atbutton.png */; };
@@ -848,7 +848,7 @@
 		F0C1F9161A28781F009402C9 /* strech-top.png in Resources */ = {isa = PBXBuildFile; fileRef = F0C1F90C1A28781F009402C9 /* strech-top.png */; };
 		F0FF66AC1ACAEF4F008A4486 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0FF66AA1ACAEEB0008A4486 /* IOKit.framework */; };
 		F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211DB911475562600DEE054 /* liblinphone.a */; };
-		F4CE03021BCF9B9B00157254 /* ExtenableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE03011BCF9B9B00157254 /* ExtenableTextField.m */; settings = {ASSET_TAGS = (); }; };
+		F4CE03021BCF9B9B00157254 /* ExtenableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE03011BCF9B9B00157254 /* ExtenableTextField.m */; };
 		F84015BF1939FE37006ABAB5 /* test_failed.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BC1939FE37006ABAB5 /* test_failed.png */; };
 		F84015C01939FE37006ABAB5 /* test_inprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BD1939FE37006ABAB5 /* test_inprogress.png */; };
 		F84015C11939FE37006ABAB5 /* test_passed.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BE1939FE37006ABAB5 /* test_passed.png */; };
@@ -5791,7 +5791,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -5883,7 +5883,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -5970,7 +5970,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -6059,7 +6059,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
