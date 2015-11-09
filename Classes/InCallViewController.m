@@ -154,6 +154,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] fullScreen:false];
 	// Disable tap
 	[singleFingerTap setEnabled:FALSE];
+    
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+    }
+    
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
 }
 
 - (void)viewDidLoad {
@@ -175,7 +183,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+    }
     
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
     // We listen for incoming text.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
 }
@@ -275,6 +290,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	case LinphoneCallEnd:
 	case LinphoneCallError: {
+        if(self.incomingTextField){
+            self.incomingTextField.text = @"";
+        }
+        if(self.outgoingTextLabel){
+            self.outgoingTextLabel.text = @"";
+        }
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
