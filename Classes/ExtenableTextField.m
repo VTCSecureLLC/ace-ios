@@ -14,6 +14,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         labelString = [[NSMutableString alloc]initWithCapacity:10000];
+        [self setFont:[UIFont boldSystemFontOfSize:[UIFont systemFontSize] * 2]];
     }
     return self;
 }
