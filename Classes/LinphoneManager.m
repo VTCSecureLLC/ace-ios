@@ -890,67 +890,73 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
 #pragma mark - Text Received Functions
 
 - (void)onMessageReceived:(LinphoneCore *)lc room:(LinphoneChatRoom *)room message:(LinphoneChatMessage *)msg {
-
-	if (silentPushCompletion) {
-
-		// we were woken up by a silent push. Call the completion handler with NEWDATA
-		// so that the push is notified to the user
-		LOGI(@"onMessageReceived - handler %p", silentPushCompletion);
-		silentPushCompletion(UIBackgroundFetchResultNewData);
-		silentPushCompletion = nil;
-	}
-	const LinphoneAddress *remoteAddress = linphone_chat_message_get_from_address(msg);
-	char *c_address = linphone_address_as_string_uri_only(remoteAddress);
-	NSString *address = [NSString stringWithUTF8String:c_address];
-	NSString *remote_uri = [NSString stringWithUTF8String:c_address];
-	const char *call_id = linphone_chat_message_get_custom_header(msg, "Call-ID");
-	NSString *callID = [NSString stringWithUTF8String:call_id];
-
-	ms_free(c_address);
-
-	if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-
-		ABRecordRef contact = [fastAddressBook getContact:address];
-		if (contact) {
-			address = [FastAddressBook getContactDisplayName:contact];
-		} else {
-			if ([[LinphoneManager instance] lpConfigBoolForKey:@"show_contacts_emails_preference"] == true) {
-				LinphoneAddress *linphoneAddress = linphone_address_new([address UTF8String]);
-				if (linphoneAddress) {
-					address = [NSString stringWithUTF8String:linphone_address_get_username(linphoneAddress)];
-					linphone_address_destroy(linphoneAddress);
-				}
-			}
-		}
-		if (address == nil) {
-			address = NSLocalizedString(@"Unknown", nil);
-		}
-
-		// Create a new notification
-		UILocalNotification *notif = [[UILocalNotification alloc] init];
-		if (notif) {
-			notif.repeatInterval = 0;
-			if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
-				notif.category = @"incoming_msg";
-			}
-			notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"IM_MSG", nil), address];
-			notif.alertAction = NSLocalizedString(@"Show", nil);
-			notif.soundName = @"msg.caf";
-			notif.userInfo = @{ @"from" : address, @"from_addr" : remote_uri, @"call-id" : callID };
-
-			[[UIApplication sharedApplication] presentLocalNotificationNow:notif];
-		}
-	}
-
-	// Post event
-	NSDictionary *dict = @{
-		@"room" : [NSValue valueWithPointer:room],
-		@"from_address" : [NSValue valueWithPointer:linphone_chat_message_get_from_address(msg)],
-		@"message" : [NSValue valueWithPointer:msg],
-		@"call-id" : callID
-	};
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self userInfo:dict];
+    if(room != NULL){
+        if (silentPushCompletion) {
+            
+            // we were woken up by a silent push. Call the completion handler with NEWDATA
+            // so that the push is notified to the user
+            LOGI(@"onMessageReceived - handler %p", silentPushCompletion);
+            silentPushCompletion(UIBackgroundFetchResultNewData);
+            silentPushCompletion = nil;
+        }
+        const LinphoneAddress *remoteAddress = linphone_chat_message_get_from_address(msg);
+        char *c_address = linphone_address_as_string_uri_only(remoteAddress);
+        NSString *address = [NSString stringWithUTF8String:c_address];
+        NSString *remote_uri = [NSString stringWithUTF8String:c_address];
+        const char *call_id = linphone_chat_message_get_custom_header(msg, "Call-ID");
+        NSString *callID;
+        if(call_id != NULL){
+            callID = [NSString stringWithUTF8String:call_id];
+        }
+        else{
+            return;
+        }
+        ms_free(c_address);
+        
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+            
+            ABRecordRef contact = [fastAddressBook getContact:address];
+            if (contact) {
+                address = [FastAddressBook getContactDisplayName:contact];
+            } else {
+                if ([[LinphoneManager instance] lpConfigBoolForKey:@"show_contacts_emails_preference"] == true) {
+                    LinphoneAddress *linphoneAddress = linphone_address_new([address UTF8String]);
+                    if (linphoneAddress) {
+                        address = [NSString stringWithUTF8String:linphone_address_get_username(linphoneAddress)];
+                        linphone_address_destroy(linphoneAddress);
+                    }
+                }
+            }
+            if (address == nil) {
+                address = NSLocalizedString(@"Unknown", nil);
+            }
+            
+            // Create a new notification
+            UILocalNotification *notif = [[UILocalNotification alloc] init];
+            if (notif) {
+                notif.repeatInterval = 0;
+                if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
+                    notif.category = @"incoming_msg";
+                }
+                notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"IM_MSG", nil), address];
+                notif.alertAction = NSLocalizedString(@"Show", nil);
+                notif.soundName = @"msg.caf";
+                notif.userInfo = @{ @"from" : address, @"from_addr" : remote_uri, @"call-id" : callID };
+                
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
+            }
+        }
+        
+        // Post event
+        NSDictionary *dict = @{
+                               @"room" : [NSValue valueWithPointer:room],
+                               @"from_address" : [NSValue valueWithPointer:linphone_chat_message_get_from_address(msg)],
+                               @"message" : [NSValue valueWithPointer:msg],
+                               @"call-id" : callID
+                               };
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self userInfo:dict];
+    }
 }
 
 static void linphone_iphone_message_received(LinphoneCore *lc, LinphoneChatRoom *room, LinphoneChatMessage *message) {
