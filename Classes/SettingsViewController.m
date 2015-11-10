@@ -22,7 +22,7 @@
 #import "PhoneMainView.h"
 #import "UILinphone.h"
 #import "UACellBackgroundView.h"
-
+#import "SDPNegotiationService.h"
 #import "DCRoundSwitch.h"
 
 #import "IASKSpecifierValuesViewController.h"
@@ -661,7 +661,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[hiddenKeys addObject:@"download_bandwidth_preference"];
 	}
 
-	[hiddenKeys addObjectsFromArray:[[LinphoneManager unsupportedCodecs] allObjects]];
+	[hiddenKeys addObjectsFromArray:[[SDPNegotiationService unsupportedCodecs] allObjects]];
 
 	BOOL random_port = [lm lpConfigBoolForKey:@"random_port_preference"];
 	if (random_port) {

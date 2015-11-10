@@ -19,7 +19,7 @@
 
 #import "UICallButton.h"
 #import "LinphoneManager.h"
-
+#import "SDPNegotiationService.h"
 #import <CoreTelephony/CTCallCenter.h>
 
 @implementation UICallButton
@@ -62,6 +62,8 @@
 - (void)touchUp:(id)sender {
 	NSString *address = [addressField text];
 	NSString *displayName = nil;
+    
+    [[SDPNegotiationService sharedInstance] initializeSDP:[LinphoneManager getLc]];
 
     if (addressField.sipDomain != nil) {
         address = [NSString stringWithFormat:@"%@@%@",address,addressField.sipDomain ];
