@@ -886,7 +886,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *port_string = self.textFieldPort.text;
     int port_value = [port_string intValue];
     
-    NSInteger port = port_value;
+    int port = port_value;
     
     
     
@@ -1291,7 +1291,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *port_string = self.textFieldPort.text;
     int port_value = [port_string intValue];
     
-    NSInteger port = port_value;
+    int port = port_value;
 
     
     [self verificationSignInWithUsername:self.textFieldUsername.text
