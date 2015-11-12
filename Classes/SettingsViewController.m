@@ -264,9 +264,9 @@
 	}
 
 	if ([cell isKindOfClass:[IASKPSTitleValueSpecifierViewCell class]]) {
-        cell.detailTextLabel.textColor = [UIColor whiteColor];//LINPHONE_MAIN_COLOR;//LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
+        cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;//LINPHONE_MAIN_COLOR;//LINPHONE_TABLE_CELL_BACKGROUND_COLOR;
 	} else {
-        cell.detailTextLabel.textColor = [UIColor whiteColor];//LINPHONE_MAIN_COLOR;
+        cell.detailTextLabel.textColor = LINPHONE_MAIN_COLOR;//LINPHONE_MAIN_COLOR;
 	}
 
 	// Background View
