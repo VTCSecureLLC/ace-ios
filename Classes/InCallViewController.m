@@ -154,8 +154,17 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] fullScreen:false];
 	// Disable tap
 	[singleFingerTap setEnabled:FALSE];
+    
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+    }
+    
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
 }
 
+CGRect remoteVideoFrame;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -175,9 +184,22 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+    }
     
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
+    
+    if(self.keyboardButton){
+        [self.keyboardButton setAlpha:0.6];
+    }
     // We listen for incoming text.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload {
@@ -275,6 +297,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	case LinphoneCallEnd:
 	case LinphoneCallError: {
+        if(self.incomingTextField){
+            self.incomingTextField.text = @"";
+        }
+        if(self.outgoingTextLabel){
+            self.outgoingTextLabel.text = @"";
+        }
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
@@ -643,12 +671,30 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.incomingTextField removeLast];
 }
 
+- (void)keyboardWillShow:(NSNotification *)notification {
+    if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
+        remoteVideoFrame = self.videoView.frame;
+    }
+    CGFloat keyboardPos = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+    CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
+    [self.videoView setFrame:CGRectMake(self.videoView.frame.origin.x,
+                                            self.videoView.frame.origin.y - delta,
+                                                self.videoView.frame.size.width,
+                                                    self.videoView.frame.size.height)];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *) notification{
+    [self.videoView setFrame:remoteVideoFrame];
+}
+
 /* The keyboard button is pressed. We wanna show / hide the keyboard. */
 - (IBAction)keyboardButtonClicked:(id)sender {
     if (self.isFirstResponder)
         [self resignFirstResponder];
     else
         [self becomeFirstResponder];
+    
+    [self hideControls:self]; //Dismiss call controls so remote view and keyboard button are visible
 }
 
 @end

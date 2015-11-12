@@ -18,6 +18,7 @@
  */
 
 #import "LinphoneCoreSettingsStore.h"
+#import "SDPNegotiationService.h"
 #import "DTAlertView.h"
 
 #include "linphone/lpconfig.h"
@@ -106,7 +107,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	const MSList *elem = codecs;
 	for (; elem != NULL; elem = elem->next) {
 		PayloadType *pt = (PayloadType *)elem->data;
-		NSString *pref = [LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+		NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
 		if (pref) {
 			bool_t value = linphone_core_payload_type_enabled(lc, pt);
 			[self setBool:value forKey:pref];
@@ -557,7 +558,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 	for (elem = codecs; elem != NULL; elem = elem->next) {
 		pt = (PayloadType *)elem->data;
-		NSString *pref = [LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+		NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
 		linphone_core_enable_payload_type(lc, pt, [self boolForKey:pref]);
 	}
 }
