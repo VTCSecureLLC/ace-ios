@@ -44,7 +44,7 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "Utils/DTFoundation/DTAlertView.h"
 #import "PhoneMainView.h"
-
+#import "SDPNegotiationService.h"
 #define LINPHONE_LOGS_MAX_ENTRY 5000
 
 static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
@@ -606,6 +606,7 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		address = NSLocalizedString(@"Unknown", nil);
 	}
 
+
 	if (state == LinphoneCallIncomingReceived) {
 
 		/*first step is to re-enable ctcall center*/
@@ -738,6 +739,9 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
         else{
             [self setSpeakerEnabled:FALSE];
             speaker_already_enabled = FALSE;
+        }
+        if(state == LinphoneCallOutgoingInit){
+            [[SDPNegotiationService sharedInstance] initializeSDP:theLinphoneCore];
         }
 	}
 

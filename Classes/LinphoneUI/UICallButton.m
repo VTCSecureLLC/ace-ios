@@ -62,8 +62,6 @@
 - (void)touchUp:(id)sender {
 	NSString *address = [addressField text];
 	NSString *displayName = nil;
-    
-    [[SDPNegotiationService sharedInstance] initializeSDP:[LinphoneManager getLc]];
 
     if (addressField.sipDomain != nil) {
         address = [NSString stringWithFormat:@"%@@%@",address,addressField.sipDomain ];
