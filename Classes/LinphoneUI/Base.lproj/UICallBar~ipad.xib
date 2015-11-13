@@ -23,7 +23,7 @@
                 <outlet property="optionsTransferButton" destination="32" id="76"/>
                 <outlet property="optionsView" destination="4" id="77"/>
                 <outlet property="padView" destination="5" id="78"/>
-                <outlet property="pauseButton" destination="13" id="79"/>
+                <outlet property="chatButton" destination="13" id="79"/>
                 <outlet property="portraitView" destination="3" id="80"/>
                 <outlet property="rightPadding" destination="aXO-Ng-LZe" id="f1h-to-gx6"/>
                 <outlet property="sevenButton" destination="25" id="81"/>
@@ -306,16 +306,16 @@
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                         </button>
-                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="43" userLabel="pauseButton" customClass="UIPauseButton">
+                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="43" userLabel="chatButton" customClass="UIPauseButton">
                             <rect key="frame" x="701" y="0.0" width="87" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label=""/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="pause_off_default_landscape.png">
+                            <state key="normal" image="chat_selected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="selected" image="pause_on_default_landscape.png"/>
-                            <state key="highlighted" image="pause_off_over_landscape.png"/>
+                            <state key="selected" image="chat_selected.png"/>
+                            <state key="highlighted" image="chat_selected.png"/>
                         </button>
                         <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="44" userLabel="conferenceButton">
                             <rect key="frame" x="701" y="0.0" width="87" height="85"/>
@@ -652,16 +652,16 @@
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="91"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="13" userLabel="pauseButton" customClass="UIPauseButton">
+                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="13" userLabel="chatButton" customClass="UIPauseButton">
                             <rect key="frame" x="445" y="0.0" width="87" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Pause"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="pause_off_default.png">
+                            <state key="normal" image="chat_selected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="selected" image="pause_on_default.png"/>
-                            <state key="highlighted" image="pause_off_over.png"/>
+                            <state key="selected" image="chat_selected.png"/>
+                            <state key="highlighted" image="chat_selected.png"/>
                         </button>
                         <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="12" userLabel="conferenceButton">
                             <rect key="frame" x="445" y="0.0" width="87" height="85"/>
@@ -782,10 +782,10 @@
         <image name="options_transfer_disabled_landscape.png" width="162" height="137"/>
         <image name="options_transfer_over.png" width="162" height="137"/>
         <image name="options_transfer_over_landscape.png" width="162" height="137"/>
-        <image name="pause_off_default.png" width="173" height="170"/>
-        <image name="pause_off_default_landscape.png" width="173" height="170"/>
-        <image name="pause_off_over.png" width="173" height="170"/>
-        <image name="pause_off_over_landscape.png" width="173" height="170"/>
+        <image name="chat_selected.png" width="173" height="170"/>
+        <image name="chat_selected.png" width="173" height="170"/>
+        <image name="chat_selected.png" width="173" height="170"/>
+        <image name="chat_selected.png" width="173" height="170"/>
         <image name="pause_on_default.png" width="173" height="170"/>
         <image name="pause_on_default_landscape.png" width="173" height="170"/>
         <image name="speaker_off_default.png" width="160" height="170"/>

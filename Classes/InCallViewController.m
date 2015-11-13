@@ -196,6 +196,8 @@ CGRect remoteVideoFrame;
     if(self.keyboardButton){
         [self.keyboardButton setAlpha:0.6];
     }
+    
+    [self.keyboardButton removeFromSuperview];
     // We listen for incoming text.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -681,20 +683,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                                             self.videoView.frame.origin.y - delta,
                                                 self.videoView.frame.size.width,
                                                     self.videoView.frame.size.height)];
+    [self hideControls:self];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
 }
-
-/* The keyboard button is pressed. We wanna show / hide the keyboard. */
-- (IBAction)keyboardButtonClicked:(id)sender {
-    if (self.isFirstResponder)
-        [self resignFirstResponder];
-    else
-        [self becomeFirstResponder];
-    
-    [self hideControls:self]; //Dismiss call controls so remote view and keyboard button are visible
-}
-
 @end
