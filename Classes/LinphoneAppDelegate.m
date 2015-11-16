@@ -158,11 +158,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-
+    #ifdef DEBUG
+        NSLog(@"Debug: No crashes will be reported");
+    #else
+        [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
+        [[BITHockeyManager sharedHockeyManager] startManager];
+        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    #endif
+    
     UIApplication *app = [UIApplication sharedApplication];
 	UIApplicationState state = app.applicationState;
 
