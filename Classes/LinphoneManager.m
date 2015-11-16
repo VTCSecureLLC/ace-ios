@@ -44,7 +44,7 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "Utils/DTFoundation/DTAlertView.h"
 #import "PhoneMainView.h"
-
+#import "SDPNegotiationService.h"
 #define LINPHONE_LOGS_MAX_ENTRY 5000
 
 static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
@@ -129,62 +129,6 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 @synthesize wasRemoteProvisioned;
 @synthesize configDb;
 
-struct codec_name_pref_table {
-	const char *name;
-	int rate;
-	const char *prefname;
-};
-
-struct codec_name_pref_table codec_pref_table[]={
-	{ "speex", 8000, "speex_8k_preference" },
-	{ "speex", 16000, "speex_16k_preference" },
-	{ "silk", 24000, "silk_24k_preference" },
-	{ "silk", 16000, "silk_16k_preference" },
-	{ "amr", 8000, "amr_preference" },
-	{ "gsm", 8000, "gsm_preference" },
-	{ "ilbc", 8000, "ilbc_preference"},
-	{ "pcmu", 8000, "pcmu_preference"},
-	{ "pcma", 8000, "pcma_preference"},
-	{ "g722", 8000, "g722_preference"},
-	{ "g729", 8000, "g729_preference"},
-	{ "mp4v-es", 90000, "mp4v-es_preference"},
-	{ "h264", 90000, "h264_preference"},
-	{ "h263", 90000, "h263_preference"},
-	{ "vp8", 90000, "vp8_preference"},
-	{ "mpeg4-generic", 16000, "aaceld_16k_preference"},
-	{ "mpeg4-generic", 22050, "aaceld_22k_preference"},
-	{ "mpeg4-generic", 32000, "aaceld_32k_preference"},
-	{ "mpeg4-generic", 44100, "aaceld_44k_preference"},
-	{ "mpeg4-generic", 48000, "aaceld_48k_preference"},
-	{ "opus", 48000, "opus_preference"},
-	{ NULL,0,Nil }
-};
-
-+ (NSString *)getPreferenceForCodec: (const char*) name withRate: (int) rate{
-	int i;
-	for (i = 0; codec_pref_table[i].name != NULL; ++i) {
-		if (strcasecmp(codec_pref_table[i].name, name) == 0 && codec_pref_table[i].rate == rate)
-			return [NSString stringWithUTF8String:codec_pref_table[i].prefname];
-	}
-	return Nil;
-}
-
-+ (NSSet *)unsupportedCodecs {
-	NSMutableSet *set = [NSMutableSet set];
-	for (int i = 0; codec_pref_table[i].name != NULL; ++i) {
-		PayloadType *available = linphone_core_find_payload_type(
-			theLinphoneCore, codec_pref_table[i].name, codec_pref_table[i].rate, LINPHONE_FIND_PAYLOAD_IGNORE_CHANNELS);
-		if ((available == NULL)
-			// these two codecs should not be hidden, even if not supported
-			&&
-			strcmp(codec_pref_table[i].prefname, "h264_preference") != 0 &&
-                        strcmp(codec_pref_table[i].prefname, "h263_preference") != 0 &&
-			strcmp(codec_pref_table[i].prefname, "mp4v-es_preference") != 0) {
-			[set addObject:[NSString stringWithUTF8String:codec_pref_table[i].prefname]];
-		}
-	}
-	return set;
-}
 
 + (BOOL)isCodecSupported:(const char *)codecName {
 	return (codecName != NULL) &&
@@ -662,6 +606,7 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		address = NSLocalizedString(@"Unknown", nil);
 	}
 
+
 	if (state == LinphoneCallIncomingReceived) {
 
 		/*first step is to re-enable ctcall center*/
@@ -795,6 +740,9 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
             [self setSpeakerEnabled:FALSE];
             speaker_already_enabled = FALSE;
         }
+        if(state == LinphoneCallOutgoingInit){
+            [[SDPNegotiationService sharedInstance] initializeSDP:theLinphoneCore];
+        }
 	}
 
 	if (state == LinphoneCallConnected && !mCallCenter) {
@@ -900,8 +848,8 @@ static void linphone_iphone_registration_state(LinphoneCore *lc, LinphoneProxyCo
 
 #pragma mark - Auth info Function
 
-static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char *realm, const char *username,
-												   const char *domain) {
+static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char *realmC, const char *usernameC,
+												   const char *domainC) {
 	// let the wizard handle its own errors
 	if ([PhoneMainView.instance currentView] != WizardViewController.compositeViewDescription) {
 		static DTAlertView *alertView = nil;
@@ -911,34 +859,42 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
 			[alertView dismissWithClickedButtonIndex:0 animated:NO];
 		}
 
+		NSString *realm = [NSString stringWithUTF8String:realmC];
+		NSString *username = [NSString stringWithUTF8String:usernameC];
+		NSString *domain = [NSString stringWithUTF8String:domainC];
 		alertView = [[DTAlertView alloc]
 			initWithTitle:NSLocalizedString(@"Authentication needed.", nil)
 				  message:[NSString stringWithFormat:NSLocalizedString(@"Registration failed because authentication is "
-																	   @"missing or invalid for %s@%s.\nYou can "
+																	   @"missing or invalid for %@@%@.\nYou can "
 																	   @"provide password again, or check your "
 																	   @"account configuration in the settings.",
 																	   nil),
 													 username, realm]];
 		alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-		[alertView addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
-		__weak UITextField *passwordField = [alertView textFieldAtIndex:0];
+		[alertView addCancelButtonWithTitle:NSLocalizedString(@"Go to settings", nil)
+									  block:^{
+										[[PhoneMainView instance]
+											changeCurrentView:[SettingsViewController compositeViewDescription]];
+									  }];
 
-		[alertView addButtonWithTitle:NSLocalizedString(@"Continue", nil)
-								block:^{
-								  LinphoneAuthInfo *info = (LinphoneAuthInfo *)linphone_core_find_auth_info(
-									  [LinphoneManager getLc], realm, username, domain);
-								  if (info) {
-									  linphone_auth_info_set_passwd(info, passwordField.text.UTF8String);
-									  linphone_auth_info_set_ha1(info, NULL);
-									  linphone_proxy_config_refresh_register(
-										  linphone_core_get_default_proxy_config([LinphoneManager getLc]));
-								  } else {
-									  LOGE(@"Could not find auth info associated with %s@%s, going to settings!",
-										   username, domain);
-									  [[PhoneMainView instance]
-										  changeCurrentView:[SettingsViewController compositeViewDescription]];
-								  }
-								}];
+		[alertView
+			addButtonWithTitle:NSLocalizedString(@"Continue", nil)
+						 block:^{
+						   NSString *password = [alertView textFieldAtIndex:0].text;
+						   LinphoneAuthInfo *info = (LinphoneAuthInfo *)linphone_core_find_auth_info(
+							   [LinphoneManager getLc], realm.UTF8String, username.UTF8String, domain.UTF8String);
+						   if (info) {
+							   linphone_auth_info_set_passwd(info, password.UTF8String);
+							   linphone_auth_info_set_ha1(info, NULL);
+						   } else {
+							   LOGW(@"Could not find auth info associated with %@@%@, creating it", username, domain);
+							   info = linphone_auth_info_new(username.UTF8String, NULL, password.UTF8String, NULL,
+															 realm.UTF8String, domain.UTF8String);
+							   linphone_core_add_auth_info([LinphoneManager getLc], info);
+						   }
+						   linphone_proxy_config_refresh_register(
+							   linphone_core_get_default_proxy_config([LinphoneManager getLc]));
+						 }];
 		[alertView show];
 	}
 }
@@ -946,67 +902,73 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
 #pragma mark - Text Received Functions
 
 - (void)onMessageReceived:(LinphoneCore *)lc room:(LinphoneChatRoom *)room message:(LinphoneChatMessage *)msg {
-
-	if (silentPushCompletion) {
-
-		// we were woken up by a silent push. Call the completion handler with NEWDATA
-		// so that the push is notified to the user
-		LOGI(@"onMessageReceived - handler %p", silentPushCompletion);
-		silentPushCompletion(UIBackgroundFetchResultNewData);
-		silentPushCompletion = nil;
-	}
-	const LinphoneAddress *remoteAddress = linphone_chat_message_get_from_address(msg);
-	char *c_address = linphone_address_as_string_uri_only(remoteAddress);
-	NSString *address = [NSString stringWithUTF8String:c_address];
-	NSString *remote_uri = [NSString stringWithUTF8String:c_address];
-	const char *call_id = linphone_chat_message_get_custom_header(msg, "Call-ID");
-	NSString *callID = [NSString stringWithUTF8String:call_id];
-
-	ms_free(c_address);
-
-	if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-
-		ABRecordRef contact = [fastAddressBook getContact:address];
-		if (contact) {
-			address = [FastAddressBook getContactDisplayName:contact];
-		} else {
-			if ([[LinphoneManager instance] lpConfigBoolForKey:@"show_contacts_emails_preference"] == true) {
-				LinphoneAddress *linphoneAddress = linphone_address_new([address UTF8String]);
-				if (linphoneAddress) {
-					address = [NSString stringWithUTF8String:linphone_address_get_username(linphoneAddress)];
-					linphone_address_destroy(linphoneAddress);
-				}
-			}
-		}
-		if (address == nil) {
-			address = NSLocalizedString(@"Unknown", nil);
-		}
-
-		// Create a new notification
-		UILocalNotification *notif = [[UILocalNotification alloc] init];
-		if (notif) {
-			notif.repeatInterval = 0;
-			if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
-				notif.category = @"incoming_msg";
-			}
-			notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"IM_MSG", nil), address];
-			notif.alertAction = NSLocalizedString(@"Show", nil);
-			notif.soundName = @"msg.caf";
-			notif.userInfo = @{ @"from" : address, @"from_addr" : remote_uri, @"call-id" : callID };
-
-			[[UIApplication sharedApplication] presentLocalNotificationNow:notif];
-		}
-	}
-
-	// Post event
-	NSDictionary *dict = @{
-		@"room" : [NSValue valueWithPointer:room],
-		@"from_address" : [NSValue valueWithPointer:linphone_chat_message_get_from_address(msg)],
-		@"message" : [NSValue valueWithPointer:msg],
-		@"call-id" : callID
-	};
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self userInfo:dict];
+    if(room != NULL){
+        if (silentPushCompletion) {
+            
+            // we were woken up by a silent push. Call the completion handler with NEWDATA
+            // so that the push is notified to the user
+            LOGI(@"onMessageReceived - handler %p", silentPushCompletion);
+            silentPushCompletion(UIBackgroundFetchResultNewData);
+            silentPushCompletion = nil;
+        }
+        const LinphoneAddress *remoteAddress = linphone_chat_message_get_from_address(msg);
+        char *c_address = linphone_address_as_string_uri_only(remoteAddress);
+        NSString *address = [NSString stringWithUTF8String:c_address];
+        NSString *remote_uri = [NSString stringWithUTF8String:c_address];
+        const char *call_id = linphone_chat_message_get_custom_header(msg, "Call-ID");
+        NSString *callID;
+        if(call_id != NULL){
+            callID = [NSString stringWithUTF8String:call_id];
+        }
+        else{
+            return;
+        }
+        ms_free(c_address);
+        
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+            
+            ABRecordRef contact = [fastAddressBook getContact:address];
+            if (contact) {
+                address = [FastAddressBook getContactDisplayName:contact];
+            } else {
+                if ([[LinphoneManager instance] lpConfigBoolForKey:@"show_contacts_emails_preference"] == true) {
+                    LinphoneAddress *linphoneAddress = linphone_address_new([address UTF8String]);
+                    if (linphoneAddress) {
+                        address = [NSString stringWithUTF8String:linphone_address_get_username(linphoneAddress)];
+                        linphone_address_destroy(linphoneAddress);
+                    }
+                }
+            }
+            if (address == nil) {
+                address = NSLocalizedString(@"Unknown", nil);
+            }
+            
+            // Create a new notification
+            UILocalNotification *notif = [[UILocalNotification alloc] init];
+            if (notif) {
+                notif.repeatInterval = 0;
+                if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
+                    notif.category = @"incoming_msg";
+                }
+                notif.alertBody = [NSString stringWithFormat:NSLocalizedString(@"IM_MSG", nil), address];
+                notif.alertAction = NSLocalizedString(@"Show", nil);
+                notif.soundName = @"msg.caf";
+                notif.userInfo = @{ @"from" : address, @"from_addr" : remote_uri, @"call-id" : callID };
+                
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
+            }
+        }
+        
+        // Post event
+        NSDictionary *dict = @{
+                               @"room" : [NSValue valueWithPointer:room],
+                               @"from_address" : [NSValue valueWithPointer:linphone_chat_message_get_from_address(msg)],
+                               @"message" : [NSValue valueWithPointer:msg],
+                               @"call-id" : callID
+                               };
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self userInfo:dict];
+    }
 }
 
 static void linphone_iphone_message_received(LinphoneCore *lc, LinphoneChatRoom *room, LinphoneChatMessage *message) {

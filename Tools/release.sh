@@ -51,7 +51,7 @@ XCARCHIVE_FILE=/tmp/ace-ios.xcarchive
 xctool -project linphone.xcodeproj \
        -scheme linphone \
        -sdk iphoneos \
-       -configuration Debug \
+       -configuration Release \
        -derivedDataPath build/derived \
        archive \
        -archivePath $XCARCHIVE_FILE \

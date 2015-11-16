@@ -71,10 +71,10 @@
 		34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216F3F1547EBCD00EA9777 /* VideoZoomHandler.m */; };
 		344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDEF14850AE9007420B6 /* libc++.1.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		344ABDF214850AE9007420B6 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 344ABDF014850AE9007420B6 /* libstdc++.6.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
-		4A2BABA51BC50EAE00640476 /* backArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA11BC50EAE00640476 /* backArrow@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA61BC50EAE00640476 /* keyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA21BC50EAE00640476 /* keyIcon@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA71BC50EAE00640476 /* personIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA31BC50EAE00640476 /* personIcon@2x.png */; settings = {ASSET_TAGS = (); }; };
-		4A2BABA81BC50EAE00640476 /* vatrpLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA41BC50EAE00640476 /* vatrpLogo@2x.png */; settings = {ASSET_TAGS = (); }; };
+		4A2BABA51BC50EAE00640476 /* backArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA11BC50EAE00640476 /* backArrow@2x.png */; };
+		4A2BABA61BC50EAE00640476 /* keyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA21BC50EAE00640476 /* keyIcon@2x.png */; };
+		4A2BABA71BC50EAE00640476 /* personIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA31BC50EAE00640476 /* personIcon@2x.png */; };
+		4A2BABA81BC50EAE00640476 /* vatrpLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A2BABA41BC50EAE00640476 /* vatrpLogo@2x.png */; };
 		50263EFA1B977D4700B20603 /* LinphoneLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50263EF81B977D4700B20603 /* LinphoneLocationManager.m */; };
 		50263EFC1B977D9800B20603 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50263EFB1B977D9800B20603 /* CoreLocation.framework */; };
 		50B0048A1BA09C06002C5723 /* atbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B004891BA09C06002C5723 /* atbutton.png */; };
@@ -329,6 +329,7 @@
 		57F005C415EE2CCF00914747 /* linphonerc in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C315EE2CCF00914747 /* linphonerc */; };
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
+		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; settings = {ASSET_TAGS = (); }; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
 		630589E81B4E810900EFAE36 /* ContactsTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E11B4E810900EFAE36 /* ContactsTester.m */; };
 		630589EA1B4E810900EFAE36 /* LinphoneTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E41B4E810900EFAE36 /* LinphoneTestCase.m */; };
@@ -848,7 +849,7 @@
 		F0C1F9161A28781F009402C9 /* strech-top.png in Resources */ = {isa = PBXBuildFile; fileRef = F0C1F90C1A28781F009402C9 /* strech-top.png */; };
 		F0FF66AC1ACAEF4F008A4486 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0FF66AA1ACAEEB0008A4486 /* IOKit.framework */; };
 		F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211DB911475562600DEE054 /* liblinphone.a */; };
-		F4CE03021BCF9B9B00157254 /* ExtenableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE03011BCF9B9B00157254 /* ExtenableTextField.m */; settings = {ASSET_TAGS = (); }; };
+		F4CE03021BCF9B9B00157254 /* ExtenableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE03011BCF9B9B00157254 /* ExtenableTextField.m */; };
 		F84015BF1939FE37006ABAB5 /* test_failed.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BC1939FE37006ABAB5 /* test_failed.png */; };
 		F84015C01939FE37006ABAB5 /* test_inprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BD1939FE37006ABAB5 /* test_inprogress.png */; };
 		F84015C11939FE37006ABAB5 /* test_passed.png in Resources */ = {isa = PBXBuildFile; fileRef = F84015BE1939FE37006ABAB5 /* test_passed.png */; };
@@ -1566,6 +1567,8 @@
 		57F005C315EE2CCF00914747 /* linphonerc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = linphonerc; path = Resources/linphonerc; sourceTree = "<group>"; };
 		57F005C615EE2D9200914747 /* linphonerc-factory */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory"; path = "Resources/linphonerc-factory"; sourceTree = "<group>"; };
 		57F005C715EE2D9200914747 /* linphonerc-factory~ipad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory~ipad"; path = "Resources/linphonerc-factory~ipad"; sourceTree = "<group>"; };
+		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
+		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
 		630589DE1B4E810900EFAE36 /* ChatTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTester.h; sourceTree = "<group>"; };
 		630589DF1B4E810900EFAE36 /* ChatTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTester.m; sourceTree = "<group>"; };
 		630589E01B4E810900EFAE36 /* ContactsTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTester.h; sourceTree = "<group>"; };
@@ -2628,6 +2631,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */,
+				5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */,
 				73400CBB1BAF8CAA002C358D /* HelpViewController.h */,
 				73400CBC1BAF8CAA002C358D /* HelpViewController.m */,
 				73400CBD1BAF8CAA002C358D /* HelpViewController.xib */,
@@ -5188,6 +5193,7 @@
 				22E0A822111C44E100B04932 /* AboutViewController.m in Sources */,
 				631C4FB119D2A8F2004BFE77 /* UIDigitButtonLongPlus.m in Sources */,
 				2248E90E12F7E4CF00220D9C /* UIDigitButton.m in Sources */,
+				5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */,
 				2214EB7A12F846B1002A5394 /* UICallButton.m in Sources */,
 				2214EB8912F84EBB002A5394 /* UIHangUpButton.m in Sources */,
 				630CF5571AF7CE1500539F7A /* UITextField+DoneButton.m in Sources */,
@@ -5791,7 +5797,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -5848,7 +5854,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: jehan monnier";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_THUMB_SUPPORT = NO;
@@ -5883,7 +5889,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -5936,7 +5942,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_THUMB_SUPPORT = NO;
@@ -5970,7 +5976,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -6024,7 +6030,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: jehan monnier";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_THUMB_SUPPORT = NO;
@@ -6059,7 +6065,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -6112,7 +6118,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: jehan monnier (E8MYPN2NXL)";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -6326,8 +6332,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TestAppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = TestLaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6378,8 +6384,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TestAppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = TestLaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6424,8 +6430,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TestAppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = TestLaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6470,8 +6476,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TestAppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = TestLaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6526,6 +6532,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -6578,6 +6585,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6624,6 +6632,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6670,6 +6679,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
