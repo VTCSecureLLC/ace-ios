@@ -52,7 +52,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
 #endif
 
 #pragma mark - Lifecycle Functions
-
+static InCallViewController *instance;
 - (id)init {
 	self = [super initWithNibName:@"InCallViewController" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
@@ -202,6 +202,8 @@ CGRect remoteVideoFrame;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+    
+    instance = self;
 }
 
 - (void)viewDidUnload {
@@ -688,5 +690,9 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
+}
+
++(InCallViewController*) sharedInstance{
+    return instance;
 }
 @end

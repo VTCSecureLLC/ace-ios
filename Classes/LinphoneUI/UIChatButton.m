@@ -19,9 +19,8 @@
 
 #import "UIChatButton.h"
 #import "LinphoneManager.h"
-#import "LinphoneAppDelegate.h"
-#include "linphone/linphonecore.h"
-#import "PhoneMainView.h"
+#import "InCallViewController.h"
+
 @implementation UIChatButton
 
 #pragma mark - Lifecycle Functions
@@ -94,37 +93,27 @@
 #pragma mark - UIToggleButtonDelegate Functions
 
 - (void)onOn {
-//	switch (type) {
-//        case UIChatButtonType_Call:
-//        case UIChatButtonType_SIMPLE:
-//        case UIChatButtonType_Conference:
-//        case UIChatButtonType_CurrentCall:{
-//            [self toggleKeyboard];
-//            break;
-//        }
-//    }
+    //Chat mode enabled
 }
 
 
-- (BOOL) toggleKeyboard :(id)sender{
-
+- (BOOL) toggleKeyboard{
+    if([[InCallViewController sharedInstance] isFirstResponder]){
+        [[InCallViewController sharedInstance] resignFirstResponder];
+    }
+    else{
+        [[InCallViewController sharedInstance] becomeFirstResponder];
+        return YES;
+    }
 
     return NO;
 }
 - (void)onOff {
-//    switch (type) {
-//        case UIChatButtonType_Call:
-//        case UIChatButtonType_SIMPLE:
-//        case UIChatButtonType_Conference:
-//        case UIChatButtonType_CurrentCall:{
-//            [self toggleKeyboard];
-//            break;
-//        }
-//    }
+    //Chat mode disabled
 }
 
-- (bool)onUpdate:(id) sender {
-    return  [self toggleKeyboard: sender];
+- (bool)onUpdate {
+    return  [self toggleKeyboard];
 }
 
 @end

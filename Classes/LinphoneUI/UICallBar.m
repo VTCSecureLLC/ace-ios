@@ -270,7 +270,6 @@
 
 	[speakerButton update];
 	[microButton update];
-
 	[videoButton update];
 	[hangupButton update];
 
@@ -544,16 +543,8 @@
 }
 
 - (IBAction)onChatClick:(id)sender {
-
-    if (self.view.superview.isFirstResponder){
-        [self.view.superview resignFirstResponder];
-    }
-    else{
-        [self.view.superview becomeFirstResponder];
-    }
+    [self.chatButton update];
 }
-
-
 
 - (IBAction)onOptionsClick:(id)sender {
 	if ([optionsView isHidden]) {
@@ -563,6 +554,9 @@
 	}
 }
 
+- (IBAction)onConferenceClick:(id)sender {
+    linphone_core_add_all_to_conference([LinphoneManager getLc]);
+}
 #pragma mark - TPMultiLayoutViewController Functions
 
 - (NSDictionary *)attributesForView:(UIView *)view {

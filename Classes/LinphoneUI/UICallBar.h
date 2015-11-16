@@ -30,7 +30,7 @@
 @interface UICallBar: TPMultiLayoutViewController {
 }
 
-@property (nonatomic, strong) IBOutlet UIChatButton*   chatButton;
+@property (nonatomic, strong) IBOutlet UIChatButton*    chatButton;
 @property (nonatomic, strong) IBOutlet UIButton*        conferenceButton;
 @property (nonatomic, strong) IBOutlet UIVideoButton*   videoButton;
 @property (nonatomic, strong) IBOutlet UIMicroButton*   microButton;
