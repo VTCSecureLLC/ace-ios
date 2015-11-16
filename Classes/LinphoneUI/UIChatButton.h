@@ -21,18 +21,19 @@
 
 #include "linphone/linphonecore.h"
 
-typedef enum _UIPauseButtonType {
-    UIPauseButtonType_CurrentCall,
-    UIPauseButtonType_Call,
-    UIPauseButtonType_Conference
-} UIPauseButtonType;
+typedef enum _UIChatButtonType {
+    UIChatButtonType_Call,
+    UIChatButtonType_CurrentCall,
+    UIChatButtonType_SIMPLE,
+    UIChatButtonType_Conference
+} UIChatButtonType;
 
-@interface UIPauseButton : UIToggleButton<UIToggleButtonDelegate> {
+@interface UIChatButton : UIToggleButton<UIToggleButtonDelegate> {
     @private
-    UIPauseButtonType type;
+    UIChatButtonType type;
     LinphoneCall* call;
 }
 
-- (void)setType:(UIPauseButtonType) type call:(LinphoneCall*)call;
+- (void)setType:(UIChatButtonType) type call:(LinphoneCall*)call;
 
 @end

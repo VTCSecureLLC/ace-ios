@@ -329,7 +329,7 @@
 		57F005C415EE2CCF00914747 /* linphonerc in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C315EE2CCF00914747 /* linphonerc */; };
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
-		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; settings = {ASSET_TAGS = (); }; };
+		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
 		630589E81B4E810900EFAE36 /* ContactsTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E11B4E810900EFAE36 /* ContactsTester.m */; };
 		630589EA1B4E810900EFAE36 /* LinphoneTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E41B4E810900EFAE36 /* LinphoneTestCase.m */; };
@@ -537,7 +537,7 @@
 		D36C43E9158F3F7E0048BA40 /* pause_on_default.png in Resources */ = {isa = PBXBuildFile; fileRef = D36C43E7158F3F7E0048BA40 /* pause_on_default.png */; };
 		D36C43F5158F61EA0048BA40 /* call_state_play_default.png in Resources */ = {isa = PBXBuildFile; fileRef = D36C43EF158F61EA0048BA40 /* call_state_play_default.png */; };
 		D36C43F7158F61EA0048BA40 /* call_state_play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = D36C43F0158F61EA0048BA40 /* call_state_play_over.png */; };
-		D36FB2D51589EF7C0036F6F2 /* UIPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FB2D41589EF7C0036F6F2 /* UIPauseButton.m */; };
+		D36FB2D51589EF7C0036F6F2 /* UIChatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FB2D41589EF7C0036F6F2 /* UIChatButton.m */; };
 		D377BBFA15A19DA6002B696B /* video_on_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D377BBF915A19DA6002B696B /* video_on_disabled.png */; };
 		D378906515AC373B00BD776C /* ContactDetailsLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D378906315AC373B00BD776C /* ContactDetailsLabelViewController.m */; };
 		D378AB2A15DCDB4A0098505D /* ImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D378AB2915DCDB490098505D /* ImagePickerViewController.m */; };
@@ -1882,8 +1882,8 @@
 		D36C43EE158F61EA0048BA40 /* call_state_pause_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_state_pause_over.png; path = Resources/call_state_pause_over.png; sourceTree = "<group>"; };
 		D36C43EF158F61EA0048BA40 /* call_state_play_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_state_play_default.png; path = Resources/call_state_play_default.png; sourceTree = "<group>"; };
 		D36C43F0158F61EA0048BA40 /* call_state_play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_state_play_over.png; path = Resources/call_state_play_over.png; sourceTree = "<group>"; };
-		D36FB2D31589EF7C0036F6F2 /* UIPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPauseButton.h; sourceTree = "<group>"; };
-		D36FB2D41589EF7C0036F6F2 /* UIPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPauseButton.m; sourceTree = "<group>"; };
+		D36FB2D31589EF7C0036F6F2 /* UIChatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIChatButton.h; sourceTree = "<group>"; };
+		D36FB2D41589EF7C0036F6F2 /* UIChatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIChatButton.m; sourceTree = "<group>"; };
 		D37295DA158B3C9600D2C0C7 /* video_off_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_off_disabled.png; path = Resources/video_off_disabled.png; sourceTree = "<group>"; };
 		D377BBF915A19DA6002B696B /* video_on_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_on_disabled.png; path = Resources/video_on_disabled.png; sourceTree = "<group>"; };
 		D378906215AC373B00BD776C /* ContactDetailsLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailsLabelViewController.h; sourceTree = "<group>"; };
@@ -2810,8 +2810,8 @@
 				D38187FF15FE356100C3EDCA /* UIMainBar~ipad.xib */,
 				2214EBF112F86360002A5394 /* UIMicroButton.h */,
 				2214EBF212F86360002A5394 /* UIMicroButton.m */,
-				D36FB2D31589EF7C0036F6F2 /* UIPauseButton.h */,
-				D36FB2D41589EF7C0036F6F2 /* UIPauseButton.m */,
+				D36FB2D31589EF7C0036F6F2 /* UIChatButton.h */,
+				D36FB2D41589EF7C0036F6F2 /* UIChatButton.m */,
 				63FB30331A680E73008CA393 /* UIRoundedImageView.h */,
 				63FB30341A680E73008CA393 /* UIRoundedImageView.m */,
 				22968A5D12F875C600588287 /* UISpeakerButton.h */,
@@ -5218,7 +5218,7 @@
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,
 				D326483E1588950F00930C67 /* UICallBar.m in Sources */,
 				D32648441588F6FC00930C67 /* UIToggleButton.m in Sources */,
-				D36FB2D51589EF7C0036F6F2 /* UIPauseButton.m in Sources */,
+				D36FB2D51589EF7C0036F6F2 /* UIChatButton.m in Sources */,
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
