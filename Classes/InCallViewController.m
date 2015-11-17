@@ -39,7 +39,6 @@ const NSInteger SECURE_BUTTON_TAG = 5;
     @property UIButton *closeChatButton;
 @end
 
-
 @implementation InCallViewController {
 	BOOL hiddenVolume;
 }
@@ -170,7 +169,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Enable tap
 	[singleFingerTap setEnabled:TRUE];
-
     // Hide fields.
     self.textscroll.hidden = YES;
 }
