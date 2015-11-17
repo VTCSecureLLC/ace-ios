@@ -55,6 +55,7 @@
 @property (nonatomic, retain) IBOutlet ExtenableTextField *outgoingTextLabel;
 @property (strong, nonatomic) IBOutlet UIButton *keyboardButton;
 
+@property (nonatomic) BOOL isChatMode;
 +(InCallViewController*) sharedInstance;
 
 @end

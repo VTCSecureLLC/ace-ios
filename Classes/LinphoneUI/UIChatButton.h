@@ -36,4 +36,6 @@ typedef enum _UIChatButtonType {
 
 - (void)setType:(UIChatButtonType) type call:(LinphoneCall*)call;
 
+-(BOOL) dismissKeyboard;
+-(BOOL) showKeyboard;
 @end

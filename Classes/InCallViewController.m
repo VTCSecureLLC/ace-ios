@@ -102,6 +102,13 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
+    
+    if(self.outgoingTextLabel){
+        CGFloat outgoingTextInitialHeight = [self textViewHeightForAttributedText:self.outgoingTextLabel.   attributedText andWidth:self.outgoingTextLabel.frame.size.width];
+        CGRect tempOutFrame = self.outgoingTextLabel.frame;
+        tempOutFrame.size.height = outgoingTextInitialHeight;
+        [self.outgoingTextLabel setFrame:tempOutFrame];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -115,6 +122,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
 		hiddenVolume = FALSE;
 	}
+    
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+        [self.incomingTextField setHidden:YES];
+    }
+    
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
@@ -141,7 +157,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[singleFingerTap setEnabled:TRUE];
     // Hide fields.
     self.textscroll.hidden = YES;
-    self.keyboardButton.hidden = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -154,17 +169,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] fullScreen:false];
 	// Disable tap
 	[singleFingerTap setEnabled:FALSE];
-    
-    if(self.incomingTextField){
-        self.incomingTextField.text = @"";
-    }
-    
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
-    }
 }
 
 CGRect remoteVideoFrame;
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -184,13 +192,28 @@ CGRect remoteVideoFrame;
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
-
-    if(self.incomingTextField){
+    
+    CGSize chatSize;
+    
+    if(self.incomingTextField && self.outgoingTextLabel){
         self.incomingTextField.text = @"";
+        self.incomingTextField.backgroundColor = [UIColor blackColor];
+        self.incomingTextField.textColor = [UIColor whiteColor];
+        [self.incomingTextField setTextAlignment:NSTextAlignmentRight];
+  
+        self.outgoingTextLabel.text = @"";
+        self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
+        self.outgoingTextLabel.textColor = [UIColor whiteColor];
+        [self.outgoingTextLabel setTextAlignment:NSTextAlignmentLeft];
+      
+        [self.incomingTextField setHidden:YES];
+        [self.outgoingTextLabel setHidden:YES];
+        
+        chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
     }
     
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
+    if(self.textscroll){
+        self.textscroll.contentSize = chatSize;
     }
     
     if(self.keyboardButton){
@@ -204,6 +227,7 @@ CGRect remoteVideoFrame;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
     
     instance = self;
+    self.isChatMode = NO;
 }
 
 - (void)viewDidUnload {
@@ -318,6 +342,11 @@ CGRect remoteVideoFrame;
 }
 
 - (void)showControls:(id)sender {
+    
+    if(self.isFirstResponder){
+        [self resignFirstResponder];
+        return;
+    }
 	if (hideControlsTimer) {
 		[hideControlsTimer invalidate];
 		hideControlsTimer = nil;
@@ -608,10 +637,22 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 - (void)insertText:(NSString *)theText {
     // Send a character.
     NSLog(@"Add characters");
+    
+    
+    CGSize  chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
+    self.textscroll.contentSize = chatSize;
+
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     [self.outgoingTextLabel appendWithString:theText];
+
+    CGFloat minWidth = self.outgoingTextLabel.frame.size.width;
+    CGFloat outgoingTextHeight = [self textViewHeightForAttributedText:[self.outgoingTextLabel attributedText] andWidth:minWidth];
+    CGRect tempOutFrame = self.outgoingTextLabel.frame;
+    tempOutFrame.size.height = outgoingTextHeight;
+    
+    [self.outgoingTextLabel setFrame:tempOutFrame];
     for (int i = 0; i != theText.length; i++)
         linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
 }
@@ -647,6 +688,19 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             NSString * string = [NSString stringWithFormat:@"%C", (unichar)c];
             [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
         }
+        CGFloat minWidth = self.incomingTextField.frame.size.width;
+        if(self.incomingTextField && self.outgoingTextLabel && self.textscroll){
+            [self.incomingTextField setHidden:NO];
+            CGFloat incomingTextHeight = [self textViewHeightForAttributedText:[self.incomingTextField attributedText] andWidth:minWidth];
+            CGRect tempInFrame = self.incomingTextField.frame;
+            tempInFrame.size.height = incomingTextHeight;
+            [self.incomingTextField setFrame:tempInFrame];
+            
+            CGSize  chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
+            self.textscroll.contentSize = chatSize;
+            
+        }
+        
     }
 }
 
@@ -685,14 +739,27 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                                             self.videoView.frame.origin.y - delta,
                                                 self.videoView.frame.size.width,
                                                     self.videoView.frame.size.height)];
+    
+
+    [self.outgoingTextLabel setHidden:NO];
     [self hideControls:self];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
+    [self.outgoingTextLabel setHidden:YES];
+    
+}
+
+- (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
+    UITextView *calculationView = [[UITextView alloc] init];
+    [calculationView setAttributedText:text];
+    CGSize size = [calculationView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+    return size.height;
 }
 
 +(InCallViewController*) sharedInstance{
     return instance;
 }
+
 @end
