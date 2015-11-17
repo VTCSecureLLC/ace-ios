@@ -160,6 +160,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Enable tap
 	[singleFingerTap setEnabled:TRUE];
+
     // Hide fields.
     self.textscroll.hidden = YES;
 }
@@ -208,10 +209,19 @@ CGPoint incomingTextChatModePos;
         [self.incomingTextField setTextAlignment:NSTextAlignmentLeft];
         self.incomingTextField.text = @"";
         self.incomingTextField.alpha = 0.7;
-        
+        [self.incomingTextField setSelectable:YES];
+        //[self.incomingTextField setUserInteractionEnabled:YES];
+
+      
         CGPoint outGoingCenter = self.outgoingTextLabel.center;
         outGoingCenter.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
         self.incomingTextField.center = outGoingCenter;
+        
+        UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cutTextFromIncomingChat:)];
+        singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
+        singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
+        [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
+        [self.incomingTextField addGestureRecognizer:singleFingerTappedIncomingChat];
         
         self.outgoingTextLabel.text = @"";
         self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
@@ -779,6 +789,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
 }
+-(void) cutTextFromIncomingChat: (UITapGestureRecognizer *)sender{
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:self.incomingTextField.text];
+}
 - (void)keyboardWillShow:(NSNotification *)notification {
     if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
         remoteVideoFrame = self.videoView.frame;
@@ -795,6 +809,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.incomingTextField setHidden:NO];
     [self.closeChatButton setHidden:YES];
     [self.closeChatButton setEnabled:NO];
+    [self.textscroll setScrollEnabled:YES];
     
     [self hideControls:self];
     CGRect inputTextFrame = self.outgoingTextLabel.frame;
@@ -807,6 +822,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.outgoingTextLabel setHidden:YES];
     self.incomingTextField.center = self.view.center;
     [self.incomingTextField setHidden:YES];
+    [self.textscroll setScrollEnabled:NO];
 }
 
 - (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
