@@ -120,6 +120,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     if(self.incomingTextField){
         [self.incomingTextField setText:@""];
     }
+    
+    if(self.closeChatButton){
+        [self.closeChatButton setHidden:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
