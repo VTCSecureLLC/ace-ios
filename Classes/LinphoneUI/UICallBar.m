@@ -27,7 +27,7 @@
 
 @implementation UICallBar
 
-@synthesize pauseButton;
+@synthesize chatButton;
 @synthesize conferenceButton;
 @synthesize videoButton;
 @synthesize microButton;
@@ -73,7 +73,7 @@
 #pragma mark - ViewController Functions
 
 - (void)viewDidLoad {
-	[pauseButton setType:UIPauseButtonType_CurrentCall call:nil];
+	//[chatButton setType:UIChatButtonType_CurrentCall call:nil];
 
 	[zeroButton setDigit:'0'];
 	[zeroButton setDtmf:true];
@@ -193,15 +193,15 @@
 	}
 
 	{
-		UIButton *pauseButtonLandscape = (UIButton *)[landscapeView viewWithTag:[pauseButton tag]];
+		UIButton *chatButtonLandscape = (UIButton *)[landscapeView viewWithTag:[chatButton tag]];
 		// Set selected+over background: IB lack !
-		[pauseButton setBackgroundImage:[UIImage imageNamed:@"pause_on_over.png"]
+		[chatButton setBackgroundImage:[UIImage imageNamed:@"chat_selected.png"]
 							   forState:(UIControlStateHighlighted | UIControlStateSelected)];
-		[pauseButtonLandscape setBackgroundImage:[UIImage imageNamed:@"pause_on_over_landscape.png"]
+		[chatButtonLandscape setBackgroundImage:[UIImage imageNamed:@"chat_selected.png"]
 										forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
-		[LinphoneUtils buttonFixStates:pauseButton];
-		[LinphoneUtils buttonFixStates:pauseButtonLandscape];
+        [LinphoneUtils buttonFixStates:chatButton];
+		[LinphoneUtils buttonFixStates:chatButtonLandscape];
 	}
 
 	{
@@ -270,7 +270,6 @@
 
 	[speakerButton update];
 	[microButton update];
-	[pauseButton update];
 	[videoButton update];
 	[hangupButton update];
 
@@ -279,8 +278,8 @@
 
 	// Show Pause/Conference button following call count
 	if (linphone_core_get_calls_nb(lc) > 1) {
-		if (![pauseButton isHidden]) {
-			[pauseButton setHidden:true];
+		if (![chatButton isHidden]) {
+			[chatButton setHidden:true];
 			[conferenceButton setHidden:false];
 		}
 		bool enabled = true;
@@ -297,8 +296,8 @@
 		}
 		[conferenceButton setEnabled:enabled];
 	} else {
-		if ([pauseButton isHidden]) {
-			[pauseButton setHidden:false];
+		if ([chatButton isHidden]) {
+			[chatButton setHidden:false];
 			[conferenceButton setHidden:true];
 		}
 	}
@@ -543,6 +542,10 @@
 	}
 }
 
+- (IBAction)onChatClick:(id)sender {
+    [self.chatButton update];
+}
+
 - (IBAction)onOptionsClick:(id)sender {
 	if ([optionsView isHidden]) {
 		[self showOptions:[[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"]];
@@ -552,9 +555,8 @@
 }
 
 - (IBAction)onConferenceClick:(id)sender {
-	linphone_core_add_all_to_conference([LinphoneManager getLc]);
+    linphone_core_add_all_to_conference([LinphoneManager getLc]);
 }
-
 #pragma mark - TPMultiLayoutViewController Functions
 
 - (NSDictionary *)attributesForView:(UIView *)view {

@@ -96,7 +96,7 @@
 @synthesize stateLabel;
 @synthesize stateImage;
 @synthesize avatarImage;
-@synthesize pauseButton;
+@synthesize chatButton;
 @synthesize removeButton;
 
 @synthesize headerView;
@@ -146,7 +146,7 @@
 			[self addSubview:sub];
 		}
 		// Set selected+over background: IB lack !
-		[pauseButton setImage:[UIImage imageNamed:@"call_state_pause_over.png"]
+		[chatButton setImage:[UIImage imageNamed:@"chat_selected.png"]
 					 forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
 		self->currentCall = FALSE;
@@ -350,7 +350,7 @@
     }
     LinphoneCall *call = data->call;
 
-    [pauseButton setType:UIPauseButtonType_Call call:call];
+//    [chatButton setType:UIChatButtonType_Call call:call];
 
     [addressLabel setText:data.address];
     [avatarImage setImage:data.image];
@@ -360,7 +360,7 @@
         if(state == LinphoneCallOutgoingRinging) {
             [stateImage setImage:[UIImage imageNamed:@"call_state_ringing_default.png"]];
             [stateImage setHidden:false];
-            [pauseButton setHidden:true];
+            [chatButton setHidden:true];
             if (self.outgoingRingCountTimer == nil) {
                 self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
                                                                   target:self
@@ -372,12 +372,11 @@
         } else if(state == LinphoneCallOutgoingInit || state == LinphoneCallOutgoingProgress){
             [stateImage setImage:[UIImage imageNamed:@"call_state_outgoing_default.png"]];
             [stateImage setHidden:false];
-            [pauseButton setHidden:true];
+            [chatButton setHidden:true];
             [self stopOutgoingRingCount];
         } else {
             [stateImage setHidden:true];
-            [pauseButton setHidden:false];
-            [pauseButton update];
+            [chatButton setHidden:false];
             [self stopOutgoingRingCount];
 
         }
@@ -391,7 +390,7 @@
         }
     } else {
         [stateImage setHidden:true];
-        [pauseButton setHidden:true];
+        [chatButton setHidden:true];
         [removeButton setHidden:false];
         [headerBackgroundImage setImage:[UIImage imageNamed:@"cell_conference.png"]];
     }
