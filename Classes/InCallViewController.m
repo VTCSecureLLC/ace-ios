@@ -35,6 +35,11 @@
 
 const NSInteger SECURE_BUTTON_TAG = 5;
 
+@interface InCallViewController()
+    @property UIButton *closeChatButton;
+@end
+
+
 @implementation InCallViewController {
 	BOOL hiddenVolume;
 }
@@ -200,19 +205,20 @@ CGPoint incomingTextChatModePos;
         self.incomingTextField.text = @"";
         self.incomingTextField.backgroundColor = [UIColor blackColor];
         self.incomingTextField.textColor = [UIColor whiteColor];
-        [self.incomingTextField setTextAlignment:NSTextAlignmentRight];
+        [self.incomingTextField setTextAlignment:NSTextAlignmentLeft];
         self.incomingTextField.text = @"";
-      
+        self.incomingTextField.alpha = 0.7;
+        
         CGPoint outGoingCenter = self.outgoingTextLabel.center;
         outGoingCenter.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
         self.incomingTextField.center = outGoingCenter;
-        
         
         self.outgoingTextLabel.text = @"";
         self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
         self.outgoingTextLabel.textColor = [UIColor whiteColor];
         [self.outgoingTextLabel setTextAlignment:NSTextAlignmentLeft];
-      
+        self.outgoingTextLabel.alpha = 0.7;
+        
         [self.incomingTextField setHidden:YES];
         [self.outgoingTextLabel setHidden:YES];
         
@@ -225,6 +231,26 @@ CGPoint incomingTextChatModePos;
     
     if(self.keyboardButton){
         [self.keyboardButton setAlpha:0.6];
+    }
+    
+    if(!self.closeChatButton && self.incomingTextField){
+        self.closeChatButton = [[UIButton alloc] init];
+        [self.closeChatButton setTitle:@"X" forState: UIControlStateNormal];
+        [self.closeChatButton setHidden:YES];
+        [self.closeChatButton setBackgroundColor:[UIColor blackColor]];
+        [self.closeChatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.closeChatButton.titleLabel.font = [UIFont systemFontOfSize: 32];
+        self.closeChatButton.alpha = 0.7;
+        
+        CGRect incomingChatTempFrame = self.incomingTextField.frame;
+        incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
+        [self.closeChatButton setFrame:incomingChatTempFrame];
+        
+        [self.closeChatButton addTarget:self
+                                 action:@selector(dismissIncomingChat)
+           forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:self.closeChatButton];
     }
     
     [self.keyboardButton removeFromSuperview];
@@ -697,7 +723,21 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         }
         CGFloat minWidth = self.incomingTextField.frame.size.width;
         if(self.incomingTextField && self.outgoingTextLabel && self.textscroll){
-            [self.incomingTextField setHidden:NO];
+            if(self.incomingTextField.isHidden){
+                [self.incomingTextField setHidden:NO];
+                [self.closeChatButton setHidden:NO];
+                [self.closeChatButton setEnabled:YES];
+                
+                CGRect incomingChatTempFrame = self.incomingTextField.frame;
+                incomingChatTempFrame.size.height /= 2;
+                incomingChatTempFrame.size.width = incomingChatTempFrame.size.height * 2;
+                
+                //incomingChatTempFrame.origin.x -= incomingChatTempFrame.frame.size.width / 2;
+                incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
+
+                [self.closeChatButton setFrame:incomingChatTempFrame];
+                
+            }
             CGFloat incomingTextHeight = [self textViewHeightForAttributedText:[self.incomingTextField attributedText] andWidth:minWidth];
             CGRect tempInFrame = self.incomingTextField.frame;
             tempInFrame.size.height = incomingTextHeight;
@@ -735,7 +775,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 -(void)runonmainthreadremove{
     [self.incomingTextField removeLast];
 }
-
+-(void) dismissIncomingChat{
+    [self.incomingTextField setHidden:YES];
+    [self.closeChatButton setHidden:YES];
+}
 - (void)keyboardWillShow:(NSNotification *)notification {
     if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
         remoteVideoFrame = self.videoView.frame;
@@ -749,6 +792,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     
 
     [self.outgoingTextLabel setHidden:NO];
+    [self.incomingTextField setHidden:NO];
+    [self.closeChatButton setHidden:YES];
+    [self.closeChatButton setEnabled:NO];
+    
     [self hideControls:self];
     CGRect inputTextFrame = self.outgoingTextLabel.frame;
     inputTextFrame.origin.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
@@ -759,6 +806,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.videoView setFrame:remoteVideoFrame];
     [self.outgoingTextLabel setHidden:YES];
     self.incomingTextField.center = self.view.center;
+    [self.incomingTextField setHidden:YES];
 }
 
 - (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
