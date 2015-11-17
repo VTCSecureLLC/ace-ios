@@ -108,11 +108,17 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
     
+    
     if(self.outgoingTextLabel){
         CGFloat outgoingTextInitialHeight = [self textViewHeightForAttributedText:self.outgoingTextLabel.   attributedText andWidth:self.outgoingTextLabel.frame.size.width];
         CGRect tempOutFrame = self.outgoingTextLabel.frame;
         tempOutFrame.size.height = outgoingTextInitialHeight;
         [self.outgoingTextLabel setFrame:tempOutFrame];
+        [self.outgoingTextLabel setText:@""];
+    }
+    
+    if(self.incomingTextField){
+        [self.incomingTextField setText:@""];
     }
 }
 
@@ -209,19 +215,27 @@ CGPoint incomingTextChatModePos;
         [self.incomingTextField setTextAlignment:NSTextAlignmentLeft];
         self.incomingTextField.text = @"";
         self.incomingTextField.alpha = 0.7;
+        [self.incomingTextField setReadOnly:YES];
         [self.incomingTextField setSelectable:YES];
-        //[self.incomingTextField setUserInteractionEnabled:YES];
-
+        [self.incomingTextField setUserInteractionEnabled:YES];
+        self.incomingTextField.inputView = [[UIView alloc] initWithFrame:CGRectZero];
       
         CGPoint outGoingCenter = self.outgoingTextLabel.center;
         outGoingCenter.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
         self.incomingTextField.center = outGoingCenter;
         
-        UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cutTextFromIncomingChat:)];
+        UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
         singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
         singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
         [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
         [self.incomingTextField addGestureRecognizer:singleFingerTappedIncomingChat];
+        
+        UILongPressGestureRecognizer *singleFingerLongTappedIncomingChat = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cutTextFromIncomingChat:)];
+
+        singleFingerLongTappedIncomingChat.numberOfTouchesRequired = 1;
+        singleFingerLongTappedIncomingChat.numberOfTapsRequired = 1;
+        [singleFingerLongTappedIncomingChat setCancelsTouchesInView:NO];
+        [self.incomingTextField addGestureRecognizer:singleFingerLongTappedIncomingChat];
         
         self.outgoingTextLabel.text = @"";
         self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
@@ -788,6 +802,11 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 -(void) dismissIncomingChat{
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
+}
+-(void) openChatMessage: (UITapGestureRecognizer *)sender{
+    if(!self.isFirstResponder){
+        [self becomeFirstResponder];
+    }
 }
 -(void) cutTextFromIncomingChat: (UITapGestureRecognizer *)sender{
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
