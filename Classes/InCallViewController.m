@@ -757,7 +757,9 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [self.closeChatButton setEnabled:YES];
                 
                 CGRect incomingChatTempFrame = self.incomingTextField.frame;
-                incomingChatTempFrame.size.height /= 2;
+                UITextView *measureView = [[UITextView alloc] init];
+                [measureView setText:@"X"];
+                incomingChatTempFrame.size.height = [self textViewHeightForAttributedText:measureView.attributedText andWidth:self.incomingTextField.frame.size.width];
                 incomingChatTempFrame.size.width = incomingChatTempFrame.size.height * 2;
                 
                 //incomingChatTempFrame.origin.x -= incomingChatTempFrame.frame.size.width / 2;
