@@ -826,8 +826,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                                             self.videoView.frame.origin.y - delta,
                                                 self.videoView.frame.size.width,
                                                     self.videoView.frame.size.height)];
-    
-
     [self.outgoingTextLabel setHidden:NO];
     [self.incomingTextField setHidden:NO];
     [self.closeChatButton setHidden:YES];
@@ -858,5 +856,4 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 +(InCallViewController*) sharedInstance{
     return instance;
 }
-
 @end
