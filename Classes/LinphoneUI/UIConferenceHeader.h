@@ -19,13 +19,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIPauseButton.h"
+#import "UIChatButton.h"
 
 @interface UIConferenceHeader : UIViewController {
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView* stateImage;
-@property (nonatomic, strong) IBOutlet UIPauseButton *pauseButton;
+@property (nonatomic, strong) IBOutlet UIChatButton *chatButton;
 
 + (int)getHeight;
 - (void)update;

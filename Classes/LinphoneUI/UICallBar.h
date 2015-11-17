@@ -20,7 +20,7 @@
 #import <UIKit/UIKit.h>
 
 #import "UIMicroButton.h"
-#import "UIPauseButton.h"
+#import "UIChatButton.h"
 #import "UISpeakerButton.h"
 #import "UIVideoButton.h"
 #import "UIHangUpButton.h"
@@ -30,7 +30,7 @@
 @interface UICallBar: TPMultiLayoutViewController {
 }
 
-@property (nonatomic, strong) IBOutlet UIPauseButton*   pauseButton;
+@property (nonatomic, strong) IBOutlet UIChatButton*    chatButton;
 @property (nonatomic, strong) IBOutlet UIButton*        conferenceButton;
 @property (nonatomic, strong) IBOutlet UIVideoButton*   videoButton;
 @property (nonatomic, strong) IBOutlet UIMicroButton*   microButton;
@@ -72,7 +72,8 @@
 - (IBAction)onOptionsClick:(id)sender;
 - (IBAction)onOptionsTransferClick:(id)sender;
 - (IBAction)onOptionsAddClick:(id)sender;
-- (IBAction)onConferenceClick:(id)sender;
+- (IBAction)onChatClick:(id)sender;
+
 - (IBAction)onPadClick:(id)sender;
 
 @end
