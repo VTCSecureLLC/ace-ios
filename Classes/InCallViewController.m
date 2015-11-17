@@ -172,6 +172,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 CGRect remoteVideoFrame;
+CGPoint incomingTextChatModePos;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -200,7 +201,13 @@ CGRect remoteVideoFrame;
         self.incomingTextField.backgroundColor = [UIColor blackColor];
         self.incomingTextField.textColor = [UIColor whiteColor];
         [self.incomingTextField setTextAlignment:NSTextAlignmentRight];
-  
+        self.incomingTextField.text = @"";
+      
+        CGPoint outGoingCenter = self.outgoingTextLabel.center;
+        outGoingCenter.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
+        self.incomingTextField.center = outGoingCenter;
+        
+        
         self.outgoingTextLabel.text = @"";
         self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
         self.outgoingTextLabel.textColor = [UIColor whiteColor];
@@ -743,12 +750,15 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
     [self.outgoingTextLabel setHidden:NO];
     [self hideControls:self];
+    CGRect inputTextFrame = self.outgoingTextLabel.frame;
+    inputTextFrame.origin.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
+    [self.incomingTextField setFrame:inputTextFrame];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
     [self.outgoingTextLabel setHidden:YES];
-    
+    self.incomingTextField.center = self.view.center;
 }
 
 - (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
