@@ -253,7 +253,6 @@ CGPoint incomingTextChatModePos;
     
     if(self.textscroll){
         self.textscroll.contentSize = chatSize;
-        [self.textscroll setPagingEnabled:NO];
     }
     
     if(self.keyboardButton){
