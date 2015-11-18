@@ -99,15 +99,27 @@
 
 - (BOOL) toggleKeyboard{
     if([[InCallViewController sharedInstance] isFirstResponder]){
-        [[InCallViewController sharedInstance] resignFirstResponder];
+        [self dismissKeyboard];
     }
     else{
-        [[InCallViewController sharedInstance] becomeFirstResponder];
+        [self showKeyboard];
         return YES;
     }
-
     return NO;
 }
+
+-(BOOL) dismissKeyboard{
+    [[InCallViewController sharedInstance] resignFirstResponder];
+    [InCallViewController sharedInstance].isChatMode = NO;
+    return NO;
+}
+
+-(BOOL) showKeyboard{
+    [[InCallViewController sharedInstance] becomeFirstResponder];
+    [InCallViewController sharedInstance].isChatMode = YES;
+    return YES;
+}
+
 - (void)onOff {
     //Chat mode disabled
 }

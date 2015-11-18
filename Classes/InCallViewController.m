@@ -35,6 +35,10 @@
 
 const NSInteger SECURE_BUTTON_TAG = 5;
 
+@interface InCallViewController()
+    @property UIButton *closeChatButton;
+@end
+
 @implementation InCallViewController {
 	BOOL hiddenVolume;
 }
@@ -102,6 +106,23 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
+    
+    
+    if(self.outgoingTextLabel){
+        CGFloat outgoingTextInitialHeight = [self textViewHeightForAttributedText:self.outgoingTextLabel.   attributedText andWidth:self.outgoingTextLabel.frame.size.width];
+        CGRect tempOutFrame = self.outgoingTextLabel.frame;
+        tempOutFrame.size.height = outgoingTextInitialHeight;
+        [self.outgoingTextLabel setFrame:tempOutFrame];
+        [self.outgoingTextLabel setText:@""];
+    }
+    
+    if(self.incomingTextField){
+        [self.incomingTextField setText:@""];
+    }
+    
+    if(self.closeChatButton){
+        [self.closeChatButton setHidden:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -115,6 +136,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
 		hiddenVolume = FALSE;
 	}
+    
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+        [self.incomingTextField setHidden:YES];
+    }
+    
+    if(self.outgoingTextLabel){
+        self.outgoingTextLabel.text = @"";
+    }
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
@@ -141,7 +171,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[singleFingerTap setEnabled:TRUE];
     // Hide fields.
     self.textscroll.hidden = YES;
-    self.keyboardButton.hidden = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -154,17 +183,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] fullScreen:false];
 	// Disable tap
 	[singleFingerTap setEnabled:FALSE];
-    
-    if(self.incomingTextField){
-        self.incomingTextField.text = @"";
-    }
-    
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
-    }
 }
 
 CGRect remoteVideoFrame;
+CGPoint incomingTextChatModePos;
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -184,17 +207,76 @@ CGRect remoteVideoFrame;
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
-
-    if(self.incomingTextField){
+    
+    CGSize chatSize;
+    
+    if(self.incomingTextField && self.outgoingTextLabel){
         self.incomingTextField.text = @"";
+        self.incomingTextField.backgroundColor = [UIColor blackColor];
+        self.incomingTextField.textColor = [UIColor whiteColor];
+        [self.incomingTextField setTextAlignment:NSTextAlignmentLeft];
+        self.incomingTextField.text = @"";
+        self.incomingTextField.alpha = 0.7;
+        [self.incomingTextField setReadOnly:YES];
+        [self.incomingTextField setSelectable:YES];
+        [self.incomingTextField setUserInteractionEnabled:YES];
+        self.incomingTextField.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+      
+        CGPoint outGoingCenter = self.outgoingTextLabel.center;
+        outGoingCenter.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
+        self.incomingTextField.center = outGoingCenter;
+        
+        UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
+        singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
+        singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
+        [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
+        [self.incomingTextField addGestureRecognizer:singleFingerTappedIncomingChat];
+        
+        UILongPressGestureRecognizer *singleFingerLongTappedIncomingChat = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cutTextFromIncomingChat:)];
+
+        singleFingerLongTappedIncomingChat.numberOfTouchesRequired = 1;
+        singleFingerLongTappedIncomingChat.numberOfTapsRequired = 1;
+        [singleFingerLongTappedIncomingChat setCancelsTouchesInView:NO];
+        [self.incomingTextField addGestureRecognizer:singleFingerLongTappedIncomingChat];
+        
+        self.outgoingTextLabel.text = @"";
+        self.outgoingTextLabel.backgroundColor = [UIColor blackColor];
+        self.outgoingTextLabel.textColor = [UIColor whiteColor];
+        [self.outgoingTextLabel setTextAlignment:NSTextAlignmentLeft];
+        self.outgoingTextLabel.alpha = 0.7;
+        
+        [self.incomingTextField setHidden:YES];
+        [self.outgoingTextLabel setHidden:YES];
+        
+        chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
     }
     
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
+    if(self.textscroll){
+        self.textscroll.contentSize = chatSize;
     }
     
     if(self.keyboardButton){
         [self.keyboardButton setAlpha:0.6];
+    }
+    
+    if(!self.closeChatButton && self.incomingTextField){
+        self.closeChatButton = [[UIButton alloc] init];
+        [self.closeChatButton setTitle:@"X" forState: UIControlStateNormal];
+        [self.closeChatButton setHidden:YES];
+        [self.closeChatButton setBackgroundColor:[UIColor blackColor]];
+        [self.closeChatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.closeChatButton.titleLabel.font = [UIFont systemFontOfSize: 32];
+        self.closeChatButton.alpha = 0.7;
+        
+        CGRect incomingChatTempFrame = self.incomingTextField.frame;
+        incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
+        [self.closeChatButton setFrame:incomingChatTempFrame];
+        
+        [self.closeChatButton addTarget:self
+                                 action:@selector(dismissIncomingChat)
+           forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:self.closeChatButton];
     }
     
     [self.keyboardButton removeFromSuperview];
@@ -204,6 +286,7 @@ CGRect remoteVideoFrame;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
     
     instance = self;
+    self.isChatMode = NO;
 }
 
 - (void)viewDidUnload {
@@ -318,6 +401,11 @@ CGRect remoteVideoFrame;
 }
 
 - (void)showControls:(id)sender {
+    
+    if(self.isFirstResponder){
+        [self resignFirstResponder];
+        return;
+    }
 	if (hideControlsTimer) {
 		[hideControlsTimer invalidate];
 		hideControlsTimer = nil;
@@ -608,10 +696,22 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 - (void)insertText:(NSString *)theText {
     // Send a character.
     NSLog(@"Add characters");
+    
+    
+    CGSize  chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
+    self.textscroll.contentSize = chatSize;
+
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     [self.outgoingTextLabel appendWithString:theText];
+
+    CGFloat minWidth = self.outgoingTextLabel.frame.size.width;
+    CGFloat outgoingTextHeight = [self textViewHeightForAttributedText:[self.outgoingTextLabel attributedText] andWidth:minWidth];
+    CGRect tempOutFrame = self.outgoingTextLabel.frame;
+    tempOutFrame.size.height = outgoingTextHeight;
+    
+    [self.outgoingTextLabel setFrame:tempOutFrame];
     for (int i = 0; i != theText.length; i++)
         linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
 }
@@ -647,6 +747,35 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             NSString * string = [NSString stringWithFormat:@"%C", (unichar)c];
             [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
         }
+        CGFloat minWidth = self.incomingTextField.frame.size.width;
+        if(self.incomingTextField && self.outgoingTextLabel && self.textscroll){
+            if(self.incomingTextField.isHidden){
+                [self.incomingTextField setHidden:NO];
+                [self.closeChatButton setHidden:NO];
+                [self.closeChatButton setEnabled:YES];
+                
+                CGRect incomingChatTempFrame = self.incomingTextField.frame;
+                UITextView *measureView = [[UITextView alloc] init];
+                [measureView setText:@"X"];
+                incomingChatTempFrame.size.height = [self textViewHeightForAttributedText:measureView.attributedText andWidth:self.incomingTextField.frame.size.width];
+                incomingChatTempFrame.size.width = incomingChatTempFrame.size.height * 2;
+                
+                //incomingChatTempFrame.origin.x -= incomingChatTempFrame.frame.size.width / 2;
+                incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
+
+                [self.closeChatButton setFrame:incomingChatTempFrame];
+                
+            }
+            CGFloat incomingTextHeight = [self textViewHeightForAttributedText:[self.incomingTextField attributedText] andWidth:minWidth];
+            CGRect tempInFrame = self.incomingTextField.frame;
+            tempInFrame.size.height = incomingTextHeight;
+            [self.incomingTextField setFrame:tempInFrame];
+            
+            CGSize  chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
+            self.textscroll.contentSize = chatSize;
+            
+        }
+        
     }
 }
 
@@ -674,7 +803,19 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 -(void)runonmainthreadremove{
     [self.incomingTextField removeLast];
 }
-
+-(void) dismissIncomingChat{
+    [self.incomingTextField setHidden:YES];
+    [self.closeChatButton setHidden:YES];
+}
+-(void) openChatMessage: (UITapGestureRecognizer *)sender{
+    if(!self.isFirstResponder){
+        [self becomeFirstResponder];
+    }
+}
+-(void) cutTextFromIncomingChat: (UITapGestureRecognizer *)sender{
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:self.incomingTextField.text];
+}
 - (void)keyboardWillShow:(NSNotification *)notification {
     if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
         remoteVideoFrame = self.videoView.frame;
@@ -685,11 +826,31 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                                             self.videoView.frame.origin.y - delta,
                                                 self.videoView.frame.size.width,
                                                     self.videoView.frame.size.height)];
+    [self.outgoingTextLabel setHidden:NO];
+    [self.incomingTextField setHidden:NO];
+    [self.closeChatButton setHidden:YES];
+    [self.closeChatButton setEnabled:NO];
+    [self.textscroll setScrollEnabled:YES];
+    
     [self hideControls:self];
+    CGRect inputTextFrame = self.outgoingTextLabel.frame;
+    inputTextFrame.origin.x += self.view.frame.size.width - self.incomingTextField.frame.size.width;
+    [self.incomingTextField setFrame:inputTextFrame];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
+    [self.outgoingTextLabel setHidden:YES];
+    self.incomingTextField.center = self.view.center;
+    [self.incomingTextField setHidden:YES];
+    [self.textscroll setScrollEnabled:NO];
+}
+
+- (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
+    UITextView *calculationView = [[UITextView alloc] init];
+    [calculationView setAttributedText:text];
+    CGSize size = [calculationView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+    return size.height;
 }
 
 +(InCallViewController*) sharedInstance{
