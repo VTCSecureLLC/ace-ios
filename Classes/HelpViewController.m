@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     NSString *linphoneVersion = [[NSString alloc] initWithCString:linphone_core_get_version() encoding:NSUTF8StringEncoding];
     NSString *linphoneUserAgent = [NSString stringWithFormat:@"liblinphone %@", linphoneVersion];
     NSString *aceUserAgent =[NSString stringWithFormat:@"ACE%@", @LINPHONE_IOS_VERSION];
