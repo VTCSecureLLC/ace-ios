@@ -1317,7 +1317,9 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 	NSString *device = [NSString
 		stringWithFormat:@"%@_%@_iOS%@", [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"],
 						 [LinphoneUtils deviceName], UIDevice.currentDevice.systemVersion];
-	linphone_core_set_user_agent(theLinphoneCore, device.UTF8String, LINPHONE_IOS_VERSION);
+    
+    NSString *ua = [NSString stringWithFormat:@"%@, (liblinphone/%s),", (NSString*)@LINPHONE_IOS_VERSION, linphone_core_get_version()];
+	linphone_core_set_user_agent(theLinphoneCore, device.UTF8String, [ua cStringUsingEncoding:NSUTF8StringEncoding]);
 
 	_contactSipField = [self lpConfigStringForKey:@"contact_im_type_value" withDefault:@"SIP"];
 
