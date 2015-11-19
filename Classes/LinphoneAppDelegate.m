@@ -159,17 +159,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     #ifdef DEBUG
-    NSLog(@"Debug: No crashes will be reported, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
+        NSLog(@"Debug: No crashes will be reported");
     #else
         [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
         [[BITHockeyManager sharedHockeyManager] startManager];
         [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     #endif
-    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-    
-    NSLog(@"Application Launching: %@ iPhone %@, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"], appVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
     
     UIApplication *app = [UIApplication sharedApplication];
 	UIApplicationState state = app.applicationState;
@@ -205,8 +200,7 @@
 		if (!start_at_boot || !background_mode) {
 			// autoboot disabled or no background, and no push: do nothing and wait for a real launch
 			/*output a log with NSLog, because the ortp logging system isn't activated yet at this time*/
-            NSLog(@"Linphone launch doing nothing because start_at_boot or background_mode are not activated. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-                  linphone_core_get_version(), NULL);
+			NSLog(@"Linphone launch doing nothing because start_at_boot or background_mode are not activated.", NULL);
 			return YES;
 		}
 	}

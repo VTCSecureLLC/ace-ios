@@ -105,8 +105,7 @@ PayloadType *h264_1;
                 payload_type_set_recv_fmtp(h264_1, "packetization-mode=1;");
                 linphone_core_set_payload_type_number(lc, h264_1, 97);
                 
-                if(!linphone_core_payload_type_enabled(lc, h264_1))
-                {
+                if(!linphone_core_payload_type_enabled(lc, h264_1)){
                     linphone_core_create_duplicate_payload_type_with_params(lc, pt, h264_1);
                     NSLog(@"Mode 1 added");
                 }
