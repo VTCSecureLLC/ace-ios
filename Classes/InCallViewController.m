@@ -715,7 +715,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         
     [self.outgoingTextLabel setFrame:tempOutFrame];
     
-    CGFloat chatSize_y = (self.outgoingTextLabel.frame.size.height > self.incomingTextField.frame.size.height) ? self.outgoingTextLabel.frame.size.height : self.incomingTextField.frame.size.height;
+    CGFloat chatSize_y = self.outgoingTextLabel.frame.size.height;
 
    // CGFloat chatBounds_y = (self.outgoingTextLabel.bounds.size.height > self.incomingTextField.bounds.size.height) ? self.outgoingTextLabel.bounds.size.height : self.incomingTextField.bounds.size.height;
     
@@ -795,7 +795,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             tempInFrame.size.height = incomingTextHeight;
             [self.incomingTextField setFrame:tempInFrame];
             
-            CGFloat chatSize_y = (self.outgoingTextLabel.frame.size.height > self.incomingTextField.frame.size.height) ? self.outgoingTextLabel.frame.size.height : self.incomingTextField.frame.size.height;
+            CGFloat chatSize_y = self.incomingTextField.frame.size.height;
             CGSize size = CGSizeMake(self.incomingTextField.frame.size.width + self.outgoingTextLabel.frame.size.width, chatSize_y);
             
             self.textscroll.contentSize = size;
