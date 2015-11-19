@@ -330,6 +330,7 @@
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
+		5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
 		630589E81B4E810900EFAE36 /* ContactsTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E11B4E810900EFAE36 /* ContactsTester.m */; };
 		630589EA1B4E810900EFAE36 /* LinphoneTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E41B4E810900EFAE36 /* LinphoneTestCase.m */; };
@@ -1569,6 +1570,8 @@
 		57F005C715EE2D9200914747 /* linphonerc-factory~ipad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory~ipad"; path = "Resources/linphonerc-factory~ipad"; sourceTree = "<group>"; };
 		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
+		5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTTMessageModel.h; sourceTree = "<group>"; };
+		5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTTMessageModel.m; sourceTree = "<group>"; };
 		630589DE1B4E810900EFAE36 /* ChatTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTester.h; sourceTree = "<group>"; };
 		630589DF1B4E810900EFAE36 /* ChatTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTester.m; sourceTree = "<group>"; };
 		630589E01B4E810900EFAE36 /* ContactsTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTester.h; sourceTree = "<group>"; };
@@ -2631,6 +2634,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5EE6CDAD1BFE1FDF005CA879 /* RTT */,
 				5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */,
 				5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */,
 				73400CBB1BAF8CAA002C358D /* HelpViewController.h */,
@@ -3013,6 +3017,15 @@
 				4A2BABA41BC50EAE00640476 /* vatrpLogo@2x.png */,
 			);
 			path = 2x;
+			sourceTree = "<group>";
+		};
+		5EE6CDAD1BFE1FDF005CA879 /* RTT */ = {
+			isa = PBXGroup;
+			children = (
+				5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */,
+				5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */,
+			);
+			name = RTT;
 			sourceTree = "<group>";
 		};
 		630589DD1B4E810900EFAE36 /* TestsUI */ = {
@@ -5280,6 +5293,7 @@
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
+				5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */,
 				730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,

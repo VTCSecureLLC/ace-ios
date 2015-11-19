@@ -28,7 +28,7 @@
 
 @class VideoViewController;
 
-@interface InCallViewController : UIViewController <UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
+@interface InCallViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
     @private
     UITapGestureRecognizer* singleFingerTap;
     NSTimer* hideControlsTimer;
