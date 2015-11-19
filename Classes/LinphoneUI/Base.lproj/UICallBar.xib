@@ -454,6 +454,7 @@
                             <state key="highlighted" image="pause_off_over.png"/>
                             <connections>
                                 <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="Se2-I2-zhU"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="56O-8R-JAB"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="7" userLabel="hangupButton" customClass="UIHangUpButton">
@@ -887,6 +888,7 @@
                             <state key="highlighted" image="pause_off_over_landscape.png"/>
                             <connections>
                                 <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="O67-1o-CHq"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="OYs-4Z-73b"/>
                             </connections>
                         </button>
                     </subviews>

@@ -356,6 +356,7 @@
                             <state key="highlighted" image="chat_selected.png"/>
                             <connections>
                                 <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="Gya-Tz-YHA"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="Jom-S8-uVB"/>
                             </connections>
                         </button>
                     </subviews>
@@ -667,6 +668,7 @@
                             <state key="highlighted" image="chat_selected.png"/>
                             <connections>
                                 <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="7dy-w6-OjT"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="N6q-p3-Usc"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="11" userLabel="hangupButton" customClass="UIHangUpButton">

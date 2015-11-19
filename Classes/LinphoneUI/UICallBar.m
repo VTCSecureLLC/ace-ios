@@ -541,6 +541,9 @@
 		[controller setTransferMode:FALSE];
 	}
 }
+- (IBAction)onChatDismiss:(id)sender {
+    [self.chatButton dismissKeyboard];
+}
 
 - (IBAction)onChatClick:(id)sender {
     [self.chatButton update];

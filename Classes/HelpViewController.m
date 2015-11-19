@@ -9,8 +9,9 @@
 #import "HelpViewController.h"
 #import <HockeySDK/HockeySDK.h>
 #import <sys/utsname.h>
-@interface HelpViewController ()
+#import "LinphoneIOSVersion.h"
 
+@interface HelpViewController ()
 @end
 
 @implementation HelpViewController{
@@ -22,9 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
+    NSString *linphoneVersion = [[NSString alloc] initWithCString:linphone_core_get_version() encoding:NSUTF8StringEncoding];
+    NSString *linphoneUserAgent = [NSString stringWithFormat:@"liblinphone %@", linphoneVersion];
+    NSString *aceUserAgent =[NSString stringWithFormat:@"ACE%@", @LINPHONE_IOS_VERSION];
+    
+    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources",aceUserAgent, linphoneUserAgent, nil];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
