@@ -69,7 +69,8 @@ void linphone_iphone_log_handler(int lev, const char *fmt, va_list args) {
 		return;
 	}
 	// since \r are interpreted like \n, avoid double new lines when logging packets
-	NSLog(@"%c %@", levelC, [formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"]);
+    NSLog(@"%c %@, %@ Core %s", levelC, [formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
 }
 
 @end
