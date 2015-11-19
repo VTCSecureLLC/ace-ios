@@ -690,7 +690,8 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
     // Send a character.
-    NSLog(@"Add characters");
+    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
     
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
@@ -722,7 +723,8 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 - (void)deleteBackward {
     
     // Send a backspace.
-    NSLog(@"Remove one sign.");
+    NSLog(@"Remove one sign. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
     if (self.outgoingTextLabel.text.length == 0)
         return;
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);

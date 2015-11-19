@@ -2128,18 +2128,21 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 
 - (void)setLogsEnabled:(BOOL)enabled {
 	if ([LinphoneManager isRunningTests]) {
-		NSLog(@"Running tests, forcing logs to MESSAGE level");
+        NSLog(@"Running tests, forcing logs to MESSAGE level. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+              linphone_core_get_version());
 		linphone_core_enable_logs_with_cb((OrtpLogFunc)linphone_iphone_log_handler);
 
 		linphone_core_set_log_level(ORTP_MESSAGE);
 	} else {
 		if (enabled) {
-			NSLog(@"Enabling debug logs");
+            NSLog(@"Enabling debug logs, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                  linphone_core_get_version());
 			linphone_core_enable_logs_with_cb((OrtpLogFunc)linphone_iphone_log_handler);
 			linphone_core_set_log_level(ORTP_DEBUG);
 			linphone_core_enable_log_collection(enabled);
 		} else {
-			NSLog(@"Disabling debug logs");
+            NSLog(@"Disabling debug logs, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                  linphone_core_get_version());
 			linphone_core_enable_log_collection(enabled);
 			linphone_core_disable_logs();
 		}
