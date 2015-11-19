@@ -49,12 +49,6 @@
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* videoWaitingForFirstImage;
 
 
-/* Properties used for text */
-@property (strong, nonatomic) IBOutlet UIScrollView *textscroll;
-@property (nonatomic, retain) IBOutlet ExtenableTextField *incomingTextField;
-@property (nonatomic, retain) IBOutlet ExtenableTextField *outgoingTextLabel;
-@property (strong, nonatomic) IBOutlet UIButton *keyboardButton;
-
 @property (nonatomic) BOOL isChatMode;
 +(InCallViewController*) sharedInstance;
 
