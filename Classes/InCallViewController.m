@@ -32,7 +32,6 @@
 #import "DTActionSheet.h"
 
 #include "linphone/linphonecore.h"
-#import "math.h"
 const NSInteger SECURE_BUTTON_TAG = 5;
 
 @interface InCallViewController()
@@ -693,9 +692,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     // Send a character.
     NSLog(@"Add characters");
     
-    
-    //CGSize  chatSize = CGSizeMake(self.outgoingTextLabel.frame.size.width + self.incomingTextField.frame.size.width, self.incomingTextField.frame.size.height);
-
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
@@ -705,20 +701,13 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
     CGFloat minWidth = self.outgoingTextLabel.frame.size.width;
     CGFloat outgoingTextHeight = [self textViewHeightForAttributedText:[self.outgoingTextLabel attributedText] andWidth:minWidth];
-//    if(outgoingTextHeight > self.textscroll.frame.size.height){
-//        CGPoint bottomOffset = CGPointMake(0, (self.outgoingTextLabel.frame.size.height  + self.textscroll.frame.size.height));
-//        [self.textscroll setContentOffset:bottomOffset animated:YES];
-//    }
-//    else{
+    
     CGRect tempOutFrame = self.outgoingTextLabel.frame;
     tempOutFrame.size.height = outgoingTextHeight;
         
     [self.outgoingTextLabel setFrame:tempOutFrame];
     
     CGFloat chatSize_y = self.outgoingTextLabel.frame.size.height;
-
-   // CGFloat chatBounds_y = (self.outgoingTextLabel.bounds.size.height > self.incomingTextField.bounds.size.height) ? self.outgoingTextLabel.bounds.size.height : self.incomingTextField.bounds.size.height;
-    
     CGSize size = CGSizeMake(self.incomingTextField.frame.size.width + self.outgoingTextLabel.frame.size.width, chatSize_y);
 
 
@@ -781,8 +770,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [measureView setText:@"X"];
                 incomingChatTempFrame.size.height = [self textViewHeightForAttributedText:measureView.attributedText andWidth:self.incomingTextField.frame.size.width];
                 incomingChatTempFrame.size.width = incomingChatTempFrame.size.height * 2;
-                
-                //incomingChatTempFrame.origin.x -= incomingChatTempFrame.frame.size.width / 2;
                 incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
 
                 [self.closeChatButton setFrame:incomingChatTempFrame];
@@ -803,11 +790,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 CGPoint bottomOffset = CGPointMake(0, chatSize_y - keyboardFrame.size.height);
                 [self.textscroll setContentOffset:bottomOffset animated:YES];
             }
-//            }
         }
-        
     }
 }
+
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
