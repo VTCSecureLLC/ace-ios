@@ -27,7 +27,8 @@ static void unhandledExceptionHandler(NSException *exception) {
 	crashReport[kKEY_ExceptionUserInfo] = exception.userInfo ?: [NSNull null].debugDescription;
 	crashReport[kKEY_ExceptionCallStack] = exception.callStackSymbols.debugDescription;
 
-	NSLog(@"CRASH: %@ - %@", exception.name, exception.callStackSymbols.debugDescription);
+    NSLog(@"CRASH: %@ - %@, %@ Core %s", exception.name, exception.callStackSymbols.debugDescription, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
 
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:crashReport]
 											  forKey:kKEY_CRASH_REPORT];
@@ -69,8 +70,9 @@ void SignalHandler(int sig, siginfo_t *info, void *context) {
 	/*
 	 *	Get the error file to write this to
 	 */
-
-	NSLog(@"Error %@", buffer);
+    
+    NSLog(@"Error %@, %@ Core %s", buffer, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
 	exit(1);
 }
 
