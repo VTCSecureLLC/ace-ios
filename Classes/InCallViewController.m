@@ -791,7 +791,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
 }
 
-
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
         return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
