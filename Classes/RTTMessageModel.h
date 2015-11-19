@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface RTTMessageModel : NSObject
-@property NSString *msgString;
+@property NSMutableString *msgString;
 @property UIColor *color;
 
 -(id) initWithString: (NSString*)msgString;
+-(void) removeLast;
 @end

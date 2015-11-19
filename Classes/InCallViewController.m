@@ -136,6 +136,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     self.localTextBuffer = nil;
     self.remoteTextBuffer = nil;
+    minimizedTextBuffer = nil;
     if(self.tableView){
         [self.tableView reloadData];
     }
@@ -707,7 +708,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             [self createNewLocalChatBuffer:text];
         }
         else{
-            self.localTextBuffer.msgString = [self.localTextBuffer.msgString stringByAppendingString:text];
+            [self.localTextBuffer.msgString appendString: text];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             [self.tableView reloadData];
             [self showCurrentLocalTextBuffer];
@@ -803,7 +804,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             [self createNewRemoteChatBuffer:text];
         }
         else{
-            self.remoteTextBuffer.msgString = [self.remoteTextBuffer.msgString stringByAppendingString:text];
+            [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
             [self showLatestMessage];
@@ -818,7 +819,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
     if(self.remoteTextBuffer){
         if(self.remoteTextBuffer.msgString.length > 0){
-            self.remoteTextBuffer.msgString = [self.remoteTextBuffer.msgString substringToIndex:self.remoteTextBuffer.msgString.length-1];
+            [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
             [self showLatestMessage];
@@ -827,14 +828,22 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 }
 
 /* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
+
+NSMutableString *minimizedTextBuffer;
 -(void)runonmainthread:(NSString*)text{
     [self insertTextIntoRemoteBuffer:text];
     if(!self.isChatMode){
-        [self.incomingTextField setHidden:NO];
-        [self.closeChatButton setHidden:NO];
-        [self.closeChatButton setEnabled:YES];
-        NSString *appendedString = [self.incomingTextField.text stringByAppendingString:text];
-        [self.incomingTextField setText:appendedString];
+        if([self.incomingTextField isHidden]){
+            [self.incomingTextField setHidden:NO];
+
+            [self.closeChatButton setHidden:NO];
+            [self.closeChatButton setEnabled:YES];
+             minimizedTextBuffer = [[NSMutableString alloc] init];
+        }
+        if(minimizedTextBuffer){
+            [minimizedTextBuffer appendString:text];
+            [self.incomingTextField setText:minimizedTextBuffer];
+        }
     }
 }
 
@@ -877,7 +886,6 @@ CGRect keyboardFrame;
     self.isChatMode = YES;
     [self.tableView setHidden:NO];
     [self hideControls:self];
-    
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
