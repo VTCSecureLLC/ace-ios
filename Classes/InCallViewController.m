@@ -731,12 +731,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.outgoingTextLabel removeLast];
     linphone_chat_message_put_char(msg, (char)8);
     
-    
     CGFloat minWidth = self.outgoingTextLabel.frame.size.width;
     CGFloat outgoingTextHeight = [self textViewHeightForAttributedText:[self.outgoingTextLabel attributedText] andWidth:minWidth];
     CGRect tempOutFrame = self.outgoingTextLabel.frame;
     tempOutFrame.size.height = outgoingTextHeight;
-    
     [self.outgoingTextLabel setFrame:tempOutFrame];
 }
 
@@ -773,7 +771,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 incomingChatTempFrame.origin.y -= incomingChatTempFrame.size.height;
 
                 [self.closeChatButton setFrame:incomingChatTempFrame];
-                
             }
 
             CGFloat incomingTextHeight = [self textViewHeightForAttributedText:self.incomingTextField.attributedText andWidth:minWidth];
