@@ -25,7 +25,7 @@
                 <outlet property="otherView" destination="77" id="78"/>
                 <outlet property="outgoingRingCountLabel" destination="v7L-WQ-vV7" id="Da8-NN-jxR"/>
                 <outlet property="outgoingRingLabel" destination="7rh-Pu-quB" id="J85-LI-erv"/>
-                <outlet property="pauseButton" destination="47" id="48"/>
+                <outlet property="chatButton" destination="47" id="48"/>
                 <outlet property="removeButton" destination="49" id="50"/>
                 <outlet property="stateImage" destination="18" id="33"/>
                 <outlet property="stateLabel" destination="19" id="32"/>
@@ -415,7 +415,7 @@
                                 <action selector="doRemoveClick:" destination="-1" eventType="touchUpInside" id="51"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="47" userLabel="pauseButton" customClass="UIPauseButton">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="47" userLabel="chatButton" customClass="UIPauseButton">
                             <rect key="frame" x="216" y="6" width="41" height="41"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Pause"/>

@@ -12,7 +12,7 @@
     NSMutableString *labelString;
 }
 
+-(void)setReadOnly:(BOOL) isReadOnly;
 -(void)removeLast;
 -(void)appendWithString:(NSString*)str;
-
 @end

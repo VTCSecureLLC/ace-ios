@@ -8,6 +8,10 @@
 
 #import "ExtenableTextField.h"
 
+@interface ExtenableTextField()
+@property  BOOL isReadOnly;
+@end
+
 @implementation ExtenableTextField
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -15,6 +19,7 @@
     if (self) {
         labelString = [[NSMutableString alloc]initWithCapacity:10000];
         [self setFont:[UIFont boldSystemFontOfSize:[UIFont systemFontSize] * 2]];
+        self.isReadOnly = NO;
     }
     return self;
 }
@@ -31,4 +36,15 @@
     [self setText:labelString];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range       replacementString:(NSString *)string{
+    return !self.isReadOnly;
+}
+
+-(void) setReadOnly:(BOOL)isReadOnly{
+    self.isReadOnly = isReadOnly;
+}
+
+-(BOOL) shouldChangeTextInRange:(UITextRange *)range replacementText:(NSString *)text{
+    return !self.isReadOnly;
+}
 @end
