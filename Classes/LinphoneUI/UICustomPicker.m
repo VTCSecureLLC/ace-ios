@@ -12,6 +12,7 @@
     UIPickerView *pickerView;
     
     NSArray *arraySource;
+    NSInteger selectedRow;
 }
 
 - (void) onButtonCancel:(id)sender;
@@ -69,6 +70,9 @@
         NSString *item = [arraySource objectAtIndex:row];
         [_delegate didSelectUICustomPicker:self selectedItem:item];
     }
+    if ([_delegate respondsToSelector:@selector(didSelectUICustomPicker:didSelectRow:)]) {
+        [_delegate didSelectUICustomPicker:self didSelectRow:selectedRow];
+    }
 }
 
 #pragma mark - UIPickerView DataSource
@@ -90,7 +94,7 @@
 //}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
+    selectedRow = row;
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -99,6 +103,12 @@
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     return attString;
+    
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    
+    
     
 }
 
