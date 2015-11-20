@@ -715,6 +715,21 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         }
     }
 }
+-(void) backspaceInLocalBuffer{
+    if(!self.localTextBuffer){
+        return;
+    }
+    self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
+    if(self.localTextBuffer){
+        if(self.localTextBuffer.msgString.length > 0){
+            [self.localTextBuffer removeLast];
+            [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+            [self.tableView reloadData];
+            [self showLatestMessage];
+        }
+    }
+}
+
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
     // Send a character.
@@ -742,7 +757,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     linphone_chat_message_put_char(msg, (char)8);
     
-    /**TODO*/
+    [self backspaceInLocalBuffer];
     }
 
 #pragma mark Incoming Text Logic
@@ -833,6 +848,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 NSMutableString *minimizedTextBuffer;
 -(void)runonmainthread:(NSString*)text{
     [self insertTextIntoRemoteBuffer:text];
+  
     if(!self.isChatMode){
         if([self.incomingTextField isHidden]){
             [self.incomingTextField setHidden:NO];
