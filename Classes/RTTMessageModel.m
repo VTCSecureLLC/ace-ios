@@ -11,12 +11,12 @@
 @implementation RTTMessageModel
 - (id) init {
     self = [super init];
-    self.msgString = [[NSMutableString alloc] initWithCapacity:500];
+    self.msgString = [[NSMutableString alloc] init];
     return self;
 }
 -(id) initWithString:(NSString *)msgString{
     self = [super init];
-    self.msgString = [[NSMutableString alloc] initWithCapacity:500];
+    self.msgString = [[NSMutableString alloc] init];
     [self.msgString appendString:msgString];
     return self;
 }

@@ -46,6 +46,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
     // Temp model buffer
     @property RTTMessageModel *localTextBuffer;
     @property RTTMessageModel *remoteTextBuffer;
+    @property UIColor *localColor;
 @property (weak, nonatomic) IBOutlet UILabel *incomingTextField;
 
 
@@ -54,6 +55,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
 @implementation InCallViewController {
 	BOOL hiddenVolume;
     int RTT_MAX_PARAGRAPH_CHAR;
+    int RTT_SOFT_MAX_PARAGRAPH_CHAR;
 }
 
 @synthesize callTableController;
@@ -689,7 +691,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 -(void)createNewLocalChatBuffer: (NSString*) text {
     self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
     self.localTextBuffer.color = [UIColor colorWithRed:0 green:0 blue:150 alpha:0.6];
-
+    self.localColor = self.localTextBuffer.color;
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
 
@@ -705,13 +707,21 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.localTextBuffer){
         if(self.localTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
             [self createNewLocalChatBuffer:text];
+            return;
         }
-        else{
+        if(self.localTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR){
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.localTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+                [self createNewLocalChatBuffer:@""];
+                return;
+            }
+        }
+
             [self.localTextBuffer.msgString appendString: text];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             [self.tableView reloadData];
             [self showCurrentLocalTextBuffer];
-        }
     }
 }
 -(void) backspaceInLocalBuffer{
@@ -817,13 +827,23 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.remoteTextBuffer){
         if(self.remoteTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
             [self createNewRemoteChatBuffer:text];
+            return;
         }
-        else{
+        if(self.remoteTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR && self.remoteTextBuffer.msgString.length + text.length < RTT_MAX_PARAGRAPH_CHAR){
+          
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.remoteTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
+                [self createNewRemoteChatBuffer:@""];
+                return;
+            }
+        }
+
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
             [self showLatestMessage];
-        }
+        
     }
 }
 
@@ -921,6 +941,7 @@ CGRect keyboardFrame;
 {
     CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
     chatSize.size.height /= 3;
+    chatSize.size.width = self.view.frame.size.width;
     self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
     self.chatEntries = [[NSMutableArray alloc] init];
     
@@ -938,7 +959,8 @@ CGRect keyboardFrame;
   
     self.isChatMode = NO;
 
-    RTT_MAX_PARAGRAPH_CHAR = 50;
+    RTT_MAX_PARAGRAPH_CHAR = 250;
+    RTT_SOFT_MAX_PARAGRAPH_CHAR = 200;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -958,6 +980,17 @@ CGRect keyboardFrame;
     headerView.backgroundColor = [UIColor clearColor];
     return headerView;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+        RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+    if(msg.attrMsgString){
+            return [self textViewHeightForAttributedText:msg.attrMsgString andWidth:self.tableView.frame.size.width];
+    }
+
+
+    return [UIFont systemFontSize];
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -965,18 +998,31 @@ CGRect keyboardFrame;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
     RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+   
     cell.textLabel.text = msg.msgString;
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = msg.color;
-    cell.textLabel.numberOfLines = 0;
-    cell.alpha = 0.6;
     cell.textLabel.userInteractionEnabled = YES;
+    cell.textLabel.numberOfLines = 0;
+
+    if([msg.color isEqual:self.localColor]){
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+    }
+    else{
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [cell.textLabel enableClipboard:YES];
     [cell.textLabel canBecomeFirstResponder];
-    [cell.textLabel sizeToFit];
+    
+    ((RTTMessageModel*)[self.chatEntries objectAtIndex:indexPath.section]).attrMsgString = cell.textLabel.attributedText;
+    
+    cell.backgroundColor = msg.color;
+    cell.alpha = 0.6;
+//    cell.autoresizesSubviews = YES;
+//    cell.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
     cell.userInteractionEnabled = YES;
     [cell canBecomeFirstResponder];
-    [cell sizeToFit];
+
     return cell;
 }
 
