@@ -331,6 +331,7 @@
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
 		5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */; };
+		5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
 		630589E81B4E810900EFAE36 /* ContactsTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E11B4E810900EFAE36 /* ContactsTester.m */; };
 		630589EA1B4E810900EFAE36 /* LinphoneTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589E41B4E810900EFAE36 /* LinphoneTestCase.m */; };
@@ -1572,6 +1573,8 @@
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
 		5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTTMessageModel.h; sourceTree = "<group>"; };
 		5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTTMessageModel.m; sourceTree = "<group>"; };
+		5EEC28FF1BFFAA6F00BA43FB /* UILabel+Clipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Clipboard.h"; sourceTree = "<group>"; };
+		5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Clipboard.m"; sourceTree = "<group>"; };
 		630589DE1B4E810900EFAE36 /* ChatTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTester.h; sourceTree = "<group>"; };
 		630589DF1B4E810900EFAE36 /* ChatTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTester.m; sourceTree = "<group>"; };
 		630589E01B4E810900EFAE36 /* ContactsTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTester.h; sourceTree = "<group>"; };
@@ -3024,6 +3027,8 @@
 			children = (
 				5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */,
 				5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */,
+				5EEC28FF1BFFAA6F00BA43FB /* UILabel+Clipboard.h */,
+				5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */,
 			);
 			name = RTT;
 			sourceTree = "<group>";
@@ -5262,6 +5267,7 @@
 				D37C639515AADDAF009D0BAC /* UIContactDetailsHeader.m in Sources */,
 				D37C639B15AADEF6009D0BAC /* ContactDetailsTableViewController.m in Sources */,
 				636316DE1A1DEF2F0009B839 /* UIButtonShrinkable.m in Sources */,
+				5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */,
 				63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */,
 				D3C6526715AC1A8F0092A874 /* UIEditableTableViewCell.m in Sources */,
 				D378906515AC373B00BD776C /* ContactDetailsLabelViewController.m in Sources */,
