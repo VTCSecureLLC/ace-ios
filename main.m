@@ -23,8 +23,12 @@
 #ifdef DEBUG
 
 // Dump exception
+
+
+
 void uncaughtExceptionHandler(NSException *exception) {
-	NSLog(@"Crash: %@", exception);
+    NSLog(@"Crash: %@, %@ Core %s", exception, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
 	NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
 	// Internal error reporting
 }
