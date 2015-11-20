@@ -671,7 +671,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 }
 -(void) showLatestMessage{
     if(self.tableView && self.chatEntries){
-        NSUInteger indexArr[] = {0, self.chatEntries.count-1};
+        NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
         [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     }
@@ -679,7 +679,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
 -(void) showCurrentLocalTextBuffer{
     if(self.tableView && self.chatEntries){
-        NSUInteger indexArr[] = {0, self.localTextBufferIndex};
+        NSUInteger indexArr[] = {self.localTextBufferIndex, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
         [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
@@ -689,7 +689,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 #pragma mark Outgoing Text Logic
 -(void)createNewLocalChatBuffer: (NSString*) text {
     self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
-    self.localTextBuffer.color = [UIColor blueColor];
+    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0 blue:150 alpha:0.6];
 
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
@@ -919,6 +919,9 @@ CGRect keyboardFrame;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView reloadData];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.alpha = 0.7;
     [self.tableView setHidden:YES];
   
@@ -927,21 +930,35 @@ CGRect keyboardFrame;
     RTT_MAX_PARAGRAPH_CHAR = 50;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.chatEntries.count;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.row];
+    NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
-    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.row];
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
     cell.textLabel.text = msg.msgString;
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = msg.color;
     cell.textLabel.numberOfLines = 0;
+    cell.alpha = 0.6;
     [cell.textLabel sizeToFit];
     [cell sizeToFit];
     return cell;
