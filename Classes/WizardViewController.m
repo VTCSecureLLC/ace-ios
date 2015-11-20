@@ -497,8 +497,9 @@ static UICompositeViewDescription *compositeDescription = nil;
         pt=(PayloadType*)elem->data;
 //        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
         int enable = linphone_core_enable_payload_type(lc,pt,1);
-        
-        NSLog(@"enable: %d", enable);
+
+        NSLog(@"enable: %d, %@ Core %s", enable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+              linphone_core_get_version());
     }
     
     linphone_core_enable_video(lc, YES, YES);

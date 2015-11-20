@@ -44,6 +44,7 @@
 @property (strong) AVCaptureDevice *device;
 @property (strong, nonatomic) IBOutlet UILabel *ringCountLabel;
 @property (strong, nonatomic) IBOutlet UILabel *ringLabel;
+@property (weak, nonatomic) IBOutlet UIView *flashingView;
 
 - (IBAction)onAcceptClick:(id) event;
 - (IBAction)onDeclineClick:(id) event;
