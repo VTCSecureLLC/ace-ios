@@ -28,7 +28,7 @@
 
 @class VideoViewController;
 
-@interface InCallViewController : UIViewController <UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
+@interface InCallViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
     @private
     UITapGestureRecognizer* singleFingerTap;
     NSTimer* hideControlsTimer;
@@ -48,12 +48,6 @@
 @property (nonatomic, strong) IBOutlet UICamSwitch* videoCameraSwitch;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* videoWaitingForFirstImage;
 
-
-/* Properties used for text */
-@property (strong, nonatomic) IBOutlet UIScrollView *textscroll;
-@property (nonatomic, retain) IBOutlet ExtenableTextField *incomingTextField;
-@property (nonatomic, retain) IBOutlet ExtenableTextField *outgoingTextLabel;
-@property (strong, nonatomic) IBOutlet UIButton *keyboardButton;
 
 @property (nonatomic) BOOL isChatMode;
 +(InCallViewController*) sharedInstance;
