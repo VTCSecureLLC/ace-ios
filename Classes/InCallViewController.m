@@ -24,7 +24,7 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/EAGLDrawable.h>
 
-#import "IncallViewController.h"
+#import "InCallViewController.h"
 #import "UICallCell.h"
 #import "LinphoneManager.h"
 #import "PhoneMainView.h"
@@ -32,6 +32,7 @@
 #import "DTActionSheet.h"
 #import "RTTMessageModel.h"
 #include "linphone/linphonecore.h"
+#import "UILabel+Clipboard.h"
 const NSInteger SECURE_BUTTON_TAG = 5;
 
 @interface InCallViewController()
@@ -230,6 +231,7 @@ CGPoint incomingTextChatModePos;
         self.incomingTextField.text = @"";
         self.incomingTextField.alpha = 0.7;
         [self.incomingTextField setUserInteractionEnabled:YES];
+        [self.incomingTextField setEnabled:YES];
 
         UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
         singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
@@ -237,12 +239,8 @@ CGPoint incomingTextChatModePos;
         [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
         [self.incomingTextField addGestureRecognizer:singleFingerTappedIncomingChat];
         
-        UILongPressGestureRecognizer *singleFingerLongTappedIncomingChat = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cutTextFromIncomingChat:)];
-
-        singleFingerLongTappedIncomingChat.numberOfTouchesRequired = 1;
-        singleFingerLongTappedIncomingChat.numberOfTapsRequired = 1;
-        [singleFingerLongTappedIncomingChat setCancelsTouchesInView:NO];
-        [self.incomingTextField addGestureRecognizer:singleFingerLongTappedIncomingChat];
+        [self.incomingTextField canBecomeFirstResponder];
+        [self.incomingTextField enableClipboard:YES];
         
         [self.incomingTextField setHidden:YES];
     }
@@ -371,8 +369,9 @@ CGPoint incomingTextChatModePos;
 
 BOOL isTabBarShown = NO;
 - (void)showControls:(id)sender {
-    if(self.isFirstResponder){
+    if(self.isFirstResponder || ![self.tableView isHidden]){
         [self resignFirstResponder];
+        [self.tableView setHidden:YES];
         return;
     }
 	if (hideControlsTimer) {
@@ -878,10 +877,6 @@ NSMutableString *minimizedTextBuffer;
         [self becomeFirstResponder];
     }
 }
--(void) cutTextFromIncomingChat: (UITapGestureRecognizer *)sender{
-    UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:self.incomingTextField.text];
-}
 
 CGRect keyboardFrame;
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -907,7 +902,6 @@ CGRect keyboardFrame;
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
-    [self.tableView setHidden:YES];
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
  
@@ -976,7 +970,12 @@ CGRect keyboardFrame;
     cell.backgroundColor = msg.color;
     cell.textLabel.numberOfLines = 0;
     cell.alpha = 0.6;
+    cell.textLabel.userInteractionEnabled = YES;
+    [cell.textLabel enableClipboard:YES];
+    [cell.textLabel canBecomeFirstResponder];
     [cell.textLabel sizeToFit];
+    cell.userInteractionEnabled = YES;
+    [cell canBecomeFirstResponder];
     [cell sizeToFit];
     return cell;
 }
