@@ -2,9 +2,6 @@
 //  UILabel+Clipboard.h
 //  linphone
 //
-//  Created by Zack Matthews on 11/20/15.
-//
-//
 
 #import <UIKit/UIKit.h>
 
