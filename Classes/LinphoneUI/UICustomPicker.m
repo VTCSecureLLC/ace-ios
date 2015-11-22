@@ -12,6 +12,7 @@
     UIPickerView *pickerView;
     
     NSArray *arraySource;
+    NSInteger selectedRow;
 }
 
 - (void) onButtonCancel:(id)sender;
@@ -69,6 +70,9 @@
         NSString *item = [arraySource objectAtIndex:row];
         [_delegate didSelectUICustomPicker:self selectedItem:item];
     }
+    if ([_delegate respondsToSelector:@selector(didSelectUICustomPicker:didSelectRow:)]) {
+        [_delegate didSelectUICustomPicker:self didSelectRow:selectedRow];
+    }
 }
 
 #pragma mark - UIPickerView DataSource
@@ -90,7 +94,7 @@
 //}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
+    selectedRow = row;
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -100,6 +104,25 @@
     
     return attString;
     
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UIImage *providerImage = [UIImage imageNamed:[NSString stringWithFormat:@"provider%ld.png", (long)row]];
+    UIImageView *providerImageView = [[UIImageView alloc] initWithImage:providerImage];
+    providerImageView.frame = CGRectMake(-15, 18, 25, 25);
+    
+    UILabel *providerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 150, 60)];
+    providerLabel.text = [arraySource objectAtIndex:row];
+    providerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
+    providerLabel.textAlignment = NSTextAlignmentLeft;
+    providerLabel.textColor = [UIColor whiteColor];
+    providerLabel.backgroundColor = [UIColor clearColor];
+    
+    UIView *rowViw = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 110, 60)];
+    [rowViw insertSubview:providerImageView atIndex:0];
+    [rowViw insertSubview:providerLabel atIndex:1];
+    
+    return rowViw;
 }
 
 @end
