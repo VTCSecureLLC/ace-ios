@@ -76,7 +76,7 @@ NSString *const kLinphoneFileTransferRecvUpdate = @"LinphoneFileTransferRecvUpda
 
 const int kLinphoneAudioVbrCodecDefaultBitrate = 36; /*you can override this from linphonerc or linphonerc-factory*/
 
-extern void libmsilbc_init(void);
+//extern void libmsilbc_init(void);
 extern void libmsamr_init(void);
 extern void libmsx264_init(void);
 extern void libmsopenh264_init(void);
@@ -881,19 +881,11 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
 			addButtonWithTitle:NSLocalizedString(@"Continue", nil)
 						 block:^{
 						   NSString *password = [alertView textFieldAtIndex:0].text;
-						   LinphoneAuthInfo *info = (LinphoneAuthInfo *)linphone_core_find_auth_info(
-							   [LinphoneManager getLc], realm.UTF8String, username.UTF8String, domain.UTF8String);
-						   if (info) {
-							   linphone_auth_info_set_passwd(info, password.UTF8String);
-							   linphone_auth_info_set_ha1(info, NULL);
-						   } else {
-							   LOGW(@"Could not find auth info associated with %@@%@, creating it", username, domain);
-							   info = linphone_auth_info_new(username.UTF8String, NULL, password.UTF8String, NULL,
-															 realm.UTF8String, domain.UTF8String);
-							   linphone_core_add_auth_info([LinphoneManager getLc], info);
-						   }
-						   linphone_proxy_config_refresh_register(
-							   linphone_core_get_default_proxy_config([LinphoneManager getLc]));
+						   LinphoneAuthInfo *info =
+							   linphone_auth_info_new(username.UTF8String, NULL, password.UTF8String, NULL,
+													  realm.UTF8String, domain.UTF8String);
+						   linphone_core_add_auth_info([LinphoneManager getLc], info);
+						   [LinphoneManager.instance refreshRegisters];
 						 }];
 		[alertView show];
 	}
@@ -1441,7 +1433,7 @@ static BOOL libStarted = FALSE;
 
 	ms_init(); // Need to initialize mediastreamer2 before loading the plugins
 	// Load plugins if available in the linphone SDK - otherwise these calls will do nothing
-	libmsilbc_init();
+	//libmsilbc_init();
 	libmssilk_init();
 	libmsamr_init();
 	libmsx264_init();
@@ -1950,7 +1942,8 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
             linphone_call_params_enable_realtime_text(lcallParams, true);
         }
-		if ([self lpConfigBoolForKey:@"edge_opt_preference"] && (self.network == network_2g)) {
+        
+        if ([self lpConfigBoolForKey:@"edge_opt_preference"] && (self.network == network_2g)) {
 			LOGI(@"Enabling low bandwidth mode");
 			linphone_call_params_enable_low_bandwidth(lcallParams, YES);
 		}
