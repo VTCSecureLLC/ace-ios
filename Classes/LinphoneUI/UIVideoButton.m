@@ -22,6 +22,7 @@
 
 @implementation UIVideoButton {
 	BOOL last_update_state;
+    char *defaultVideoDevice;
 }
 
 @synthesize waitView;
@@ -65,11 +66,8 @@
 
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
 	if (call) {
-		LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
-		callAppData->videoRequested =
-			TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
 		LinphoneCallParams *call_params = linphone_call_params_copy(linphone_call_get_current_params(call));
-		linphone_call_params_enable_video(call_params, TRUE);
+        linphone_core_set_video_device(lc, defaultVideoDevice);
 		linphone_core_update_call(lc, call, call_params);
 		linphone_call_params_destroy(call_params);
 	} else {
@@ -89,8 +87,19 @@
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
 	if (call) {
 		LinphoneCallParams *call_params = linphone_call_params_copy(linphone_call_get_current_params(call));
-		linphone_call_params_enable_video(call_params, FALSE);
-		linphone_core_update_call(lc, call, call_params);
+        defaultVideoDevice = (char*)linphone_core_get_video_device(lc);
+     
+        NSLog(@"VIDEO DEVICES: %s", (char*)linphone_core_get_video_devices(lc));
+
+        linphone_core_set_video_device(lc, "StaticImage: Static picture");
+       int res = linphone_core_set_static_picture(lc, [[LinphoneManager bundleFile:@"pause_off_default~ipad.png"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        NSLog(@"RESULT = %d", res);
+        linphone_core_set_static_picture_fps(lc, 1);
+        
+     
+        linphone_core_enable_video_capture(lc, YES);
+		
+        linphone_core_update_call(lc, call, NULL);
 		linphone_call_params_destroy(call_params);
 	} else {
 		LOGW(@"Cannot toggle video button, because no current call");

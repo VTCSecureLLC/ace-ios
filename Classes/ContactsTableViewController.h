@@ -22,7 +22,7 @@
 
 #import "OrderedDictionary.h"
 
-@interface ContactsTableViewController : UITableViewController {
+@interface ContactsTableViewController : UITableViewController<UIGestureRecognizerDelegate> {
     @private
     OrderedDictionary* addressBookMap;
     NSMutableDictionary* avatarMap;

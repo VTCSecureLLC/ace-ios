@@ -24,11 +24,10 @@
 #import "UACellBackgroundView.h"
 #import "UILinphone.h"
 #import "Utils.h"
-
 @implementation ContactsTableViewController
 
 static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info, void *context);
-
+UILongPressGestureRecognizer *lpgr;
 #pragma mark - Lifecycle Functions
 
 - (void)initContactsTableViewController {
@@ -54,6 +53,68 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 		[self initContactsTableViewController];
 	}
 	return self;
+}
+
+-(void) attachLongPressListener:(UITableViewCell*) cell{
+    lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    [lpgr setCancelsTouchesInView:YES];
+    [lpgr setEnabled:YES];
+
+    lpgr.delegate = self;
+    [cell setUserInteractionEnabled:YES];
+    [cell addGestureRecognizer:lpgr];
+}
+
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if(gestureRecognizer.state == UIGestureRecognizerStateRecognized){
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:@"Export contact?"
+                                    message:@""
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction
+                             actionWithTitle:@"Ok"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 OrderedDictionary *subDic = [addressBookMap objectForKey:[addressBookMap keyAtIndex:[indexPath section]]];
+                                 NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
+                                 ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
+                                 CFArrayRef contacts = CFArrayCreate(NULL, &contact, 1, NULL);
+                                 NSData *vcard = (__bridge NSData*)ABPersonCreateVCardRepresentationWithPeople(contacts);
+                              
+                                 NSString *stringPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"/File"];
+                                 NSError *error = nil;
+                                 if (![[NSFileManager defaultManager] fileExistsAtPath:stringPath])
+                                     [[NSFileManager defaultManager] createDirectoryAtPath:stringPath withIntermediateDirectories:NO attributes:nil error:&error];
+                                 if(vcard)
+                                 {
+
+
+                                 }
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+        UIAlertAction* cancel = [UIAlertAction
+                                 actionWithTitle:@"Cancel"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     [alert dismissViewControllerAnimated:YES completion:nil];
+                                     
+                                 }];
+        
+        [alert addAction:ok];
+        [alert addAction:cancel];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)dealloc {
@@ -266,6 +327,8 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 	[[cell avatarImage] setImage:image];
 
 	[cell setContact:contact];
+    
+    [self attachLongPressListener:cell];
 	return cell;
 }
 
@@ -289,6 +352,7 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 		}
 	}
 }
+
 
 #pragma mark - UITableViewDelegate Functions
 
