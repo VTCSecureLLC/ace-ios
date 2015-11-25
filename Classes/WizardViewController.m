@@ -44,7 +44,10 @@ typedef enum _ViewElement {
 } ViewElement;
 
 @implementation WizardViewController
-
+{
+    UIImageView *providerButtonLeftImageView;
+    UIImageView *providerButtonRightImageView;
+}
 @synthesize contentView;
 
 @synthesize welcomeView;
@@ -70,6 +73,7 @@ typedef enum _ViewElement {
 @synthesize choiceViewLogoImageView;
 
 @synthesize viewTapGestureRecognizer;
+
 
 #pragma mark - Lifecycle Functions
 
@@ -113,15 +117,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-
-    UIImage *image = [UIImage imageNamed:@"backArrow.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.selectProviderButton.frame.size.width - 41, 0, 41, 41)];
-    [imageView setContentMode:UIViewContentModeCenter];
-    [imageView setImage:image];
-    imageView.transform = CGAffineTransformMakeRotation(M_PI);
-    [self.selectProviderButton addSubview:imageView];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(registrationUpdateEvent:)
                                                  name:kLinphoneRegistrationUpdate
@@ -270,11 +265,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"pushnotification_preference"];
 
 	LinphoneCore *lc = [LinphoneManager getLc];
-	LCSipTransports transportValue = {5060, 5060, -1, -1};
+	//LCSipTransports transportValue = {25060, 25060, -1, -1};
 
-	if (linphone_core_set_sip_transports(lc, &transportValue)) {
-		LOGE(@"cannot set transport");
-	}
+	//if (linphone_core_set_sip_transports(lc, &transportValue)) {
+	//	LOGE(@"cannot set transport");
+	//}
 
 	[[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"ice_preference"];
 	[[LinphoneManager instance] lpConfigSetString:@"" forKey:@"stun_preference"];
@@ -408,79 +403,146 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[contentView insertSubview:view atIndex:0];
 	[view setFrame:[contentView bounds]];
 	[contentView setContentSize:[view bounds].size];
+    [self setProviderSelectionButton];
 }
 
-- (BOOL)addProxyConfig:(NSString *)username
-			  password:(NSString *)password
-				domain:(NSString *)domain
-		 withTransport:(NSString *)transport {
-	LinphoneCore *lc = [LinphoneManager getLc];
-	LinphoneProxyConfig *proxyCfg = linphone_core_create_proxy_config(lc);
-	NSString *server_address = domain;
+- (void)setProviderSelectionButton {
+    [providerButtonRightImageView removeFromSuperview];
+    UIImage *image = [UIImage imageNamed:@"backArrow.png"];
+    providerButtonRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.selectProviderButton.frame.size.width - 46, 0, 41, 41)];
+    [providerButtonRightImageView setContentMode:UIViewContentModeCenter];
+    [providerButtonRightImageView setImage:image];
+    providerButtonRightImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    [self.selectProviderButton addSubview:providerButtonRightImageView];
+}
 
-	char normalizedUserName[256];
-	linphone_proxy_config_normalize_number(proxyCfg, [username UTF8String], normalizedUserName,
-										   sizeof(normalizedUserName));
-
-	const char *identity = linphone_proxy_config_get_identity(proxyCfg);
-	if (!identity || !*identity)
-		identity = "sip:user@example.com";
-
-	LinphoneAddress *linphoneAddress = linphone_address_new(identity);
-	linphone_address_set_username(linphoneAddress, normalizedUserName);
-
-	if (domain && [domain length] != 0) {
-		if (transport != nil) {
-			server_address =
-				[NSString stringWithFormat:@"%@;transport=%@", server_address, [transport lowercaseString]];
-		}
-		// when the domain is specified (for external login), take it as the server address
-		linphone_proxy_config_set_server_addr(proxyCfg, [server_address UTF8String]);
-		linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
-	}
-
-	char *extractedAddres = linphone_address_as_string_uri_only(linphoneAddress);
-
-	LinphoneAddress *parsedAddress = linphone_address_new(extractedAddres);
-	ms_free(extractedAddres);
-
-	if (parsedAddress == NULL || !linphone_address_is_sip(parsedAddress)) {
-		if (parsedAddress)
-			linphone_address_destroy(parsedAddress);
-		UIAlertView *errorView =
-			[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check error(s)", nil)
-									   message:NSLocalizedString(@"Please enter a valid username.", nil)
-									  delegate:nil
-							 cancelButtonTitle:NSLocalizedString(@"Continue", nil)
-							 otherButtonTitles:nil, nil];
-		[errorView show];
-		return FALSE;
-	}
-
-	char *c_parsedAddress = linphone_address_as_string_uri_only(parsedAddress);
-
-	linphone_proxy_config_set_identity(proxyCfg, c_parsedAddress);
-
-	linphone_address_destroy(parsedAddress);
-	ms_free(c_parsedAddress);
-
-	LinphoneAuthInfo *info = linphone_auth_info_new([username UTF8String], NULL, [password UTF8String], NULL, NULL,
-													linphone_proxy_config_get_domain(proxyCfg));
-
-	LinphoneManager *lm = [LinphoneManager instance];
-	[lm configurePushTokenForProxyConfig:proxyCfg];
-	[lm removeAllAccounts];
-
-
-//    NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%@", self.textFieldDomain.text, self.textFieldPort.text];
+- (BOOL)addProxyConfig:(NSString*)username
+              password:(NSString*)password
+                domain:(NSString*)domain
+         withTransport:(NSString*)transport
+                  port:(int)port {
+    transport = [transport lowercaseString];
+    LinphoneCore* lc = [LinphoneManager getLc];
+    LinphoneProxyConfig* proxyCfg = linphone_core_create_proxy_config(lc);
+    NSString* server_address = domain;
+    
+    NSLog(@"addProxyConfig transport=%@",transport);
+    
+    char normalizedUserName[256];
+    linphone_proxy_config_normalize_number(proxyCfg, [username cStringUsingEncoding:[NSString defaultCStringEncoding]], normalizedUserName, sizeof(normalizedUserName));
+    
+    const char* identity = linphone_proxy_config_get_identity(proxyCfg);
+    
+    if( !identity || !*identity ) identity = "sip:user@example.com";
+    
+    LinphoneAddress* linphoneAddress = linphone_address_new(identity);
+    linphone_address_set_username(linphoneAddress, normalizedUserName);
+    
+    if( domain && [domain length] != 0) {
+        if( transport != nil ){
+            server_address = [NSString stringWithFormat:@"%@;transport=%@", server_address, [transport lowercaseString]];
+            
+            if ([transport isEqualToString:@"tls"]) {
+                
+//                NSString *cer_file = [Utils resourcePathForFile:@"cafile" Type:@"pem"];
+                
+ //               if (cer_file) {
+ //                   linphone_core_set_root_ca(lc, [cer_file UTF8String]);
+//                }
+            }
+        }
+        // when the domain is specified (for external login), take it as the server address
+        linphone_proxy_config_set_server_addr(proxyCfg, [server_address UTF8String]);
+        linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
+    }
+    
+    char* extractedAddres = linphone_address_as_string_uri_only(linphoneAddress);
+    
+    LinphoneAddress* parsedAddress = linphone_address_new(extractedAddres);
+    ms_free(extractedAddres);
+    
+    if( parsedAddress == NULL || !linphone_address_is_sip(parsedAddress) ){
+        if( parsedAddress ) linphone_address_destroy(parsedAddress);
+        
+        //NSAlert *alert = [[NSAlert alloc]init];
+       // [alert addButtonWithTitle:NSLocalizedString(@"Continue",nil)];
+        //[alert setMessageText:NSLocalizedString(@"Please enter a valid username", nil)];
+        //[alert runModal];
+        
+        return FALSE;
+    }
+    
+    char *c_parsedAddress = linphone_address_as_string_uri_only(parsedAddress);
+    
+    linphone_proxy_config_set_identity(proxyCfg, c_parsedAddress);
+    
+    linphone_address_destroy(parsedAddress);
+    ms_free(c_parsedAddress);
+    
+    LinphoneAuthInfo* info = linphone_auth_info_new([username UTF8String]
+                                                    , NULL, [password UTF8String]
+                                                    , NULL
+                                                    , NULL
+                                                    ,linphone_proxy_config_get_domain(proxyCfg));
+    
+    [self setDefaultSettings:proxyCfg];
+    
+    [self clearProxyConfig];
+    
+    NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%d;transport=%@", domain, port, transport];
     linphone_proxy_config_enable_register(proxyCfg, true);
-//    linphone_proxy_config_set_server_addr(proxyCfg, [serverAddress UTF8String]);
-	linphone_core_add_auth_info(lc, info);
-	linphone_core_add_proxy_config(lc, proxyCfg);
-	linphone_core_set_default_proxy_config(lc, proxyCfg);
-	// reload address book to prepend proxy config domain to contacts' phone number
-	[[[LinphoneManager instance] fastAddressBook] reload];
-	return TRUE;
+    linphone_proxy_config_set_server_addr(proxyCfg, [serverAddress UTF8String]);
+    linphone_core_add_auth_info(lc, info);
+    linphone_core_add_proxy_config(lc, proxyCfg);
+    linphone_core_set_default_proxy_config(lc, proxyCfg);
+    
+    PayloadType *pt;
+    const MSList *elem;
+    
+    for (elem=linphone_core_get_video_codecs(lc);elem!=NULL;elem=elem->next){
+        pt=(PayloadType*)elem->data;
+//        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        int enable = linphone_core_enable_payload_type(lc,pt,1);
+
+        NSLog(@"enable: %d, %@ Core %s", enable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+              linphone_core_get_version());
+    }
+    
+    linphone_core_enable_video(lc, YES, YES);
+    
+    LpConfig *config = linphone_core_get_config(lc);
+    LinphoneVideoPolicy policy;
+    policy.automatically_accept = YES;//[self boolForKey:@"accept_video_preference"];
+    policy.automatically_initiate = YES;//[self boolForKey:@"start_video_preference"];
+    linphone_core_set_video_policy(lc, &policy);
+    linphone_core_enable_self_view(lc, YES); // [self boolForKey:@"self_video_preference"]
+    BOOL preview_preference = YES;//[self boolForKey:@"preview_preference"];
+    lp_config_set_int(config, [LINPHONERC_APPLICATION_KEY UTF8String], "preview_preference", preview_preference);
+    
+    NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
+    
+    if (!first) {
+        MSVideoSize vsize;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"ACE_FIRST_OPEN"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    return TRUE;
+}
+
+- (void)setDefaultSettings:(LinphoneProxyConfig*)proxyCfg {
+    LinphoneManager* lm = [LinphoneManager instance];
+    
+    [lm configurePushTokenForProxyConfig:proxyCfg];
+    
+}
+
+- (void)clearProxyConfig {
+    linphone_core_clear_proxy_config([LinphoneManager getLc]);
+    linphone_core_clear_all_auth_info([LinphoneManager getLc]);
 }
 
 - (void)addProvisionedProxy:(NSString *)username withPassword:(NSString *)password withDomain:(NSString *)domain {
@@ -697,7 +759,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (IBAction)onSelectProviderClick:(id)sender {
     providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT)
-                                                    SourceList:@[@"Provider1", @"Provider2", @"Provider3", @"Provider4", @"Provider5"]];
+                                                    SourceList:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
     providerPickerView.delegate = self;
     providerPickerView.frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT, self.view.frame.size.width, DATEPICKER_HEIGHT);
     [self.view addSubview:providerPickerView];
@@ -791,7 +853,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)verificationSignInWithUsername:(NSString *)username
 							  password:(NSString *)password
 								domain:(NSString *)domain
-						 withTransport:(NSString *)transport {
+						 withTransport:(NSString *)transport
+                                  port:(int)port{
 	if ([self verificationWithUsername:username password:password domain:domain withTransport:transport]) {
 		[waitView setHidden:false];
 		if ([LinphoneManager instance].connectivity == none) {
@@ -807,13 +870,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 				addButtonWithTitle:NSLocalizedString(@"Continue", nil)
 							 block:^{
 							   [waitView setHidden:true];
-							   [self addProxyConfig:username password:password domain:domain withTransport:transport];
+							   [self addProxyConfig:username password:password domain:domain withTransport:transport port:port];
 							   [[PhoneMainView instance]
 								   changeCurrentView:[DialerViewController compositeViewDescription]];
 							 }];
 			[alert show];
 		} else {
-			BOOL success = [self addProxyConfig:username password:password domain:domain withTransport:transport];
+			BOOL success = [self addProxyConfig:username password:password domain:domain withTransport:transport port:port];
 			if (!success) {
 				waitView.hidden = true;
 			}
@@ -826,8 +889,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 	NSString *domain = [WizardViewController findTextField:ViewElement_Domain view:contentView].text;
 	NSString *transport = [self.transportChooser titleForSegmentAtIndex:self.transportChooser.selectedSegmentIndex];
-
-	[self verificationSignInWithUsername:username password:password domain:domain withTransport:transport];
+    
+    NSString *port_string = self.textFieldPort.text;
+    int port_value = [port_string intValue];
+    
+    int port = port_value;
+    
+    
+    
+    [self verificationSignInWithUsername:username password:password domain:domain withTransport:transport port:port];
 }
 
 - (IBAction)onSignInClick:(id)sender {
@@ -835,7 +905,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 
 	// domain and server will be configured from the default proxy values
-	[self verificationSignInWithUsername:username password:password domain:nil withTransport:nil];
+    [self verificationSignInWithUsername:username password:password domain:nil withTransport:nil port:-1];
 }
 
 - (BOOL)verificationRegisterWithUsername:(NSString *)username
@@ -1043,7 +1113,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
-				[self addProxyConfig:username password:password domain:nil withTransport:nil];
+                [self addProxyConfig:username password:password domain:nil withTransport:nil port:-1];
 			} else {
 				UIAlertView *errorView =
 					[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account validation issue", nil)
@@ -1119,6 +1189,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
     [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
+}
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
+    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"provider%ld.png", (long)row]];
+    [providerButtonLeftImageView removeFromSuperview];
+    providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
+    [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
+    [providerButtonLeftImageView setImage:img];
+    [self.selectProviderButton addSubview:providerButtonLeftImageView];
 }
 
 - (void)apiSignIn {
@@ -1225,10 +1304,17 @@ static UICompositeViewDescription *compositeDescription = nil;
 //         }
 //     }];
     
+    NSString *port_string = self.textFieldPort.text;
+    int port_value = [port_string intValue];
+    
+    int port = port_value;
+
+    
     [self verificationSignInWithUsername:self.textFieldUsername.text
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text
-                           withTransport:@"TCP"];
+                           withTransport:@"TCP"
+                                    port:port];
 }
 
 -(void) showAlert:(NSString*)message{

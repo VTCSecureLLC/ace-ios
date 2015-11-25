@@ -20,7 +20,7 @@
 #import <UIKit/UIKit.h>
 
 #include "linphone/linphonecore.h"
-#include "UIPauseButton.h"
+#include "UIChatButton.h"
 #import "UITransparentTVCell.h"
 
 typedef enum _UICallCellOtherView {
@@ -57,7 +57,7 @@ typedef enum _UICallCellOtherView {
 @property (nonatomic, strong) IBOutlet UIImageView* stateImage;
 @property (nonatomic, strong) IBOutlet UIImageView* avatarImage;
 @property (nonatomic, strong) IBOutlet UIButton *removeButton;
-@property (nonatomic, strong) IBOutlet UIPauseButton *pauseButton;
+@property (nonatomic, strong) IBOutlet UIChatButton *chatButton;
 
 @property (nonatomic, strong) IBOutlet UIView* headerView;
 @property (nonatomic, strong) IBOutlet UIView* avatarView;
