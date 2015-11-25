@@ -202,6 +202,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[singleFingerTap setEnabled:FALSE];
 }
 
+CGRect remoteVideoFrame;
 CGPoint incomingTextChatModePos;
 
 - (void)viewDidLoad {
@@ -355,6 +356,9 @@ CGPoint incomingTextChatModePos;
         if(self.incomingTextField){
             self.incomingTextField.text = @"";
         }
+//        if(self.outgoingTextLabel){
+//            self.outgoingTextLabel.text = @"";
+//        }
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
@@ -896,14 +900,17 @@ NSMutableString *minimizedTextBuffer;
 
 CGRect keyboardFrame;
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if(self.videoView){
-        keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        CGFloat keyboardPos = keyboardFrame.origin.y;
-        CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
-        CGPoint videoCenter = self.videoView.center;
-        videoCenter.y -= delta;
-        [self.videoView setCenter:videoCenter];
+    if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
+        remoteVideoFrame = self.videoView.frame;
     }
+    keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardPos = keyboardFrame.origin.y;
+    CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
+    [self.videoView setFrame:CGRectMake(self.videoView.frame.origin.x,
+                                            self.videoView.frame.origin.y - delta,
+                                                self.videoView.frame.size.width,
+                                                    self.videoView.frame.size.height)];
+
     self.incomingTextField.text = @"";
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
@@ -914,14 +921,7 @@ CGRect keyboardFrame;
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
-    if(self.videoView){
-        keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        CGFloat keyboardPos = keyboardFrame.origin.y;
-        CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
-        CGPoint videoCenter = self.videoView.center;
-        videoCenter.y -= delta;
-        [self.videoView setCenter:videoCenter];
-    }
+    [self.videoView setFrame:remoteVideoFrame];
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
  
