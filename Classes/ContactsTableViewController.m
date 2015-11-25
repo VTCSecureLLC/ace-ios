@@ -95,8 +95,15 @@ UILongPressGestureRecognizer *lpgr;
                                      [[NSFileManager defaultManager] createDirectoryAtPath:stringPath withIntermediateDirectories:NO attributes:nil error:&error];
                                  if(vcard)
                                  {
+                                    
+                                    MFMessageComposeViewController *composeMessage = [[MFMessageComposeViewController alloc] init];
+                                     [composeMessage addAttachmentData:vcard
+                                                        typeIdentifier:@"public.contact" filename:@"contact.vcard"];
+                                     composeMessage.messageComposeDelegate = self;
+                                     [self presentViewController:composeMessage animated:NO completion:^(void){
 
-
+                                     }];
+                                     
                                  }
                                  [alert dismissViewControllerAnimated:YES completion:nil];
                                  
@@ -353,6 +360,11 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 	}
 }
 
+#pragma mark - MFMessageComposeViewControllerDelegate Functions
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
+    [controller dismissViewControllerAnimated:NO completion:nil];
+}
 
 #pragma mark - UITableViewDelegate Functions
 
