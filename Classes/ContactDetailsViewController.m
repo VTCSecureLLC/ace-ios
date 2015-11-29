@@ -250,8 +250,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[backButton setHidden:TRUE];
 }
 
-
-
 - (void)disableEdit:(BOOL)animated {
 	if ([tableController isEditing]) {
 		[tableController setEditing:FALSE animated:animated];
