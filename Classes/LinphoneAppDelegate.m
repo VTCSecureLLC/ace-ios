@@ -425,6 +425,43 @@
 	}
 }
 
+
+#pragma mark - VCard Functions
+-(BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation
+{
+    // Make sure url indicates a file (as opposed to, e.g., http://)
+    if (url != nil && [url isFileURL]) {
+        NSData *vcard = [[NSData alloc] initWithContentsOfURL:url];
+        ABRecordRef person = nil;
+     
+        CFDataRef vCardData = CFDataCreate(NULL, [vcard bytes], [vcard length]);
+        ABAddressBookRef book = ABAddressBookCreate();
+        ABRecordRef defaultSource = ABAddressBookCopyDefaultSource(book);
+        CFArrayRef vCardPeople = ABPersonCreatePeopleInSourceWithVCardRepresentation(defaultSource, vCardData);
+        for (CFIndex index = 0; index < CFArrayGetCount(vCardPeople); index++) {
+            person = CFArrayGetValueAtIndex(vCardPeople, index);
+            ABAddressBookAddRecord(book, person, NULL);
+            CFRelease(person);
+        }
+        ABAddressBookSave(book, NULL);
+        
+        person = ABAddressBookGetPersonWithRecordID(book, ABRecordGetRecordID(person));
+        if(person){
+            ContactDetailsViewController *controller = DYNAMIC_CAST(
+                                                                    [[PhoneMainView instance] changeCurrentView:[ContactDetailsViewController compositeViewDescription] push:TRUE],
+                                                                    ContactDetailsViewController);
+            if (controller != nil) {
+                [controller editContact:person];
+            }
+        }
+        // Indicate that we have successfully opened the URL
+    }
+    return YES;
+}
+
 #pragma mark - PushNotification Functions
 
 - (void)application:(UIApplication *)application
