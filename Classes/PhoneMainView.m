@@ -392,9 +392,11 @@ static RootViewManager *rootViewManagerInstance = nil;
 		newRotation = oldLinphoneOrientation;
 	}
 	if (oldLinphoneOrientation != newRotation) {
-		linphone_core_set_device_rotation([LinphoneManager getLc], newRotation);
+        linphone_core_set_device_rotation([LinphoneManager getLc], newRotation);
 		LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
-		if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
+		if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && linphone_call_camera_enabled(call)) {
+            // Liz E. - is there any way to trigger the recipient UI to update for the new device rotation wihtout
+            //    calling linphone_core_update_call? Not yet is the answer. This is how Linphone docs say to do it.
 			// Orientation has changed, must call update call
 			linphone_core_update_call([LinphoneManager getLc], call, NULL);
 		}
@@ -744,7 +746,8 @@ static RootViewManager *rootViewManagerInstance = nil;
 														 linphone_call_get_current_params(call));
 													 // stop video
 													 linphone_call_params_enable_video(paramsCopy, FALSE);
-													 linphone_core_update_call([LinphoneManager getLc], call,
+                                                       // Liz E. - ok- this ends the stream, will save resources.
+                                                       linphone_core_update_call([LinphoneManager getLc], call,
 																			   paramsCopy);
 												   }];
 					[sheet showInView:self.view];

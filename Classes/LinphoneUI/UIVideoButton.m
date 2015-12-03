@@ -65,10 +65,7 @@
 		LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
 		callAppData->videoRequested =
 			TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
-		LinphoneCallParams *call_params = linphone_call_params_copy(linphone_call_get_current_params(call));
         linphone_call_enable_camera(call, TRUE);
-		linphone_core_update_call(lc, call, NULL);
-		linphone_call_params_destroy(call_params);
 	} else {
 		LOGW(@"Cannot toggle video button, because no current call");
 	}
@@ -82,10 +79,7 @@
 
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
 	if (call) {
-		LinphoneCallParams *call_params = linphone_call_params_copy(linphone_call_get_current_params(call));
         linphone_call_enable_camera(call, FALSE);
-		linphone_core_update_call(lc, call, NULL);
-		linphone_call_params_destroy(call_params);
 	} else {
 		LOGW(@"Cannot toggle video button, because no current call");
 	}

@@ -531,6 +531,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"max_download_preference" compare:notif.object] == NSOrderedSame){
         linphone_core_set_download_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_download_preference"] intValue]);
     }
+    else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
+        BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
+        linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
+    }
+
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
