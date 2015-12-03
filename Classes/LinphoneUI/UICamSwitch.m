@@ -79,6 +79,7 @@
 		linphone_core_set_video_device([LinphoneManager getLc], newCamId);
 		LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
 		if (call != NULL) {
+            // Liz E. - OK - this is currently the way to update for a device change.
 			linphone_core_update_call([LinphoneManager getLc], call, NULL);
 		}
 	}
