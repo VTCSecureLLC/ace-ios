@@ -617,7 +617,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[hiddenKeys addObject:@"incoming_call_timeout_preference"];
 	[hiddenKeys addObject:@"in_call_timeout_preference"];
 
-	[hiddenKeys addObject:@"wifi_only_preference"];
+	//[hiddenKeys addObject:@"wifi_only_preference"];
 
 	[hiddenKeys addObject:@"quit_button"];  // Hide for the moment
 	[hiddenKeys addObject:@"about_button"]; // Hide for the moment

@@ -5,6 +5,62 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Settings</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>general_menu</string>
+			<key>File</key>
+			<string>General</string>
+			<key>Title</key>
+			<string>General</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>audio_video_menu</string>
+			<key>File</key>
+			<string>AudioVideo</string>
+			<key>Title</key>
+			<string>Audio/Video</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>theme_menu</string>
+			<key>File</key>
+			<string>Theme</string>
+			<key>Title</key>
+			<string>Theme</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>text_menu</string>
+			<key>File</key>
+			<string>Text</string>
+			<key>Title</key>
+			<string>Text</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>summary_menu</string>
+			<key>File</key>
+			<string>Summary</string>
+			<key>Title</key>
+			<string>Summary</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>SIP account</string>
 			<key>Type</key>
