@@ -394,7 +394,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 	if (oldLinphoneOrientation != newRotation) {
 		linphone_core_set_device_rotation([LinphoneManager getLc], newRotation);
 		LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
-		if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
+		if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call)) &&          linphone_call_camera_enabled(call)) {
 			// Orientation has changed, must call update call
 			linphone_core_update_call([LinphoneManager getLc], call, NULL);
 		}
