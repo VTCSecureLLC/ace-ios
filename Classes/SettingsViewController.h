@@ -18,12 +18,12 @@
  */ 
 
 #import <UIKit/UIKit.h>
-
+#import "InfColorPicker/InfColorPicker/InfColorPickerController.h"
 #import "UICompositeViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "LinphoneCoreSettingsStore.h"
 
-@interface SettingsViewController: UIViewController<IASKSettingsDelegate, UICompositeViewDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate> {
+@interface SettingsViewController: UIViewController<IASKSettingsDelegate, UICompositeViewDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, InfColorPickerControllerDelegate> {
 	@private
 	LinphoneCoreSettingsStore* settingsStore;
 }
