@@ -44,7 +44,10 @@ typedef enum _ViewElement {
 } ViewElement;
 
 @implementation WizardViewController
-
+{
+    UIImageView *providerButtonLeftImageView;
+    UIImageView *providerButtonRightImageView;
+}
 @synthesize contentView;
 
 @synthesize welcomeView;
@@ -70,6 +73,7 @@ typedef enum _ViewElement {
 @synthesize choiceViewLogoImageView;
 
 @synthesize viewTapGestureRecognizer;
+
 
 #pragma mark - Lifecycle Functions
 
@@ -113,15 +117,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-
-    UIImage *image = [UIImage imageNamed:@"backArrow.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.selectProviderButton.frame.size.width - 41, 0, 41, 41)];
-    [imageView setContentMode:UIViewContentModeCenter];
-    [imageView setImage:image];
-    imageView.transform = CGAffineTransformMakeRotation(M_PI);
-    [self.selectProviderButton addSubview:imageView];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(registrationUpdateEvent:)
                                                  name:kLinphoneRegistrationUpdate
@@ -408,6 +403,17 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[contentView insertSubview:view atIndex:0];
 	[view setFrame:[contentView bounds]];
 	[contentView setContentSize:[view bounds].size];
+    [self setProviderSelectionButton];
+}
+
+- (void)setProviderSelectionButton {
+    [providerButtonRightImageView removeFromSuperview];
+    UIImage *image = [UIImage imageNamed:@"backArrow.png"];
+    providerButtonRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.selectProviderButton.frame.size.width - 46, 0, 41, 41)];
+    [providerButtonRightImageView setContentMode:UIViewContentModeCenter];
+    [providerButtonRightImageView setImage:image];
+    providerButtonRightImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    [self.selectProviderButton addSubview:providerButtonRightImageView];
 }
 
 - (BOOL)addProxyConfig:(NSString*)username
@@ -497,8 +503,9 @@ static UICompositeViewDescription *compositeDescription = nil;
         pt=(PayloadType*)elem->data;
 //        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
         int enable = linphone_core_enable_payload_type(lc,pt,1);
-        
-        NSLog(@"enable: %d", enable);
+
+        NSLog(@"enable: %d, %@ Core %s", enable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+              linphone_core_get_version());
     }
     
     linphone_core_enable_video(lc, YES, YES);
@@ -752,7 +759,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (IBAction)onSelectProviderClick:(id)sender {
     providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT)
-                                                    SourceList:@[@"Provider1", @"Provider2", @"Provider3", @"Provider4", @"Provider5"]];
+                                                    SourceList:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
     providerPickerView.delegate = self;
     providerPickerView.frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT, self.view.frame.size.width, DATEPICKER_HEIGHT);
     [self.view addSubview:providerPickerView];
@@ -1182,6 +1189,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
     [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
+}
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
+    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"provider%ld.png", (long)row]];
+    [providerButtonLeftImageView removeFromSuperview];
+    providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
+    [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
+    [providerButtonLeftImageView setImage:img];
+    [self.selectProviderButton addSubview:providerButtonLeftImageView];
 }
 
 - (void)apiSignIn {

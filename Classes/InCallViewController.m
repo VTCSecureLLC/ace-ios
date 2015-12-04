@@ -24,19 +24,38 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/EAGLDrawable.h>
 
-#import "IncallViewController.h"
+#import "InCallViewController.h"
 #import "UICallCell.h"
 #import "LinphoneManager.h"
 #import "PhoneMainView.h"
 #import "UILinphone.h"
 #import "DTActionSheet.h"
-
+#import "RTTMessageModel.h"
 #include "linphone/linphonecore.h"
-
+#import "UILabel+Clipboard.h"
 const NSInteger SECURE_BUTTON_TAG = 5;
+
+@interface InCallViewController()
+@property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
+
+    @property NSMutableArray *chatEntries;
+    @property UITableView *tableView;
+    //Index to access remote or local text buffer in data set
+    @property int localTextBufferIndex;
+    @property int remoteTextBufferIndex;
+    // Temp model buffer
+    @property RTTMessageModel *localTextBuffer;
+    @property RTTMessageModel *remoteTextBuffer;
+    @property UIColor *localColor;
+@property (weak, nonatomic) IBOutlet UILabel *incomingTextField;
+
+
+@end
 
 @implementation InCallViewController {
 	BOOL hiddenVolume;
+    int RTT_MAX_PARAGRAPH_CHAR;
+    int RTT_SOFT_MAX_PARAGRAPH_CHAR;
 }
 
 @synthesize callTableController;
@@ -52,7 +71,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
 #endif
 
 #pragma mark - Lifecycle Functions
-
+static InCallViewController *instance;
 - (id)init {
 	self = [super initWithNibName:@"InCallViewController" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
@@ -102,6 +121,28 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
+    
+    if(self.incomingTextField){
+        [self.incomingTextField setText:@""];
+        [self.incomingTextField setHidden:YES];
+
+    }
+    
+    if(self.closeChatButton){
+        [self.closeChatButton setHidden:YES];
+
+    }
+    
+    self.chatEntries = [[NSMutableArray alloc] init];
+    self.localTextBufferIndex = 0;
+    self.remoteTextBufferIndex = 0;
+
+    self.localTextBuffer = nil;
+    self.remoteTextBuffer = nil;
+    minimizedTextBuffer = nil;
+    if(self.tableView){
+        [self.tableView reloadData];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -115,6 +156,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
 		hiddenVolume = FALSE;
 	}
+    
+    if(self.incomingTextField){
+        self.incomingTextField.text = @"";
+        [self.incomingTextField setHidden:YES];
+    }
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
@@ -140,8 +186,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	// Enable tap
 	[singleFingerTap setEnabled:TRUE];
     // Hide fields.
-    self.textscroll.hidden = YES;
-    self.keyboardButton.hidden = YES;
+    [self.incomingTextField setHidden:YES];
+    [self.incomingTextField setText:@""];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -154,17 +200,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] fullScreen:false];
 	// Disable tap
 	[singleFingerTap setEnabled:FALSE];
-    
-    if(self.incomingTextField){
-        self.incomingTextField.text = @"";
-    }
-    
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
-    }
 }
 
 CGRect remoteVideoFrame;
+CGPoint incomingTextChatModePos;
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -187,19 +227,37 @@ CGRect remoteVideoFrame;
 
     if(self.incomingTextField){
         self.incomingTextField.text = @"";
+        self.incomingTextField.backgroundColor = [UIColor blackColor];
+        self.incomingTextField.textColor = [UIColor whiteColor];
+        [self.incomingTextField setTextAlignment:NSTextAlignmentLeft];
+        self.incomingTextField.text = @"";
+        self.incomingTextField.alpha = 0.7;
+        [self.incomingTextField setUserInteractionEnabled:YES];
+        [self.incomingTextField setEnabled:YES];
+
+        UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
+        singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
+        singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
+        [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
+        [self.incomingTextField addGestureRecognizer:singleFingerTappedIncomingChat];
+        
+        [self.incomingTextField canBecomeFirstResponder];
+        [self.incomingTextField enableClipboard:YES];
+        
+        [self.incomingTextField setHidden:YES];
+    }
+    if(!self.closeChatButton && self.incomingTextField){
+        
+        [self.closeChatButton setHidden:YES];
     }
     
-    if(self.outgoingTextLabel){
-        self.outgoingTextLabel.text = @"";
-    }
-    
-    if(self.keyboardButton){
-        [self.keyboardButton setAlpha:0.6];
-    }
     // We listen for incoming text.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textComposeEvent:) name:kLinphoneTextComposeEvent object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+    
+    instance = self;
+    [self loadRTTChatTableView];
 }
 
 - (void)viewDidUnload {
@@ -247,8 +305,6 @@ CGRect remoteVideoFrame;
 	case LinphoneCallStreamsRunning: {
         // check realtime text.
         if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call))){
-            self.textscroll.hidden = NO;
-            self.keyboardButton.hidden = NO;
         }
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
@@ -300,9 +356,9 @@ CGRect remoteVideoFrame;
         if(self.incomingTextField){
             self.incomingTextField.text = @"";
         }
-        if(self.outgoingTextLabel){
-            self.outgoingTextLabel.text = @"";
-        }
+//        if(self.outgoingTextLabel){
+//            self.outgoingTextLabel.text = @"";
+//        }
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
@@ -313,13 +369,19 @@ CGRect remoteVideoFrame;
 	}
 }
 
+BOOL isTabBarShown = NO;
 - (void)showControls:(id)sender {
+    if(self.isFirstResponder || ![self.tableView isHidden]){
+        [self resignFirstResponder];
+        [self.tableView setHidden:YES];
+        return;
+    }
 	if (hideControlsTimer) {
 		[hideControlsTimer invalidate];
 		hideControlsTimer = nil;
 	}
 
-	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
+	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown && !isTabBarShown) {
 		// show controls
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
@@ -328,7 +390,7 @@ CGRect remoteVideoFrame;
 		[callTableView setAlpha:1.0];
 		[videoCameraSwitch setAlpha:1.0];
 		[UIView commitAnimations];
-
+        isTabBarShown = YES;
 		// hide controls in 5 sec
 		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
 															 target:self
@@ -336,6 +398,15 @@ CGRect remoteVideoFrame;
 														   userInfo:nil
 															repeats:NO];
 	}
+    
+    else if(isTabBarShown){
+        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+                                                             target:self
+                                                           selector:@selector(hideControls:)
+                                                           userInfo:nil
+                                                            repeats:NO];
+        isTabBarShown = NO;
+    }
 }
 
 - (void)hideControls:(id)sender {
@@ -582,7 +653,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 }
 
 
-#pragma mark TextHandling
+#pragma mark RTT Logic
 
 /* A field that must be implemented for the text protocol */
 - (BOOL)hasText {
@@ -599,15 +670,87 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
     return NO;
 }
+-(void) showLatestMessage{
+    if(self.tableView && self.chatEntries){
+        NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+}
+
+-(void) showCurrentLocalTextBuffer{
+    if(self.tableView && self.chatEntries){
+        NSUInteger indexArr[] = {self.localTextBufferIndex, 0};
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+
+}
+
+#pragma mark Outgoing Text Logic
+-(void)createNewLocalChatBuffer: (NSString*) text {
+    self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
+    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0 blue:150 alpha:0.6];
+    self.localColor = self.localTextBuffer.color;
+    self.localTextBufferIndex = (int)self.chatEntries.count;
+    [self.chatEntries addObject:self.localTextBuffer];
+
+    [self.tableView reloadData];
+    [self showLatestMessage];
+}
+-(void) insertTextIntoBuffer :(NSString*) text{
+    if(!self.localTextBuffer|| [text isEqualToString:@"\n"]){
+        [self createNewLocalChatBuffer:text];
+        return;
+    }
+    self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
+    if(self.localTextBuffer){
+        if(self.localTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
+            [self createNewLocalChatBuffer:text];
+            return;
+        }
+        if(self.localTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR){
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.localTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+                [self createNewLocalChatBuffer:@""];
+                return;
+            }
+        }
+
+            [self.localTextBuffer.msgString appendString: text];
+            [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+            [self.tableView reloadData];
+            [self showCurrentLocalTextBuffer];
+    }
+}
+-(void) backspaceInLocalBuffer{
+    if(!self.localTextBuffer){
+        return;
+    }
+    self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
+    if(self.localTextBuffer){
+        if(self.localTextBuffer.msgString.length > 0){
+            [self.localTextBuffer removeLast];
+            [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+            [self.tableView reloadData];
+            [self showLatestMessage];
+        }
+    }
+}
 
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
     // Send a character.
-    NSLog(@"Add characters");
+    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
-    [self.outgoingTextLabel appendWithString:theText];
+
+    [self insertTextIntoBuffer:theText];
+    
     for (int i = 0; i != theText.length; i++)
         linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
 }
@@ -615,16 +758,18 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 - (void)deleteBackward {
     
     // Send a backspace.
-    NSLog(@"Remove one sign.");
-    if (self.outgoingTextLabel.text.length == 0)
-        return;
+    NSLog(@"Remove one sign. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
-    [self.outgoingTextLabel removeLast];
     linphone_chat_message_put_char(msg, (char)8);
-}
+    
+    [self backspaceInLocalBuffer];
+    }
 
+#pragma mark Incoming Text Logic
 /* Text is recevied and should be handled. */
 - (void)textComposeEvent:(NSNotification *)notif {
     LinphoneChatRoom *room = [[[notif userInfo] objectForKey:@"room"] pointerValue];
@@ -661,40 +806,228 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     return UIInterfaceOrientationLandscapeRight;
 }
 
+#pragma mark Incoming Text Logic
+
+-(void)createNewRemoteChatBuffer: (NSString*) text {
+    self.remoteTextBuffer = [[RTTMessageModel alloc] initWithString:text];
+    self.remoteTextBuffer.color = [UIColor lightGrayColor];
+    self.remoteTextBufferIndex = (int)self.chatEntries.count;
+    
+    [self.chatEntries addObject:self.remoteTextBuffer];
+    [self.tableView reloadData];
+    
+    [self showLatestMessage];
+}
+-(void) insertTextIntoRemoteBuffer :(NSString*) text{
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"]){
+        [self createNewRemoteChatBuffer:text];
+        return;
+    }
+    self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
+    if(self.remoteTextBuffer){
+        if(self.remoteTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
+            [self createNewRemoteChatBuffer:text];
+            return;
+        }
+        if(self.remoteTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR && self.remoteTextBuffer.msgString.length + text.length < RTT_MAX_PARAGRAPH_CHAR){
+          
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.remoteTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
+                [self createNewRemoteChatBuffer:@""];
+                return;
+            }
+        }
+
+            [self.remoteTextBuffer.msgString appendString:text];
+            [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
+            [self.tableView reloadData];
+            [self showLatestMessage];
+        
+    }
+}
+
+-(void) backspaceInRemoteBuffer{
+    if(!self.remoteTextBuffer){
+        return;
+    }
+    self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
+    if(self.remoteTextBuffer){
+        if(self.remoteTextBuffer.msgString.length > 0){
+            [self.remoteTextBuffer removeLast];
+            [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
+            [self.tableView reloadData];
+            [self showLatestMessage];
+        }
+    }
+}
+
 /* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
+
+NSMutableString *minimizedTextBuffer;
 -(void)runonmainthread:(NSString*)text{
-    [self.incomingTextField appendWithString:text];
+    [self insertTextIntoRemoteBuffer:text];
+  
+    if(!self.isChatMode){
+        if([self.incomingTextField isHidden]){
+            [self.incomingTextField setHidden:NO];
+
+            [self.closeChatButton setHidden:NO];
+            [self.closeChatButton setEnabled:YES];
+             minimizedTextBuffer = [[NSMutableString alloc] init];
+        }
+        if(minimizedTextBuffer){
+            [minimizedTextBuffer appendString:text];
+            [self.incomingTextField setText:minimizedTextBuffer];
+        }
+    }
 }
 
 /* We want the code to be optimal so running gui changes on gui thread is a good way to go. */
 -(void)runonmainthreadremove{
-    [self.incomingTextField removeLast];
+    [self backspaceInRemoteBuffer];
+}
+- (IBAction)onCloseChatButton:(id)sender {
+    [self.incomingTextField setHidden:YES];
+    [self.closeChatButton setHidden:YES];
 }
 
+-(void) openChatMessage: (UITapGestureRecognizer *)sender{
+    if(!self.isFirstResponder){
+        [self becomeFirstResponder];
+    }
+}
+
+CGRect keyboardFrame;
 - (void)keyboardWillShow:(NSNotification *)notification {
     if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
         remoteVideoFrame = self.videoView.frame;
     }
-    CGFloat keyboardPos = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+    keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardPos = keyboardFrame.origin.y;
     CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
     [self.videoView setFrame:CGRectMake(self.videoView.frame.origin.x,
                                             self.videoView.frame.origin.y - delta,
                                                 self.videoView.frame.size.width,
                                                     self.videoView.frame.size.height)];
+
+    self.incomingTextField.text = @"";
+    [self.incomingTextField setHidden:YES];
+    [self.closeChatButton setHidden:YES];
+    
+    self.isChatMode = YES;
+    [self.tableView setHidden:NO];
+    [self hideControls:self];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     [self.videoView setFrame:remoteVideoFrame];
+    [self.incomingTextField setHidden:YES];
+    [self.closeChatButton setHidden:YES];
+ 
+    self.isChatMode = NO;
 }
 
-/* The keyboard button is pressed. We wanna show / hide the keyboard. */
-- (IBAction)keyboardButtonClicked:(id)sender {
-    if (self.isFirstResponder)
-        [self resignFirstResponder];
-    else
-        [self becomeFirstResponder];
+- (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
+    UITextView *calculationView = [[UITextView alloc] init];
+    [calculationView setAttributedText:text];
+    CGSize size = [calculationView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+    return size.height;
+}
+
+#pragma mark UITableView Methods
+
+- (void)loadRTTChatTableView
+{
+    CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
+    chatSize.size.height /= 3;
+    chatSize.size.width = self.view.frame.size.width;
+    self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
+    self.chatEntries = [[NSMutableArray alloc] init];
     
-    [self hideControls:self]; //Dismiss call controls so remote view and keyboard button are visible
+    [self.view addSubview:self.tableView];
+    
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView reloadData];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.alpha = 0.7;
+    [self.tableView setHidden:YES];
+  
+    self.isChatMode = NO;
+
+    RTT_MAX_PARAGRAPH_CHAR = 250;
+    RTT_SOFT_MAX_PARAGRAPH_CHAR = 200;
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.chatEntries.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+        RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+    if(msg.attrMsgString){
+            return [self textViewHeightForAttributedText:msg.attrMsgString andWidth:self.tableView.frame.size.width];
+    }
+
+
+    return [UIFont systemFontSize];
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
+    }
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+   
+    cell.textLabel.text = msg.msgString;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.userInteractionEnabled = YES;
+    cell.textLabel.numberOfLines = 0;
+
+    if([msg.color isEqual:self.localColor]){
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+    }
+    else{
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [cell.textLabel enableClipboard:YES];
+    [cell.textLabel canBecomeFirstResponder];
+    
+    ((RTTMessageModel*)[self.chatEntries objectAtIndex:indexPath.section]).attrMsgString = cell.textLabel.attributedText;
+    
+    cell.backgroundColor = msg.color;
+    cell.alpha = 0.6;
+//    cell.autoresizesSubviews = YES;
+//    cell.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
+    cell.userInteractionEnabled = YES;
+    [cell canBecomeFirstResponder];
+
+    return cell;
+}
+
+#pragma mark Singleton
++(InCallViewController*) sharedInstance{
+    return instance;
+}
 @end

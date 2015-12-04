@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallBar">
             <connections>
+                <outlet property="chatButton" destination="13" id="79"/>
                 <outlet property="conferenceButton" destination="12" id="64"/>
                 <outlet property="dialerButton" destination="10" id="65"/>
                 <outlet property="eightButton" destination="26" id="66"/>
@@ -23,7 +24,6 @@
                 <outlet property="optionsTransferButton" destination="32" id="76"/>
                 <outlet property="optionsView" destination="4" id="77"/>
                 <outlet property="padView" destination="5" id="78"/>
-                <outlet property="pauseButton" destination="13" id="79"/>
                 <outlet property="portraitView" destination="3" id="80"/>
                 <outlet property="rightPadding" destination="aXO-Ng-LZe" id="f1h-to-gx6"/>
                 <outlet property="sevenButton" destination="25" id="81"/>
@@ -306,19 +306,8 @@
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                         </button>
-                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="43" userLabel="pauseButton" customClass="UIPauseButton">
-                            <rect key="frame" x="701" y="0.0" width="87" height="85"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label=""/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="pause_off_default_landscape.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="selected" image="pause_on_default_landscape.png"/>
-                            <state key="highlighted" image="pause_off_over_landscape.png"/>
-                        </button>
                         <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="44" userLabel="conferenceButton">
-                            <rect key="frame" x="701" y="0.0" width="87" height="85"/>
+                            <rect key="frame" x="606" y="-8" width="87" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label=""/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -355,6 +344,21 @@
                         <imageView hidden="YES" userInteractionEnabled="NO" tag="62" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8M5-a6-pwT" userLabel="rightPadding">
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="43" userLabel="chatButton" customClass="UIChatButton">
+                            <rect key="frame" x="701" y="0.0" width="87" height="85"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <accessibility key="accessibilityConfiguration" label=""/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" image="chat_selected.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="selected" image="chat_selected.png"/>
+                            <state key="highlighted" image="chat_selected.png"/>
+                            <connections>
+                                <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="Gya-Tz-YHA"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="Jom-S8-uVB"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -652,28 +656,19 @@
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="91"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="13" userLabel="pauseButton" customClass="UIPauseButton">
+                        <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="13" userLabel="chatButton" customClass="UIChatButton">
                             <rect key="frame" x="445" y="0.0" width="87" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Pause"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="pause_off_default.png">
+                            <state key="normal" image="chat_selected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="selected" image="pause_on_default.png"/>
-                            <state key="highlighted" image="pause_off_over.png"/>
-                        </button>
-                        <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="12" userLabel="conferenceButton">
-                            <rect key="frame" x="445" y="0.0" width="87" height="85"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="Start conference"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="conference_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" image="conference_over.png"/>
+                            <state key="selected" image="chat_selected.png"/>
+                            <state key="highlighted" image="chat_selected.png"/>
                             <connections>
-                                <action selector="onConferenceClick:" destination="-1" eventType="touchUpInside" id="93"/>
+                                <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="7dy-w6-OjT"/>
+                                <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="N6q-p3-Usc"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="11" userLabel="hangupButton" customClass="UIHangUpButton">
@@ -710,6 +705,19 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="12" userLabel="conferenceButton">
+                    <rect key="frame" x="438" y="819" width="87" height="85"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <accessibility key="accessibilityConfiguration" label="Start conference"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" image="conference_default.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" image="conference_over.png"/>
+                    <connections>
+                        <action selector="onConferenceClick:" destination="-1" eventType="touchUpInside" id="93"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -717,6 +725,7 @@
         </view>
     </objects>
     <resources>
+        <image name="chat_selected.png" width="350" height="153"/>
         <image name="conference_default.png" width="173" height="170"/>
         <image name="conference_default_landscape.png" width="173" height="170"/>
         <image name="conference_over.png" width="173" height="170"/>
@@ -782,12 +791,6 @@
         <image name="options_transfer_disabled_landscape.png" width="162" height="137"/>
         <image name="options_transfer_over.png" width="162" height="137"/>
         <image name="options_transfer_over_landscape.png" width="162" height="137"/>
-        <image name="pause_off_default.png" width="173" height="170"/>
-        <image name="pause_off_default_landscape.png" width="173" height="170"/>
-        <image name="pause_off_over.png" width="173" height="170"/>
-        <image name="pause_off_over_landscape.png" width="173" height="170"/>
-        <image name="pause_on_default.png" width="173" height="170"/>
-        <image name="pause_on_default_landscape.png" width="173" height="170"/>
         <image name="speaker_off_default.png" width="160" height="170"/>
         <image name="speaker_off_default_landscape.png" width="160" height="170"/>
         <image name="speaker_off_disabled.png" width="160" height="170"/>
@@ -805,9 +808,4 @@
         <image name="video_on_default.png" width="162" height="170"/>
         <image name="video_on_default_landscape.png" width="162" height="170"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
-    </simulatedMetricsContainer>
 </document>

@@ -24,5 +24,6 @@
 @optional
 
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item;
+- (void) didSelectUICustomPicker:(UICustomPicker*)customPicker didSelectRow:(NSInteger)row;
 
 @end

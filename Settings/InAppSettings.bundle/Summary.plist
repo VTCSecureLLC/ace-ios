@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Key</key>
+			<string>view_tss_preference</string>
+			<key>Title</key>
+			<string>View TSS</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>0</string>
+			<key>Key</key>
+			<string>send_tss_preference</string>
+			<key>Title</key>
+			<string>Send TSS</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Key</key>
+			<string>show_advanced_preference</string>
+			<key>Title</key>
+			<string>Show Advanced</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Key</key>
+			<string>show_debug_preference</string>
+			<key>Title</key>
+			<string>Show Debug</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>

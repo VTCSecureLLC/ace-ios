@@ -158,11 +158,19 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-
+    #ifdef DEBUG
+    NSLog(@"Debug: No crashes will be reported, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    #else
+        [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
+        [[BITHockeyManager sharedHockeyManager] startManager];
+        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    #endif
+    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+    
+    NSLog(@"Application Launching: %@ iPhone %@, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"], appVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    
     UIApplication *app = [UIApplication sharedApplication];
 	UIApplicationState state = app.applicationState;
 
@@ -197,7 +205,8 @@
 		if (!start_at_boot || !background_mode) {
 			// autoboot disabled or no background, and no push: do nothing and wait for a real launch
 			/*output a log with NSLog, because the ortp logging system isn't activated yet at this time*/
-			NSLog(@"Linphone launch doing nothing because start_at_boot or background_mode are not activated.", NULL);
+            NSLog(@"Linphone launch doing nothing because start_at_boot or background_mode are not activated. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                  linphone_core_get_version(), NULL);
 			return YES;
 		}
 	}
@@ -414,6 +423,43 @@
 		lm.connectivity = none; /*force connectivity to be discovered again*/
 		[lm refreshRegisters];
 	}
+}
+
+
+#pragma mark - VCard Functions
+-(BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation
+{
+    // Make sure url indicates a file (as opposed to, e.g., http://)
+    if (url != nil && [url isFileURL]) {
+        NSData *vcard = [[NSData alloc] initWithContentsOfURL:url];
+        ABRecordRef person = nil;
+     
+        CFDataRef vCardData = CFDataCreate(NULL, [vcard bytes], [vcard length]);
+        ABAddressBookRef book = ABAddressBookCreate();
+        ABRecordRef defaultSource = ABAddressBookCopyDefaultSource(book);
+        CFArrayRef vCardPeople = ABPersonCreatePeopleInSourceWithVCardRepresentation(defaultSource, vCardData);
+        for (CFIndex index = 0; index < CFArrayGetCount(vCardPeople); index++) {
+            person = CFArrayGetValueAtIndex(vCardPeople, index);
+            ABAddressBookAddRecord(book, person, NULL);
+            CFRelease(person);
+        }
+        ABAddressBookSave(book, NULL);
+        
+        person = ABAddressBookGetPersonWithRecordID(book, ABRecordGetRecordID(person));
+        if(person){
+            ContactDetailsViewController *controller = DYNAMIC_CAST(
+                                                                    [[PhoneMainView instance] changeCurrentView:[ContactDetailsViewController compositeViewDescription] push:TRUE],
+                                                                    ContactDetailsViewController);
+            if (controller != nil) {
+                [controller editContact:person];
+            }
+        }
+        // Indicate that we have successfully opened the URL
+    }
+    return YES;
 }
 
 #pragma mark - PushNotification Functions

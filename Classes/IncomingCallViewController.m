@@ -66,14 +66,12 @@
 }
 
 -(void) toggleBackgroundColor {
-     self.view.backgroundColor = [UIColor whiteColor];
-    [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
-        
-        [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
-            self.view.backgroundColor = [UIColor redColor];
-        }];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [UIView animateKeyframesWithDuration:0.6 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
+        self.view.backgroundColor = [UIColor redColor];
+        self.flashingView.backgroundColor = [UIColor redColor];
     } completion:nil];
-
+    
 }
 
 -(void) viewDidLoad {
