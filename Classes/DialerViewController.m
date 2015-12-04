@@ -476,12 +476,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                             self.addressField.sipDomain = nil;
                                                             }];
     [alert addAction:none];
-    [alert setModalPresentationStyle:UIModalPresentationPopover];
     
-    UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
-    UIButton *button = (UIButton*)sender;
-    popPresenter.sourceView = button;
-    popPresenter.sourceRect = button.bounds;
     [self presentViewController:alert animated:YES completion:nil];
 }
 

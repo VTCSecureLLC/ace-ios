@@ -202,7 +202,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[singleFingerTap setEnabled:FALSE];
 }
 
-CGRect remoteVideoFrame;
 CGPoint incomingTextChatModePos;
 
 - (void)viewDidLoad {
@@ -899,18 +898,13 @@ NSMutableString *minimizedTextBuffer;
 }
 
 CGRect keyboardFrame;
+CGFloat delta;
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if(self.videoView){ //set temp frames to restore view layout when keyboard is dismissed
-        remoteVideoFrame = self.videoView.frame;
-    }
     keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardPos = keyboardFrame.origin.y;
-    CGFloat delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
-    [self.videoView setFrame:CGRectMake(self.videoView.frame.origin.x,
-                                            self.videoView.frame.origin.y - delta,
-                                                self.videoView.frame.size.width,
-                                                    self.videoView.frame.size.height)];
-
+    delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
+    CGPoint center = CGPointMake(self.videoView.center.x, self.videoView.center.y - delta);
+    [self.videoView setCenter:center];
     self.incomingTextField.text = @"";
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
@@ -921,7 +915,11 @@ CGRect keyboardFrame;
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
-    [self.videoView setFrame:remoteVideoFrame];
+    keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardPos = keyboardFrame.origin.y;
+    delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
+    CGPoint center = CGPointMake(self.videoView.center.x, self.videoView.center.y - delta);
+    [self.videoView setCenter:center];
     [self.incomingTextField setHidden:YES];
     [self.closeChatButton setHidden:YES];
  
