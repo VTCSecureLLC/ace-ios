@@ -328,18 +328,15 @@
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
-		5E6344051C10E09D00042AB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5E6343D31C10E09D00042AB4 /* .gitignore */; };
-		5E6344061C10E09D00042AB4 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343D61C10E09D00042AB4 /* InfColorBarPicker.m */; };
-		5E6344071C10E09D00042AB4 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343D81C10E09D00042AB4 /* InfColorIndicatorView.m */; };
-		5E6344081C10E09D00042AB4 /* InfColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343DB1C10E09D00042AB4 /* InfColorPickerController.m */; };
-		5E6344091C10E09D00042AB4 /* InfColorPickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343DD1C10E09D00042AB4 /* InfColorPickerNavigationController.m */; };
-		5E63440A1C10E09D00042AB4 /* InfColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6343DE1C10E09D00042AB4 /* InfColorPickerView.xib */; };
-		5E63440B1C10E09D00042AB4 /* InfColorSquarePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343E01C10E09D00042AB4 /* InfColorSquarePicker.m */; };
-		5E63440C1C10E09D00042AB4 /* InfHSBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343E21C10E09D00042AB4 /* InfHSBSupport.m */; };
-		5E63440D1C10E09D00042AB4 /* InfSourceColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6343E41C10E09D00042AB4 /* InfSourceColorView.m */; };
-		5E63440E1C10E09D00042AB4 /* InfColorPicker.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 5E6343E51C10E09D00042AB4 /* InfColorPicker.xcworkspace */; };
-		5E63440F1C10E09D00042AB4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E6343E61C10E09D00042AB4 /* LICENSE.txt */; };
-		5E63441D1C10E09D00042AB4 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 5E6344041C10E09D00042AB4 /* README.markdown */; };
+		5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */; };
+		5E63471C1C1111C900042AB4 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */; };
+		5E6347981C1111C900042AB4 /* InfColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347101C1111C900042AB4 /* InfColorPickerController.m */; };
+		5E6347991C1111C900042AB4 /* InfColorPickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347121C1111C900042AB4 /* InfColorPickerNavigationController.m */; };
+		5E63479A1C1111C900042AB4 /* InfColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6347131C1111C900042AB4 /* InfColorPickerView.xib */; };
+		5E63479B1C1111C900042AB4 /* InfColorSquarePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347151C1111C900042AB4 /* InfColorSquarePicker.m */; };
+		5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347171C1111C900042AB4 /* InfHSBSupport.m */; };
+		5E63479D1C1111C900042AB4 /* InfSourceColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347191C1111C900042AB4 /* InfSourceColorView.m */; };
+		5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E63471A1C1111C900042AB4 /* LICENSE.txt */; };
 		5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */; };
 		5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
@@ -1591,26 +1588,23 @@
 		57F005C715EE2D9200914747 /* linphonerc-factory~ipad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory~ipad"; path = "Resources/linphonerc-factory~ipad"; sourceTree = "<group>"; };
 		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
-		5E6343D31C10E09D00042AB4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		5E6343D51C10E09D00042AB4 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
-		5E6343D61C10E09D00042AB4 /* InfColorBarPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorBarPicker.m; sourceTree = "<group>"; };
-		5E6343D71C10E09D00042AB4 /* InfColorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorIndicatorView.h; sourceTree = "<group>"; };
-		5E6343D81C10E09D00042AB4 /* InfColorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorIndicatorView.m; sourceTree = "<group>"; };
-		5E6343D91C10E09D00042AB4 /* InfColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPicker.h; sourceTree = "<group>"; };
-		5E6343DA1C10E09D00042AB4 /* InfColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPickerController.h; sourceTree = "<group>"; };
-		5E6343DB1C10E09D00042AB4 /* InfColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorPickerController.m; sourceTree = "<group>"; };
-		5E6343DC1C10E09D00042AB4 /* InfColorPickerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPickerNavigationController.h; sourceTree = "<group>"; };
-		5E6343DD1C10E09D00042AB4 /* InfColorPickerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorPickerNavigationController.m; sourceTree = "<group>"; };
-		5E6343DE1C10E09D00042AB4 /* InfColorPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfColorPickerView.xib; sourceTree = "<group>"; };
-		5E6343DF1C10E09D00042AB4 /* InfColorSquarePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorSquarePicker.h; sourceTree = "<group>"; };
-		5E6343E01C10E09D00042AB4 /* InfColorSquarePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorSquarePicker.m; sourceTree = "<group>"; };
-		5E6343E11C10E09D00042AB4 /* InfHSBSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfHSBSupport.h; sourceTree = "<group>"; };
-		5E6343E21C10E09D00042AB4 /* InfHSBSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfHSBSupport.m; sourceTree = "<group>"; };
-		5E6343E31C10E09D00042AB4 /* InfSourceColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfSourceColorView.h; sourceTree = "<group>"; };
-		5E6343E41C10E09D00042AB4 /* InfSourceColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfSourceColorView.m; sourceTree = "<group>"; };
-		5E6343E51C10E09D00042AB4 /* InfColorPicker.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = InfColorPicker.xcworkspace; sourceTree = "<group>"; };
-		5E6343E61C10E09D00042AB4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		5E6344041C10E09D00042AB4 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		5E6345D71C1111C900042AB4 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
+		5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorBarPicker.m; sourceTree = "<group>"; };
+		5E6345D91C1111C900042AB4 /* InfColorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorIndicatorView.h; sourceTree = "<group>"; };
+		5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorIndicatorView.m; sourceTree = "<group>"; };
+		5E63470E1C1111C900042AB4 /* InfColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPicker.h; sourceTree = "<group>"; };
+		5E63470F1C1111C900042AB4 /* InfColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPickerController.h; sourceTree = "<group>"; };
+		5E6347101C1111C900042AB4 /* InfColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorPickerController.m; sourceTree = "<group>"; };
+		5E6347111C1111C900042AB4 /* InfColorPickerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPickerNavigationController.h; sourceTree = "<group>"; };
+		5E6347121C1111C900042AB4 /* InfColorPickerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorPickerNavigationController.m; sourceTree = "<group>"; };
+		5E6347131C1111C900042AB4 /* InfColorPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfColorPickerView.xib; sourceTree = "<group>"; };
+		5E6347141C1111C900042AB4 /* InfColorSquarePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorSquarePicker.h; sourceTree = "<group>"; };
+		5E6347151C1111C900042AB4 /* InfColorSquarePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorSquarePicker.m; sourceTree = "<group>"; };
+		5E6347161C1111C900042AB4 /* InfHSBSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfHSBSupport.h; sourceTree = "<group>"; };
+		5E6347171C1111C900042AB4 /* InfHSBSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfHSBSupport.m; sourceTree = "<group>"; };
+		5E6347181C1111C900042AB4 /* InfSourceColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfSourceColorView.h; sourceTree = "<group>"; };
+		5E6347191C1111C900042AB4 /* InfSourceColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfSourceColorView.m; sourceTree = "<group>"; };
+		5E63471A1C1111C900042AB4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTTMessageModel.h; sourceTree = "<group>"; };
 		5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTTMessageModel.m; sourceTree = "<group>"; };
 		5EEC28FF1BFFAA6F00BA43FB /* UILabel+Clipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Clipboard.h"; sourceTree = "<group>"; };
@@ -2684,7 +2678,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5E6343D21C10E09D00042AB4 /* InfColorPicker */,
+				5E6345D61C1111C900042AB4 /* InfColorPicker */,
 				5EE6CDAD1BFE1FDF005CA879 /* RTT */,
 				5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */,
 				5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */,
@@ -3069,37 +3063,26 @@
 			path = 2x;
 			sourceTree = "<group>";
 		};
-		5E6343D21C10E09D00042AB4 /* InfColorPicker */ = {
+		5E6345D61C1111C900042AB4 /* InfColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				5E6343D31C10E09D00042AB4 /* .gitignore */,
-				5E6343D41C10E09D00042AB4 /* InfColorPicker */,
-				5E6343E51C10E09D00042AB4 /* InfColorPicker.xcworkspace */,
-				5E6343E61C10E09D00042AB4 /* LICENSE.txt */,
-				5E6344041C10E09D00042AB4 /* README.markdown */,
-			);
-			path = InfColorPicker;
-			sourceTree = "<group>";
-		};
-		5E6343D41C10E09D00042AB4 /* InfColorPicker */ = {
-			isa = PBXGroup;
-			children = (
-				5E6343D51C10E09D00042AB4 /* InfColorBarPicker.h */,
-				5E6343D61C10E09D00042AB4 /* InfColorBarPicker.m */,
-				5E6343D71C10E09D00042AB4 /* InfColorIndicatorView.h */,
-				5E6343D81C10E09D00042AB4 /* InfColorIndicatorView.m */,
-				5E6343D91C10E09D00042AB4 /* InfColorPicker.h */,
-				5E6343DA1C10E09D00042AB4 /* InfColorPickerController.h */,
-				5E6343DB1C10E09D00042AB4 /* InfColorPickerController.m */,
-				5E6343DC1C10E09D00042AB4 /* InfColorPickerNavigationController.h */,
-				5E6343DD1C10E09D00042AB4 /* InfColorPickerNavigationController.m */,
-				5E6343DE1C10E09D00042AB4 /* InfColorPickerView.xib */,
-				5E6343DF1C10E09D00042AB4 /* InfColorSquarePicker.h */,
-				5E6343E01C10E09D00042AB4 /* InfColorSquarePicker.m */,
-				5E6343E11C10E09D00042AB4 /* InfHSBSupport.h */,
-				5E6343E21C10E09D00042AB4 /* InfHSBSupport.m */,
-				5E6343E31C10E09D00042AB4 /* InfSourceColorView.h */,
-				5E6343E41C10E09D00042AB4 /* InfSourceColorView.m */,
+				5E6345D71C1111C900042AB4 /* InfColorBarPicker.h */,
+				5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */,
+				5E6345D91C1111C900042AB4 /* InfColorIndicatorView.h */,
+				5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */,
+				5E63470E1C1111C900042AB4 /* InfColorPicker.h */,
+				5E63470F1C1111C900042AB4 /* InfColorPickerController.h */,
+				5E6347101C1111C900042AB4 /* InfColorPickerController.m */,
+				5E6347111C1111C900042AB4 /* InfColorPickerNavigationController.h */,
+				5E6347121C1111C900042AB4 /* InfColorPickerNavigationController.m */,
+				5E6347131C1111C900042AB4 /* InfColorPickerView.xib */,
+				5E6347141C1111C900042AB4 /* InfColorSquarePicker.h */,
+				5E6347151C1111C900042AB4 /* InfColorSquarePicker.m */,
+				5E6347161C1111C900042AB4 /* InfHSBSupport.h */,
+				5E6347171C1111C900042AB4 /* InfHSBSupport.m */,
+				5E6347181C1111C900042AB4 /* InfSourceColorView.h */,
+				5E6347191C1111C900042AB4 /* InfSourceColorView.m */,
+				5E63471A1C1111C900042AB4 /* LICENSE.txt */,
 			);
 			path = InfColorPicker;
 			sourceTree = "<group>";
@@ -4637,6 +4620,7 @@
 				50B006CF1BA09C79002C5723 /* chat_edit_default.png in Resources */,
 				50B0084F1BA09C79002C5723 /* video_on_disabled_landscape.png in Resources */,
 				50B007D81BA09C79002C5723 /* route_phone_off_disabled_landscape.png in Resources */,
+				5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */,
 				63D268101B174A5E00A2CC11 /* numpad_one_voicemail_over.png in Resources */,
 				50B007D21BA09C79002C5723 /* route_bluetooth_off_over_landscape.png in Resources */,
 				D38327F31580FE3A00FA0D23 /* contacts_default.png in Resources */,
@@ -4714,7 +4698,6 @@
 				D3F83F581582223B00336684 /* numpad_five_default.png in Resources */,
 				D3F83F5A1582223B00336684 /* numpad_five_over.png in Resources */,
 				D3F83F5C1582223B00336684 /* numpad_six_default.png in Resources */,
-				5E6344051C10E09D00042AB4 /* .gitignore in Resources */,
 				4A2BABA61BC50EAE00640476 /* keyIcon@2x.png in Resources */,
 				50B0078E1BA09C79002C5723 /* numpad_star_default.png in Resources */,
 				636316D91A1DECC90009B839 /* PhoneMainView.xib in Resources */,
@@ -5021,7 +5004,6 @@
 				D3C31A4E15BD8DED008ED271 /* options_add_default_landscape.png in Resources */,
 				D3C31A5215BD8DED008ED271 /* options_add_over_landscape.png in Resources */,
 				D3C31A5415BD8DED008ED271 /* options_default_landscape.png in Resources */,
-				5E63440E1C10E09D00042AB4 /* InfColorPicker.xcworkspace in Resources */,
 				50B008051BA09C79002C5723 /* setup_cancel_default~ipad.png in Resources */,
 				50B007251BA09C79002C5723 /* dialer_alt_over_landscape~ipad.png in Resources */,
 				50B007301BA09C79002C5723 /* form_invalid.png in Resources */,
@@ -5086,7 +5068,7 @@
 				D3A74EFE15C69392001500B9 /* history_over_landscape~ipad.png in Resources */,
 				D3A74F0015C69392001500B9 /* history_over~ipad.png in Resources */,
 				D3A74F0215C69392001500B9 /* history_selected_landscape~ipad.png in Resources */,
-				5E63440A1C10E09D00042AB4 /* InfColorPickerView.xib in Resources */,
+				5E63479A1C1111C900042AB4 /* InfColorPickerView.xib in Resources */,
 				50B007B11BA09C79002C5723 /* options_selected~ipad.png in Resources */,
 				50B007DD1BA09C79002C5723 /* route_phone_on_default.png in Resources */,
 				50B007CD1BA09C79002C5723 /* pause_on_over~ipad.png in Resources */,
@@ -5107,7 +5089,6 @@
 				50B007E21BA09C79002C5723 /* route_speaker_off_over_landscape.png in Resources */,
 				D3A74F2A15C69392001500B9 /* pause_on_default~ipad.png in Resources */,
 				50B006B91BA09C79002C5723 /* callbar_left_padding.png in Resources */,
-				5E63440F1C10E09D00042AB4 /* LICENSE.txt in Resources */,
 				F0C1F9111A28781F009402C9 /* corner-left-top.png in Resources */,
 				CEFB669E1BFF4710001797B3 /* provider2@2x.png in Resources */,
 				73400CB31BAF8628002C358D /* resources_default~ipad.png in Resources */,
@@ -5325,20 +5306,22 @@
 				2214EB7A12F846B1002A5394 /* UICallButton.m in Sources */,
 				2214EB8912F84EBB002A5394 /* UIHangUpButton.m in Sources */,
 				630CF5571AF7CE1500539F7A /* UITextField+DoneButton.m in Sources */,
+				5E63479B1C1111C900042AB4 /* InfColorSquarePicker.m in Sources */,
 				2214EBF312F86360002A5394 /* UIMicroButton.m in Sources */,
 				22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */,
 				2218A92512FBE1340088A667 /* FirstLoginViewController.m in Sources */,
 				22C755601317E59C007BC101 /* UIBluetoothButton.m in Sources */,
 				22BB1A69132FF16A005CD7AA /* UIEraseButton.m in Sources */,
 				22AA8B0113D83F6300B30535 /* UICamSwitch.m in Sources */,
+				5E6347991C1111C900042AB4 /* InfColorPickerNavigationController.m in Sources */,
 				340751E7150F38FD00B89C47 /* UIVideoButton.m in Sources */,
 				34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */,
-				5E6344081C10E09D00042AB4 /* InfColorPickerController.m in Sources */,
 				D3F83EEC1582021700336684 /* InCallViewController.m in Sources */,
 				D3F83F8E15822ABE00336684 /* PhoneMainView.m in Sources */,
 				D3ED3E871586291E006C0DE4 /* UIMainBar.m in Sources */,
 				D3ED3EA71587334E006C0DE4 /* HistoryTableViewController.m in Sources */,
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
+				5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
 				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
@@ -5366,7 +5349,6 @@
 				D3F26BF115986B73005F9CAB /* IncomingCallViewController.m in Sources */,
 				D31B4B21159876C0002E6C72 /* UICompositeViewController.m in Sources */,
 				D31AAF5E159B3919002C6B02 /* InCallTableViewController.m in Sources */,
-				5E63441D1C10E09D00042AB4 /* README.markdown in Sources */,
 				D3211BB0159C4EF10098460B /* UIConferenceHeader.m in Sources */,
 				D32460E6159D9AAD00BA7F3A /* UITransparentView.m in Sources */,
 				D32B9DFC15A2F131000B6DEC /* FastAddressBook.m in Sources */,
@@ -5382,6 +5364,7 @@
 				5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */,
 				63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */,
 				D3C6526715AC1A8F0092A874 /* UIEditableTableViewCell.m in Sources */,
+				5E63479D1C1111C900042AB4 /* InfSourceColorView.m in Sources */,
 				D378906515AC373B00BD776C /* ContactDetailsLabelViewController.m in Sources */,
 				D3E8F68615ADE05B0065A226 /* UIContactDetailsFooter.m in Sources */,
 				C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */,
@@ -5389,7 +5372,7 @@
 				F066515517F9A02E0064280C /* UITransparentTVCell.m in Sources */,
 				D3F9A9EE15AF277E0045320F /* UACellBackgroundView.m in Sources */,
 				D35860D615B549B500513429 /* Utils.m in Sources */,
-				5E6344061C10E09D00042AB4 /* InfColorBarPicker.m in Sources */,
+				5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */,
 				D3F7998115BD32370018C273 /* TPMultiLayoutViewController.m in Sources */,
 				D3807FBF15C28940005BE9BC /* DCRoundSwitch.m in Sources */,
 				D3807FC115C28940005BE9BC /* DCRoundSwitchKnobLayer.m in Sources */,
@@ -5404,17 +5387,15 @@
 				D3807FF015C2894A005BE9BC /* IASKSettingsStore.m in Sources */,
 				D3807FF215C2894A005BE9BC /* IASKSettingsStoreFile.m in Sources */,
 				D3807FF415C2894A005BE9BC /* IASKSettingsStoreUserDefaults.m in Sources */,
+				5E6347981C1111C900042AB4 /* InfColorPickerController.m in Sources */,
 				D3807FF615C2894A005BE9BC /* IASKSpecifier.m in Sources */,
-				5E63440C1C10E09D00042AB4 /* InfHSBSupport.m in Sources */,
 				D3807FF815C2894A005BE9BC /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				D3807FFA15C2894A005BE9BC /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				631C4FB719D2C3A6004BFE77 /* UIDigitButtonLongVoiceMail.m in Sources */,
 				D3807FFC15C2894A005BE9BC /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
-				5E63440B1C10E09D00042AB4 /* InfColorSquarePicker.m in Sources */,
-				5E6344071C10E09D00042AB4 /* InfColorIndicatorView.m in Sources */,
+				5E63471C1C1111C900042AB4 /* InfColorIndicatorView.m in Sources */,
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
-				5E63440D1C10E09D00042AB4 /* InfSourceColorView.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
 				5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */,
 				730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */,
@@ -5426,7 +5407,6 @@
 				D3ED40191602172200BF332B /* HPGrowingTextView.m in Sources */,
 				D3ED401B1602172200BF332B /* HPTextViewInternal.m in Sources */,
 				D37EE162160377D7003608A6 /* DTActionSheet.m in Sources */,
-				5E6344091C10E09D00042AB4 /* InfColorPickerNavigationController.m in Sources */,
 				D35E91F4160CA10B0023116B /* UILinphoneTextField.m in Sources */,
 				D35E91F8160CA4FF0023116B /* UILinphoneButton.m in Sources */,
 				D306459E1611EC2A00BB571E /* UILoadingImageView.m in Sources */,

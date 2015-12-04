@@ -31,7 +31,7 @@
 #import "IASKSpecifier.h"
 #import "IASKTextField.h"
 #include "linphone/lpconfig.h"
-#import "InfColorPicker/InfColorPicker/InfColorPickerController.h"
+#import "InfColorPicker/InfColorPickerController.h"
 #import "DTAlertView.h"
 
 #ifdef DEBUG

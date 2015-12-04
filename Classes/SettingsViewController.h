@@ -18,7 +18,7 @@
  */ 
 
 #import <UIKit/UIKit.h>
-#import "InfColorPicker/InfColorPicker/InfColorPickerController.h"
+#import "InfColorPicker/InfColorPickerController.h"
 #import "UICompositeViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "LinphoneCoreSettingsStore.h"
