@@ -10,7 +10,8 @@
                 <outlet property="callTableController" destination="162" id="167"/>
                 <outlet property="callTableView" destination="106" id="109"/>
                 <outlet property="closeChatButton" destination="Cme-el-g5i" id="SAG-Zv-Tau"/>
-                <outlet property="incomingTextField" destination="TLK-dm-qxV" id="VEC-2B-xdE"/>
+                <outlet property="incomingTextView" destination="Nfp-G3-oLm" id="N2q-z6-1lz"/>
+                <outlet property="minimizedTextScrollView" destination="lWv-LR-9pt" id="kTQ-FD-pmA"/>
                 <outlet property="videoCameraSwitch" destination="160" id="161"/>
                 <outlet property="videoGroup" destination="126" id="129"/>
                 <outlet property="videoPreview" destination="127" id="130"/>
@@ -44,7 +45,7 @@
                             </accessibility>
                         </view>
                         <view contentMode="scaleAspectFit" id="127" userLabel="preview">
-                            <rect key="frame" x="216.00000029802322" y="323.99999990900125" width="96" height="128"/>
+                            <rect key="frame" x="216" y="323.99999974627764" width="96" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -85,25 +86,29 @@
                         <outlet property="preview" destination="127" id="172"/>
                     </connections>
                 </button>
+                <scrollView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" directionalLockEnabled="YES" id="lWv-LR-9pt">
+                    <rect key="frame" x="8" y="317" width="304" height="72"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                    <subviews>
+                        <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" id="Nfp-G3-oLm">
+                            <rect key="frame" x="0.0" y="0.0" width="304" height="72"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="27"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                </scrollView>
                 <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cme-el-g5i">
-                    <rect key="frame" x="8" y="281" width="49" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <rect key="frame" x="8" y="273" width="72" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="X"/>
                     <connections>
                         <action selector="onCloseChatButton:" destination="-1" eventType="touchUpInside" id="AOF-vf-LgS"/>
                     </connections>
                 </button>
-                <label opaque="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TLK-dm-qxV">
-                    <rect key="frame" x="8" y="317" width="304" height="51"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
