@@ -143,6 +143,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     if(self.tableView){
         [self.tableView reloadData];
     }
+    self.isChatMode = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
