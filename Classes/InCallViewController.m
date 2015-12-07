@@ -785,8 +785,6 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             NSString * string = [NSString stringWithFormat:@"%C", (unichar)c];
             [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
         }
-        
-        linphone_chat_room_mark_as_read(room);
     }
 }
 
@@ -1045,10 +1043,6 @@ CGFloat delta;
         [super updateViewConstraints];
         [self.minimizedTextScrollView setScrollEnabled:YES];
         [self.minimizedTextScrollView setUserInteractionEnabled:YES];
-//        self.incomingTextField.numberOfLines = 0;
-//        self.incomingTextField.lineBreakMode = NSLineBreakByCharWrapping;
-//        self.incomingTextField.textAlignment = NSTextAlignmentLeft;
-//        self.incomingTextField.preferredMaxLayoutWidth = self.view.bounds.size.width;
 }
 
 #pragma mark Singleton
