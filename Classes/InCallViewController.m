@@ -984,8 +984,6 @@ BOOL didChatResize = NO;
 }
 
 #pragma mark UITableView Methods
-
-
 - (void)loadRTTChatTableView
 {
     CGFloat chat_margin = 10;
@@ -998,7 +996,7 @@ BOOL didChatResize = NO;
     
     [self.view addSubview:self.tableView];
     
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth; //| UIViewAutoresizingFlexibleHeight;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -1071,8 +1069,6 @@ BOOL didChatResize = NO;
     cell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(cell.frame);
 
     cell.backgroundColor = msg.color;
-//    cell.alpha = 0.6;
-    
     cell.userInteractionEnabled = YES;
     [cell canBecomeFirstResponder];
 
