@@ -31,7 +31,7 @@
 #import "IASKSpecifier.h"
 #import "IASKTextField.h"
 #include "linphone/lpconfig.h"
-
+#import "InfColorPicker/InfColorPickerController.h"
 #import "DTAlertView.h"
 
 #ifdef DEBUG
@@ -531,6 +531,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"max_download_preference" compare:notif.object] == NSOrderedSame){
         linphone_core_set_download_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_download_preference"] intValue]);
     }
+    else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
+        BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
+        linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
+    }
+
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
@@ -541,6 +546,36 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	[settingsController setHiddenKeys:hiddenKeys animated:TRUE];
 }
+
+- (void) changeColor: (NSString*) pref
+    {
+        InfColorPickerController* picker = [ InfColorPickerController colorPickerViewController ];
+    
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:pref];
+        UIColor *color;
+        NSString *title = ([pref isEqualToString:@"foreground_color_preference"]) ? @"Foreground Color" : @"Background Color";
+        if(colorData){
+            color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        }
+        else{
+            color = [UIColor blueColor];
+        }
+        picker.sourceColor = color;
+
+        [picker setTitle: title];
+        picker.delegate = self;
+        
+        [ picker presentModallyOverViewController: self ];
+    }
+             
+- (void) colorPickerControllerDidFinish: (InfColorPickerController*) picker
+    {
+        NSString *key = ([picker.title isEqualToString:@"Foreground Color"]) ? @"foreground_color_preference" : @"background_color_preference";
+         NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:picker.resultColor];
+        [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
+        
+        [ self dismissViewControllerAnimated:YES completion:nil];
+    }
 
 #pragma mark -
 
@@ -617,7 +652,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[hiddenKeys addObject:@"incoming_call_timeout_preference"];
 	[hiddenKeys addObject:@"in_call_timeout_preference"];
 
-	[hiddenKeys addObject:@"wifi_only_preference"];
+	//[hiddenKeys addObject:@"wifi_only_preference"];
 
 	[hiddenKeys addObject:@"quit_button"];  // Hide for the moment
 	[hiddenKeys addObject:@"about_button"]; // Hide for the moment
@@ -777,7 +812,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[[PhoneMainView instance] changeCurrentView:[AboutViewController compositeViewDescription] push:TRUE];
 	} else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();
-	} else if ([key isEqual:@"send_logs_button"]) {
+	}
+    else if([key isEqualToString:@"foreground_color_preference"]){
+        [self changeColor: @"foreground_color_preference"];
+    }
+    else if([key isEqualToString:@"background_color_preference"]){
+        [self changeColor: @"background_color_preference"];
+    }
+    else if ([key isEqual:@"send_logs_button"]) {
 		NSString *message;
 
 		if ([LinphoneManager.instance lpConfigBoolForKey:@"send_logs_include_linphonerc_and_chathistory"]) {
@@ -804,6 +846,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 							}];
 		[alert show];
 	}
+    
 }
 
 #pragma mark - UIAlertView delegate
