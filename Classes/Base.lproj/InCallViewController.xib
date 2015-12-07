@@ -45,7 +45,7 @@
                             </accessibility>
                         </view>
                         <view contentMode="scaleAspectFit" id="127" userLabel="preview">
-                            <rect key="frame" x="216.00000029802322" y="323.99999971198457" width="96" height="128"/>
+                            <rect key="frame" x="216" y="323.99999967708459" width="96" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -87,11 +87,11 @@
                     </connections>
                 </button>
                 <scrollView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" directionalLockEnabled="YES" id="lWv-LR-9pt">
-                    <rect key="frame" x="8" y="317" width="304.00000029802322" height="72"/>
+                    <rect key="frame" x="8" y="317" width="304" height="71.999999284744263"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" id="Nfp-G3-oLm">
-                            <rect key="frame" x="0.0" y="0.0" width="304.00000029802322" height="72"/>
+                            <rect key="frame" x="0.0" y="0.0" width="304" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="27"/>
