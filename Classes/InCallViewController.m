@@ -672,7 +672,15 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    }
+}
+
+-(void) showCurrentRemoteTextBuffer{
+    if(self.tableView && self.chatEntries){
+        NSUInteger indexArr[] = {self.remoteTextBufferIndex, 0};
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 }
 
@@ -680,7 +688,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.localTextBufferIndex, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 
 }
@@ -868,7 +876,7 @@ NSMutableString *msgBuffer;
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
-            [self showLatestMessage];
+            [self showCurrentRemoteTextBuffer];
             [self insertTextIntoMinimizedTextBuffer:text];
         
     }
@@ -929,9 +937,9 @@ BOOL didChatResize = NO;
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
+    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
 
     if(self.chatEntries.count > 1){
-        chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
         [self.tableView setCenter:chat_center];
         didChatResize = YES;
     }
@@ -955,9 +963,9 @@ BOOL didChatResize = NO;
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-
+    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y + chat_delta);
+    
     if(self.chatEntries.count > 1 && didChatResize){
-        chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
         [self.tableView setCenter:chat_center];
         didChatResize = NO;
     }
@@ -1069,6 +1077,19 @@ BOOL didChatResize = NO;
     [cell canBecomeFirstResponder];
 
     return cell;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if(decelerate) return;
+    
+    [self scrollViewDidEndDecelerating:scrollView];
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UITableView *)tableView {
+    
+    [tableView scrollToRowAtIndexPath:[tableView indexPathForRowAtPoint: CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y+tableView.rowHeight/2)] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void)updateViewConstraints {
