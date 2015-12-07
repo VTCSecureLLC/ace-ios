@@ -696,7 +696,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 #pragma mark Outgoing Text Logic
 -(void)createNewLocalChatBuffer: (NSString*) text {
     self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
-    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0 blue:150 alpha:0.6];
+    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8];
     self.localColor = self.localTextBuffer.color;
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
@@ -986,12 +986,12 @@ BOOL didChatResize = NO;
 #pragma mark UITableView Methods
 - (void)loadRTTChatTableView
 {
-    CGFloat chat_margin = 10;
+  //  CGFloat chat_margin = 10;
     CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
-    chatSize.origin.x += chat_margin;
+//    chatSize.origin.x += chat_margin;
     chatSize.size.height /= 2;
-    chatSize.size.width = self.view.frame.size.width - chat_margin * 2;
     self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
+    [self.tableView setCenter:self.view.center];
     self.chatEntries = [[NSMutableArray alloc] init];
     
     [self.view addSubview:self.tableView];
@@ -1051,7 +1051,7 @@ BOOL didChatResize = NO;
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.userInteractionEnabled = YES;
     cell.textLabel.numberOfLines = 0;
-
+    
     if([msg.color isEqual:self.localColor]){
         cell.textLabel.textAlignment = NSTextAlignmentRight;
     }
@@ -1071,7 +1071,11 @@ BOOL didChatResize = NO;
     cell.backgroundColor = msg.color;
     cell.userInteractionEnabled = YES;
     [cell canBecomeFirstResponder];
-
+    
+    cell.layer.cornerRadius = 20.0f;
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.opacity = self.tableView.alpha;
+    cell.layer.borderColor = [[UIColor blackColor] CGColor];
     return cell;
 }
 
