@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IncomingCallViewController">
             <connections>
                 <outlet property="addressLabel" destination="9" id="14"/>
                 <outlet property="avatarImage" destination="19" id="20"/>
+                <outlet property="flashingView" destination="8" id="Qfy-To-E9E"/>
                 <outlet property="portraitView" destination="25" id="32"/>
                 <outlet property="ringCountLabel" destination="nJ6-yM-cua" id="6J3-gp-GTY"/>
                 <outlet property="ringLabel" destination="TgV-YV-Wbp" id="WKM-8a-nh8"/>
@@ -20,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view tag="1" contentMode="scaleToFill" id="8">
+                <view opaque="NO" alpha="0.90000000000000002" tag="1" contentMode="scaleToFill" id="8">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -51,8 +52,8 @@
                             <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" image="avatar_shadow.png" id="18" userLabel="avatarShadowImage">
-                            <rect key="frame" x="0.0" y="96" width="320" height="262"/>
+                        <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" tag="6" contentMode="scaleToFill" image="avatar_shadow.png" id="18" userLabel="avatarShadowImage">
+                            <rect key="frame" x="0.0" y="96" width="320" height="434"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         </imageView>
@@ -64,17 +65,17 @@
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ringing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TgV-YV-Wbp">
-                            <rect key="frame" x="97" y="280" width="143" height="41"/>
+                        <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="nJ6-yM-cua" userLabel="ringCountLabel">
+                            <rect key="frame" x="121" y="329" width="79" height="58"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="65"/>
                             <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nJ6-yM-cua" userLabel="ringCountLabel">
-                            <rect key="frame" x="124" y="329" width="73" height="58"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="65"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ringing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TgV-YV-Wbp">
+                            <rect key="frame" x="89" y="280" width="143" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="33"/>
                             <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
