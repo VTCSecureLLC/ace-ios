@@ -672,7 +672,15 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    }
+}
+
+-(void) showCurrentRemoteTextBuffer{
+    if(self.tableView && self.chatEntries){
+        NSUInteger indexArr[] = {self.remoteTextBufferIndex, 0};
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 }
 
@@ -680,7 +688,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.localTextBufferIndex, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 
 }
@@ -868,7 +876,7 @@ NSMutableString *msgBuffer;
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
-            [self showLatestMessage];
+            [self showCurrentRemoteTextBuffer];
             [self insertTextIntoMinimizedTextBuffer:text];
         
     }
@@ -915,13 +923,27 @@ NSMutableString *minimizedTextBuffer;
 }
 
 CGRect keyboardFrame;
-CGFloat delta;
+CGFloat remote_video_delta;
+CGFloat chat_delta;
+CGPoint chat_center;
+BOOL didChatResize = NO;
 - (void)keyboardWillShow:(NSNotification *)notification {
     keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardPos = keyboardFrame.origin.y;
-    delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
-    CGPoint center = CGPointMake(self.videoView.center.x, self.videoView.center.y - delta);
-    [self.videoView setCenter:center];
+    
+    remote_video_delta = (self.videoView.frame.origin.y +
+                          self.videoView.frame.size.height) - keyboardPos;
+    chat_delta = (self.tableView.frame.origin.y + self.tableView.frame.size.height) - keyboardPos;
+    
+    CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
+    [self.videoView setCenter:remote_video_center];
+    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
+
+    if(self.chatEntries.count > 1){
+        [self.tableView setCenter:chat_center];
+        didChatResize = YES;
+    }
+    
     self.incomingTextView.text = @"";
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
@@ -934,9 +956,20 @@ CGFloat delta;
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
     keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardPos = keyboardFrame.origin.y;
-    delta = (self.videoView.frame.origin.y + self.videoView.frame.size.height) - keyboardPos;
-    CGPoint center = CGPointMake(self.videoView.center.x, self.videoView.center.y - delta);
-    [self.videoView setCenter:center];
+    remote_video_delta = (self.videoView.frame.origin.y +
+                          self.videoView.frame.size.height) - keyboardPos;
+    chat_delta = (self.tableView.frame.origin.y +
+                  self.tableView.frame.size.height) - keyboardPos;
+    
+    CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
+    [self.videoView setCenter:remote_video_center];
+    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y + chat_delta);
+    
+    if(self.chatEntries.count > 1 && didChatResize){
+        [self.tableView setCenter:chat_center];
+        didChatResize = NO;
+    }
+
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
  
@@ -951,31 +984,35 @@ CGFloat delta;
 }
 
 #pragma mark UITableView Methods
-
 - (void)loadRTTChatTableView
 {
+    CGFloat chat_margin = 10;
     CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
-    chatSize.size.height /= 3;
-    chatSize.size.width = self.view.frame.size.width;
+    chatSize.origin.x += chat_margin;
+    chatSize.size.height /= 2;
+    chatSize.size.width = self.view.frame.size.width - chat_margin * 2;
     self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
     self.chatEntries = [[NSMutableArray alloc] init];
     
     [self.view addSubview:self.tableView];
     
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView reloadData];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.alpha = 0.7;
+    [self.tableView setScrollEnabled:YES];
+    [self.tableView setPagingEnabled:YES];
     [self.tableView setHidden:YES];
   
     self.isChatMode = NO;
 
     RTT_MAX_PARAGRAPH_CHAR = 250;
     RTT_SOFT_MAX_PARAGRAPH_CHAR = 200;
+    
+    [self.tableView reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -997,14 +1034,10 @@ CGFloat delta;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
-    if(msg.attrMsgString){
-            return [self textViewHeightForAttributedText:msg.attrMsgString andWidth:self.tableView.frame.size.width];
-    }
-
-
-    return [UIFont systemFontSize];
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame), CGFLOAT_MAX);
+    CGSize requiredSize = [cell.textLabel sizeThatFits:maxSize];
+    return requiredSize.height;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
@@ -1031,13 +1064,28 @@ CGFloat delta;
     
     ((RTTMessageModel*)[self.chatEntries objectAtIndex:indexPath.section]).attrMsgString = cell.textLabel.attributedText;
     
-    cell.backgroundColor = msg.color;
-    cell.alpha = 0.6;
+    [cell layoutIfNeeded];
+    [cell.contentView layoutIfNeeded];
+    cell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(cell.frame);
 
+    cell.backgroundColor = msg.color;
     cell.userInteractionEnabled = YES;
     [cell canBecomeFirstResponder];
 
     return cell;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if(decelerate) return;
+    
+    [self scrollViewDidEndDecelerating:scrollView];
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UITableView *)tableView {
+    
+    [tableView scrollToRowAtIndexPath:[tableView indexPathForRowAtPoint: CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y+tableView.rowHeight/2)] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void)updateViewConstraints {
