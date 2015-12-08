@@ -937,12 +937,12 @@ BOOL didChatResize = NO;
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
+//    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
+//
+//
+//        [self.tableView setCenter:chat_center];
+//        didChatResize = YES;
 
-    if(self.chatEntries.count > 1){
-        [self.tableView setCenter:chat_center];
-        didChatResize = YES;
-    }
     
     self.incomingTextView.text = @"";
     [self.incomingTextView setHidden:YES];
@@ -958,17 +958,17 @@ BOOL didChatResize = NO;
     CGFloat keyboardPos = keyboardFrame.origin.y;
     remote_video_delta = (self.videoView.frame.origin.y +
                           self.videoView.frame.size.height) - keyboardPos;
-    chat_delta = (self.tableView.frame.origin.y +
-                  self.tableView.frame.size.height) - keyboardPos;
+//    chat_delta = (self.tableView.frame.origin.y +
+//                  self.tableView.frame.size.height) - keyboardPos;
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y + chat_delta);
-    
-    if(self.chatEntries.count > 1 && didChatResize){
-        [self.tableView setCenter:chat_center];
-        didChatResize = NO;
-    }
+//    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y + chat_delta);
+//    
+//    if(didChatResize){
+//        [self.tableView setCenter:chat_center];
+//        didChatResize = NO;
+//    }
 
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
@@ -988,10 +988,14 @@ BOOL didChatResize = NO;
 {
   //  CGFloat chat_margin = 10;
     CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
-//    chatSize.origin.x += chat_margin;
-    chatSize.size.height /= 2;
+    chatSize.size.width -= chatSize.size.width / 5;
+    chatSize.size.height /= 3;
+    
     self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
-    [self.tableView setCenter:self.view.center];
+    
+    CGPoint chatCenter = CGPointMake(self.view.center.x, self.view.frame.origin.y + self.view.frame.size.height / 3);
+    [self.tableView setCenter:chatCenter];
+
     self.chatEntries = [[NSMutableArray alloc] init];
     
     [self.view addSubview:self.tableView];
