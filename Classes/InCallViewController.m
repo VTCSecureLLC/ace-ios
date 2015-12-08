@@ -141,7 +141,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     self.remoteTextBuffer = nil;
     minimizedTextBuffer = nil;
     if(self.tableView){
-        [self.tableView reloadData];
+        [self.tableView setHidden:YES];
     }
     self.isChatMode = NO;
 }
@@ -963,6 +963,7 @@ BOOL didChatResize = NO;
     self.isChatMode = YES;
     [self.tableView setHidden:NO];
     [self hideControls:self];
+    [self.tableView reloadData];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
@@ -1018,8 +1019,6 @@ BOOL didChatResize = NO;
 
     RTT_MAX_PARAGRAPH_CHAR = 250;
     RTT_SOFT_MAX_PARAGRAPH_CHAR = 200;
-    
-    [self.tableView reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -1058,13 +1057,7 @@ BOOL didChatResize = NO;
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.userInteractionEnabled = YES;
     cell.textLabel.numberOfLines = 0;
-    
-    if([msg.color isEqual:self.localColor]){
-        cell.textLabel.textAlignment = NSTextAlignmentRight;
-    }
-    else{
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    }
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [cell.textLabel enableClipboard:YES];
     [cell.textLabel canBecomeFirstResponder];
