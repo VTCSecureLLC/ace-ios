@@ -217,7 +217,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)update {
-
 	[self view]; // Force view load
 
 	[avatarImage setImage:[UIImage imageNamed:@"avatar_unknown.png"]];
