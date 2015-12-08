@@ -1039,7 +1039,7 @@ BOOL didChatResize = NO;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame), CGFLOAT_MAX);
+    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame) / 2, CGFLOAT_MAX);
     CGSize requiredSize = [cell.textLabel sizeThatFits:maxSize];
     return requiredSize.height;
 }
