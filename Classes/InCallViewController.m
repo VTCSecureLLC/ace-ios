@@ -398,7 +398,7 @@ BOOL isTabBarShown = NO;
 	}
     
     else if(isTabBarShown){
-        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:1
                                                              target:self
                                                            selector:@selector(hideControls:)
                                                            userInfo:nil
