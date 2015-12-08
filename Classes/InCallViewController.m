@@ -825,7 +825,8 @@ NSMutableString *msgBuffer;
                                 [self.closeChatButton setHidden:NO];
 
                                 if(!msgBuffer){
-                                        msgBuffer = [[NSMutableString alloc] init];
+                                    msgBuffer = [[NSMutableString alloc] initWithString:@""];
+                                    [self.incomingTextView setText:msgBuffer];
                                 }
                             }
             
@@ -893,6 +894,12 @@ NSMutableString *msgBuffer;
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             [self.tableView reloadData];
             [self showLatestMessage];
+            if(!self.isChatMode && msgBuffer){
+                if (msgBuffer.length == 0)
+                    return;
+                [msgBuffer deleteCharactersInRange:NSMakeRange(msgBuffer.length -1,1)];
+                [self.incomingTextView setText:msgBuffer];
+            }
         }
     }
 }
@@ -911,14 +918,15 @@ NSMutableString *minimizedTextBuffer;
 - (IBAction)onCloseChatButton:(id)sender {
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
-    msgBuffer = [[NSMutableString alloc] init];
+    msgBuffer = [[NSMutableString alloc] initWithString:@""];
     [self.incomingTextView setText:msgBuffer];
 }
 
 -(void) openChatMessage: (UITapGestureRecognizer *)sender{
     if(!self.isFirstResponder){
         [self becomeFirstResponder];
-        msgBuffer = [[NSMutableString alloc] init];
+        msgBuffer = [[NSMutableString alloc] initWithString:@""];
+        [self.incomingTextView setText:msgBuffer];
     }
 }
 
