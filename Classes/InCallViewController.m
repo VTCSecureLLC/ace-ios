@@ -822,7 +822,7 @@ NSMutableString *msgBuffer;
 
 -(void) insertTextIntoMinimizedTextBuffer:(NSString*) text{
         if(!self.isChatMode){
-                if(![text isEqualToString:@"\n"] && ![text isEqualToString:@""]){
+                if(![text isEqualToString:@""]){
                         if([self.incomingTextView isHidden]){
                                 [self.closeChatButton setEnabled:YES];
 
