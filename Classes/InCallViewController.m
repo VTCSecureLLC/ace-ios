@@ -986,8 +986,7 @@ BOOL didChatResize = NO;
 #pragma mark UITableView Methods
 - (void)loadRTTChatTableView
 {
-  //  CGFloat chat_margin = 10;
-    CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
+    CGRect chatSize = self.view.frame;
     chatSize.size.width -= chatSize.size.width / 5;
     chatSize.size.height /= 3;
     
