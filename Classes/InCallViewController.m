@@ -700,9 +700,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     self.localColor = self.localTextBuffer.color;
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
-
-    [self.tableView reloadData];
-    [self showLatestMessage];
+    if(self.isChatMode){
+        [self.tableView reloadData];
+        [self showLatestMessage];
+    }
 }
 -(void) insertTextIntoBuffer :(NSString*) text{
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"]){
@@ -726,8 +727,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
             [self.localTextBuffer.msgString appendString: text];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+        if(self.isChatMode){
             [self.tableView reloadData];
             [self showCurrentLocalTextBuffer];
+        }
     }
 }
 -(void) backspaceInLocalBuffer{
@@ -739,8 +742,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         if(self.localTextBuffer.msgString.length > 0){
             [self.localTextBuffer removeLast];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
-            [self.tableView reloadData];
-            [self showLatestMessage];
+            if(self.isChatMode){
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
         }
     }
 }
@@ -848,9 +853,10 @@ NSMutableString *msgBuffer;
     self.remoteTextBufferIndex = (int)self.chatEntries.count;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
-    [self.tableView reloadData];
-    
-    [self showLatestMessage];
+    if(self.isChatMode){
+        [self.tableView reloadData];
+        [self showLatestMessage];
+    }
     [self insertTextIntoMinimizedTextBuffer:text];
 }
 -(void) insertTextIntoRemoteBuffer :(NSString*) text{
@@ -876,8 +882,10 @@ NSMutableString *msgBuffer;
 
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
-            [self.tableView reloadData];
-            [self showCurrentRemoteTextBuffer];
+            if(self.isChatMode){
+                [self.tableView reloadData];
+                [self showCurrentRemoteTextBuffer];
+            }
             [self insertTextIntoMinimizedTextBuffer:text];
         
     }
@@ -892,9 +900,11 @@ NSMutableString *msgBuffer;
         if(self.remoteTextBuffer.msgString.length > 0){
             [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
-            [self.tableView reloadData];
-            [self showLatestMessage];
-            if(!self.isChatMode && msgBuffer){
+            if(self.isChatMode){
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
+           else if(!self.isChatMode && msgBuffer){
                 if (msgBuffer.length == 0)
                     return;
                 [msgBuffer deleteCharactersInRange:NSMakeRange(msgBuffer.length -1,1)];
