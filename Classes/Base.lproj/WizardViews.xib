@@ -39,6 +39,7 @@
                 <outlet property="textFieldDomain" destination="iei-N7-fE8" id="4Sa-Zl-pUd"/>
                 <outlet property="textFieldPassword" destination="Rox-fw-ehE" id="9Ly-ZA-SjZ"/>
                 <outlet property="textFieldPort" destination="nkF-hH-kSy" id="FRK-u1-GXu"/>
+                <outlet property="textFieldUserId" destination="KcL-Pt-hqc" id="pvS-qw-O9X"/>
                 <outlet property="textFieldUsername" destination="xiq-7Y-M2O" id="Vuq-cR-ULy"/>
                 <outlet property="toggleAdvancedButton" destination="Bhr-FU-2s3" id="55B-fj-Vvk"/>
                 <outlet property="transportChooser" destination="Nrv-SM-lMf" id="7iR-aG-eQf"/>
@@ -181,20 +182,6 @@
                         <action selector="onSelectProviderClick:" destination="-1" eventType="touchUpInside" id="6qJ-gY-6eX"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AKH-yi-GFc">
-                    <rect key="frame" x="30" y="468" width="250" height="41"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <state key="normal" title="Login">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onLoginClick:" destination="-1" eventType="touchUpInside" id="H7h-q7-ktY"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="soc-mf-46x">
                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -215,7 +202,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Provider" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x87-iJ-Dzs">
-                    <rect key="frame" x="35" y="55" width="240" height="21"/>
+                    <rect key="frame" x="35" y="49" width="240" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -223,7 +210,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V4f-rp-XF4">
-                    <rect key="frame" x="35" y="132" width="250" height="21"/>
+                    <rect key="frame" x="35" y="127" width="250" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -231,19 +218,19 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="dUi-aa-9r2">
-                    <rect key="frame" x="35" y="142" width="94" height="1"/>
+                    <rect key="frame" x="35" y="137" width="94" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="iXP-hq-Mr1">
-                    <rect key="frame" x="191" y="142" width="94" height="1"/>
+                    <rect key="frame" x="191" y="137" width="94" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b45-KT-fcT">
-                    <rect key="frame" x="35" y="157" width="240" height="21"/>
+                    <rect key="frame" x="35" y="156" width="240" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -251,7 +238,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="BPk-Uc-B1r">
-                    <rect key="frame" x="35" y="187" width="250" height="41"/>
+                    <rect key="frame" x="35" y="185" width="250" height="41"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personIcon.png" id="dGv-vD-wzY">
@@ -273,7 +260,7 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" id="NXB-Fz-iQs">
-                    <rect key="frame" x="35" y="243" width="250" height="41"/>
+                    <rect key="frame" x="35" y="234" width="250" height="41"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="keyIcon.png" id="7qo-z3-NpX">
@@ -320,12 +307,20 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bhr-FU-2s3">
+                    <rect key="frame" x="132" y="283" width="46" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="+"/>
+                    <connections>
+                        <action selector="onToggleAdvanced:" destination="-1" eventType="touchUpInside" id="IEy-oA-KS4"/>
+                    </connections>
+                </button>
                 <view hidden="YES" contentMode="scaleToFill" id="rYQ-EI-hvy">
-                    <rect key="frame" x="35" y="332" width="250" height="128"/>
+                    <rect key="frame" x="35" y="312" width="250" height="165"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5060" borderStyle="line" placeholder="Password" minimumFontSize="17" id="nkF-hH-kSy">
-                            <rect key="frame" x="0.0" y="86" width="250" height="34"/>
+                            <rect key="frame" x="0.0" y="84" width="250" height="34"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -333,7 +328,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP" borderStyle="line" placeholder="Password" minimumFontSize="17" id="Bvc-jo-Cuc">
-                            <rect key="frame" x="0.0" y="44" width="250" height="34"/>
+                            <rect key="frame" x="0.0" y="42" width="250" height="34"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -347,15 +342,28 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="userid" borderStyle="line" placeholder="Password" minimumFontSize="17" id="KcL-Pt-hqc">
+                            <rect key="frame" x="0.0" y="126" width="250" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bhr-FU-2s3">
-                    <rect key="frame" x="132" y="292" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="+"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AKH-yi-GFc">
+                    <rect key="frame" x="35" y="476" width="250" height="35"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <state key="normal" title="Login">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <action selector="onToggleAdvanced:" destination="-1" eventType="touchUpInside" id="IEy-oA-KS4"/>
+                        <action selector="onLoginClick:" destination="-1" eventType="touchUpInside" id="H7h-q7-ktY"/>
                     </connections>
                 </button>
             </subviews>

@@ -1314,7 +1314,6 @@ static UICompositeViewDescription *compositeDescription = nil;
         transport = @"TCP";
     }
     
-    
     [self verificationSignInWithUsername:self.textFieldUsername.text
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text

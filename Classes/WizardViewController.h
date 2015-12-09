@@ -84,6 +84,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldDomain;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPort;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldUserId;
 
 @property (weak, nonatomic) IBOutlet UIView *advancedPanel;
 @property (weak, nonatomic) IBOutlet UIButton *toggleAdvancedButton;
