@@ -829,12 +829,10 @@ NSMutableString *msgBuffer;
                                 [self.incomingTextView setHidden:NO];
                                 [self.closeChatButton setHidden:NO];
 
-                                if(!msgBuffer){
-                                    msgBuffer = [[NSMutableString alloc] initWithString:@""];
-                                    [self.incomingTextView setText:msgBuffer];
-                                }
+                                msgBuffer = [[NSMutableString alloc] initWithString:@""];
+                                [self.incomingTextView setText:msgBuffer];
                             }
-            
+
                     [msgBuffer appendString:text];
                     [self.incomingTextView setText:msgBuffer];
                     if(self.incomingTextView.text.length > 0 ) {
@@ -853,10 +851,8 @@ NSMutableString *msgBuffer;
     self.remoteTextBufferIndex = (int)self.chatEntries.count;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
-    if(self.isChatMode){
-        [self.tableView reloadData];
-        [self showLatestMessage];
-    }
+    [self.tableView reloadData];
+    [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
 }
 -(void) insertTextIntoRemoteBuffer :(NSString*) text{
@@ -882,10 +878,8 @@ NSMutableString *msgBuffer;
 
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
-            if(self.isChatMode){
                 [self.tableView reloadData];
                 [self showCurrentRemoteTextBuffer];
-            }
             [self insertTextIntoMinimizedTextBuffer:text];
         
     }
