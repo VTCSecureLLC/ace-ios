@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WizardViewController">
             <connections>
+                <outlet property="advancedPanel" destination="rYQ-EI-hvy" id="e4p-Wy-TIb"/>
                 <outlet property="buttonIPCTS" destination="fZr-iw-08Y" id="W9y-wM-XuG"/>
                 <outlet property="buttonIPRelay" destination="sza-TO-CDP" id="hpf-hF-YUW"/>
                 <outlet property="buttonLogin" destination="AKH-yi-GFc" id="99x-v4-VS6"/>
@@ -39,7 +40,9 @@
                 <outlet property="textFieldPassword" destination="Rox-fw-ehE" id="9Ly-ZA-SjZ"/>
                 <outlet property="textFieldPort" destination="nkF-hH-kSy" id="FRK-u1-GXu"/>
                 <outlet property="textFieldUsername" destination="xiq-7Y-M2O" id="Vuq-cR-ULy"/>
+                <outlet property="toggleAdvancedButton" destination="Bhr-FU-2s3" id="55B-fj-Vvk"/>
                 <outlet property="transportChooser" destination="Nrv-SM-lMf" id="7iR-aG-eQf"/>
+                <outlet property="transportTextField" destination="Bvc-jo-Cuc" id="Fwj-ha-8fS"/>
                 <outlet property="validateAccountView" destination="101" id="112"/>
                 <outlet property="viewPasswordBG" destination="NXB-Fz-iQs" id="EcU-G5-cqM"/>
                 <outlet property="viewUsernameBG" destination="BPk-Uc-B1r" id="O6p-BT-bOv"/>
@@ -178,22 +181,8 @@
                         <action selector="onSelectProviderClick:" destination="-1" eventType="touchUpInside" id="6qJ-gY-6eX"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bc1.vatrp.net" borderStyle="line" placeholder="Password" minimumFontSize="17" id="iei-N7-fE8">
-                    <rect key="frame" x="35" y="291" width="250" height="34"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5060" borderStyle="line" placeholder="Password" minimumFontSize="17" id="nkF-hH-kSy">
-                    <rect key="frame" x="35" y="332" width="250" height="34"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AKH-yi-GFc">
-                    <rect key="frame" x="35" y="380" width="250" height="41"/>
+                    <rect key="frame" x="30" y="468" width="250" height="41"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -331,6 +320,44 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" id="rYQ-EI-hvy">
+                    <rect key="frame" x="35" y="332" width="250" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5060" borderStyle="line" placeholder="Password" minimumFontSize="17" id="nkF-hH-kSy">
+                            <rect key="frame" x="0.0" y="86" width="250" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP" borderStyle="line" placeholder="Password" minimumFontSize="17" id="Bvc-jo-Cuc">
+                            <rect key="frame" x="0.0" y="44" width="250" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bc1.vatrp.net" borderStyle="line" placeholder="Password" minimumFontSize="17" id="iei-N7-fE8">
+                            <rect key="frame" x="0.0" y="0.0" width="250" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bhr-FU-2s3">
+                    <rect key="frame" x="132" y="292" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="+"/>
+                    <connections>
+                        <action selector="onToggleAdvanced:" destination="-1" eventType="touchUpInside" id="IEy-oA-KS4"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.0" green="0.21960784310000001" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
