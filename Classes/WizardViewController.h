@@ -58,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 @property (weak, nonatomic) IBOutlet UIView *viewUsernameBG;
 @property (weak, nonatomic) IBOutlet UIView *viewPasswordBG;
+@property (weak, nonatomic) IBOutlet UITextField *transportTextField;
 
 
 
@@ -83,7 +84,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldDomain;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPort;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldUserId;
 
+@property (weak, nonatomic) IBOutlet UIView *advancedPanel;
+@property (weak, nonatomic) IBOutlet UIButton *toggleAdvancedButton;
 
 @property (nonatomic, strong) IBOutlet UIImageView *choiceViewLogoImageView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *transportChooser;
