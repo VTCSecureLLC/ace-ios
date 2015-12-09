@@ -9,10 +9,26 @@ dtmf_player_amp=0.007
 eq_location=mic
 eq_gains=50:2:50 100:2:50
 
-
-
 [video]
 display_filter_auto_rotate=0
+
+
+[video_codec_0]
+mime=H264
+rate=90000
+enabled=1
+recv_fmtp=profile-level-id=42801F
+
+
+[video_codec_1]
+mime=H263
+rate=90000
+enabled=1
+
+[video_codec_2]
+mime=VP8
+rate=90000
+enabled=1
 
 [app]
 #contact_display_username_only=1
