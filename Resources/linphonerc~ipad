@@ -41,6 +41,23 @@ automatically_initiate=1
 automatically_accept=1
 preset=high-fps
 
+
+[video_codec_0]
+mime=H264
+rate=90000
+enabled=1
+recv_fmtp=profile-level-id=42801F
+
+
+[video_codec_1]
+mime=H263
+rate=90000
+enabled=1
+
+[video_codec_2]
+mime=VP8
+rate=90000
+enabled=1
 [net]
 firewall_policy=0
 download_bw=660
