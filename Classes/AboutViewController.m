@@ -158,6 +158,25 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self dismiss];
 }
 
+NSString *pw = @"1234";
+- (IBAction)onToggleAdvancedPrefsClick:(id)sender {
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Unlock Advanced Settings?" message:@"Please enter password:" delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField * alertTextField = [alert textFieldAtIndex:0];
+    alertTextField.keyboardType = UIKeyboardTypeNumberPad;
+    alertTextField.placeholder = @"Password";
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"Entered: %@",[[alertView textFieldAtIndex:0] text]);
+   
+    if([pw isEqualToString:[[alertView textFieldAtIndex:0] text]]){
+        [SettingsViewController unlockAdvancedSettings];
+    }
+}
+
 #pragma mark -
 
 - (void)dismiss {
