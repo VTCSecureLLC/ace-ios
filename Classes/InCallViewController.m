@@ -302,6 +302,10 @@ CGPoint incomingTextChatModePos;
 	case LinphoneCallConnected:
 	case LinphoneCallStreamsRunning: {
         // check realtime text.
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
+                                                            object:nil];
+        
         if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call))){
         }
 		// check video
