@@ -627,6 +627,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 static BOOL isAdvancedSettings = FALSE;
 
++(void) unlockAdvancedSettings{
+    isAdvancedSettings = TRUE;
+}
 - (NSSet *)findHiddenKeys {
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
