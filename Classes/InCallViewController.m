@@ -189,6 +189,18 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Hide fields.
     [self.incomingTextView setHidden:YES];
     [self.incomingTextView setText:@""];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerEnabled = [defaults boolForKey:@"isSpeakerEnabled"];
+    
+    const float mute_db = -1000.0f;
+    if(isSpeakerEnabled){
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+    }
+    else{
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
+    }
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

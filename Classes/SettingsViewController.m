@@ -519,7 +519,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
         BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
-        [[LinphoneManager instance] setSpeakerEnabled:isSpeakerEnabled];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
         [defaults synchronize];
