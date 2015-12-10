@@ -141,7 +141,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     self.remoteTextBuffer = nil;
     minimizedTextBuffer = nil;
     if(self.tableView){
-        [self.tableView reloadData];
+        [self.tableView setHidden:YES];
     }
     self.isChatMode = NO;
 }
@@ -398,7 +398,7 @@ BOOL isTabBarShown = NO;
 	}
     
     else if(isTabBarShown){
-        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:1
                                                              target:self
                                                            selector:@selector(hideControls:)
                                                            userInfo:nil
@@ -696,13 +696,14 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 #pragma mark Outgoing Text Logic
 -(void)createNewLocalChatBuffer: (NSString*) text {
     self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
-    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0 blue:150 alpha:0.6];
+    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8];
     self.localColor = self.localTextBuffer.color;
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
-
-    [self.tableView reloadData];
-    [self showLatestMessage];
+    if(self.isChatMode){
+        [self.tableView reloadData];
+        [self showLatestMessage];
+    }
 }
 -(void) insertTextIntoBuffer :(NSString*) text{
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"]){
@@ -726,8 +727,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
             [self.localTextBuffer.msgString appendString: text];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+        if(self.isChatMode){
             [self.tableView reloadData];
             [self showCurrentLocalTextBuffer];
+        }
     }
 }
 -(void) backspaceInLocalBuffer{
@@ -739,8 +742,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         if(self.localTextBuffer.msgString.length > 0){
             [self.localTextBuffer removeLast];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
-            [self.tableView reloadData];
-            [self showLatestMessage];
+            if(self.isChatMode){
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
         }
     }
 }
@@ -817,18 +822,17 @@ NSMutableString *msgBuffer;
 
 -(void) insertTextIntoMinimizedTextBuffer:(NSString*) text{
         if(!self.isChatMode){
-                if(![text isEqualToString:@"\n"] && ![text isEqualToString:@""]){
+                if(![text isEqualToString:@""]){
                         if([self.incomingTextView isHidden]){
                                 [self.closeChatButton setEnabled:YES];
 
                                 [self.incomingTextView setHidden:NO];
                                 [self.closeChatButton setHidden:NO];
 
-                                if(!msgBuffer){
-                                        msgBuffer = [[NSMutableString alloc] init];
-                                }
+                                msgBuffer = [[NSMutableString alloc] initWithString:@""];
+                                [self.incomingTextView setText:msgBuffer];
                             }
-            
+
                     [msgBuffer appendString:text];
                     [self.incomingTextView setText:msgBuffer];
                     if(self.incomingTextView.text.length > 0 ) {
@@ -848,7 +852,6 @@ NSMutableString *msgBuffer;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
     [self.tableView reloadData];
-    
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
 }
@@ -875,8 +878,8 @@ NSMutableString *msgBuffer;
 
             [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
-            [self.tableView reloadData];
-            [self showCurrentRemoteTextBuffer];
+                [self.tableView reloadData];
+                [self showCurrentRemoteTextBuffer];
             [self insertTextIntoMinimizedTextBuffer:text];
         
     }
@@ -891,8 +894,16 @@ NSMutableString *msgBuffer;
         if(self.remoteTextBuffer.msgString.length > 0){
             [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
-            [self.tableView reloadData];
-            [self showLatestMessage];
+            if(self.isChatMode){
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
+           else if(!self.isChatMode && msgBuffer){
+                if (msgBuffer.length == 0)
+                    return;
+                [msgBuffer deleteCharactersInRange:NSMakeRange(msgBuffer.length -1,1)];
+                [self.incomingTextView setText:msgBuffer];
+            }
         }
     }
 }
@@ -911,14 +922,15 @@ NSMutableString *minimizedTextBuffer;
 - (IBAction)onCloseChatButton:(id)sender {
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
-    msgBuffer = [[NSMutableString alloc] init];
+    msgBuffer = [[NSMutableString alloc] initWithString:@""];
     [self.incomingTextView setText:msgBuffer];
 }
 
 -(void) openChatMessage: (UITapGestureRecognizer *)sender{
     if(!self.isFirstResponder){
         [self becomeFirstResponder];
-        msgBuffer = [[NSMutableString alloc] init];
+        msgBuffer = [[NSMutableString alloc] initWithString:@""];
+        [self.incomingTextView setText:msgBuffer];
     }
 }
 
@@ -937,12 +949,6 @@ BOOL didChatResize = NO;
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y - chat_delta);
-
-    if(self.chatEntries.count > 1){
-        [self.tableView setCenter:chat_center];
-        didChatResize = YES;
-    }
     
     self.incomingTextView.text = @"";
     [self.incomingTextView setHidden:YES];
@@ -951,6 +957,7 @@ BOOL didChatResize = NO;
     self.isChatMode = YES;
     [self.tableView setHidden:NO];
     [self hideControls:self];
+    [self.tableView reloadData];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{
@@ -958,17 +965,9 @@ BOOL didChatResize = NO;
     CGFloat keyboardPos = keyboardFrame.origin.y;
     remote_video_delta = (self.videoView.frame.origin.y +
                           self.videoView.frame.size.height) - keyboardPos;
-    chat_delta = (self.tableView.frame.origin.y +
-                  self.tableView.frame.size.height) - keyboardPos;
-    
+
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-    chat_center = CGPointMake(self.tableView.center.x, self.tableView.center.y + chat_delta);
-    
-    if(self.chatEntries.count > 1 && didChatResize){
-        [self.tableView setCenter:chat_center];
-        didChatResize = NO;
-    }
 
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
@@ -986,12 +985,15 @@ BOOL didChatResize = NO;
 #pragma mark UITableView Methods
 - (void)loadRTTChatTableView
 {
-    CGFloat chat_margin = 10;
-    CGRect chatSize = [[UIScreen mainScreen] applicationFrame];
-    chatSize.origin.x += chat_margin;
-    chatSize.size.height /= 2;
-    chatSize.size.width = self.view.frame.size.width - chat_margin * 2;
+    CGRect chatSize = self.view.frame;
+    chatSize.size.width -= chatSize.size.width / 5;
+    chatSize.size.height /= 3;
+    
     self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
+    
+    CGPoint chatCenter = CGPointMake(self.view.center.x, self.view.frame.origin.y + self.view.frame.size.height / 3);
+    [self.tableView setCenter:chatCenter];
+
     self.chatEntries = [[NSMutableArray alloc] init];
     
     [self.view addSubview:self.tableView];
@@ -1011,8 +1013,6 @@ BOOL didChatResize = NO;
 
     RTT_MAX_PARAGRAPH_CHAR = 250;
     RTT_SOFT_MAX_PARAGRAPH_CHAR = 200;
-    
-    [self.tableView reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -1035,7 +1035,7 @@ BOOL didChatResize = NO;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame), CGFLOAT_MAX);
+    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame) / 2, CGFLOAT_MAX);
     CGSize requiredSize = [cell.textLabel sizeThatFits:maxSize];
     return requiredSize.height;
 }
@@ -1051,13 +1051,7 @@ BOOL didChatResize = NO;
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.userInteractionEnabled = YES;
     cell.textLabel.numberOfLines = 0;
-
-    if([msg.color isEqual:self.localColor]){
-        cell.textLabel.textAlignment = NSTextAlignmentRight;
-    }
-    else{
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    }
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [cell.textLabel enableClipboard:YES];
     [cell.textLabel canBecomeFirstResponder];
@@ -1071,7 +1065,11 @@ BOOL didChatResize = NO;
     cell.backgroundColor = msg.color;
     cell.userInteractionEnabled = YES;
     [cell canBecomeFirstResponder];
-
+    
+    cell.layer.cornerRadius = 20.0f;
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.opacity = self.tableView.alpha;
+    cell.layer.borderColor = [[UIColor blackColor] CGColor];
     return cell;
 }
 

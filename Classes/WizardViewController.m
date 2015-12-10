@@ -1309,11 +1309,15 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     int port = port_value;
 
+    NSString *transport = [self.transportTextField.text uppercaseString];
+    if(![transport isEqualToString:@"TCP"] && ![transport isEqualToString:@"TLS"]){
+        transport = @"TCP";
+    }
     
     [self verificationSignInWithUsername:self.textFieldUsername.text
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text
-                           withTransport:@"TCP"
+                           withTransport:transport
                                     port:port];
 }
 
@@ -1326,6 +1330,21 @@ static UICompositeViewDescription *compositeDescription = nil;
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
         [alert show];
+    }
+}
+
+static BOOL isAdvancedShown = NO;
+- (IBAction)onToggleAdvanced:(id)sender {
+    UIButton *toggle = (UIButton*) sender;
+    if(!isAdvancedShown){
+        [toggle setTitle:@"-" forState:UIControlStateNormal];
+        [_advancedPanel setHidden:NO];
+        isAdvancedShown = YES;
+    }
+    else{
+        [toggle setTitle:@"+" forState:UIControlStateNormal];
+        [_advancedPanel setHidden:YES];
+        isAdvancedShown = NO;
     }
 }
 
