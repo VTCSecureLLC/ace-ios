@@ -625,6 +625,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return specifier;
 }
 
+static BOOL isAdvancedSettings = FALSE;
+
 - (NSSet *)findHiddenKeys {
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
@@ -736,7 +738,24 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if ([[UIDevice currentDevice].systemVersion floatValue] < 8) {
 		[hiddenKeys addObject:@"repeat_call_notification_preference"];
 	}
+    if(!isAdvancedSettings){
+        [hiddenKeys addObject:@"enable_video_preference"];
+        [hiddenKeys addObject:@"avpf_preference"];
+        [hiddenKeys addObject:@"outbound_proxy_preference"];
+        [hiddenKeys addObject:@"domain_preference"];
+        [hiddenKeys addObject:@"proxy_preference"];
+        [hiddenKeys addObject:@"transport_preference"];
+        [hiddenKeys addObject:@"advanced_account_preference"];
+        
+        [hiddenKeys addObject:@"rtt_menu"];
+        [hiddenKeys addObject:@"audio_menu"];
+        [hiddenKeys addObject:@"video_menu"];
+        [hiddenKeys addObject:@"call_menu"];
+        [hiddenKeys addObject:@"network_menu"];
+        [hiddenKeys addObject:@"tunnel_menu"];
+        [hiddenKeys addObject:@"advanced_menu"];
 
+    }
 	return hiddenKeys;
 }
 
