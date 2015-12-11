@@ -8,6 +8,12 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string> </string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Settings</string>
 		</dict>
 		<dict>
@@ -223,12 +229,6 @@
 			<false/>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>Settings</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
@@ -299,6 +299,8 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>advanced_menu</string>
 			<key>File</key>
 			<string>Advanced</string>
 			<key>Title</key>

@@ -189,6 +189,18 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Hide fields.
     [self.incomingTextView setHidden:YES];
     [self.incomingTextView setText:@""];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerEnabled = [defaults boolForKey:@"isSpeakerEnabled"];
+    
+    const float mute_db = -1000.0f;
+    if(isSpeakerEnabled){
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+    }
+    else{
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
+    }
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -371,7 +383,6 @@ CGPoint incomingTextChatModePos;
 	}
 }
 
-BOOL isTabBarShown = NO;
 - (void)showControls:(id)sender {
     if(self.isFirstResponder || ![self.tableView isHidden]){
         [self resignFirstResponder];
@@ -383,7 +394,7 @@ BOOL isTabBarShown = NO;
 		hideControlsTimer = nil;
 	}
 
-	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown && !isTabBarShown) {
+	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		// show controls
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
@@ -392,23 +403,14 @@ BOOL isTabBarShown = NO;
 		[callTableView setAlpha:1.0];
 		[videoCameraSwitch setAlpha:1.0];
 		[UIView commitAnimations];
-        isTabBarShown = YES;
 		// hide controls in 5 sec
-		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
+		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
 															 target:self
 														   selector:@selector(hideControls:)
 														   userInfo:nil
 															repeats:NO];
 	}
     
-    else if(isTabBarShown){
-        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                             target:self
-                                                           selector:@selector(hideControls:)
-                                                           userInfo:nil
-                                                            repeats:NO];
-        isTabBarShown = NO;
-    }
 }
 
 - (void)hideControls:(id)sender {

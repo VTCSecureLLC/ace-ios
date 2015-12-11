@@ -82,17 +82,19 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 
 #pragma mark - UIToggleButtonDelegate Functions
 
+const float mute_db = -1000.0f;
 - (void)onOn {
-	[[LinphoneManager instance] setSpeakerEnabled:TRUE];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
 }
 
 - (void)onOff {
-	[[LinphoneManager instance] setSpeakerEnabled:FALSE];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
 }
 
 - (bool)onUpdate {
-	[self setEnabled:[[LinphoneManager instance] allowSpeaker]];
-	return [[LinphoneManager instance] speakerEnabled];
+	[self setEnabled:YES];
+    [[LinphoneManager instance] setSpeakerEnabled:YES];
+    return (linphone_core_get_playback_gain_db([LinphoneManager getLc]) > mute_db);
 }
 
 @end
