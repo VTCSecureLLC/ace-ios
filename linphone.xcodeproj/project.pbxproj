@@ -452,6 +452,8 @@
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
 		C9C8254915AE204D00D493FA /* transfer_call_over.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254215AE204D00D493FA /* transfer_call_over.png */; };
 		C9C8254F15AE256100D493FA /* transfer_call_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254E15AE256100D493FA /* transfer_call_disabled.png */; };
+		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
+		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
 		CEFB66981BFF4710001797B3 /* provider5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668C1BFF470F001797B3 /* provider5@2x.png */; };
 		CEFB66991BFF4710001797B3 /* provider4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668D1BFF470F001797B3 /* provider4@2x.png */; };
 		CEFB669A1BFF4710001797B3 /* provider5.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668E1BFF470F001797B3 /* provider5.png */; };
@@ -1733,6 +1735,8 @@
 		C9C8254215AE204D00D493FA /* transfer_call_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_over.png; path = Resources/transfer_call_over.png; sourceTree = "<group>"; };
 		C9C8254B15AE207B00D493FA /* options_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = options_selected.png; path = Resources/options_selected.png; sourceTree = "<group>"; };
 		C9C8254E15AE256100D493FA /* transfer_call_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_disabled.png; path = Resources/transfer_call_disabled.png; sourceTree = "<group>"; };
+		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
+		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
 		CEFB668C1BFF470F001797B3 /* provider5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider5@2x.png"; path = "Resources/provider5@2x.png"; sourceTree = "<group>"; };
 		CEFB668D1BFF470F001797B3 /* provider4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider4@2x.png"; path = "Resources/provider4@2x.png"; sourceTree = "<group>"; };
 		CEFB668E1BFF470F001797B3 /* provider5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = provider5.png; path = Resources/provider5.png; sourceTree = "<group>"; };
@@ -3379,6 +3383,8 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */,
+				CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */,
 				CEFB668C1BFF470F001797B3 /* provider5@2x.png */,
 				CEFB668D1BFF470F001797B3 /* provider4@2x.png */,
 				CEFB668E1BFF470F001797B3 /* provider5.png */,
@@ -4703,6 +4709,7 @@
 				636316D91A1DECC90009B839 /* PhoneMainView.xib in Resources */,
 				D3F83F601582223B00336684 /* numpad_seven_default.png in Resources */,
 				50B008201BA09C79002C5723 /* speaker_off_over_landscape~ipad.png in Resources */,
+				CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */,
 				50B0083C1BA09C79002C5723 /* transfer_call_disabled~ipad.png in Resources */,
 				D3F83F621582223B00336684 /* numpad_seven_over.png in Resources */,
 				50B007701BA09C79002C5723 /* micro_on_default_landscape.png in Resources */,
@@ -4788,6 +4795,7 @@
 				50B007DC1BA09C79002C5723 /* route_phone_on_default_landscape.png in Resources */,
 				D354981A15876FE7000081D8 /* list_details_default.png in Resources */,
 				50B006F51BA09C79002C5723 /* contact_number.png in Resources */,
+				CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */,
 				F0C1F9131A28781F009402C9 /* corner-right-top.png in Resources */,
 				D354981C15876FE7000081D8 /* list_details_over.png in Resources */,
 				50B008081BA09C79002C5723 /* setup_cancel_disabled~ipad.png in Resources */,
