@@ -231,11 +231,12 @@ CGPoint incomingTextChatModePos;
 
 	[callTableController.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[callTableController.tableView setBackgroundView:nil];					 // Can't do it in Xib: issue with ios4
-
+/* Disable move of self preview
 	UIPanGestureRecognizer *dragndrop =
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+ */
 
     if(self.incomingTextView){
         self.incomingTextView.backgroundColor = [UIColor blackColor];
