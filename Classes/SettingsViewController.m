@@ -238,11 +238,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-	UIEdgeInsets inset = {0, 0, 10, 0};
-	UIScrollView *scrollView = self.tableView;
-	[scrollView setContentInset:inset];
-	[scrollView setScrollIndicatorInsets:inset];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -573,7 +568,7 @@ static UICompositeViewDescription *compositeDescription = nil;
          NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:picker.resultColor];
         [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
         
-        [ self dismissViewControllerAnimated:YES completion:nil];
+        [ self dismissViewControllerAnimated:NO completion:nil];
     }
 
 #pragma mark -
