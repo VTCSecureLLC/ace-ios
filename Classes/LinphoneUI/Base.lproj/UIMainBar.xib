@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -27,29 +27,30 @@
             <subviews>
                 <view hidden="YES" autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" tag="-1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4" userLabel="mask">
                     <rect key="frame" x="0.0" y="12" width="320" height="65"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.090924573910000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="SfG-nT-bfE"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6" userLabel="history">
                     <rect key="frame" x="0.0" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration" label="History"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="77" id="9fJ-Bx-Z87"/>
                         <constraint firstAttribute="width" constant="64" id="dSE-Nc-AQX"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="tintColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="History" backgroundImage="history_default.png">
-                        <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="History" backgroundImage="history_new.9.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="selected" backgroundImage="history_selected.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="selected" backgroundImage="history_selected_new.9.png">
+                        <color key="titleColor" red="0.70588235294117652" green="0.93333333333333335" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="history_over.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="highlighted" backgroundImage="history_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="onHistoryClick:" destination="-1" eventType="touchUpInside" id="22"/>
@@ -57,22 +58,22 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8" userLabel="contacts">
                     <rect key="frame" x="64" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration" label="Contacts"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="7qG-OX-ocj"/>
                         <constraint firstAttribute="height" constant="77" id="AaL-yt-Hnd"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Contacts" backgroundImage="contacts_default.png">
-                        <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Phonebook" backgroundImage="contacts_new.9.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="selected" backgroundImage="contacts_selected.png">
+                    <state key="selected" backgroundImage="contacts_selected_new.9.png">
                         <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="contacts_over.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="highlighted" backgroundImage="contacts_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="onContactsClick:" destination="-1" eventType="touchUpInside" id="23"/>
@@ -80,22 +81,22 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9" userLabel="settings">
                     <rect key="frame" x="256" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration" label="Settings"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="50o-3P-EEl"/>
                         <constraint firstAttribute="height" constant="77" id="cUb-Ax-J5i"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Settings" backgroundImage="settings_default.png">
-                        <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Settings" backgroundImage="settings_new.9.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="settings_selected.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="selected" backgroundImage="settings_selected_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="settings_over.png">
-                        <color key="titleColor" red="0.72549019609999998" green="0.76862745099999996" blue="0.79607843140000001" alpha="1" colorSpace="deviceRGB"/>
+                    <state key="highlighted" backgroundImage="settings_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="onSettingsClick:" destination="-1" eventType="touchUpInside" id="25"/>
@@ -103,22 +104,22 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="chat">
                     <rect key="frame" x="192" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration" label="Chat"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="eh4-r3-oxy"/>
                         <constraint firstAttribute="height" constant="77" id="gId-1A-3gt"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Resource" backgroundImage="resources_default.png">
-                        <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Resource" backgroundImage="resources_new.9.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="resources_selected.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="selected" backgroundImage="resources_selected_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="resources_over.png">
-                        <color key="titleColor" red="0.72549019609999998" green="0.76862745099999996" blue="0.79607843140000001" alpha="1" colorSpace="deviceRGB"/>
+                    <state key="highlighted" backgroundImage="resources_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="26"/>
@@ -204,6 +205,7 @@
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7" userLabel="dialer">
                     <rect key="frame" x="128" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <accessibility key="accessibilityConfiguration" label="Dialer">
                         <accessibilityTraits key="traits" button="YES"/>
                     </accessibility>
@@ -211,17 +213,18 @@
                         <constraint firstAttribute="width" constant="64" id="Kyv-1i-fVw"/>
                         <constraint firstAttribute="height" constant="77" id="hR6-kA-HxY"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Keypad" backgroundImage="dialer_default.png">
-                        <color key="titleColor" red="0.054017176909999999" green="0.39370725070000001" blue="0.55196496210000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Keypad" backgroundImage="dialer_new.9.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="disabled" title="Keypad"/>
-                    <state key="selected" backgroundImage="dialer_selected.png">
-                        <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="selected" backgroundImage="dialer_selected_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" title="Keypad" backgroundImage="dialer_over.png"/>
+                    <state key="highlighted" title="Keypad" backgroundImage="dialer_new.9.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="onDialerClick:" destination="-1" eventType="touchUpInside" id="24"/>
                     </connections>
@@ -258,23 +261,18 @@
         </view>
     </objects>
     <resources>
-        <image name="contacts_default.png" width="128" height="154"/>
-        <image name="contacts_over.png" width="128" height="154"/>
-        <image name="contacts_selected.png" width="128" height="154"/>
-        <image name="dialer_default.png" width="128" height="154"/>
-        <image name="dialer_over.png" width="128" height="154"/>
+        <image name="contacts_new.9.png" width="130" height="156"/>
+        <image name="contacts_selected_new.9.png" width="130" height="156"/>
+        <image name="dialer_new.9.png" width="130" height="156"/>
         <image name="dialer_padding_left.png" width="94" height="170"/>
         <image name="dialer_padding_right.png" width="94" height="170"/>
-        <image name="dialer_selected.png" width="128" height="154"/>
-        <image name="history_default.png" width="128" height="154"/>
+        <image name="dialer_selected_new.9.png" width="130" height="156"/>
+        <image name="history_new.9.png" width="130" height="156"/>
         <image name="history_notification.png" width="43" height="43"/>
-        <image name="history_over.png" width="128" height="154"/>
-        <image name="history_selected.png" width="128" height="154"/>
-        <image name="resources_default.png" width="128" height="154"/>
-        <image name="resources_over.png" width="128" height="154"/>
-        <image name="resources_selected.png" width="128" height="154"/>
-        <image name="settings_default.png" width="128" height="154"/>
-        <image name="settings_over.png" width="128" height="154"/>
-        <image name="settings_selected.png" width="128" height="154"/>
+        <image name="history_selected_new.9.png" width="130" height="156"/>
+        <image name="resources_new.9.png" width="130" height="156"/>
+        <image name="resources_selected_new.9.png" width="130" height="156"/>
+        <image name="settings_new.9.png" width="130" height="156"/>
+        <image name="settings_selected_new.9.png" width="130" height="156"/>
     </resources>
 </document>
