@@ -231,11 +231,12 @@ CGPoint incomingTextChatModePos;
 
 	[callTableController.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[callTableController.tableView setBackgroundView:nil];					 // Can't do it in Xib: issue with ios4
-
+/* Disable move of self preview
 	UIPanGestureRecognizer *dragndrop =
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+ */
 
     if(self.incomingTextView){
         self.incomingTextView.backgroundColor = [UIColor blackColor];
@@ -712,7 +713,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
 }
 -(void) insertTextIntoBuffer :(NSString*) text{
-    if(!self.localTextBuffer|| [text isEqualToString:@"\n"]){
+    if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -767,9 +768,14 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
     [self insertTextIntoBuffer:theText];
-    
     for (int i = 0; i != theText.length; i++)
-        linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
+    {
+        unichar c = [theText characterAtIndex:i];
+        /* A Line Separator that should be added. */
+        if (c == '\n')
+            c = 0x2028;
+        linphone_chat_message_put_char(msg, c);
+    }
 }
 /* Called when backspace is inserted */
 - (void)deleteBackward {
@@ -862,7 +868,7 @@ NSMutableString *msgBuffer;
     [self insertTextIntoMinimizedTextBuffer:text];
 }
 -(void) insertTextIntoRemoteBuffer :(NSString*) text{
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"]){
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]){
         [self createNewRemoteChatBuffer:text];
         return;
     }
