@@ -189,6 +189,18 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Hide fields.
     [self.incomingTextView setHidden:YES];
     [self.incomingTextView setText:@""];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerEnabled = [defaults boolForKey:@"isSpeakerEnabled"];
+    
+    const float mute_db = -1000.0f;
+    if(isSpeakerEnabled){
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+    }
+    else{
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
+    }
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -219,11 +231,12 @@ CGPoint incomingTextChatModePos;
 
 	[callTableController.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[callTableController.tableView setBackgroundView:nil];					 // Can't do it in Xib: issue with ios4
-
+/* Disable move of self preview
 	UIPanGestureRecognizer *dragndrop =
 		[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveVideoPreview:)];
 	dragndrop.minimumNumberOfTouches = 1;
 	[self.videoPreview addGestureRecognizer:dragndrop];
+ */
 
     if(self.incomingTextView){
         self.incomingTextView.backgroundColor = [UIColor blackColor];
@@ -302,6 +315,10 @@ CGPoint incomingTextChatModePos;
 	case LinphoneCallConnected:
 	case LinphoneCallStreamsRunning: {
         // check realtime text.
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
+                                                            object:nil];
+        
         if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call))){
         }
 		// check video
@@ -367,7 +384,6 @@ CGPoint incomingTextChatModePos;
 	}
 }
 
-BOOL isTabBarShown = NO;
 - (void)showControls:(id)sender {
     if(self.isFirstResponder || ![self.tableView isHidden]){
         [self resignFirstResponder];
@@ -379,7 +395,7 @@ BOOL isTabBarShown = NO;
 		hideControlsTimer = nil;
 	}
 
-	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown && !isTabBarShown) {
+	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		// show controls
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
@@ -388,23 +404,14 @@ BOOL isTabBarShown = NO;
 		[callTableView setAlpha:1.0];
 		[videoCameraSwitch setAlpha:1.0];
 		[UIView commitAnimations];
-        isTabBarShown = YES;
 		// hide controls in 5 sec
-		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
+		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
 															 target:self
 														   selector:@selector(hideControls:)
 														   userInfo:nil
 															repeats:NO];
 	}
     
-    else if(isTabBarShown){
-        hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                             target:self
-                                                           selector:@selector(hideControls:)
-                                                           userInfo:nil
-                                                            repeats:NO];
-        isTabBarShown = NO;
-    }
 }
 
 - (void)hideControls:(id)sender {
@@ -706,7 +713,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
 }
 -(void) insertTextIntoBuffer :(NSString*) text{
-    if(!self.localTextBuffer|| [text isEqualToString:@"\n"]){
+    if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -761,9 +768,14 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
     [self insertTextIntoBuffer:theText];
-    
     for (int i = 0; i != theText.length; i++)
-        linphone_chat_message_put_char(msg, [theText characterAtIndex:i]);
+    {
+        unichar c = [theText characterAtIndex:i];
+        /* A Line Separator that should be added. */
+        if (c == '\n')
+            c = 0x2028;
+        linphone_chat_message_put_char(msg, c);
+    }
 }
 /* Called when backspace is inserted */
 - (void)deleteBackward {
@@ -856,7 +868,7 @@ NSMutableString *msgBuffer;
     [self insertTextIntoMinimizedTextBuffer:text];
 }
 -(void) insertTextIntoRemoteBuffer :(NSString*) text{
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"]){
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]){
         [self createNewRemoteChatBuffer:text];
         return;
     }

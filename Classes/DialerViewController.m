@@ -161,6 +161,20 @@ static UICompositeViewDescription *compositeDescription = nil;
 		addressField.attributedPlaceholder = placeHolderString;
 	}
 #endif
+    
+//Set digit text alignment, and centering.
+   // oneButton.titleLabel.numberOfLines = 0;
+  //  [oneButton setImage:image forState:UIControlStateNormal];
+  //  oneButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+  //  oneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+   // UIImage *originalImage = [UIImage imageNamed:@"dial_pad_button_unpressed.png"];
+   // UIEdgeInsets insets = UIEdgeInsetsMake(0, -10, 0, 10);
+   // UIImage *stretchableImage = [originalImage resizableImageWithCapInsets:insets];
+   // [oneButton setBackgroundImage:stretchableImage forState:UIControlStateNormal];
+    // the image will be stretched to fill the button, if you resize it.
+   // twoButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -466,6 +480,12 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                             self.addressField.sipDomain = provider;
                                                             }];
             [alert addAction:providerAction];
+            [alert setModalPresentationStyle:UIModalPresentationPopover];
+
+            UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
+            UIButton *button = (UIButton*)sender;
+            popPresenter.sourceView = button;
+            popPresenter.sourceRect = button.bounds;
 
         }
     }

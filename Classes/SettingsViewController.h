@@ -31,4 +31,5 @@
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, strong) IBOutlet IASKAppSettingsViewController *settingsController;
 
++(void) unlockAdvancedSettings;
 @end

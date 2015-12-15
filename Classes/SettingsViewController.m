@@ -238,11 +238,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-	UIEdgeInsets inset = {0, 0, 10, 0};
-	UIScrollView *scrollView = self.tableView;
-	[scrollView setContentInset:inset];
-	[scrollView setScrollIndicatorInsets:inset];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -519,7 +514,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
         BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
-        [[LinphoneManager instance] setSpeakerEnabled:isSpeakerEnabled];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
         [defaults synchronize];
@@ -574,7 +568,7 @@ static UICompositeViewDescription *compositeDescription = nil;
          NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:picker.resultColor];
         [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
         
-        [ self dismissViewControllerAnimated:YES completion:nil];
+        [ self dismissViewControllerAnimated:NO completion:nil];
     }
 
 #pragma mark -
@@ -625,6 +619,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return specifier;
 }
 
+static BOOL isAdvancedSettings = FALSE;
+
++(void) unlockAdvancedSettings{
+    isAdvancedSettings = TRUE;
+}
 - (NSSet *)findHiddenKeys {
 	LinphoneManager *lm = [LinphoneManager instance];
 	NSMutableSet *hiddenKeys = [NSMutableSet set];
@@ -736,7 +735,24 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if ([[UIDevice currentDevice].systemVersion floatValue] < 8) {
 		[hiddenKeys addObject:@"repeat_call_notification_preference"];
 	}
+    if(!isAdvancedSettings){
+        [hiddenKeys addObject:@"enable_video_preference"];
+        [hiddenKeys addObject:@"avpf_preference"];
+        [hiddenKeys addObject:@"outbound_proxy_preference"];
+        [hiddenKeys addObject:@"domain_preference"];
+        [hiddenKeys addObject:@"proxy_preference"];
+        [hiddenKeys addObject:@"transport_preference"];
+        [hiddenKeys addObject:@"advanced_account_preference"];
+        
+        [hiddenKeys addObject:@"rtt_menu"];
+        [hiddenKeys addObject:@"audio_menu"];
+        [hiddenKeys addObject:@"video_menu"];
+        [hiddenKeys addObject:@"call_menu"];
+        [hiddenKeys addObject:@"network_menu"];
+        [hiddenKeys addObject:@"tunnel_menu"];
+        [hiddenKeys addObject:@"advanced_menu"];
 
+    }
 	return hiddenKeys;
 }
 
