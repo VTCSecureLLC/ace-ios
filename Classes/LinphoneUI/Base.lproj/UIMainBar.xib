@@ -79,6 +79,55 @@
                         <action selector="onContactsClick:" destination="-1" eventType="touchUpInside" id="23"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7" userLabel="dialer">
+                    <rect key="frame" x="128" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" label="Dialer">
+                        <accessibilityTraits key="traits" button="YES"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="Kyv-1i-fVw"/>
+                        <constraint firstAttribute="height" constant="77" id="hR6-kA-HxY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Keypad" backgroundImage="dialer_new.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled" title="Keypad"/>
+                    <state key="selected" backgroundImage="dialer_selected_new.png">
+                        <color key="titleColor" red="0.70588235294117652" green="0.93725490196078431" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="highlighted" title="Keypad" backgroundImage="dialer_selected_new.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onDialerClick:" destination="-1" eventType="touchUpInside" id="24"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="resource">
+                    <rect key="frame" x="192" y="0.0" width="64" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" label="Chat"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="eh4-r3-oxy"/>
+                        <constraint firstAttribute="height" constant="77" id="gId-1A-3gt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Resource" backgroundImage="resources_new.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" backgroundImage="resources_selected_new.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="highlighted" title="Resource" backgroundImage="resources_selected_new.png">
+                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="26"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9" userLabel="settings">
                     <rect key="frame" x="256" y="0.0" width="64" height="77"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,29 +149,6 @@
                     </state>
                     <connections>
                         <action selector="onSettingsClick:" destination="-1" eventType="touchUpInside" id="25"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="chat">
-                    <rect key="frame" x="192" y="0.0" width="64" height="77"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <accessibility key="accessibilityConfiguration" label="Chat"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="64" id="eh4-r3-oxy"/>
-                        <constraint firstAttribute="height" constant="77" id="gId-1A-3gt"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Resource" backgroundImage="resources_new.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="selected" backgroundImage="resources_selected_new.png">
-                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <state key="highlighted" title="Resource" backgroundImage="resources_selected_new.png">
-                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="onChatClick:" destination="-1" eventType="touchUpInside" id="26"/>
                     </connections>
                 </button>
                 <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37" userLabel="chatNotificationView">
@@ -190,45 +216,21 @@
                     </constraints>
                 </view>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="dialer_padding_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="f0B-Rk-Uez">
-                    <rect key="frame" x="-47" y="-8" width="47" height="85"/>
+                    <rect key="frame" x="-47" y="0.0" width="47" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="85" id="Ce2-oh-cXP"/>
+                        <constraint firstAttribute="height" constant="77" id="Ce2-oh-cXP"/>
                         <constraint firstAttribute="width" constant="47" id="hvC-cr-MbF"/>
                     </constraints>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="dialer_padding_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="if3-GT-4eC">
-                    <rect key="frame" x="320" y="-8" width="47" height="85"/>
+                    <rect key="frame" x="320" y="0.0" width="47" height="77"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="47" id="Ez5-zh-daE"/>
-                        <constraint firstAttribute="height" constant="85" id="liI-Np-MjS"/>
+                        <constraint firstAttribute="height" constant="77" id="liI-Np-MjS"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7" userLabel="dialer">
-                    <rect key="frame" x="128" y="0.0" width="64" height="77"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <accessibility key="accessibilityConfiguration" label="Dialer">
-                        <accessibilityTraits key="traits" button="YES"/>
-                    </accessibility>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="64" id="Kyv-1i-fVw"/>
-                        <constraint firstAttribute="height" constant="77" id="hR6-kA-HxY"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Keypad" backgroundImage="dialer_new.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="disabled" title="Keypad"/>
-                    <state key="selected" backgroundImage="dialer_selected_new.png">
-                        <color key="titleColor" red="0.70588235294117652" green="0.93725490196078431" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <state key="highlighted" title="Keypad" backgroundImage="dialer_selected_new.png">
-                        <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="onDialerClick:" destination="-1" eventType="touchUpInside" id="24"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="1" blue="0.19194547549999999" alpha="0.0" colorSpace="calibratedRGB"/>
             <constraints>
@@ -264,8 +266,8 @@
         <image name="contacts_new.png" width="128" height="154"/>
         <image name="contacts_selected_new.png" width="128" height="154"/>
         <image name="dialer_new.png" width="128" height="154"/>
-        <image name="dialer_padding_left.png" width="94" height="170"/>
-        <image name="dialer_padding_right.png" width="94" height="170"/>
+        <image name="dialer_padding_left.png" width="94" height="154"/>
+        <image name="dialer_padding_right.png" width="94" height="154"/>
         <image name="dialer_selected_new.png" width="128" height="154"/>
         <image name="history_new.png" width="128" height="154"/>
         <image name="history_notification.png" width="43" height="43"/>
