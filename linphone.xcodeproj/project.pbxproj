@@ -6008,7 +6008,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accontech.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -6098,7 +6098,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accontech.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -6188,7 +6188,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accontech.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -6278,7 +6278,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accontech.ace.ios;
 				PRODUCT_NAME = linphone;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
