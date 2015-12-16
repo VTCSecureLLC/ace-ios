@@ -154,11 +154,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
 		// fix placeholder bar color in iOS7
-		UIColor *color = [UIColor colorWithRed:(140/255.0) green:(201/255.0) blue:(229/255.0) alpha:1] ;
-		NSAttributedString *placeHolderString =
-			[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Enter an address", @"Enter an address")
-											attributes:@{NSForegroundColorAttributeName : color}];
-		addressField.attributedPlaceholder = placeHolderString;
+//		UIColor *color = [UIColor colorWithRed:(140/255.0) green:(201/255.0) blue:(229/255.0) alpha:1] ;
+//		NSAttributedString *placeHolderString =
+//			[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Dial Number", @"Dial Number")
+//											attributes:@{NSForegroundColorAttributeName : color}];
+//		addressField.attributedPlaceholder = placeHolderString;
 	}
 #endif
     
