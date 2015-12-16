@@ -472,7 +472,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="236" userLabel="transferButton" customClass="UITransferButton">
-                            <rect key="frame" x="204" y="-551662365" width="163" height="123"/>
+                            <rect key="frame" x="204" y="-551662364" width="163" height="123"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <accessibility key="accessibilityConfiguration" label="Transfer call"/>
@@ -498,7 +498,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="224" userLabel="callButton" customClass="UICallButton">
-                            <rect key="frame" x="127" y="3" width="245" height="117"/>
+                            <rect key="frame" x="127.00000012553468" y="3" width="245" height="117"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                             <animations/>
                             <color key="backgroundColor" red="0.08235294118" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
