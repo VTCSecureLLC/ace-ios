@@ -462,6 +462,9 @@
 		CD9FA4D91C205694003D3D29 /* resources_selected_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4CF1C205693003D3D29 /* resources_selected_new.png */; };
 		CD9FA4DA1C205694003D3D29 /* settings_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4D01C205694003D3D29 /* settings_new.png */; };
 		CD9FA4DB1C205694003D3D29 /* settings_selected_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4D11C205694003D3D29 /* settings_selected_new.png */; };
+		CD9FA50F1C20D6B3003D3D29 /* add_contact_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA50D1C20D6B3003D3D29 /* add_contact_circle.png */; };
+		CD9FA5101C20D6B3003D3D29 /* backspace_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA50E1C20D6B3003D3D29 /* backspace_new.png */; };
+		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
 		CEFB66981BFF4710001797B3 /* provider5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668C1BFF470F001797B3 /* provider5@2x.png */; };
@@ -1755,6 +1758,9 @@
 		CD9FA4CF1C205693003D3D29 /* resources_selected_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_selected_new.png; path = Resources/tab_images/resources_selected_new.png; sourceTree = "<group>"; };
 		CD9FA4D01C205694003D3D29 /* settings_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_new.png; path = Resources/tab_images/settings_new.png; sourceTree = "<group>"; };
 		CD9FA4D11C205694003D3D29 /* settings_selected_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_selected_new.png; path = Resources/tab_images/settings_selected_new.png; sourceTree = "<group>"; };
+		CD9FA50D1C20D6B3003D3D29 /* add_contact_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add_contact_circle.png; path = Resources/add_contact_circle.png; sourceTree = "<group>"; };
+		CD9FA50E1C20D6B3003D3D29 /* backspace_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backspace_new.png; path = Resources/backspace_new.png; sourceTree = "<group>"; };
+		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
 		CEFB668C1BFF470F001797B3 /* provider5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider5@2x.png"; path = "Resources/provider5@2x.png"; sourceTree = "<group>"; };
@@ -3403,6 +3409,9 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD9FA5111C20DB3D003D3D29 /* call_new.png */,
+				CD9FA50D1C20D6B3003D3D29 /* add_contact_circle.png */,
+				CD9FA50E1C20D6B3003D3D29 /* backspace_new.png */,
 				CD9FA4C81C205693003D3D29 /* contacts_new.png */,
 				CD9FA4C91C205693003D3D29 /* contacts_selected_new.png */,
 				CD9FA4CA1C205693003D3D29 /* dialer_new.png */,
@@ -4822,6 +4831,7 @@
 				50B006D91BA09C79002C5723 /* chat_over_landscape~ipad.png in Resources */,
 				50B0067F1BA09C79002C5723 /* add_call_over~ipad.png in Resources */,
 				50B0076B1BA09C79002C5723 /* micro_off_disabled~ipad.png in Resources */,
+				CD9FA50F1C20D6B3003D3D29 /* add_contact_circle.png in Resources */,
 				D354981215875608000081D8 /* contacts_add_over.png in Resources */,
 				50B007311BA09C79002C5723 /* form_valid.png in Resources */,
 				50B0067D1BA09C79002C5723 /* add_call_disabled~ipad.png in Resources */,
@@ -4940,6 +4950,7 @@
 				D38D14B115A30B3D008497E8 /* cell_call_highlight.png in Resources */,
 				D3196D3415A321E3007FEEBA /* options_add_default.png in Resources */,
 				50B006D11BA09C79002C5723 /* chat_message_background.9.png in Resources */,
+				CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */,
 				D3196D3615A321E3007FEEBA /* options_add_over.png in Resources */,
 				50B007011BA09C79002C5723 /* contacts_default~ipad.png in Resources */,
 				D3196D3815A321E3007FEEBA /* options_transfer_default.png in Resources */,
@@ -5215,6 +5226,7 @@
 				D3F5F91B1609A86700D3DA1A /* setup_cancel_over_landscape~ipad.png in Resources */,
 				50B007E51BA09C79002C5723 /* route_speaker_on_default.png in Resources */,
 				73400CB71BAF8628002C358D /* resources_selected~ipad.png in Resources */,
+				CD9FA5101C20D6B3003D3D29 /* backspace_new.png in Resources */,
 				D3F5F9271609A86700D3DA1A /* setup_start_over_landscape~ipad.png in Resources */,
 				D3D51250160B213900946DF8 /* setup_cancel_over~ipad.png in Resources */,
 				D3D51257160B35CB00946DF8 /* chat_message_background.9@2x.png in Resources */,
@@ -6034,7 +6046,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PROVISIONING_PROFILE = "0636A6EA-90EB-4D92-B707-19FC32F9A7CF";
 				SDKROOT = iphoneos;
@@ -6124,7 +6136,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -6214,7 +6226,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PROVISIONING_PROFILE = "C7F794BC-6D48-41F2-B37D-E1B1B1A40901";
 				SDKROOT = iphoneos;
@@ -6305,7 +6317,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "2AC0DC11-4546-47B6-8B8A-453CCA80903C";
