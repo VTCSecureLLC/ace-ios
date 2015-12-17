@@ -3,11 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResourcesViewController">
             <connections>
+                <outlet property="tableView" destination="t32-yb-Sag" id="8Nk-1O-irb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,18 +17,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GcR-KA-frx">
-                    <rect key="frame" x="0.0" y="278" width="600" height="44"/>
-                    <items>
-                        <navigationItem title="Title" id="7Xw-kj-Qzc"/>
-                    </items>
-                </navigationBar>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t32-yb-Sag">
-                    <rect key="frame" x="-13" y="0.0" width="613" height="600"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t32-yb-Sag">
+                    <rect key="frame" x="8" y="40" width="584" height="584"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="t32-yb-Sag" secondAttribute="height" multiplier="613:600" id="LVJ-1u-dSo"/>
-                    </constraints>
+                    <color key="sectionIndexColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="JE4-h3-hT0"/>
                         <outlet property="delegate" destination="-1" id="6XH-yF-yds"/>
@@ -35,6 +28,12 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="3qB-zv-gfz"/>
+                <constraint firstAttribute="trailing" secondItem="t32-yb-Sag" secondAttribute="trailing" id="H2Y-nv-C31"/>
+                <constraint firstAttribute="bottom" secondItem="t32-yb-Sag" secondAttribute="bottom" id="HMM-dK-nHx"/>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="Jv6-XN-nRN"/>
+            </constraints>
         </view>
     </objects>
 </document>
