@@ -36,15 +36,46 @@
 
 - (void)startMonitoring{
     self.serviceStarted = true;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest; // setting the accuracy
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [self.locationManager requestWhenInUseAuthorization];
     }
-    [self.locationManager startMonitoringSignificantLocationChanges];
-    if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        [self.locationManager startMonitoringSignificantLocationChanges];
-    } else {
-        [self.locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusAuthorized:
+            NSLog(@"Location Services are now Authorised");
+            [_locationManager startUpdatingLocation];
+            
+            break;
+            
+        case kCLAuthorizationStatusDenied: {
+            NSLog(@"Location Services are now Denied");
+        }
+            break;
+            
+        case kCLAuthorizationStatusNotDetermined: {
+            NSLog(@"Location Services are now Not Determined");
+            [_locationManager startUpdatingLocation];
+            
+        } break;
+            
+        case kCLAuthorizationStatusRestricted:
+            NSLog(@"Location Services are now Restricted");
+            break;
+            
+        default:
+            break;
     }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
 }
 
 - (CLLocation*)recentLocation{
