@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t32-yb-Sag">
-                    <rect key="frame" x="8" y="40" width="584" height="584"/>
+                    <rect key="frame" x="8" y="75" width="584" height="584"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -26,6 +26,13 @@
                         <outlet property="delegate" destination="-1" id="6XH-yF-yds"/>
                     </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9le-Xz-T4q">
+                    <rect key="frame" x="22" y="17" width="46" height="30"/>
+                    <state key="normal" title="Back"/>
+                    <connections>
+                        <action selector="onBack:" destination="-1" eventType="touchUpInside" id="Oul-3Q-t3P"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -34,6 +41,7 @@
                 <constraint firstAttribute="bottom" secondItem="t32-yb-Sag" secondAttribute="bottom" id="HMM-dK-nHx"/>
                 <constraint firstItem="t32-yb-Sag" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="Jv6-XN-nRN"/>
             </constraints>
+            <point key="canvasLocation" x="267" y="220"/>
         </view>
     </objects>
 </document>
