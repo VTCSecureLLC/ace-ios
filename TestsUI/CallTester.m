@@ -33,7 +33,7 @@
 #pragma mark - Tools
 
 - (void)callURI:(NSString *)address {
-	[tester enterText:address intoViewWithAccessibilityLabel:@"Enter an address"];
+	[tester enterText:address intoViewWithAccessibilityLabel:@"Dial Number"];
 	[tester tapViewWithAccessibilityLabel:@"Call" traits:UIAccessibilityTraitButton];
 }
 
