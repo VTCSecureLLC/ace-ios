@@ -1911,7 +1911,8 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
     }
     
-    if ([address isEqualToString:@"911"]) {
+    NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
+    if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
         NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
         linphone_call_params_add_custom_header(lcallParams, "userLocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }
