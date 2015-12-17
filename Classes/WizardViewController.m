@@ -279,7 +279,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if ([[LinphoneManager instance] lpConfigBoolForKey:@"hide_wizard_welcome_view_preference"] == true) {
 		[self changeView:choiceView back:FALSE animation:FALSE];
 	} else {
-		[self changeView:serviceSelectionView back:FALSE animation:FALSE];
+        // Temporary removed Service selection View
+        //[self changeView:serviceSelectionView back:FALSE animation:FALSE];
+		[self changeView:loginView back:TRUE animation:FALSE];
 	}
 	[waitView setHidden:TRUE];
 }
@@ -774,11 +776,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (IBAction)onBackClick:(id)sender {
-	if ([historyViews count] > 0) {
-		UIView *view = [historyViews lastObject];
-		[historyViews removeLastObject];
-		[self changeView:view back:TRUE animation:TRUE];
-	}
+//	if ([historyViews count] > 0) {
+//		UIView *view = [historyViews lastObject];
+//		[historyViews removeLastObject];
+//		[self changeView:view back:TRUE animation:TRUE];
+//	}
 }
 
 - (IBAction)onCancelClick:(id)sender {
