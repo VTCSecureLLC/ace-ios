@@ -10,19 +10,22 @@
 #import <HockeySDK/HockeySDK.h>
 #import <sys/utsname.h>
 #import "LinphoneIOSVersion.h"
-
+#import "ResourcesViewController.h"
+#import "PhoneMainView.h"
 @interface HelpViewController ()
+
 @end
 
 @implementation HelpViewController{
-    
     NSArray *tableData;
     NSArray *tableImages;
+    ResourcesViewController *resourcesController;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
+    
     NSString *linphoneVersion = [[NSString alloc] initWithCString:linphone_core_get_version() encoding:NSUTF8StringEncoding];
     NSString *linphoneUserAgent = [NSString stringWithFormat:@"liblinphone %@", linphoneVersion];
     NSString *aceUserAgent =[NSString stringWithFormat:@"ACE%@", @LINPHONE_IOS_VERSION];
@@ -53,12 +56,18 @@
         [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:deviceStats];
     }
     
+    else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Deaf / Hard of Hearing Resources"]){
+        resourcesController = [[ResourcesViewController alloc] init];
+        [self showViewController:resourcesController sender:self];
+//        [self presentViewController:resourcesController animated:YES completion:nil];
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *tableIdentifier = @"TableItem";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier];
     
     if (cell == nil) {

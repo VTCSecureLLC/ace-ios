@@ -53,6 +53,8 @@ recv_fmtp=profile-level-id=42801F
 mime=H263
 rate=90000
 enabled=1
+send_fmtp=CIF=1;QCIF=1
+recv_fmtp=CIF=1;QCIF=1
 
 [video_codec_2]
 mime=VP8

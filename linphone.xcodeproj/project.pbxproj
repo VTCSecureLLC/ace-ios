@@ -337,6 +337,8 @@
 		5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347171C1111C900042AB4 /* InfHSBSupport.m */; };
 		5E63479D1C1111C900042AB4 /* InfSourceColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6347191C1111C900042AB4 /* InfSourceColorView.m */; };
 		5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E63471A1C1111C900042AB4 /* LICENSE.txt */; };
+		5E7A93C81C22195A0043CC0E /* ResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E7A93C61C22195A0043CC0E /* ResourcesViewController.m */; };
+		5E7A93C91C22195A0043CC0E /* ResourcesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E7A93C71C22195A0043CC0E /* ResourcesViewController.xib */; };
 		5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */; };
 		5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
@@ -1620,6 +1622,9 @@
 		5E6347181C1111C900042AB4 /* InfSourceColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfSourceColorView.h; sourceTree = "<group>"; };
 		5E6347191C1111C900042AB4 /* InfSourceColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfSourceColorView.m; sourceTree = "<group>"; };
 		5E63471A1C1111C900042AB4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		5E7A93C51C22195A0043CC0E /* ResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesViewController.h; sourceTree = "<group>"; };
+		5E7A93C61C22195A0043CC0E /* ResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesViewController.m; sourceTree = "<group>"; };
+		5E7A93C71C22195A0043CC0E /* ResourcesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResourcesViewController.xib; sourceTree = "<group>"; };
 		5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTTMessageModel.h; sourceTree = "<group>"; };
 		5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTTMessageModel.m; sourceTree = "<group>"; };
 		5EEC28FF1BFFAA6F00BA43FB /* UILabel+Clipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Clipboard.h"; sourceTree = "<group>"; };
@@ -2715,6 +2720,9 @@
 				73400CBB1BAF8CAA002C358D /* HelpViewController.h */,
 				73400CBC1BAF8CAA002C358D /* HelpViewController.m */,
 				73400CBD1BAF8CAA002C358D /* HelpViewController.xib */,
+				5E7A93C51C22195A0043CC0E /* ResourcesViewController.h */,
+				5E7A93C61C22195A0043CC0E /* ResourcesViewController.m */,
+				5E7A93C71C22195A0043CC0E /* ResourcesViewController.xib */,
 				50263EF71B977D4700B20603 /* LinphoneLocationManager.h */,
 				50263EF81B977D4700B20603 /* LinphoneLocationManager.m */,
 				22E0A81D111C44E100B04932 /* AboutViewController.h */,
@@ -5177,6 +5185,7 @@
 				50B007551BA09C79002C5723 /* image_back_over.png in Resources */,
 				D33988BE15C6DD1600CAF1E4 /* hangup_over_landscape~ipad.png in Resources */,
 				D33988C015C6DD1600CAF1E4 /* micro_off_default_landscape~ipad.png in Resources */,
+				5E7A93C91C22195A0043CC0E /* ResourcesViewController.xib in Resources */,
 				50B0080F1BA09C79002C5723 /* setup_start_disabled_landscape~ipad.png in Resources */,
 				50B007AB1BA09C79002C5723 /* options_over_landscape~ipad.png in Resources */,
 				50B008401BA09C79002C5723 /* video_off_default_landscape~ipad.png in Resources */,
@@ -5433,6 +5442,7 @@
 				D3F9A9EE15AF277E0045320F /* UACellBackgroundView.m in Sources */,
 				D35860D615B549B500513429 /* Utils.m in Sources */,
 				5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */,
+				5E7A93C81C22195A0043CC0E /* ResourcesViewController.m in Sources */,
 				D3F7998115BD32370018C273 /* TPMultiLayoutViewController.m in Sources */,
 				D3807FBF15C28940005BE9BC /* DCRoundSwitch.m in Sources */,
 				D3807FC115C28940005BE9BC /* DCRoundSwitchKnobLayer.m in Sources */,
