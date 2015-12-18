@@ -38,11 +38,9 @@ static DefaultSettingsManager *sharedInstance = nil;
     [aiv startAnimating];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSLog(@"CONFIG JSON ---- %@", jsonDict);
+        [self storeToUserDefaults:jsonDict];
         [aiv stopAnimating];
-        //[self storeToUserDefaults:jsonDict];
     }];
 
 }
@@ -51,6 +49,7 @@ static DefaultSettingsManager *sharedInstance = nil;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"config_defaults" ofType:@"json"];
     NSData *content = [[NSData alloc] initWithContentsOfFile:filePath];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:content options:kNilOptions error:nil];
+    NSLog(@"CONFIG JSON ---- %@", jsonDict);
     [self storeToUserDefaults:jsonDict];
 }
 
@@ -75,6 +74,16 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"configuration_auth_expiration"] forKey:@"configuration_auth_expiration"];
     
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_registration_maximum_threshold"] forKey:@"sip_registration_maximum_threshold"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_register_usernames"]  forKey:@"sip_register_usernames"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_auth_username"] forKey:@"sip_auth_username"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_auth_password"] forKey:@"sip_auth_password"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_register_domain"] forKey:@"sip_register_domain"];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[[dict objectForKey:@"sip_register_port"] integerValue] forKey:@"sip_register_port"];
     
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_register_transport"] forKey:@"sip_register_transport"];
     
@@ -102,6 +111,10 @@ static DefaultSettingsManager *sharedInstance = nil;
     
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"logging"] forKey:@"logging"];
     
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_mwi_uri"] forKey:@"sip_mwi_uri"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"sip_videomail_uri"] forKey:@"sip_videomail_uri"];
+    
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"video_resolution_maximum"] forKey:@"video_resolution_maximum"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -111,11 +124,6 @@ static DefaultSettingsManager *sharedInstance = nil;
 
 - (void)setSipRegisterUserNames:(NSArray *)sipRegisterUsernames {
     [[NSUserDefaults standardUserDefaults] setObject:sipRegisterUsernames forKey:@"sip_register_usernames"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)setSipRegisterUsername:(NSString*)sipRegisterUsername {
-    [[NSUserDefaults standardUserDefaults] setObject:sipRegisterUsername forKey:@"sip_register_username"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

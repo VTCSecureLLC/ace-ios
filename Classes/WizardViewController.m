@@ -22,13 +22,13 @@
 #import "LinphoneManager.h"
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
+#import "DTAlertView.h"
+#import "DefaultSettingsManager.h"
 
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
 #import <XMLRPCResponse.h>
 #import <XMLRPCRequest.h>
-
-#import "DTAlertView.h"
 
 #define DATEPICKER_HEIGHT 230
 
@@ -125,7 +125,6 @@ static UICompositeViewDescription *compositeDescription = nil;
                                              selector:@selector(configuringUpdate:)
                                                  name:kLinphoneConfiguringStateUpdate
                                                object:nil];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -136,7 +135,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-
+    
+    [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
+    [self initLoginSettingsFields];
+    
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
     [self.buttonVideoRelayService.layer setCornerRadius:5];
@@ -187,6 +189,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 			text.placeholder = NSLocalizedString(@"Username", nil);
 		}
 	}
+}
+
+- (void)initLoginSettingsFields {
+    self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
+    //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
+    self.transportTextField.text = [DefaultSettingsManager sharedInstance].sipRegisterTransport;
+    self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
+    self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
 }
 
 #pragma mark -

@@ -16,7 +16,6 @@
 @property (readonly) NSString *configAuthExpiration;
 @property (readonly) NSString *sipRegistrationMaximumThreshold;
 @property (setter=setSipRegisterUserNames:, nonatomic) NSMutableArray *sipRegisterUsernames;
-@property (setter=setSipRegisterUsername:, nonatomic) NSString *sipRegisterUsername;
 @property (setter=setSipAuthUsername:, nonatomic) NSString *sipAuthUsername;
 @property (setter=setSipAuthPassword:, nonatomic) NSString *sipAuthPassword;
 @property (setter=setSipRegisterDomain:, nonatomic) NSString *sipRegisterDomain;
