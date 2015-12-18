@@ -84,6 +84,10 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)onBack:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 //static UICompositeViewDescription *compositeDescription = nil;
 //
 //+ (UICompositeViewDescription *)compositeViewDescription {

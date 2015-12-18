@@ -1910,15 +1910,13 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
         linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
     }
-    // VTCSecure add user location when emergency number is dialled.
+    
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
-        NSString *locationString;
-        if (![[LinphoneLocationManager sharedManager] isAuthorized:TRUE]) locationString = NSLocalizedString(@"not authorized by user",nil);
-        else if (![[LinphoneLocationManager sharedManager] locationPlausible]) locationString =  NSLocalizedString(@"user location could not be established",nil);
-        else locationString  =  [[LinphoneLocationManager sharedManager] currentLocationAsText];
-        linphone_call_params_add_custom_header(lcallParams,"userLocation",[locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+        NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
+        linphone_call_params_add_custom_header(lcallParams, "userLocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }
+    
 	LinphoneAddress *addr = NULL;
 	// Continue by checking that the provided address is a valid SIP address, abort otherwise.
 	if ([address length] == 0) {
@@ -1937,7 +1935,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		// Finally we can make the call
 		LinphoneProxyConfig *proxyCfg;
 		linphone_core_get_default_proxy(theLinphoneCore, &proxyCfg);
-		LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
+		//LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
         // Adding text to call.
         if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
             linphone_call_params_enable_realtime_text(lcallParams, true);
