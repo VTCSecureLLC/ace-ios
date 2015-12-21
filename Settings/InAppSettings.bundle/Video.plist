@@ -156,7 +156,7 @@
 			<key>Key</key>
 			<string>h263_preference</string>
 			<key>Title</key>
-			<string>H263</string>
+			<string>H.263</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
