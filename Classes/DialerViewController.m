@@ -499,6 +499,13 @@ static UICompositeViewDescription *compositeDescription = nil;
     [alert addAction:none];
     
     [self presentViewController:alert animated:YES completion:nil];
+    
+    UIAlertView *availabilityAlert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"Available in General Release"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [availabilityAlert show];
 }
 
 @end
