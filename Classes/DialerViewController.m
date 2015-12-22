@@ -465,7 +465,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 // VTCSecure - select a domain
 
 - (IBAction)domainSelectorClicked:(id)sender {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIP Providers",nil)
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
                                                                    message:@"Select the SIP provider of the person you wish to call."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     alert.view.tintColor = LINPHONE_MAIN_COLOR;
@@ -479,6 +479,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                             self.sipDomainLabel.text = [@"@" stringByAppendingString:provider];
                                                             self.addressField.sipDomain = provider;
                                                             }];
+            [providerAction setEnabled:NO];
             [alert addAction:providerAction];
             [alert setModalPresentationStyle:UIModalPresentationPopover];
 
