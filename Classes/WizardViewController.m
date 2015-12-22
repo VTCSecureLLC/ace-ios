@@ -22,13 +22,13 @@
 #import "LinphoneManager.h"
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
+#import "DTAlertView.h"
+#import "DefaultSettingsManager.h"
 
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
 #import <XMLRPCResponse.h>
 #import <XMLRPCRequest.h>
-
-#import "DTAlertView.h"
 
 #define DATEPICKER_HEIGHT 230
 
@@ -125,7 +125,6 @@ static UICompositeViewDescription *compositeDescription = nil;
                                              selector:@selector(configuringUpdate:)
                                                  name:kLinphoneConfiguringStateUpdate
                                                object:nil];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -136,7 +135,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-
+    
+    [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
+    [self initLoginSettingsFields];
+    
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
     [self.buttonVideoRelayService.layer setCornerRadius:5];
@@ -187,6 +189,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 			text.placeholder = NSLocalizedString(@"Username", nil);
 		}
 	}
+}
+
+- (void)initLoginSettingsFields {
+    self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
+    //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
+    self.transportTextField.text = [DefaultSettingsManager sharedInstance].sipRegisterTransport;
+    self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
+    self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
 }
 
 #pragma mark -
@@ -487,6 +497,14 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                     , NULL
                                                     ,linphone_proxy_config_get_domain(proxyCfg));
     
+    // sip_auth_username
+    linphone_auth_info_set_username(info, self.textFieldUsername.text.UTF8String);
+    
+        
+    //sip_auth_password
+    linphone_auth_info_set_passwd(info, self.textFieldPassword.text.UTF8String);
+    
+    
     [self setDefaultSettings:proxyCfg];
     
     [self clearProxyConfig];
@@ -497,6 +515,9 @@ static UICompositeViewDescription *compositeDescription = nil;
     linphone_core_add_auth_info(lc, info);
     linphone_core_add_proxy_config(lc, proxyCfg);
     linphone_core_set_default_proxy_config(lc, proxyCfg);
+    
+    // expiration_time
+    linphone_proxy_config_set_expires(proxyCfg, [DefaultSettingsManager sharedInstance].exparitionTime);
     
     PayloadType *pt;
     const MSList *elem;
@@ -510,7 +531,8 @@ static UICompositeViewDescription *compositeDescription = nil;
               linphone_core_get_version());
     }
     
-    linphone_core_enable_video(lc, YES, YES);
+    // enable_video
+    linphone_core_enable_video(lc, [DefaultSettingsManager sharedInstance].enableVideo, [DefaultSettingsManager sharedInstance].enableVideo);
     
     LpConfig *config = linphone_core_get_config(lc);
     LinphoneVideoPolicy policy;
@@ -523,14 +545,31 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
+    // video_resolution_maximum
     if (!first) {
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        
+        NSString *videoPreferredSize = [DefaultSettingsManager sharedInstance].videoResolutionMaximum;
+        
+        if ([videoPreferredSize isEqualToString:@"cif"]) {
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        }
+        
+        if ([videoPreferredSize isEqualToString:@"qcif"]) {
+            MS_VIDEO_SIZE_ASSIGN(vsize, QCIF);
+        }
+        
+        if ([videoPreferredSize isEqualToString:@"vga"]) {
+            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+        }
+        
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
         
         [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"ACE_FIRST_OPEN"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    [self setConfigurationSettingsInitialValues];
     
     return TRUE;
 }
@@ -1321,6 +1360,110 @@ static UICompositeViewDescription *compositeDescription = nil;
                                   domain:self.textFieldDomain.text
                            withTransport:transport
                                     port:port];
+}
+
+- (void)setConfigurationSettingsInitialValues {
+    LinphoneManager *lm = [LinphoneManager instance];
+    LinphoneCore *lc = [LinphoneManager getLc];
+    
+    // version - ?
+    
+    // expiration_time - set
+    
+    // configuration_auth_password - ?
+    
+    // configuration_auth_expiration - ?
+    
+    // sip_registration_maximum_threshold - ?
+    
+    // sip_register_usernames - ?
+    
+    // sip_auth_username - set
+    
+    // sip_auth_password - set
+    
+    // sip_register_domain - set
+    
+    // sip_register_port - set
+    
+    // sip_register_transport - set
+    
+    // enable_echo_cancellation
+    linphone_core_enable_echo_cancellation(lc, [DefaultSettingsManager sharedInstance].enableEchoCancellation);
+    
+    // enable_video - set
+
+    // enable_rtt
+    [lm lpConfigSetBool:[DefaultSettingsManager sharedInstance].enableRtt forKey:@"rtt"];
+    
+    // enable_adaptive_rate
+    linphone_core_enable_adaptive_rate_control(lc, [DefaultSettingsManager sharedInstance].enableAdaptiveRate);
+    
+    // enabled_codecs
+    [self enableAppropriateCodecs:linphone_core_get_video_codecs(lc)];
+
+    // bwLimit - ? the name bwlimit is confusing
+    linphone_core_set_video_preset(lc, [DefaultSettingsManager sharedInstance].bwLimit.UTF8String);
+    
+    // upload_bandwidth
+    linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
+
+    // download_bandwidth
+    linphone_core_set_download_bandwidth(lc, [DefaultSettingsManager sharedInstance].downloadBandwidth);
+    
+    // enable_stun
+    linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyNoFirewall);
+    
+    //stun_server
+    linphone_core_set_stun_server(lc, [DefaultSettingsManager sharedInstance].stunServer.UTF8String);
+    
+    // enable_ice
+    if ([DefaultSettingsManager sharedInstance].enableIce) {
+         linphone_core_set_firewall_policy(lc, LinphonePolicyUseIce);
+        [lm lpConfigSetInt:1 forKey:@"ice_preference"];
+    } else {
+        [lm lpConfigSetInt:0 forKey:@"ice_preference"];
+    }
+    
+    // logging
+    linphone_core_set_log_level([self logLevel:[DefaultSettingsManager sharedInstance].logging]);
+    linphone_core_set_log_handler((OrtpLogFunc)linphone_iphone_log_handler);
+    
+    // sip_mwi_uri - ?
+    
+    // sip_videomail_uri - ?
+    
+    // video_resolution_maximum - set
+}
+
+- (void)enableAppropriateCodecs:(const MSList *)codecs {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    for (elem = codecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        linphone_core_enable_payload_type(lc, pt, [[DefaultSettingsManager sharedInstance].enabledCodecs containsObject:[NSString stringWithUTF8String:pt->mime_type]]);
+    }
+}
+
+- (OrtpLogLevel)logLevel:(NSString*)logInfo {
+    
+    if ([logInfo isEqualToString:@"info"]) {
+        return ORTP_MESSAGE;
+    }
+    
+    if ([logInfo isEqualToString:@"debug"]) {
+        [[LinphoneManager instance] lpConfigSetInt:1 forKey:@"debugenable_preference"];
+        return ORTP_DEBUG;
+    }
+    
+    if ([logInfo isEqualToString:@"all"]) {
+        return ORTP_TRACE;
+    }
+    
+    
+    return ORTP_DEBUG;
 }
 
 -(void) showAlert:(NSString*)message{
