@@ -49,7 +49,6 @@ static DefaultSettingsManager *sharedInstance = nil;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"config_defaults" ofType:@"json"];
     NSData *content = [[NSData alloc] initWithContentsOfFile:filePath];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:content options:kNilOptions error:nil];
-    NSLog(@"CONFIG JSON ---- %@", jsonDict);
     [self storeToUserDefaults:jsonDict];
 }
 
@@ -224,7 +223,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (NSArray*)enabledCodecs {
-    return (NSArray*)[[NSUserDefaults standardUserDefaults] objectForKey:@"enabled_codecs"];
+    return [[self removeDotsFromArray:(NSArray*)[[NSUserDefaults standardUserDefaults] objectForKey:@"enabled_codecs"]] copy];
 }
 
 - (NSString*)bwLimit {
@@ -265,6 +264,20 @@ static DefaultSettingsManager *sharedInstance = nil;
 
 - (NSString*)videoResolutionMaximum {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_resolution_maximum"];
+}
+
+#pragma mark - helper functions
+
+- (NSMutableArray*)removeDotsFromArray:(NSArray*)arrayWithDots {
+    NSMutableArray *arrayWithoutArray = [NSMutableArray new];
+    
+    for (NSString *str in arrayWithDots) {
+        NSString *stringWithoutDot = [str stringByReplacingOccurrencesOfString:@"." withString:@""];
+        [arrayWithoutArray addObject:stringWithoutDot];
+    }
+    
+    
+    return arrayWithoutArray;
 }
 
 @end
