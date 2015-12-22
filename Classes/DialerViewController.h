@@ -36,6 +36,8 @@
 
 @property (nonatomic, assign) BOOL transferMode;
 
+@property (weak, nonatomic) IBOutlet UIView *dialPadView;
+@property (weak, nonatomic) IBOutlet UIView *toolbarView;
 @property (nonatomic, strong) IBOutlet UIAddressTextField* addressField;
 @property (nonatomic, strong) IBOutlet UIButton* addContactButton;
 @property (nonatomic, strong) IBOutlet UICallButton* callButton;

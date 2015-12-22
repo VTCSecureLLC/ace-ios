@@ -13,6 +13,7 @@
                 <outlet property="backButton" destination="22" id="69"/>
                 <outlet property="backgroundView" destination="76" id="77"/>
                 <outlet property="callButton" destination="21" id="45"/>
+                <outlet property="dialPadView" destination="4" id="m31-JX-iFo"/>
                 <outlet property="eightButton" destination="13" id="47"/>
                 <outlet property="eraseButton" destination="25" id="48"/>
                 <outlet property="fiveButton" destination="16" id="49"/>
@@ -25,6 +26,7 @@
                 <outlet property="sixButton" destination="9" id="55"/>
                 <outlet property="starButton" destination="8" id="56"/>
                 <outlet property="threeButton" destination="17" id="57"/>
+                <outlet property="toolbarView" destination="3" id="0CW-30-o7p"/>
                 <outlet property="transferButton" destination="20" id="58"/>
                 <outlet property="twoButton" destination="18" id="59"/>
                 <outlet property="videoCameraSwitch" destination="71" id="74"/>
@@ -191,7 +193,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="17" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="220.99999991978441" y="2" width="107" height="72"/>
+                            <rect key="frame" x="220.9999999197845" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
