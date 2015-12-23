@@ -503,6 +503,30 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
 	}
+    else if([@"rtcp_feedback_pref" compare:notif.object] == NSOrderedSame){
+		NSString *rtcpFeedbackMode = [notif.userInfo objectForKey:@"rtcp_feedback_pref"];
+        
+        int rtcpFB;
+        if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+            rtcpFB = 1;
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        }
+        else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+            rtcpFB = 1;
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        }
+        else{
+            rtcpFB = 0;
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
+        [defaults synchronize];
+    }
     
     else if ([@"mute_microphone_preference" compare:notif.object] == NSOrderedSame) {
         BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
