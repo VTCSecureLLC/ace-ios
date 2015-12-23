@@ -41,29 +41,31 @@ automatically_initiate=1
 automatically_accept=1
 preset=high-fps
 
-
 [video_codec_0]
 mime=H264
 rate=90000
 enabled=1
-recv_fmtp=profile-level-id=42801F
-
+send_fmtp=profile-level-id=42801F; packetization-mode=0
+recv_fmtp=profile-level-id=42801F; packetization-mode=0
 
 [video_codec_1]
+mime=H264
+rate=90000
+enabled=1
+send_fmtp=profile-level-id=42801F; packetization-mode=1
+recv_fmtp=profile-level-id=42801F; packetization-mode=1
+
+[video_codec_2]
 mime=H263
 rate=90000
 enabled=1
 send_fmtp=CIF=1;QCIF=1
 recv_fmtp=CIF=1;QCIF=1
 
-[video_codec_2]
+[video_codec_3]
 mime=VP8
 rate=90000
 enabled=1
-[net]
-firewall_policy=0
-download_bw=660
-upload_bw=660
 
 [sound]
 playback_dev_id=AU: Audio Unit Receiver

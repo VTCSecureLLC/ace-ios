@@ -94,57 +94,57 @@ struct codec_name_pref_table codec_pref_table[]={
 PayloadType *h264_1;
 
 -(void) initializeSDP: (LinphoneCore*) lc{
-        if(linphone_core_video_enabled(lc)){
-            PayloadType *pt=linphone_core_find_payload_type(lc,"H264", 90000, -1);
-            
-            if(pt){
-                if(h264_1 == NULL){
-                    h264_1 = payload_type_clone(pt);
-                }
-                payload_type_set_send_fmtp(h264_1, "packetization-mode=1;");
-                payload_type_set_recv_fmtp(h264_1, "packetization-mode=1;");
-                linphone_core_set_payload_type_number(lc, h264_1, 97);
-                
-                if(!linphone_core_payload_type_enabled(lc, h264_1))
-                {
-                    linphone_core_create_duplicate_payload_type_with_params(lc, pt, h264_1);
-                    NSLog(@"Mode 1 added");
-                }
-                
-                else{
-                    NSLog(@"H264 mode 1 enabled");
-                }
-
-                
-                payload_type_set_send_fmtp(pt, "packetization-mode=0;");
-                payload_type_set_recv_fmtp(pt, "packetization-mode=0;");
-
-                linphone_core_enable_payload_type(lc, h264_1, TRUE);
-                linphone_core_enable_payload_type(lc, pt, TRUE);
-                
-            }
-            //         ***** KEEP FOR FUTURE AVPF FIXES *******
-            
-            //        if(pt && linphone_core_get_avpf_mode(lc) == LinphoneAVPFEnabled){
-            //            PayloadTypeAvpfParams params;
-            //            params.features = PAYLOAD_TYPE_AVPF_FIR | PAYLOAD_TYPE_AVPF_PLI  | PAYLOAD_TYPE_AVPF_RPSI | PAYLOAD_TYPE_AVPF_SLI;
-            //            params.rpsi_compatibility = TRUE;
-            //            params.trr_interval = 3;
-            //            payload_type_set_avpf_params(pt, params);
-            //
-            //            payload_type_set_recv_fmtp(pt, "CIF=1;QCIF=1");
-            //            payload_type_set_send_fmtp(pt, "CIF=1;QCIF=1");
-            //
-            //            linphone_core_enable_payload_type([LinphoneManager getLc],pt,TRUE);
-            //        }
-            
-            pt=linphone_core_find_payload_type(lc,"H263", 90000, -1);
-            if (pt) {
-                payload_type_set_recv_fmtp(pt, "CIF=1;QCIF=1");
-                payload_type_set_send_fmtp(pt, "CIF=1;QCIF=1");
-                linphone_core_enable_payload_type([LinphoneManager getLc],pt,TRUE);
-            }
-    }
+//        if(linphone_core_video_enabled(lc)){
+//            PayloadType *pt=linphone_core_find_payload_type(lc,"H264", 90000, -1);
+//            
+//            if(pt){
+//                if(h264_1 == NULL){
+//                    h264_1 = payload_type_clone(pt);
+//                }
+//                payload_type_set_send_fmtp(h264_1, "packetization-mode=1;");
+//                payload_type_set_recv_fmtp(h264_1, "packetization-mode=1;");
+//                linphone_core_set_payload_type_number(lc, h264_1, 97);
+//                
+//                if(!linphone_core_payload_type_enabled(lc, h264_1))
+//                {
+//                    linphone_core_create_duplicate_payload_type_with_params(lc, pt, h264_1);
+//                    NSLog(@"Mode 1 added");
+//                }
+//                
+//                else{
+//                    NSLog(@"H264 mode 1 enabled");
+//                }
+//
+//                
+//                payload_type_set_send_fmtp(pt, "packetization-mode=0;");
+//                payload_type_set_recv_fmtp(pt, "packetization-mode=0;");
+//
+//                linphone_core_enable_payload_type(lc, h264_1, TRUE);
+//                linphone_core_enable_payload_type(lc, pt, TRUE);
+//                
+//            }
+//            //         ***** KEEP FOR FUTURE AVPF FIXES *******
+//            
+//            //        if(pt && linphone_core_get_avpf_mode(lc) == LinphoneAVPFEnabled){
+//            //            PayloadTypeAvpfParams params;
+//            //            params.features = PAYLOAD_TYPE_AVPF_FIR | PAYLOAD_TYPE_AVPF_PLI  | PAYLOAD_TYPE_AVPF_RPSI | PAYLOAD_TYPE_AVPF_SLI;
+//            //            params.rpsi_compatibility = TRUE;
+//            //            params.trr_interval = 3;
+//            //            payload_type_set_avpf_params(pt, params);
+//            //
+//            //            payload_type_set_recv_fmtp(pt, "CIF=1;QCIF=1");
+//            //            payload_type_set_send_fmtp(pt, "CIF=1;QCIF=1");
+//            //
+//            //            linphone_core_enable_payload_type([LinphoneManager getLc],pt,TRUE);
+//            //        }
+//            
+//            pt=linphone_core_find_payload_type(lc,"H263", 90000, -1);
+//            if (pt) {
+//                payload_type_set_recv_fmtp(pt, "CIF=1;QCIF=1");
+//                payload_type_set_send_fmtp(pt, "CIF=1;QCIF=1");
+//                linphone_core_enable_payload_type([LinphoneManager getLc],pt,TRUE);
+//            }
+//    }
 }
 
 @end
