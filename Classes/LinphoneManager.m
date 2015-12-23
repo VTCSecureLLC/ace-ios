@@ -1934,7 +1934,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
         NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
-        linphone_call_params_add_custom_header(lcallParams, "userLocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+        linphone_call_params_add_custom_header(lcallParams, "X-ACE-Geolocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }
     
 	LinphoneAddress *addr = NULL;
