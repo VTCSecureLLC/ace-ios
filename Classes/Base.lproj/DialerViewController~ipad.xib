@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DialerViewController">
@@ -43,29 +43,24 @@
                 <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="background_alt.png" id="73" userLabel="background">
                     <rect key="frame" x="224" y="310" width="320" height="280"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo_linphone_trame_background.png" id="78" userLabel="backgroundImage">
                     <rect key="frame" x="127" y="200" width="510" height="460"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <animations/>
                 </imageView>
                 <view contentMode="scaleToFill" id="76" userLabel="backgroundView">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="900"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleAspectFill" id="70" userLabel="preview">
                     <rect key="frame" x="0.0" y="58" width="768" height="842"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="71" userLabel="videoCameraSwitch" customClass="UICamSwitch">
                     <rect key="frame" x="20" y="90" width="85" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
                     <accessibility key="accessibilityConfiguration" label="Switch camera"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="switch_camera_default.png">
@@ -83,7 +78,6 @@
                         <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter SIP address or phone number..." adjustsFontSizeToFit="NO" minimumFontSize="15" id="6" userLabel="addressField" customClass="UIAddressTextField">
                             <rect key="frame" x="81" y="16" width="606" height="42"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" label="Enter an address"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,7 +97,6 @@
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="25" userLabel="backspaceButton" customClass="UIEraseButton">
                             <rect key="frame" x="698" y="11" width="70" height="51"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Backscape"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
@@ -119,7 +112,6 @@
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="24" userLabel="addContactButton">
                             <rect key="frame" x="14" y="24" width="32" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Add to Contact"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="add_contact_circle.png">
@@ -132,7 +124,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="4" userLabel="pad">
@@ -142,7 +133,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="19" userLabel="1" customClass="UIDigitButtonLongVoiceMail">
                             <rect key="frame" x="2" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -165,7 +155,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="18" userLabel="2" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="2"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -193,9 +182,8 @@
                             </connections>
                         </button>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="17" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="220.9999999197845" y="2" width="107" height="72"/>
+                            <rect key="frame" x="220.99999991978441" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -225,7 +213,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="15" userLabel="4" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="4"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -255,7 +242,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="16" userLabel="5" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="5"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -285,7 +271,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="9" userLabel="6" customClass="UIDigitButton">
                             <rect key="frame" x="221" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="6"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -315,7 +300,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="14" userLabel="7" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="7"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -345,7 +329,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="13" userLabel="8" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="8"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -375,7 +358,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="12" userLabel="9" customClass="UIDigitButton">
                             <rect key="frame" x="221" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="9"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -405,7 +387,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="8" userLabel="*" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Star"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -426,7 +407,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="10" userLabel="0" customClass="UIDigitButtonLongPlus">
                             <rect key="frame" x="111" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="0"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -456,7 +436,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="11" userLabel="#" customClass="UIDigitButton">
                             <rect key="frame" x="221" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Sharp"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -475,7 +454,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="3" userLabel="toolBar">
@@ -496,7 +474,6 @@
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="22" userLabel="backButton">
                             <rect key="frame" x="2" y="2" width="126" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Back"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="back_default.png">
@@ -511,7 +488,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="21" userLabel="callButton" customClass="UICallButton">
                             <rect key="frame" x="130" y="2" width="245" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.08235294118" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="Call"/>
                             <inset key="contentEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -535,7 +511,6 @@
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="23" userLabel="addCallButton" customClass="UICallButton">
                             <rect key="frame" x="126" y="2" width="186" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Add call"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="add_call_default.png">
@@ -550,7 +525,6 @@
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="20" userLabel="transferButton" customClass="UITransferButton">
                             <rect key="frame" x="130" y="2" width="245" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Transfer Call"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="transfer_call_default.png">
@@ -563,11 +537,9 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

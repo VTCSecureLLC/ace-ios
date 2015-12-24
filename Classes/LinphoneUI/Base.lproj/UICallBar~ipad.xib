@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallBar">
@@ -179,14 +179,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Transfer" backgroundImage="options_transfer_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_transfer_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_transfer_over_landscape.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -199,14 +199,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add call" backgroundImage="options_add_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_add_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_add_over_landscape.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -226,17 +226,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Video" backgroundImage="video_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="video_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="video_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="video_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <outlet property="waitView" destination="46" id="63"/>
@@ -253,17 +253,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Micro" backgroundImage="micro_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="micro_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="micro_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="micro_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="42" userLabel="speakerButton" customClass="UISpeakerButton">
@@ -273,17 +273,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="speaker_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" title="Speaker" backgroundImage="speaker_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="speaker_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="speaker_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="39" userLabel="optionsButton" customClass="UIToggleButton">
@@ -293,17 +293,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Options" backgroundImage="options_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="options_selected_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="44" userLabel="conferenceButton">
@@ -345,7 +345,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="43" userLabel="chatButton" customClass="UIChatButton">
-                            <rect key="frame" x="701" y="0.0" width="87" height="85"/>
+                            <rect key="frame" x="701" y="13" width="87" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label=""/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -520,17 +520,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Transfer" backgroundImage="options_transfer_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_transfer_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_transfer_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsTransferClick:" destination="-1" eventType="touchUpInside" id="95"/>
@@ -543,17 +543,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add call" backgroundImage="options_add_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_add_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsAddClick:" destination="-1" eventType="touchUpInside" id="94"/>
@@ -573,14 +573,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Video" backgroundImage="video_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="video_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="video_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="video_off_over.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -600,14 +600,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Micro" backgroundImage="micro_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="micro_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="micro_off_over.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -620,14 +620,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="speaker_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" title="Speaker" backgroundImage="speaker_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="speaker_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="speaker_off_over.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -640,14 +640,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="54" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Options" backgroundImage="options_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="options_selected.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_over.png">
                                 <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
@@ -657,7 +657,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="13" userLabel="chatButton" customClass="UIChatButton">
-                            <rect key="frame" x="445" y="0.0" width="87" height="85"/>
+                            <rect key="frame" x="445" y="13" width="87" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Pause"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -677,6 +677,7 @@
                             <accessibility key="accessibilityConfiguration" label="Hangup"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="hangup_default.png">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted" image="hangup_over.png"/>
@@ -725,7 +726,7 @@
         </view>
     </objects>
     <resources>
-        <image name="chat_selected.png" width="350" height="153"/>
+        <image name="chat_selected.png" width="174" height="144"/>
         <image name="conference_default.png" width="173" height="170"/>
         <image name="conference_default_landscape.png" width="173" height="170"/>
         <image name="conference_over.png" width="173" height="170"/>
