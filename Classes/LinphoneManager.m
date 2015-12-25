@@ -1456,6 +1456,26 @@ static BOOL libStarted = FALSE;
 	const char *lRootCa = [[LinphoneManager bundleFile:@"rootca.pem"] UTF8String];
 	linphone_core_set_root_ca(theLinphoneCore, lRootCa);
 	linphone_core_set_user_certificates_path(theLinphoneCore, [[LinphoneManager cacheDirectory] UTF8String]);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
+    
+    int rtcpFB;
+    if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+        rtcpFB = 1;
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+    }
+    else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+        rtcpFB = 1;
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+    }
+    else{
+        rtcpFB = 0;
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+    }
 
 	/* The core will call the linphone_iphone_configuring_status_changed callback when the remote provisioning is loaded
 	 (or skipped).
@@ -1914,7 +1934,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
     if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
         NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
-        linphone_call_params_add_custom_header(lcallParams, "userLocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+        linphone_call_params_add_custom_header(lcallParams, "X-ACE-Geolocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
     }
     
 	LinphoneAddress *addr = NULL;

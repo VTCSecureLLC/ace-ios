@@ -5,6 +5,28 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Titles</key>
+			<array>
+				<string>Implicit</string>
+				<string>Explicit</string>
+				<string>Off</string>
+			</array>
+			<key>DefaultValue</key>
+			<string>Off</string>
+			<key>Values</key>
+			<array>
+				<string>Implicit</string>
+				<string>Explicit</string>
+				<string>Off</string>
+			</array>
+			<key>Key</key>
+			<string>rtcp_feedback_pref</string>
+			<key>Title</key>
+			<string>RTCP Feedback</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
