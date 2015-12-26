@@ -18,6 +18,7 @@
     self = [super init];
     self.msgString = [[NSMutableString alloc] init];
     [self.msgString appendString:msgString];
+    self.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
     return self;
 }
 -(void) removeLast{
@@ -25,4 +26,5 @@
         return;
     [self.msgString deleteCharactersInRange:NSMakeRange(self.msgString.length -1,1)];
 }
+
 @end
