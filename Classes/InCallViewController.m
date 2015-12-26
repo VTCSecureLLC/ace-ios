@@ -33,9 +33,14 @@
 #import "RTTMessageModel.h"
 #include "linphone/linphonecore.h"
 #import "UILabel+Clipboard.h"
+#import "BubbleTableViewCell.h"
+
+const CGFloat BubbleWidthOffset = 30.0f;
+const CGFloat BubbleImageSize = 50.0f;
+
 const NSInteger SECURE_BUTTON_TAG = 5;
 
-@interface InCallViewController()
+@interface InCallViewController() <BubbleTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 
     @property NSMutableArray *chatEntries;
@@ -708,13 +713,21 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
     if(self.isChatMode){
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
         [self.tableView reloadData];
         [self showLatestMessage];
     }
 }
 -(void) insertTextIntoBuffer :(NSString*) text{
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
-        [self createNewLocalChatBuffer:text];
+        
+        if ( (self.localTextBufferIndex > 0) && (self.localTextBufferIndex < self.chatEntries.count)) {
+            self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
+        }
+        
+        if (![self.localTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
+            [self createNewLocalChatBuffer:text];
+        }
         return;
     }
     self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
@@ -863,13 +876,28 @@ NSMutableString *msgBuffer;
     self.remoteTextBufferIndex = (int)self.chatEntries.count;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [self.tableView reloadData];
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
 }
--(void) insertTextIntoRemoteBuffer :(NSString*) text{
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]){
-        [self createNewRemoteChatBuffer:text];
+
+-(void) insertTextIntoRemoteBuffer :(NSString*) text {
+    
+    int asciiCode = [text characterAtIndex:0];
+    if (asciiCode == 0) {
+        return;
+    }
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
+        
+        if ( (self.remoteTextBufferIndex > 0) && (self.remoteTextBufferIndex < self.chatEntries.count)) {
+            self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
+        }
+        
+        if (![self.remoteTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
+            [self createNewRemoteChatBuffer:text];
+        }
+
         return;
     }
     self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
@@ -887,8 +915,9 @@ NSMutableString *msgBuffer;
                 return;
             }
         }
+       // [self.remoteTextBuffer.msgString appendString:text];
+        self.remoteTextBuffer.msgString = [[self.remoteTextBuffer.msgString stringByAppendingString:text] mutableCopy];
 
-            [self.remoteTextBuffer.msgString appendString:text];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
                 [self.tableView reloadData];
                 [self showCurrentRemoteTextBuffer];
@@ -1036,7 +1065,7 @@ BOOL didChatResize = NO;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 20;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -1045,44 +1074,76 @@ BOOL didChatResize = NO;
     return headerView;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    CGSize maxSize = CGSizeMake(CGRectGetWidth(cell.textLabel.frame) / 2, CGFLOAT_MAX);
-    CGSize requiredSize = [cell.textLabel sizeThatFits:maxSize];
-    return requiredSize.height;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *MyIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
-    }
-    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
-   
-    cell.textLabel.text = msg.msgString;
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.userInteractionEnabled = YES;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [cell.textLabel enableClipboard:YES];
-    [cell.textLabel canBecomeFirstResponder];
-    
-    ((RTTMessageModel*)[self.chatEntries objectAtIndex:indexPath.section]).attrMsgString = cell.textLabel.attributedText;
-    
-    [cell layoutIfNeeded];
-    [cell.contentView layoutIfNeeded];
-    cell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(cell.frame);
+#pragma mark - UITableViewDelegate methods
 
-    cell.backgroundColor = msg.color;
-    cell.userInteractionEnabled = YES;
-    [cell canBecomeFirstResponder];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    CGSize size;
+
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
     
-    cell.layer.cornerRadius = 20.0f;
-    cell.layer.borderWidth = 1.0f;
-    cell.layer.opacity = self.tableView.alpha;
-    cell.layer.borderColor = [[UIColor blackColor] CGColor];
+    if ([msg.msgString isEqualToString:@"\n"] || [msg.msgString isEqualToString:@""]) {
+        return 17;
+    } else {
+        
+        size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - BubbleWidthOffset, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
+                                                 context:nil].size;
+    }
+    return size.height;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    NSString *CellIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    BubbleTableViewCell *cell = (BubbleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[BubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.backgroundColor = self.tableView.backgroundColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataSource = self;
+    }
+    
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+    
+    if ([msg.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
+        cell.authorType = BubbleTableViewCellTypeSelf;
+        cell.bubbleColor = BubbleColorBlue;
+    } else {
+        cell.authorType = BubbleTableViewCellTypeOther;
+        cell.bubbleColor = BubbleColorGray;
+    }
+    
+    if (msg.msgString.length > 1) {
+        
+        NSString *firstCharacter = [msg.msgString substringToIndex:1];
+        NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
+        if ([firstCharacter isEqualToString:@"\n"]) {
+            cell.textLabel.text = stringWithoutNewLine;
+        } else {
+            cell.textLabel.text = msg.msgString;
+        }
+    } else {
+        cell.textLabel.text = msg.msgString;
+    }
+    
     return cell;
+}
+
+#pragma mark - BubbleTableViewCellDataSource methods
+
+- (CGFloat)minInsetForCell:(BubbleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    {
+        return 100.0f;
+    }
+    
+    return 20.0f;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -1090,12 +1151,6 @@ BOOL didChatResize = NO;
     if(decelerate) return;
     
     [self scrollViewDidEndDecelerating:scrollView];
-}
-
-
-- (void)scrollViewDidEndDecelerating:(UITableView *)tableView {
-    
-    [tableView scrollToRowAtIndexPath:[tableView indexPathForRowAtPoint: CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y+tableView.rowHeight/2)] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void)updateViewConstraints {
@@ -1108,4 +1163,5 @@ BOOL didChatResize = NO;
 +(InCallViewController*) sharedInstance{
     return instance;
 }
+
 @end
