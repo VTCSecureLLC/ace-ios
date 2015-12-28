@@ -687,7 +687,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }
 }
 
@@ -768,7 +768,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         if(self.isChatMode){
             [self sortChatEntriesArray];
             [self.tableView reloadData];
-            [self showCurrentLocalTextBuffer];
+            [self showLatestMessage];
         }
     }
 }
@@ -958,9 +958,8 @@ NSMutableString *msgBuffer;
         
         [self sortChatEntriesArray];
         [self.tableView reloadData];
-        [self showCurrentLocalTextBuffer];
         [self insertTextIntoMinimizedTextBuffer:text];
-        
+        [self showLatestMessage];
     }
 }
 
