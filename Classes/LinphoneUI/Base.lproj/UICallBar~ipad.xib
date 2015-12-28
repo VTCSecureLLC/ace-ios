@@ -49,124 +49,305 @@
                     <color key="backgroundColor" red="0.0" green="1" blue="0.19194547549999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view tag="1" contentMode="scaleToFill" id="35" userLabel="padView">
-                    <rect key="frame" x="372" y="244" width="281" height="260"/>
+                    <rect key="frame" x="347" y="244" width="330" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="dialer_alt_background.png" id="59" userLabel="background">
-                            <rect key="frame" x="0.0" y="0.0" width="281" height="260"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </imageView>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="58" userLabel="1" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="49" userLabel="*" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="Star"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="*">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="58" userLabel="1" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="2" width="107" height="72"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_one_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="1"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">1</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_one_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="57" userLabel="2" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="10" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="57" userLabel="2" customClass="UIDigitButton">                            
+                            <rect key="frame" x="111" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_two_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="2"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">2
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ABC">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_two_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="56" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="56" userLabel="3" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_three_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="3"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">3
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="DEF">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.75"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_three_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="55" userLabel="4" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="55" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_four_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="4"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">4
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="GHI">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_four_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54" userLabel="5" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="72" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="54" userLabel="5" customClass="UIDigitButton">
+                            <rect key="frame" x="111" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_five_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="5"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">5
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="JKL">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_five_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="53" userLabel="6" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="53" userLabel="6" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_six_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="6"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">6
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="MNO">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_six_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="52" userLabel="7" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="52" userLabel="7" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_seven_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">7
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="PQRS">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_seven_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="51" userLabel="8" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="134" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="51" userLabel="8" customClass="UIDigitButton">
+                            <rect key="frame" x="111" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_eight_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="8"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">8
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="TUV">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_eight_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="50" userLabel="9" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="50" userLabel="9" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_nine_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="9"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">9
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="WXYZ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_nine_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="49" userLabel="*" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="48" userLabel="0" customClass="UIDigitButtonLongPlus">
+                            <rect key="frame" x="111" y="224" width="106" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_star_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">0
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="+">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_star_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48" userLabel="0" customClass="UIDigitButtonLongPlus">
-                            <rect key="frame" x="87" y="196" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="47" userLabel="#" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_zero_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="#">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_zero_over.png"/>
-                        </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="47" userLabel="#" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="196" width="107" height="54"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_sharp_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" image="numpad_sharp_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view tag="15" contentMode="scaleToFill" id="34" userLabel="optionsView">
                     <rect key="frame" x="239" y="552" width="81" height="133"/>
@@ -306,16 +487,6 @@
                                 <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="44" userLabel="conferenceButton">
-                            <rect key="frame" x="606" y="-8" width="87" height="85"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label=""/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="conference_default_landscape.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" image="conference_over_landscape.png"/>
-                        </button>
                         <button opaque="NO" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="45" userLabel="hangupButton" customClass="UIHangUpButton">
                             <rect key="frame" x="875" y="0.0" width="149" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
@@ -359,6 +530,16 @@
                                 <action selector="onChatDismiss:" destination="-1" eventType="touchUpOutside" id="Jom-S8-uVB"/>
                             </connections>
                         </button>
+                        <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="44" userLabel="conferenceButton">
+                            <rect key="frame" x="615" y="0.0" width="87" height="85"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <accessibility key="accessibilityConfiguration" label=""/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" image="conference_default_landscape.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" image="conference_over_landscape.png"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -378,136 +559,307 @@
                     <color key="backgroundColor" red="0.0" green="1" blue="0.19194547549999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view tag="1" contentMode="scaleToFill" id="5" userLabel="padView">
-                    <rect key="frame" x="244" y="372" width="281" height="260"/>
+                    <rect key="frame" x="219" y="372" width="330" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="dialer_alt_background.png" id="18" userLabel="background">
-                            <rect key="frame" x="0.0" y="0.0" width="281" height="260"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </imageView>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="19" userLabel="1" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="30" userLabel="#" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="#">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="19" userLabel="1" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="2" width="107" height="72"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_one_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">1
+   </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_one_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="20" userLabel="2" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="10" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="20" userLabel="2" customClass="UIDigitButton">
+                            <rect key="frame" x="111" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="2"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_two_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">2
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ABC">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_two_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="21" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="21" userLabel="3" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_three_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">3
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="DEF">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.75"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_three_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="22" userLabel="4" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="22" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="4"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_four_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">4
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="GHI">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_four_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="23" userLabel="5" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="72" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="23" userLabel="5" customClass="UIDigitButton">
+                            <rect key="frame" x="111" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="5"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_five_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">5
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="JKL">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_five_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="24" userLabel="6" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="24" userLabel="6" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="76" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="6"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_six_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">6
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="MNO">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_six_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="25" userLabel="7" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="25" userLabel="7" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="7"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_seven_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">7
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="PQRS">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_seven_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="26" userLabel="8" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="134" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="26" userLabel="8" customClass="UIDigitButton">
+                            <rect key="frame" x="111" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="8"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_eight_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">8
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="TUV">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_eight_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="27" userLabel="9" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="27" userLabel="9" customClass="UIDigitButton">
+                            <rect key="frame" x="220" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="9"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_nine_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">9
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="WXYZ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_nine_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="28" userLabel="*" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="28" userLabel="*" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Star"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_star_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="*">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_star_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="29" userLabel="0" customClass="UIDigitButtonLongPlus">
-                            <rect key="frame" x="87" y="196" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="29" userLabel="0" customClass="UIDigitButtonLongPlus">
+                            <rect key="frame" x="111" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="0"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_zero_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">0
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="+">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_zero_over.png"/>
-                        </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="30" userLabel="#" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="196" width="107" height="54"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_sharp_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" image="numpad_sharp_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view tag="15" contentMode="scaleToFill" id="4" userLabel="optionsView">
                     <rect key="frame" x="239" y="809" width="81" height="133"/>
@@ -731,9 +1083,9 @@
         <image name="conference_default_landscape.png" width="173" height="170"/>
         <image name="conference_over.png" width="173" height="170"/>
         <image name="conference_over_landscape.png" width="173" height="170"/>
+        <image name="dial_pad_button_unpressed.png" width="210" height="113"/>
         <image name="dialer_alt_back_default.png" width="173" height="170"/>
         <image name="dialer_alt_back_default_landscape.png" width="173" height="170"/>
-        <image name="dialer_alt_background.png" width="530" height="526"/>
         <image name="dialer_alt_default.png" width="173" height="170"/>
         <image name="dialer_alt_default_landscape.png" width="173" height="170"/>
         <image name="dialer_alt_over.png" width="173" height="170"/>
@@ -749,29 +1101,17 @@
         <image name="micro_off_over_landscape.png" width="159" height="170"/>
         <image name="micro_on_default.png" width="159" height="170"/>
         <image name="micro_on_default_landscape.png" width="159" height="170"/>
-        <image name="numpad_eight_default.png" width="210" height="113"/>
         <image name="numpad_eight_over.png" width="210" height="113"/>
-        <image name="numpad_five_default.png" width="210" height="113"/>
         <image name="numpad_five_over.png" width="210" height="113"/>
-        <image name="numpad_four_default.png" width="210" height="113"/>
         <image name="numpad_four_over.png" width="210" height="113"/>
-        <image name="numpad_nine_default.png" width="210" height="113"/>
         <image name="numpad_nine_over.png" width="210" height="113"/>
-        <image name="numpad_one_default.png" width="210" height="113"/>
         <image name="numpad_one_over.png" width="210" height="113"/>
-        <image name="numpad_seven_default.png" width="210" height="113"/>
         <image name="numpad_seven_over.png" width="210" height="113"/>
-        <image name="numpad_sharp_default.png" width="210" height="113"/>
         <image name="numpad_sharp_over.png" width="210" height="113"/>
-        <image name="numpad_six_default.png" width="210" height="113"/>
         <image name="numpad_six_over.png" width="210" height="113"/>
-        <image name="numpad_star_default.png" width="210" height="113"/>
         <image name="numpad_star_over.png" width="210" height="113"/>
-        <image name="numpad_three_default.png" width="210" height="113"/>
         <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_default.png" width="210" height="113"/>
         <image name="numpad_two_over.png" width="210" height="113"/>
-        <image name="numpad_zero_default.png" width="210" height="113"/>
         <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="options_add_default.png" width="162" height="137"/>
         <image name="options_add_default_landscape.png" width="162" height="137"/>
