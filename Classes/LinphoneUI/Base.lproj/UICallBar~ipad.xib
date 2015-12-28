@@ -55,7 +55,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="49" userLabel="*" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Star"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -74,13 +73,11 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="58" userLabel="1" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
-                                    <fragment>
-                                        <string key="content">1</string>
+                                    <fragment content="1">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
@@ -90,10 +87,9 @@
                             </state>
                             <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="57" userLabel="2" customClass="UIDigitButton">                            
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="57" userLabel="2" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="2"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -120,7 +116,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="56" userLabel="3" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -250,7 +245,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="51" userLabel="8" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="8"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -277,7 +271,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="50" userLabel="9" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="9"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -304,7 +297,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="48" userLabel="0" customClass="UIDigitButtonLongPlus">
                             <rect key="frame" x="111" y="224" width="106" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="0"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -331,7 +323,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="47" userLabel="#" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Sharp"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -565,7 +556,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="30" userLabel="#" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Sharp"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -583,7 +573,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="19" userLabel="1" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -603,7 +592,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="20" userLabel="2" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="2"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -630,7 +618,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="21" userLabel="3" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -761,7 +748,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="26" userLabel="8" customClass="UIDigitButton">
                             <rect key="frame" x="111" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="8"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -788,7 +774,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="27" userLabel="9" customClass="UIDigitButton">
                             <rect key="frame" x="220" y="150" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="9"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -815,7 +800,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="28" userLabel="*" customClass="UIDigitButton">
                             <rect key="frame" x="2" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="Star"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -834,7 +818,6 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="29" userLabel="0" customClass="UIDigitButtonLongPlus">
                             <rect key="frame" x="111" y="224" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" label="0"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
                                 <attributedString key="attributedTitle">
@@ -1083,6 +1066,7 @@
         <image name="conference_default_landscape.png" width="173" height="170"/>
         <image name="conference_over.png" width="173" height="170"/>
         <image name="conference_over_landscape.png" width="173" height="170"/>
+        <image name="dial_pad_button_pressed.png" width="210" height="113"/>
         <image name="dial_pad_button_unpressed.png" width="210" height="113"/>
         <image name="dialer_alt_back_default.png" width="173" height="170"/>
         <image name="dialer_alt_back_default_landscape.png" width="173" height="170"/>
@@ -1101,18 +1085,6 @@
         <image name="micro_off_over_landscape.png" width="159" height="170"/>
         <image name="micro_on_default.png" width="159" height="170"/>
         <image name="micro_on_default_landscape.png" width="159" height="170"/>
-        <image name="numpad_eight_over.png" width="210" height="113"/>
-        <image name="numpad_five_over.png" width="210" height="113"/>
-        <image name="numpad_four_over.png" width="210" height="113"/>
-        <image name="numpad_nine_over.png" width="210" height="113"/>
-        <image name="numpad_one_over.png" width="210" height="113"/>
-        <image name="numpad_seven_over.png" width="210" height="113"/>
-        <image name="numpad_sharp_over.png" width="210" height="113"/>
-        <image name="numpad_six_over.png" width="210" height="113"/>
-        <image name="numpad_star_over.png" width="210" height="113"/>
-        <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_over.png" width="210" height="113"/>
-        <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="options_add_default.png" width="162" height="137"/>
         <image name="options_add_default_landscape.png" width="162" height="137"/>
         <image name="options_add_disabled_landscape.png" width="162" height="137"/>
