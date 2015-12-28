@@ -234,16 +234,6 @@
 		</dict>
 		<dict>
 			<key>Key</key>
-			<string>rtt_menu</string>
-			<key>File</key>
-			<string>Text</string>
-			<key>Title</key>
-			<string>Text</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
 			<string>audio_menu</string>
 			<key>File</key>
 			<string>Audio</string>
