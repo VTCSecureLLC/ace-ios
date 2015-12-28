@@ -141,8 +141,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     
     self.chatEntries = [[NSMutableArray alloc] init];
-    self.localTextBufferIndex = 0;
-    self.remoteTextBufferIndex = 0;
+    self.localTextBufferIndex = -1;
+    self.remoteTextBufferIndex = -1;
 
     self.localTextBuffer = nil;
     self.remoteTextBuffer = nil;
@@ -687,7 +687,9 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
-        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        if (index.section >= 0 && index.section < (int)self.chatEntries.count) {
+            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
     }
 }
 
@@ -726,29 +728,54 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
 -(void) insertTextIntoBuffer :(NSString*)text {
     
-    int index;
-    if ((int)self.chatEntries.count == 1) {
-        index = 0;
+    int asciiCode = [text characterAtIndex:0];
+    if (asciiCode == 0) {
+        return;
+    }
+    
+    int indx;
+    if ((int)self.chatEntries.count == 0) {
+        indx = 0;
     } else {
-        index = (int)self.chatEntries.count - 1;
+        indx = (int)self.chatEntries.count - 1;
     }
     
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
         
+        RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
+        NSString *currentCharacter = currentRttModel.msgString;
         
-        if (![self.localTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
+        // if the last one is not mine and it's not a first my messages
+        if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && [currentCharacter isEqualToString:@"\n"]) {
+            return;
+        }
+        
+        if (![currentCharacter isEqualToString:@"\n"]) { // do not add row if previous mine is empty
             
-            self.localTextBuffer = [self.chatEntries objectAtIndex:index];
+            if (indx == 0) { // if it's the first message
+                [self createNewLocalChatBuffer:text];
+                return;
+            } else {
+                self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
+            }
+            
             // If the previous is my message
-            if ([self.localTextBuffer.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
+            if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
                 self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
             }
             
             [self createNewLocalChatBuffer:text];
+            return;
         }
+        
+    }
+    
+    if (self.localTextBufferIndex == -1) { // if it's the first message after others
+        [self createNewLocalChatBuffer:text];
         return;
     }
-    self.localTextBuffer = [self.chatEntries objectAtIndex:index];
+    
+    self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
     if(self.localTextBuffer){
         if(self.localTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
             [self createNewLocalChatBuffer:text];
@@ -757,13 +784,13 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         if(self.localTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR){
             if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
                 [self.localTextBuffer.msgString appendString: text];
-                [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:index];
+                [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
                 [self createNewLocalChatBuffer:@""];
                 return;
             }
         }
         [self.localTextBuffer.msgString appendString: text];
-        [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:index];
+        [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
 
         if(self.isChatMode){
             [self sortChatEntriesArray];
@@ -912,28 +939,33 @@ NSMutableString *msgBuffer;
         return;
     }
     int index;
-    if ((int)self.chatEntries.count == 1) {
+    if ((int)self.chatEntries.count == 0) {
         index = 0;
+    } else if (self.localTextBufferIndex < 0) { // no local message
+        index = (int)self.chatEntries.count - 1;
     } else {
         index = (int)self.chatEntries.count - 2;
     }
-    
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
 
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
+        
         if (![self.remoteTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
+            
+            if (index == 0 && ((int)self.chatEntries.count == 0)) {
+                [self createNewRemoteChatBuffer:text];
+                return;
+            }
             
             if (index >= 0) {
                 self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
                 self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
             }
-
             
             [self createNewRemoteChatBuffer:text];
+            
         }
-
         return;
     }
-    
 
     self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
     
@@ -1026,6 +1058,10 @@ BOOL didChatResize = NO;
                           self.videoView.frame.size.height) - keyboardPos;
     chat_delta = (self.tableView.frame.origin.y + self.tableView.frame.size.height) - keyboardPos;
     
+     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
+                                 self.tableView.frame.size.width,
+                                 self.tableView.frame.size.height - chat_delta);
+    [self showLatestMessage];
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
     
@@ -1067,13 +1103,9 @@ BOOL didChatResize = NO;
 {
     CGRect chatSize = self.view.frame;
     chatSize.size.width -= chatSize.size.width / 5;
-    chatSize.size.height /= 3;
     
-    self.tableView = [[UITableView alloc] initWithFrame:chatSize style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - chatSize.size.width)/2, 0, chatSize.size.width, chatSize.size.height) style:UITableViewStylePlain];
     
-    CGPoint chatCenter = CGPointMake(self.view.center.x, self.view.frame.origin.y + self.view.frame.size.height / 3);
-    [self.tableView setCenter:chatCenter];
-
     self.chatEntries = [[NSMutableArray alloc] init];
     
     [self.view addSubview:self.tableView];
@@ -1086,7 +1118,6 @@ BOOL didChatResize = NO;
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.alpha = 0.7;
     [self.tableView setScrollEnabled:YES];
-    [self.tableView setPagingEnabled:YES];
     [self.tableView setHidden:YES];
   
     self.isChatMode = NO;
@@ -1209,16 +1240,10 @@ BOOL didChatResize = NO;
                                                                ascending:YES];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
     NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
-    
-    [self printChatEntries:reverseOrder];
-    
-    
     [self.chatEntries removeAllObjects];
-    
     for (RTTMessageModel *msgModel in reverseOrder) {
         [self.chatEntries addObject:msgModel];
     }
-
 
 }
 
@@ -1229,17 +1254,6 @@ BOOL didChatResize = NO;
     NSDate *date2036 = [dateFormatter dateFromString:@"2036-01-01"];
     self.year2037TimeStamp = [date2037 timeIntervalSince1970];
     self.year2036TimeStamp = [date2036 timeIntervalSince1970];
-}
-
-- (void)printChatEntries:(NSMutableArray*)array {
-    
-    int i = 0;
-    for (RTTMessageModel *msgModel in array) {
-        
-        NSLog(@"msg%d == %@, timeInterval = %f", i, msgModel.msgString, msgModel.modifiedTimeInterval);
-        ++i;
-    }
-    
 }
 
 @end
