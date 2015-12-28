@@ -449,6 +449,8 @@
 		73F2D1721BB2097E00EA91D1 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; };
 		73F2D1731BB2099000EA91D1 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
+		A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */; };
+		A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
@@ -1751,6 +1753,8 @@
 		73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvo-amrwbenc.a"; path = "liblinphone-sdk/apple-darwin/lib/libvo-amrwbenc.a"; sourceTree = "<group>"; };
 		73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wizard_vtcsecure_existing.rc; path = Resources/wizard_vtcsecure_existing.rc; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9B3A6FD15B485DB006F52EE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
@@ -3438,6 +3442,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */,
 				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
 				CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */,
 				CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */,
@@ -4701,6 +4706,7 @@
 				50B0084F1BA09C79002C5723 /* video_on_disabled_landscape.png in Resources */,
 				50B007D81BA09C79002C5723 /* route_phone_off_disabled_landscape.png in Resources */,
 				5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */,
+				A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */,
 				63D268101B174A5E00A2CC11 /* numpad_one_voicemail_over.png in Resources */,
 				50B007D21BA09C79002C5723 /* route_bluetooth_off_over_landscape.png in Resources */,
 				D38327F31580FE3A00FA0D23 /* contacts_default.png in Resources */,
@@ -4855,6 +4861,7 @@
 				50B007201BA09C79002C5723 /* dialer_alt_disabled_landscape.png in Resources */,
 				50B0083E1BA09C79002C5723 /* transfer_call_over~ipad.png in Resources */,
 				D354980615875534000081D8 /* contacts_all_selected.png in Resources */,
+				A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */,
 				D354980815875534000081D8 /* contacts_all_default.png in Resources */,
 				50B008331BA09C79002C5723 /* switch_camera_default.png in Resources */,
 				F0B89C2E18DC973E0050B60E /* wizard_remote.rc in Resources */,
