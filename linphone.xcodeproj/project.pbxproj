@@ -3440,14 +3440,10 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */,
-=======
 				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
 				CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */,
 				CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */,
 				CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */,
->>>>>>> upstream/master
 				CD9FA5111C20DB3D003D3D29 /* call_new.png */,
 				CD9FA50D1C20D6B3003D3D29 /* add_contact_circle.png */,
 				CD9FA50E1C20D6B3003D3D29 /* backspace_new.png */,
