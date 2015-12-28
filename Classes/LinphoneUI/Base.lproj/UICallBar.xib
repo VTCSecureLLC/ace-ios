@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICallBar">
@@ -52,138 +52,302 @@
                     <rect key="frame" x="0.0" y="335" width="320" height="125"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.0" green="1" blue="0.19194547549999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view tag="1" contentMode="scaleToFill" id="31" userLabel="padView">
-                    <rect key="frame" x="20" y="57" width="281" height="260"/>
+                    <rect key="frame" x="20" y="40" width="281" height="334"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="dialer_alt_background.png" id="99" userLabel="background">
-                            <rect key="frame" x="0.0" y="0.0" width="281" height="260"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </imageView>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="73" userLabel="1" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="73" userLabel="1" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="2" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="1"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" backgroundImage="numpad_one_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">1
+   </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_one_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="72" userLabel="2" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="10" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="72" userLabel="2" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="2" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="2"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_two_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">2
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ABC">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_two_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="71" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="71" userLabel="3" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="2" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_three_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">3
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="DEF">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.75"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_three_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="69" userLabel="4" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="69" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="85" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="4"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_four_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">4
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="GHI">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_four_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="70" userLabel="5" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="72" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="70" userLabel="5" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="85" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="5"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_five_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">5
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="JKL">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_five_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="63" userLabel="6" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="63" userLabel="6" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="85" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="6"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_six_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">6
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="MNO">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_six_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="68" userLabel="7" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="68" userLabel="7" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="168" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="7"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_seven_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">7
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="PQRS">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_seven_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="67" userLabel="8" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="134" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="67" userLabel="8" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="168" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="8"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_eight_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">8
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="TUV">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_eight_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66" userLabel="9" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="66" userLabel="9" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="168" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="9"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_nine_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">9
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="WXYZ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_nine_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="62" userLabel="*" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="62" userLabel="*" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="251" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Star"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_star_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="*">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_star_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="64" userLabel="0" customClass="UIDigitButtonLongPlus">
-                            <rect key="frame" x="87" y="196" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="64" userLabel="0" customClass="UIDigitButtonLongPlus">
+                            <rect key="frame" x="95" y="251" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="0"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_zero_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">0
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="+">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_zero_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="65" userLabel="#" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="65" userLabel="#" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="251" width="91" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Sharp"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_sharp_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="#">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_sharp_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
                         <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="21" userLabel="conferenceButton">
-                            <rect key="frame" x="-26" y="217" width="105" height="68"/>
+                            <rect key="frame" x="-26" y="291" width="105" height="68"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Start conference"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -196,7 +360,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view tag="33" contentMode="scaleToFill" id="167" userLabel="routesView">
                     <rect key="frame" x="160" y="156" width="80" height="185"/>
@@ -209,15 +373,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Bluetooth" backgroundImage="route_bluetooth_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_bluetooth_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
-                            <state key="selected" backgroundImage="route_bluetooth_on_default.png"/>
+                            <state key="selected" backgroundImage="route_bluetooth_on_default.png">
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <state key="highlighted" backgroundImage="route_bluetooth_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onRoutesBluetoothClick:" destination="-1" eventType="touchUpInside" id="208"/>
@@ -230,7 +396,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Receiver" backgroundImage="route_phone_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_phone_off_disabled.png">
@@ -238,7 +404,7 @@
                             </state>
                             <state key="selected" backgroundImage="route_phone_on_default.png"/>
                             <state key="highlighted" backgroundImage="route_phone_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onRoutesReceiverClick:" destination="-1" eventType="touchUpInside" id="209"/>
@@ -251,7 +417,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="route_speaker_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_speaker_off_disabled.png">
@@ -259,7 +425,7 @@
                             </state>
                             <state key="selected" backgroundImage="route_speaker_on_default.png"/>
                             <state key="highlighted" backgroundImage="route_speaker_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onRoutesSpeakerClick:" destination="-1" eventType="touchUpInside" id="210"/>
@@ -279,14 +445,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Transfer" backgroundImage="options_transfer_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_transfer_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_transfer_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="91"/>
@@ -300,14 +466,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add call" backgroundImage="options_add_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_add_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_add_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsAddClick:" destination="-1" eventType="touchUpInside" id="93"/>
@@ -336,17 +502,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="38" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Video" backgroundImage="video_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="video_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="video_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="video_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <outlet property="waitView" destination="59" id="60"/>
@@ -363,17 +529,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="38" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Micro" backgroundImage="micro_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="micro_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="micro_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="micro_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="9" userLabel="speakerButton" customClass="UISpeakerButton">
@@ -383,17 +549,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="38" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="speaker_off_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="speaker_off_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="speaker_on_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="speaker_off_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="29" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="164" userLabel="routesButton" customClass="UIToggleButton">
@@ -403,17 +569,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="38" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Route" backgroundImage="routes_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="routes_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="routes_selected.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="routes_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onRoutesClick:" destination="-1" eventType="touchUpInside" id="211"/>
@@ -426,17 +592,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="38" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Options" backgroundImage="options_default.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_disabled.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="options_selected.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_over.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="20"/>
@@ -498,123 +664,298 @@
                     <rect key="frame" x="0.0" y="248" width="480" height="72"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.0" green="1" blue="0.19194547549999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view tag="1" contentMode="scaleToFill" id="102" userLabel="padView">
-                    <rect key="frame" x="91" y="0.0" width="281" height="260"/>
+                    <rect key="frame" x="131" y="0.0" width="218" height="258"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="dialer_alt_background.png" id="114" userLabel="background">
-                            <rect key="frame" x="0.0" y="0.0" width="281" height="260"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </imageView>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="115" userLabel="1" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="115" userLabel="1" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="2" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_one_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="1"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">1
+   </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_one_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="116" userLabel="2" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="10" width="106" height="54"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_two_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="116" userLabel="2" customClass="UIDigitButton">
+                            <rect key="frame" x="74" y="2" width="70" height="62"/>
+                            <accessibility key="accessibilityConfiguration" label="2"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">2
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ABC">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_two_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="117" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="10" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="117" userLabel="3" customClass="UIDigitButton">
+                            <rect key="frame" x="146" y="2" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_three_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="3"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">3
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="DEF">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.75"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_three_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="118" userLabel="4" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="118" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="66" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_four_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="4"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">4
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="GHI">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_four_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="119" userLabel="5" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="72" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="119" userLabel="5" customClass="UIDigitButton">
+                            <rect key="frame" x="74" y="66" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_five_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="5"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">5
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="JKL">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_five_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="120" userLabel="6" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="72" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="120" userLabel="6" customClass="UIDigitButton">
+                            <rect key="frame" x="146" y="66" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_six_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="6"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">6
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="MNO">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_six_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="121" userLabel="7" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="121" userLabel="7" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="130" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_seven_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="7"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">7
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="PQRS">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_seven_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="122" userLabel="8" customClass="UIDigitButton">
-                            <rect key="frame" x="87" y="134" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="122" userLabel="8" customClass="UIDigitButton">
+                            <rect key="frame" x="74" y="130" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_eight_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="8"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">8
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="TUV">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_eight_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="123" userLabel="9" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="134" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="123" userLabel="9" customClass="UIDigitButton">
+                            <rect key="frame" x="146" y="130" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_nine_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="9"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">9
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="WXYZ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_nine_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="124" userLabel="*" customClass="UIDigitButton">
-                            <rect key="frame" x="-20" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="124" userLabel="*" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="194" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_star_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Star"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="*">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_star_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="125" userLabel="0" customClass="UIDigitButtonLongPlus">
-                            <rect key="frame" x="87" y="196" width="106" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="125" userLabel="0" customClass="UIDigitButtonLongPlus">
+                            <rect key="frame" x="74" y="194" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_zero_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">0
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="+">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_zero_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="126" userLabel="#" customClass="UIDigitButton">
-                            <rect key="frame" x="193" y="196" width="107" height="54"/>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="126" userLabel="#" customClass="UIDigitButton">
+                            <rect key="frame" x="146" y="194" width="70" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                            <state key="normal" image="numpad_sharp_default.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="#">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
-                            <state key="highlighted" image="numpad_sharp_over.png"/>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -630,7 +971,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Bluetooth" backgroundImage="route_bluetooth_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_bluetooth_off_disabled_landscape.png">
@@ -638,7 +979,7 @@
                             </state>
                             <state key="selected" backgroundImage="route_bluetooth_on_default_landscape.png"/>
                             <state key="highlighted" backgroundImage="route_bluetooth_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="31" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="188" userLabel="routesReceiverButton">
@@ -648,7 +989,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Receiver" backgroundImage="route_phone_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_phone_off_disabled_landscape.png">
@@ -656,7 +997,7 @@
                             </state>
                             <state key="selected" backgroundImage="route_phone_on_default_landscape.png"/>
                             <state key="highlighted" backgroundImage="route_phone_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="32" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="187" userLabel="routesSpeakerButton">
@@ -666,7 +1007,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="route_speaker_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="route_speaker_off_disabled_landscape.png">
@@ -674,7 +1015,7 @@
                             </state>
                             <state key="selected" backgroundImage="route_speaker_on_default_landscape.png"/>
                             <state key="highlighted" backgroundImage="route_speaker_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                     </subviews>
@@ -691,14 +1032,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Transfer" backgroundImage="options_transfer_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_transfer_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_transfer_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="131"/>
@@ -712,14 +1053,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add call" backgroundImage="options_add_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_add_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_add_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsAddClick:" destination="-1" eventType="touchUpInside" id="130"/>
@@ -748,17 +1089,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Video" backgroundImage="video_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="video_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="video_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="video_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <outlet property="waitView" destination="105" id="129"/>
@@ -775,17 +1116,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Micro" backgroundImage="micro_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="micro_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="micro_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="micro_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="111" userLabel="speakerButton" customClass="UISpeakerButton">
@@ -795,17 +1136,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Speaker" backgroundImage="speaker_off_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="speaker_off_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="speaker_on_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="speaker_off_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="29" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="183" userLabel="routesButton" customClass="UIToggleButton">
@@ -815,17 +1156,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Route" backgroundImage="routes_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="routes_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="routes_selected_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="routes_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="110" userLabel="optionsButton" customClass="UIToggleButton">
@@ -835,17 +1176,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Options" backgroundImage="options_default_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="disabled" backgroundImage="options_disabled_landscape.png">
                                 <color key="titleColor" red="0.65098039220000004" green="0.70196078429999997" blue="0.74901960779999999" alpha="1" colorSpace="deviceRGB"/>
                             </state>
                             <state key="selected" backgroundImage="options_selected_landscape.png">
-                                <color key="titleColor" red="0.25490196079999999" green="0.28235294119999998" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="options_over_landscape.png">
-                                <color key="titleColor" red="0.81176470590000005" green="0.29803921570000003" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleColor" red="0.70588235290000001" green="0.93333333330000001" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="onOptionsClick:" destination="-1" eventType="touchUpInside" id="134"/>
@@ -881,7 +1222,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label=""/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" image="pause_off_default_landscape.png">
+                            <state key="normal" image="chat_off_default_landscape.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="selected" image="pause_on_default_landscape.png"/>
@@ -913,13 +1254,15 @@
         </view>
     </objects>
     <resources>
+        <image name="chat_off_default_landscape.png" width="130" height="163"/>
         <image name="conference_default.png" width="209" height="136"/>
         <image name="conference_default_landscape.png" width="130" height="163"/>
         <image name="conference_over.png" width="209" height="136"/>
         <image name="conference_over_landscape.png" width="130" height="163"/>
+        <image name="dial_pad_button_pressed.png" width="210" height="113"/>
+        <image name="dial_pad_button_unpressed.png" width="210" height="113"/>
         <image name="dialer_alt_back_default.png" width="209" height="136"/>
         <image name="dialer_alt_back_default_landscape.png" width="130" height="163"/>
-        <image name="dialer_alt_background.png" width="530" height="526"/>
         <image name="dialer_alt_default.png" width="209" height="136"/>
         <image name="dialer_alt_default_landscape.png" width="130" height="163"/>
         <image name="dialer_alt_disabled.png" width="209" height="136"/>
@@ -941,30 +1284,6 @@
         <image name="micro_off_over_landscape.png" width="130" height="163"/>
         <image name="micro_on_default.png" width="160" height="134"/>
         <image name="micro_on_default_landscape.png" width="130" height="163"/>
-        <image name="numpad_eight_default.png" width="210" height="113"/>
-        <image name="numpad_eight_over.png" width="210" height="113"/>
-        <image name="numpad_five_default.png" width="210" height="113"/>
-        <image name="numpad_five_over.png" width="210" height="113"/>
-        <image name="numpad_four_default.png" width="210" height="113"/>
-        <image name="numpad_four_over.png" width="210" height="113"/>
-        <image name="numpad_nine_default.png" width="210" height="113"/>
-        <image name="numpad_nine_over.png" width="210" height="113"/>
-        <image name="numpad_one_default.png" width="210" height="113"/>
-        <image name="numpad_one_over.png" width="210" height="113"/>
-        <image name="numpad_seven_default.png" width="210" height="113"/>
-        <image name="numpad_seven_over.png" width="210" height="113"/>
-        <image name="numpad_sharp_default.png" width="210" height="113"/>
-        <image name="numpad_sharp_over.png" width="210" height="113"/>
-        <image name="numpad_six_default.png" width="210" height="113"/>
-        <image name="numpad_six_over.png" width="210" height="113"/>
-        <image name="numpad_star_default.png" width="210" height="113"/>
-        <image name="numpad_star_over.png" width="210" height="113"/>
-        <image name="numpad_three_default.png" width="210" height="113"/>
-        <image name="numpad_three_over.png" width="210" height="113"/>
-        <image name="numpad_two_default.png" width="210" height="113"/>
-        <image name="numpad_two_over.png" width="210" height="113"/>
-        <image name="numpad_zero_default.png" width="210" height="113"/>
-        <image name="numpad_zero_over.png" width="210" height="113"/>
         <image name="options_add_default.png" width="155" height="137"/>
         <image name="options_add_default_landscape.png" width="129" height="109"/>
         <image name="options_add_disabled.png" width="155" height="137"/>
@@ -986,7 +1305,6 @@
         <image name="options_transfer_over.png" width="155" height="137"/>
         <image name="options_transfer_over_landscape.png" width="129" height="109"/>
         <image name="pause_off_default.png" width="209" height="136"/>
-        <image name="pause_off_default_landscape.png" width="130" height="163"/>
         <image name="pause_off_over.png" width="209" height="136"/>
         <image name="pause_off_over_landscape.png" width="130" height="163"/>
         <image name="pause_on_default.png" width="209" height="136"/>
