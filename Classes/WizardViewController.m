@@ -1493,4 +1493,12 @@ static BOOL isAdvancedShown = NO;
     }
 }
 
+- (IBAction)onTransportEditingEnded:(id)sender {
+    if([[self.transportTextField.text lowercaseString] isEqualToString:@"tcp"]){
+        [self.textFieldPort setText:@"5060"];
+    }
+    else if([[self.transportTextField.text lowercaseString] isEqualToString:@"tls"]){
+        [self.textFieldPort setText:@"5061"];
+    }
+}
 @end
