@@ -70,7 +70,7 @@
 			<key>Key</key>
 			<string>wizard_button</string>
 			<key>Title</key>
-			<string>Run assistant</string>
+			<string>Logout</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
