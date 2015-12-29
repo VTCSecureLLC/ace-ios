@@ -35,9 +35,6 @@
 #import "UILabel+Clipboard.h"
 #import "BubbleTableViewCell.h"
 
-const CGFloat BubbleWidthOffset = 30.0f;
-const CGFloat BubbleImageSize = 50.0f;
-
 const NSInteger SECURE_BUTTON_TAG = 5;
 
 @interface InCallViewController() <BubbleTableViewCellDataSource>
@@ -1157,7 +1154,7 @@ BOOL didChatResize = NO;
         return 17;
     } else {
         
-        size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - BubbleWidthOffset, CGFLOAT_MAX)
+        size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - 30.0f, CGFLOAT_MAX)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
                                                  context:nil].size;

@@ -8,9 +8,6 @@
 
 #import "BubbleTableViewCell.h"
 
-const CGFloat BubbleWidthOffset = 30.0f;
-const CGFloat BubbleImageSize = 50.0f;
-
 @implementation BubbleTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -22,7 +19,7 @@ const CGFloat BubbleImageSize = 50.0f;
         _bubbleView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _bubbleView.userInteractionEnabled = YES;
         [self.contentView addSubview:_bubbleView];
-
+        
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.numberOfLines = 0;
         self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -75,19 +72,19 @@ const CGFloat BubbleImageSize = 50.0f;
     
     CGSize size;
     if (self.imageView.image) {
-        size = [self.textLabel.text boundingRectWithSize:CGSizeMake(self.frame.size.width - minInset - BubbleWidthOffset - BubbleImageSize - 8.0f, CGFLOAT_MAX)
+        size = [self.textLabel.text boundingRectWithSize:CGSizeMake(self.frame.size.width - minInset - 80.0f - 8.0f, CGFLOAT_MAX)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:@{NSFontAttributeName:self.textLabel.font}
                                                  context:nil].size;
     } else {
         if ([self.textLabel.text isEqualToString:@"\n"] || [self.textLabel.text isEqualToString:@""]) {
-            size = CGSizeMake(self.frame.size.width - minInset - BubbleWidthOffset, 17);
+            size = CGSizeMake(self.frame.size.width - minInset - 30.0f, 17);
         } else {
-        
-        size = [self.textLabel.text boundingRectWithSize:CGSizeMake(self.frame.size.width - minInset - BubbleWidthOffset, CGFLOAT_MAX)
-                                                 options:NSStringDrawingUsesLineFragmentOrigin
-                                              attributes:@{NSFontAttributeName:self.textLabel.font}
-                                                 context:nil].size;
+            
+            size = [self.textLabel.text boundingRectWithSize:CGSizeMake(self.frame.size.width - minInset - 30.0f, CGFLOAT_MAX)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:self.textLabel.font}
+                                                     context:nil].size;
         }
         
     }
@@ -95,11 +92,11 @@ const CGFloat BubbleImageSize = 50.0f;
     if(type == BubbleTableViewCellTypeSelf) {
         // For the future if we have avatar image
         if(self.imageView.image) {
-            self.bubbleView.frame = CGRectMake(self.frame.size.width - (size.width + BubbleWidthOffset) - BubbleImageSize - 8.0f, self.frame.size.height - (size.height + 15.0f), size.width + BubbleWidthOffset, size.height + 15.0f);
-            self.imageView.frame = CGRectMake(self.frame.size.width - BubbleImageSize - 5.0f, self.frame.size.height - BubbleImageSize - 2.0f, BubbleImageSize, BubbleImageSize);
-            self.textLabel.frame = CGRectMake(self.frame.size.width - (size.width + BubbleWidthOffset - 10.0f) - BubbleImageSize - 8.0f, self.frame.size.height - (size.height + 15.0f) + 6.0f, size.width + BubbleWidthOffset - 23.0f, size.height);
+            self.bubbleView.frame = CGRectMake(self.frame.size.width - (size.width + 30.0f) - 50.0f - 8.0f, self.frame.size.height - (size.height + 15.0f), size.width + 30.0f, size.height + 15.0f);
+            self.imageView.frame = CGRectMake(self.frame.size.width - 50.0f - 5.0f, self.frame.size.height - 50.0f - 2.0f, 50.0f, 50.0f);
+            self.textLabel.frame = CGRectMake(self.frame.size.width - (size.width + 30.0f - 10.0f) - 50.0f - 8.0f, self.frame.size.height - (size.height + 15.0f) + 6.0f, size.width + 30.0f - 23.0f, size.height);
         } else {
-           // self.bubbleView.frame = CGRectMake(self.frame.size.width - (size.width + BubbleWidthOffset), 0.0f, size.width + BubbleWidthOffset, size.height + 15.0f);
+            // self.bubbleView.frame = CGRectMake(self.frame.size.width - (size.width + 30.0f), 0.0f, size.width + 30.0f, size.height + 15.0f);
             self.bubbleView.frame = CGRectMake(20,
                                                0.0f,
                                                self.frame.size.width - 20,
@@ -107,7 +104,7 @@ const CGFloat BubbleImageSize = 50.0f;
             
             self.textLabel.textAlignment = NSTextAlignmentLeft;
             self.imageView.frame = CGRectZero;
-           // self.textLabel.frame = CGRectMake(self.frame.size.width - (size.width + BubbleWidthOffset - 10.0f), 6.0f, size.width + BubbleWidthOffset - 23.0f, size.height);
+            // self.textLabel.frame = CGRectMake(self.frame.size.width - (size.width + 30.0f - 10.0f), 6.0f, size.width + 30.0f - 23.0f, size.height);
             self.textLabel.frame = CGRectMake(30,
                                               5.0f,
                                               (self.frame.size.width - 20) - 25,
@@ -121,18 +118,18 @@ const CGFloat BubbleImageSize = 50.0f;
     } else {
         // For the future if we have avatar image
         if (self.imageView.image) {
-            self.bubbleView.frame = CGRectMake(BubbleImageSize + 8.0f, self.frame.size.height - (size.height + 15.0f), size.width + BubbleWidthOffset, size.height + 15.0f);
-            self.imageView.frame = CGRectMake(5.0, self.frame.size.height - BubbleImageSize - 2.0f, BubbleImageSize, BubbleImageSize);
-            self.textLabel.frame = CGRectMake(BubbleImageSize + 8.0f + 16.0f, self.frame.size.height - (size.height + 15.0f) + 6.0f, size.width + BubbleWidthOffset - 23.0f, size.height);
+            self.bubbleView.frame = CGRectMake(50.0f + 8.0f, self.frame.size.height - (size.height + 15.0f), size.width + 30.0f, size.height + 15.0f);
+            self.imageView.frame = CGRectMake(5.0, self.frame.size.height - 50.0f - 2.0f, 50.0f, 50.0f);
+            self.textLabel.frame = CGRectMake(50.0f + 8.0f + 16.0f, self.frame.size.height - (size.height + 15.0f) + 6.0f, size.width + 30.0f - 23.0f, size.height);
         } else {
-           // self.bubbleView.frame = CGRectMake(0.0f, 0.0f, size.width + BubbleWidthOffset, size.height + 15.0f);
+            // self.bubbleView.frame = CGRectMake(0.0f, 0.0f, size.width + 30.0f, size.height + 15.0f);
             self.bubbleView.frame = CGRectMake(0.0f,
                                                0.0f,
                                                self.frame.size.width - 20,
                                                size.height + 15.0f);
             
             self.imageView.frame = CGRectZero;
-            self.textLabel.frame = CGRectMake(16.0f, 6.0f, size.width + BubbleWidthOffset - 23.0f, size.height);
+            self.textLabel.frame = CGRectMake(16.0f, 6.0f, size.width + 30.0f - 23.0f, size.height);
             self.textLabel.textAlignment = NSTextAlignmentNatural;
         }
         
