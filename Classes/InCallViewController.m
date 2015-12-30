@@ -1207,7 +1207,7 @@ BOOL didChatResize = NO;
 {
     if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
     {
-        return 100.0f;
+        return 80.0f;
     }
     
     return 20.0f;
