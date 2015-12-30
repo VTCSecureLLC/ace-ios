@@ -329,6 +329,17 @@ CGPoint incomingTextChatModePos;
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
 			[self displayVideoCall:animated];
+            const LinphoneCallParams *params = linphone_call_get_current_params(call);
+            if(params != NULL){
+                if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                    linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                }
+                else{
+                    [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
+                }
+            }
+            
+            linphone_core_update_call([LinphoneManager getLc], call, NULL);
 		} else {
 			[self displayTableCall:animated];
 			const LinphoneCallParams *param = linphone_call_get_current_params(call);
