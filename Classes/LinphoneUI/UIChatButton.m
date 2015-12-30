@@ -124,9 +124,6 @@
     //Chat mode disabled
 }
 
--(BOOL) update{
-    return YES;
-}
 - (bool)onUpdate {
     return  [self toggleKeyboard];
 }
