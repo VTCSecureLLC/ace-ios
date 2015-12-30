@@ -480,7 +480,6 @@
 		CE3C6D401C2ADA0D002AC233 /* Bubble-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */; };
 		CE624A821C22D674001BC0BA /* config_defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = CE624A811C22D674001BC0BA /* config_defaults.json */; };
 		CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */; };
-		CEF450B91C33BF4A0020E2E5 /* AcceptanceVC~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF450B81C33BF4A0020E2E5 /* AcceptanceVC~ipad.xib */; };
 		CEFB66981BFF4710001797B3 /* provider5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668C1BFF470F001797B3 /* provider5@2x.png */; };
 		CEFB66991BFF4710001797B3 /* provider4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668D1BFF470F001797B3 /* provider4@2x.png */; };
 		CEFB669A1BFF4710001797B3 /* provider5.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668E1BFF470F001797B3 /* provider5.png */; };
@@ -1794,7 +1793,6 @@
 		CE624A811C22D674001BC0BA /* config_defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_defaults.json; path = Resources/config_defaults.json; sourceTree = "<group>"; };
 		CE624A871C22D981001BC0BA /* DefaultSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSettingsManager.h; sourceTree = "<group>"; };
 		CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSettingsManager.m; sourceTree = "<group>"; };
-		CEF450B81C33BF4A0020E2E5 /* AcceptanceVC~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "AcceptanceVC~ipad.xib"; sourceTree = "<group>"; };
 		CEFB668C1BFF470F001797B3 /* provider5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider5@2x.png"; path = "Resources/provider5@2x.png"; sourceTree = "<group>"; };
 		CEFB668D1BFF470F001797B3 /* provider4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider4@2x.png"; path = "Resources/provider4@2x.png"; sourceTree = "<group>"; };
 		CEFB668E1BFF470F001797B3 /* provider5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = provider5.png; path = Resources/provider5.png; sourceTree = "<group>"; };
@@ -3291,7 +3289,6 @@
 				CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */,
 				CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */,
 				CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */,
-				CEF450B81C33BF4A0020E2E5 /* AcceptanceVC~ipad.xib */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -5001,7 +4998,6 @@
 				D35EA76515A2DF8D003E025D /* micro_on_disabled.png in Resources */,
 				50B006FE1BA09C79002C5723 /* contacts_back_over.png in Resources */,
 				D38D14B115A30B3D008497E8 /* cell_call_highlight.png in Resources */,
-				CEF450B91C33BF4A0020E2E5 /* AcceptanceVC~ipad.xib in Resources */,
 				D3196D3415A321E3007FEEBA /* options_add_default.png in Resources */,
 				50B006D11BA09C79002C5723 /* chat_message_background.9.png in Resources */,
 				CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */,
@@ -6061,6 +6057,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
@@ -6151,6 +6148,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6241,6 +6239,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6331,6 +6330,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",

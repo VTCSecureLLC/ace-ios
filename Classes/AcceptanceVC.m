@@ -28,6 +28,13 @@
 }
 
 - (IBAction)onAcceptClick:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *myStr = @"AcceptanceScreen";
+    [defaults setObject:myStr forKey:@"AcceptanceScreen"];
+    [defaults synchronize];
+    if ([self.delegate respondsToSelector:@selector(didAccept)]) {
+        [self.delegate didAccept];
+    }
     [self dismissViewControllerAnimated:YES completion:^{
     }];
 }

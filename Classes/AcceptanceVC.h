@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AcceptanceVC : UIViewController
+@protocol AcceptanceVCDelegate <NSObject>
 
+- (void)didAccept;
+
+@end
+
+
+@interface AcceptanceVC : UIViewController
+@property (weak, nonatomic) id <AcceptanceVCDelegate> delegate;
 @end
