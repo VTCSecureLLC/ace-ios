@@ -53,7 +53,7 @@
 - (void)update {
 	[self view]; // Force view load
 	[stateImage setHidden:true];
-	[chatButton update];
+//	[chatButton update];
 }
 
 @end
