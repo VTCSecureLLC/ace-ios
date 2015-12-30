@@ -1516,7 +1516,7 @@ static BOOL isAdvancedShown = NO;
 -(void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     if (acceptButtonClicked) {
-        self.view.translatesAutoresizingMaskIntoConstraints = NO;
+        acceptButtonClicked = NO;
         self.view.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
     }
 }

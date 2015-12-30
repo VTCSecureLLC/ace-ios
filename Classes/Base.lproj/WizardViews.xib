@@ -152,7 +152,7 @@
             <color key="backgroundColor" red="0.0" green="0.21960784310000001" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="550" y="1520"/>
         </view>
-        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="pP8-hG-5oW" userLabel="welcomeView">
+        <view contentMode="scaleToFill" id="pP8-hG-5oW" userLabel="welcomeView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
