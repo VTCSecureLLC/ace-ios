@@ -700,9 +700,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 	if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
 		LinphoneManager *lm = [LinphoneManager instance];
 		BOOL callIDFromPush = [lm popPushCallID:callId];
-		BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
-
-		if (callIDFromPush && autoAnswer) {
+		//BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
+        //Never autoanswer notification. 
+		if (callIDFromPush) {
 			// accept call automatically
 			[lm acceptCall:call];
 
