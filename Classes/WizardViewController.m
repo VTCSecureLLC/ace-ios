@@ -30,6 +30,8 @@
 #import <XMLRPCResponse.h>
 #import <XMLRPCRequest.h>
 
+#import "AcceptanceVC.h"
+
 #define DATEPICKER_HEIGHT 230
 
 typedef enum _ViewElement {
@@ -130,6 +132,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showAcceptanceScreen];
 }
 
 - (void)viewDidLoad {
@@ -1499,6 +1506,20 @@ static BOOL isAdvancedShown = NO;
     }
     else if([[self.transportTextField.text lowercaseString] isEqualToString:@"tls"]){
         [self.textFieldPort setText:@"5061"];
+    }
+}
+
+- (void)showAcceptanceScreen {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstTime = [defaults objectForKey:@"AcceptanceScreen"];
+    if (firstTime.length == 0) {
+        AcceptanceVC *acceptanceVC = [[AcceptanceVC alloc] initWithNibName:@"AcceptanceVC" bundle:[NSBundle mainBundle]];
+        [self presentViewController:acceptanceVC animated:YES completion:^{
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *myStr = @"AcceptanceScreen";
+            [defaults setObject:myStr forKey:@"AcceptanceScreen"];
+            [defaults synchronize];
+        }];
     }
 }
 @end
