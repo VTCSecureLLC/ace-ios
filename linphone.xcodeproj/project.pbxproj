@@ -471,6 +471,8 @@
 		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
+		CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */; };
+		CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */; };
 		CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */; };
 		CE3C6D3D1C2ADA0D002AC233 /* Bubble-0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */; };
 		CE3C6D3E1C2ADA0D002AC233 /* Bubble-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */; };
@@ -1779,6 +1781,9 @@
 		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
+		CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceVC.h; sourceTree = "<group>"; };
+		CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptanceVC.m; sourceTree = "<group>"; };
+		CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptanceVC.xib; sourceTree = "<group>"; };
 		CE3C6D361C2AD239002AC233 /* BubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleTableViewCell.h; sourceTree = "<group>"; };
 		CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleTableViewCell.m; sourceTree = "<group>"; };
 		CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-0.png"; sourceTree = "<group>"; };
@@ -3281,6 +3286,9 @@
 				C9B3A6FD15B485DB006F52EE /* Utils.h */,
 				D35860D515B549B500513429 /* Utils.m */,
 				D3554EC515CA79A900478841 /* XMLRPC.xcodeproj */,
+				CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */,
+				CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */,
+				CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -4920,6 +4928,7 @@
 				F0C1F9121A28781F009402C9 /* corner-right-bottom.png in Resources */,
 				50B007EB1BA09C79002C5723 /* routes_over.png in Resources */,
 				50B008241BA09C79002C5723 /* speaker_on_default_landscape~ipad.png in Resources */,
+				CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */,
 				50B007BE1BA09C79002C5723 /* pause_off_default_landscape.png in Resources */,
 				D36C43F5158F61EA0048BA40 /* call_state_play_default.png in Resources */,
 				50B0084A1BA09C79002C5723 /* video_off_over~ipad.png in Resources */,
@@ -5442,6 +5451,7 @@
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
+				CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */,
 				D35E7581159328EB0066B1C1 /* UIAddressTextField.m in Sources */,
 				D35E7597159460580066B1C1 /* ChatViewController.m in Sources */,
 				D35E759F159460B70066B1C1 /* SettingsViewController.m in Sources */,
@@ -6047,6 +6057,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
@@ -6137,6 +6148,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6227,6 +6239,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6317,6 +6330,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
