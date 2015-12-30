@@ -88,6 +88,8 @@
 - (BOOL)removeInhibitedEvent:(id)event;
 
 - (void)updateApplicationBadgeNumber;
+- (void)orientationUpdate:(UIInterfaceOrientation)orientation;
+
 + (PhoneMainView*) instance;
 
 @end
