@@ -361,15 +361,10 @@
 	[self fixRing];
 
 	if ([notification.userInfo objectForKey:@"callId"] != nil) {
-		//BOOL auto_answer = [[LinphoneManager instance] lpConfigBoolForKey:@"autoanswer_notif_preference"];
-
 		// some local notifications have an internal timer to relaunch themselves at specified intervals
 		if ([[notification.userInfo objectForKey:@"timer"] intValue] == 1) {
 			[[LinphoneManager instance] cancelLocalNotifTimerForCallId:[notification.userInfo objectForKey:@"callId"]];
 		}
-//		if (auto_answer) {
-//			[[LinphoneManager instance] acceptCallForCallId:[notification.userInfo objectForKey:@"callId"]];
-//		}
         LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
         if(call != NULL){
             [[PhoneMainView instance] displayIncomingCall:call];
