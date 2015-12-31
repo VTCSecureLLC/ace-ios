@@ -510,17 +510,19 @@ static UICompositeViewDescription *compositeDescription = nil;
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
             rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-
+            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
             rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            [settingsStore setBool:TRUE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         else{
             rtcpFB = 0;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
