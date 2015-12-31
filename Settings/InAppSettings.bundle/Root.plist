@@ -203,16 +203,6 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>AVPF</string>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>avpf_preference</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
