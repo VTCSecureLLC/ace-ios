@@ -30,6 +30,7 @@
 #import <XMLRPCResponse.h>
 #import <XMLRPCRequest.h>
 
+
 #define DATEPICKER_HEIGHT 230
 
 typedef enum _ViewElement {
@@ -47,6 +48,7 @@ typedef enum _ViewElement {
 {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
+    BOOL acceptButtonClicked;
 }
 @synthesize contentView;
 
@@ -132,13 +134,18 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showAcceptanceScreen];
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
     
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
     [self initLoginSettingsFields];
-    
+    acceptButtonClicked = NO;
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
     [self.buttonVideoRelayService.layer setCornerRadius:5];
@@ -1499,6 +1506,30 @@ static BOOL isAdvancedShown = NO;
     }
     else if([[self.transportTextField.text lowercaseString] isEqualToString:@"tls"]){
         [self.textFieldPort setText:@"5061"];
+    }
+}
+
+- (void)didAccept {
+    acceptButtonClicked = YES;
+}
+
+-(void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if (acceptButtonClicked) {
+        acceptButtonClicked = NO;
+        self.view.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
+    }
+}
+
+- (void)showAcceptanceScreen {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstTime = [defaults objectForKey:@"AcceptanceScreen"];
+    if (firstTime.length == 0) {
+        AcceptanceVC *acceptanceVC = [[AcceptanceVC alloc] initWithNibName:@"AcceptanceVC" bundle:[NSBundle mainBundle]];
+        acceptanceVC.delegate = self;
+        [self presentViewController:acceptanceVC animated:YES completion:^{
+        }];
     }
 }
 @end
