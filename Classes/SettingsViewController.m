@@ -510,17 +510,19 @@ static UICompositeViewDescription *compositeDescription = nil;
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
             rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-
+            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
             rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            [settingsStore setBool:TRUE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         else{
             rtcpFB = 0;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -548,6 +550,9 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"max_download_preference" compare:notif.object] == NSOrderedSame){
         linphone_core_set_download_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_download_preference"] intValue]);
+    }
+    else if([@"enable_auto_answer_preference" compare:notif.object] == NSOrderedSame){
+        
     }
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
