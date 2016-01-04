@@ -115,7 +115,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Resource" backgroundImage="resources_new.png">
+                    <state key="normal" title="Resources" backgroundImage="resources_new.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" backgroundImage="resources_selected_new.png">
