@@ -13,7 +13,7 @@ before_install:
 - pushd /usr/local/Library/Homebrew/ ; git branch --set-upstream-to=origin/master master ; git pull ; popd
 - brew update 1>/dev/null
 - brew install doxygen nasm yasm optipng imagemagick coreutils intltool ninja antlr cmake
-- wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl 
+- wget --no-check-certificate https://raw.githubusercontent.com/FFmpeg/gas-preprocessor/master/gas-preprocessor.pl
 - chmod +x gas-preprocessor.pl
 - sudo mv gas-preprocessor.pl /usr/local/bin
 - sudo ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
