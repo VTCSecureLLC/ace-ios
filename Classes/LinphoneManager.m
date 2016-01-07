@@ -1418,6 +1418,10 @@ static BOOL libStarted = FALSE;
 		// go directly to bg mode
 		[self enterBackgroundMode];
 	}
+    
+    LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [settingsStore transformLinphoneCoreToKeys];
+
 }
 
 - (void)createLinphoneCore {
