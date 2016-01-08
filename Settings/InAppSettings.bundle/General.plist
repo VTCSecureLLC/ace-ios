@@ -18,16 +18,6 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
-			<string>sip_encryption_preference</string>
-			<key>Title</key>
-			<string>SIP Encryption</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
 			<string>wifi_only_preference</string>
 			<key>Title</key>
 			<string>Wifi only</string>
