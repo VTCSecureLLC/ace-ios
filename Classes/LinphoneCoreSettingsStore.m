@@ -102,15 +102,15 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 }
 
 - (void)transformCodecsToKeys:(const MSList *)codecs {
-	LinphoneCore *lc = [LinphoneManager getLc];
-
+    LinphoneCore *lc = [LinphoneManager getLc];
 	const MSList *elem = codecs;
 	for (; elem != NULL; elem = elem->next) {
 		PayloadType *pt = (PayloadType *)elem->data;
 		NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
 		if (pref) {
-			bool_t value = linphone_core_payload_type_enabled(lc, pt);
-			[self setBool:value forKey:pref];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            linphone_core_enable_payload_type(lc, pt, [defaults boolForKey:pref]);
+			[self setBool:[defaults boolForKey:pref] forKey:pref];
 		} else {
 			LOGW(@"Codec %s/%i supported by core is not shown in iOS app config view.", pt->mime_type, pt->clock_rate);
 		}
