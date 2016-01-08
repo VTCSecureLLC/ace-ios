@@ -790,9 +790,9 @@ static BOOL isAdvancedSettings = FALSE;
 		[hiddenKeys addObject:@"console_button"];
 	}
 
-	if (![LinphoneManager runningOnIpad]) {
-		[hiddenKeys addObject:@"preview_preference"];
-	}
+//	if (![LinphoneManager runningOnIpad]) {
+//		[hiddenKeys addObject:@"preview_preference"];
+//	}
 	if ([lm lpConfigBoolForKey:@"hide_run_assistant_preference"]) {
 		[hiddenKeys addObject:@"wizard_button"];
 	}

@@ -127,7 +127,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	LinphoneCallState state = (call != NULL) ? linphone_call_get_state(call) : 0;
 	[self callUpdate:call state:state];
 
-	if ([LinphoneManager runningOnIpad]) {
+	
 		BOOL videoEnabled = linphone_core_video_enabled(lc);
 		BOOL previewPref = [mgr lpConfigBoolForKey:@"preview_preference"];
 
@@ -146,7 +146,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 			[backgroundView setHidden:TRUE];
 			[videoCameraSwitch setHidden:TRUE];
 		}
-	}
+	
 
 	[addressField setText:@""];
 
@@ -249,7 +249,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 
 - (void)coreUpdateEvent:(NSNotification *)notif {
-	if ([LinphoneManager runningOnIpad]) {
+	
 		LinphoneCore *lc = [LinphoneManager getLc];
 		if (linphone_core_video_enabled(lc) && linphone_core_video_preview_enabled(lc)) {
 			linphone_core_set_native_preview_window_id(lc, (__bridge void *)(videoPreview));
@@ -260,7 +260,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 			[backgroundView setHidden:TRUE];
 			[videoCameraSwitch setHidden:TRUE];
 		}
-	}
+	
 }
 
 #pragma mark - Debug Functions
