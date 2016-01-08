@@ -555,6 +555,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"enable_auto_answer_preference" compare:notif.object] == NSOrderedSame){
         
     }
+    else if([@"wifi_only_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
+        [[LinphoneManager instance] lpConfigSetBool:enabled forKey:@"wifi_only_preference"];
+    }
     else if([@"h264_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h264_preference"] boolValue]) ? YES : NO;
         PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H264", 90000, -1);
