@@ -109,6 +109,10 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
 		if (pref) {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if(![[[defaults dictionaryRepresentation] allKeys] containsObject:pref]){
+                [defaults setBool:TRUE forKey:pref];
+                [defaults synchronize];
+            }
             linphone_core_enable_payload_type(lc, pt, [defaults boolForKey:pref]);
 			[self setBool:[defaults boolForKey:pref] forKey:pref];
 		} else {
