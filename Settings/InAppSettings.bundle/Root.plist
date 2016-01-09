@@ -70,7 +70,7 @@
 			<key>Key</key>
 			<string>wizard_button</string>
 			<key>Title</key>
-			<string>Run assistant</string>
+			<string>Logout</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
@@ -203,16 +203,6 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>AVPF</string>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>avpf_preference</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
@@ -231,16 +221,6 @@
 			<string>enable_video_preference</string>
 			<key>DefaultValue</key>
 			<true/>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>rtt_menu</string>
-			<key>File</key>
-			<string>Text</string>
-			<key>Title</key>
-			<string>Text</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
 			<key>Key</key>

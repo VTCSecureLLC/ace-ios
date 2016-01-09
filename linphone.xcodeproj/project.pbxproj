@@ -449,6 +449,8 @@
 		73F2D1721BB2097E00EA91D1 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; };
 		73F2D1731BB2099000EA91D1 /* libopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22509041196BD902007863F6 /* libopenh264.a */; };
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
+		A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */; };
+		A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
@@ -469,6 +471,13 @@
 		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
+		CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */; };
+		CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */; };
+		CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */; };
+		CE3C6D3D1C2ADA0D002AC233 /* Bubble-0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */; };
+		CE3C6D3E1C2ADA0D002AC233 /* Bubble-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */; };
+		CE3C6D3F1C2ADA0D002AC233 /* Bubble-1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */; };
+		CE3C6D401C2ADA0D002AC233 /* Bubble-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */; };
 		CE624A821C22D674001BC0BA /* config_defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = CE624A811C22D674001BC0BA /* config_defaults.json */; };
 		CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */; };
 		CEFB66981BFF4710001797B3 /* provider5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668C1BFF470F001797B3 /* provider5@2x.png */; };
@@ -1746,6 +1755,8 @@
 		73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvo-amrwbenc.a"; path = "liblinphone-sdk/apple-darwin/lib/libvo-amrwbenc.a"; sourceTree = "<group>"; };
 		73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wizard_vtcsecure_existing.rc; path = Resources/wizard_vtcsecure_existing.rc; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9B3A6FD15B485DB006F52EE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
@@ -1770,6 +1781,15 @@
 		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
+		CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceVC.h; sourceTree = "<group>"; };
+		CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptanceVC.m; sourceTree = "<group>"; };
+		CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptanceVC.xib; sourceTree = "<group>"; };
+		CE3C6D361C2AD239002AC233 /* BubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleTableViewCell.h; sourceTree = "<group>"; };
+		CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleTableViewCell.m; sourceTree = "<group>"; };
+		CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-0.png"; sourceTree = "<group>"; };
+		CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-0@2x.png"; sourceTree = "<group>"; };
+		CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-1.png"; sourceTree = "<group>"; };
+		CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-1@2x.png"; sourceTree = "<group>"; };
 		CE624A811C22D674001BC0BA /* config_defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_defaults.json; path = Resources/config_defaults.json; sourceTree = "<group>"; };
 		CE624A871C22D981001BC0BA /* DefaultSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSettingsManager.h; sourceTree = "<group>"; };
 		CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSettingsManager.m; sourceTree = "<group>"; };
@@ -2813,6 +2833,8 @@
 				D3D5126A160B3A8E00946DF8 /* WizardViews.xib */,
 				CE624A871C22D981001BC0BA /* DefaultSettingsManager.h */,
 				CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */,
+				CE3C6D361C2AD239002AC233 /* BubbleTableViewCell.h */,
+				CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3264,6 +3286,9 @@
 				C9B3A6FD15B485DB006F52EE /* Utils.h */,
 				D35860D515B549B500513429 /* Utils.m */,
 				D3554EC515CA79A900478841 /* XMLRPC.xcodeproj */,
+				CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */,
+				CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */,
+				CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -3425,6 +3450,11 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */,
+				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
+				CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */,
+				CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */,
+				CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */,
 				CD9FA5111C20DB3D003D3D29 /* call_new.png */,
 				CD9FA50D1C20D6B3003D3D29 /* add_contact_circle.png */,
 				CD9FA50E1C20D6B3003D3D29 /* backspace_new.png */,
@@ -4684,6 +4714,7 @@
 				50B0084F1BA09C79002C5723 /* video_on_disabled_landscape.png in Resources */,
 				50B007D81BA09C79002C5723 /* route_phone_off_disabled_landscape.png in Resources */,
 				5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */,
+				A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */,
 				63D268101B174A5E00A2CC11 /* numpad_one_voicemail_over.png in Resources */,
 				50B007D21BA09C79002C5723 /* route_bluetooth_off_over_landscape.png in Resources */,
 				D38327F31580FE3A00FA0D23 /* contacts_default.png in Resources */,
@@ -4838,6 +4869,7 @@
 				50B007201BA09C79002C5723 /* dialer_alt_disabled_landscape.png in Resources */,
 				50B0083E1BA09C79002C5723 /* transfer_call_over~ipad.png in Resources */,
 				D354980615875534000081D8 /* contacts_all_selected.png in Resources */,
+				A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */,
 				D354980815875534000081D8 /* contacts_all_default.png in Resources */,
 				50B008331BA09C79002C5723 /* switch_camera_default.png in Resources */,
 				F0B89C2E18DC973E0050B60E /* wizard_remote.rc in Resources */,
@@ -4859,6 +4891,7 @@
 				D354981C15876FE7000081D8 /* list_details_over.png in Resources */,
 				50B008081BA09C79002C5723 /* setup_cancel_disabled~ipad.png in Resources */,
 				50B006F31BA09C79002C5723 /* contact_edit_over.png in Resources */,
+				CE3C6D3D1C2ADA0D002AC233 /* Bubble-0.png in Resources */,
 				639CEAFD1A1DF4D9004DE38F /* UIStateBar.xib in Resources */,
 				50B007D61BA09C79002C5723 /* route_phone_off_default_landscape.png in Resources */,
 				50B006771BA09C79002C5723 /* accept_over_landscape~ipad.png in Resources */,
@@ -4895,6 +4928,7 @@
 				F0C1F9121A28781F009402C9 /* corner-right-bottom.png in Resources */,
 				50B007EB1BA09C79002C5723 /* routes_over.png in Resources */,
 				50B008241BA09C79002C5723 /* speaker_on_default_landscape~ipad.png in Resources */,
+				CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */,
 				50B007BE1BA09C79002C5723 /* pause_off_default_landscape.png in Resources */,
 				D36C43F5158F61EA0048BA40 /* call_state_play_default.png in Resources */,
 				50B0084A1BA09C79002C5723 /* video_off_over~ipad.png in Resources */,
@@ -5155,6 +5189,7 @@
 				50B0082E1BA09C79002C5723 /* speaker_on_over~ipad.png in Resources */,
 				50B007751BA09C79002C5723 /* micro_on_disabled_landscape~ipad.png in Resources */,
 				50B0080E1BA09C79002C5723 /* setup_start_default~ipad.png in Resources */,
+				CE3C6D3E1C2ADA0D002AC233 /* Bubble-0@2x.png in Resources */,
 				D3A74F2015C69392001500B9 /* options_transfer_default~ipad.png in Resources */,
 				D3A74F2215C69392001500B9 /* options_transfer_disabled~ipad.png in Resources */,
 				50B007CB1BA09C79002C5723 /* pause_on_over_landscape~ipad.png in Resources */,
@@ -5166,6 +5201,7 @@
 				CEFB669E1BFF4710001797B3 /* provider2@2x.png in Resources */,
 				73400CB31BAF8628002C358D /* resources_default~ipad.png in Resources */,
 				D3A74F3415C69392001500B9 /* settings_over~ipad.png in Resources */,
+				CE3C6D3F1C2ADA0D002AC233 /* Bubble-1.png in Resources */,
 				50B007DB1BA09C79002C5723 /* route_phone_off_over.png in Resources */,
 				D3A74F3615C69392001500B9 /* settings_selected_landscape~ipad.png in Resources */,
 				D3A74F3815C69392001500B9 /* settings_selected~ipad.png in Resources */,
@@ -5258,6 +5294,7 @@
 				50B007D11BA09C79002C5723 /* route_bluetooth_off_disabled.png in Resources */,
 				D37E3ED01619DCC50087659A /* licenses.html in Resources */,
 				F0938159188E629800A55DFA /* iTunesArtwork in Resources */,
+				CE3C6D401C2ADA0D002AC233 /* Bubble-1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5388,6 +5425,7 @@
 				2214EBF312F86360002A5394 /* UIMicroButton.m in Sources */,
 				22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */,
 				CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */,
+				CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */,
 				2218A92512FBE1340088A667 /* FirstLoginViewController.m in Sources */,
 				22C755601317E59C007BC101 /* UIBluetoothButton.m in Sources */,
 				22BB1A69132FF16A005CD7AA /* UIEraseButton.m in Sources */,
@@ -5413,6 +5451,7 @@
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
+				CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */,
 				D35E7581159328EB0066B1C1 /* UIAddressTextField.m in Sources */,
 				D35E7597159460580066B1C1 /* ChatViewController.m in Sources */,
 				D35E759F159460B70066B1C1 /* SettingsViewController.m in Sources */,
@@ -6018,6 +6057,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
@@ -6108,6 +6148,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6198,6 +6239,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
@@ -6288,6 +6330,7 @@
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)",
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",

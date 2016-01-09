@@ -26,11 +26,7 @@
     [super viewDidLoad];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
     
-    NSString *linphoneVersion = [[NSString alloc] initWithCString:linphone_core_get_version() encoding:NSUTF8StringEncoding];
-    NSString *linphoneUserAgent = [NSString stringWithFormat:@"liblinphone %@", linphoneVersion];
-    NSString *aceUserAgent =[NSString stringWithFormat:@"ACE%@", @LINPHONE_IOS_VERSION];
-    
-    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources",aceUserAgent, linphoneUserAgent, nil];
+    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
 }
 

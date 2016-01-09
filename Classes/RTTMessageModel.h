@@ -12,6 +12,7 @@
 @property NSMutableString *msgString;
 @property UIColor *color;
 @property NSAttributedString *attrMsgString;
+@property NSTimeInterval modifiedTimeInterval;
 -(id) initWithString: (NSString*)msgString;
 -(void) removeLast;
 @end

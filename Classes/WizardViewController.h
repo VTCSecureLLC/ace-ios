@@ -24,6 +24,7 @@
 #import "UICustomPicker.h"
 #import "LinphoneUI/UILinphoneButton.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "AcceptanceVC.h"
 
 @interface WizardViewController : TPMultiLayoutViewController
 <UITextFieldDelegate,
@@ -31,7 +32,9 @@
     XMLRPCConnectionDelegate,
     UIGestureRecognizerDelegate,
     UIAlertViewDelegate,
-    UICustomPickerDelegate>
+    UITextFieldDelegate,
+    UICustomPickerDelegate,
+    AcceptanceVCDelegate>
 {
     @private
     UITextField *activeTextField;

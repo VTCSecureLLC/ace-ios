@@ -391,15 +391,29 @@ static RootViewManager *rootViewManagerInstance = nil;
 	default:
 		newRotation = oldLinphoneOrientation;
 	}
-	if (oldLinphoneOrientation != newRotation) {
+        if (oldLinphoneOrientation != newRotation) {
         linphone_core_set_device_rotation([LinphoneManager getLc], newRotation);
 		LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
 		if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && linphone_call_camera_enabled(call)) {
             // Liz E. - is there any way to trigger the recipient UI to update for the new device rotation wihtout
             //    calling linphone_core_update_call? Not yet is the answer. This is how Linphone docs say to do it.
 			// Orientation has changed, must call update call
+            
+            
+            const LinphoneCallParams *params = linphone_call_get_current_params(call);
+            if(params != NULL){
+                if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                    if(orientation == UIInterfaceOrientationPortrait){
+                        linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                    }
+                    else if(orientation == UIInterfaceOrientationPortraitUpsideDown){
+                        linphone_core_set_device_rotation([LinphoneManager getLc], 90);
+                    }
+                }
+            }
+            
 			linphone_core_update_call([LinphoneManager getLc], call, NULL);
-		}
+        }
 	}
 }
 - (void)startUp {
@@ -686,9 +700,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 	if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
 		LinphoneManager *lm = [LinphoneManager instance];
 		BOOL callIDFromPush = [lm popPushCallID:callId];
-		BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
-
-		if (callIDFromPush && autoAnswer) {
+		//BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
+        //Never autoanswer notification. 
+		if (callIDFromPush) {
 			// accept call automatically
 			[lm acceptCall:call];
 

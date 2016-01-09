@@ -30,6 +30,7 @@
 #import <XMLRPCResponse.h>
 #import <XMLRPCRequest.h>
 
+
 #define DATEPICKER_HEIGHT 230
 
 typedef enum _ViewElement {
@@ -47,6 +48,7 @@ typedef enum _ViewElement {
 {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
+    BOOL acceptButtonClicked;
 }
 @synthesize contentView;
 
@@ -132,13 +134,18 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showAcceptanceScreen];
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
     
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
     [self initLoginSettingsFields];
-    
+    acceptButtonClicked = NO;
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
     [self.buttonVideoRelayService.layer setCornerRadius:5];
@@ -194,7 +201,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)initLoginSettingsFields {
     self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
     //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
-    self.transportTextField.text = [DefaultSettingsManager sharedInstance].sipRegisterTransport;
+    self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
+    [self.transportTextField setDelegate:self];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
     self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
 }
@@ -1045,24 +1053,40 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 #pragma mark - UIAlertViewDelegate
-
+UIAlertView *transportAlert;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 1) { /* fetch */
-		NSString *url = [alertView textFieldAtIndex:0].text;
-		if ([url length] > 0) {
-			// missing prefix will result in http:// being used
-			if ([url rangeOfString:@"://"].location == NSNotFound)
-				url = [NSString stringWithFormat:@"http://%@", url];
+    
+    if([alertView isEqual:transportAlert]){
+        if(buttonIndex == 1){
+            [self.transportTextField setText:@"TCP"];
+            [self.textFieldPort setText:@"5060"];
+        }
+        else{
+            [self.transportTextField setText:@"TLS"];
+            [self.textFieldPort setText:@"5061"];
+        }
+        
+        [self.transportTextField resignFirstResponder];
+    }
+    else{
+        if (buttonIndex == 1) { /* fetch */
+            NSString *url = [alertView textFieldAtIndex:0].text;
+            if ([url length] > 0) {
+                // missing prefix will result in http:// being used
+                
+                if ([url rangeOfString:@"://"].location == NSNotFound)
+                    url = [NSString stringWithFormat:@"http://%@", url];
 
-			LOGI(@"Should use remote provisioning URL %@", url);
-			linphone_core_set_provisioning_uri([LinphoneManager getLc], [url UTF8String]);
+                    LOGI(@"Should use remote provisioning URL %@", url);
+                    linphone_core_set_provisioning_uri([LinphoneManager getLc], [url UTF8String]);
 
-			[waitView setHidden:false];
-			[[LinphoneManager instance] resetLinphoneCore];
-		}
-	} else {
-		LOGI(@"Canceled remote provisioning");
-	}
+                    [waitView setHidden:false];
+                    [[LinphoneManager instance] resetLinphoneCore];
+                }
+        } else {
+            LOGI(@"Canceled remote provisioning");
+        }
+    }
 }
 
 - (void)configuringUpdate:(NSNotification *)notif {
@@ -1493,4 +1517,43 @@ static BOOL isAdvancedShown = NO;
     }
 }
 
+- (IBAction)onTransportEditingEnded:(id)sender {
+//    if([[self.transportTextField.text lowercaseString] isEqualToString:@"tcp"]){
+//        [self.textFieldPort setText:@"5060"];
+//    }
+//    else if([[self.transportTextField.text lowercaseString] isEqualToString:@"tls"]){
+//        [self.textFieldPort setText:@"5061"];
+//    }
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    transportAlert = [[UIAlertView alloc] initWithTitle:@"Select Transport" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"TCP", @"TLS", nil];
+    [transportAlert show];
+    
+    return NO;
+}
+
+- (void)didAccept {
+    acceptButtonClicked = YES;
+}
+
+-(void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if (acceptButtonClicked) {
+        acceptButtonClicked = NO;
+        self.view.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
+    }
+}
+
+- (void)showAcceptanceScreen {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstTime = [defaults objectForKey:@"AcceptanceScreen"];
+    if (firstTime.length == 0) {
+        AcceptanceVC *acceptanceVC = [[AcceptanceVC alloc] initWithNibName:@"AcceptanceVC" bundle:[NSBundle mainBundle]];
+        acceptanceVC.delegate = self;
+        [self presentViewController:acceptanceVC animated:YES completion:^{
+        }];
+    }
+}
 @end

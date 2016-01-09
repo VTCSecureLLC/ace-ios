@@ -268,14 +268,15 @@
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state {
 	LinphoneCore *lc = [LinphoneManager getLc];
 
-	[speakerButton update];
-	[microButton update];
-	[videoButton update];
-	[hangupButton update];
+
+       [speakerButton update];
+       [microButton update];
+       [videoButton update];
+       [hangupButton update];
 
 	optionsButton.enabled =
 		(state == LinphoneCallPaused || state == LinphoneCallPausing || state == LinphoneCallStreamsRunning);
-
+    
 	// Show Pause/Conference button following call count
 	if (linphone_core_get_calls_nb(lc) > 1) {
 		if (![chatButton isHidden]) {
@@ -597,6 +598,8 @@
 -(void) initUserCallPrefs{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
-    linphone_core_mute_mic([LinphoneManager getLc], isCallAudioMuted);
+    if(linphone_core_get_calls_nb([LinphoneManager getLc]) <= 1){
+        linphone_core_mute_mic([LinphoneManager getLc], isCallAudioMuted);
+    }
 }
 @end
