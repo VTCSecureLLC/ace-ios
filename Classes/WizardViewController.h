@@ -32,6 +32,7 @@
     XMLRPCConnectionDelegate,
     UIGestureRecognizerDelegate,
     UIAlertViewDelegate,
+    UITextFieldDelegate,
     UICustomPickerDelegate,
     AcceptanceVCDelegate>
 {

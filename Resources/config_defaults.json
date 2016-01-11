@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "expiration_time": 3600,
+  "expiration_time": 280,
   "configuration_auth_password": "",
   "configuration_auth_expiration": -1,
   "sip_registration_maximum_threshold": 10,

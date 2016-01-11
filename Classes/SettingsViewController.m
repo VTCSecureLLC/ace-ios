@@ -226,6 +226,7 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]]; // Can't do it in Xib: issue with ios4
 	[self.tableView setBackgroundView:nil];					  // Can't do it in Xib: issue with ios4
  //   [[self view] setBackgroundColor:LINPHONE_MAIN_COLOR];
+    [self.settingsStore synchronize];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -554,6 +555,60 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"enable_auto_answer_preference" compare:notif.object] == NSOrderedSame){
         
     }
+    else if([@"wifi_only_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
+        [[LinphoneManager instance] lpConfigSetBool:enabled forKey:@"wifi_only_preference"];
+    }
+    else if([@"h264_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"h264_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H264", 90000, -1);
+        if(pt != NULL){
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"h263_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"h263_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H263", 90000, -1);
+        if(pt != NULL){
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"vp8_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"vp8_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"VP8", 90000, -1);
+        if(pt != NULL){
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"mp4v-es_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"mp4v-es_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MPEG4", 90000, -1);
+        if(pt != NULL){
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+
+
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
@@ -739,9 +794,9 @@ static BOOL isAdvancedSettings = FALSE;
 		[hiddenKeys addObject:@"console_button"];
 	}
 
-	if (![LinphoneManager runningOnIpad]) {
-		[hiddenKeys addObject:@"preview_preference"];
-	}
+//	if (![LinphoneManager runningOnIpad]) {
+//		[hiddenKeys addObject:@"preview_preference"];
+//	}
 	if ([lm lpConfigBoolForKey:@"hide_run_assistant_preference"]) {
 		[hiddenKeys addObject:@"wizard_button"];
 	}
@@ -780,7 +835,6 @@ static BOOL isAdvancedSettings = FALSE;
         [hiddenKeys addObject:@"network_menu"];
         [hiddenKeys addObject:@"tunnel_menu"];
         [hiddenKeys addObject:@"advanced_menu"];
-
     }
 	return hiddenKeys;
 }
