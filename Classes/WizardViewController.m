@@ -1511,7 +1511,7 @@ static BOOL isAdvancedShown = NO;
         isAdvancedShown = YES;
     }
     else{
-        [toggle setTitle:@"+" forState:UIControlStateNormal];
+        [toggle setTitle:@"Advanced" forState:UIControlStateNormal];
         [_advancedPanel setHidden:YES];
         isAdvancedShown = NO;
     }
