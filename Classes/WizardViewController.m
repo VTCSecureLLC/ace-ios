@@ -49,6 +49,9 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
+    NSMutableArray *cdnResources;
+    NSURLRequest *cdnRequest;
+    NSURLSession *urlSession;
 }
 @synthesize contentView;
 
@@ -137,8 +140,41 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self showAcceptanceScreen];
+    [self reloadProviderDomains];
 }
 
+const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
+-(void) reloadProviderDomains{
+    urlSession = [NSURLSession sharedSession];
+    [[urlSession dataTaskWithURL:[NSURL URLWithString:(NSString*)cdnProviderList] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *jsonParsingError = nil;
+        if(data){
+            NSArray *resources = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:0 error:&jsonParsingError];
+                NSDictionary *resource;
+                cdnResources = [[NSMutableArray alloc] init];
+                for(int i=0; i < [resources count];i++){
+                    resource= [resources objectAtIndex:i];
+                    [cdnResources addObject:[resource objectForKey:@"name"]];
+                    NSLog(@"Loaded CDN Resource: %@", [resource objectForKey:@"name"]);
+                    [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"name"] forKey:[NSString stringWithFormat:@"provider%d", i]];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"domain"] forKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+                }
+        }
+    }] resume];
+}
+
+-(void) loadProviderDomainsFromCache{
+    NSString *name;
+    cdnResources = [[NSMutableArray alloc] init];
+    name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", 1]];
+    
+    for(int i = 1; name; i++){
+        [cdnResources addObject:name];
+        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", 1]];
+    }
+}
 - (void)viewDidLoad {
 
     [super viewDidLoad];
@@ -806,9 +842,12 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self changeView:loginView back:FALSE animation:TRUE];
 }
 
+
 - (IBAction)onSelectProviderClick:(id)sender {
-    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT)
-                                                    SourceList:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
+    if(!cdnResources || cdnResources.count == 0){
+        cdnResources = [[NSMutableArray alloc] initWithArray:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
+    }
+    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
     providerPickerView.delegate = self;
     providerPickerView.frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT, self.view.frame.size.width, DATEPICKER_HEIGHT);
     [self.view addSubview:providerPickerView];
@@ -1263,6 +1302,10 @@ UIAlertView *transportAlert;
     [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
     [providerButtonLeftImageView setImage:img];
     [self.selectProviderButton addSubview:providerButtonLeftImageView];
+    
+    NSString *domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)row]];
+    if(domain == nil){domain = @"";}
+    [self.textFieldDomain setText:domain];
 }
 
 - (void)apiSignIn {
