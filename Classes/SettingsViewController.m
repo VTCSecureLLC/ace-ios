@@ -615,7 +615,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"mp4v-es_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"mp4v-es_preference"] boolValue]) ? YES : NO;
-        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MPEG4", 90000, -1);
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MP4V-ES", 90000, -1);
         if(pt != NULL){
             NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
             linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
