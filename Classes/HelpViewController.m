@@ -13,6 +13,7 @@
 #import "ResourcesViewController.h"
 #import "PhoneMainView.h"
 @interface HelpViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -28,6 +29,18 @@
     
     tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        self.tableView.opaque = NO;
+        self.tableView.backgroundColor = color;
+        self.tableView.backgroundView  = nil;
+    }
+    [self.tableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -73,8 +86,21 @@
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
    // cell.imageView.image = [tableImages objectAtIndex:indexPath.row];
 
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        cell.backgroundColor = color;
+    }
+    
     return cell;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

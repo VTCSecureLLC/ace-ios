@@ -615,6 +615,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.detailTextLabel.textAlignment = (NSTextAlignment)specifier.textAlignment;
 	cell.textLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	cell.detailTextLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+    
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        cell.backgroundColor = color;
+    }
     return cell;
 }
 

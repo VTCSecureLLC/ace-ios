@@ -20,6 +20,14 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDataFromCDN];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        self.tableView.opaque = NO;
+        self.tableView.backgroundColor = color;
+        self.tableView.backgroundView  = nil;
+        self.view.backgroundColor = color;
+    }
 }
 
 -(void) loadDataFromCDN{
@@ -78,8 +86,20 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
     NSString *name = [resource objectForKey:@"name"];
     [cell.textLabel setText:[NSString stringWithFormat:@"%@", name]];
     [cell.textLabel setCenter:cell.center];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        cell.backgroundColor = color;
+    }
     return cell;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
