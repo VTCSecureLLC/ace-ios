@@ -278,14 +278,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bhr-FU-2s3">
-                    <rect key="frame" x="132" y="283" width="46" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="+"/>
-                    <connections>
-                        <action selector="onToggleAdvanced:" destination="-1" eventType="touchUpInside" id="IEy-oA-KS4"/>
-                    </connections>
-                </button>
                 <view hidden="YES" contentMode="scaleToFill" id="rYQ-EI-hvy">
                     <rect key="frame" x="35" y="312" width="250" height="165"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -335,6 +327,14 @@
                     </state>
                     <connections>
                         <action selector="onLoginClick:" destination="-1" eventType="touchUpInside" id="H7h-q7-ktY"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bhr-FU-2s3">
+                    <rect key="frame" x="120" y="283" width="70" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Advanced"/>
+                    <connections>
+                        <action selector="onToggleAdvanced:" destination="-1" eventType="touchUpInside" id="IEy-oA-KS4"/>
                     </connections>
                 </button>
             </subviews>

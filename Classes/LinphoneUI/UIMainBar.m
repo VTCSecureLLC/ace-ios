@@ -71,6 +71,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 												 name:kLinphoneSettingsUpdate
 											   object:nil];
 	[self update:FALSE];
+    [self changeForegroundColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -179,6 +180,19 @@ static NSString *const kDisappearAnimation = @"disappear";
 	}
 
 	[super viewDidLoad]; // Have to be after due to TPMultiLayoutViewController
+    [self setColorChnageObservers];
+    [self changeBackgroundColor];
+}
+
+- (void)setColorChnageObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeBackgroundColor)
+                                                 name:@"backgroundColorChanged"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeForegroundColor)
+                                                 name:@"foregroundColorChanged"
+                                               object:nil];
 }
 
 - (void)viewDidUnload {
@@ -457,6 +471,52 @@ static NSString *const kDisappearAnimation = @"disappear";
 		[LinphoneUtils buttonMultiViewApplyAttributes:attributes button:button];
 	}
 	view.autoresizingMask = [[attributes objectForKey:@"autoresizingMask"] integerValue];
+}
+
+- (void)changeBackgroundColor {
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        [self.historyButton setBackgroundColor:color];
+        [self.contactsButton setBackgroundColor:color];
+        [self.dialerButton setBackgroundColor:color];
+        [self.chatButton setBackgroundColor:color];
+        [self.settingsButton setBackgroundColor:color];
+    }
+}
+
+- (void)changeForegroundColor {    
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"foreground_color_preference"];
+
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+      
+        UIImage *imageNormal = [[UIImage imageNamed:@"history_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.historyButton setTitleColor:color forState:UIControlStateNormal];
+         self.historyButton.tintColor = color;
+        [self.historyButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        
+        imageNormal = [[UIImage imageNamed:@"contacts_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.contactsButton setTitleColor:color forState:UIControlStateNormal];
+        self.contactsButton.tintColor = color;
+        [self.contactsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        
+        imageNormal = [[UIImage imageNamed:@"dialer_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.dialerButton setTitleColor:color forState:UIControlStateNormal];
+        self.dialerButton.tintColor = color;
+        [self.dialerButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        
+        imageNormal = [[UIImage imageNamed:@"resources_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.chatButton setTitleColor:color forState:UIControlStateNormal];
+        self.chatButton.tintColor = color;
+        [self.chatButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        
+        imageNormal = [[UIImage imageNamed:@"settings_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.settingsButton setTitleColor:color forState:UIControlStateNormal];
+        self.settingsButton.tintColor = color;
+        [self.settingsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        
+    }
 }
 
 @end

@@ -239,6 +239,24 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        self.tableView.opaque = NO;
+        self.tableView.backgroundColor = [self darkerColorForColor:color];
+        self.tableView.backgroundView  = nil;
+    }
+}
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.1, 0.0)
+                               green:MAX(g - 0.1, 0.0)
+                                blue:MAX(b - 0.1, 0.0)
+                               alpha:a];
+    return nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -597,7 +615,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"mp4v-es_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"mp4v-es_preference"] boolValue]) ? YES : NO;
-        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MPEG4", 90000, -1);
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MP4V-ES", 90000, -1);
         if(pt != NULL){
             NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
             linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
@@ -645,12 +663,35 @@ static UICompositeViewDescription *compositeDescription = nil;
         
         [ picker presentModallyOverViewController: self ];
     }
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.1, 0.0)
+                               green:MAX(g - 0.1, 0.0)
+                                blue:MAX(b - 0.1, 0.0)
+                               alpha:a];
+    return nil;
+}
              
 - (void) colorPickerControllerDidFinish: (InfColorPickerController*) picker
     {
         NSString *key = ([picker.title isEqualToString:@"Foreground Color"]) ? @"foreground_color_preference" : @"background_color_preference";
          NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:picker.resultColor];
         [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if ([key isEqualToString:@"background_color_preference"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundColorChanged" object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"foregroundColorChanged" object:nil];
+        }
+        
+        settingsController.tableView.opaque = NO;
+        UIColor *color = [self darkerColorForColor:picker.resultColor];
+        settingsController.tableView.backgroundColor = color;
+        settingsController.tableView.backgroundView  = nil;
         
         [ self dismissViewControllerAnimated:NO completion:nil];
     }

@@ -37,7 +37,8 @@ try:
     import prepare
 except Exception as e:
     error(
-        "Could not find prepare module: {}, probably missing submodules/cmake-builder? Try running:\ngit submodule update --init --recursive".format(e))
+        "Could not find prepare module: {}, probably missing submodules/cmake-builder? Try running:\n"
+        "git submodule sync && git submodule update --init --recursive".format(e))
     exit(1)
 
 
@@ -233,7 +234,7 @@ def check_tools():
     # needed by x264
     if not find_executable("gas-preprocessor.pl"):
         error("""Could not find gas-preprocessor.pl, please install it:
-        wget --no-check-certificate https://raw.github.com/yuvi/gas-preprocessor/master/gas-preprocessor.pl && \\
+        wget --no-check-certificate https://raw.githubusercontent.com/FFmpeg/gas-preprocessor/master/gas-preprocessor.pl && \\
         chmod +x gas-preprocessor.pl && \\
         sudo mv gas-preprocessor.pl {}""".format(package_manager_info[detect_package_manager() + "-binary-path"]))
         reterr = 1
@@ -253,7 +254,8 @@ def check_tools():
             Popen("xcodebuild -version".split(" "), stdout=PIPE).stdout.read().split("\n")[0].split(" ")[1].split(".")[0])
         if xcode_version < 7:
             sdk_platform_path = Popen(
-                "xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "), stdout=PIPE, stderr=devnull).stdout.read()[:-1]
+                "xcrun --sdk iphonesimulator --show-sdk-platform-path".split(" "),
+                stdout=PIPE, stderr=devnull).stdout.read()[:-1]
             sdk_strings_path = "{}/{}".format(sdk_platform_path, "Developer/usr/bin/strings")
             if not os.path.isfile(sdk_strings_path):
                 strings_path = find_executable("strings")
@@ -460,6 +462,60 @@ help: help-prepare-options
     gpl_disclaimer(platforms)
 
 
+def list_features_with_args(debug, additional_args):
+    tmpdir = tempfile.mkdtemp(prefix="linphone-iphone")
+    tmptarget = IOSarm64Target()
+    tmptarget.abs_cmake_dir = tmpdir
+
+    option_regex = re.compile("ENABLE_(.*):(.*)=(.*)")
+    options = {}
+    ended = True
+    build_type = 'Debug' if debug else 'Release'
+
+    for line in Popen(tmptarget.cmake_command(build_type, False, True, additional_args, verbose=False),
+                      cwd=tmpdir, shell=False, stdout=PIPE).stdout.readlines():
+        match = option_regex.match(line)
+        if match is not None:
+            (name, typeof, value) = match.groups()
+            options["ENABLE_{}".format(name)] = value
+            ended &= (value == 'ON')
+    shutil.rmtree(tmpdir)
+    return (options, ended)
+
+
+def list_features(debug, args):
+    additional_args = args
+    options = {}
+    info("Searching for available features...")
+    # We have to iterate multiple times to activate ALL options, so that options depending
+    # of others are also listed (cmake_dependent_option macro will not output options if
+    # prerequisite is not met)
+    while True:
+        (options, ended) = list_features_with_args(debug, additional_args)
+        if ended:
+            break
+        else:
+            additional_args = []
+            # Activate ALL available options
+            for k in options.keys():
+                additional_args.append("-D{}=ON".format(k))
+
+    # Now that we got the list of ALL available options, we must correct default values
+    # Step 1: all options are turned off by default
+    for x in options.keys():
+        options[x] = 'OFF'
+    # Step 2: except options enabled when running with default args
+    (options_tmp, ended) = list_features_with_args(debug, args)
+    final_dict = dict(options.items() + options_tmp.items())
+
+    notice_features = "Here are available features:"
+    for k, v in final_dict.items():
+        notice_features += "\n\t{}={}".format(k, v)
+    info(notice_features)
+    info("To enable some feature, please use -DENABLE_SOMEOPTION=ON (example: -DENABLE_OPUS=ON)")
+    info("Similarly, to disable some feature, please use -DENABLE_SOMEOPTION=OFF (example: -DENABLE_OPUS=OFF)")
+
+
 def main(argv=None):
     basicConfig(format="%(levelname)s: %(message)s", level=INFO)
 
@@ -482,17 +538,21 @@ def main(argv=None):
     argparser.add_argument(
         '--enable-non-free-codecs', help="Enable non-free codecs such as OpenH264, MPEG4, etc.. Final application must comply with their respective license (see README.md).", action='store_true')
     argparser.add_argument(
-        '-G', '--generator', help="CMake build system generator (default: Unix Makefiles, use cmake -h to get the complete list).", default='Unix Makefiles', dest='generator')
+        '--build-all-codecs', help="Build all codecs including non-free. Final application must comply with their respective license (see README.md).", action='store_true')
     argparser.add_argument(
-        '-L', '--list-cmake-variables', help="List non-advanced CMake cache variables.", action='store_true', dest='list_cmake_variables')
+        '-G', '--generator', help="CMake build system generator (default: Unix Makefiles, use cmake -h to get the complete list).", default='Unix Makefiles', dest='generator')
     argparser.add_argument(
         '-lf', '--list-features', help="List optional features and their default values.", action='store_true', dest='list_features')
     argparser.add_argument(
         '-t', '--tunnel', help="Enable Tunnel.", action='store_true')
     argparser.add_argument('platform', nargs='*', action=PlatformListAction, default=[
                            'x86_64', 'devices'], help="The platform to build for (default is 'x86_64 devices'). Space separated architectures in list: {0}.".format(', '.join([repr(platform) for platform in platforms])))
+    argparser.add_argument(
+        '-L', '--list-cmake-variables', help="(debug) List non-advanced CMake cache variables.", action='store_true', dest='list_cmake_variables')
 
-    args, additional_args = argparser.parse_known_args()
+    args, additional_args2 = argparser.parse_known_args()
+
+    additional_args = []
 
     additional_args += ["-G", args.generator]
 
@@ -505,12 +565,31 @@ def main(argv=None):
         additional_args += ["-DENABLE_DEBUG_LOGS=YES"]
     if args.enable_non_free_codecs is True:
         additional_args += ["-DENABLE_NON_FREE_CODECS=YES"]
+    if args.build_all_codecs is True:
+        additional_args += ["-DENABLE_GPL_THIRD_PARTIES=YES"]
+        additional_args += ["-DENABLE_NON_FREE_CODECS=YES"]
+        additional_args += ["-DENABLE_AMRNB=YES"]
+        additional_args += ["-DENABLE_AMRWB=YES"]
+        additional_args += ["-DENABLE_G729=YES"]
+        additional_args += ["-DENABLE_GSM=YES"]
+        additional_args += ["-DENABLE_ILBC=YES"]
+        additional_args += ["-DENABLE_ISAC=YES"]
+        additional_args += ["-DENABLE_OPUS=YES"]
+        additional_args += ["-DENABLE_SILK=YES"]
+        additional_args += ["-DENABLE_SPEEX=YES"]
+        additional_args += ["-DENABLE_FFMPEG=YES"]
+        additional_args += ["-DENABLE_H263=YES"]
+        additional_args += ["-DENABLE_H263P=YES"]
+        additional_args += ["-DENABLE_MPEG4=YES"]
+        additional_args += ["-DENABLE_OPENH264=YES"]
+        additional_args += ["-DENABLE_VPX=YES"]
+        additional_args += ["-DENABLE_X264=YES"]
     if args.disable_gpl_third_parties is True:
         additional_args += ["-DENABLE_GPL_THIRD_PARTIES=NO"]
     if args.enable_gpl_third_parties is True:
         additional_args += ["-DENABLE_GPL_THIRD_PARTIES=YES"]
 
-    if args.tunnel or os.path.isdir("submodules/tunnel"):
+    if args.tunnel:
         if not os.path.isdir("submodules/tunnel"):
             info("Tunnel wanted but not found yet, trying to clone it...")
             p = Popen("git clone gitosis@git.linphone.org:tunnel.git submodules/tunnel".split(" "))
@@ -521,23 +600,11 @@ def main(argv=None):
         warning("Tunnel enabled, disabling GPL third parties.")
         additional_args += ["-DENABLE_TUNNEL=ON", "-DENABLE_GPL_THIRD_PARTIES=OFF"]
 
-    if args.list_features:
-        tmpdir = tempfile.mkdtemp(prefix="linphone-iphone")
-        tmptarget = IOSarm64Target()
-        tmptarget.abs_cmake_dir = tmpdir
+    # User's options are priority upon all automatic options
+    additional_args += additional_args2
 
-        option_regex = re.compile("ENABLE_(.*):(.*)=(.*)")
-        option_list = [""]
-        build_type = 'Debug' if args.debug else 'Release'
-        for line in Popen(tmptarget.cmake_command(build_type, False, True, additional_args),
-                          cwd=tmpdir, shell=False, stdout=PIPE).stdout.readlines():
-            match = option_regex.match(line)
-            if match is not None:
-                option_list.append("ENABLE_{} (is currently {})".format(match.groups()[0], match.groups()[2]))
-        info("Here is the list of available features: {}".format("\n\t".join(option_list)))
-        info("To enable some feature, please use -DENABLE_SOMEOPTION=ON")
-        info("Similarly, to disable some feature, please use -DENABLE_SOMEOPTION=OFF")
-        shutil.rmtree(tmpdir)
+    if args.list_features:
+        list_features(args.debug, additional_args)
         return 0
 
     selected_platforms_dup = []
@@ -556,6 +623,13 @@ def main(argv=None):
         if x not in selected_platforms:
             selected_platforms.append(x)
 
+    if os.path.isdir('WORK') and not args.clean:
+        warning("Working directory WORK already exists. Please remove it (option -C or -c) before re-executing CMake "
+                "to avoid conflicts between executions.")
+        if os.path.isfile('Makefile'):
+            Popen("make help-prepare-options".split(" "))
+        return 0
+
     for platform in selected_platforms:
         target = targets[platform]
 
@@ -564,9 +638,6 @@ def main(argv=None):
         else:
             retcode = prepare.run(target, args.debug, False, args.list_cmake_variables, args.force, additional_args)
             if retcode != 0:
-                if retcode == 51:
-                    Popen("make help-prepare-options".split(" "))
-                    retcode = 0
                 return retcode
 
     if args.clean:
@@ -583,9 +654,9 @@ def main(argv=None):
         elif args.generator == "Unix Makefiles":
             generate_makefile(selected_platforms, '$(MAKE) -C')
         elif args.generator == "Xcode":
-            print("You can now open Xcode project with: open WORK/cmake/Project.xcodeproj")
+            info("You can now open Xcode project with: open WORK/cmake/Project.xcodeproj")
         else:
-            print("Not generating meta-makefile for generator {}.".format(args.generator))
+            info("Not generating meta-makefile for generator {}.".format(args.generator))
 
     return 0
 
