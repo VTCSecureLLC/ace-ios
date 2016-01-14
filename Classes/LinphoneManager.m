@@ -1478,22 +1478,18 @@ static BOOL libStarted = FALSE;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
-    
-    int rtcpFB;
+   
     if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-        rtcpFB = 1;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
     else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-        rtcpFB = 1;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
     else{
-        rtcpFB = 0;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
     }
 
 	/* The core will call the linphone_iphone_configuring_status_changed callback when the remote provisioning is loaded

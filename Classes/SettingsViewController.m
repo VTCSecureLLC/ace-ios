@@ -525,24 +525,26 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"rtcp_feedback_pref" compare:notif.object] == NSOrderedSame){
 		NSString *rtcpFeedbackMode = [notif.userInfo objectForKey:@"rtcp_feedback_pref"];
         
-        int rtcpFB;
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
             [settingsStore setBool:TRUE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else{
-            rtcpFB = 0;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
