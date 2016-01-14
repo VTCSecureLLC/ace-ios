@@ -115,4 +115,6 @@
 - (IBAction)onRegisterClick:(id)sender;
 - (IBAction)onProvisionedLoginClick:(id)sender;
 
++(NSMutableArray*)getProvidersFromCDN;
+
 @end

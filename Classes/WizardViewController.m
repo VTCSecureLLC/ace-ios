@@ -49,7 +49,6 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
-    NSMutableArray *cdnResources;
     NSURLRequest *cdnRequest;
     NSURLSession *urlSession;
 }
@@ -79,7 +78,7 @@ typedef enum _ViewElement {
 
 @synthesize viewTapGestureRecognizer;
 
-
+static NSMutableArray *cdnResources;
 #pragma mark - Lifecycle Functions
 
 - (id)init {
@@ -172,8 +171,12 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
     
     for(int i = 1; name; i++){
         [cdnResources addObject:name];
-        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", 1]];
+        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", i]];
     }
+}
+
++(NSMutableArray*)getProvidersFromCDN{
+    return cdnResources;
 }
 - (void)viewDidLoad {
 
@@ -1296,7 +1299,34 @@ UIAlertView *transportAlert;
 }
 
 - (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
-    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"provider%ld.png", (long)row]];
+    NSString *imgResource;
+    /*Load hard baked logos for beta stability.
+     Going forward we will be loading these from the CDN*/
+    if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"sorenson"]){
+        imgResource = @"provider0.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"zvrs"]){
+        imgResource = @"provider1.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"star"]){
+        imgResource = @"provider2.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"convo"]){
+        imgResource = @"provider5.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"global"]){
+        imgResource = @"provider4.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"purple"]){
+        imgResource = @"provider3.png";
+    }
+    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"ace"]){
+        imgResource = @"ace_icon2x.png";
+    }
+    else{
+        imgResource = @"ace_icon2x.png";
+    }
+    UIImage *img = [UIImage imageNamed:imgResource];
     [providerButtonLeftImageView removeFromSuperview];
     providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
     [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
