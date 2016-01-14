@@ -23,7 +23,6 @@
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
 #import "DTAlertView.h"
-#import "DefaultSettingsManager.h"
 
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
@@ -144,7 +143,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [super viewDidLoad];
     
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
-    [self initLoginSettingsFields];
+    [DefaultSettingsManager sharedInstance].delegate = self;
     acceptButtonClicked = NO;
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
@@ -196,6 +195,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 			text.placeholder = NSLocalizedString(@"Username", nil);
 		}
 	}
+}
+
+#pragma mark - DefaultSettingsManager delegate method
+
+- (void)didFinishLoadingConfigData {
+    [self initLoginSettingsFields];
 }
 
 - (void)initLoginSettingsFields {
