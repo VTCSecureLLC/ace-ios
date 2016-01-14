@@ -62,6 +62,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
 	BOOL hiddenVolume;
     int RTT_MAX_PARAGRAPH_CHAR;
     int RTT_SOFT_MAX_PARAGRAPH_CHAR;
+    UIImageView *callOnHoldImageView;
 }
 
 @synthesize callTableController;
@@ -309,6 +310,23 @@ CGPoint incomingTextChatModePos;
 	if (call == NULL) {
 		return;
 	}
+    
+    
+    if(state == LinphoneCallPausedByRemote){
+        UIImage *img = [UIImage imageNamed:@"Hold.png"];
+        callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
+        [callOnHoldImageView setCenter:self.videoView.center];
+        [callOnHoldImageView setHidden:NO];
+        [callOnHoldImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+        [self.view addSubview:callOnHoldImageView];
+        [self.videoView setHidden:YES];
+    }
+    else{
+        if(callOnHoldImageView){
+            [callOnHoldImageView removeFromSuperview];
+        }
+        [self.videoView setHidden:NO];
+    }
 
 	switch (state) {
 	case LinphoneCallIncomingReceived:
@@ -364,7 +382,6 @@ CGPoint incomingTextChatModePos;
 	case LinphoneCallUpdatedByRemote: {
 		const LinphoneCallParams *current = linphone_call_get_current_params(call);
 		const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-
 		/* remote wants to add video */
 		if (linphone_core_video_enabled(lc) && !linphone_call_params_video_enabled(current) &&
 			linphone_call_params_video_enabled(remote) && !linphone_core_get_video_policy(lc)->automatically_accept) {
