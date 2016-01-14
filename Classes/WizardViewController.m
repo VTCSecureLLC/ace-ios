@@ -150,15 +150,17 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
         if(data){
             NSArray *resources = [NSJSONSerialization JSONObjectWithData:data
                                                                     options:0 error:&jsonParsingError];
-                NSDictionary *resource;
-                cdnResources = [[NSMutableArray alloc] init];
-                for(int i=0; i < [resources count];i++){
-                    resource= [resources objectAtIndex:i];
-                    [cdnResources addObject:[resource objectForKey:@"name"]];
-                    NSLog(@"Loaded CDN Resource: %@", [resource objectForKey:@"name"]);
-                    [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"name"] forKey:[NSString stringWithFormat:@"provider%d", i]];
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"domain"] forKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+                if(!jsonParsingError){
+                    NSDictionary *resource;
+                    cdnResources = [[NSMutableArray alloc] init];
+                    for(int i=0; i < [resources count];i++){
+                        resource= [resources objectAtIndex:i];
+                        [cdnResources addObject:[resource objectForKey:@"name"]];
+                        NSLog(@"Loaded CDN Resource: %@", [resource objectForKey:@"name"]);
+                        [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"name"] forKey:[NSString stringWithFormat:@"provider%d", i]];
+                        
+                        [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"domain"] forKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+                    }
                 }
         }
     }] resume];
