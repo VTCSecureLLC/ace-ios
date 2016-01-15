@@ -10,7 +10,7 @@
 			<key>Title</key>
 			<string>Enable Text</string>
 			<key>Key</key>
-			<string>enable_text</string>
+			<string>enable_rtt</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

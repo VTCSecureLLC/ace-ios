@@ -1417,8 +1417,8 @@ UIAlertView *transportAlert;
     
     // enable_video - set
 
-    // enable_text
-    [lm lpConfigSetBool:[DefaultSettingsManager sharedInstance].enableText forKey:@"enableText"];
+    // enable_rtt
+    [lm lpConfigSetBool:[DefaultSettingsManager sharedInstance].enableRtt forKey:@"rtt"];
     
     // enable_adaptive_rate
     linphone_core_enable_adaptive_rate_control(lc, [DefaultSettingsManager sharedInstance].enableAdaptiveRate);

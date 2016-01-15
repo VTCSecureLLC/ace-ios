@@ -700,7 +700,8 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 
 /* Text Mode RTT or SIP SIMPLE duplicate with Android*/
 -(int) getTextMode{
-    int TEXT_MODE=0;
+    //SET TO RTT BY DEFAULT, THIS WILL CHANGE IN GLOBAL SETTINGS.
+    int TEXT_MODE=RTT;
     
     //prefs = PreferenceManager.getDefaultSharedPreferences(LinphoneActivity.instance());
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

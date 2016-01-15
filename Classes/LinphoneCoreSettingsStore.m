@@ -127,7 +127,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
     
     // Save RTT option.
     BOOL rtt = [lm lpConfigBoolForKey:@"rtt" withDefault:YES];
-    [self setBool:rtt forKey:@"enable_text"];
+    [self setBool:rtt forKey:@"enable_rtt"];
     
 	// root section
 	{

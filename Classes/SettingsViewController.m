@@ -488,9 +488,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 	BOOL removeFromHiddenKeys = TRUE;
     
     // Make sure we can change the rtt settings.
-    if ([@"enable_text" compare:notif.object] == NSOrderedSame) {
-        BOOL enableText = [[notif.userInfo objectForKey:@"enable_text"] boolValue];
-        [[LinphoneManager instance] lpConfigSetBool:enableText forKey:@"enableText"];
+    if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
+        BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"enableRtt"];
     } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];

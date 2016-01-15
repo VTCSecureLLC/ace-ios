@@ -12,7 +12,7 @@
   "sip_register_transport": "tcp",
   "enable_echo_cancellation": "true",
   "enable_video": "true",
-  "enable_text": "true",
+  "enable_rtt": "true",
   "enable_adaptive_rate": "true",
   "enabled_codecs": ["H.264","H.263","VP8","G.722","G.711"],
   "bwLimit": "high-fps",

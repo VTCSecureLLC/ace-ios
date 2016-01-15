@@ -235,7 +235,7 @@
     // Make sure we set the default settings for text.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"defsettings" withDefault:YES]) {
         [[LinphoneManager instance] lpConfigSetBool:NO forKey:@"defsettings"];
-        [[LinphoneManager instance] lpConfigSetBool:YES forKey:@"enableText"];
+        [[LinphoneManager instance] lpConfigSetBool:YES forKey:@"rtt"];
     }
     
 	return YES;
