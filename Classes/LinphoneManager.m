@@ -1452,15 +1452,7 @@ static BOOL libStarted = FALSE;
 
 	ms_init(); // Need to initialize mediastreamer2 before loading the plugins
 	// Load plugins if available in the linphone SDK - otherwise these calls will do nothing
-<<<<<<< HEAD
-	//libmsilbc_init();
-	libmssilk_init();
-	libmsamr_init();
-	libmsx264_init();
-	libmsopenh264_init();
-	libmsbcg729_init();
-	libmswebrtc_init();
-=======
+
 	libmsilbc_init(ms_factory_get_fallback());
 	libmssilk_init(ms_factory_get_fallback());
 	libmsamr_init(ms_factory_get_fallback());
@@ -1468,7 +1460,6 @@ static BOOL libStarted = FALSE;
 	libmsopenh264_init(ms_factory_get_fallback());
 	libmsbcg729_init(ms_factory_get_fallback());
 	libmswebrtc_init(ms_factory_get_fallback());
->>>>>>> d63ddbc... LinphoneManager: provide factory parameter to plugins init since they expect it
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
