@@ -12,7 +12,6 @@
     UIPickerView *pickerView;
     
     NSArray *arraySource;
-    NSInteger selectedRow;
 }
 
 - (void) onButtonCancel:(id)sender;
@@ -71,7 +70,7 @@
         [_delegate didSelectUICustomPicker:self selectedItem:item];
     }
     if ([_delegate respondsToSelector:@selector(didSelectUICustomPicker:didSelectRow:)]) {
-        [_delegate didSelectUICustomPicker:self didSelectRow:selectedRow];
+        [_delegate didSelectUICustomPicker:self didSelectRow:_selectedRow];
     }
 }
 
@@ -94,7 +93,7 @@
 //}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    selectedRow = row;
+    _selectedRow = row;
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component

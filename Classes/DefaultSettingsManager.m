@@ -74,14 +74,15 @@ static DefaultSettingsManager *sharedInstance = nil;
     [self storeToUserDefaults:jsonDict];
 }
 
-- (void)parseDefaultConfigSettings {
+
+- (void)parseDefaultConfigSettings:(NSString*)configAddress {
     //[self parseDefaultConfigSettingsFromURL];
     aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     aiv.center = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view.center;
     [[[[[UIApplication sharedApplication] delegate] window] rootViewController].view addSubview:aiv];
     [aiv startAnimating];
 
-    self.resolver = [[SRVResolver alloc] initWithSRVName:@"_rueconfig._tcp.vatrp.net"];
+    self.resolver = [[SRVResolver alloc] initWithSRVName:configAddress];
     self.resolver.delegate = self;
     [self.resolver start];
    // [self parseDefaultConfigSettingsFromFile];
@@ -326,6 +327,9 @@ static DefaultSettingsManager *sharedInstance = nil;
     assert(resolver == self.resolver);
     #pragma unused(resolver)
     NSLog(@"didStopWithError %@", error);
+    if(self.delegate){
+        [self.delegate didFinishWithError];
+    }
 }
 
 @end

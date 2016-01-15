@@ -16,7 +16,7 @@
 
 @property (nonatomic, assign) id<UICustomPickerDelegate> delegate;
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
-
+@property (nonatomic, assign)  NSInteger selectedRow;
 @end
 
 @protocol UICustomPickerDelegate <NSObject>
