@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExtenableTextField : UITextView {
+@interface ExtenableRttField : UITextView {
     NSMutableString *labelString;
 }
 
