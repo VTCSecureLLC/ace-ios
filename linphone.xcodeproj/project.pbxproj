@@ -339,6 +339,7 @@
 		5E63479E1C1111C900042AB4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E63471A1C1111C900042AB4 /* LICENSE.txt */; };
 		5E7A93C81C22195A0043CC0E /* ResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E7A93C61C22195A0043CC0E /* ResourcesViewController.m */; };
 		5E7A93C91C22195A0043CC0E /* ResourcesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E7A93C71C22195A0043CC0E /* ResourcesViewController.xib */; };
+		5ED491611C48251B00906A17 /* Hold.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED491601C48251B00906A17 /* Hold.png */; };
 		5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */; };
 		5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC29001BFFAA6F00BA43FB /* UILabel+Clipboard.m */; };
 		630589E71B4E810900EFAE36 /* ChatTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 630589DF1B4E810900EFAE36 /* ChatTester.m */; };
@@ -1636,6 +1637,7 @@
 		5E7A93C51C22195A0043CC0E /* ResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesViewController.h; sourceTree = "<group>"; };
 		5E7A93C61C22195A0043CC0E /* ResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesViewController.m; sourceTree = "<group>"; };
 		5E7A93C71C22195A0043CC0E /* ResourcesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResourcesViewController.xib; sourceTree = "<group>"; };
+		5ED491601C48251B00906A17 /* Hold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Hold.png; path = Resources/Hold.png; sourceTree = "<group>"; };
 		5EE6CDAE1BFE2043005CA879 /* RTTMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTTMessageModel.h; sourceTree = "<group>"; };
 		5EE6CDAF1BFE2043005CA879 /* RTTMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTTMessageModel.m; sourceTree = "<group>"; };
 		5EEC28FF1BFFAA6F00BA43FB /* UILabel+Clipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Clipboard.h"; sourceTree = "<group>"; };
@@ -3450,6 +3452,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				5ED491601C48251B00906A17 /* Hold.png */,
 				A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */,
 				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
 				CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */,
@@ -5125,6 +5128,7 @@
 				D3C31A6A15BD8DED008ED271 /* speaker_off_default_landscape.png in Resources */,
 				D3C31A6C15BD8DED008ED271 /* speaker_off_disabled_landscape.png in Resources */,
 				D3C31A7015BD8DED008ED271 /* speaker_on_default_landscape.png in Resources */,
+				5ED491611C48251B00906A17 /* Hold.png in Resources */,
 				D3C31A7415BD8DED008ED271 /* speaker_on_over_landscape.png in Resources */,
 				50B007F11BA09C79002C5723 /* settings_default_landscape~ipad.png in Resources */,
 				D3C31A7C15BD8DED008ED271 /* video_off_default_landscape.png in Resources */,
