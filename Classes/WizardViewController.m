@@ -23,7 +23,6 @@
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
 #import "DTAlertView.h"
-#import "DefaultSettingsManager.h"
 
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
@@ -185,7 +184,7 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
     [super viewDidLoad];
     
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
-    [self initLoginSettingsFields];
+    [DefaultSettingsManager sharedInstance].delegate = self;
     acceptButtonClicked = NO;
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
@@ -237,6 +236,12 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 			text.placeholder = NSLocalizedString(@"Username", nil);
 		}
 	}
+}
+
+#pragma mark - DefaultSettingsManager delegate method
+
+- (void)didFinishLoadingConfigData {
+    [self initLoginSettingsFields];
 }
 
 - (void)initLoginSettingsFields {

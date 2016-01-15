@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol DefaultSettingsManagerDelegate <NSObject>
+- (void)didFinishLoadingConfigData;
+@end
+
+
 @interface DefaultSettingsManager : NSObject <NSURLConnectionDelegate>
 
 @property (readonly) NSNumber *version;
@@ -37,6 +42,7 @@
 @property (setter=setSipVideomailUri:, nonatomic) NSString *sipVideomailUri;
 @property (readonly) NSString *videoResolutionMaximum;
 
+@property(nonatomic, weak) id<DefaultSettingsManagerDelegate> delegate;
 
 +(DefaultSettingsManager*) sharedInstance;
 
