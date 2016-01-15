@@ -10,6 +10,7 @@
 
 @protocol DefaultSettingsManagerDelegate <NSObject>
 - (void)didFinishLoadingConfigData;
+-(void)didFinishWithError;
 @end
 
 
@@ -46,7 +47,7 @@
 
 +(DefaultSettingsManager*) sharedInstance;
 
-- (void)parseDefaultConfigSettings;
+- (void)parseDefaultConfigSettings:(NSString*)configAddress;
 - (void)clearDefaultConfigSettings;
 
 @end
