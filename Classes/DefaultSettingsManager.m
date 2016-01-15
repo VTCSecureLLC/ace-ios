@@ -90,7 +90,7 @@ static DefaultSettingsManager *sharedInstance = nil;
     
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"enable_video"] forKey:@"enable_video"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"enable_rtt"] forKey:@"enable_rtt"];
+    [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"enable_text"] forKey:@"enable_text"];
     
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"enable_adaptive_rate"] forKey:@"enable_adaptive_rate"];
     
@@ -214,8 +214,8 @@ static DefaultSettingsManager *sharedInstance = nil;
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_video"];
 }
 
-- (BOOL)enableRtt {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
+- (BOOL)enableText {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_text"];
 }
 
 - (BOOL)enableAdaptiveRate {
