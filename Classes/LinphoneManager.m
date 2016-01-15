@@ -719,12 +719,27 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		}
 	}
 
-	if (state == LinphoneCallReleased) {
-		if (data != NULL) {
-			linphone_call_set_user_data(call, NULL);
-			CFBridgingRelease((__bridge CFTypeRef)(data));
-		}
-	}
+    if (state == LinphoneCallReleased) {
+        if (data != NULL) {
+            linphone_call_set_user_data(call, NULL);
+            CFBridgingRelease((__bridge CFTypeRef)(data));
+        }
+        
+        // Resume remain call if it exists
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        if (call_list) {
+            int count = ms_list_size(call_list);
+            if (count) {
+                LinphoneCall *currentCall = (LinphoneCall*)call_list->data;
+                if (currentCall) {
+                    LinphoneCallState call_state = linphone_call_get_state(currentCall);
+                    if (call_state == LinphoneCallPaused) {
+                        linphone_core_resume_call([LinphoneManager getLc], currentCall);
+                    }
+                }
+            }
+        }
+    }
 
 	// Enable speaker when video
 	if (state == LinphoneCallIncomingReceived || state == LinphoneCallOutgoingInit || state == LinphoneCallConnected ||
