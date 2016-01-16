@@ -37,6 +37,12 @@
 
 const NSInteger SECURE_BUTTON_TAG = 5;
 
+//integers duplicate format as Android
+//const NSInteger TEXT_MODE;
+const NSInteger NO_TEXT=-1;
+const NSInteger RTT=0;
+const NSInteger SIP_SIMPLE=1;
+
 @interface InCallViewController() <BubbleTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 
@@ -50,6 +56,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
     @property RTTMessageModel *remoteTextBuffer;
     @property UIColor *localColor;
 
+
 @property (weak, nonatomic) IBOutlet UIScrollView *minimizedTextScrollView;
 
 @property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
@@ -62,6 +69,7 @@ const NSInteger SECURE_BUTTON_TAG = 5;
 	BOOL hiddenVolume;
     int RTT_MAX_PARAGRAPH_CHAR;
     int RTT_SOFT_MAX_PARAGRAPH_CHAR;
+    UIImageView *callOnHoldImageView;
 }
 
 @synthesize callTableController;
@@ -296,7 +304,7 @@ CGPoint incomingTextChatModePos;
 
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
 	LinphoneCore *lc = [LinphoneManager getLc];
-
+    
 	if (hiddenVolume) {
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
 		hiddenVolume = FALSE;
@@ -309,6 +317,23 @@ CGPoint incomingTextChatModePos;
 	if (call == NULL) {
 		return;
 	}
+    
+    
+    if(state == LinphoneCallPausedByRemote){
+        UIImage *img = [UIImage imageNamed:@"Hold.png"];
+        callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
+        [callOnHoldImageView setCenter:self.videoView.center];
+        [callOnHoldImageView setHidden:NO];
+        [callOnHoldImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+        [self.view addSubview:callOnHoldImageView];
+        [self.videoView setHidden:YES];
+    }
+    else{
+        if(callOnHoldImageView){
+            [callOnHoldImageView removeFromSuperview];
+        }
+        [self.videoView setHidden:NO];
+    }
 
 	switch (state) {
 	case LinphoneCallIncomingReceived:
@@ -364,7 +389,6 @@ CGPoint incomingTextChatModePos;
 	case LinphoneCallUpdatedByRemote: {
 		const LinphoneCallParams *current = linphone_call_get_current_params(call);
 		const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-
 		/* remote wants to add video */
 		if (linphone_core_video_enabled(lc) && !linphone_call_params_video_enabled(current) &&
 			linphone_call_params_video_enabled(remote) && !linphone_core_get_video_policy(lc)->automatically_accept) {
@@ -690,6 +714,37 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
     return NO;
 }
+
+/* Text Mode RTT or SIP SIMPLE duplicate with Android*/
+-(int) getTextMode{
+    //SET TO RTT BY DEFAULT, THIS WILL CHANGE IN GLOBAL SETTINGS.
+    int TEXT_MODE=RTT;
+    
+    //prefs = PreferenceManager.getDefaultSharedPreferences(LinphoneActivity.instance());
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+   
+    //String text_mode=prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT");
+    NSString* text_mode_string=[defaults stringForKey:@"pref_text_settings_send_mode_key"];
+    
+     //Log.d("Text Send Mode" + prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT"));
+    NSLog(@"Text mode is %@",text_mode_string);
+//    if(text_mode.equals("SIP_SIMPLE")) {
+//        TEXT_MODE=SIP_SIMPLE;
+//    }else if(text_mode.equals("RTT")) {
+//        TEXT_MODE=RTT;
+//        
+//    }
+    
+    if([text_mode_string isEqualToString:@"SIP_SIMPLE"]) {
+        TEXT_MODE=SIP_SIMPLE;
+    }else if([text_mode_string isEqualToString:@"RTT"]) {
+        TEXT_MODE=RTT;
+    }
+    NSLog(@"Text mode is %d",TEXT_MODE);
+    //Log.d("TEXT_MODE ", TEXT_MODE);
+    return TEXT_MODE;
+}
+
 -(void) showLatestMessage{
     if(self.tableView && self.chatEntries){
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
@@ -748,32 +803,35 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     }
     
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
-        
+       
         RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
         NSString *currentCharacter = currentRttModel.msgString;
         
-        // if the last one is not mine and it's not a first my messages
-        if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && [currentCharacter isEqualToString:@"\n"]) {
-            return;
-        }
         
-        if (![currentCharacter isEqualToString:@"\n"]) { // do not add row if previous mine is empty
+        BOOL enter_pressed=[currentCharacter isEqualToString:@"\n"];
+                   // if the last one is not mine and it's not a first my messages
+            if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && enter_pressed) {
+                return;
+            }
             
-            if (indx == 0) { // if it's the first message
+            if (!enter_pressed) { // do not add row if previous mine is empty
+                if (indx == 0) { // if it's the first message
+                    [self createNewLocalChatBuffer:text];
+                    return;
+                } else {
+                    self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
+                }
+                
+                // If the previous is my message
+                if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
+                    self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
+                }
+                
                 [self createNewLocalChatBuffer:text];
                 return;
-            } else {
-                self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
             }
-            
-            // If the previous is my message
-            if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
-                self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
-            }
-            
-            [self createNewLocalChatBuffer:text];
-            return;
-        }
+     
+        
         
     }
     
@@ -828,22 +886,43 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
     // Send a character.
+    bool enter_pressed=false;
+    unichar c = [theText characterAtIndex:0];
+    /* A Line Separator that should be added. */
+    if (c == '\n'){
+        c = 0x2028;
+        enter_pressed=true;
+    }
+    
+    NSLog(@"theText %@",theText);
     NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
           linphone_core_get_version());
-    
+    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
-    [self insertTextIntoBuffer:theText];
-    for (int i = 0; i != theText.length; i++)
-    {
-        unichar c = [theText characterAtIndex:i];
-        /* A Line Separator that should be added. */
-        if (c == '\n')
-            c = 0x2028;
-        linphone_chat_message_put_char(msg, c);
+    
+    int TEXT_MODE=[self getTextMode];
+    
+    if(TEXT_MODE==RTT){
+            linphone_chat_message_put_char(msg, c);
+    }else if(TEXT_MODE==SIP_SIMPLE){
+        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        if(enter_pressed){
+            NSLog(@"enter_pressed");
+            for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
+                NSLog(@"Sending char %hu",[self.localTextBuffer.msgString characterAtIndex:j]);
+                unichar c1 = [self.localTextBuffer.msgString characterAtIndex:j];
+                if (c1 == '\n'){
+                    c1 = 0x2028;
+                }
+                linphone_chat_message_put_char(msg, c1);
+            }
+        }
     }
+    [self insertTextIntoBuffer:theText];
+    
 }
 /* Called when backspace is inserted */
 - (void)deleteBackward {

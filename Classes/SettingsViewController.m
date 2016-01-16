@@ -239,6 +239,24 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    if(colorData){
+        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        self.tableView.opaque = NO;
+        self.tableView.backgroundColor = [self darkerColorForColor:color];
+        self.tableView.backgroundView  = nil;
+    }
+}
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.1, 0.0)
+                               green:MAX(g - 0.1, 0.0)
+                                blue:MAX(b - 0.1, 0.0)
+                               alpha:a];
+    return nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -472,7 +490,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Make sure we can change the rtt settings.
     if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
         BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
-        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"enableRtt"];
     } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];
@@ -507,24 +525,26 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"rtcp_feedback_pref" compare:notif.object] == NSOrderedSame){
 		NSString *rtcpFeedbackMode = [notif.userInfo objectForKey:@"rtcp_feedback_pref"];
         
-        int rtcpFB;
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
             [settingsStore setBool:TRUE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else{
-            rtcpFB = 0;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
@@ -536,6 +556,13 @@ static UICompositeViewDescription *compositeDescription = nil;
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults synchronize];
+
+    }
+    else if ([@"pref_text_settings_send_mode_key" compare:notif.object] == NSOrderedSame) {
+        NSString *text_send_mode = [notif.userInfo objectForKey:@"pref_text_settings_send_mode_key"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:text_send_mode forKey:@"pref_text_settings_send_mode_key"];
         [defaults synchronize];
 
     }
@@ -597,7 +624,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"mp4v-es_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"mp4v-es_preference"] boolValue]) ? YES : NO;
-        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MPEG4", 90000, -1);
+        PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"MP4V-ES", 90000, -1);
         if(pt != NULL){
             NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
             linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
@@ -645,12 +672,35 @@ static UICompositeViewDescription *compositeDescription = nil;
         
         [ picker presentModallyOverViewController: self ];
     }
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.1, 0.0)
+                               green:MAX(g - 0.1, 0.0)
+                                blue:MAX(b - 0.1, 0.0)
+                               alpha:a];
+    return nil;
+}
              
 - (void) colorPickerControllerDidFinish: (InfColorPickerController*) picker
     {
         NSString *key = ([picker.title isEqualToString:@"Foreground Color"]) ? @"foreground_color_preference" : @"background_color_preference";
          NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:picker.resultColor];
         [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if ([key isEqualToString:@"background_color_preference"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundColorChanged" object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"foregroundColorChanged" object:nil];
+        }
+        
+        settingsController.tableView.opaque = NO;
+        UIColor *color = [self darkerColorForColor:picker.resultColor];
+        settingsController.tableView.backgroundColor = color;
+        settingsController.tableView.backgroundView  = nil;
         
         [ self dismissViewControllerAnimated:NO completion:nil];
     }

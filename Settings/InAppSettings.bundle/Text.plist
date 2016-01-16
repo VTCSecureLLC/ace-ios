@@ -8,11 +8,31 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Enable Realtime Text</string>
+			<string>Enable Text</string>
 			<key>Key</key>
 			<string>enable_rtt</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Real Time Text (RTT)</string>
+			<key>Title</key>
+			<string>Text Send-Mode</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<string>RTT</string>
+				<string>SIP_SIMPLE</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Real Time Text (RTT)</string>
+				<string>SIP SIMPLE</string>
+			</array>
+			<key>Key</key>
+			<string>pref_text_settings_send_mode_key</string>
 		</dict>
 	</array>
 </dict>

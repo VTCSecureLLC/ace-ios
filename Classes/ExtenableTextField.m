@@ -8,11 +8,11 @@
 
 #import "ExtenableTextField.h"
 
-@interface ExtenableTextField()
+@interface ExtenableRttField()
 @property  BOOL isReadOnly;
 @end
 
-@implementation ExtenableTextField
+@implementation ExtenableRttField
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
