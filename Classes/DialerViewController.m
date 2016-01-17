@@ -359,9 +359,11 @@ static UICompositeViewDescription *compositeDescription = nil;
 		if (transferMode) {
 			[addCallButton setHidden:true];
 			[transferButton setHidden:false];
+            [transferButton setEnabled:YES];
 		} else {
 			[addCallButton setHidden:false];
 			[transferButton setHidden:true];
+            [transferButton setEnabled:NO];
 		}
 		[callButton setHidden:true];
 		[backButton setHidden:false];
