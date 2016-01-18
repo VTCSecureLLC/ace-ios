@@ -23,7 +23,6 @@
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
 #import "DTAlertView.h"
-#import "DefaultSettingsManager.h"
 
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
@@ -184,8 +183,7 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 
     [super viewDidLoad];
     
-    [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings];
-    [self initLoginSettingsFields];
+    [DefaultSettingsManager sharedInstance].delegate = self;
     acceptButtonClicked = NO;
     [self.buttonVideoRelayService.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.buttonVideoRelayService.layer setBorderWidth:1.0];
@@ -239,6 +237,20 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 	}
 }
 
+#pragma mark - DefaultSettingsManager delegate method
+
+- (void)didFinishLoadingConfigData {
+    [self initLoginSettingsFields];
+}
+-(void) didFinishWithError{
+    @try{
+        [self apiSignIn];
+    }
+    @catch(NSException *e){
+        NSLog(@"%@", [e description]);
+    }
+}
+
 - (void)initLoginSettingsFields {
     self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
     //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
@@ -246,6 +258,7 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
     [self.transportTextField setDelegate:self];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
     self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
+    [self apiSignIn];
 }
 
 #pragma mark -
@@ -859,7 +872,10 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 }
 
 - (IBAction)onLoginClick:(id)sender {
-    [self apiSignIn];
+    NSString *rueConfigFormatURL = @"_rueconfig._tls.%domain%";
+
+    NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
+    [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
 }
 
 - (IBAction)onStartClick:(id)sender {
@@ -1299,7 +1315,6 @@ UIAlertView *transportAlert;
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
     [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
 }
-
 - (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
     NSString *imgResource;
     /*Load hard baked logos for beta stability.
@@ -1335,7 +1350,11 @@ UIAlertView *transportAlert;
     [providerButtonLeftImageView setImage:img];
     [self.selectProviderButton addSubview:providerButtonLeftImageView];
     
-    NSString *domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)row]];
+    NSString *domain;
+    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)row]]){
+             domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)row]];
+    }
+
     if(domain == nil){domain = @"";}
     [self.textFieldDomain setText:domain];
 }

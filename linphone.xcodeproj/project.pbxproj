@@ -472,6 +472,7 @@
 		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
+		CE036A6D1C4684A800987594 /* SRVResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = CE036A6C1C4684A800987594 /* SRVResolver.m */; };
 		CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */; };
 		CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */; };
 		CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */; };
@@ -1783,6 +1784,8 @@
 		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
+		CE036A6B1C4684A800987594 /* SRVResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRVResolver.h; sourceTree = "<group>"; };
+		CE036A6C1C4684A800987594 /* SRVResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRVResolver.m; sourceTree = "<group>"; };
 		CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceVC.h; sourceTree = "<group>"; };
 		CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptanceVC.m; sourceTree = "<group>"; };
 		CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptanceVC.xib; sourceTree = "<group>"; };
@@ -3264,9 +3267,20 @@
 			path = Utils/TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
+		CE036A661C46847900987594 /* SRVResolver */ = {
+			isa = PBXGroup;
+			children = (
+				CE036A6B1C4684A800987594 /* SRVResolver.h */,
+				CE036A6C1C4684A800987594 /* SRVResolver.m */,
+			);
+			name = SRVResolver;
+			path = Utils/SRVResolver;
+			sourceTree = "<group>";
+		};
 		D326483415887D4400930C67 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CE036A661C46847900987594 /* SRVResolver */,
 				F4CE02FF1BCF9B5D00157254 /* RealTimeText */,
 				D37E3ECA1619C27A0087659A /* CAAnimationBlocks */,
 				D380801215C299D0005BE9BC /* ColorSpaceUtilites.m */,
@@ -5419,6 +5433,7 @@
 				1D3623260D0F684500981E51 /* LinphoneAppDelegate.m in Sources */,
 				22F2508E107141E100AC9B3F /* DialerViewController.m in Sources */,
 				22E0A822111C44E100B04932 /* AboutViewController.m in Sources */,
+				CE036A6D1C4684A800987594 /* SRVResolver.m in Sources */,
 				631C4FB119D2A8F2004BFE77 /* UIDigitButtonLongPlus.m in Sources */,
 				2248E90E12F7E4CF00220D9C /* UIDigitButton.m in Sources */,
 				5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */,

@@ -490,7 +490,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Make sure we can change the rtt settings.
     if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
         BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
-        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"enableRtt"];
     } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];
@@ -556,6 +556,13 @@ static UICompositeViewDescription *compositeDescription = nil;
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults synchronize];
+
+    }
+    else if ([@"pref_text_settings_send_mode_key" compare:notif.object] == NSOrderedSame) {
+        NSString *text_send_mode = [notif.userInfo objectForKey:@"pref_text_settings_send_mode_key"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:text_send_mode forKey:@"pref_text_settings_send_mode_key"];
         [defaults synchronize];
 
     }
