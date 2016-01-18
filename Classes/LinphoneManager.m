@@ -1435,8 +1435,8 @@ static BOOL libStarted = FALSE;
 	}
     
     LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [self sortAudioCodecs];
     [settingsStore transformLinphoneCoreToKeys];
-
 }
 
 - (void)createLinphoneCore {
@@ -2375,4 +2375,81 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	linphone_core_clear_all_auth_info([LinphoneManager getLc]);
 }
 
+- (void) sortAudioCodecs {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    MSList *audioCodecs= NULL;
+    PayloadType *pt = [self findCodec:@"g722_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"pcmu_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"pcma_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"speex_16k_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"speex_8k_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+
+    
+    linphone_core_set_audio_codecs(lc, audioCodecs);
+    
+}
+
+- (PayloadType*)findCodec:(NSString*)codec {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    const MSList *audioCodecs = linphone_core_get_audio_codecs(lc);
+    
+    for (elem = audioCodecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        
+        if ([pref isEqualToString:codec]) {
+            return pt;
+        }
+        
+    }
+    
+    return nil;
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
