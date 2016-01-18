@@ -2579,6 +2579,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */,
 				737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */,
 				739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */,
 				739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */,
@@ -2605,7 +2606,6 @@
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				F0B026F31AA710AF00FF49F7 /* libiconv.dylib in Frameworks */,
 				F05BAA621A5D594E00411815 /* libz.dylib in Frameworks */,
-				0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */,
 				63D5C1F51BA6FF4D002D1ABF /* libbcg729.a in Frameworks */,
 				63D5C1F61BA6FF4D002D1ABF /* libswresample.a in Frameworks */,
 				63D5C1F71BA6FF4D002D1ABF /* libvo-amrwbenc.a in Frameworks */,
