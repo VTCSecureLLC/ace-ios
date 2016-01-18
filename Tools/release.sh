@@ -124,7 +124,7 @@ else
   echo "Uploading to HockeyApp"
   curl \
     -F "status=2" \
-    -F "notify=1" \
+    -F "notify=0" \
     -F "commit_sha=${SHA1}" \
     -F "build_server_url=https://travis-ci.org/${TRAVIS_REPO_SLUG}/builds/${TRAVIS_BUILD_ID}" \
     -F "repository_url=http://github.com/${TRAVIS_REPO_SLUG}" \
