@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FAFA2541C4D1C6A00FCEAFD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAFA2531C4D1C6A00FCEAFD /* VideoToolbox.framework */; };
 		152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		15F728741B16FF9A00A1C901 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1D3623260D0F684500981E51 /* LinphoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LinphoneAppDelegate.m */; };
@@ -761,6 +762,7 @@
 
 /* Begin PBXFileReference section */
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
+		0FAFA2531C4D1C6A00FCEAFD /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		152F22351B15E889008C0621 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		1560821E18EEF26100765332 /* libmsopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmsopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmsopenh264.a"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1583,6 +1585,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FAFA2541C4D1C6A00FCEAFD /* VideoToolbox.framework in Frameworks */,
 				6334DDFA1BBAC97C00631900 /* libsqlite3.dylib in Frameworks */,
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				63CFEDE81B9EDD74007EA5BD /* libantlr3c.a in Frameworks */,
@@ -1959,6 +1962,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FAFA2531C4D1C6A00FCEAFD /* VideoToolbox.framework */,
 				22B5F03410CE6B2F00777D97 /* AddressBook.framework */,
 				22B5EFA210CE50BD00777D97 /* AddressBookUI.framework */,
 				22405EED1600B4E400B92522 /* AssetsLibrary.framework */,
