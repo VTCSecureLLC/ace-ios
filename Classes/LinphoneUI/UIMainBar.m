@@ -196,7 +196,7 @@ static NSString *const kDisappearAnimation = @"disappear";
         NSInteger mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
         if(mwiCount > 0){
             [self.chatNotificationView setHidden:NO];
-            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", mwiCount]];
+            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
         }
     }
 }
@@ -239,7 +239,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     mwiCount++;
     [[NSUserDefaults standardUserDefaults] setInteger:mwiCount forKey:@"mwi_count"];
     [self.chatNotificationView setHidden:NO];
-    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", mwiCount]];
+    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
     
     const char *body = linphone_content_get_buffer(content);
     if ((body = strstr(body, "voice-message: ")) == NULL) {
