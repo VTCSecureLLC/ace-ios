@@ -95,7 +95,7 @@
         }
         
         if(mwiCount > 0){
-            cell.textLabel.text = [NSString stringWithFormat:@"Videomail(%ld)", mwiCount];
+            cell.textLabel.text = [NSString stringWithFormat:@"Videomail(%ld)", (long)mwiCount];
         }
     }
 
