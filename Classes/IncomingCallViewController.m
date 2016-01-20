@@ -200,13 +200,15 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if (call == acall && (astate == LinphoneCallEnd || astate == LinphoneCallError)) {
 		[delegate incomingCallAborted:call];
 		[self dismiss];
-	} else if ([LinphoneManager.instance lpConfigBoolForKey:@"auto_answer"]) {
-		LinphoneCallState state = linphone_call_get_state(call);
-		if (state == LinphoneCallIncomingReceived) {
-			LOGI(@"Auto answering call");
-			[self onAcceptClick:nil];
-		}
-	}
+    } else if ([LinphoneManager.instance lpConfigBoolForKey:@"auto_answer"]) {
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        if (ms_list_size(call_list) <= 1) {
+            LinphoneCallState state = linphone_call_get_state(call);
+            if (state == LinphoneCallIncomingReceived) {
+                [self onAcceptClick:nil];
+            }
+        }
+    }
 
 }
 
