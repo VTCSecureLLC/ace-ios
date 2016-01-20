@@ -490,7 +490,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     // Make sure we can change the rtt settings.
     if ([@"enable_rtt" compare:notif.object] == NSOrderedSame) {
         BOOL enableRtt = [[notif.userInfo objectForKey:@"enable_rtt"] boolValue];
-        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
+        [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"enableRtt"];
     } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
 		[keys addObject:@"video_menu"];
@@ -525,24 +525,26 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"rtcp_feedback_pref" compare:notif.object] == NSOrderedSame){
 		NSString *rtcpFeedbackMode = [notif.userInfo objectForKey:@"rtcp_feedback_pref"];
         
-        int rtcpFB;
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-            rtcpFB = 1;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
             [settingsStore setBool:TRUE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else{
-            rtcpFB = 0;
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
             [settingsStore setBool:FALSE forKey:@"avpf_preference"];
-            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
@@ -554,6 +556,13 @@ static UICompositeViewDescription *compositeDescription = nil;
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults synchronize];
+
+    }
+    else if ([@"pref_text_settings_send_mode_key" compare:notif.object] == NSOrderedSame) {
+        NSString *text_send_mode = [notif.userInfo objectForKey:@"pref_text_settings_send_mode_key"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:text_send_mode forKey:@"pref_text_settings_send_mode_key"];
         [defaults synchronize];
 
     }
@@ -577,6 +586,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
         [[LinphoneManager instance] lpConfigSetBool:enabled forKey:@"wifi_only_preference"];
     }
+    /***** VIDEO CODEC PREFS *****/
     else if([@"h264_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h264_preference"] boolValue]) ? YES : NO;
         PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H264", 90000, -1);
@@ -626,7 +636,68 @@ static UICompositeViewDescription *compositeDescription = nil;
             [defaults synchronize];
         }
     }
+    /******** AUDIO CODEC PREFS *******/
+    else if([@"speex_16k_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"speex_16k_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"speex_16k_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
     
+    else if([@"speex_8k_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"speex_8k_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"speex_8k_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"g722_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"g722_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"g722_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"pcmu_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"pcmu_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"pcmu_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"pcma_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"pcma_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"pcma_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);

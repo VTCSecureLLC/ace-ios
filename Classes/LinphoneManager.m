@@ -1435,8 +1435,8 @@ static BOOL libStarted = FALSE;
 	}
     
     LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [self sortAudioCodecs];
     [settingsStore transformLinphoneCoreToKeys];
-
 }
 
 - (void)createLinphoneCore {
@@ -1479,22 +1479,18 @@ static BOOL libStarted = FALSE;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
-    
-    int rtcpFB;
+   
     if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-        rtcpFB = 1;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
     else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-        rtcpFB = 1;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
     else{
-        rtcpFB = 0;
         linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", rtcpFB);
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
     }
 
 	/* The core will call the linphone_iphone_configuring_status_changed callback when the remote provisioning is loaded
@@ -2380,4 +2376,81 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	linphone_core_clear_all_auth_info([LinphoneManager getLc]);
 }
 
+- (void) sortAudioCodecs {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    MSList *audioCodecs= NULL;
+    PayloadType *pt = [self findCodec:@"g722_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"pcmu_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"pcma_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"speex_16k_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+    pt = [self findCodec:@"speex_8k_preference"];
+    if (pt) {
+        audioCodecs = ms_list_append(audioCodecs, pt);
+        linphone_core_enable_payload_type(lc, pt, YES);
+    }
+    
+
+    
+    linphone_core_set_audio_codecs(lc, audioCodecs);
+    
+}
+
+- (PayloadType*)findCodec:(NSString*)codec {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    const MSList *audioCodecs = linphone_core_get_audio_codecs(lc);
+    
+    for (elem = audioCodecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        
+        if ([pref isEqualToString:codec]) {
+            return pt;
+        }
+        
+    }
+    
+    return nil;
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

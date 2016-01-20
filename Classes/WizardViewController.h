@@ -25,6 +25,7 @@
 #import "LinphoneUI/UILinphoneButton.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "AcceptanceVC.h"
+#import "DefaultSettingsManager.h"
 
 @interface WizardViewController : TPMultiLayoutViewController
 <UITextFieldDelegate,
@@ -34,7 +35,9 @@
     UIAlertViewDelegate,
     UITextFieldDelegate,
     UICustomPickerDelegate,
-    AcceptanceVCDelegate>
+    AcceptanceVCDelegate,
+    DefaultSettingsManagerDelegate
+>
 {
     @private
     UITextField *activeTextField;
@@ -114,5 +117,7 @@
 - (IBAction)onSignInExternalClick:(id)sender;
 - (IBAction)onRegisterClick:(id)sender;
 - (IBAction)onProvisionedLoginClick:(id)sender;
+
++(NSMutableArray*)getProvidersFromCDN;
 
 @end

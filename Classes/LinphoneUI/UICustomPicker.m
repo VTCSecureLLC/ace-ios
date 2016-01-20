@@ -7,12 +7,11 @@
 //
 
 #import "UICustomPicker.h"
-
+#import "WizardViewController.h"
 @interface UICustomPicker () <UIPickerViewDelegate, UIPickerViewDataSource> {
     UIPickerView *pickerView;
     
     NSArray *arraySource;
-    NSInteger selectedRow;
 }
 
 - (void) onButtonCancel:(id)sender;
@@ -71,7 +70,7 @@
         [_delegate didSelectUICustomPicker:self selectedItem:item];
     }
     if ([_delegate respondsToSelector:@selector(didSelectUICustomPicker:didSelectRow:)]) {
-        [_delegate didSelectUICustomPicker:self didSelectRow:selectedRow];
+        [_delegate didSelectUICustomPicker:self didSelectRow:_selectedRow];
     }
 }
 
@@ -94,7 +93,7 @@
 //}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    selectedRow = row;
+    _selectedRow = row;
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -107,8 +106,39 @@
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UIImage *providerImage = [UIImage imageNamed:[NSString stringWithFormat:@"provider%ld.png", (long)row]];
-    UIImageView *providerImageView = [[UIImageView alloc] initWithImage:providerImage];
+    NSString *imgResource;
+    /*Load hard baked logos for beta stability.
+     Going forward we will be loading these from the CDN*/
+    if([WizardViewController getProvidersFromCDN] != nil){
+        if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"sorenson"]){
+            imgResource = @"provider0.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"zvrs"]){
+            imgResource = @"provider1.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString]  containsString:@"star"]){
+            imgResource = @"provider2.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString]  containsString:@"convo"]){
+            imgResource = @"provider5.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"global"]){
+            imgResource = @"provider4.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"purple"]){
+            imgResource = @"provider3.png";
+        }
+        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"ace"]){
+            imgResource = @"ace_icon2x.png";
+        }
+    }
+    
+    if(!imgResource){
+        imgResource = @"ace_icon2x.png";
+    }
+    
+    UIImage *img = [UIImage imageNamed:imgResource];
+    UIImageView *providerImageView = [[UIImageView alloc] initWithImage:img];
     providerImageView.frame = CGRectMake(-15, 18, 25, 25);
     
     UILabel *providerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 150, 60)];
