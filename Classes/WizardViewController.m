@@ -168,11 +168,11 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 -(void) loadProviderDomainsFromCache{
     NSString *name;
     cdnResources = [[NSMutableArray alloc] init];
-    name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", 1]];
+    name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
     
     for(int i = 1; name; i++){
         [cdnResources addObject:name];
-        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provder%d", i]];
+        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
     }
 }
 
