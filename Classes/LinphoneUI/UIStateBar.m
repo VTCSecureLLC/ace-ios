@@ -82,11 +82,6 @@
 											   object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(notifyReceived:)
-												 name:kLinphoneNotifyReceived
-											   object:nil];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(callUpdate:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
@@ -97,11 +92,13 @@
 	// Update to default state
 	LinphoneProxyConfig *config = NULL;
 	linphone_core_get_default_proxy([LinphoneManager getLc], &config);
-	messagesUnreadCount =
-		lp_config_get_int(linphone_core_get_config([LinphoneManager getLc]), "app", "voice_mail_messages_count", 0);
+    
+    //Linphone msg count - remove for now in favor of NSUserDefaults
+//	messagesUnreadCount =
+//		lp_config_get_int(linphone_core_get_config([LinphoneManager getLc]), "app", "voice_mail_messages_count", 0);
 
 	[self proxyConfigUpdate:config];
-	[self updateVoicemail];
+	//[self updateVoicemail];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -134,45 +131,20 @@
 - (void)globalStateUpdate:(NSNotification *)notif {
 	[self registrationUpdate:notif];
 }
-
-- (void)notifyReceived:(NSNotification *)notif {
-	const LinphoneContent *content = [[notif.userInfo objectForKey:@"content"] pointerValue];
-
-	if ((content == NULL) || (strcmp("application", linphone_content_get_type(content)) != 0) ||
-		(strcmp("simple-message-summary", linphone_content_get_subtype(content)) != 0) ||
-		(linphone_content_get_buffer(content) == NULL)) {
-		return;
-	}
-	const char *body = linphone_content_get_buffer(content);
-	if ((body = strstr(body, "voice-message: ")) == NULL) {
-		LOGW(@"Received new NOTIFY from voice mail but could not find 'voice-message' in BODY. Ignoring it.");
-		return;
-	}
-
-	sscanf(body, "voice-message: %d", &messagesUnreadCount);
-
-	LOGI(@"Received new NOTIFY from voice mail: there is/are now %d message(s) unread", messagesUnreadCount);
-
-	// save in lpconfig for future
-	lp_config_set_int(linphone_core_get_config([LinphoneManager getLc]), "app", "voice_mail_messages_count",
-					  messagesUnreadCount);
-
-	[self updateVoicemail];
-}
-
-- (void)updateVoicemail {
-	if (messagesUnreadCount > 0) {
-		self.voicemailCount.hidden = (linphone_core_get_calls([LinphoneManager getLc]) != NULL);
-		self.voicemailCount.text = [[NSString
-			stringWithFormat:NSLocalizedString(@"%d unread messages", @"%d"), messagesUnreadCount] uppercaseString];
-	} else {
-		self.voicemailCount.hidden = TRUE;
-	}
-}
+//Update linphone voicemail count - remove in favor of NSUserDefaults
+//- (void)updateVoicemail {
+//	if (messagesUnreadCount > 0) {
+//		self.voicemailCount.hidden = (linphone_core_get_calls([LinphoneManager getLc]) != NULL);
+//		self.voicemailCount.text = [[NSString
+//			stringWithFormat:NSLocalizedString(@"%d unread messages", @"%d"), messagesUnreadCount] uppercaseString];
+//	} else {
+//		self.voicemailCount.hidden = TRUE;
+//	}
+//}
 
 - (void)callUpdate:(NSNotification *)notif {
 	// show voice mail only when there is no call
-	[self updateVoicemail];
+	//[self updateVoicemail];
 }
 
 #pragma mark -

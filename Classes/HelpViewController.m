@@ -27,7 +27,7 @@
     [super viewDidLoad];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
     
-    tableData = [NSArray arrayWithObjects:@"Technical Support", @"Instant Feedback", @"Deaf / Hard of Hearing Resources", nil];
+    tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Videomail", nil];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
 }
 
@@ -50,8 +50,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
   
-    if(indexPath.row == 1){
-        
+    if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Instant Feedback"]){
         NSMutableArray *deviceStats = [[NSMutableArray alloc] init];
         
         struct utsname systemInfo;
@@ -85,6 +84,21 @@
     
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
    // cell.imageView.image = [tableImages objectAtIndex:indexPath.row];
+    
+    if(indexPath.row == tableData.count-1){
+        NSInteger mwiCount;
+        if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
+            mwiCount = 0;
+        }
+        else{
+            mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
+        }
+        
+        if(mwiCount > 0){
+            cell.textLabel.text = [NSString stringWithFormat:@"Videomail(%ld)", mwiCount];
+        }
+    }
+
 
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
     if(colorData){

@@ -70,6 +70,12 @@ static NSString *const kDisappearAnimation = @"disappear";
 											 selector:@selector(settingsUpdate:)
 												 name:kLinphoneSettingsUpdate
 											   object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notifyReceived:)
+                                                 name:kLinphoneNotifyReceived
+                                               object:nil];
 	[self update:FALSE];
     [self changeForegroundColor];
 }
@@ -182,6 +188,17 @@ static NSString *const kDisappearAnimation = @"disappear";
 	[super viewDidLoad]; // Have to be after due to TPMultiLayoutViewController
     [self setColorChnageObservers];
     [self changeBackgroundColor];
+    
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
+        [self.chatNotificationView setHidden:YES];
+    }
+    else{
+        NSInteger mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
+        if(mwiCount > 0){
+            [self.chatNotificationView setHidden:NO];
+            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", mwiCount]];
+        }
+    }
 }
 
 - (void)setColorChnageObservers {
@@ -203,6 +220,35 @@ static NSString *const kDisappearAnimation = @"disappear";
 												  object:nil];
 }
 
+
+- (void)notifyReceived:(NSNotification *)notif {
+    const LinphoneContent *content = [[notif.userInfo objectForKey:@"content"] pointerValue];
+    if ((content == NULL) || (strcmp("application", linphone_content_get_type(content)) != 0) ||
+        (strcmp("simple-message-summary", linphone_content_get_subtype(content)) != 0) ||
+        (linphone_content_get_buffer(content) == NULL)) {
+        return;
+    }
+    
+    NSInteger mwiCount;
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
+        mwiCount = 0;
+    }
+    else{
+        mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
+    }
+    mwiCount++;
+    [[NSUserDefaults standardUserDefaults] setInteger:mwiCount forKey:@"mwi_count"];
+    [self.chatNotificationView setHidden:NO];
+    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", mwiCount]];
+    
+    const char *body = linphone_content_get_buffer(content);
+    if ((body = strstr(body, "voice-message: ")) == NULL) {
+        LOGW(@"Received new NOTIFY from voice mail but could not find 'voice-message' in BODY. Ignoring it.");
+        return;
+    }
+}
+
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 								duration:(NSTimeInterval)duration {
 	// Force the animations
@@ -212,7 +258,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	[chatNotificationView setHidden:TRUE];
+	//[chatNotificationView setHidden:TRUE];
 	[historyNotificationView setHidden:TRUE];
 	[self update:FALSE];
 }
@@ -224,7 +270,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 	[[self.view layer] removeAllAnimations];
 	[historyNotificationView.layer setTransform:CATransform3DIdentity];
 	[chatNotificationView.layer setTransform:CATransform3DIdentity];
-	[chatNotificationView setHidden:TRUE];
+	//[chatNotificationView setHidden:TRUE];
 	[historyNotificationView setHidden:TRUE];
 	[self update:FALSE];
 }
