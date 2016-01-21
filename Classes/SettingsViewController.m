@@ -586,6 +586,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
         [[LinphoneManager instance] lpConfigSetBool:enabled forKey:@"wifi_only_preference"];
     }
+    /***** VIDEO CODEC PREFS *****/
     else if([@"h264_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h264_preference"] boolValue]) ? YES : NO;
         PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H264", 90000, -1);
@@ -635,7 +636,68 @@ static UICompositeViewDescription *compositeDescription = nil;
             [defaults synchronize];
         }
     }
+    /******** AUDIO CODEC PREFS *******/
+    else if([@"speex_16k_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"speex_16k_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"speex_16k_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
     
+    else if([@"speex_8k_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"speex_8k_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"speex_8k_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"g722_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"g722_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"g722_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"pcmu_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"pcmu_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"pcmu_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
+    else if([@"pcma_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"pcma_preference"] boolValue]) ? YES : NO;
+        PayloadType *pt = [[LinphoneManager instance] findCodec:@"pcma_preference"];
+        if (pt) {
+            NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+            linphone_core_enable_payload_type([LinphoneManager getLc], pt, enabled);
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:enabled forKey:pref];
+            [defaults synchronize];
+        }
+    }
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
