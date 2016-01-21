@@ -327,6 +327,7 @@
 		57F005C415EE2CCF00914747 /* linphonerc in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C315EE2CCF00914747 /* linphonerc */; };
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
+		5E1140281C511DC200C9A6C5 /* AsyncProviderLookupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
 		5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */; };
 		5E63471C1C1111C900042AB4 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */; };
@@ -1616,6 +1617,8 @@
 		57F005C315EE2CCF00914747 /* linphonerc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = linphonerc; path = Resources/linphonerc; sourceTree = "<group>"; };
 		57F005C615EE2D9200914747 /* linphonerc-factory */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory"; path = "Resources/linphonerc-factory"; sourceTree = "<group>"; };
 		57F005C715EE2D9200914747 /* linphonerc-factory~ipad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory~ipad"; path = "Resources/linphonerc-factory~ipad"; sourceTree = "<group>"; };
+		5E1140261C511DC200C9A6C5 /* AsyncProviderLookupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncProviderLookupOperation.h; sourceTree = "<group>"; };
+		5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncProviderLookupOperation.m; sourceTree = "<group>"; };
 		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
 		5E6345D71C1111C900042AB4 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
@@ -2840,6 +2843,8 @@
 				CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */,
 				CE3C6D361C2AD239002AC233 /* BubbleTableViewCell.h */,
 				CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */,
+				5E1140261C511DC200C9A6C5 /* AsyncProviderLookupOperation.h */,
+				5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -5469,6 +5474,7 @@
 				D36FB2D51589EF7C0036F6F2 /* UIChatButton.m in Sources */,
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
+				5E1140281C511DC200C9A6C5 /* AsyncProviderLookupOperation.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
 				CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */,
 				D35E7581159328EB0066B1C1 /* UIAddressTextField.m in Sources */,

@@ -26,7 +26,7 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "AcceptanceVC.h"
 #import "DefaultSettingsManager.h"
-
+#import "AsyncProviderLookupOperation.h"
 @interface WizardViewController : TPMultiLayoutViewController
 <UITextFieldDelegate,
     UICompositeViewDelegate,
@@ -36,7 +36,8 @@
     UITextFieldDelegate,
     UICustomPickerDelegate,
     AcceptanceVCDelegate,
-    DefaultSettingsManagerDelegate
+    DefaultSettingsManagerDelegate,
+    AsyncProviderLookupDelegate
 >
 {
     @private
@@ -99,6 +100,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *transportChooser;
 
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer *viewTapGestureRecognizer;
+@property AsyncProviderLookupOperation *asyncProviderLookupOperation;
 
 - (void)reset;
 - (void)fillDefaultValues;
