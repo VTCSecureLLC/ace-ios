@@ -26,8 +26,12 @@
 #import "UICallButton.h"
 #import "UITransferButton.h"
 #import "UIDigitButton.h"
-
-@interface DialerViewController : UIViewController <UITextFieldDelegate, UICompositeViewDelegate, MFMailComposeViewControllerDelegate> {
+#import "AsyncProviderLookupOperation.h"
+@interface DialerViewController : UIViewController
+<UITextFieldDelegate,
+UICompositeViewDelegate,
+MFMailComposeViewControllerDelegate,
+AsyncProviderLookupDelegate> {
 }
 
 - (void)setAddress:(NSString*)address;
@@ -62,7 +66,7 @@
 @property (nonatomic, strong) IBOutlet UIView* videoPreview;
 @property (nonatomic, strong) IBOutlet UICamSwitch* videoCameraSwitch;
 @property (strong, nonatomic) IBOutlet UILabel *sipDomainLabel;
-
+@property AsyncProviderLookupOperation *asyncProviderLookupOperation;
 - (IBAction)onAddContactClick: (id) event;
 - (IBAction)onBackClick: (id) event;
 - (IBAction)onAddressChange: (id)sender;

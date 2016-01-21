@@ -29,6 +29,9 @@
 #import "UILinphone.h"
 
 #include "linphone/linphonecore.h"
+@interface DialerViewController()
+@property NSMutableArray *domains;
+@end
 
 @implementation DialerViewController
 
@@ -210,6 +213,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 			[videoCameraSwitch setHidden:FALSE];
 		}
 	}
+    
+    self.asyncProviderLookupOperation = [[AsyncProviderLookupOperation alloc] init];
+    self.asyncProviderLookupOperation.delegate = self;
+    [self.asyncProviderLookupOperation reloadProviderDomains];
 }
 
 - (void)viewDidUnload {
@@ -469,20 +476,27 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (IBAction)domainSelectorClicked:(id)sender {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
                                                                    message:@"Select the SIP provider of the person you wish to call."
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.view.tintColor = LINPHONE_MAIN_COLOR;
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+   // alert.view.tintColor = LINPHONE_MAIN_COLOR;
    
-    NSString *providerCSV = [[LinphoneManager instance] lpConfigStringForKey:@"external_domains" forSection:@"vtcsecure"];
-    if (providerCSV) {
-        NSArray * providers = [providerCSV componentsSeparatedByString:@","];
-        for (NSString *provider in providers) {
-            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:provider style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                            self.sipDomainLabel.text = [@"@" stringByAppendingString:provider];
-                                                            self.addressField.sipDomain = provider;
-                                                            }];
-            [providerAction setEnabled:NO];
+    if (self.domains) {
+        for (NSString *domain in self.domains) {
+            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:domain
+             style:UIAlertActionStyleDefault
+                handler:^(UIAlertAction * action) {
+                    NSString *domain = @"";
+                    for(int i = 0; i < self.domains.count; i++){
+                        if([action.title isEqualToString:[self.domains objectAtIndex:i]]){
+                            domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+                        }
+                    }
+                    if(!domain) { domain = @""; }
+                    self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
+                    self.addressField.sipDomain = domain;
+            }];
+            [providerAction setEnabled:YES];
             [alert addAction:providerAction];
+            [alert.view setBackgroundColor:[UIColor blackColor]];
             [alert setModalPresentationStyle:UIModalPresentationPopover];
 
             UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
@@ -499,15 +513,12 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                             self.addressField.sipDomain = nil;
                                                             }];
     [alert addAction:none];
-    
     [self presentViewController:alert animated:YES completion:nil];
-    
-    UIAlertView *availabilityAlert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:@"Available in General Release"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [availabilityAlert show];
 }
 
+
+
+-(void)onProviderLookupFinished:(NSMutableArray *)domains{
+    self.domains = domains;
+}
 @end
