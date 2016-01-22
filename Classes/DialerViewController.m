@@ -358,10 +358,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	if (linphone_core_get_calls_nb(lc) > 0) {
 		if (transferMode) {
 			[addCallButton setHidden:true];
+            [addCallButton setEnabled:NO];
 			[transferButton setHidden:false];
             [transferButton setEnabled:YES];
 		} else {
 			[addCallButton setHidden:false];
+            [addCallButton setEnabled:YES];
 			[transferButton setHidden:true];
             [transferButton setEnabled:NO];
 		}
