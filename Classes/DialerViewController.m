@@ -213,7 +213,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 			[videoCameraSwitch setHidden:FALSE];
 		}
 	}
-    
+    [self loadProviderDomainsFromCache];
     self.asyncProviderLookupOperation = [[AsyncProviderLookupOperation alloc] init];
     self.asyncProviderLookupOperation.delegate = self;
     [self.asyncProviderLookupOperation reloadProviderDomains];
@@ -222,7 +222,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidUnload {
 	[super viewDidUnload];
 }
-
+-(void) loadProviderDomainsFromCache{
+    NSString *name;
+    self.domains = [[NSMutableArray alloc] init];
+    name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
+    
+    for(int i = 1; name; i++){
+        [self.domains addObject:name];
+        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
+    }
+}
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
