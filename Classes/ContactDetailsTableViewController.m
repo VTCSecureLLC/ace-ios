@@ -597,8 +597,15 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	} else if (contactSections[[indexPath section]] == ContactSections_Sip) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"SIP address", nil)];
-        [cell.providerPicker setEnabled:YES];
-        [cell.providerPicker setHidden:NO];
+        if(![self.tableView isEditing]){
+            [cell.providerPicker setHidden:YES];
+            [cell.providerPicker setEnabled:NO];
+        }
+        else{
+            [cell.providerPicker setHidden:NO];
+            [cell.providerPicker setEnabled:YES];
+        }
+
 	} else if (contactSections[[indexPath section]] == ContactSections_Email) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"Email address", nil)];
@@ -636,7 +643,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
                                          style:UIAlertActionStyleDefault
                                            handler:^(UIAlertAction * action) {
                                                NSString *domain = @"";
-                                               //Todo: connect CDN provided image to this  
+                                               //Todo: connect CDN provided image to this
                                                for(int i = 0; i < self.domains.count; i++){
                                                    if([action.title isEqualToString:[self.domains objectAtIndex:i]]){
                                                        domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
@@ -796,7 +803,17 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 				(showEmails && contactSections[section] == ContactSections_Email)) {
 				[self addEntry:self.tableView section:section animated:animated];
 			}
-		}
+
+            if(contactSections[section] == ContactSections_Sip){
+                for(int row = 0; row < [[self getSectionData:section] count]; row++){
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:ContactSections_Sip];
+                    UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+                    [cell.providerPicker setHidden:YES];
+                    [cell.providerPicker setEnabled:NO];
+                }
+            }
+        }
+        
 	} else {
 		for (int section = 0; section < [self numberOfSectionsInTableView:[self tableView]]; ++section) {
 			// remove phony entries that were not filled by the user
@@ -819,6 +836,8 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (contactDetailsDelegate != nil) {
 		[contactDetailsDelegate onModification:nil];
 	}
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ContactSections_Sip]
+                  withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
