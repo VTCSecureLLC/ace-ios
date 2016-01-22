@@ -796,6 +796,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (animated) {
 		[self.tableView beginUpdates];
 	}
+    long tempEntriesCount = [[self getSectionData:ContactSections_Sip] count];
 	if (editing) {
 		// add phony entries so that the user can add new data
 		for (int section = 0; section < [self numberOfSectionsInTableView:[self tableView]]; ++section) {
@@ -805,7 +806,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 			}
 
             if(contactSections[section] == ContactSections_Sip){
-                for(int row = 0; row < [[self getSectionData:section] count]; row++){
+                for(int row = 0; row < [[self getSectionData:section] count]; ++row){
                     NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:ContactSections_Sip];
                     UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
                     [cell.providerPicker setHidden:YES];
@@ -836,8 +837,11 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (contactDetailsDelegate != nil) {
 		[contactDetailsDelegate onModification:nil];
 	}
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ContactSections_Sip]
-                  withRowAnimation:UITableViewRowAnimationNone];
+    if(editing && tempEntriesCount != 0){
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ContactSections_Sip]
+                      withRowAnimation:UITableViewRowAnimationNone];
+    }
+
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
