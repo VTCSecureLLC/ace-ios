@@ -88,3 +88,6 @@
 [submodule "submodules/belr"]
 	path = submodules/belr
 	url = git://git.linphone.org/belr.git
+[submodule "submodules/externals/libmatroska-c"]
+	path = submodules/externals/libmatroska-c
+	url = https://github.com/Matroska-Org/foundation-source.git
