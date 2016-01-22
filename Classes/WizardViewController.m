@@ -48,8 +48,6 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
-    NSURLRequest *cdnRequest;
-    NSURLSession *urlSession;
 }
 @synthesize contentView;
 
@@ -138,32 +136,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self showAcceptanceScreen];
-    [self reloadProviderDomains];
+    self.asyncProviderLookupOperation = [[AsyncProviderLookupOperation alloc] init];
+    //Set delegate to self in order to retreive result
+    self.asyncProviderLookupOperation.delegate = self;
+    [self.asyncProviderLookupOperation reloadProviderDomains];
 }
 
-const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
--(void) reloadProviderDomains{
-    urlSession = [NSURLSession sharedSession];
-    [[urlSession dataTaskWithURL:[NSURL URLWithString:(NSString*)cdnProviderList] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSError *jsonParsingError = nil;
-        if(data){
-            NSArray *resources = [NSJSONSerialization JSONObjectWithData:data
-                                                                    options:0 error:&jsonParsingError];
-                if(!jsonParsingError){
-                    NSDictionary *resource;
-                    cdnResources = [[NSMutableArray alloc] init];
-                    for(int i=0; i < [resources count];i++){
-                        resource= [resources objectAtIndex:i];
-                        [cdnResources addObject:[resource objectForKey:@"name"]];
-                        NSLog(@"Loaded CDN Resource: %@", [resource objectForKey:@"name"]);
-                        [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"name"] forKey:[NSString stringWithFormat:@"provider%d", i]];
-                        
-                        [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"domain"] forKey:[NSString stringWithFormat:@"provider%d_domain", i]];
-                    }
-                }
-        }
-    }] resume];
-}
+
 
 -(void) loadProviderDomainsFromCache{
     NSString *name;
@@ -1649,5 +1628,9 @@ static BOOL isAdvancedShown = NO;
         [self presentViewController:acceptanceVC animated:YES completion:^{
         }];
     }
+}
+
+-(void)onProviderLookupFinished:(NSMutableArray *)domains{
+    cdnResources = domains;
 }
 @end
