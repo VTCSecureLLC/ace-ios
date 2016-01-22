@@ -318,6 +318,15 @@ static RootViewManager *rootViewManagerInstance = nil;
 	NSString *message = [notif.userInfo objectForKey:@"message"];
 
 	bool canHideInCallView = (linphone_core_get_calls([LinphoneManager getLc]) == NULL);
+    
+    // Reject inbound call when already two active calls are active.
+    if (state == LinphoneCallIncomingReceived || state == LinphoneCallIncomingEarlyMedia) {
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        if (ms_list_size(call_list) >= 3) {
+            linphone_core_terminate_call([LinphoneManager getLc], call);
+            return;
+        }
+    }
 
 	// Don't handle call state during incoming call view
 	if ([[self currentView] equal:[IncomingCallViewController compositeViewDescription]] &&
