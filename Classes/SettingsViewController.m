@@ -572,6 +572,10 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
         [defaults synchronize];
     }
+    else if([@"video_mail_uri_preference" compare:notif.object] == NSOrderedSame){
+         NSString *video_mail_uri = [notif.userInfo objectForKey:@"video_mail_uri_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:video_mail_uri forKey:@"video_mail_uri_preference"];
+    }
 
     else if([@"max_upload_preference" compare:notif.object] == NSOrderedSame){
         linphone_core_set_upload_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
