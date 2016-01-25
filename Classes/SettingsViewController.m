@@ -24,7 +24,7 @@
 #import "UACellBackgroundView.h"
 #import "SDPNegotiationService.h"
 #import "DCRoundSwitch.h"
-
+#import "SystemInfo.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKPSTitleValueSpecifierViewCell.h"
@@ -1021,7 +1021,27 @@ static BOOL isAdvancedSettings = FALSE;
 
 	} else if ([key isEqual:@"about_button"]) {
 		[[PhoneMainView instance] changeCurrentView:[AboutViewController compositeViewDescription] push:TRUE];
-	} else if ([key isEqualToString:@"reset_logs_button"]) {
+	}
+    else if([key isEqualToString:@"view_tss_button"]){
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Technical Support Sheet",nil)
+                                                                       message:[SystemInfo formatedSystemInformation]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert.view setBackgroundColor:[UIColor blackColor]];
+        [alert setModalPresentationStyle:UIModalPresentationPopover];
+        
+        UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
+        popPresenter.sourceView = self.view;
+        popPresenter.sourceRect = self.view.bounds;
+        UIAlertAction* confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", nil)
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) {
+                                                            
+                                                        }];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }
+    else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();
 	}
     else if([key isEqualToString:@"foreground_color_preference"]){
@@ -1041,7 +1061,9 @@ static BOOL isAdvancedSettings = FALSE;
 				@"of these attachments before sending your email, however there are all "
 				@"important to diagnostize your issue.",
 				nil);
-		} else {
+		}
+        
+        else {
 			message = NSLocalizedString(@"Warning: an email will be created with application " @"logs. It may contain "
 										@"private informations (but no password!).\nThese logs are "
 										@"important to diagnostize your issue.",
