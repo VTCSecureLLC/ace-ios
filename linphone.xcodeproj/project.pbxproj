@@ -459,6 +459,7 @@
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
 		C9C8254915AE204D00D493FA /* transfer_call_over.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254215AE204D00D493FA /* transfer_call_over.png */; };
 		C9C8254F15AE256100D493FA /* transfer_call_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254E15AE256100D493FA /* transfer_call_disabled.png */; };
+		CD6EDC901C56DCEA003CB599 /* logo_about_frg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */; };
 		CD9FA4D21C205694003D3D29 /* contacts_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4C81C205693003D3D29 /* contacts_new.png */; };
 		CD9FA4D31C205694003D3D29 /* contacts_selected_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4C91C205693003D3D29 /* contacts_selected_new.png */; };
 		CD9FA4D41C205694003D3D29 /* dialer_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4CA1C205693003D3D29 /* dialer_new.png */; };
@@ -1775,6 +1776,7 @@
 		C9C8254215AE204D00D493FA /* transfer_call_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_over.png; path = Resources/transfer_call_over.png; sourceTree = "<group>"; };
 		C9C8254B15AE207B00D493FA /* options_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = options_selected.png; path = Resources/options_selected.png; sourceTree = "<group>"; };
 		C9C8254E15AE256100D493FA /* transfer_call_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_disabled.png; path = Resources/transfer_call_disabled.png; sourceTree = "<group>"; };
+		CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_about_frg.png; sourceTree = "<group>"; };
 		CD9FA4C81C205693003D3D29 /* contacts_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contacts_new.png; path = Resources/tab_images/contacts_new.png; sourceTree = "<group>"; };
 		CD9FA4C91C205693003D3D29 /* contacts_selected_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contacts_selected_new.png; path = Resources/tab_images/contacts_selected_new.png; sourceTree = "<group>"; };
 		CD9FA4CA1C205693003D3D29 /* dialer_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dialer_new.png; path = Resources/tab_images/dialer_new.png; sourceTree = "<group>"; };
@@ -3476,6 +3478,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */,
 				5ED491601C48251B00906A17 /* Hold.png */,
 				A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */,
 				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
@@ -5082,6 +5085,7 @@
 				50B006D41BA09C79002C5723 /* chat_message_delivered.png in Resources */,
 				D3C6526B15AC228A0092A874 /* contact_ok_default.png in Resources */,
 				D3C6526D15AC228A0092A874 /* contact_ok_over.png in Resources */,
+				CD6EDC901C56DCEA003CB599 /* logo_about_frg.png in Resources */,
 				D38187B515FE341B00C3EDCA /* ContactDetailsLabelViewController.xib in Resources */,
 				50B008351BA09C79002C5723 /* test_failed.png in Resources */,
 				D38187F415FE354700C3EDCA /* UIContactDetailsFooter.xib in Resources */,
