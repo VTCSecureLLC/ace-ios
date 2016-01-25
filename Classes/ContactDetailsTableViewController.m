@@ -48,6 +48,10 @@
 
 @end
 
+@interface ContactDetailsTableViewController()
+@property NSMutableArray *domains;
+@end
+
 @implementation ContactDetailsTableViewController
 
 static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSections_None, ContactSections_Number,
@@ -106,6 +110,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	[footerController view]; // Force view load
 
 	self.tableView.accessibilityIdentifier = @"Contact numbers table";
+    [self loadProviderDomainsFromCache];
 }
 
 #pragma mark -
@@ -507,10 +512,10 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (cell == nil) {
 		cell = [[UIEditableTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:kCellId];
 		[cell.detailTextField setDelegate:self];
+        [cell.detailTextField setTag:indexPath.row];
 		[cell.detailTextField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 		[cell.detailTextField setAutocorrectionType:UITextAutocorrectionTypeNo];
 		[cell setBackgroundColor:[UIColor whiteColor]];
-
 		// Background View
 		UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
         [selectedBackgroundView setBackgroundColor:LINPHONE_MAIN_COLOR];
@@ -549,6 +554,11 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		if (labelRef != NULL) {
 			label = [FastAddressBook localizedLabel:labelRef];
 		}
+
+        [cell.providerPicker setTag:indexPath.row];
+        [cell.providerPicker addTarget:self
+                                action:@selector(onProviderPickerClicked:)forControlEvents:UIControlEventTouchUpInside];
+        
 		CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(lMap, index);
 		value = (__bridge NSString *)(CFDictionaryGetValue(lDict, kABPersonInstantMessageUsernameKey));
 		if (value != NULL) {
@@ -587,11 +597,84 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	} else if (contactSections[[indexPath section]] == ContactSections_Sip) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"SIP address", nil)];
+        if(![self.tableView isEditing]){
+            [cell.providerPicker setHidden:YES];
+            [cell.providerPicker setEnabled:NO];
+        }
+        else{
+            [cell.providerPicker setHidden:NO];
+            [cell.providerPicker setEnabled:YES];
+        }
+
 	} else if (contactSections[[indexPath section]] == ContactSections_Email) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"Email address", nil)];
 	}
+    
+
+
+
 	return cell;
+}
+
+-(void) loadProviderDomainsFromCache{
+    NSString *name;
+    self.domains = [[NSMutableArray alloc] init];
+    name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
+    
+    for(int i = 1; name; i++){
+        [self.domains addObject:name];
+        name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
+    }
+}
+
+-(IBAction)onProviderPickerClicked:(id)sender{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
+                                                                   message:@"Select the SIP provider of the person you wish to call."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    if (self.domains) {
+        UIButton *btn = (UIButton*)sender;
+
+        NSIndexPath *path = [NSIndexPath indexPathForRow:btn.tag inSection:ContactSections_Sip];
+        UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        for (NSString *domain in self.domains) {
+            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:domain
+                                         style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction * action) {
+                                               NSString *domain = @"";
+                                               //Todo: connect CDN provided image to this
+                                               for(int i = 0; i < self.domains.count; i++){
+                                                   if([action.title isEqualToString:[self.domains objectAtIndex:i]]){
+                                                       domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+                                                   }
+                                               }
+                                               //Seperate username from domain in contact address, append
+                                               //new domain
+                                               if(!domain) { domain = @""; }
+                                               
+                                               NSString *username = [cell.detailTextField.text componentsSeparatedByString:@"@"][0];
+                                               cell.detailTextField.text = [NSString stringWithFormat:@"%@@%@", username, domain];
+                                           }];
+            [providerAction setEnabled:YES];
+            [alert addAction:providerAction];
+            [alert.view setBackgroundColor:[UIColor blackColor]];
+            [alert setModalPresentationStyle:UIModalPresentationPopover];
+            
+            UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
+            UIButton *button = (UIButton*)sender;
+            popPresenter.sourceView = button;
+            popPresenter.sourceRect = button.bounds;
+            
+        }
+    }
+    UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                 }];
+    [alert addAction:none];
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -713,6 +796,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (animated) {
 		[self.tableView beginUpdates];
 	}
+    long tempEntriesCount = [[self getSectionData:ContactSections_Sip] count];
 	if (editing) {
 		// add phony entries so that the user can add new data
 		for (int section = 0; section < [self numberOfSectionsInTableView:[self tableView]]; ++section) {
@@ -720,7 +804,17 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 				(showEmails && contactSections[section] == ContactSections_Email)) {
 				[self addEntry:self.tableView section:section animated:animated];
 			}
-		}
+
+            if(contactSections[section] == ContactSections_Sip){
+                for(int row = 0; row < [[self getSectionData:section] count]; ++row){
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:ContactSections_Sip];
+                    UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+                    [cell.providerPicker setHidden:YES];
+                    [cell.providerPicker setEnabled:NO];
+                }
+            }
+        }
+        
 	} else {
 		for (int section = 0; section < [self numberOfSectionsInTableView:[self tableView]]; ++section) {
 			// remove phony entries that were not filled by the user
@@ -743,6 +837,11 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (contactDetailsDelegate != nil) {
 		[contactDetailsDelegate onModification:nil];
 	}
+    if(editing && tempEntriesCount != 0){
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ContactSections_Sip]
+                      withRowAnimation:UITableViewRowAnimationNone];
+    }
+
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
