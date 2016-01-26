@@ -36,6 +36,7 @@
 #include "linphone/linphonecore.h"
 #include "linphone/linphone_tunnel.h"
 
+#define kREAL_TIME_TEXT_ENABLED @"kREAL_TIME_TEXT_ENABLED"
 extern NSString *const LINPHONERC_APPLICATION_KEY;
 
 extern NSString *const kLinphoneCoreUpdate;
