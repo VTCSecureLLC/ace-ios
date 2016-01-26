@@ -136,6 +136,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self showAcceptanceScreen];
+    [self loadProviderDomainsFromCache];
     self.asyncProviderLookupOperation = [[AsyncProviderLookupOperation alloc] init];
     //Set delegate to self in order to retreive result
     self.asyncProviderLookupOperation.delegate = self;
@@ -152,6 +153,22 @@ static UICompositeViewDescription *compositeDescription = nil;
     for(int i = 1; name; i++){
         [cdnResources addObject:name];
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
+    }
+
+       providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+        [providerPickerView setAlpha:0.9f];
+        providerPickerView.delegate = self;
+    
+    if(cdnResources.count > 0){
+        [providerPickerView setSelectedRow:0];
+        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
+        NSString *domain;
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        }
+        
+        if(domain == nil){domain = @"";}
+        [self.textFieldDomain setText:domain];
     }
 }
 
@@ -844,9 +861,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     if(!cdnResources || cdnResources.count == 0){
         cdnResources = [[NSMutableArray alloc] initWithArray:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
     }
-    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+    [providerPickerView setAlpha:0.9f];
     providerPickerView.delegate = self;
-    providerPickerView.frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    
     [self.view addSubview:providerPickerView];
 }
 
@@ -1632,5 +1650,22 @@ static BOOL isAdvancedShown = NO;
 
 -(void)onProviderLookupFinished:(NSMutableArray *)domains{
     cdnResources = domains;
+    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+    [providerPickerView setAlpha:0.9f];
+    providerPickerView.delegate = self;
+    
+    if(cdnResources.count > 0){
+        [providerPickerView setSelectedRow:0];
+        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
+        [self.selectProviderButton layoutSubviews];
+        NSString *domain;
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        }
+        
+        if(domain == nil){domain = @"";}
+        [self.textFieldDomain setText:domain];
+    }
+
 }
 @end

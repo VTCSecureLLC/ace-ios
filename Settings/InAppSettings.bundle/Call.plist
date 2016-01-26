@@ -90,9 +90,27 @@
 		</dict>
 		<dict>
 			<key>Key</key>
-			<string>voice_mail_uri_preference</string>
+			<string>mwi_uri_preference</string>
 			<key>Title</key>
-			<string>Voice mail URI</string>
+			<string>Mail Waiting Indicator URI</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>video_mail_uri_preference</string>
+			<key>Title</key>
+			<string>Video mail URI</string>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>

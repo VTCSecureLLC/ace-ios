@@ -189,6 +189,17 @@ static NSString *const kDisappearAnimation = @"disappear";
     [self setColorChnageObservers];
     [self changeBackgroundColor];
     
+    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_uri_preference"]){
+        @try{
+            NSString *mwi_uri = [[NSUserDefaults standardUserDefaults] objectForKey:@"mwi_uri_preference"];
+            LinphoneAddress *mwiAddress = linphone_address_new([mwi_uri UTF8String]);
+            linphone_core_subscribe([LinphoneManager getLc], mwiAddress, "message-summary", 1800, NULL);
+        }
+        @catch(NSError *e){
+            NSLog(@"%@", [e description]);
+        }
+    }
+
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
         [self.chatNotificationView setHidden:YES];
     }

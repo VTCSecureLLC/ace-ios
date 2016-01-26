@@ -8,7 +8,7 @@
 			<key>DefaultValue</key>
 			<string></string>
 			<key>Key</key>
-			<string>view_tss_preference</string>
+			<string>view_tss_button</string>
 			<key>Title</key>
 			<string>View TSS</string>
 			<key>Type</key>

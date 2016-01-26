@@ -328,6 +328,7 @@
 		57F005C815EE2D9200914747 /* linphonerc-factory in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C615EE2D9200914747 /* linphonerc-factory */; };
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
 		5E1140281C511DC200C9A6C5 /* AsyncProviderLookupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */; };
+		5E11403A1C566F8C00C9A6C5 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1140391C566F8C00C9A6C5 /* SystemInfo.m */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
 		5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */; };
 		5E63471C1C1111C900042AB4 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */; };
@@ -458,6 +459,7 @@
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
 		C9C8254915AE204D00D493FA /* transfer_call_over.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254215AE204D00D493FA /* transfer_call_over.png */; };
 		C9C8254F15AE256100D493FA /* transfer_call_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254E15AE256100D493FA /* transfer_call_disabled.png */; };
+		CD6EDC901C56DCEA003CB599 /* logo_about_frg.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */; };
 		CD9FA4D21C205694003D3D29 /* contacts_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4C81C205693003D3D29 /* contacts_new.png */; };
 		CD9FA4D31C205694003D3D29 /* contacts_selected_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4C91C205693003D3D29 /* contacts_selected_new.png */; };
 		CD9FA4D41C205694003D3D29 /* dialer_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA4CA1C205693003D3D29 /* dialer_new.png */; };
@@ -1619,6 +1621,8 @@
 		57F005C715EE2D9200914747 /* linphonerc-factory~ipad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory~ipad"; path = "Resources/linphonerc-factory~ipad"; sourceTree = "<group>"; };
 		5E1140261C511DC200C9A6C5 /* AsyncProviderLookupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncProviderLookupOperation.h; sourceTree = "<group>"; };
 		5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncProviderLookupOperation.m; sourceTree = "<group>"; };
+		5E1140381C566F8C00C9A6C5 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
+		5E1140391C566F8C00C9A6C5 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
 		5E6345D71C1111C900042AB4 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
@@ -1772,6 +1776,7 @@
 		C9C8254215AE204D00D493FA /* transfer_call_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_over.png; path = Resources/transfer_call_over.png; sourceTree = "<group>"; };
 		C9C8254B15AE207B00D493FA /* options_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = options_selected.png; path = Resources/options_selected.png; sourceTree = "<group>"; };
 		C9C8254E15AE256100D493FA /* transfer_call_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_disabled.png; path = Resources/transfer_call_disabled.png; sourceTree = "<group>"; };
+		CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_about_frg.png; sourceTree = "<group>"; };
 		CD9FA4C81C205693003D3D29 /* contacts_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contacts_new.png; path = Resources/tab_images/contacts_new.png; sourceTree = "<group>"; };
 		CD9FA4C91C205693003D3D29 /* contacts_selected_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contacts_selected_new.png; path = Resources/tab_images/contacts_selected_new.png; sourceTree = "<group>"; };
 		CD9FA4CA1C205693003D3D29 /* dialer_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dialer_new.png; path = Resources/tab_images/dialer_new.png; sourceTree = "<group>"; };
@@ -2845,6 +2850,8 @@
 				CE3C6D371C2AD239002AC233 /* BubbleTableViewCell.m */,
 				5E1140261C511DC200C9A6C5 /* AsyncProviderLookupOperation.h */,
 				5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */,
+				5E1140381C566F8C00C9A6C5 /* SystemInfo.h */,
+				5E1140391C566F8C00C9A6C5 /* SystemInfo.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3471,6 +3478,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */,
 				5ED491601C48251B00906A17 /* Hold.png */,
 				A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */,
 				CE3C6D391C2ADA0D002AC233 /* Bubble-0.png */,
@@ -5077,6 +5085,7 @@
 				50B006D41BA09C79002C5723 /* chat_message_delivered.png in Resources */,
 				D3C6526B15AC228A0092A874 /* contact_ok_default.png in Resources */,
 				D3C6526D15AC228A0092A874 /* contact_ok_over.png in Resources */,
+				CD6EDC901C56DCEA003CB599 /* logo_about_frg.png in Resources */,
 				D38187B515FE341B00C3EDCA /* ContactDetailsLabelViewController.xib in Resources */,
 				50B008351BA09C79002C5723 /* test_failed.png in Resources */,
 				D38187F415FE354700C3EDCA /* UIContactDetailsFooter.xib in Resources */,
@@ -5500,6 +5509,7 @@
 				D3F795D615A582810077328B /* ChatRoomViewController.m in Sources */,
 				D32B6E2915A5BC440033019F /* ChatRoomTableViewController.m in Sources */,
 				D3A8BB7015A6C7D500F96BE5 /* UIChatRoomCell.m in Sources */,
+				5E11403A1C566F8C00C9A6C5 /* SystemInfo.m in Sources */,
 				D3128FE115AABC7E00A2147A /* ContactDetailsViewController.m in Sources */,
 				D37C639515AADDAF009D0BAC /* UIContactDetailsHeader.m in Sources */,
 				D37C639B15AADEF6009D0BAC /* ContactDetailsTableViewController.m in Sources */,
