@@ -179,12 +179,12 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (void)setSipMwUri:(NSString *)sipMwiUri {
-    [[NSUserDefaults standardUserDefaults] setObject:sipMwiUri forKey:@"sip_mwi_uri"];
+    [[NSUserDefaults standardUserDefaults] setObject:sipMwiUri forKey:@"mwi_uri_preference"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setSipVideomailUri:(NSString *)sipVideomailUri {
-    [[NSUserDefaults standardUserDefaults] setObject:sipVideomailUri forKey:@"sip_videomail_uri"];
+    [[NSUserDefaults standardUserDefaults] setObject:sipVideomailUri forKey:@"video_mail_uri_preference"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -23,7 +23,7 @@
 
 @synthesize detailTextField;
 @synthesize verticalSep;
-
+@synthesize providerPicker;
 #pragma mark - Lifecycle Functions
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -48,6 +48,12 @@
 		self.verticalSep = v;
 
 		[self.contentView addSubview:verticalSep];
+        
+        
+        UIButton *btn = [[UIButton alloc] init];
+        [btn setBackgroundColor:[UIColor darkGrayColor]];
+        self.providerPicker = btn;
+        [self.contentView addSubview:providerPicker];
 	}
 	return self;
 }
@@ -81,6 +87,12 @@
 	CGRect superframe = [[self.detailTextField superview] frame];
 	detailEditFrame.size.width = superframe.size.width - detailEditFrame.origin.x;
 	[self.detailTextField setFrame:detailEditFrame];
+    
+    [self.providerPicker setFrame:CGRectMake(detailTextField.frame.origin.x + detailTextField.frame.size.width - 50, detailTextField.frame.origin.y, 40, 40)];
+    
+    if(![self.detailTextField.placeholder isEqualToString:NSLocalizedString(@"SIP address", nil)]){
+        [self.providerPicker setHidden:YES];
+    }
 }
 
 #pragma mark - UITableViewCell Functions

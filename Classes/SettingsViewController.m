@@ -24,7 +24,7 @@
 #import "UACellBackgroundView.h"
 #import "SDPNegotiationService.h"
 #import "DCRoundSwitch.h"
-
+#import "SystemInfo.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKPSTitleValueSpecifierViewCell.h"
@@ -572,6 +572,14 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
         [defaults synchronize];
     }
+    else if([@"mwi_uri_preference" compare:notif.object] == NSOrderedSame){
+         NSString *mwi_uri = [notif.userInfo objectForKey:@"mwi_uri_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:mwi_uri forKey:@"mwi_uri_preference"];
+    }
+    else if([@"video_mail_uri_preference" compare:notif.object] == NSOrderedSame){
+         NSString *video_mail_uri = [notif.userInfo objectForKey:@"video_mail_uri_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:video_mail_uri forKey:@"video_mail_uri_preference"];
+    }
 
     else if([@"max_upload_preference" compare:notif.object] == NSOrderedSame){
         linphone_core_set_upload_bandwidth([LinphoneManager getLc], [[notif.userInfo objectForKey:@"max_upload_preference"] intValue]);
@@ -1021,7 +1029,27 @@ static BOOL isAdvancedSettings = FALSE;
 
 	} else if ([key isEqual:@"about_button"]) {
 		[[PhoneMainView instance] changeCurrentView:[AboutViewController compositeViewDescription] push:TRUE];
-	} else if ([key isEqualToString:@"reset_logs_button"]) {
+	}
+    else if([key isEqualToString:@"view_tss_button"]){
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Technical Support Sheet",nil)
+                                                                       message:[SystemInfo formatedSystemInformation]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert.view setBackgroundColor:[UIColor blackColor]];
+        [alert setModalPresentationStyle:UIModalPresentationPopover];
+        
+        UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
+        popPresenter.sourceView = self.view;
+        popPresenter.sourceRect = self.view.bounds;
+        UIAlertAction* confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", nil)
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) {
+                                                            
+                                                        }];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }
+    else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();
 	}
     else if([key isEqualToString:@"foreground_color_preference"]){
@@ -1041,7 +1069,9 @@ static BOOL isAdvancedSettings = FALSE;
 				@"of these attachments before sending your email, however there are all "
 				@"important to diagnostize your issue.",
 				nil);
-		} else {
+		}
+        
+        else {
 			message = NSLocalizedString(@"Warning: an email will be created with application " @"logs. It may contain "
 										@"private informations (but no password!).\nThese logs are "
 										@"important to diagnostize your issue.",
