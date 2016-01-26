@@ -23,6 +23,7 @@
 
 @implementation UIChatButton
 
+UIAlertView *alert;
 #pragma mark - Lifecycle Functions
 
 - (void)initUIChatButton {
@@ -94,6 +95,7 @@
 
 - (void)onOn {
     //Chat mode enabled
+   
 }
 
 
@@ -115,8 +117,24 @@
 }
 
 -(BOOL) showKeyboard{
-    [[InCallViewController sharedInstance] becomeFirstResponder];
-    [InCallViewController sharedInstance].isChatMode = YES;
+    if([InCallViewController sharedInstance]){
+        if(![[InCallViewController sharedInstance] isRTTEnabled]){
+            if(!alert){
+               alert =[[UIAlertView alloc] initWithTitle:@"RTT"
+                                           message:@"RTT has been disabled for this session"
+                                          delegate:nil
+                                 cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                 otherButtonTitles:nil];
+            }
+            if(![alert isVisible]){
+                [alert show];
+            }
+        }
+        else{
+            [[InCallViewController sharedInstance] becomeFirstResponder];
+            [InCallViewController sharedInstance].isChatMode = YES;
+        }
+    }
     return YES;
 }
 
