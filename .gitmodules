@@ -84,7 +84,7 @@
 	ignore = dirty
 [submodule "submodules/belcard"]
 	path = submodules/belcard
-	url = git://git.linphone.org/belcard.git\n
+	url = git://github.com/VTCSecureLLC/belcard.git
 [submodule "submodules/belr"]
 	path = submodules/belr
 	url = git://git.linphone.org/belr.git
