@@ -327,6 +327,8 @@ static DefaultSettingsManager *sharedInstance = nil;
     assert(resolver == self.resolver);
     #pragma unused(resolver)
     NSLog(@"didStopWithError %@", error);
+    [aiv stopAnimating];
+
     if(self.delegate){
         [self.delegate didFinishWithError];
     }
