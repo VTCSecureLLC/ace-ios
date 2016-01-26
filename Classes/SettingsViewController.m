@@ -572,6 +572,10 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
         [defaults synchronize];
     }
+    else if([@"mwi_uri_preference" compare:notif.object] == NSOrderedSame){
+         NSString *mwi_uri = [notif.userInfo objectForKey:@"mwi_uri_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:mwi_uri forKey:@"mwi_uri_preference"];
+    }
     else if([@"video_mail_uri_preference" compare:notif.object] == NSOrderedSame){
          NSString *video_mail_uri = [notif.userInfo objectForKey:@"video_mail_uri_preference"];
         [[NSUserDefaults standardUserDefaults] setObject:video_mail_uri forKey:@"video_mail_uri_preference"];
