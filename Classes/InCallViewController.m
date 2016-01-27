@@ -56,7 +56,7 @@ const NSInteger SIP_SIMPLE=1;
     @property RTTMessageModel *remoteTextBuffer;
     @property UIColor *localColor;
 
-
+@property BOOL isRTTLocallyEnabled;
 @property (weak, nonatomic) IBOutlet UIScrollView *minimizedTextScrollView;
 
 @property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
@@ -74,7 +74,7 @@ const NSInteger SIP_SIMPLE=1;
 
 @synthesize callTableController;
 @synthesize callTableView;
-
+@synthesize isRTTEnabled;
 @synthesize videoGroup;
 @synthesize videoView;
 @synthesize videoPreview;
@@ -156,6 +156,12 @@ static UICompositeViewDescription *compositeDescription = nil;
         [self.tableView setHidden:YES];
     }
     self.isChatMode = NO;
+    
+    self.isRTTLocallyEnabled = YES;
+
+    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]){
+        self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -289,6 +295,9 @@ CGPoint incomingTextChatModePos;
 	[[PhoneMainView instance].view removeGestureRecognizer:singleFingerTap];
 }
 
+-(BOOL) isRTTEnabled{
+    return isRTTEnabled;
+}
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -341,6 +350,11 @@ CGPoint incomingTextChatModePos;
 		if (linphone_core_get_calls_nb(lc) > 1) {
 			[callTableController minimizeAll];
 		}
+        
+        if(!self.isRTTLocallyEnabled){
+            linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), FALSE);
+            self.isRTTEnabled = NO;
+        }
 	}
 	case LinphoneCallConnected:
 	case LinphoneCallStreamsRunning: {
@@ -348,8 +362,15 @@ CGPoint incomingTextChatModePos;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
                                                             object:nil];
-        
-        if (linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call))){
+        if(state == LinphoneCallStreamsRunning){
+            if(self.isRTTLocallyEnabled){
+                if (linphone_call_params_realtime_text_enabled(linphone_call_get_remote_params(call))){
+                    self.isRTTEnabled = YES;
+                }
+                else{
+                    self.isRTTEnabled = NO;
+                }
+            }
         }
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
@@ -1137,29 +1158,31 @@ CGFloat chat_delta;
 CGPoint chat_center;
 BOOL didChatResize = NO;
 - (void)keyboardWillShow:(NSNotification *)notification {
-    keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat keyboardPos = keyboardFrame.origin.y;
-    
-    remote_video_delta = (self.videoView.frame.origin.y +
-                          self.videoView.frame.size.height) - keyboardPos;
-    chat_delta = (self.tableView.frame.origin.y + self.tableView.frame.size.height) - keyboardPos;
-    
-     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
-                                 self.tableView.frame.size.width,
-                                 self.tableView.frame.size.height - chat_delta);
-    [self showLatestMessage];
-    CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
-    [self.videoView setCenter:remote_video_center];
-    
-    self.incomingTextView.text = @"";
-    [self.incomingTextView setHidden:YES];
-    [self.closeChatButton setHidden:YES];
-    
-    self.isChatMode = YES;
-    [self.tableView setHidden:NO];
-    [self hideControls:self];
-    [self sortChatEntriesArray];
-    [self.tableView reloadData];
+    if(self.isRTTEnabled){
+        keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGFloat keyboardPos = keyboardFrame.origin.y;
+        
+        remote_video_delta = (self.videoView.frame.origin.y +
+                              self.videoView.frame.size.height) - keyboardPos;
+        chat_delta = (self.tableView.frame.origin.y + self.tableView.frame.size.height) - keyboardPos;
+        
+         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
+                                     self.tableView.frame.size.width,
+                                     self.tableView.frame.size.height - chat_delta);
+        [self showLatestMessage];
+        CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
+        [self.videoView setCenter:remote_video_center];
+        
+        self.incomingTextView.text = @"";
+        [self.incomingTextView setHidden:YES];
+        [self.closeChatButton setHidden:YES];
+        
+        self.isChatMode = YES;
+        [self.tableView setHidden:NO];
+        [self hideControls:self];
+        [self sortChatEntriesArray];
+        [self.tableView reloadData];
+    }
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *) notification{

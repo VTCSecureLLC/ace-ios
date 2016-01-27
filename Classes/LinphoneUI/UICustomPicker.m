@@ -28,7 +28,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        [self setBackgroundColor:[UIColor colorWithRed:0.0 green:56.0/255.0 blue:88.0/255.0 alpha:1.0]];
+        [self setBackgroundColor:[UIColor darkGrayColor]];//[UIColor colorWithRed:0.0 green:56.0/255.0 blue:88.0/255.0 alpha:1.0]];
         
         arraySource = sourceList;
         
@@ -58,6 +58,9 @@
 }
 
 - (void) onButtonCancel:(id)sender {
+    if ([_delegate respondsToSelector:@selector(didCancelUICustomPicker:)]) {
+        [_delegate didCancelUICustomPicker:self];
+    }
     [self removeFromSuperview];
 }
 
