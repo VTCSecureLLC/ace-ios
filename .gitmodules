@@ -9,7 +9,7 @@
 	url = git://git.linphone.org/speex
 [submodule "submodules/externals/opencore-amr"]
 	path = submodules/externals/opencore-amr
-	url = git://git.linphone.org/opencore-amr
+	url = git://git.linphone.org/opencore-amr.git
 	ignore = dirty
 [submodule "submodules/msamr"]
 	path = submodules/msamr
@@ -82,3 +82,9 @@
 	path = submodules/externals/vo-amrwbenc
 	url = git://git.linphone.org/vo-amrwbenc
 	ignore = dirty
+[submodule "submodules/belcard"]
+	path = submodules/belcard
+	url = git://github.com/VTCSecureLLC/belcard.git
+[submodule "submodules/belr"]
+	path = submodules/belr
+	url = git://git.linphone.org/belr.git

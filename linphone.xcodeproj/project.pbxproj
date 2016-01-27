@@ -31,7 +31,6 @@
 		22276E8913C73DC000210156 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22276E8813C73DC000210156 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2237D4091084D7A9001383EE /* ring.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2237D4081084D7A9001383EE /* ring.wav */; };
 		223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223CA7E416D9255800EF1BEC /* libantlr3c.a */; };
-		223CA7E716D9255800EF1BEC /* libbellesip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223CA7E516D9255800EF1BEC /* libbellesip.a */; };
 		22405EEE1600B4E400B92522 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22405EED1600B4E400B92522 /* AssetsLibrary.framework */; };
 		22405F001601C19200B92522 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22405EFE1601C19100B92522 /* ImageViewController.m */; };
 		2242E313125235120061DDCE /* ring.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2242E312125235120061DDCE /* ring.caf */; };
@@ -443,6 +442,9 @@
 		73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73400CBD1BAF8CAA002C358D /* HelpViewController.xib */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
+		739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */; };
+		739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DF1C4D3ABE002EB5A7 /* libbelr.a */; };
+		739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223CA7E516D9255800EF1BEC /* libbellesip.a */; };
 		73E3E1DC1BB348E600295CF3 /* libmswebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EA4C941B50189D00922857 /* libmswebrtc.a */; };
 		73E3E1DD1BB348E600295CF3 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; };
 		73E3E1E21BB34A0800295CF3 /* libmsamr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226F2ED51344B0EF00F6EF27 /* libmsamr.a */; };
@@ -1762,6 +1764,8 @@
 		73400CBD1BAF8CAA002C358D /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelcard.a; path = "liblinphone-sdk/apple-darwin/lib/libbelcard.a"; sourceTree = "<group>"; };
+		739F82DF1C4D3ABE002EB5A7 /* libbelr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelr.a; path = "liblinphone-sdk/apple-darwin/lib/libbelr.a"; sourceTree = "<group>"; };
 		73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvo-amrwbenc.a"; path = "liblinphone-sdk/apple-darwin/lib/libvo-amrwbenc.a"; sourceTree = "<group>"; };
 		73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wizard_vtcsecure_existing.rc; path = Resources/wizard_vtcsecure_existing.rc; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -2571,6 +2575,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */,
+				739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */,
+				739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */,
 				3192D9271BB5C8F60099B552 /* QuickLook.framework in Frameworks */,
 				70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */,
 				737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */,
@@ -2600,7 +2607,6 @@
 				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
 				22276E8313C73D3100210156 /* libavcodec.a in Frameworks */,
 				22276E8413C73D3100210156 /* libavutil.a in Frameworks */,
-				223CA7E716D9255800EF1BEC /* libbellesip.a in Frameworks */,
 				045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */,
 				220FAD3210765B400068D98F /* libgsm.a in Frameworks */,
 				F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */,
@@ -2613,7 +2619,6 @@
 				57B0E360173C010400A476B8 /* libpolarssl.a in Frameworks */,
 				223CA7E616D9255800EF1BEC /* libantlr3c.a in Frameworks */,
 				3192D9211BB5C6340099B552 /* HockeySDK.framework in Frameworks */,
-				223CA7E716D9255800EF1BEC /* libbellesip.a in Frameworks */,
 				737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */,
 				045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */,
 				220FAD3810765B400068D98F /* libspeex.a in Frameworks */,
@@ -3031,6 +3036,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */,
+				739F82DF1C4D3ABE002EB5A7 /* libbelr.a */,
 				3192D9261BB5C8F60099B552 /* QuickLook.framework */,
 				3192D9241BB5C6B40099B552 /* CoreText.framework */,
 				73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */,
