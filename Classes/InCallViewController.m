@@ -156,11 +156,13 @@ static UICompositeViewDescription *compositeDescription = nil;
         [self.tableView setHidden:YES];
     }
     self.isChatMode = NO;
-    
-    self.isRTTLocallyEnabled = YES;
-
     if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]){
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
+//        self.isRTTEnabled = YES;
+//        self.isRTTLocallyEnabled = YES;
     }
 }
 
@@ -353,7 +355,6 @@ CGPoint incomingTextChatModePos;
         
         if(!self.isRTTLocallyEnabled){
             linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), FALSE);
-            self.isRTTEnabled = NO;
         }
 	}
 	case LinphoneCallConnected:
@@ -370,6 +371,9 @@ CGPoint incomingTextChatModePos;
                 else{
                     self.isRTTEnabled = NO;
                 }
+            }
+            else{
+                self.isRTTEnabled = NO;
             }
         }
 		// check video

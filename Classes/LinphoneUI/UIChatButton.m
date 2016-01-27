@@ -119,16 +119,7 @@ UIAlertView *alert;
 -(BOOL) showKeyboard{
     if([InCallViewController sharedInstance]){
         if(![[InCallViewController sharedInstance] isRTTEnabled]){
-            if(!alert){
-               alert =[[UIAlertView alloc] initWithTitle:@"RTT"
-                                           message:@"RTT has been disabled for this session"
-                                          delegate:nil
-                                 cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                 otherButtonTitles:nil];
-            }
-            if(![alert isVisible]){
-                [alert show];
-            }
+            [self displayRTTDisabledMessage];
         }
         else{
             [[InCallViewController sharedInstance] becomeFirstResponder];
@@ -137,7 +128,23 @@ UIAlertView *alert;
     }
     return YES;
 }
-
+-(void) displayRTTDisabledMessage{
+    if(!alert){
+        alert =[[UIAlertView alloc] initWithTitle:@"RTT"
+                                          message:@"RTT has been disabled for this session"
+                                         delegate:nil
+                                cancelButtonTitle:nil
+                                otherButtonTitles:nil];
+    }
+    if(![alert isVisible]){
+        [alert show];
+        int duration = 1; // duration in seconds
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [alert dismissWithClickedButtonIndex:0 animated:YES];
+        });
+    }
+}
 - (void)onOff {
     //Chat mode disabled
 }
