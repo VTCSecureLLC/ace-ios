@@ -161,8 +161,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else{
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
-//        self.isRTTEnabled = YES;
-//        self.isRTTLocallyEnabled = YES;
+        self.isRTTLocallyEnabled = YES;
     }
 }
 
@@ -220,7 +219,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     else{
         linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
     }
-
+            self.isRTTEnabled = YES;
+            self.isRTTLocallyEnabled = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -296,8 +296,11 @@ CGPoint incomingTextChatModePos;
 	[super viewDidUnload];
 	[[PhoneMainView instance].view removeGestureRecognizer:singleFingerTap];
 }
-
+BOOL hasStartedStream = NO;
 -(BOOL) isRTTEnabled{
+    if(!hasStartedStream){
+        return YES;
+    }
     return isRTTEnabled;
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -375,6 +378,10 @@ CGPoint incomingTextChatModePos;
             else{
                 self.isRTTEnabled = NO;
             }
+            hasStartedStream = YES;
+        }
+        else{
+            self.isRTTEnabled = YES;
         }
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
