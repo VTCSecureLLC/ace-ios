@@ -48,6 +48,7 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
+    UIAlertView *registrationError;
 }
 @synthesize contentView;
 
@@ -761,12 +762,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 		if ([message isEqualToString:@"Forbidden"]) {
 			message = NSLocalizedString(@"Incorrect username or password.", nil);
 		}
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
+        if(!registrationError){
+            registrationError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 														message:message
 													   delegate:nil
 											  cancelButtonTitle:@"OK"
 											  otherButtonTitles:nil];
-		[alert show];
+        }
+        if(!registrationError.visible){
+            [registrationError show];
+        }
 		break;
 	}
 	case LinphoneRegistrationProgress: {
