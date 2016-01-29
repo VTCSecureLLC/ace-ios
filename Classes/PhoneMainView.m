@@ -113,6 +113,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 
 @end
 
+@interface PhoneMainView()
+@property UIAlertView *registrationError;
+@end
 @implementation PhoneMainView
 
 @synthesize mainViewController;
@@ -284,13 +287,17 @@ static RootViewManager *rootViewManagerInstance = nil;
 	if (state == LinphoneRegistrationFailed &&
 		[UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
 		linphone_proxy_config_get_error(cfg) == LinphoneReasonBadCredentials) {
-		UIAlertView *error =
+        if(!self.registrationError){
+        self.registrationError =
 			[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 									   message:NSLocalizedString(@"Bad credentials, check your account settings", nil)
 									  delegate:nil
 							 cancelButtonTitle:NSLocalizedString(@"Continue", nil)
 							 otherButtonTitles:nil, nil];
-		[error show];
+        }
+        if(!self.registrationError.visible){
+            [self.registrationError show];
+        }
 	}
 }
 
