@@ -232,11 +232,12 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
         
         if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
-
         }
         else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
-
+        }
+        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
         //switch ( {
         //case 0:
@@ -661,11 +662,15 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		MSVideoSize vsize;
         
         if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
-                MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
-            	bw = 720;
+            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+            bw = 1024;
         }
         else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+            bw = 800;
+        }
+        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
             bw = 720;
         }
 		//switch ( {

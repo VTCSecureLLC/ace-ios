@@ -623,6 +623,9 @@ static UICompositeViewDescription *compositeDescription = nil;
         else if([value isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
+        else if([value isEqualToString:@"qvga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
+        }
         else{
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
