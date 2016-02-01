@@ -620,7 +620,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     if (!first) {
         MSVideoSize vsize;
         
-        NSString *videoPreferredSize = [DefaultSettingsManager sharedInstance].videoResolutionMaximum;
+        NSString *videoPreferredSize = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preferred_size_preference"]; //[DefaultSettingsManager sharedInstance].videoResolutionMaximum;
         
         if ([videoPreferredSize isEqualToString:@"cif"]) {
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);

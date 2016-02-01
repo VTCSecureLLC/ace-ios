@@ -228,20 +228,42 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 		const char *preset = linphone_core_get_video_preset(lc);
 		[self setCString:preset ? preset : "default" forKey:@"video_preset_preference"];
-		MSVideoSize vsize = linphone_core_get_preferred_video_size(lc);
-		int index;
-		if ((vsize.width == MS_VIDEO_SIZE_720P_W) && (vsize.height == MS_VIDEO_SIZE_720P_H)) {
-			index = 0;
-		} else if ((vsize.width == MS_VIDEO_SIZE_VGA_W) && (vsize.height == MS_VIDEO_SIZE_VGA_H)) {
-			index = 1;
-		} else if ((vsize.width == MS_VIDEO_SIZE_CIF_W) && (vsize.height == MS_VIDEO_SIZE_CIF_H)) {
-			index = 2;
-		} else if ((vsize.width == MS_VIDEO_SIZE_QVGA_W) && (vsize.height == MS_VIDEO_SIZE_QVGA_H)) {
-			index = 3;
-		}  else {
-			index = 2;
-		}
-		[self setInteger:index forKey:@"video_preferred_size_preference"];
+        MSVideoSize vsize;
+        
+        if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+
+        }
+        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+
+        }
+        //switch ( {
+        //case 0:
+        //	MS_VIDEO_SIZE_ASSIGN(vsize, 720P);
+        // 128 = margin for audio, the BW includes both video and audio
+        //	bw = 1024 + 128;
+        //	break;
+        //case 1:
+        
+        // no margin for VGA or QVGA, because video encoders can encode the
+        // target resulution in less than the asked bandwidth
+        
+        
+        //break;
+        //		case 2:
+        //                MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        //                bw = 512;
+        //                vsize_value = @"cif";
+        //			break;
+        //		case 3:
+        //		default:
+        //			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
+        //			bw = 410;
+        //			break;
+        //		}
+        //        [[NSUserDefaults standardUserDefaults] setObject:vsize_value forKey:@"video_preferred_size_preference"];
+        linphone_core_set_preferred_video_size(lc, vsize);
 		[self setInteger:linphone_core_get_preferred_framerate(lc) forKey:@"video_preferred_fps_preference"];
 		[self setInteger:linphone_core_get_download_bandwidth(lc) forKey:@"download_bandwidth_preference"];
 	}
@@ -637,28 +659,40 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		int bw;
 		MSVideoSize vsize;
-		switch ([self integerForKey:@"video_preferred_size_preference"]) {
-		case 0:
-			MS_VIDEO_SIZE_ASSIGN(vsize, 720P);
+        
+        if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
+                MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+            	bw = 720;
+        }
+        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+            bw = 720;
+        }
+		//switch ( {
+		//case 0:
+		//	MS_VIDEO_SIZE_ASSIGN(vsize, 720P);
 			// 128 = margin for audio, the BW includes both video and audio
-			bw = 1024 + 128;
-			break;
-		case 1:
-			MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+		//	bw = 1024 + 128;
+		//	break;
+		//case 1:
+
 			// no margin for VGA or QVGA, because video encoders can encode the
 			// target resulution in less than the asked bandwidth
-			bw = 660;
-			break;
-		case 2:
-			MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
-			bw = 460;
-			break;
-		case 3:
-		default:
-			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
-			bw = 410;
-			break;
-		}
+		
+
+			//break;
+//		case 2:
+//                MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+//                bw = 512;
+//                vsize_value = @"cif";
+//			break;
+//		case 3:
+//		default:
+//			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
+//			bw = 410;
+//			break;
+//		}
+//        [[NSUserDefaults standardUserDefaults] setObject:vsize_value forKey:@"video_preferred_size_preference"];
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
 			[self setInteger:0 forKey:@"video_preferred_fps_preference"];
