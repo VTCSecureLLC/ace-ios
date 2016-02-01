@@ -1027,10 +1027,11 @@ NSMutableString *msgBuffer;
             [msgBuffer appendString:text];
             [self.incomingTextView setText:msgBuffer];
             if(self.incomingTextView.text.length > 0 ) {
-                NSRange range = NSMakeRange(self.incomingTextView.text.length, 0);
+                NSRange range = NSMakeRange(self.incomingTextView.text.length-1, 0);
                 [self.incomingTextView scrollRangeToVisible:range];
                 [self.incomingTextView setScrollEnabled:NO];
                 [self.incomingTextView setScrollEnabled:YES];
+                [self.incomingTextView scrollRangeToVisible:range];
             }
         }
     }
