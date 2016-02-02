@@ -428,7 +428,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	NSString *accountHa1 = [self stringForKey:@"ha1_preference"];
 	NSString *accountPassword = [self stringForKey:@"password_preference"];
 	bool isOutboundProxy = [self boolForKey:@"outbound_proxy_preference"];
-	BOOL use_avpf = [self boolForKey:@"avpf_preference"];
+	BOOL use_avpf = [[NSUserDefaults standardUserDefaults] boolForKey:@"avpf_preference"];
 
 	if (username && [username length] > 0 && domain && [domain length] > 0) {
 		int expire = [self integerForKey:@"expire_preference"];
@@ -587,7 +587,9 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	for (elem = codecs; elem != NULL; elem = elem->next) {
 		pt = (PayloadType *)elem->data;
 		NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
-		linphone_core_enable_payload_type(lc, pt, [self boolForKey:pref]);
+        if(pref){
+            linphone_core_enable_payload_type(lc, pt, [self boolForKey:pref]);
+        }
 	}
 }
 

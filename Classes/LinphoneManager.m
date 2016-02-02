@@ -1477,21 +1477,6 @@ static BOOL libStarted = FALSE;
 	linphone_core_set_root_ca(theLinphoneCore, lRootCa);
 	linphone_core_set_user_certificates_path(theLinphoneCore, [[LinphoneManager cacheDirectory] UTF8String]);
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
-   
-    if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
-        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
-    }
-    else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
-        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
-    }
-    else{
-        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
-    }
 
 	/* The core will call the linphone_iphone_configuring_status_changed callback when the remote provisioning is loaded
 	 (or skipped).
