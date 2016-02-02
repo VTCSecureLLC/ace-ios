@@ -93,7 +93,6 @@
 			<string>Preferred video size</string>
 			<key>Titles</key>
 			<array>
-				<string>HD (960x720)</string>
 				<string>VGA (640x480)</string>
 				<string>CIF (352×288)</string>
 				<string>QVGA (320x240)</string>
@@ -102,7 +101,6 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<string>hd</string>
 				<string>vga</string>
 				<string>cif</string>
 				<string>qvga</string>

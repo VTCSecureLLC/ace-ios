@@ -623,6 +623,8 @@ static UICompositeViewDescription *compositeDescription = nil;
         MSVideoSize vsize;
         MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
     }
     // video_resolution_maximum
     if (!first) {
