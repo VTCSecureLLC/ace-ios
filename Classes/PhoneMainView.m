@@ -299,6 +299,28 @@ static RootViewManager *rootViewManagerInstance = nil;
             [self.registrationError show];
         }
 	}
+    
+    if(state == LinphoneRegistrationOk){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
+        LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        
+        if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFDisabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFEnabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else{
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFDisabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
+        }
+    }
 }
 
 - (void)onGlobalStateChanged:(NSNotification *)notif {
