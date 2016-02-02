@@ -85,8 +85,6 @@
 			<string>default</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>cif</string>
 			<key>Key</key>
 			<string>video_preferred_size_preference</string>
 			<key>Title</key>
