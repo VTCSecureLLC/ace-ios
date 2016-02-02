@@ -85,6 +85,8 @@
 			<string>default</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>cif</string>
 			<key>Key</key>
 			<string>video_preferred_size_preference</string>
 			<key>Title</key>
@@ -105,8 +107,6 @@
 				<string>cif</string>
 				<string>qvga</string>
 			</array>
-			<key>DefaultValue</key>
-			<string>cif</string>
 		</dict>
 		<dict>
 			<key>Key</key>

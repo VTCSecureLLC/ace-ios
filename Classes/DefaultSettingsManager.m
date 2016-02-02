@@ -295,7 +295,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (NSString*)videoResolutionMaximum {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_resolution_maximum"];
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_preferred_size_preference"];
 }
 
 #pragma mark - helper functions

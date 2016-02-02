@@ -616,10 +616,17 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        MSVideoSize vsize;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+    }
     // video_resolution_maximum
     if (!first) {
         MSVideoSize vsize;
-        
         NSString *videoPreferredSize = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preferred_size_preference"]; //[DefaultSettingsManager sharedInstance].videoResolutionMaximum;
         
         if ([videoPreferredSize isEqualToString:@"cif"]) {
