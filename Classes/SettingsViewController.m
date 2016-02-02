@@ -610,6 +610,28 @@ static UICompositeViewDescription *compositeDescription = nil;
             [defaults synchronize];
         }
     }
+    else if([@"video_preferred_size_preference" compare:notif.object] == NSOrderedSame){
+        NSString *value =  [notif.userInfo objectForKey:@"video_preferred_size_preference"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:value forKey:@"video_preferred_size_preference"];
+        [defaults synchronize];
+        
+        MSVideoSize vsize;
+        if([value isEqualToString:@"vga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+        }
+        else if([value isEqualToString:@"cif"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        }
+        else if([value isEqualToString:@"qvga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
+        }
+        else{
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        }
+
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+    }
     else if([@"h263_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h263_preference"] boolValue]) ? YES : NO;
         PayloadType *pt=linphone_core_find_payload_type([LinphoneManager getLc],"H263", 90000, -1);

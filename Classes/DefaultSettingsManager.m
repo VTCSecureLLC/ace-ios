@@ -144,9 +144,7 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_mwi_uri"] != [NSNull null])? [dict objectForKey:@"sip_mwi_uri"]:@"" forKey:@"sip_mwi_uri"];
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_videomail_uri"] != [NSNull null])?[dict objectForKey:@"sip_videomail_uri"]:@"" forKey:@"sip_videomail_uri"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"video_resolution_maximum"] != [NSNull null])? [dict objectForKey:@"video_resolution_maximum"]:@"" forKey:@"video_resolution_maximum"];
-    
+
     [[NSUserDefaults standardUserDefaults] synchronize];
 
 }
@@ -295,7 +293,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (NSString*)videoResolutionMaximum {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_resolution_maximum"];
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_preferred_size_preference"];
 }
 
 #pragma mark - helper functions
