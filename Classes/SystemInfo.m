@@ -10,7 +10,7 @@
 #import "LinphoneCoreSettingsStore.h"
 #import "DefaultSettingsManager.h"
 #import <sys/utsname.h>
-
+#include "LinphoneIOSVersion.h"
 
 @interface SystemInfo()
 +(NSString*) configSettingsAsString;
@@ -99,7 +99,9 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
         // Load hardware.
         NSString* hardware = [self platformType];
         // Load app version.
-        NSString* appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* appVersionString = [NSString stringWithFormat:@"%@ iPhone %@",
+                                  [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                                  [NSString stringWithUTF8String:LINPHONE_IOS_VERSION]];
         // Load SIP settings.
     LinphoneCore *lc = [LinphoneManager getLc];
     LinphoneProxyConfig *cfg = nil;
