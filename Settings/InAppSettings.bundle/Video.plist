@@ -160,16 +160,6 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>mp4v-es_preference</string>
-			<key>Title</key>
-			<string>MPEG-4</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
 			<string>h263_preference</string>
