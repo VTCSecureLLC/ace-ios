@@ -33,7 +33,7 @@
 #include "linphone/lpconfig.h"
 #import "InfColorPicker/InfColorPickerController.h"
 #import "DTAlertView.h"
-
+#import <HockeySDK/HockeySDK.h>
 #ifdef DEBUG
 @interface UIDevice (debug)
 
@@ -1073,6 +1073,12 @@ static BOOL isAdvancedSettings = FALSE;
         [alert addAction:confirm];
         [self presentViewController:alert animated:YES completion:nil];
 
+    }
+    else if([key isEqualToString:@"send_tss_button"]){
+        NSMutableArray *TSS = [[NSMutableArray alloc] init];
+        [TSS addObject:@"\n\nTechnical support sheet:\n"];
+        [TSS addObject:[SystemInfo formatedSystemInformation]];
+        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:TSS];
     }
     else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();

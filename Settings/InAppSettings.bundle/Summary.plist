@@ -16,9 +16,9 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>0</string>
+			<string></string>
 			<key>Key</key>
-			<string>send_tss_preference</string>
+			<string>send_tss_button</string>
 			<key>Title</key>
 			<string>Send TSS</string>
 			<key>Type</key>
