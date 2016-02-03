@@ -47,9 +47,11 @@
 @property (nonatomic, strong) IBOutlet UIView* videoPreview;
 @property (nonatomic, strong) IBOutlet UICamSwitch* videoCameraSwitch;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* videoWaitingForFirstImage;
-
+@property (nonatomic) BOOL isRTTEnabled;
 
 @property (nonatomic) BOOL isChatMode;
 +(InCallViewController*) sharedInstance;
+
+-(BOOL) isRTTEnabled;
 
 @end

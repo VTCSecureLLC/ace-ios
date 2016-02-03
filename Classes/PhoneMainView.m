@@ -113,6 +113,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 
 @end
 
+@interface PhoneMainView()
+@property UIAlertView *registrationError;
+@end
 @implementation PhoneMainView
 
 @synthesize mainViewController;
@@ -284,14 +287,40 @@ static RootViewManager *rootViewManagerInstance = nil;
 	if (state == LinphoneRegistrationFailed &&
 		[UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
 		linphone_proxy_config_get_error(cfg) == LinphoneReasonBadCredentials) {
-		UIAlertView *error =
+        if(!self.registrationError){
+        self.registrationError =
 			[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 									   message:NSLocalizedString(@"Bad credentials, check your account settings", nil)
 									  delegate:nil
 							 cancelButtonTitle:NSLocalizedString(@"Continue", nil)
 							 otherButtonTitles:nil, nil];
-		[error show];
+        }
+        if(!self.registrationError.visible){
+            [self.registrationError show];
+        }
 	}
+    
+    if(state == LinphoneRegistrationOk){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *rtcpFeedbackMode = [defaults objectForKey:@"rtcp_feedback_pref"];
+        LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        
+        if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFDisabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFEnabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else{
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            linphone_proxy_config_set_avpf_mode(cfg, LinphoneAVPFDisabled);
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
+        }
+    }
 }
 
 - (void)onGlobalStateChanged:(NSNotification *)notif {

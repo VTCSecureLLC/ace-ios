@@ -48,6 +48,7 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
+    UIAlertView *registrationError;
 }
 @synthesize contentView;
 
@@ -156,7 +157,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
 
        providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-        [providerPickerView setAlpha:0.9f];
+        [providerPickerView setAlpha:1.0f];
         providerPickerView.delegate = self;
     
     if(cdnResources.count > 0){
@@ -202,7 +203,19 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.viewPasswordBG.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.viewPasswordBG.layer setBorderWidth:1.0];
     [self.viewPasswordBG.layer setCornerRadius:5];
-    
+    // advanced text fields
+    [self.textFieldDomain.layer setBorderColor:[UIColor whiteColor].CGColor ];
+    [self.textFieldDomain.layer setBorderWidth:1.0];
+    [self.textFieldDomain.layer setCornerRadius:5];
+    [self.textFieldPort.layer setBorderColor:[UIColor whiteColor].CGColor ];
+    [self.textFieldPort.layer setBorderWidth:1.0];
+    [self.textFieldPort.layer setCornerRadius:5];
+    [self.transportTextField.layer setBorderColor:[UIColor whiteColor].CGColor ];
+    [self.transportTextField.layer setBorderWidth:1.0];
+    [self.transportTextField.layer setCornerRadius:5];
+    [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
+    [self.textFieldUserId.layer setBorderWidth:1.0];
+    [self.textFieldUserId.layer setCornerRadius:5];
     
     [viewTapGestureRecognizer setCancelsTouchesInView:FALSE];
     [viewTapGestureRecognizer setDelegate:self];
@@ -603,11 +616,20 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        MSVideoSize vsize;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
+    }
     // video_resolution_maximum
     if (!first) {
         MSVideoSize vsize;
-        
-        NSString *videoPreferredSize = [DefaultSettingsManager sharedInstance].videoResolutionMaximum;
+        NSString *videoPreferredSize = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preferred_size_preference"]; //[DefaultSettingsManager sharedInstance].videoResolutionMaximum;
         
         if ([videoPreferredSize isEqualToString:@"cif"]) {
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
@@ -749,12 +771,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 		if ([message isEqualToString:@"Forbidden"]) {
 			message = NSLocalizedString(@"Incorrect username or password.", nil);
 		}
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
+        if(!registrationError){
+            registrationError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 														message:message
 													   delegate:nil
 											  cancelButtonTitle:@"OK"
 											  otherButtonTitles:nil];
-		[alert show];
+        }
+        if(!registrationError.visible){
+            [registrationError show];
+        }
 		break;
 	}
 	case LinphoneRegistrationProgress: {
@@ -862,10 +888,22 @@ static UICompositeViewDescription *compositeDescription = nil;
         cdnResources = [[NSMutableArray alloc] initWithArray:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
     }
     providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-    [providerPickerView setAlpha:0.9f];
+    
+    [providerPickerView setAlpha:1.0f];
     providerPickerView.delegate = self;
     
+    // Liz E - disable touch in other subviews while the picker is open. Re-enable once the picker is closed.
+    [self setRecursiveUserInteractionEnabled:false];
+    providerPickerView.userInteractionEnabled = true;
     [self.view addSubview:providerPickerView];
+}
+
+-(void)setRecursiveUserInteractionEnabled:(BOOL)value{
+    
+    //self.view.userInteractionEnabled =   value;
+    for (UIView *view in self.view.subviews) {
+        view.userInteractionEnabled = value;
+    }
 }
 
 - (IBAction)onLoginClick:(id)sender {
@@ -1308,9 +1346,13 @@ UIAlertView *transportAlert;
 }
 
 #pragma mark - UICustomPicker Delegate
-
+-(void) didCancelUICustomPicker:(UICustomPicker*)customPicker
+{
+    [self setRecursiveUserInteractionEnabled:true];
+}
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
     [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
+    [self setRecursiveUserInteractionEnabled:true];
 }
 - (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
     NSString *imgResource;
@@ -1354,6 +1396,8 @@ UIAlertView *transportAlert;
 
     if(domain == nil){domain = @"";}
     [self.textFieldDomain setText:domain];
+    [self setRecursiveUserInteractionEnabled:true];
+
 }
 
 - (void)apiSignIn {
@@ -1651,7 +1695,7 @@ static BOOL isAdvancedShown = NO;
 -(void)onProviderLookupFinished:(NSMutableArray *)domains{
     cdnResources = domains;
     providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-    [providerPickerView setAlpha:0.9f];
+    [providerPickerView setAlpha:1.0f];
     providerPickerView.delegate = self;
     
     if(cdnResources.count > 0){

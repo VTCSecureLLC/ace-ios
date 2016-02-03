@@ -57,15 +57,15 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DialerViewController *controller =
-    DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]],
-                 DialerViewController);
-    if (controller != nil) {
-        NSDictionary *resource = [cdnResources objectAtIndex:indexPath.row];
-        NSString *name = [resource objectForKey:@"name"];
-        NSString *address = [resource objectForKey:@"address"];
-        
-        [controller call:address displayName:name];
+    NSDictionary *resource = [cdnResources objectAtIndex:indexPath.row];
+    if(cdnResources && cdnResources.count){
+        NSString *resourceNum = [resource objectForKey:@"address"];
+        NSString *resourceName = [resource objectForKey:@"name"];
+        const LinphoneAddress *addr = linphone_proxy_config_normalize_sip_uri(linphone_core_get_default_proxy_config([LinphoneManager getLc]), [resourceNum UTF8String]);
+        NSString *sip_uri =[[NSString alloc] initWithUTF8String: linphone_address_as_string_uri_only(addr)];
+        sip_uri = [NSString stringWithFormat:@"%@;user=phone", sip_uri];
+        [[LinphoneManager instance] call:sip_uri displayName:resourceName transfer:0];
+        	[[PhoneMainView instance] changeCurrentView:[InCallViewController compositeViewDescription]];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
