@@ -521,10 +521,8 @@ BOOL hasStartedStream = NO;
 - (void)enableVideoDisplay:(BOOL)animation {
 	if (videoShown && animation)
 		return;
-
+    
 	videoShown = true;
-
-	[videoZoomHandler resetZoom];
 
 	if (animation) {
 		[UIView beginAnimations:nil context:nil];
@@ -615,11 +613,11 @@ BOOL hasStartedStream = NO;
 }
 
 - (void)displayVideoCall:(BOOL)animated {
-	[self enableVideoDisplay:animated];
+	[self enableVideoDisplay:FALSE];
 }
 
 - (void)displayTableCall:(BOOL)animated {
-	[self disableVideoDisplay:animated];
+	[self disableVideoDisplay:FALSE];
 }
 
 #pragma mark - Spinner Functions
