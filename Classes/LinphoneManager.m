@@ -1450,16 +1450,18 @@ static BOOL libStarted = FALSE;
 	LOGI(@"Create linphonecore");
 	connectivity = none;
 
-	ms_init(); // Need to initialize mediastreamer2 before loading the plugins
+    theLinphoneCore =
+    linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
 	// Load plugins if available in the linphone SDK - otherwise these calls will do nothing
+	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
+	libmsilbc_init(f);
+	libmssilk_init(f);
+	libmsamr_init(f);
+	libmsx264_init(f);
+	libmsopenh264_init(f);
+	libmsbcg729_init(f);
+	libmswebrtc_init(f);
 
-	libmsilbc_init(ms_factory_get_fallback());
-	libmssilk_init(ms_factory_get_fallback());
-	libmsamr_init(ms_factory_get_fallback());
-	libmsx264_init(ms_factory_get_fallback());
-	libmsopenh264_init(ms_factory_get_fallback());
-	libmsbcg729_init(ms_factory_get_fallback());
-	libmswebrtc_init(ms_factory_get_fallback());
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
@@ -1469,8 +1471,7 @@ static BOOL libStarted = FALSE;
 	const char *lPlay = [[LinphoneManager bundleFile:@"hold.wav"] UTF8String];
 	lp_config_set_string(configDb, "sound", "hold_music", lPlay);
 
-	theLinphoneCore =
-		linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
+
 
 	/* set the CA file no matter what, since the remote provisioning could be hitting an HTTPS server */
 	const char *lRootCa = [[LinphoneManager bundleFile:@"rootca.pem"] UTF8String];
@@ -1536,7 +1537,6 @@ static BOOL libStarted = FALSE;
 		LOGI(@"Destroy linphonecore");
 		linphone_core_destroy(theLinphoneCore);
 		theLinphoneCore = nil;
-		ms_exit(); // Uninitialize mediastreamer2
 
 		// Post event
 		NSDictionary *dict =
