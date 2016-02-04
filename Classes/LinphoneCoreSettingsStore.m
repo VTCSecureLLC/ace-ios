@@ -121,6 +121,38 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	}
 }
 
+-(void) setRtcpFbMode{
+    NSString *rtcpFeedbackMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"rtcp_feedback_pref"];
+
+    if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+        LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        if(defaultProxy){
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+        }
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+    }
+    else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+        [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"avpf_preference"];
+        LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        if(defaultProxy){
+            linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+        }
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+    }
+    else{
+        linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+        LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        if(defaultProxy){
+            linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+        }
+        lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
+    }
+    
+}
 - (void)transformLinphoneCoreToKeys {
 	LinphoneManager *lm = [LinphoneManager instance];
 	LinphoneCore *lc = [LinphoneManager getLc];
@@ -165,11 +197,11 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 				[self setCString:tname forKey:@"transport_preference"];
 				[self setBool:(linphone_proxy_config_get_route(cfg) != NULL)forKey:@"outbound_proxy_preference"];
-				[self setBool:linphone_proxy_config_avpf_enabled(cfg) forKey:@"avpf_preference"];
 				[self setBool:linphone_core_video_enabled(lc) forKey:@"enable_video_preference"];
 				[self setBool:[LinphoneManager.instance lpConfigBoolForKey:@"auto_answer"]
 					   forKey:@"enable_auto_answer_preference"];
-
+                
+                [self setRtcpFbMode];
 				// actually in Advanced section but proxy config dependent
 				[self setInteger:linphone_proxy_config_get_expires(cfg) forKey:@"expire_preference"];
 				// actually in Call section but proxy config dependent
@@ -227,7 +259,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		[self setBool:previewEnabled forKey:@"preview_preference"];
 
 		const char *preset = linphone_core_get_video_preset(lc);
-		[self setCString:preset ? preset : "default" forKey:@"video_preset_preference"];
+		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
@@ -239,35 +271,13 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
         else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
-        //switch ( {
-        //case 0:
-        //	MS_VIDEO_SIZE_ASSIGN(vsize, 720P);
-        // 128 = margin for audio, the BW includes both video and audio
-        //	bw = 1024 + 128;
-        //	break;
-        //case 1:
-        
-        // no margin for VGA or QVGA, because video encoders can encode the
-        // target resulution in less than the asked bandwidth
-        
-        
-        //break;
-        //		case 2:
-        //                MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
-        //                bw = 512;
-        //                vsize_value = @"cif";
-        //			break;
-        //		case 3:
-        //		default:
-        //			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
-        //			bw = 410;
-        //			break;
-        //		}
-        //        [[NSUserDefaults standardUserDefaults] setObject:vsize_value forKey:@"video_preferred_size_preference"];
+       
         linphone_core_set_preferred_video_size(lc, vsize);
 		[self setInteger:linphone_core_get_preferred_framerate(lc) forKey:@"video_preferred_fps_preference"];
 		[self setInteger:linphone_core_get_download_bandwidth(lc) forKey:@"download_bandwidth_preference"];
-	}
+       
+        [self setRtcpFbMode];
+    }
 
 	// call section
 	{
@@ -428,7 +438,6 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	NSString *accountHa1 = [self stringForKey:@"ha1_preference"];
 	NSString *accountPassword = [self stringForKey:@"password_preference"];
 	bool isOutboundProxy = [self boolForKey:@"outbound_proxy_preference"];
-	BOOL use_avpf = [[NSUserDefaults standardUserDefaults] boolForKey:@"avpf_preference"];
 
 	if (username && [username length] > 0 && domain && [domain length] > 0) {
 		int expire = [self integerForKey:@"expire_preference"];
@@ -483,7 +492,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		const char *identity = linphone_address_as_string_uri_only(linphoneAddress);
 		const char *password = [accountPassword UTF8String];
 		const char *ha1 = [accountHa1 UTF8String];
-
+                [self setRtcpFbMode];
 		if (linphone_proxy_config_set_identity(proxyCfg, identity) == -1) {
 			error = NSLocalizedString(@"Invalid username or domain", nil);
 			goto bad_proxy;
@@ -512,7 +521,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		[[LinphoneManager instance] configurePushTokenForProxyConfig:proxyCfg];
 
 		linphone_proxy_config_enable_register(proxyCfg, true);
-		linphone_proxy_config_enable_avpf(proxyCfg, use_avpf);
+        
 		linphone_proxy_config_set_expires(proxyCfg, expire);
 
 		// setup auth info
@@ -675,7 +684,6 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
             bw = 720;
         }
-
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
 			[self setInteger:0 forKey:@"video_preferred_fps_preference"];
@@ -684,6 +692,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		linphone_core_set_preferred_framerate(lc, [self integerForKey:@"video_preferred_fps_preference"]);
 		linphone_core_set_download_bandwidth(lc, [self integerForKey:@"download_bandwidth_preference"]);
 		linphone_core_set_upload_bandwidth(lc, [self integerForKey:@"download_bandwidth_preference"]);
+        
+        [self setRtcpFbMode];
 	}
 
 	// call section
