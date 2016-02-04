@@ -130,6 +130,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
         LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
         if(defaultProxy){
             linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            linphone_proxy_config_set_avpf_rr_interval(defaultProxy, 3);
+            linphone_core_set_avpf_rr_interval([LinphoneManager getLc], 3);
         }
         lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
@@ -139,6 +141,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
         LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
         if(defaultProxy){
             linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+            linphone_proxy_config_set_avpf_rr_interval(defaultProxy, 3);
+            linphone_core_set_avpf_rr_interval([LinphoneManager getLc], 3);
         }
         lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
     }
@@ -148,6 +152,8 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
         LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
         if(defaultProxy){
             linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            linphone_proxy_config_set_avpf_rr_interval(defaultProxy, 3);
+            linphone_core_set_avpf_rr_interval([LinphoneManager getLc], 3);
         }
         lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
     }
