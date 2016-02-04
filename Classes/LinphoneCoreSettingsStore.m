@@ -229,14 +229,14 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		const char *preset = linphone_core_get_video_preset(lc);
 		[self setCString:preset ? preset : "default" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
-        
-        if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
         }
-        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
-        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
         //switch ( {
@@ -662,44 +662,20 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		int bw;
 		MSVideoSize vsize;
-        
-        if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
             bw = 1024;
         }
-        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
             bw = 800;
         }
-        else if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
             bw = 720;
         }
-		//switch ( {
-		//case 0:
-		//	MS_VIDEO_SIZE_ASSIGN(vsize, 720P);
-			// 128 = margin for audio, the BW includes both video and audio
-		//	bw = 1024 + 128;
-		//	break;
-		//case 1:
 
-			// no margin for VGA or QVGA, because video encoders can encode the
-			// target resulution in less than the asked bandwidth
-		
-
-			//break;
-//		case 2:
-//                MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
-//                bw = 512;
-//                vsize_value = @"cif";
-//			break;
-//		case 3:
-//		default:
-//			MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
-//			bw = 410;
-//			break;
-//		}
-//        [[NSUserDefaults standardUserDefaults] setObject:vsize_value forKey:@"video_preferred_size_preference"];
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
 			[self setInteger:0 forKey:@"video_preferred_fps_preference"];
