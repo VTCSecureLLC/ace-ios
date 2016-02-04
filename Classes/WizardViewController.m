@@ -912,6 +912,13 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *rueConfigFormatURL = @"_rueconfig._tls.%domain%";
 
     NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
+    NSMutableArray *username = [[NSMutableArray alloc] initWithObjects:self.textFieldUsername.text, nil];
+
+    [[DefaultSettingsManager sharedInstance] setSipRegisterUserNames:username];
+    [[DefaultSettingsManager sharedInstance] setSipAuthUsername:self.textFieldUserId.text];
+    [[DefaultSettingsManager sharedInstance] setSipAuthPassword:self.textFieldPassword.text];
+    [[DefaultSettingsManager sharedInstance] setSipRegisterDomain:self.textFieldDomain.text];
+    [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
 }
 

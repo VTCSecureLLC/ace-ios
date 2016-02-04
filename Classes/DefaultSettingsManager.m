@@ -47,11 +47,13 @@ static DefaultSettingsManager *sharedInstance = nil;
     
     if ([challenge previousFailureCount] == 0) {
         NSURLCredential *newCredential;
-        newCredential = [NSURLCredential credentialWithUser:@"ruben_1"
-                                                   password:@"topsecret"
+        if(self.sipRegisterUsernames && self.sipRegisterUsernames.count > 0 && self.sipAuthPassword){
+        newCredential = [NSURLCredential credentialWithUser:self.sipRegisterUsernames[0]
+                                                   password:self.sipAuthPassword
                                                 persistence:NSURLCredentialPersistenceNone];
-        [[challenge sender] useCredential:newCredential
-               forAuthenticationChallenge:challenge];
+            [[challenge sender] useCredential:newCredential
+                   forAuthenticationChallenge:challenge];
+        }
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];
     }
@@ -75,7 +77,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 
-- (void)parseDefaultConfigSettings:(NSString*)configAddress {
+- (void)parseDefaultConfigSettings:(NSString*)configAddress{
     //[self parseDefaultConfigSettingsFromURL];
     aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     aiv.center = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view.center;
