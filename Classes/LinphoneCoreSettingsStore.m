@@ -165,10 +165,39 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 				[self setCString:tname forKey:@"transport_preference"];
 				[self setBool:(linphone_proxy_config_get_route(cfg) != NULL)forKey:@"outbound_proxy_preference"];
-				[self setBool:linphone_proxy_config_avpf_enabled(cfg) forKey:@"avpf_preference"];
 				[self setBool:linphone_core_video_enabled(lc) forKey:@"enable_video_preference"];
 				[self setBool:[LinphoneManager.instance lpConfigBoolForKey:@"auto_answer"]
 					   forKey:@"enable_auto_answer_preference"];
+                
+                NSString *rtcpFeedbackMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"rtcp_feedback_pref"];
+                
+                if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+                    linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+                    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+                    LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+                    if(defaultProxy){
+                        linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+                    }
+                    lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+                }
+                else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+                    linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+                    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"avpf_preference"];
+                    LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+                    if(defaultProxy){
+                        linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+                    }
+                    lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+                }
+                else{
+                    linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+                    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+                    LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+                    if(defaultProxy){
+                        linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+                    }
+                    lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
+                }
 
 				// actually in Advanced section but proxy config dependent
 				[self setInteger:linphone_proxy_config_get_expires(cfg) forKey:@"expire_preference"];
@@ -227,7 +256,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		[self setBool:previewEnabled forKey:@"preview_preference"];
 
 		const char *preset = linphone_core_get_video_preset(lc);
-		[self setCString:preset ? preset : "default" forKey:@"video_preset_preference"];
+		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
         
         if([[self objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
@@ -434,7 +463,6 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 	NSString *accountHa1 = [self stringForKey:@"ha1_preference"];
 	NSString *accountPassword = [self stringForKey:@"password_preference"];
 	bool isOutboundProxy = [self boolForKey:@"outbound_proxy_preference"];
-	BOOL use_avpf = [[NSUserDefaults standardUserDefaults] boolForKey:@"avpf_preference"];
 
 	if (username && [username length] > 0 && domain && [domain length] > 0) {
 		int expire = [self integerForKey:@"expire_preference"];
@@ -489,6 +517,35 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		const char *identity = linphone_address_as_string_uri_only(linphoneAddress);
 		const char *password = [accountPassword UTF8String];
 		const char *ha1 = [accountHa1 UTF8String];
+        NSString *rtcpFeedbackMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"rtcp_feedback_pref"];
+        
+        if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            if(defaultProxy){
+                linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            }
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
+            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"avpf_preference"];
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            if(defaultProxy){
+                linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
+            }
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
+        }
+        else{
+            linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
+            LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+            if(defaultProxy){
+                linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
+            }
+            lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
+        }
 
 		if (linphone_proxy_config_set_identity(proxyCfg, identity) == -1) {
 			error = NSLocalizedString(@"Invalid username or domain", nil);
@@ -518,7 +575,7 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 		[[LinphoneManager instance] configurePushTokenForProxyConfig:proxyCfg];
 
 		linphone_proxy_config_enable_register(proxyCfg, true);
-		linphone_proxy_config_enable_avpf(proxyCfg, use_avpf);
+        
 		linphone_proxy_config_set_expires(proxyCfg, expire);
 
 		// setup auth info
