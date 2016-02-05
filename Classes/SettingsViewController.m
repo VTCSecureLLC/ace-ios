@@ -33,7 +33,7 @@
 #include "linphone/lpconfig.h"
 #import "InfColorPicker/InfColorPickerController.h"
 #import "DTAlertView.h"
-
+#import <HockeySDK/HockeySDK.h>
 #ifdef DEBUG
 @interface UIDevice (debug)
 
@@ -530,21 +530,21 @@ static UICompositeViewDescription *compositeDescription = nil;
         
         if([rtcpFeedbackMode isEqualToString:@"Implicit"]){
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
             LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
             linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else if([rtcpFeedbackMode isEqualToString:@"Explicit"]){
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFEnabled);
-            [settingsStore setBool:TRUE forKey:@"avpf_preference"];
+            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"avpf_preference"];
             LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
             linphone_proxy_config_enable_avpf(defaultProxy, TRUE);
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 1);
         }
         else{
             linphone_core_set_avpf_mode([LinphoneManager getLc], LinphoneAVPFDisabled);
-            [settingsStore setBool:FALSE forKey:@"avpf_preference"];
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"avpf_preference"];
             LinphoneProxyConfig *defaultProxy = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
             linphone_proxy_config_enable_avpf(defaultProxy, FALSE);
             lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_fb_implicit_rtcp_fb", 0);
@@ -609,6 +609,28 @@ static UICompositeViewDescription *compositeDescription = nil;
             [defaults setBool:enabled forKey:pref];
             [defaults synchronize];
         }
+    }
+    else if([@"video_preferred_size_preference" compare:notif.object] == NSOrderedSame){
+        NSString *value =  [notif.userInfo objectForKey:@"video_preferred_size_preference"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:value forKey:@"video_preferred_size_preference"];
+        [defaults synchronize];
+        
+        MSVideoSize vsize;
+        if([value isEqualToString:@"vga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+        }
+        else if([value isEqualToString:@"cif"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        }
+        else if([value isEqualToString:@"qvga"]){
+            MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
+        }
+        else{
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        }
+
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
     }
     else if([@"h263_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h263_preference"] boolValue]) ? YES : NO;
@@ -1051,6 +1073,12 @@ static BOOL isAdvancedSettings = FALSE;
         [alert addAction:confirm];
         [self presentViewController:alert animated:YES completion:nil];
 
+    }
+    else if([key isEqualToString:@"send_tss_button"]){
+        NSMutableArray *TSS = [[NSMutableArray alloc] init];
+        [TSS addObject:@"\n\nTechnical support sheet:\n"];
+        [TSS addObject:[SystemInfo formatedSystemInformation]];
+        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:TSS];
     }
     else if ([key isEqualToString:@"reset_logs_button"]) {
 		linphone_core_reset_log_collection();

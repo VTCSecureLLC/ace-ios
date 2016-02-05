@@ -485,7 +485,6 @@
 		CE3C6D3E1C2ADA0D002AC233 /* Bubble-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */; };
 		CE3C6D3F1C2ADA0D002AC233 /* Bubble-1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */; };
 		CE3C6D401C2ADA0D002AC233 /* Bubble-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */; };
-		CE624A821C22D674001BC0BA /* config_defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = CE624A811C22D674001BC0BA /* config_defaults.json */; };
 		CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */; };
 		CEFB66981BFF4710001797B3 /* provider5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668C1BFF470F001797B3 /* provider5@2x.png */; };
 		CEFB66991BFF4710001797B3 /* provider4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFB668D1BFF470F001797B3 /* provider4@2x.png */; };
@@ -1807,7 +1806,6 @@
 		CE3C6D3A1C2ADA0D002AC233 /* Bubble-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-0@2x.png"; sourceTree = "<group>"; };
 		CE3C6D3B1C2ADA0D002AC233 /* Bubble-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-1.png"; sourceTree = "<group>"; };
 		CE3C6D3C1C2ADA0D002AC233 /* Bubble-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bubble-1@2x.png"; sourceTree = "<group>"; };
-		CE624A811C22D674001BC0BA /* config_defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_defaults.json; path = Resources/config_defaults.json; sourceTree = "<group>"; };
 		CE624A871C22D981001BC0BA /* DefaultSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSettingsManager.h; sourceTree = "<group>"; };
 		CE624A881C22D981001BC0BA /* DefaultSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSettingsManager.m; sourceTree = "<group>"; };
 		CEFB668C1BFF470F001797B3 /* provider5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "provider5@2x.png"; path = "Resources/provider5@2x.png"; sourceTree = "<group>"; };
@@ -3005,7 +3003,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CE624A811C22D674001BC0BA /* config_defaults.json */,
 				4A2BAB9F1BC50EAE00640476 /* VATRP Images */,
 				73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */,
 				D3C714B2159DB84400705B8E /* hold.wav */,
@@ -5171,7 +5168,6 @@
 				D3C31A8215BD8DED008ED271 /* video_on_default_landscape.png in Resources */,
 				D3C31A8615BD8DED008ED271 /* video_on_over_landscape.png in Resources */,
 				D3A74E5915C68162001500B9 /* toolsbar_background.png in Resources */,
-				CE624A821C22D674001BC0BA /* config_defaults.json in Resources */,
 				50B007BD1BA09C79002C5723 /* options_transfer_over~ipad.png in Resources */,
 				D38187FC15FE356100C3EDCA /* UIMainBar~ipad.xib in Resources */,
 				50B007231BA09C79002C5723 /* dialer_alt_disabled~ipad.png in Resources */,

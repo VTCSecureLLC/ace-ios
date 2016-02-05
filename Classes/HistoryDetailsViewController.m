@@ -313,10 +313,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 			[ContactSelection setSipFilter:nil];
 			[ContactSelection enableEmailFilter:FALSE];
 			[ContactSelection setNameOrEmailFilter:nil];
-			ContactsViewController *controller = DYNAMIC_CAST(
-				[[PhoneMainView instance] changeCurrentView:[ContactsViewController compositeViewDescription]
-													   push:TRUE],
-				ContactsViewController);
+            ContactDetailsViewController *controller = DYNAMIC_CAST(
+                                                                    [[PhoneMainView instance] changeCurrentView:[ContactDetailsViewController compositeViewDescription] push:TRUE],
+                                                                    ContactDetailsViewController);
+            if (controller != nil) {
+                if ([ContactSelection getAddAddress] == nil) {
+                    [controller newContact];
+                } else {
+                    [controller newContact:[ContactSelection getAddAddress]];
+                }
+            }
 			if (controller != nil) {
 			}
 			ms_free(lAddress);

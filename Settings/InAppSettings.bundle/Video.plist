@@ -91,7 +91,6 @@
 			<string>Preferred video size</string>
 			<key>Titles</key>
 			<array>
-				<string>HD (960x720)</string>
 				<string>VGA (640x480)</string>
 				<string>CIF (352×288)</string>
 				<string>QVGA (320x240)</string>
@@ -100,13 +99,10 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
+				<string>vga</string>
+				<string>cif</string>
+				<string>qvga</string>
 			</array>
-			<key>DefaultValue</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -161,16 +157,6 @@
 			<string>Codecs</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>mp4v-es_preference</string>
-			<key>Title</key>
-			<string>MPEG-4</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

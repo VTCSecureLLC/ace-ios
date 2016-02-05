@@ -174,7 +174,7 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 }
 
 - (void)newContact:(NSString *)address {
-	[self selectContact:ABPersonCreate() andReload:NO];
+	[self selectContact:ABPersonCreate() andReload:YES];
 	[self addCurrentContactContactField:address];
 }
 
