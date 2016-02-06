@@ -100,6 +100,14 @@
                 if (currentCall) {
                     LinphoneCallState call_state = linphone_call_get_state(currentCall);
                     if (call_state == LinphoneCallPaused) {
+                        
+                        if (currentCall == instance->currentCallContextBeforeGoingBackground.call) {
+                            const LinphoneCallParams *params = linphone_call_get_current_params(currentCall);
+                            if (linphone_call_params_video_enabled(params)) {
+                                linphone_call_enable_camera(currentCall, instance->currentCallContextBeforeGoingBackground.cameraIsEnabled);
+                            }
+                            instance->currentCallContextBeforeGoingBackground.call = 0;
+                        }
                         linphone_core_resume_call([LinphoneManager getLc], currentCall);
                     }
                 }
