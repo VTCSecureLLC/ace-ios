@@ -83,6 +83,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSTimer *timerCallQuality;
 }
 
+
 @synthesize callTableController;
 @synthesize callTableView;
 @synthesize isRTTEnabled;
@@ -147,7 +148,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
-    
     if(self.incomingTextView){
         [self.incomingTextView setText:@""];
         [self.incomingTextView setHidden:YES];
@@ -1454,6 +1454,125 @@ BOOL didChatResize = NO;
             [callQualityImageView setImage:image];
         }
     }
+}
+
+- (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction
+{
+    return UITextWritingDirectionLeftToRight;
+}
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position
+{
+    return CGRectZero;
+}
+
+- (void)unmarkText
+{
+    
+}
+
+- (UITextRange *)characterRangeAtPoint:(CGPoint)point
+{
+    return nil;
+}
+- (UITextRange *)characterRangeByExtendingPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction
+{
+    return nil;
+}
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point
+{
+    return nil;
+}
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point withinRange:(UITextRange *)range
+{
+    return nil;
+}
+- (NSComparisonResult)comparePosition:(UITextPosition *)position toPosition:(UITextPosition *)other
+{
+    return NSOrderedDescending;
+}
+- (void)dictationRecognitionFailed
+{
+}
+- (void)dictationRecordingDidEnd
+{
+//    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+//    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+//        
+//    }
+}
+- (CGRect)firstRectForRange:(UITextRange *)range
+{
+    return CGRectZero;
+}
+
+- (CGRect)frameForDictationResultPlaceholder:(id)placeholder
+{
+    return CGRectZero;
+}
+- (void)insertDictationResult:(NSArray *)dictationResult
+{
+    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        //String text_mode=prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT");
+        [defaults setObject:@"SIP_SIMPLE" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+        for(UIDictationPhrase *phrase in dictationResult){
+            [self insertText:[phrase text]];
+        }
+        [self insertText:@"\n"];
+        [defaults setObject:@"RTT" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+    }
+}
+- (id)insertDictationResultPlaceholder
+{
+    return @"";
+}
+
+- (NSInteger)offsetFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition
+{
+    return 0;
+}
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset
+{
+    return nil;
+}
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position offset:(NSInteger)offset
+{
+    return nil;
+}
+
+- (UITextPosition *)positionWithinRange:(UITextRange *)range farthestInDirection:(UITextLayoutDirection)direction
+{
+    return nil;
+}
+- (void)removeDictationResultPlaceholder:(id)placeholder willInsertResult:(BOOL)willInsertResult
+{
+}
+- (void)replaceRange:(UITextRange *)range withText:(NSString *)text
+{
+}
+- (NSArray *)selectionRectsForRange:(UITextRange *)range
+{
+    return nil;
+}
+- (void)setBaseWritingDirection:(UITextWritingDirection)writingDirection forRange:(UITextRange *)range
+{
+}
+- (void)setMarkedText:(NSString *)markedText selectedRange:(NSRange)selectedRange
+{
+}
+
+- (NSString *)textInRange:(UITextRange *)range
+{
+    return @"";
+}
+- (UITextRange *)textRangeFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition
+{
+    return [[UITextRange alloc] init];
 }
 
 @end

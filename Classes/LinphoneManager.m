@@ -1733,12 +1733,17 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	LinphoneCall *c = linphone_core_get_current_call(theLinphoneCore);
 	LOGI(@"Sound interruption detected!");
 	if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
-		linphone_core_pause_call(theLinphoneCore, c);
+        linphone_call_set_microphone_volume_gain(c, -1000.0f);
 	}
 }
 
 - (void)endInterruption {
+    LinphoneCall *c = linphone_core_get_current_call(theLinphoneCore);
 	LOGI(@"Sound interruption ended!");
+    if(c){
+        linphone_call_set_microphone_volume_gain(c, 0.0f);        
+    }
+
 }
 
 - (void)refreshRegisters {

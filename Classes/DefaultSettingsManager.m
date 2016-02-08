@@ -47,11 +47,13 @@ static DefaultSettingsManager *sharedInstance = nil;
     
     if ([challenge previousFailureCount] == 0) {
         NSURLCredential *newCredential;
-        newCredential = [NSURLCredential credentialWithUser:@"ruben_1"
-                                                   password:@"topsecret"
+        if(self.sipRegisterUsernames && self.sipRegisterUsernames.count > 0 && self.sipAuthPassword){
+        newCredential = [NSURLCredential credentialWithUser:self.sipRegisterUsernames[0]
+                                                   password:self.sipAuthPassword
                                                 persistence:NSURLCredentialPersistenceNone];
-        [[challenge sender] useCredential:newCredential
-               forAuthenticationChallenge:challenge];
+            [[challenge sender] useCredential:newCredential
+                   forAuthenticationChallenge:challenge];
+        }
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];
     }
@@ -75,7 +77,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 
-- (void)parseDefaultConfigSettings:(NSString*)configAddress {
+- (void)parseDefaultConfigSettings:(NSString*)configAddress{
     //[self parseDefaultConfigSettingsFromURL];
     aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     aiv.center = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view.center;
@@ -118,7 +120,7 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_register_transport"] != [NSNull null])?[dict objectForKey:@"sip_register_transport"]:@"" forKey:@"sip_register_transport"];
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"enable_echo_cancellation"] != [NSNull null])? [dict objectForKey:@"enable_echo_cancellation"]:@"" forKey:@"enable_echo_cancellation"];
-    
+
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"enable_video"] != [NSNull null])?[dict objectForKey:@"enable_video"]:@"" forKey:@"enable_video"];
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"enable_rtt"] != [NSNull null])?[dict objectForKey:@"enable_rtt"]:@"" forKey:@"enable_rtt"];
@@ -241,10 +243,16 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (BOOL)enableVideo {
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_video"]){
+        return YES;
+    }
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_video"];
 }
 
 - (BOOL)enableRtt {
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]){
+        return YES;
+    }
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
 }
 
