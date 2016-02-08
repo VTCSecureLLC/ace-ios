@@ -21,7 +21,7 @@
 #import <AddressBook/AddressBook.h>
 #import "OrderedDictionary.h"
 @import MessageUI;
-@interface ContactsTableViewController : UITableViewController<UIGestureRecognizerDelegate, MFMessageComposeViewControllerDelegate> {
+@interface ContactsTableViewController : UITableViewController<UIGestureRecognizerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate> {
     @private
     OrderedDictionary* addressBookMap;
     NSMutableDictionary* avatarMap;
