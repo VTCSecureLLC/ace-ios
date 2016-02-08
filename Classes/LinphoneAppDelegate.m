@@ -89,6 +89,33 @@
 
 	LinphoneCore *lc = [LinphoneManager getLc];
 	LinphoneCall *call = linphone_core_get_current_call(lc);
+    
+    // Resume current call after accepting/declining incomming audio/video call.
+    if (call == NULL) {
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        if (call_list) {
+            int count = ms_list_size(call_list);
+            if (count) {
+                LinphoneCall *currentCall = (LinphoneCall*)call_list->data;
+                if (currentCall) {
+                    LinphoneCallState call_state = linphone_call_get_state(currentCall);
+                    if (call_state == LinphoneCallPaused) {
+                        
+                        if (currentCall == instance->currentCallContextBeforeGoingBackground.call) {
+                            const LinphoneCallParams *params = linphone_call_get_current_params(currentCall);
+                            if (linphone_call_params_video_enabled(params)) {
+                                linphone_call_enable_camera(currentCall, instance->currentCallContextBeforeGoingBackground.cameraIsEnabled);
+                            }
+                            instance->currentCallContextBeforeGoingBackground.call = 0;
+                        }
+                        linphone_core_resume_call([LinphoneManager getLc], currentCall);
+                    }
+                }
+            }
+        }
+        
+    }
+    
 	if (call) {
 		if (call == instance->currentCallContextBeforeGoingBackground.call) {
 			const LinphoneCallParams *params = linphone_call_get_current_params(call);
