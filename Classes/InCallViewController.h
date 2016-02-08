@@ -28,7 +28,7 @@
 
 @class VideoViewController;
 
-@interface InCallViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICompositeViewDelegate, UIKeyInput> {
+@interface InCallViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICompositeViewDelegate, UITextInput> {
     @private
     UITapGestureRecognizer* singleFingerTap;
     NSTimer* hideControlsTimer;
@@ -53,5 +53,13 @@
 +(InCallViewController*) sharedInstance;
 
 -(BOOL) isRTTEnabled;
+
+@property(nonatomic, readonly) UITextPosition *beginningOfDocument;
+@property(nonatomic, readonly) UITextPosition *endOfDocument;
+@property(nonatomic, assign) id<UITextInputDelegate> inputDelegate;
+@property(nonatomic, readonly) UITextRange *markedTextRange;
+@property(nonatomic, copy) NSDictionary *markedTextStyle;
+@property(readwrite, copy) UITextRange *selectedTextRange;
+@property(nonatomic, readonly) id<UITextInputTokenizer> tokenizer;
 
 @end
