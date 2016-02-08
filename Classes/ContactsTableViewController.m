@@ -145,13 +145,8 @@ UILongPressGestureRecognizer *lpgr;
 
 	for (int i = 0; i < ABMultiValueGetCount(personSipAddresses) && !match; ++i) {
 		CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(personSipAddresses, i);
-		if (CFDictionaryContainsKey(lDict, kABPersonInstantMessageServiceKey)) {
-			CFStringRef serviceKey = CFDictionaryGetValue(lDict, kABPersonInstantMessageServiceKey);
-
-			if (CFStringCompare((CFStringRef)[LinphoneManager instance].contactSipField, serviceKey,
-								kCFCompareCaseInsensitive) == 0) {
+		if (CFDictionaryContainsKey(lDict, @"username")) {
 				match = true;
-			}
 		} else {
 			// check domain
 			LinphoneAddress *address = linphone_address_new(
