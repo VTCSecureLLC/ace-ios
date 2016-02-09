@@ -481,7 +481,7 @@
                                                                     [[PhoneMainView instance] changeCurrentView:[ContactDetailsViewController compositeViewDescription] push:TRUE],
                                                                     ContactDetailsViewController);
             if (controller != nil) {
-                [controller editContact:person];
+                [controller setContact:person];
             }
         }
         // Indicate that we have successfully opened the URL

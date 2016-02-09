@@ -66,7 +66,7 @@ UILongPressGestureRecognizer *lpgr;
     [cell addGestureRecognizer:lpgr];
 }
 
-
+#pragma mark Contact Export
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
@@ -95,17 +95,23 @@ UILongPressGestureRecognizer *lpgr;
                                      [[NSFileManager defaultManager] createDirectoryAtPath:stringPath withIntermediateDirectories:NO attributes:nil error:&error];
                                  if(vcard)
                                  {
-                                    
-                                    MFMessageComposeViewController *composeMessage = [[MFMessageComposeViewController alloc] init];
-                                     [composeMessage addAttachmentData:vcard
-                                                        typeIdentifier:@"public.contact" filename:@"contact.vcard"];
-                                     composeMessage.messageComposeDelegate = self;
-                                     [self presentViewController:composeMessage animated:NO completion:^(void){
-
+                                     MFMailComposeViewController *composeMail =
+                                     [[MFMailComposeViewController alloc] init];
+                                     composeMail.mailComposeDelegate = self;
+                                     [composeMail addAttachmentData:vcard mimeType:@"text/vcard" fileName:@"ACE_contact.vcard"];
+                                     [self presentViewController:composeMail animated:NO completion:^{
                                      }];
+                                    
+//                                    MFMessageComposeViewController *composeMessage = [[MFMessageComposeViewController alloc] init];
+//                                     [composeMessage addAttachmentData:vcard
+//                                                        typeIdentifier:@"public.contact" filename:@"contact.vcard"];
+//                                     composeMessage.messageComposeDelegate = self;
+//                                     [self presentViewController:composeMessage animated:NO completion:^(void){
+//
+//                                     }];
                                      
                                  }
-                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 [alert dismissViewControllerAnimated:NO completion:nil];
                                  
                              }];
         UIAlertAction* cancel = [UIAlertAction
@@ -139,13 +145,8 @@ UILongPressGestureRecognizer *lpgr;
 
 	for (int i = 0; i < ABMultiValueGetCount(personSipAddresses) && !match; ++i) {
 		CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(personSipAddresses, i);
-		if (CFDictionaryContainsKey(lDict, kABPersonInstantMessageServiceKey)) {
-			CFStringRef serviceKey = CFDictionaryGetValue(lDict, kABPersonInstantMessageServiceKey);
-
-			if (CFStringCompare((CFStringRef)[LinphoneManager instance].contactSipField, serviceKey,
-								kCFCompareCaseInsensitive) == 0) {
+		if (CFDictionaryContainsKey(lDict, @"username")) {
 				match = true;
-			}
 		} else {
 			// check domain
 			LinphoneAddress *address = linphone_address_new(
@@ -366,6 +367,10 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
     [controller dismissViewControllerAnimated:NO completion:nil];
 }
 
+#pragma mark MFMailComposeViewControllerDelegate Functions
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [controller dismissViewControllerAnimated:NO completion:nil];
+}
 #pragma mark - UITableViewDelegate Functions
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView

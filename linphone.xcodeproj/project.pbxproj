@@ -440,6 +440,9 @@
 		73400CB71BAF8628002C358D /* resources_selected~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CB01BAF8628002C358D /* resources_selected~ipad.png */; };
 		73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73400CBC1BAF8CAA002C358D /* HelpViewController.m */; };
 		73400CBF1BAF8CAA002C358D /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73400CBD1BAF8CAA002C358D /* HelpViewController.xib */; };
+		737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A0A0D1C65323E00D7D0DB /* libmatroska2.a */; };
+		737A0A141C65355600D7D0DB /* libcorec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A0A131C65355600D7D0DB /* libcorec.a */; };
+		737A0A161C65359400D7D0DB /* libebml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A0A151C65359400D7D0DB /* libebml2.a */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
 		739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */; };
@@ -1761,6 +1764,9 @@
 		73400CBB1BAF8CAA002C358D /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		73400CBC1BAF8CAA002C358D /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		73400CBD1BAF8CAA002C358D /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		737A0A0D1C65323E00D7D0DB /* libmatroska2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmatroska2.a; path = "liblinphone-sdk/apple-darwin/lib/libmatroska2.a"; sourceTree = "<group>"; };
+		737A0A131C65355600D7D0DB /* libcorec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcorec.a; path = "liblinphone-sdk/apple-darwin/lib/libcorec.a"; sourceTree = "<group>"; };
+		737A0A151C65359400D7D0DB /* libebml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libebml2.a; path = "liblinphone-sdk/apple-darwin/lib/libebml2.a"; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelcard.a; path = "liblinphone-sdk/apple-darwin/lib/libbelcard.a"; sourceTree = "<group>"; };
@@ -2573,6 +2579,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */,
 				739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */,
 				739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */,
 				739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */,
@@ -2608,6 +2615,7 @@
 				045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */,
 				220FAD3210765B400068D98F /* libgsm.a in Frameworks */,
 				F476004B147AAF2800FFF19B /* liblinphone.a in Frameworks */,
+				737A0A141C65355600D7D0DB /* libcorec.a in Frameworks */,
 				D37EE10916032DA4003608A6 /* libmediastreamer_base.a in Frameworks */,
 				D37EE10A16032DA4003608A6 /* libmediastreamer_voip.a in Frameworks */,
 				63C5109E1B8F2603008A415A /* libopencore-amrnb.a in Frameworks */,
@@ -2631,6 +2639,7 @@
 				1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */,
 				63D7216D1B73975900D70E65 /* libmsx264.a in Frameworks */,
 				63C510A01B8F48DB008A415A /* libmswebrtc.a in Frameworks */,
+				737A0A161C65359400D7D0DB /* libebml2.a in Frameworks */,
 				226CDAE014E2D0B800513B67 /* libmsbcg729.a in Frameworks */,
 				152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */,
 				344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */,
@@ -3033,6 +3042,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				737A0A151C65359400D7D0DB /* libebml2.a */,
+				737A0A131C65355600D7D0DB /* libcorec.a */,
+				737A0A0D1C65323E00D7D0DB /* libmatroska2.a */,
 				739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */,
 				739F82DF1C4D3ABE002EB5A7 /* libbelr.a */,
 				3192D9261BB5C8F60099B552 /* QuickLook.framework */,
