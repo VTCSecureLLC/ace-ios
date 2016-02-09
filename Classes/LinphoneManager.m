@@ -219,6 +219,7 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 		tunnelMode = FALSE;
 
 		_fileTransferDelegates = [[NSMutableArray alloc] init];
+        _logFileArray = [NSMutableArray new];
 
 		pushCallIDs = [[NSMutableArray alloc] init];
 		photoLibrary = [[ALAssetsLibrary alloc] init];
