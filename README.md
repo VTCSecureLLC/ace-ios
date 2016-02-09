@@ -46,7 +46,8 @@ You can enable non-free codecs by using `--enable-non-free-codecs` and `-DENABLE
         ./prepare.py --list-features
 
 You can for instance enable X264 by using:
-        ./prepare.py -DENABLE_X264=ON [other options]
+
+        ./prepare.py --enable-non-free-codecs -DENABLE_X264=ON [other options]
 
 ## Built architectures
 
