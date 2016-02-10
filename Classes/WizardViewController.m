@@ -253,7 +253,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 -(void) didFinishWithError{
     @try{
-        [self apiSignIn];
+        //Try signing in even though rue config not found via SRV
+        [self initLoginSettingsFields];
     }
     @catch(NSException *e){
         NSLog(@"%@", [e description]);
@@ -546,11 +547,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     if( parsedAddress == NULL || !linphone_address_is_sip(parsedAddress) ){
         if( parsedAddress ) linphone_address_destroy(parsedAddress);
-        
-        //NSAlert *alert = [[NSAlert alloc]init];
-       // [alert addButtonWithTitle:NSLocalizedString(@"Continue",nil)];
-        //[alert setMessageText:NSLocalizedString(@"Please enter a valid username", nil)];
-        //[alert runModal];
+//        
+//        NSAlert *alert = [[NSAlert alloc]init];
+//        [alert addButtonWithTitle:NSLocalizedString(@"Continue",nil)];
+//        [alert setMessageText:NSLocalizedString(@"Please enter a valid username", nil)];
+//        [alert runModal];
         
         return FALSE;
     }
@@ -1047,8 +1048,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     int port_value = [port_string intValue];
     
     int port = port_value;
-    
-    
     
     [self verificationSignInWithUsername:username password:password domain:domain withTransport:transport port:port];
 }
@@ -1596,7 +1595,13 @@ UIAlertView *transportAlert;
     // logging
     linphone_core_set_log_level([self logLevel:[DefaultSettingsManager sharedInstance].logging]);
     linphone_core_set_log_handler((OrtpLogFunc)linphone_iphone_log_handler);
-    
+    LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+    if(cfg){
+        //If autoconfig fails, but you have a valid proxy config, continue to register
+        [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
+        linphone_proxy_config_enable_register(cfg, TRUE);
+        [[LinphoneManager instance] refreshRegisters];
+    }
     // sip_mwi_uri - ?
     
     // sip_videomail_uri - ?
