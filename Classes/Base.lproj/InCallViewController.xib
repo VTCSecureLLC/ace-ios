@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -25,25 +25,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="126" userLabel="video">
+                <view clearsContextBeforeDrawing="NO" contentMode="center" id="126" userLabel="video">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="173" userLabel="background">
+                        <view clearsContextBeforeDrawing="NO" contentMode="center" id="173" userLabel="background">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleAspectFit" id="132" userLabel="display">
+                        <view clearsContextBeforeDrawing="NO" contentMode="center" id="132" userLabel="display">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" notEnabled="YES"/>
                             </accessibility>
                         </view>
-                        <view contentMode="scaleAspectFit" id="127" userLabel="preview">
-                            <rect key="frame" x="216.00000029802322" y="323.99999943931942" width="96" height="128"/>
+                        <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" id="127" userLabel="preview">
+                            <rect key="frame" x="216" y="324" width="96" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -80,11 +80,11 @@
                     </connections>
                 </button>
                 <scrollView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" directionalLockEnabled="YES" id="lWv-LR-9pt">
-                    <rect key="frame" x="8" y="267" width="304.00000029802322" height="122"/>
+                    <rect key="frame" x="8" y="267" width="304" height="122"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="Nfp-G3-oLm">
-                            <rect key="frame" x="8" y="8" width="288.00000029802322" height="106"/>
+                            <rect key="frame" x="8" y="8" width="288" height="106"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
@@ -107,7 +107,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="220" y="286"/>
+            <point key="canvasLocation" x="35" y="379"/>
         </view>
         <tableViewController id="162" userLabel="callTableController" customClass="InCallTableViewController">
             <extendedEdge key="edgesForExtendedLayout"/>

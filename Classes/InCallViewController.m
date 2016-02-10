@@ -43,6 +43,14 @@ const NSInteger NO_TEXT=-1;
 const NSInteger RTT=0;
 const NSInteger SIP_SIMPLE=1;
 
+typedef NS_ENUM(NSInteger, CallQualityStatus) {
+    CallQualityStatusBad,
+    CallQualityStatusMedium,
+    CallQualityStatusGood,
+    CallQualityStatusNone
+};
+
+
 @interface InCallViewController() <BubbleTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 
@@ -55,6 +63,8 @@ const NSInteger SIP_SIMPLE=1;
     @property RTTMessageModel *localTextBuffer;
     @property RTTMessageModel *remoteTextBuffer;
     @property UIColor *localColor;
+    @property UIImageView *cameraStatusModeImageView;
+    @property UIView *blackCurtain;
 
 @property BOOL isRTTLocallyEnabled;
 @property (weak, nonatomic) IBOutlet UIScrollView *minimizedTextScrollView;
@@ -70,7 +80,11 @@ const NSInteger SIP_SIMPLE=1;
     int RTT_MAX_PARAGRAPH_CHAR;
     int RTT_SOFT_MAX_PARAGRAPH_CHAR;
     UIImageView *callOnHoldImageView;
+    UIImageView *callQualityImageView;
+    CallQualityStatus callQualityStatus;
+    NSTimer *timerCallQuality;
 }
+
 
 @synthesize callTableController;
 @synthesize callTableView;
@@ -91,6 +105,7 @@ static InCallViewController *instance;
 	if (self != nil) {
 		self->singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls:)];
 		self->videoZoomHandler = [[VideoZoomHandler alloc] init];
+        callQualityStatus = CallQualityStatusNone;
 	}
 	return self;
 }
@@ -135,7 +150,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	[[PhoneMainView instance] setVolumeHidden:TRUE];
 	hiddenVolume = TRUE;
-    
     if(self.incomingTextView){
         [self.incomingTextView setText:@""];
         [self.incomingTextView setHidden:YES];
@@ -156,11 +170,12 @@ static UICompositeViewDescription *compositeDescription = nil;
         [self.tableView setHidden:YES];
     }
     self.isChatMode = NO;
-    
-    self.isRTTLocallyEnabled = YES;
-
     if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]){
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
+        self.isRTTLocallyEnabled = YES;
     }
 }
 
@@ -183,6 +198,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    [_blackCurtain removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -192,6 +209,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 											 selector:@selector(callUpdateEvent:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoModeUpdate:)
+                                                 name:kLinphoneVideModeUpdate
+                                               object:nil];
 
 	// Update on show
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
@@ -218,7 +239,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     else{
         linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
     }
-
+            self.isRTTEnabled = YES;
+            self.isRTTLocallyEnabled = YES;
+    
+    self.incomingTextView.layoutManager.allowsNonContiguousLayout = FALSE;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -288,20 +312,30 @@ CGPoint incomingTextChatModePos;
     
     instance = self;
     [self loadRTTChatTableView];
+    
+    _cameraStatusModeImageView = [[UIImageView alloc] initWithFrame:self.videoGroup.bounds];
+    _cameraStatusModeImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _blackCurtain = [[UIView alloc] initWithFrame:self.videoGroup.bounds];
+    [_blackCurtain setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
 	[[PhoneMainView instance].view removeGestureRecognizer:singleFingerTap];
 }
-
+BOOL hasStartedStream = NO;
 -(BOOL) isRTTEnabled{
+    if(!hasStartedStream){
+        return YES;
+    }
     return isRTTEnabled;
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	// in mode display_filter_auto_rotate=0, no need to rotate the preview
+    _blackCurtain.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    _cameraStatusModeImageView.frame = _blackCurtain.frame;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -353,7 +387,6 @@ CGPoint incomingTextChatModePos;
         
         if(!self.isRTTLocallyEnabled){
             linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), FALSE);
-            self.isRTTEnabled = NO;
         }
 	}
 	case LinphoneCallConnected:
@@ -371,6 +404,13 @@ CGPoint incomingTextChatModePos;
                     self.isRTTEnabled = NO;
                 }
             }
+            else{
+                self.isRTTEnabled = NO;
+            }
+            hasStartedStream = YES;
+        }
+        else{
+            self.isRTTEnabled = YES;
         }
 		// check video
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
@@ -405,6 +445,15 @@ CGPoint incomingTextChatModePos;
 				callAppData->videoRequested = FALSE; /*reset field*/
 			}
 		}
+        
+        timerCallQuality = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                            target:self
+                                                          selector:@selector(callQualityTimerBody)
+                                                          userInfo:nil
+                                                           repeats:YES];
+        
+        [self createCallQuality];
+        
 		break;
 	}
 	case LinphoneCallUpdatedByRemote: {
@@ -437,6 +486,10 @@ CGPoint incomingTextChatModePos;
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
+        
+        [timerCallQuality invalidate];
+        timerCallQuality = nil;
+        
 		break;
 	}
 	default:
@@ -471,7 +524,6 @@ CGPoint incomingTextChatModePos;
 														   userInfo:nil
 															repeats:NO];
 	}
-    
 }
 
 - (void)hideControls:(id)sender {
@@ -508,10 +560,8 @@ CGPoint incomingTextChatModePos;
 - (void)enableVideoDisplay:(BOOL)animation {
 	if (videoShown && animation)
 		return;
-
+    
 	videoShown = true;
-
-	[videoZoomHandler resetZoom];
 
 	if (animation) {
 		[UIView beginAnimations:nil context:nil];
@@ -602,11 +652,11 @@ CGPoint incomingTextChatModePos;
 }
 
 - (void)displayVideoCall:(BOOL)animated {
-	[self enableVideoDisplay:animated];
+	[self enableVideoDisplay:FALSE];
 }
 
 - (void)displayTableCall:(BOOL)animated {
-	[self disableVideoDisplay:animated];
+	[self disableVideoDisplay:FALSE];
 }
 
 #pragma mark - Spinner Functions
@@ -1016,8 +1066,9 @@ NSMutableString *msgBuffer;
             [msgBuffer appendString:text];
             [self.incomingTextView setText:msgBuffer];
             if(self.incomingTextView.text.length > 0 ) {
-                NSRange bottom = NSMakeRange(self.incomingTextView.text.length -1, 1);
-                [self.incomingTextView scrollRangeToVisible:bottom];
+                NSRange range = NSMakeRange(self.incomingTextView.text.length-1, 1);
+                [self.incomingTextView scrollRangeToVisible:range];
+
             }
         }
     }
@@ -1149,6 +1200,18 @@ NSMutableString *minimizedTextBuffer;
         [self becomeFirstResponder];
         msgBuffer = [[NSMutableString alloc] initWithString:@""];
         [self.incomingTextView setText:msgBuffer];
+    }
+}
+
+- (void)videoModeUpdate:(NSNotification*)notif {
+    NSString *videoMode = [notif.userInfo objectForKey: @"videoModeStatus"];
+    if ([videoMode isEqualToString:@"camera_mute_off"]) {
+        [_cameraStatusModeImageView setImage:[UIImage imageNamed:@"camera_mute.png"]];
+        [_blackCurtain addSubview:_cameraStatusModeImageView];
+        [self.videoGroup insertSubview:_blackCurtain belowSubview:self.videoPreview];
+    }
+    if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
+        [_blackCurtain removeFromSuperview];
     }
 }
 
@@ -1363,6 +1426,180 @@ BOOL didChatResize = NO;
     NSDate *date2036 = [dateFormatter dateFromString:@"2036-01-01"];
     self.year2037TimeStamp = [date2037 timeIntervalSince1970];
     self.year2036TimeStamp = [date2036 timeIntervalSince1970];
+}
+
+- (void) createCallQuality {
+    if (!callQualityImageView) {
+        UIImage *image = [UIImage imageNamed:@"RTPquality_medium.png"];
+        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 30) resizingMode:UIImageResizingModeStretch];
+        callQualityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        [callQualityImageView setImage:image];
+        [callQualityImageView setBackgroundColor:[UIColor clearColor]];
+        
+        PhoneMainView *phoneMainView = [PhoneMainView instance];
+        [phoneMainView.view addSubview:callQualityImageView];
+    }
+}
+
+- (void) callQualityTimerBody {
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+
+    if (!callQualityImageView || !call)
+        return;
+
+    float quality = linphone_call_get_current_quality(call);
+    CallQualityStatus tmpCallQualityStatus;
+    if (quality < 2) {
+        tmpCallQualityStatus = CallQualityStatusBad;
+    } else if (quality < 3) {
+        tmpCallQualityStatus = CallQualityStatusMedium;
+    } else {
+        tmpCallQualityStatus = CallQualityStatusGood;
+    }
+
+    if (callQualityStatus != tmpCallQualityStatus) {
+        callQualityStatus = tmpCallQualityStatus;
+        UIImage *image = nil;
+
+        switch (callQualityStatus) {
+            case CallQualityStatusBad: {
+                image = [UIImage imageNamed:@"RTPquality_bad.png"];
+            }
+                break;
+            case CallQualityStatusMedium: {
+                image = [UIImage imageNamed:@"RTPquality_medium.png"];
+            }
+                break;
+            default:
+                break;
+        }
+
+        if (!image) {
+            [callQualityImageView setImage:image];
+        } else {
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch];
+            [callQualityImageView setImage:image];
+        }
+    }
+}
+
+- (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction
+{
+    return UITextWritingDirectionLeftToRight;
+}
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position
+{
+    return CGRectZero;
+}
+
+- (void)unmarkText
+{
+    
+}
+
+- (UITextRange *)characterRangeAtPoint:(CGPoint)point
+{
+    return nil;
+}
+- (UITextRange *)characterRangeByExtendingPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction
+{
+    return nil;
+}
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point
+{
+    return nil;
+}
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point withinRange:(UITextRange *)range
+{
+    return nil;
+}
+- (NSComparisonResult)comparePosition:(UITextPosition *)position toPosition:(UITextPosition *)other
+{
+    return NSOrderedDescending;
+}
+- (void)dictationRecognitionFailed
+{
+}
+- (void)dictationRecordingDidEnd
+{
+//    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+//    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+//        
+//    }
+}
+- (CGRect)firstRectForRange:(UITextRange *)range
+{
+    return CGRectZero;
+}
+
+- (CGRect)frameForDictationResultPlaceholder:(id)placeholder
+{
+    return CGRectZero;
+}
+- (void)insertDictationResult:(NSArray *)dictationResult
+{
+    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        //String text_mode=prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT");
+        [defaults setObject:@"SIP_SIMPLE" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+        for(UIDictationPhrase *phrase in dictationResult){
+            [self insertText:[phrase text]];
+        }
+        [self insertText:@"\n"];
+        [defaults setObject:@"RTT" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+    }
+}
+- (id)insertDictationResultPlaceholder
+{
+    return @"";
+}
+
+- (NSInteger)offsetFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition
+{
+    return 0;
+}
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset
+{
+    return nil;
+}
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position offset:(NSInteger)offset
+{
+    return nil;
+}
+
+- (UITextPosition *)positionWithinRange:(UITextRange *)range farthestInDirection:(UITextLayoutDirection)direction
+{
+    return nil;
+}
+- (void)removeDictationResultPlaceholder:(id)placeholder willInsertResult:(BOOL)willInsertResult
+{
+}
+- (void)replaceRange:(UITextRange *)range withText:(NSString *)text
+{
+}
+- (NSArray *)selectionRectsForRange:(UITextRange *)range
+{
+    return nil;
+}
+- (void)setBaseWritingDirection:(UITextWritingDirection)writingDirection forRange:(UITextRange *)range
+{
+}
+- (void)setMarkedText:(NSString *)markedText selectedRange:(NSRange)selectedRange
+{
+}
+
+- (NSString *)textInRange:(UITextRange *)range
+{
+    return @"";
+}
+- (UITextRange *)textRangeFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition
+{
+    return [[UITextRange alloc] init];
 }
 
 @end

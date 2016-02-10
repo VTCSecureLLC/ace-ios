@@ -182,7 +182,7 @@
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
-			<integer>620</integer>
+			<integer>720</integer>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -194,7 +194,7 @@
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
-			<integer>620</integer>
+			<integer>720</integer>
 		</dict>
 	</array>
 </dict>

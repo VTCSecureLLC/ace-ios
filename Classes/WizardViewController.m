@@ -48,6 +48,7 @@ typedef enum _ViewElement {
     UIImageView *providerButtonLeftImageView;
     UIImageView *providerButtonRightImageView;
     BOOL acceptButtonClicked;
+    UIAlertView *registrationError;
 }
 @synthesize contentView;
 
@@ -615,11 +616,22 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
+    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+
+        MSVideoSize vsize;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"Off" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     // video_resolution_maximum
     if (!first) {
         MSVideoSize vsize;
-        
-        NSString *videoPreferredSize = [DefaultSettingsManager sharedInstance].videoResolutionMaximum;
+        NSString *videoPreferredSize = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preferred_size_preference"]; //[DefaultSettingsManager sharedInstance].videoResolutionMaximum;
         
         if ([videoPreferredSize isEqualToString:@"cif"]) {
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
@@ -761,12 +773,16 @@ static UICompositeViewDescription *compositeDescription = nil;
 		if ([message isEqualToString:@"Forbidden"]) {
 			message = NSLocalizedString(@"Incorrect username or password.", nil);
 		}
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
+        if(!registrationError){
+            registrationError = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
 														message:message
 													   delegate:nil
 											  cancelButtonTitle:@"OK"
 											  otherButtonTitles:nil];
-		[alert show];
+        }
+        if(!registrationError.visible){
+            [registrationError show];
+        }
 		break;
 	}
 	case LinphoneRegistrationProgress: {
@@ -896,6 +912,13 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *rueConfigFormatURL = @"_rueconfig._tls.%domain%";
 
     NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
+    NSMutableArray *username = [[NSMutableArray alloc] initWithObjects:self.textFieldUsername.text, nil];
+
+    [[DefaultSettingsManager sharedInstance] setSipRegisterUserNames:username];
+    [[DefaultSettingsManager sharedInstance] setSipAuthUsername:self.textFieldUserId.text];
+    [[DefaultSettingsManager sharedInstance] setSipAuthPassword:self.textFieldPassword.text];
+    [[DefaultSettingsManager sharedInstance] setSipRegisterDomain:self.textFieldDomain.text];
+    [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
 }
 

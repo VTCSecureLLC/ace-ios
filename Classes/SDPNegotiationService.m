@@ -21,7 +21,7 @@ struct codec_name_pref_table codec_pref_table[]={
     { "pcma", 8000, "pcma_preference"},
     { "g722", 8000, "g722_preference"},
     { "g729", 8000, "g729_preference"},
-    { "mp4v-es", 90000, "mp4v-es_preference"},
+//    { "mp4v-es", 90000, "mp4v-es_preference"},
     { "h264", 90000, "h264_preference"},
     { "h263", 90000, "h263_preference"},
     { "vp8", 90000, "vp8_preference"},

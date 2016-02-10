@@ -190,16 +190,12 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 				ABMultiValueIdentifier identifier = ABMultiValueGetIdentifierAtIndex(lMap, i);
 				CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(lMap, i);
 				BOOL add = false;
-				if (CFDictionaryContainsKey(lDict, kABPersonInstantMessageServiceKey)) {
-					if (CFStringCompare((CFStringRef)[LinphoneManager instance].contactSipField,
-										CFDictionaryGetValue(lDict, kABPersonInstantMessageServiceKey),
-										kCFCompareCaseInsensitive) == 0) {
+				if (CFDictionaryContainsKey(lDict, @"username")) {
 						add = true;
-					}
 				} else {
 					// check domain
 					LinphoneAddress *address = linphone_address_new(
-						[(NSString *)CFDictionaryGetValue(lDict, kABPersonInstantMessageUsernameKey) UTF8String]);
+						[(NSString *)CFDictionaryGetValue(lDict, @"username") UTF8String]);
 					if (address) {
 						if ([[ContactSelection getSipFilter] compare:@"*" options:NSCaseInsensitiveSearch] ==
 							NSOrderedSame) {
@@ -292,12 +288,12 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 
 		if ([lDict objectForKey:(__bridge NSString *)kABPersonInstantMessageServiceKey] == nil) {
 			/*too bad probably a gtalk number, storing uri*/
-			NSString *username = [lDict objectForKey:(NSString *)kABPersonInstantMessageUsernameKey];
+			NSString *username = [lDict objectForKey:(NSString *)@"username"];
 			LinphoneAddress *address = linphone_core_interpret_url([LinphoneManager getLc], [username UTF8String]);
 			if (address) {
 				char *uri = linphone_address_as_string_uri_only(address);
 				NSDictionary *dict2 = @{
-					(NSString *)kABPersonInstantMessageUsernameKey :
+					(NSString *)@"username" :
 									[NSString stringWithCString:uri encoding:[NSString defaultCStringEncoding]],
 								(NSString *)
 					kABPersonInstantMessageServiceKey : [LinphoneManager instance].contactSipField
@@ -560,7 +556,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
                                 action:@selector(onProviderPickerClicked:)forControlEvents:UIControlEventTouchUpInside];
         
 		CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(lMap, index);
-		value = (__bridge NSString *)(CFDictionaryGetValue(lDict, kABPersonInstantMessageUsernameKey));
+		value = (__bridge NSString *)(CFDictionaryGetValue(lDict, @"username"));
 		if (value != NULL) {
 			LinphoneAddress *addr = NULL;
 			if ([[LinphoneManager instance] lpConfigBoolForKey:@"contact_display_username_only"] &&
@@ -700,7 +696,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 			ABMultiValueRef lMap = ABRecordCopyValue(contact, kABPersonInstantMessageProperty);
 			NSInteger index = ABMultiValueGetIndexForIdentifier(lMap, [entry identifier]);
 			CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(lMap, index);
-			NSString *valueRef = (__bridge NSString *)(CFDictionaryGetValue(lDict, kABPersonInstantMessageUsernameKey));
+			NSString *valueRef = (__bridge NSString *)(CFDictionaryGetValue(lDict, @"username"));
 			dest = [FastAddressBook normalizeSipURI:(NSString *)valueRef];
 			CFRelease(lDict);
 			CFRelease(lMap);
