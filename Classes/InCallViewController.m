@@ -199,6 +199,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    [_blackCurtain removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
