@@ -21,6 +21,7 @@
 #include "linphone/linphonecore.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/utsname.h>
+#import "LinphoneManager.h"
 
 @implementation LinphoneLogger
 
@@ -48,29 +49,42 @@ void linphone_iphone_log_handler(int lev, const char *fmt, va_list args) {
 	NSString *format = [[NSString alloc] initWithUTF8String:fmt];
 	NSString *formatedString = [[NSString alloc] initWithFormat:format arguments:args];
 	char levelC = 'I';
-	switch ((OrtpLogLevel)lev) {
-	case ORTP_FATAL:
-		levelC = 'F';
-		break;
-	case ORTP_ERROR:
-		levelC = 'E';
-		break;
-	case ORTP_WARNING:
-		levelC = 'W';
-		break;
-	case ORTP_MESSAGE:
-		levelC = 'I';
-		break;
-	case ORTP_TRACE:
-	case ORTP_DEBUG:
-		levelC = 'D';
-		break;
-	case ORTP_LOGLEV_END:
-		return;
-	}
+    switch ((OrtpLogLevel)lev) {
+        case ORTP_FATAL:
+            levelC = 'F';
+            break;
+        case ORTP_ERROR:
+            levelC = 'E';
+            break;
+        case ORTP_WARNING:
+            levelC = 'W';
+            break;
+        case ORTP_MESSAGE:
+            levelC = 'I';
+            break;
+        case ORTP_TRACE:
+        case ORTP_DEBUG:
+            levelC = 'D';
+            break;
+        case ORTP_LOGLEV_END:
+            return;
+    }
 	// since \r are interpreted like \n, avoid double new lines when logging packets
     NSLog(@"%c %@, %@ Core %s", levelC, [formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
           linphone_core_get_version());
+    
+    NSString *line = [[[[[[[NSString stringWithFormat:@"%c", levelC] stringByAppendingString:@"-"] stringByAppendingString:[formatedString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"]] stringByAppendingString:@"-"] stringByAppendingString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]] stringByAppendingString:@" - "] stringByAppendingString:[NSString stringWithUTF8String:linphone_core_get_version()]];
+    
+    NSString *enterLine = [line stringByAppendingString:@"\n"];
+    
+    @try {
+        [[[LinphoneManager instance] logFileArray] addObject:enterLine];
+        
+        if ([[LinphoneManager instance] logFileArray].count > 1000 ) {
+            [[[LinphoneManager instance] logFileArray] removeObjectAtIndex:0];
+        }
+    }
+    @catch (NSException *exception) { }
 }
 
 @end
