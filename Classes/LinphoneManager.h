@@ -55,6 +55,7 @@ extern NSString *const kLinphoneGlobalStateUpdate;
 extern NSString *const kLinphoneNotifyReceived;
 extern NSString *const kLinphoneFileTransferSendUpdate;
 extern NSString *const kLinphoneFileTransferRecvUpdate;
+extern NSString *const kLinphoneVideModeUpdate;
 
 typedef enum _NetworkType {
     network_none = 0,
