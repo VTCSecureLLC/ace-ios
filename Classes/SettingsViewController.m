@@ -507,6 +507,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 		NSString *stun_server = [notif.userInfo objectForKey:@"stun_preference"];
 		removeFromHiddenKeys = (stun_server && ([stun_server length] > 0));
 		[keys addObject:@"ice_preference"];
+        if(removeFromHiddenKeys && linphone_core_get_firewall_policy([LinphoneManager getLc]) != LinphonePolicyUseStun && linphone_core_get_firewall_policy([LinphoneManager getLc]) != LinphonePolicyUseIce){
+            linphone_core_set_firewall_policy([LinphoneManager getLc], LinphonePolicyUseStun);
+        }
 	} else if ([@"debugenable_preference" compare:notif.object] == NSOrderedSame) {
 		BOOL debugEnabled = [[notif.userInfo objectForKey:@"debugenable_preference"] boolValue];
 		removeFromHiddenKeys = debugEnabled;
@@ -525,6 +528,18 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
 	}
+    else if([@"ice_preference" compare:notif.object] == NSOrderedSame){
+        BOOL iceEnabled = [[notif.userInfo objectForKey:@"ice_preference"] boolValue];
+        LinphoneFirewallPolicy policy;
+        
+        /**< Use the ICE protocol */
+        if(iceEnabled){ policy = LinphonePolicyUseIce; }
+
+        /**< Use a STUN server to get the public address */
+        else{ policy = LinphonePolicyUseStun; }
+        
+        linphone_core_set_firewall_policy([LinphoneManager getLc], policy);
+    }
     else if([@"rtcp_feedback_pref" compare:notif.object] == NSOrderedSame){
 		NSString *rtcpFeedbackMode = [notif.userInfo objectForKey:@"rtcp_feedback_pref"];
         
