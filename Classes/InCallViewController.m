@@ -63,6 +63,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     @property RTTMessageModel *localTextBuffer;
     @property RTTMessageModel *remoteTextBuffer;
     @property UIColor *localColor;
+    @property UIImageView *cameraStatusModeImageView;
+    @property UIView *blackCurtain;
 
 @property BOOL isRTTLocallyEnabled;
 @property (weak, nonatomic) IBOutlet UIScrollView *minimizedTextScrollView;
@@ -196,6 +198,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    [_blackCurtain removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -205,6 +209,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 											 selector:@selector(callUpdateEvent:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoModeUpdate:)
+                                                 name:kLinphoneVideModeUpdate
+                                               object:nil];
 
 	// Update on show
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
@@ -304,6 +312,11 @@ CGPoint incomingTextChatModePos;
     
     instance = self;
     [self loadRTTChatTableView];
+    
+    _cameraStatusModeImageView = [[UIImageView alloc] initWithFrame:self.videoGroup.bounds];
+    _cameraStatusModeImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _blackCurtain = [[UIView alloc] initWithFrame:self.videoGroup.bounds];
+    [_blackCurtain setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)viewDidUnload {
@@ -321,6 +334,8 @@ BOOL hasStartedStream = NO;
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	// in mode display_filter_auto_rotate=0, no need to rotate the preview
+    _blackCurtain.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    _cameraStatusModeImageView.frame = _blackCurtain.frame;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -1185,6 +1200,18 @@ NSMutableString *minimizedTextBuffer;
         [self becomeFirstResponder];
         msgBuffer = [[NSMutableString alloc] initWithString:@""];
         [self.incomingTextView setText:msgBuffer];
+    }
+}
+
+- (void)videoModeUpdate:(NSNotification*)notif {
+    NSString *videoMode = [notif.userInfo objectForKey: @"videoModeStatus"];
+    if ([videoMode isEqualToString:@"camera_mute_off"]) {
+        [_cameraStatusModeImageView setImage:[UIImage imageNamed:@"camera_mute.png"]];
+        [_blackCurtain addSubview:_cameraStatusModeImageView];
+        [self.videoGroup insertSubview:_blackCurtain belowSubview:self.videoPreview];
+    }
+    if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
+        [_blackCurtain removeFromSuperview];
     }
 }
 
