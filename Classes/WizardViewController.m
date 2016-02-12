@@ -618,15 +618,15 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"vga" forKey:@"video_preferred_size_preference"];
 
         MSVideoSize vsize;
         MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Off" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum

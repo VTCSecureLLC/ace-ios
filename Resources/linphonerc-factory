@@ -9,6 +9,13 @@ dtmf_player_amp=0.007
 eq_location=mic
 eq_gains=50:2:50 100:2:50
 
+[net]
+download_bw=1500
+upload_bw=1500
+firewall_policy=ice
+stun_server=bc1.vatrp.net
+
+
 [video]
 display_filter_auto_rotate=0
 
