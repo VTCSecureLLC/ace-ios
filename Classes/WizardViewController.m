@@ -210,9 +210,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.textFieldPort.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldPort.layer setBorderWidth:1.0];
     [self.textFieldPort.layer setCornerRadius:5];
+    self.textFieldPort.text = @"25060";
     [self.transportTextField.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.transportTextField.layer setBorderWidth:1.0];
     [self.transportTextField.layer setCornerRadius:5];
+    self.transportTextField.text = @"TCP";
     [self.transportTextField setDelegate:self];
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
@@ -1599,9 +1601,10 @@ UIAlertView *transportAlert;
     if(cfg){
         //If autoconfig fails, but you have a valid proxy config, continue to register
         [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
-        linphone_proxy_config_enable_register(cfg, TRUE);
-        if(!linphone_proxy_config_is_registered(cfg)){
-            [[LinphoneManager instance] refreshRegisters];
+        if(linphone_proxy_config_get_state(cfg) != LinphoneRegistrationOk || linphone_proxy_config_get_state(cfg) != LinphoneRegistrationProgress){
+            linphone_proxy_config_enable_register(cfg, TRUE);
+            //linphone_proxy_config_refresh_register(cfg);
+            linphone_core_refresh_registers([LinphoneManager getLc]);
         }
     }
     // sip_mwi_uri - ?
