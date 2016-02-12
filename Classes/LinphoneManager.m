@@ -73,6 +73,7 @@ NSString *const kLinphoneGlobalStateUpdate = @"LinphoneGlobalStateUpdate";
 NSString *const kLinphoneNotifyReceived = @"LinphoneNotifyReceived";
 NSString *const kLinphoneFileTransferSendUpdate = @"LinphoneFileTransferSendUpdate";
 NSString *const kLinphoneFileTransferRecvUpdate = @"LinphoneFileTransferRecvUpdate";
+NSString *const kLinphoneVideModeUpdate = @"LinphoneVideoModeUpdate";
 
 const int kLinphoneAudioVbrCodecDefaultBitrate = 36; /*you can override this from linphonerc or linphonerc-factory*/
 
@@ -221,6 +222,7 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 		tunnelMode = FALSE;
 
 		_fileTransferDelegates = [[NSMutableArray alloc] init];
+        _logFileArray = [NSMutableArray new];
 
 		pushCallIDs = [[NSMutableArray alloc] init];
 		photoLibrary = [[ALAssetsLibrary alloc] init];
@@ -1004,6 +1006,22 @@ static void linphone_iphone_notify_received(LinphoneCore *lc, LinphoneEvent *lev
 																		  content:body];
 }
 
+static void linphone_info_received (LinphoneCore *lc, LinphoneCall *call, const LinphoneInfoMessage *msg)
+{
+    [(__bridge LinphoneManager*)linphone_core_get_user_data(lc) notifyReceived:lc withCall:call andMessage:msg];
+}
+
+- (void)notifyReceived:(LinphoneCore*)core withCall:(LinphoneCall*)call andMessage:(const LinphoneInfoMessage *)msg{
+    LinphoneCall* currentCall = linphone_core_get_current_call(theLinphoneCore);
+    if (call == currentCall) {
+        const char* videoModeStatus = linphone_info_message_get_header(msg, "action");
+        NSDictionary *dict = @{@"videoModeStatus": [NSString stringWithUTF8String:videoModeStatus]
+                               };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneVideModeUpdate object:self userInfo:dict];
+    }
+}
+
+
 #pragma mark - Message composition start
 
 - (void)onMessageComposeReceived:(LinphoneCore *)core forRoom:(LinphoneChatRoom *)room {
@@ -1295,7 +1313,8 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 											  .is_composing_received = linphone_iphone_is_composing_received,
 											  .configuring_status = linphone_iphone_configuring_status_changed,
 											  .global_state_changed = linphone_iphone_global_state_changed,
-											  .notify_received = linphone_iphone_notify_received};
+											  .notify_received = linphone_iphone_notify_received,
+                                              .info_received = linphone_info_received};
 
 #pragma mark -
 

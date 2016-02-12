@@ -12,6 +12,7 @@
 #import "LinphoneIOSVersion.h"
 #import "ResourcesViewController.h"
 #import "PhoneMainView.h"
+#import "LinphoneManager.h"
 @interface HelpViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -51,7 +52,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
   
     if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Instant Feedback"]){
-        NSMutableArray *deviceStats = [[NSMutableArray alloc] init];
+        
+        NSMutableArray *items = [[NSMutableArray alloc] init];
         
         struct utsname systemInfo;
         uname(&systemInfo);
@@ -59,9 +61,18 @@
         NSString *deviceInfo = [NSString stringWithFormat:@"\n \n \n%@ %@ %@ \n\n ACE: %@",
                                 [NSString stringWithCString:systemInfo.machine
                                                    encoding:NSUTF8StringEncoding], [[UIDevice currentDevice] systemName], [[UIDevice currentDevice] systemVersion], @"Beta"];
-        [deviceStats addObject:deviceInfo];
+        [items addObject:deviceInfo];
+        //NSData *dataArray = [NSKeyedArchiver archivedDataWithRootObject:[LinphoneManager instance].logFileArray];
+        NSArray *array = [NSArray new];
+        array  = [[[LinphoneManager instance] logFileArray] mutableCopy];
         
-        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:deviceStats];
+        NSString * logFilePath = [self logFilePath];
+        [array writeToFile:logFilePath atomically:YES];
+    
+        NSData *logFileData = [NSData dataWithContentsOfFile:logFilePath];
+        [items addObject:logFileData];
+        
+        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:items];
     }
     
     else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Deaf / Hard of Hearing Resources"]){
@@ -76,7 +87,23 @@
             [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
         }
     }
-    
+}
+
+- (NSString*)logFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logFilePath = [NSString stringWithFormat:@"%@/linphoneLogFile.text",
+                             documentsDirectory];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:logFilePath];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (!fileExists) {
+        BOOL success = [fm createFileAtPath:logFilePath contents:nil attributes:nil];
+        if (!success) {
+            NSLog(@"Failed to create a linphone log file");
+        }
+    }
+    return logFilePath;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

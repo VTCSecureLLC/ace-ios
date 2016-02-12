@@ -43,6 +43,14 @@ const NSInteger NO_TEXT=-1;
 const NSInteger RTT=0;
 const NSInteger SIP_SIMPLE=1;
 
+typedef NS_ENUM(NSInteger, CallQualityStatus) {
+    CallQualityStatusBad,
+    CallQualityStatusMedium,
+    CallQualityStatusGood,
+    CallQualityStatusNone
+};
+
+
 @interface InCallViewController() <BubbleTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 
@@ -55,6 +63,8 @@ const NSInteger SIP_SIMPLE=1;
     @property RTTMessageModel *localTextBuffer;
     @property RTTMessageModel *remoteTextBuffer;
     @property UIColor *localColor;
+    @property UIImageView *cameraStatusModeImageView;
+    @property UIView *blackCurtain;
 
 @property BOOL isRTTLocallyEnabled;
 @property (weak, nonatomic) IBOutlet UIScrollView *minimizedTextScrollView;
@@ -70,6 +80,9 @@ const NSInteger SIP_SIMPLE=1;
     int RTT_MAX_PARAGRAPH_CHAR;
     int RTT_SOFT_MAX_PARAGRAPH_CHAR;
     UIImageView *callOnHoldImageView;
+    UIImageView *callQualityImageView;
+    CallQualityStatus callQualityStatus;
+    NSTimer *timerCallQuality;
 }
 
 
@@ -92,6 +105,7 @@ static InCallViewController *instance;
 	if (self != nil) {
 		self->singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls:)];
 		self->videoZoomHandler = [[VideoZoomHandler alloc] init];
+        callQualityStatus = CallQualityStatusNone;
 	}
 	return self;
 }
@@ -184,6 +198,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    [_blackCurtain removeFromSuperview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -193,6 +209,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 											 selector:@selector(callUpdateEvent:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoModeUpdate:)
+                                                 name:kLinphoneVideModeUpdate
+                                               object:nil];
 
 	// Update on show
 	LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
@@ -292,6 +312,11 @@ CGPoint incomingTextChatModePos;
     
     instance = self;
     [self loadRTTChatTableView];
+    
+    _cameraStatusModeImageView = [[UIImageView alloc] initWithFrame:self.videoGroup.bounds];
+    _cameraStatusModeImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _blackCurtain = [[UIView alloc] initWithFrame:self.videoGroup.bounds];
+    [_blackCurtain setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)viewDidUnload {
@@ -309,6 +334,8 @@ BOOL hasStartedStream = NO;
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	// in mode display_filter_auto_rotate=0, no need to rotate the preview
+    _blackCurtain.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    _cameraStatusModeImageView.frame = _blackCurtain.frame;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -418,6 +445,15 @@ BOOL hasStartedStream = NO;
 				callAppData->videoRequested = FALSE; /*reset field*/
 			}
 		}
+        
+        timerCallQuality = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                            target:self
+                                                          selector:@selector(callQualityTimerBody)
+                                                          userInfo:nil
+                                                           repeats:YES];
+        
+        [self createCallQuality];
+        
 		break;
 	}
 	case LinphoneCallUpdatedByRemote: {
@@ -450,6 +486,10 @@ BOOL hasStartedStream = NO;
 		if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
 			[callTableController maximizeAll];
 		}
+        
+        [timerCallQuality invalidate];
+        timerCallQuality = nil;
+        
 		break;
 	}
 	default:
@@ -484,7 +524,6 @@ BOOL hasStartedStream = NO;
 														   userInfo:nil
 															repeats:NO];
 	}
-    
 }
 
 - (void)hideControls:(id)sender {
@@ -1164,6 +1203,18 @@ NSMutableString *minimizedTextBuffer;
     }
 }
 
+- (void)videoModeUpdate:(NSNotification*)notif {
+    NSString *videoMode = [notif.userInfo objectForKey: @"videoModeStatus"];
+    if ([videoMode isEqualToString:@"camera_mute_off"]) {
+        [_cameraStatusModeImageView setImage:[UIImage imageNamed:@"camera_mute.png"]];
+        [_blackCurtain addSubview:_cameraStatusModeImageView];
+        [self.videoGroup insertSubview:_blackCurtain belowSubview:self.videoPreview];
+    }
+    if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
+        [_blackCurtain removeFromSuperview];
+    }
+}
+
 CGRect keyboardFrame;
 CGFloat remote_video_delta;
 CGFloat chat_delta;
@@ -1375,6 +1426,61 @@ BOOL didChatResize = NO;
     NSDate *date2036 = [dateFormatter dateFromString:@"2036-01-01"];
     self.year2037TimeStamp = [date2037 timeIntervalSince1970];
     self.year2036TimeStamp = [date2036 timeIntervalSince1970];
+}
+
+- (void) createCallQuality {
+    if (!callQualityImageView) {
+        UIImage *image = [UIImage imageNamed:@"RTPquality_medium.png"];
+        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 30) resizingMode:UIImageResizingModeStretch];
+        callQualityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        [callQualityImageView setImage:image];
+        [callQualityImageView setBackgroundColor:[UIColor clearColor]];
+        
+        PhoneMainView *phoneMainView = [PhoneMainView instance];
+        [phoneMainView.view addSubview:callQualityImageView];
+    }
+}
+
+- (void) callQualityTimerBody {
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+
+    if (!callQualityImageView || !call)
+        return;
+
+    float quality = linphone_call_get_current_quality(call);
+    CallQualityStatus tmpCallQualityStatus;
+    if (quality < 2) {
+        tmpCallQualityStatus = CallQualityStatusBad;
+    } else if (quality < 3) {
+        tmpCallQualityStatus = CallQualityStatusMedium;
+    } else {
+        tmpCallQualityStatus = CallQualityStatusGood;
+    }
+
+    if (callQualityStatus != tmpCallQualityStatus) {
+        callQualityStatus = tmpCallQualityStatus;
+        UIImage *image = nil;
+
+        switch (callQualityStatus) {
+            case CallQualityStatusBad: {
+                image = [UIImage imageNamed:@"RTPquality_bad.png"];
+            }
+                break;
+            case CallQualityStatusMedium: {
+                image = [UIImage imageNamed:@"RTPquality_medium.png"];
+            }
+                break;
+            default:
+                break;
+        }
+
+        if (!image) {
+            [callQualityImageView setImage:image];
+        } else {
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch];
+            [callQualityImageView setImage:image];
+        }
+    }
 }
 
 - (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction

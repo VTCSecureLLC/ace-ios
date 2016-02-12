@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
+		046FFD141C6B639100781FF6 /* camera_mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 046FFD131C6B639100781FF6 /* camera_mute.png */; };
 		0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */; };
 		152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -426,6 +427,8 @@
 		63D7216D1B73975900D70E65 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */; };
 		63FB30351A680E73008CA393 /* UIRoundedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB30341A680E73008CA393 /* UIRoundedImageView.m */; };
+		69EE9C131C6500A50010EBB3 /* RTPquality_bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */; };
+		69EE9C141C6500A50010EBB3 /* RTPquality_medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */; };
 		70571E1A13FABCB000CDD3C2 /* rootca.pem in Resources */ = {isa = PBXBuildFile; fileRef = 70571E1913FABCB000CDD3C2 /* rootca.pem */; };
 		7066FC0C13E830E400EFC6DC /* libvpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7066FC0B13E830E400EFC6DC /* libvpx.a */; };
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
@@ -1003,6 +1006,7 @@
 
 /* Begin PBXFileReference section */
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
+		046FFD131C6B639100781FF6 /* camera_mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_mute.png; sourceTree = "<group>"; };
 		0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		152F22351B15E889008C0621 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		1560821E18EEF26100765332 /* libmsopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmsopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmsopenh264.a"; sourceTree = "<group>"; };
@@ -1745,6 +1749,8 @@
 		63EF7FDC1A24B5810017A416 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AboutViewController.strings; sourceTree = "<group>"; };
 		63FB30331A680E73008CA393 /* UIRoundedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRoundedImageView.h; sourceTree = "<group>"; };
 		63FB30341A680E73008CA393 /* UIRoundedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRoundedImageView.m; sourceTree = "<group>"; };
+		69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_bad@2x.png"; sourceTree = "<group>"; };
+		69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_medium@2x.png"; sourceTree = "<group>"; };
 		70571E1913FABCB000CDD3C2 /* rootca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rootca.pem; path = "liblinphone-sdk/apple-darwin/share/linphone/rootca.pem"; sourceTree = "<group>"; };
 		7066FC0B13E830E400EFC6DC /* libvpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvpx.a; path = "liblinphone-sdk/apple-darwin/lib/libvpx.a"; sourceTree = "<group>"; };
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -3135,6 +3141,7 @@
 		4A2BAB9F1BC50EAE00640476 /* VATRP Images */ = {
 			isa = PBXGroup;
 			children = (
+				046FFD131C6B639100781FF6 /* camera_mute.png */,
 				4A2BABA01BC50EAE00640476 /* 2x */,
 			);
 			name = "VATRP Images";
@@ -3144,6 +3151,8 @@
 		4A2BABA01BC50EAE00640476 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */,
+				69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */,
 				4A2BABA11BC50EAE00640476 /* backArrow@2x.png */,
 				4A2BABA21BC50EAE00640476 /* keyIcon@2x.png */,
 				4A2BABA31BC50EAE00640476 /* personIcon@2x.png */,
@@ -4758,6 +4767,7 @@
 				50B0077A1BA09C79002C5723 /* micro_on_over.png in Resources */,
 				50B007151BA09C79002C5723 /* dialer_alt_back_default.png in Resources */,
 				50B007B21BA09C79002C5723 /* options_transfer_default_landscape.png in Resources */,
+				046FFD141C6B639100781FF6 /* camera_mute.png in Resources */,
 				D38327F51580FE3A00FA0D23 /* dialer_default.png in Resources */,
 				50B007FD1BA09C79002C5723 /* setup_back_disabled_landscape~ipad.png in Resources */,
 				D38327F61580FE3A00FA0D23 /* dialer_over.png in Resources */,
@@ -5066,6 +5076,7 @@
 				639CEB061A1DF4F1004DE38F /* UIChatRoomCell.xib in Resources */,
 				D3A8BB7B15A6CC3200F96BE5 /* chat_bubble_outgoing.png in Resources */,
 				D3A8BB7D15A6CC3200F96BE5 /* chat_bubble_incoming.png in Resources */,
+				69EE9C131C6500A50010EBB3 /* RTPquality_bad@2x.png in Resources */,
 				50B007411BA09C79002C5723 /* history_delete_default.png in Resources */,
 				63D2680F1B174A5E00A2CC11 /* numpad_one_voicemail_default.png in Resources */,
 				F0C1F9101A28781F009402C9 /* corner-left-bottom.png in Resources */,
@@ -5212,6 +5223,7 @@
 				D3A74F0215C69392001500B9 /* history_selected_landscape~ipad.png in Resources */,
 				5E63479A1C1111C900042AB4 /* InfColorPickerView.xib in Resources */,
 				50B007B11BA09C79002C5723 /* options_selected~ipad.png in Resources */,
+				69EE9C141C6500A50010EBB3 /* RTPquality_medium@2x.png in Resources */,
 				50B007DD1BA09C79002C5723 /* route_phone_on_default.png in Resources */,
 				50B007CD1BA09C79002C5723 /* pause_on_over~ipad.png in Resources */,
 				F0C1F9141A28781F009402C9 /* logo.png in Resources */,

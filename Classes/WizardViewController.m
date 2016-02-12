@@ -253,6 +253,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 -(void) didFinishWithError{
     @try{
+        //Try signing in even though rue config not found via SRV
         [self apiSignIn];
     }
     @catch(NSException *e){
@@ -546,11 +547,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     if( parsedAddress == NULL || !linphone_address_is_sip(parsedAddress) ){
         if( parsedAddress ) linphone_address_destroy(parsedAddress);
-        
-        //NSAlert *alert = [[NSAlert alloc]init];
-       // [alert addButtonWithTitle:NSLocalizedString(@"Continue",nil)];
-        //[alert setMessageText:NSLocalizedString(@"Please enter a valid username", nil)];
-        //[alert runModal];
+//        
+//        NSAlert *alert = [[NSAlert alloc]init];
+//        [alert addButtonWithTitle:NSLocalizedString(@"Continue",nil)];
+//        [alert setMessageText:NSLocalizedString(@"Please enter a valid username", nil)];
+//        [alert runModal];
         
         return FALSE;
     }
@@ -563,7 +564,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     ms_free(c_parsedAddress);
     
     LinphoneAuthInfo* info = linphone_auth_info_new([username UTF8String]
-                                                    , NULL, [password UTF8String]
+                                                    , (self.textFieldUserId.text) ? [self.textFieldUserId.text UTF8String] : "", [password UTF8String]
                                                     , NULL
                                                     , NULL
                                                     ,linphone_proxy_config_get_domain(proxyCfg));
@@ -571,7 +572,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     // sip_auth_username
     linphone_auth_info_set_username(info, self.textFieldUsername.text.UTF8String);
     
-        
+    linphone_auth_info_set_userid(info, self.textFieldUserId.text.UTF8String);
     //sip_auth_password
     linphone_auth_info_set_passwd(info, self.textFieldPassword.text.UTF8String);
     
@@ -1047,8 +1048,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     int port_value = [port_string intValue];
     
     int port = port_value;
-    
-    
     
     [self verificationSignInWithUsername:username password:password domain:domain withTransport:transport port:port];
 }
@@ -1596,7 +1595,15 @@ UIAlertView *transportAlert;
     // logging
     linphone_core_set_log_level([self logLevel:[DefaultSettingsManager sharedInstance].logging]);
     linphone_core_set_log_handler((OrtpLogFunc)linphone_iphone_log_handler);
-    
+    LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+    if(cfg){
+        //If autoconfig fails, but you have a valid proxy config, continue to register
+        [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
+        linphone_proxy_config_enable_register(cfg, TRUE);
+        if(!linphone_proxy_config_is_registered(cfg)){
+            [[LinphoneManager instance] refreshRegisters];
+        }
+    }
     // sip_mwi_uri - ?
     
     // sip_videomail_uri - ?

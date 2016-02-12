@@ -55,6 +55,7 @@ extern NSString *const kLinphoneGlobalStateUpdate;
 extern NSString *const kLinphoneNotifyReceived;
 extern NSString *const kLinphoneFileTransferSendUpdate;
 extern NSString *const kLinphoneFileTransferRecvUpdate;
+extern NSString *const kLinphoneVideModeUpdate;
 
 typedef enum _NetworkType {
     network_none = 0,
@@ -120,6 +121,7 @@ typedef struct _LinphoneManagerSounds {
 @public
     CallContext currentCallContextBeforeGoingBackground;
 }
+
 + (LinphoneManager*)instance;
 #ifdef DEBUG
 + (void)instanceRelease;
@@ -220,5 +222,6 @@ typedef struct _LinphoneManagerSounds {
 @property (readonly) LpConfig *configDb;
 @property (readonly) InAppProductsManager *iapManager;
 @property(strong, nonatomic) NSMutableArray *fileTransferDelegates;
+@property (strong) NSMutableArray *logFileArray;
 
 @end
