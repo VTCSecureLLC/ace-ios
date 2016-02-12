@@ -623,10 +623,10 @@ static UICompositeViewDescription *compositeDescription = nil;
         MSVideoSize vsize;
         MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1000);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1000);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Off" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum
