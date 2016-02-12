@@ -335,6 +335,7 @@ BOOL hasStartedStream = NO;
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	// in mode display_filter_auto_rotate=0, no need to rotate the preview
     _blackCurtain.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    callQualityImageView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     _cameraStatusModeImageView.frame = _blackCurtain.frame;
 }
 
@@ -388,6 +389,8 @@ BOOL hasStartedStream = NO;
         if(!self.isRTTLocallyEnabled){
             linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), FALSE);
         }
+        
+        callQualityImageView.hidden = YES;
 	}
 	case LinphoneCallConnected:
 	case LinphoneCallStreamsRunning: {
@@ -453,7 +456,8 @@ BOOL hasStartedStream = NO;
                                                            repeats:YES];
         
         [self createCallQuality];
-        
+        callQualityImageView.hidden = NO;
+
 		break;
 	}
 	case LinphoneCallUpdatedByRemote: {
@@ -489,6 +493,8 @@ BOOL hasStartedStream = NO;
         
         [timerCallQuality invalidate];
         timerCallQuality = nil;
+        
+        callQualityImageView.hidden = YES;
         
 		break;
 	}
@@ -1435,10 +1441,15 @@ BOOL didChatResize = NO;
         callQualityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         [callQualityImageView setImage:image];
         [callQualityImageView setBackgroundColor:[UIColor clearColor]];
+        callQualityImageView.hidden = YES;
         
         PhoneMainView *phoneMainView = [PhoneMainView instance];
         [phoneMainView.view addSubview:callQualityImageView];
     }
+}
+
+- (void) hideCallQualityView {
+    callQualityImageView.hidden = YES;
 }
 
 - (void) callQualityTimerBody {

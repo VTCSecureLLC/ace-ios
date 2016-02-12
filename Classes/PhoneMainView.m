@@ -387,6 +387,8 @@ static RootViewManager *rootViewManagerInstance = nil;
 	}
 	case LinphoneCallError: {
 		[self displayCallError:call message:message];
+        
+        [[InCallViewController sharedInstance] hideCallQualityView];
 	}
 	case LinphoneCallEnd: {
 		if (canHideInCallView) {
@@ -400,6 +402,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 		} else {
 			[self changeCurrentView:[InCallViewController compositeViewDescription]];
 		}
+        
+        [[InCallViewController sharedInstance] hideCallQualityView];
+        
 		break;
 	}
 	default:
