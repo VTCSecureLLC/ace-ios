@@ -620,6 +620,8 @@ CGRect IASKCGRectSwap(CGRect rect);
     if(colorData){
         UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
         cell.backgroundColor = color;
+    }  else {
+        cell.backgroundColor = [UIColor whiteColor];
     }
     return cell;
 }
