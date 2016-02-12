@@ -53,6 +53,7 @@
 +(InCallViewController*) sharedInstance;
 
 -(BOOL) isRTTEnabled;
+- (void) hideCallQualityView;
 
 @property(nonatomic, readonly) UITextPosition *beginningOfDocument;
 @property(nonatomic, readonly) UITextPosition *endOfDocument;
