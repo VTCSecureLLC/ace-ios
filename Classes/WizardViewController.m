@@ -213,6 +213,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.transportTextField.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.transportTextField.layer setBorderWidth:1.0];
     [self.transportTextField.layer setCornerRadius:5];
+    [self.transportTextField setDelegate:self];
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
     [self.textFieldUserId.layer setCornerRadius:5];
@@ -265,7 +266,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
     //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
     self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
-    [self.transportTextField setDelegate:self];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
     self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
     [self apiSignIn];
@@ -1162,11 +1162,11 @@ UIAlertView *transportAlert;
     if([alertView isEqual:transportAlert]){
         if(buttonIndex == 1){
             [self.transportTextField setText:@"TCP"];
-            [self.textFieldPort setText:@"5060"];
+            [self.textFieldPort setText:@"25060"];
         }
         else{
             [self.transportTextField setText:@"TLS"];
-            [self.textFieldPort setText:@"5061"];
+            [self.textFieldPort setText:@"25061"];
         }
         
         [self.transportTextField resignFirstResponder];
