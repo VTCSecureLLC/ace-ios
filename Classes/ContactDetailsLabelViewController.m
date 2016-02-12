@@ -113,6 +113,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	} else {
 		[cell setAccessoryType:UITableViewCellAccessoryNone];
 	}
+    cell.textLabel.textColor = LINPHONE_MAIN_COLOR;
+    
 	return cell;
 }
 
@@ -123,8 +125,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[self dismiss];
 }
 
-#pragma mark - Action Functions
 
+#pragma mark - Action Functions
 - (IBAction)onBackClick:(id)event {
 	[self dismiss];
 }
