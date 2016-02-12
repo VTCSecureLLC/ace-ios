@@ -81,7 +81,9 @@ void linphone_iphone_log_handler(int lev, const char *fmt, va_list args) {
         [[[LinphoneManager instance] logFileArray] addObject:enterLine];
         
         if ([[LinphoneManager instance] logFileArray].count > 1000 ) {
-            [[[LinphoneManager instance] logFileArray] removeObjectAtIndex:0];
+            int last1000Elements = (int)([[LinphoneManager instance] logFileArray].count - 1000);
+            NSMutableArray * last1000ElementsOfLogArray = [[[[LinphoneManager instance] logFileArray] subarrayWithRange:NSMakeRange(last1000Elements, 1000)] mutableCopy];
+            [LinphoneManager instance].logFileArray = last1000ElementsOfLogArray;
         }
     }
     @catch (NSException *exception) { }

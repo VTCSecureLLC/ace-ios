@@ -531,7 +531,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (void)changeBackgroundColor {
-    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"main_bar_background_color_preference"];
     if(colorData){
         UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
         [self.historyButton setBackgroundColor:color];

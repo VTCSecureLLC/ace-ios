@@ -36,7 +36,9 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
                     
                     [[NSUserDefaults standardUserDefaults] setObject:[resource objectForKey:@"domain"] forKey:[NSString stringWithFormat:@"provider%d_domain", i]];
                 }
-                [self.delegate onProviderLookupFinished:_cdnResources];
+                if ([self.delegate respondsToSelector:@selector(onProviderLookupFinished:)]) {
+                    [self.delegate onProviderLookupFinished:_cdnResources];
+                }
             }
         }
     }] resume];
