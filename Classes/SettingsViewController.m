@@ -642,7 +642,7 @@ static UICompositeViewDescription *compositeDescription = nil;
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
         else{
-            MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+            MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
 
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);

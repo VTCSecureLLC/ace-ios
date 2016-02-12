@@ -68,8 +68,8 @@ rate=90000
 enabled=1
 
 [net]
-download_bw=1500
-upload_bw=1500
+download_bw=1000
+upload_bw=1000
 firewall_policy=ice
 stun_server=bc1.vatrp.net
 
