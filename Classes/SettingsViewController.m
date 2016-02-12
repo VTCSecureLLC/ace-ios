@@ -802,6 +802,8 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         if ([key isEqualToString:@"background_color_preference"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"main_bar_background_color_preference"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundColorChanged" object:nil];
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"foregroundColorChanged" object:nil];
@@ -1134,6 +1136,70 @@ static BOOL isAdvancedSettings = FALSE;
 		[alert show];
 	}
     
+    if ([key isEqual:@"reset_all_settings"]) {
+        DTAlertView *alert =
+        [[DTAlertView alloc] initWithTitle:@"Warning" message:NSLocalizedString(@"Are you sure you want to reset all settings to default?", nil)];
+        [alert addCancelButtonWithTitle:NSLocalizedString(@"No", nil) block:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil) block:^{
+                                                                            [self factoryReset];
+                                                                        }];
+        [alert show];
+    }
+}
+
+- (void)factoryReset {
+    [self resetTheme];
+    [self clearUserDefaults];
+    [self deleteStorageFiles];
+    [self clearCacheData];
+    [self goToWizard];
+}
+
+- (void)resetTheme {
+    NSData *colorDataWhite = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
+    NSData *colorDataMainBarColor = [NSKeyedArchiver archivedDataWithRootObject: [UIColor colorWithRed:85/255. green:85/255. blue:85/255. alpha:1.0]];
+    [[NSUserDefaults standardUserDefaults] setObject:colorDataWhite forKey:@"background_color_preference"];
+    [[NSUserDefaults standardUserDefaults] setObject:colorDataMainBarColor forKey:@"main_bar_background_color_preference"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundColorChanged" object:nil];
+    
+    NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
+    [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"foreground_color_preference"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"foregroundColorChanged" object:nil];
+    
+    //tableview header views' background colors
+    settingsController.tableView.opaque = YES;
+    settingsController.tableView.backgroundColor = LINPHONE_SETTINGS_BG_IOS7;
+    settingsController.tableView.backgroundView.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)clearUserDefaults {
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+}
+
+- (void)deleteStorageFiles {
+    [self removeFileFromDocumentFolder:@"linphonerc"];
+    [self removeFileFromDocumentFolder:@"linphone_chats.db"];
+}
+
+- (void)clearCacheData {
+    [[PhoneMainView instance].mainViewController clearCache:[NSArray arrayWithObject:[[PhoneMainView instance] currentView]]];
+}
+
+- (BOOL)removeFileFromDocumentFolder:(NSString *)fileName {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+    if (!success) {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark - UIAlertView delegate

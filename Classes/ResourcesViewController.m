@@ -90,6 +90,8 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
     if(colorData){
         UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
         cell.backgroundColor = color;
+    } else {
+        cell.backgroundColor = [UIColor whiteColor];
     }
     return cell;
 }
