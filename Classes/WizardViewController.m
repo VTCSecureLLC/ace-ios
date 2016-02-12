@@ -1601,10 +1601,9 @@ UIAlertView *transportAlert;
     if(cfg){
         //If autoconfig fails, but you have a valid proxy config, continue to register
         [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
-        if(linphone_proxy_config_get_state(cfg) != LinphoneRegistrationOk || linphone_proxy_config_get_state(cfg) != LinphoneRegistrationProgress){
-            linphone_proxy_config_enable_register(cfg, TRUE);
-            //linphone_proxy_config_refresh_register(cfg);
-            linphone_core_refresh_registers([LinphoneManager getLc]);
+        linphone_proxy_config_enable_register(cfg, TRUE);
+        if(!linphone_proxy_config_is_registered(cfg)){
+            [[LinphoneManager instance] refreshRegisters];
         }
     }
     // sip_mwi_uri - ?
