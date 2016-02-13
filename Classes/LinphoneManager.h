@@ -193,7 +193,7 @@ typedef struct _LinphoneManagerSounds {
 - (float)lpConfigFloatForKey:(NSString*)key forSection:(NSString *)section;
 
 - (void)silentPushFailed:(NSTimer*)timer;
-
+void configH264HardwareAcell(bool encode, bool decode);
 - (void)removeAllAccounts;
 -(PayloadType*)findCodec:(NSString*)codec;
 
