@@ -87,3 +87,6 @@
 [submodule "submodules/belr"]
 	path = submodules/belr
 	url = git://git.linphone.org/belr.git
+[submodule "submodules/externals/opencore-amr"]
+	path = submodules/externals/opencore-amr
+	url = git://git.linphone.org/opencore-amr.git
