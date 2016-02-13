@@ -82,10 +82,4 @@
 	path = submodules/externals/vo-amrwbenc
 	url = git://git.linphone.org/vo-amrwbenc
 	ignore = dirty
-[submodule "submodules/belcard"]
-	path = submodules/belcard
-	url = git://git.linphone.org/belcard.git\n
-[submodule "submodules/externals/libmatroska-c"]
-	path = submodules/externals/libmatroska-c
-	url = git://git.linphone.org/libmatroska-c.git
 
