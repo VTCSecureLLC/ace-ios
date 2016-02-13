@@ -525,10 +525,10 @@ static void dump_section(const char *section, void *data) {
 
 #pragma mark - Logs Functions handlers
 static void linphone_iphone_log_user_info(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_MESSAGE, message, NULL);
+	linphone_iphone_log_handler(NULL,ORTP_MESSAGE, message, NULL);
 }
 static void linphone_iphone_log_user_warning(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_WARNING, message, NULL);
+	linphone_iphone_log_handler(NULL, ORTP_WARNING, message, NULL);
 }
 
 #pragma mark - Display Status Functions
