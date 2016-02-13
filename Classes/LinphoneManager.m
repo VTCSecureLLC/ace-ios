@@ -527,10 +527,10 @@ static void dump_section(const char *section, void *data) {
 
 #pragma mark - Logs Functions handlers
 static void linphone_iphone_log_user_info(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_MESSAGE, message, NULL);
+	linphone_iphone_log_handler(NULL,ORTP_MESSAGE, message, NULL);
 }
 static void linphone_iphone_log_user_warning(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_WARNING, message, NULL);
+	linphone_iphone_log_handler(NULL, ORTP_WARNING, message, NULL);
 }
 
 #pragma mark - Display Status Functions
@@ -1455,7 +1455,14 @@ static BOOL libStarted = FALSE;
     [self sortAudioCodecs];
     [settingsStore transformLinphoneCoreToKeys];
 }
+void configH264HardwareAcell(bool encode, bool decode){
+    	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
+    ms_factory_enable_filter_from_name(f, "VideoToolboxH264encoder", encode);
+    ms_factory_enable_filter_from_name(f, "VideoToolboxH264decoder", decode);
 
+    ms_factory_enable_filter_from_name(f, "MSOpenH264Enc", !encode);
+    ms_factory_enable_filter_from_name(f, "MSOpenH264Dec", !decode);
+}
 - (void)createLinphoneCore {
 
 	if (theLinphoneCore != nil) {
@@ -1480,8 +1487,9 @@ static BOOL libStarted = FALSE;
 	libmsopenh264_init(f);
 	libmsbcg729_init(f);
 	libmswebrtc_init(f);
+  
 	linphone_core_reload_ms_plugins(theLinphoneCore, NULL);
-
+    configH264HardwareAcell(true, true);
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
