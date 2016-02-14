@@ -1,5 +1,8 @@
 #!/bin/bash
+
 set -ex
+
+which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 pushd /usr/local/Library/Homebrew/; git branch --set-upstream-to=origin/master master ; git pull ; popd
 brew update 1>/dev/null

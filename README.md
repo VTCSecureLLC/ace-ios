@@ -14,15 +14,13 @@ These are the steps you can follow to build ace-ios locally.
 
 1. Ensure you have Xcode installed
 
-2. Install Homebrew from http://brew.sh
-
-3. Prepare your build environment:
+2. Prepare your build environment:
 
 ```
     ./Tools/prepare.sh
 ```
     
-4. Pull the ace-ios repo and init the submodules:
+3. Pull the ace-ios repo and init the submodules:
     
 ```
     git clone git@github.com:VTCSecureLLC/ace-ios.git
@@ -31,7 +29,7 @@ These are the steps you can follow to build ace-ios locally.
 ```
 
 
-5. (re)Build the SDK:
+4. (re)Build the SDK:
     
 ```
     rm -fr WORK liblinphone-sdk
@@ -41,7 +39,7 @@ These are the steps you can follow to build ace-ios locally.
 
 You should now see a liblinphone-sdk directory with Linphone SDK library build assets.
 
-6. Build a debug build of the app:
+5. Build a debug build of the app:
     
 ```
     xcrun xcodebuild -project linphone.xcodeproj \
@@ -55,7 +53,7 @@ You should now see a liblinphone-sdk directory with Linphone SDK library build a
 
 This will build a `.app`, but will not generate an archive `.ipa` for a device. You will not be able to run this.
 
-7.  If all of that went well, you should be able to run it in Xcode on your device. Use Xcode "run" to run the app on your device, or archive the app to an `.ipa` to distribute.
+6.  If all of that went well, you should be able to run it in Xcode on your device. Use Xcode "run" to run the app on your device, or archive the app to an `.ipa` to distribute.
 
 For examples of how the Travis build does a release to HockeyApp, see the `Tools/release.sh` script.
 
