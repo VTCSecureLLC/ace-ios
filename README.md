@@ -18,7 +18,9 @@ These are the steps you can follow to build ace-ios locally.
 
 3. Prepare your build environment:
 
+```
     ./Tools/prepare.sh
+```
     
 4. Pull the ace-ios repo and init the submodules:
     
