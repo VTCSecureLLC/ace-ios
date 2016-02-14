@@ -34,7 +34,8 @@ These are the steps you can follow to build ace-ios locally.
 5. (re)Build the SDK:
     
 ```
-    rm -fr WORK liblinphone-sdk ; ./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES -DENABLE_PCAP=YES --enable-non-free-codecs --enable-gpl-third-parties --build-all-codecs
+    rm -fr WORK liblinphone-sdk
+    ./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=YES -DENABLE_VCARD=YES --build-all-codecs
     make -j 8
 ```
 
