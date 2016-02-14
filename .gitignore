@@ -105,3 +105,5 @@ submodules/tunnel
 submodules/binaries/dummy-*.a
 LastCommit.txt
 linphone-iphone.ipa
+.irb-history
+screenshot*.png
