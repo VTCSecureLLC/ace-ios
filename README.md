@@ -2,7 +2,7 @@
 
 ## Accessible Communications for Everyone
 
-This is source tree for the ACE App for Mac.
+This is source tree for the ACE App for iOS.
 
 ## Building
 
@@ -12,7 +12,7 @@ The `.travis.yml` file is what directs these Travis automated builds. This inclu
 
 These are the steps you can follow to build ace-ios locally.
 
-1. Ensure you have Xcode installed on your mac.
+1. Ensure you have Xcode installed
 
 2. Install Homebrew from http://brew.sh
 
