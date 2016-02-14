@@ -44,10 +44,18 @@ You should now see a liblinphone-sdk directory with Linphone SDK library build a
 6. Build a debug build of the app:
     
 ```
-    xcrun xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration Debug build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS=""
+    xcrun xcodebuild -project linphone.xcodeproj \
+                     -scheme linphone \
+                     -sdk iphoneos \
+                     -configuration Debug build \
+                     CODE_SIGNING_REQUIRED=NO \
+                     CODE_SIGN_IDENTITY="" \
+                     CODE_SIGN_ENTITLEMENTS=""
 ```
 
 This will build a `.app`, but will not generate an archive `.ipa` for a device. You will not be able to run this.
 
 7.  If all of that went well, you should be able to run it in Xcode on your device. Use Xcode "run" to run the app on your device, or archive the app to an `.ipa` to distribute.
+
+For examples of how the Travis build does a release to HockeyApp, see the `Tools/release.sh` script.
 
