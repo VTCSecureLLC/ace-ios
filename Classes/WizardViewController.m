@@ -161,11 +161,11 @@ static UICompositeViewDescription *compositeDescription = nil;
         providerPickerView.delegate = self;
     
     if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:0];
-        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
+        [providerPickerView setSelectedRow:(cdnResources.count - 1)];
+        [self.selectProviderButton setTitle:[cdnResources lastObject] forState:UIControlStateNormal];
         NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]];
         }
         
         if(domain == nil){domain = @"";}
@@ -591,7 +591,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     linphone_core_set_default_proxy_config(lc, proxyCfg);
     
     // expiration_time
-    linphone_proxy_config_set_expires(proxyCfg, [DefaultSettingsManager sharedInstance].exparitionTime ? [DefaultSettingsManager sharedInstance].exparitionTime : 3600);
+    linphone_proxy_config_set_expires(proxyCfg, ([DefaultSettingsManager sharedInstance].exparitionTime)?[DefaultSettingsManager sharedInstance].exparitionTime:3600);
     
     PayloadType *pt;
     const MSList *elem;
@@ -1577,14 +1577,14 @@ UIAlertView *transportAlert;
     // upload_bandwidth
     linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
 
-    // download_bandwidth
-    linphone_core_set_download_bandwidth(lc, [DefaultSettingsManager sharedInstance].downloadBandwidth);
+    // download_bandwidth , related to the document
+    linphone_core_set_download_bandwidth(lc, ([DefaultSettingsManager sharedInstance].downloadBandwidth)?[DefaultSettingsManager sharedInstance].downloadBandwidth:1500);
     
-    // enable_stun
-    linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyNoFirewall);
+    // enable_stun, related to the document
+    linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, [DefaultSettingsManager sharedInstance].stunServer.UTF8String);
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
@@ -1621,6 +1621,12 @@ UIAlertView *transportAlert;
     for (elem = codecs; elem != NULL; elem = elem->next) {
         pt = (PayloadType *)elem->data;
         linphone_core_enable_payload_type(lc, pt, [[DefaultSettingsManager sharedInstance].enabledCodecs containsObject:[NSString stringWithUTF8String:pt->mime_type]]);
+        
+        // download_bandwidth , related to the document
+        if ([[NSString stringWithUTF8String:pt->mime_type] isEqualToString:@"H264"]) {
+            PayloadType *pt = [[LinphoneManager instance] findVideoCodec:@"h264_preference"];
+            linphone_core_enable_payload_type(lc, pt, 0);
+        }
     }
 }
 
@@ -1717,12 +1723,12 @@ static BOOL isAdvancedShown = NO;
     providerPickerView.delegate = self;
     
     if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:0];
-        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
+        [providerPickerView setSelectedRow:(cdnResources.count - 1)];
+        [self.selectProviderButton setTitle:[cdnResources lastObject] forState:UIControlStateNormal];
         [self.selectProviderButton layoutSubviews];
         NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]];
         }
         
         if(domain == nil){domain = @"";}
