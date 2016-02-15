@@ -198,6 +198,7 @@ typedef struct _LinphoneManagerSounds {
 void configH264HardwareAcell(bool encode, bool decode);
 - (void)removeAllAccounts;
 -(PayloadType*)findCodec:(NSString*)codec;
+- (PayloadType*)findVideoCodec:(NSString*)codec;
 
 @property (readonly) BOOL isTesting;
 @property (readonly, strong) FastAddressBook* fastAddressBook;

@@ -170,7 +170,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>h264_preference</string>
 			<key>Title</key>
