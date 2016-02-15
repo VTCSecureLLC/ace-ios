@@ -32,7 +32,7 @@ These are the steps you can follow to build ace-ios locally.
 4. (re)Build the SDK:
     
 ```
-    rm -fr WORK liblinphone-sdk
+    ./prepare -C
     ./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=YES -DENABLE_VCARD=YES --build-all-codecs
     make -j 8
 ```
