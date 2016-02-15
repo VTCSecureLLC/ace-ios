@@ -33,7 +33,7 @@
 }
 
 + (void)log:(OrtpLogLevel)severity file:(const char *)file line:(int)line format:(NSString *)format, ...;
-void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
+void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const char *fmt, va_list args);
 @end
 
 @interface LinphoneUtils : NSObject {
