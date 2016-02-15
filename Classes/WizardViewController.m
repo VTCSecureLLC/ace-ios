@@ -1584,7 +1584,7 @@ UIAlertView *transportAlert;
     linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, [DefaultSettingsManager sharedInstance].stunServer.UTF8String);
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
@@ -1626,10 +1626,6 @@ UIAlertView *transportAlert;
         if ([[NSString stringWithUTF8String:pt->mime_type] isEqualToString:@"H264"]) {
             PayloadType *pt = [[LinphoneManager instance] findVideoCodec:@"h264_preference"];
             linphone_core_enable_payload_type(lc, pt, 0);
-//           LinphoneCoreSettingsStore * settingsStore = [[LinphoneCoreSettingsStore alloc] init];
-//            [settingsStore transformLinphoneCoreToKeys];
-//            [settingsStore setBool:NO forKey:@"h264_preference"];
-//            NSLog(@"settingsStore = %@", settingsStore);
         }
     }
 }
