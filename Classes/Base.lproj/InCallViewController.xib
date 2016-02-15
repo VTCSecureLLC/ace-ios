@@ -42,7 +42,7 @@
                                 <accessibilityTraits key="traits" notEnabled="YES"/>
                             </accessibility>
                         </view>
-                        <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" id="127" userLabel="preview">
+                        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="127" userLabel="preview">
                             <rect key="frame" x="216" y="324" width="96" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
