@@ -71,6 +71,28 @@ UILongPressGestureRecognizer *lpgr;
 {
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
     
+    if (![MFMailComposeViewController canSendMail])
+    {
+        
+        UIAlertController *mailAlert = [UIAlertController
+                                        alertControllerWithTitle:@"Export VCard Unavilable"
+                                        message:@"Your device is not configured to send emails. Please configure mail application prior to sharing contacts."
+                                        preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* mailOkAction = [UIAlertAction
+                                       actionWithTitle:@"Ok"
+                                       style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction * action)
+                                       {
+                                           [mailAlert dismissViewControllerAnimated:NO completion:nil];
+                                           
+                                       }];
+        [mailAlert addAction:mailOkAction];
+        [self presentViewController:mailAlert animated:YES completion:nil];
+        return;
+    }
+
+    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
     if(gestureRecognizer.state == UIGestureRecognizerStateRecognized){
         UIAlertController *alert = [UIAlertController
@@ -83,6 +105,9 @@ UILongPressGestureRecognizer *lpgr;
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
+
+                                 
+                                 [self presentViewController:alert animated:YES completion:nil];
                                  OrderedDictionary *subDic = [addressBookMap objectForKey:[addressBookMap keyAtIndex:[indexPath section]]];
                                  NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
                                  ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
