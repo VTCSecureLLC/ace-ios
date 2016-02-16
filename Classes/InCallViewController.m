@@ -83,6 +83,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     UIImageView *callQualityImageView;
     CallQualityStatus callQualityStatus;
     NSTimer *timerCallQuality;
+    bool controlsHidden;
 }
 
 
@@ -103,7 +104,7 @@ static InCallViewController *instance;
 - (id)init {
 	self = [super initWithNibName:@"InCallViewController" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
-		self->singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls:)];
+		self->singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
 		self->videoZoomHandler = [[VideoZoomHandler alloc] init];
         callQualityStatus = CallQualityStatusNone;
 	}
@@ -177,14 +178,15 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
         self.isRTTLocallyEnabled = YES;
     }
+    controlsHidden = true;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	if (hideControlsTimer != nil) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer != nil) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
 	if (hiddenVolume) {
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
@@ -503,17 +505,30 @@ BOOL hasStartedStream = NO;
 	}
 }
 
+-(void)handleSingleTap:(id)sender
+{
+    if (controlsHidden)
+    {
+        [self showControls:sender];
+    }
+    else
+    {
+        [self hideControls:sender];
+    }
+}
+
 - (void)showControls:(id)sender {
     if(self.isFirstResponder || ![self.tableView isHidden]){
         [self resignFirstResponder];
         [self.tableView setHidden:YES];
         return;
     }
-	if (hideControlsTimer) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
+    // we want to recognize the tap as a toggle now since we are removing the hideControlsTimer.
 	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		// show controls
 		[UIView beginAnimations:nil context:nil];
@@ -523,20 +538,22 @@ BOOL hasStartedStream = NO;
 		[callTableView setAlpha:1.0];
 		[videoCameraSwitch setAlpha:1.0];
 		[UIView commitAnimations];
+        controlsHidden = false;
+        
 		// hide controls in 5 sec
-		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
-															 target:self
-														   selector:@selector(hideControls:)
-														   userInfo:nil
-															repeats:NO];
-	}
+//		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+//															 target:self
+//														   selector:@selector(hideControls:)
+//														   userInfo:nil
+//															repeats:NO];
+    }
 }
 
 - (void)hideControls:(id)sender {
-	if (hideControlsTimer) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
 	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		[UIView beginAnimations:nil context:nil];
@@ -547,6 +564,7 @@ BOOL hasStartedStream = NO;
 
 		[[PhoneMainView instance] showTabBar:false];
 		[[PhoneMainView instance] showStateBar:false];
+        controlsHidden = true;
 	}
 }
 
@@ -649,10 +667,10 @@ BOOL hasStartedStream = NO;
 		[UIView commitAnimations];
 	}
 
-	if (hideControlsTimer != nil) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer != nil) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
 	[[PhoneMainView instance] fullScreen:false];
 }
