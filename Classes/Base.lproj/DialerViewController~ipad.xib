@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DialerViewController">
@@ -20,6 +20,7 @@
                 <outlet property="fourButton" destination="15" id="50"/>
                 <outlet property="nineButton" destination="12" id="51"/>
                 <outlet property="oneButton" destination="19" id="52"/>
+                <outlet property="providerImageView" destination="gy2-sR-VFI" id="aAH-m9-AkK"/>
                 <outlet property="sevenButton" destination="14" id="53"/>
                 <outlet property="sharpButton" destination="11" id="54"/>
                 <outlet property="sipDomainLabel" destination="Q61-ND-62J" id="8Cj-zo-mN2"/>
@@ -183,7 +184,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="17" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="220.99999991978441" y="2" width="107" height="72"/>
+                            <rect key="frame" x="221" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="3"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -538,6 +539,11 @@
                                 <outlet property="addressField" destination="6" id="41"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gy2-sR-VFI" userLabel="Image View - Provider">
+                            <rect key="frame" x="40" y="20" width="50" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
