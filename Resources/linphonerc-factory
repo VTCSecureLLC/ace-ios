@@ -13,7 +13,7 @@ eq_gains=50:2:50 100:2:50
 download_bw=1000
 upload_bw=1000
 firewall_policy=ice
-stun_server=bc1.vatrp.net
+stun_server=stl.vatrp.net
 
 
 [video]
