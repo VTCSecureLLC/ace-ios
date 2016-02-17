@@ -210,9 +210,12 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.textFieldPort.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldPort.layer setBorderWidth:1.0];
     [self.textFieldPort.layer setCornerRadius:5];
+    self.textFieldPort.text = @"25060";
     [self.transportTextField.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.transportTextField.layer setBorderWidth:1.0];
     [self.transportTextField.layer setCornerRadius:5];
+    self.transportTextField.text = @"TCP";
+    [self.transportTextField setDelegate:self];
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
     [self.textFieldUserId.layer setCornerRadius:5];
@@ -265,7 +268,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
     //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
     self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
-    [self.transportTextField setDelegate:self];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
     self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
     [self apiSignIn];
@@ -589,7 +591,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     linphone_core_set_default_proxy_config(lc, proxyCfg);
     
     // expiration_time
-    linphone_proxy_config_set_expires(proxyCfg, [DefaultSettingsManager sharedInstance].exparitionTime);
+    linphone_proxy_config_set_expires(proxyCfg, [DefaultSettingsManager sharedInstance].exparitionTime ? [DefaultSettingsManager sharedInstance].exparitionTime : 3600);
     
     PayloadType *pt;
     const MSList *elem;
@@ -623,10 +625,10 @@ static UICompositeViewDescription *compositeDescription = nil;
         MSVideoSize vsize;
         MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 720);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 720);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1000);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1000);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Off" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum
@@ -1162,11 +1164,11 @@ UIAlertView *transportAlert;
     if([alertView isEqual:transportAlert]){
         if(buttonIndex == 1){
             [self.transportTextField setText:@"TCP"];
-            [self.textFieldPort setText:@"5060"];
+            [self.textFieldPort setText:@"25060"];
         }
         else{
             [self.transportTextField setText:@"TLS"];
-            [self.textFieldPort setText:@"5061"];
+            [self.textFieldPort setText:@"25061"];
         }
         
         [self.transportTextField resignFirstResponder];

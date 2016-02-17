@@ -45,7 +45,7 @@
 
 #pragma mark - Logs Functions callbacks
 
-void linphone_iphone_log_handler(int lev, const char *fmt, va_list args) {
+void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const char *fmt, va_list args) {
 	NSString *format = [[NSString alloc] initWithUTF8String:fmt];
 	NSString *formatedString = [[NSString alloc] initWithFormat:format arguments:args];
 	char levelC = 'I';

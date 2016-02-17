@@ -77,8 +77,6 @@ NSString *const kLinphoneVideModeUpdate = @"LinphoneVideoModeUpdate";
 
 const int kLinphoneAudioVbrCodecDefaultBitrate = 36; /*you can override this from linphonerc or linphonerc-factory*/
 
-
-extern void libmsilbc_init(MSFactory *factory);
 extern void libmsamr_init(MSFactory *factory);
 extern void libmsx264_init(MSFactory *factory);
 extern void libmsopenh264_init(MSFactory *factory);
@@ -529,10 +527,10 @@ static void dump_section(const char *section, void *data) {
 
 #pragma mark - Logs Functions handlers
 static void linphone_iphone_log_user_info(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_MESSAGE, message, NULL);
+	linphone_iphone_log_handler(NULL,ORTP_MESSAGE, message, NULL);
 }
 static void linphone_iphone_log_user_warning(struct _LinphoneCore *lc, const char *message) {
-	linphone_iphone_log_handler(ORTP_WARNING, message, NULL);
+	linphone_iphone_log_handler(NULL, ORTP_WARNING, message, NULL);
 }
 
 #pragma mark - Display Status Functions
@@ -1457,7 +1455,14 @@ static BOOL libStarted = FALSE;
     [self sortAudioCodecs];
     [settingsStore transformLinphoneCoreToKeys];
 }
+void configH264HardwareAcell(bool encode, bool decode){
+    	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
+    ms_factory_enable_filter_from_name(f, "VideoToolboxH264encoder", encode);
+    ms_factory_enable_filter_from_name(f, "VideoToolboxH264decoder", decode);
 
+    ms_factory_enable_filter_from_name(f, "MSOpenH264Enc", !encode);
+    ms_factory_enable_filter_from_name(f, "MSOpenH264Dec", !decode);
+}
 - (void)createLinphoneCore {
 
 	if (theLinphoneCore != nil) {
@@ -1468,17 +1473,23 @@ static BOOL libStarted = FALSE;
 	[self setLogsEnabled:[self lpConfigBoolForKey:@"debugenable_preference"]];
 	LOGI(@"Create linphonecore");
 	connectivity = none;
+    theLinphoneCore =
+    linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
+	LOGI(@"Create linphonecore %p", theLinphoneCore);
+	if ([@"toto" containsString:@"o"])
+		LOGE(@"lol");
 
-	ms_init(); // Need to initialize mediastreamer2 before loading the plugins
-	// Load plugins if available in the linphone SDK - otherwise these calls will do nothing
-
-	libmsilbc_init(ms_factory_get_fallback());
-	libmssilk_init(ms_factory_get_fallback());
-	libmsamr_init(ms_factory_get_fallback());
-	libmsx264_init(ms_factory_get_fallback());
-	libmsopenh264_init(ms_factory_get_fallback());
-	libmsbcg729_init(ms_factory_get_fallback());
-	libmswebrtc_init(ms_factory_get_fallback());
+    // Load plugins if available in the linphone SDK - otherwise these calls will do nothing
+	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
+	libmssilk_init(f);
+	libmsamr_init(f);
+	libmsx264_init(f);
+	libmsopenh264_init(f);
+	libmsbcg729_init(f);
+	libmswebrtc_init(f);
+  
+	linphone_core_reload_ms_plugins(theLinphoneCore, NULL);
+    configH264HardwareAcell(true, true);
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
@@ -1488,8 +1499,7 @@ static BOOL libStarted = FALSE;
 	const char *lPlay = [[LinphoneManager bundleFile:@"hold.wav"] UTF8String];
 	lp_config_set_string(configDb, "sound", "hold_music", lPlay);
 
-	theLinphoneCore =
-		linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
+
 
 	/* set the CA file no matter what, since the remote provisioning could be hitting an HTTPS server */
 	const char *lRootCa = [[LinphoneManager bundleFile:@"rootca.pem"] UTF8String];
@@ -1540,7 +1550,6 @@ static BOOL libStarted = FALSE;
 		LOGI(@"Destroy linphonecore");
 		linphone_core_destroy(theLinphoneCore);
 		theLinphoneCore = nil;
-		ms_exit(); // Uninitialize mediastreamer2
 
 		// Post event
 		NSDictionary *dict =

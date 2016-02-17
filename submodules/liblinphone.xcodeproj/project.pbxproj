@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F3BFC991BFCC7A10025B8DF /* libmswebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3BFC981BFCC7A00025B8DF /* libmswebrtc.a */; };
+		0FAFA25A1C4D288700FCEAFD /* videotoolbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFA2591C4D288700FCEAFD /* videotoolbox.c */; };
+		0FAFA25D1C4D28AA00FCEAFD /* h264utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFA25B1C4D28AA00FCEAFD /* h264utils.c */; };
+		0FAFA25F1C4D2E9F00FCEAFD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAFA25E1C4D2E9F00FCEAFD /* VideoToolbox.framework */; };
+		0FAFA2601C4D2ED700FCEAFD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAFA25E1C4D2E9F00FCEAFD /* VideoToolbox.framework */; };
 		1561A554178D9C68006B4B2F /* ioshardware.h in Headers */ = {isa = PBXBuildFile; fileRef = 1561A553178D9C68006B4B2F /* ioshardware.h */; };
 		1561A555178D9C71006B4B2F /* ioshardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 1561A551178D98E2006B4B2F /* ioshardware.m */; };
 		2206D2D3177AC70900C40726 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2206D2C6177AC70900C40726 /* InfoPlist.strings */; };
@@ -516,6 +520,10 @@
 /* Begin PBXFileReference section */
 		0F3BFC961BFCC7420025B8DF /* liblinphone-sdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "liblinphone-sdk"; path = "../liblinphone-sdk"; sourceTree = "<group>"; };
 		0F3BFC981BFCC7A00025B8DF /* libmswebrtc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmswebrtc.a; path = "../liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmswebrtc.a"; sourceTree = "<group>"; };
+		0FAFA2591C4D288700FCEAFD /* videotoolbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = videotoolbox.c; sourceTree = "<group>"; };
+		0FAFA25B1C4D28AA00FCEAFD /* h264utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h264utils.c; sourceTree = "<group>"; };
+		0FAFA25C1C4D28AA00FCEAFD /* h264utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h264utils.h; sourceTree = "<group>"; };
+		0FAFA25E1C4D2E9F00FCEAFD /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		1561A551178D98E2006B4B2F /* ioshardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ioshardware.m; sourceTree = "<group>"; };
 		1561A553178D9C68006B4B2F /* ioshardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioshardware.h; sourceTree = "<group>"; };
 		2203127413A249F70049A2ED /* filter-template.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "filter-template.c"; sourceTree = "<group>"; };
@@ -838,6 +846,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FAFA25F1C4D2E9F00FCEAFD /* VideoToolbox.framework in Frameworks */,
 				0F3BFC991BFCC7A10025B8DF /* libmswebrtc.a in Frameworks */,
 				2206D2DE177ACD3800C40726 /* libmediastreamer_voip.a in Frameworks */,
 				22AF73C01753F3E100BE8398 /* libopus.a in Frameworks */,
@@ -879,6 +888,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FAFA2601C4D2ED700FCEAFD /* VideoToolbox.framework in Frameworks */,
 				F0ED99681A16464D00A788CE /* libmediastreamer_voip.a in Frameworks */,
 				F0ED99691A16464D00A788CE /* libopus.a in Frameworks */,
 				F0ED996A1A16464D00A788CE /* libortp.a in Frameworks */,
@@ -1201,6 +1211,8 @@
 		223CA82016D9268D00EF1BEC /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				0FAFA25B1C4D28AA00FCEAFD /* h264utils.c */,
+				0FAFA25C1C4D28AA00FCEAFD /* h264utils.h */,
 				223CA82116D9268D00EF1BEC /* _kiss_fft_guts.h */,
 				223CA82216D9268D00EF1BEC /* dsptools.c */,
 				223CA82316D9268D00EF1BEC /* ffmpeg-priv.h */,
@@ -1227,6 +1239,7 @@
 		223CA83316D9268D00EF1BEC /* videofilters */ = {
 			isa = PBXGroup;
 			children = (
+				0FAFA2591C4D288700FCEAFD /* videotoolbox.c */,
 				223CA83516D9268D00EF1BEC /* extdisplay.c */,
 				223CA83716D9268D00EF1BEC /* h264dec.c */,
 				223CA83816D9268D00EF1BEC /* ioscapture.m */,
@@ -1383,6 +1396,7 @@
 		F0ED99521A1645CD00A788CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FAFA25E1C4D2E9F00FCEAFD /* VideoToolbox.framework */,
 				0F3BFC981BFCC7A00025B8DF /* libmswebrtc.a */,
 				0F3BFC961BFCC7420025B8DF /* liblinphone-sdk */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
@@ -1996,6 +2010,8 @@
 				2206D2D8177AC70900C40726 /* mediastreamViewController.m in Sources */,
 				F0ED9B931A1648D900A788CE /* mediastream.c in Sources */,
 				F04D51EE1A08E638004DD530 /* common.c in Sources */,
+				0FAFA25A1C4D288700FCEAFD /* videotoolbox.c in Sources */,
+				0FAFA25D1C4D28AA00FCEAFD /* h264utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,7 +23,7 @@
 
 #include "linphone/lpconfig.h"
 
-extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
+extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const char *fmt, va_list args);
 
 @implementation LinphoneCoreSettingsStore
 
@@ -690,26 +690,21 @@ extern void linphone_iphone_log_handler(int lev, const char *fmt, va_list args);
 
 		NSString *videoPreset = [self stringForKey:@"video_preset_preference"];
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
-		int bw;
 		MSVideoSize vsize;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //[self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
-            bw = 1024;
         }
         else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
-            bw = 800;
         }
         else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
-            bw = 720;
         }
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
-			[self setInteger:0 forKey:@"video_preferred_fps_preference"];
-			[self setInteger:bw forKey:@"download_bandwidth_preference"];
+			[self setInteger:30 forKey:@"video_preferred_fps_preference"];
 		}
 		linphone_core_set_preferred_framerate(lc, [self integerForKey:@"video_preferred_fps_preference"]);
 		linphone_core_set_download_bandwidth(lc, [self integerForKey:@"download_bandwidth_preference"]);
