@@ -592,6 +592,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     // expiration_time
     linphone_proxy_config_set_expires(proxyCfg, ([DefaultSettingsManager sharedInstance].exparitionTime)?[DefaultSettingsManager sharedInstance].exparitionTime:3600);
+    
     PayloadType *pt;
     const MSList *elem;
     
