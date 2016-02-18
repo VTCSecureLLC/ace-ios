@@ -2453,6 +2453,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return nil;
 }
 
+- (PayloadType*)findVideoCodec:(NSString*)codec {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    const MSList *audioCodecs = linphone_core_get_video_codecs(lc);
+    
+    for (elem = audioCodecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        
+        if ([pref isEqualToString:codec]) {
+            return pt;
+        }
+        
+    }
+    
+    return nil;
+}
+
 @end
 
 
