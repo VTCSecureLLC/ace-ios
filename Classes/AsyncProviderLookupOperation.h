@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @protocol AsyncProviderLookupDelegate<NSObject>
--(void)onProviderLookupFinished:(NSMutableArray*)domains;
+- (void)onProviderLookupFinished:(NSMutableArray*)domains;
 
 @end
 
 @interface AsyncProviderLookupOperation : NSObject
-@property (atomic, strong) id <AsyncProviderLookupDelegate> delegate;
 
--(void)reloadProviderDomains;
+#pragma mark - Properties
+@property (atomic, strong) id<AsyncProviderLookupDelegate> delegate;
+
+#pragma mark - Instance Methods
+- (void)reloadProviderDomains;
+
 @end
 
