@@ -14,8 +14,11 @@
 @end
 
 @interface AsyncProviderLookupOperation : NSObject
-@property (atomic, strong) id <AsyncProviderLookupDelegate> delegate;
 
--(void)reloadProviderDomains;
+@property (atomic, strong) id<AsyncProviderLookupDelegate> delegate;
+
+#pragma mark - Instance Methods
+- (void)reloadProviderDomains;
+
 @end
 
