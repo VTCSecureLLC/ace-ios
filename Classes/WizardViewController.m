@@ -161,11 +161,11 @@ static UICompositeViewDescription *compositeDescription = nil;
         providerPickerView.delegate = self;
     
     if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:(cdnResources.count - 1)];
-        [self.selectProviderButton setTitle:[cdnResources lastObject] forState:UIControlStateNormal];
+        [providerPickerView setSelectedRow:0];
+        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
         NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]];
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
         }
         
         if(domain == nil){domain = @"";}
@@ -1722,18 +1722,20 @@ static BOOL isAdvancedShown = NO;
     [providerPickerView setAlpha:1.0f];
     providerPickerView.delegate = self;
     
-    if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:(cdnResources.count - 1)];
-        [self.selectProviderButton setTitle:[cdnResources lastObject] forState:UIControlStateNormal];
+    if(cdnResources.count > 0) {
+        [providerPickerView setSelectedRow:0];
+        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
         [self.selectProviderButton layoutSubviews];
         NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", (int)(cdnResources.count - 1)]];
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
         }
         
-        if(domain == nil){domain = @"";}
-        [self.textFieldDomain setText:domain];
+        if(domain == nil) {
+            domain = @"";
+        }
     }
 
 }
+
 @end
