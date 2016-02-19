@@ -1745,8 +1745,8 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	linphone_core_start_dtmf_stream(theLinphoneCore);
 
 	/*start the video preview in case we are in the main view*/
-	if ([LinphoneManager runningOnIpad] && linphone_core_video_enabled(theLinphoneCore) &&
-		[self lpConfigBoolForKey:@"preview_preference"]) {
+//	if ([LinphoneManager runningOnIpad] && linphone_core_video_enabled(theLinphoneCore) && [self lpConfigBoolForKey:@"preview_preference"]) {
+    if (linphone_core_video_enabled(theLinphoneCore) && [self lpConfigBoolForKey:@"preview_preference"]) {
 		linphone_core_enable_video_preview(theLinphoneCore, TRUE);
 	}
 	/*check last keepalive handler date*/
@@ -2450,6 +2450,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     const MSList *elem;
     
     const MSList *audioCodecs = linphone_core_get_audio_codecs(lc);
+    
+    for (elem = audioCodecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        
+        if ([pref isEqualToString:codec]) {
+            return pt;
+        }
+        
+    }
+    
+    return nil;
+}
+
+- (PayloadType*)findVideoCodec:(NSString*)codec {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    const MSList *audioCodecs = linphone_core_get_video_codecs(lc);
     
     for (elem = audioCodecs; elem != NULL; elem = elem->next) {
         pt = (PayloadType *)elem->data;

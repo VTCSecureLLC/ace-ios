@@ -386,6 +386,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[callButton setHidden:true];
 		[backButton setHidden:false];
 		[addContactButton setHidden:true];
+
 	} else {
 		[addCallButton setHidden:true];
 		[callButton setHidden:false];
@@ -393,6 +394,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[addContactButton setHidden:false];
 		[transferButton setHidden:true];
 	}
+    
+    if (linphone_core_get_calls_nb(lc) == 1) {
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+            [callButton setHidden:false];
+        }
+    }
 }
 
 - (void)setAddress:(NSString *)address {
