@@ -112,6 +112,10 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
             if(![[[defaults dictionaryRepresentation] allKeys] containsObject:pref]){
                 [defaults setBool:TRUE forKey:pref];
                 [defaults synchronize];
+                if ([pref isEqualToString:@"h264_preference"]) {
+                    [defaults setBool:FALSE forKey:pref];
+                    [defaults synchronize];
+                }
             }
             linphone_core_enable_payload_type(lc, pt, [defaults boolForKey:pref]);
 			[self setBool:[defaults boolForKey:pref] forKey:pref];
