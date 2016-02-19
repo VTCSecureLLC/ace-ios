@@ -109,7 +109,9 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate onProviderLookupFinished:_cdnResources];
+                    if ([self.delegate respondsToSelector:@selector(onProviderLookupFinished:)]) {
+                        [self.delegate onProviderLookupFinished:_cdnResources];
+                    }
                 });
             }
         }
