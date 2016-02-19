@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+
 @protocol AsyncProviderLookupDelegate<NSObject>
--(void)onProviderLookupFinished:(NSMutableArray*)domains;
+
+- (void)onProviderLookupFinished:(NSMutableArray*)domains;
 
 @end
+
 
 @interface AsyncProviderLookupOperation : NSObject
 

@@ -8,6 +8,10 @@
 
 #import "AsyncProviderLookupOperation.h"
 
+
+const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
+
+
 @interface AsyncProviderLookupOperation()
 
 @property NSMutableArray *cdnResources;
@@ -18,8 +22,6 @@
 
 
 @implementation AsyncProviderLookupOperation
-
-const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 
 #pragma mark - Private Methods
 - (NSString *)pathForImageCache {
@@ -86,6 +88,7 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
 #pragma mark - Instance Methods
 //Load domains from provider and store them in NSUserDefaults
 - (void)reloadProviderDomains {
+    
     _urlSession = [NSURLSession sharedSession];
     [[_urlSession dataTaskWithURL:[NSURL URLWithString:(NSString*)cdnProviderList] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSError *jsonParsingError = nil;
