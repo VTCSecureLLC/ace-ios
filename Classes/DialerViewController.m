@@ -27,10 +27,13 @@
 #import "PhoneMainView.h"
 #import "Utils.h"
 #import "UILinphone.h"
-
 #include "linphone/linphonecore.h"
+
 @interface DialerViewController()
+
 @property NSMutableArray *domains;
+@property (nonatomic, weak) IBOutlet UIImageView *providerImageView;
+
 @end
 
 @implementation DialerViewController
@@ -102,6 +105,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - ViewController Functions
 
 - (void)viewWillAppear:(BOOL)animated {
+    
 	[super viewWillAppear:animated];
 
     self.sipDomainLabel.text=@"";
@@ -191,7 +195,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    
+    LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [settingsStore transformLinphoneCoreToKeys];
+    
 	[zeroButton setDigit:'0'];
 	[oneButton setDigit:'1'];
 	[twoButton setDigit:'2'];
@@ -222,7 +229,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (void)viewDidUnload {
 	[super viewDidUnload];
 }
--(void) loadProviderDomainsFromCache{
+
+- (void)loadProviderDomainsFromCache {
     NSString *name;
     self.domains = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
@@ -232,6 +240,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
     }
 }
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 										 duration:(NSTimeInterval)duration {
 	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -253,6 +262,38 @@ static UICompositeViewDescription *compositeDescription = nil;
 		break;
 	}
 	[videoPreview setFrame:frame];
+}
+
+- (void)showProviderImageForSipRegisterDomain:(NSString *)sipRegisterDomain {
+
+    NSString *providerImageName = nil;
+    
+    if ([[sipRegisterDomain lowercaseString] containsString:@"sorenson"]) {
+        providerImageName = @"provider0.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"zvrs"]) {
+        providerImageName = @"provider1.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString]  containsString:@"star"]) {
+        providerImageName = @"provider2.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString]  containsString:@"convo"]) {
+        providerImageName = @"provider5.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"global"]) {
+        providerImageName = @"provider4.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"purple"]) {
+        providerImageName = @"provider3.png";
+    }
+    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"ace"]) {
+        providerImageName = @"ace_icon2x.png";
+    }
+    else {
+        providerImageName = @"ace_icon2x.png";
+    }
+    
+    _providerImageView.image = [UIImage imageNamed:providerImageName];
 }
 
 #pragma mark - Event Functions
@@ -472,7 +513,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[PhoneMainView instance] changeCurrentView:[InCallViewController compositeViewDescription]];
 }
 
-
 - (IBAction)onAddressChange:(id)sender {
 	if ([self displayDebugPopup:self.addressField.text]) {
 		self.addressField.text = @"";
@@ -512,6 +552,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                     if(!domain) { domain = @""; }
                     self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
                     self.addressField.sipDomain = domain;
+                    [self showProviderImageForSipRegisterDomain:domain];
             }];
             [providerAction setEnabled:YES];
             [alert addAction:providerAction];
@@ -535,9 +576,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-
-
--(void)onProviderLookupFinished:(NSMutableArray *)domains{
+- (void)onProviderLookupFinished:(NSMutableArray *)domains{
     self.domains = domains;
 }
+
 @end

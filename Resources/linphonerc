@@ -67,6 +67,11 @@ mime=VP8
 rate=90000
 enabled=1
 
+[video_codec_4]
+mime=MP4V-ES
+rate=90000
+enabled=0
+
 [net]
 download_bw=1000
 upload_bw=1000

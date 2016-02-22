@@ -131,7 +131,7 @@ UIAlertView *alert;
 -(void) displayRTTDisabledMessage{
     if(!alert){
         alert =[[UIAlertView alloc] initWithTitle:@"RTT"
-                                          message:@"RTT not supported on this call"
+                                          message:@"RTT has not been setup for this call"
                                          delegate:nil
                                 cancelButtonTitle:nil
                                 otherButtonTitles:nil];

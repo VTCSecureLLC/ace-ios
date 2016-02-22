@@ -61,9 +61,7 @@ struct codec_name_pref_table codec_pref_table[]={
                                                                  codec_pref_table[i].name,
                                                                  codec_pref_table[i].rate,
                                                                  LINPHONE_FIND_PAYLOAD_IGNORE_CHANNELS);
-        if( (available == NULL)
-           // these two codecs should not be hidden, even if not supported
-           && strcmp(codec_pref_table[i].prefname, "h264_preference") != 0
+        if( (available == NULL) && strcmp(codec_pref_table[i].prefname, "h264_preference") != 0
            )
         {
             [set addObject:[NSString stringWithUTF8String:codec_pref_table[i].prefname]];

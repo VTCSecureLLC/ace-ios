@@ -197,6 +197,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark -
 
 - (void)callUpdate:(LinphoneCall *)acall state:(LinphoneCallState)astate {
+    if(linphone_core_get_calls_nb([LinphoneManager getLc]) > 1 && acall && linphone_call_get_state(acall) == LinphoneCallIncoming){
+        linphone_core_decline_call([LinphoneManager getLc], acall, LinphoneReasonBusy);
+    }
 	if (call == acall && (astate == LinphoneCallEnd || astate == LinphoneCallError)) {
 		[delegate incomingCallAborted:call];
 		[self dismiss];
