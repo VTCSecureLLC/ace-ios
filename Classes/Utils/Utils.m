@@ -325,6 +325,57 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
 	return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
++ (NSString*)phoneNumberFromURI:(NSString*)sipURI {
+
+    NSString *sipWordString = nil;
+    NSString *remainParthString = nil;
+    NSArray *numbersAndDomain = [NSArray new];
+    
+    if (sipURI.length > 4) {
+        sipWordString = [sipURI substringToIndex:4];
+        if ([sipWordString isEqualToString:@"sip:"]) {
+            remainParthString = [sipURI substringFromIndex:4];
+            numbersAndDomain = [remainParthString componentsSeparatedByString:@"@"];
+            if (numbersAndDomain.count > 1) {
+                return [numbersAndDomain firstObject];
+            }
+        } else {
+            numbersAndDomain = [sipURI componentsSeparatedByString:@"@"];
+            
+            return [numbersAndDomain firstObject];
+        }
+    }
+    
+    return sipURI;
+}
+
++ (BOOL)isInternationalPhoneNumber:(NSString*)phoneNumber {
+    
+    NSString *internationalPhoneNumber = nil;
+    NSString *firstTwoNumbers = nil;
+    NSString *remainParthNumbers = nil;
+    if (phoneNumber.length > 2) {
+        firstTwoNumbers = [phoneNumber substringToIndex:2];
+        remainParthNumbers = [phoneNumber substringFromIndex:2];
+    }
+    
+    if ([firstTwoNumbers isEqualToString:@"00"]) {
+        internationalPhoneNumber = [@"+" stringByAppendingString:remainParthNumbers];
+    } else {
+        internationalPhoneNumber = phoneNumber;
+    }
+
+    NSString *expression = @"^\\+(?:[0-9] ?){6,14}[0-9]$";
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:internationalPhoneNumber options:0 range:NSMakeRange(0, [internationalPhoneNumber length])];
+    if (match) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end
 
 @implementation NSNumber (HumanReadableSize)
