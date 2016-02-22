@@ -47,6 +47,8 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
 + (void)buttonMultiViewAddAttributes:(NSMutableDictionary*)attributes button:(UIButton*)button;
 + (void)buttonMultiViewApplyAttributes:(NSDictionary*)attributes button:(UIButton*)button;
 + (NSString *)deviceName;
++ (NSString*)phoneNumberFromURI:(NSString*)sipURI;
++ (BOOL)isInternationalPhoneNumber:(NSString*)phoneNumber;
 
 @end
 
