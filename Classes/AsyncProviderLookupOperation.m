@@ -108,9 +108,12 @@ const NSString *cdnProviderList = @"http://cdn.vatrp.net/domains.json";
                     
                     [self downloadProviderImageWithPath:[resource objectForKey:@"icon2x"] domain:[resource objectForKey:@"name"]];
                 }
-                if ([self.delegate respondsToSelector:@selector(onProviderLookupFinished:)]) {
-                    [self.delegate onProviderLookupFinished:_cdnResources];
-                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([self.delegate respondsToSelector:@selector(onProviderLookupFinished:)]) {
+                        [self.delegate onProviderLookupFinished:_cdnResources];
+                    }
+                });
             }
         }
     }] resume];
