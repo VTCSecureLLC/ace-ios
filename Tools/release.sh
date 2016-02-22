@@ -11,7 +11,7 @@ if [ -z "$TRAVIS_BRANCH" ] ; then
   exit 0
 fi
 
-if [ "$TRAVIS_BRANCH" != "PreVCard" ] ; then
+if [ "$TRAVIS_BRANCH" != "master" ] ; then
   echo "TRAVIS_BRANCH is not master. Deploy skipped"
   exit 0
 fi
