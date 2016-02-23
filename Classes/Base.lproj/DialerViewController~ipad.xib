@@ -20,6 +20,7 @@
                 <outlet property="fourButton" destination="15" id="50"/>
                 <outlet property="nineButton" destination="12" id="51"/>
                 <outlet property="oneButton" destination="19" id="52"/>
+                <outlet property="providerImageView" destination="gy2-sR-VFI" id="aAH-m9-AkK"/>
                 <outlet property="sevenButton" destination="14" id="53"/>
                 <outlet property="sharpButton" destination="11" id="54"/>
                 <outlet property="sipDomainLabel" destination="Q61-ND-62J" id="8Cj-zo-mN2"/>
@@ -538,6 +539,11 @@
                                 <outlet property="addressField" destination="6" id="40"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gy2-sR-VFI" userLabel="Image View - Provider">
+                            <rect key="frame" x="40" y="20" width="50" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>

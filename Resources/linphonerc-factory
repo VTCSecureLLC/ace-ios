@@ -45,6 +45,11 @@ mime=VP8
 rate=90000
 enabled=1
 
+[video_codec_4]
+mime=MP4V-ES
+rate=90000
+enabled=0
+
 [app]
 #contact_display_username_only=1
 #contact_filter_on_default_domain=1

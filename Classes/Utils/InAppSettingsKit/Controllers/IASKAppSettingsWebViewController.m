@@ -80,6 +80,27 @@
 			return NO; // invalid URL
 		}
 		
+        // before we do this, verify that the device can send mail.
+        if (![MFMailComposeViewController canSendMail]) {
+            NSLog(@"IASKAppSettingsWebViewController.webView: Your device is not configured to send emails. Please configure mail application prior to sending email.");
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:@"Email Unavailable"
+                                        message:@"Your device is not configured to send emails. Please configure mail application prior to sending email."
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* ok = [UIAlertAction
+                                 actionWithTitle:@"Ok"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     [alert dismissViewControllerAnimated:NO completion:nil];
+                                     
+                                 }];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+            return false;
+        }
+        
 		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
 		mailViewController.mailComposeDelegate = self;
 
