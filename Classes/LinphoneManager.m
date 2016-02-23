@@ -45,6 +45,8 @@
 #import "Utils/DTFoundation/DTAlertView.h"
 #import "PhoneMainView.h"
 #import "SDPNegotiationService.h"
+#import "Utils.h"
+
 #define LINPHONE_LOGS_MAX_ENTRY 5000
 
 static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
@@ -1931,6 +1933,15 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 }
 
 - (void)call:(NSString *)address displayName:(NSString *)displayName transfer:(BOOL)transfer {
+    
+    NSString *addressWithoutEmptyStrings = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *phoneNumber = [LinphoneUtils phoneNumberFromURI:addressWithoutEmptyStrings];
+    if ([LinphoneUtils isInternationalPhoneNumber:phoneNumber]) {
+        LinphoneProxyConfig *proxyConfig = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        const char *domain = linphone_proxy_config_get_domain(proxyConfig);
+        address = [NSString stringWithFormat:@"sip:%@@%s;user=phone", phoneNumber, domain];
+    }
+    
 	// First verify that network is available, abort otherwise.
 	if (!linphone_core_is_network_reachable(theLinphoneCore)) {
 		UIAlertView *error = [[UIAlertView alloc]

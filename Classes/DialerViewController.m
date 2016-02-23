@@ -196,7 +196,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    
+    LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [settingsStore transformLinphoneCoreToKeys];
+    
 	[zeroButton setDigit:'0'];
 	[oneButton setDigit:'1'];
 	[twoButton setDigit:'2'];
@@ -539,6 +542,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                     if(!domain) { domain = @""; }
                     self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
                     self.addressField.sipDomain = domain;
+                    [self showProviderImageForSipRegisterDomain:domain];
             }];
             [providerAction setEnabled:YES];
             [alert addAction:providerAction];
