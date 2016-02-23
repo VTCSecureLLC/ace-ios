@@ -29,17 +29,18 @@
 #import "UILinphone.h"
 #include "linphone/linphonecore.h"
 
+
 @interface DialerViewController()
 
-@property NSMutableArray *domains;
 @property (nonatomic, weak) IBOutlet UIImageView *providerImageView;
+@property NSMutableArray *domains;
 
 @end
+
 
 @implementation DialerViewController
 
 @synthesize transferMode;
-
 @synthesize addressField;
 @synthesize addContactButton;
 @synthesize backButton;
@@ -47,7 +48,6 @@
 @synthesize transferButton;
 @synthesize callButton;
 @synthesize eraseButton;
-
 @synthesize oneButton;
 @synthesize twoButton;
 @synthesize threeButton;
@@ -60,13 +60,12 @@
 @synthesize starButton;
 @synthesize zeroButton;
 @synthesize sharpButton;
-
 @synthesize backgroundView;
 @synthesize videoPreview;
 @synthesize videoCameraSwitch;
 
-#pragma mark - Lifecycle Functions
 
+#pragma mark - Lifecycle Functions
 - (id)init {
 	self = [super initWithNibName:@"DialerViewController" bundle:[NSBundle mainBundle]];
 	if (self) {
@@ -81,6 +80,7 @@
 	// Remove all observers
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 #pragma mark - UICompositeViewDelegate Functions
 
@@ -102,13 +102,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return compositeDescription;
 }
 
-#pragma mark - ViewController Functions
 
+#pragma mark - ViewController Functions
 - (void)viewWillAppear:(BOOL)animated {
     
 	[super viewWillAppear:animated];
 
-    self.sipDomainLabel.text=@"";
+    self.providerImageView.image = nil;
+    self.sipDomainLabel.text = @"";
     self.addressField.sipDomain = nil;
 	// Set observer
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -264,46 +265,33 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[videoPreview setFrame:frame];
 }
 
-- (void)showProviderImageForSipRegisterDomain:(NSString *)sipRegisterDomain {
-
-    NSString *providerImageName = nil;
+#pragma mark - Private Functions
+- (NSString *)pathForImageCache {
     
-    if ([[sipRegisterDomain lowercaseString] containsString:@"sorenson"]) {
-        providerImageName = @"provider0.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"zvrs"]) {
-        providerImageName = @"provider1.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString]  containsString:@"star"]) {
-        providerImageName = @"provider2.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString]  containsString:@"convo"]) {
-        providerImageName = @"provider5.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"global"]) {
-        providerImageName = @"provider4.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"purple"]) {
-        providerImageName = @"provider3.png";
-    }
-    else if ([[[sipRegisterDomain lowercaseString] lowercaseString] containsString:@"ace"]) {
-        providerImageName = @"ace_icon2x.png";
-    }
-    else {
-        providerImageName = @"ace_icon2x.png";
-    }
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachePath = [documentsDirectory stringByAppendingPathComponent:@"ImageCache"];
     
-    _providerImageView.image = [UIImage imageNamed:providerImageName];
+    return cachePath;
 }
 
-#pragma mark - Event Functions
+- (void)fillProviderImageWithDomain:(NSString *)domain {
+    
+    NSString *name = [[domain lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *cachePath = [self pathForImageCache];
+    NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    _providerImageView.image = image;
+}
 
+
+#pragma mark - Event Functions
 - (void)callUpdateEvent:(NSNotification *)notif {
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	[self callUpdate:call state:state];
 }
-
 
 - (void)coreUpdateEvent:(NSNotification *)notif {
 	
@@ -319,6 +307,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 		}
 	
 }
+
 
 #pragma mark - Debug Functions
 - (void)presentMailViewWithTitle:(NSString *)subject forRecipients:(NSArray *)recipients attachLogs:(BOOL)attachLogs {
@@ -408,8 +397,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return false;
 }
 
-#pragma mark -
 
+#pragma mark -
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state {
 	LinphoneCore *lc = [LinphoneManager getLc];
 	if (linphone_core_get_calls_nb(lc) > 0) {
@@ -468,8 +457,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[LinphoneManager instance] call:address displayName:displayName transfer:transferMode];
 }
 
-#pragma mark - UITextFieldDelegate Functions
 
+#pragma mark - UITextFieldDelegate Functions
 - (BOOL)textField:(UITextField *)textField
 	shouldChangeCharactersInRange:(NSRange)range
 				replacementString:(NSString *)string {
@@ -484,8 +473,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return YES;
 }
 
-#pragma mark - MFComposeMailDelegate
 
+#pragma mark - MFComposeMailDelegate
 - (void)mailComposeController:(MFMailComposeViewController *)controller
 		  didFinishWithResult:(MFMailComposeResult)result
 						error:(NSError *)error {
@@ -495,8 +484,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[self.navigationController setNavigationBarHidden:TRUE animated:FALSE];
 }
 
-#pragma mark - Action Functions
 
+#pragma mark - Action Functions
 - (IBAction)onAddContactClick: (id) event {
     [ContactSelection setSelectionMode:ContactSelectionModeEdit];
     [ContactSelection setAddAddress:[addressField text]];
@@ -544,15 +533,15 @@ static UICompositeViewDescription *compositeDescription = nil;
              style:UIAlertActionStyleDefault
                 handler:^(UIAlertAction * action) {
                     NSString *domain = @"";
-                    for(int i = 0; i < self.domains.count; i++){
-                        if([action.title isEqualToString:[self.domains objectAtIndex:i]]){
+                    for (int i = 0; i < self.domains.count; i++) {
+                        if ([action.title isEqualToString:[self.domains objectAtIndex:i]]) {
+                            [self fillProviderImageWithDomain:[self.domains objectAtIndex:i]];
                             domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
                         }
                     }
                     if(!domain) { domain = @""; }
                     self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
                     self.addressField.sipDomain = domain;
-                    [self showProviderImageForSipRegisterDomain:domain];
             }];
             [providerAction setEnabled:YES];
             [alert addAction:providerAction];
@@ -576,7 +565,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)onProviderLookupFinished:(NSMutableArray *)domains{
+- (void)onProviderLookupFinished:(NSMutableArray *)domains {
     self.domains = domains;
 }
 

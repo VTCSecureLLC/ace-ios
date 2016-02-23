@@ -17,7 +17,7 @@
                 <outlet property="fourButton" destination="30" id="194"/>
                 <outlet property="nineButton" destination="36" id="200"/>
                 <outlet property="oneButton" destination="38" id="191"/>
-                <outlet property="providerImageView" destination="fu6-Kb-Oaj" id="QPX-cZ-wDp"/>
+                <outlet property="providerImageView" destination="w7r-dV-93d" id="Mmi-RV-1YP"/>
                 <outlet property="sevenButton" destination="34" id="197"/>
                 <outlet property="sharpButton" destination="41" id="232"/>
                 <outlet property="sipDomainLabel" destination="BEx-pW-gf2" id="nM8-1w-KOE"/>
@@ -513,8 +513,8 @@
                                 <outlet property="addressField" destination="4" id="235"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fu6-Kb-Oaj" userLabel="Image View - Provider">
-                            <rect key="frame" x="37" y="37" width="50" height="50"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="w7r-dV-93d" userLabel="Image View - Provider ">
+                            <rect key="frame" x="35" y="35" width="54" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
