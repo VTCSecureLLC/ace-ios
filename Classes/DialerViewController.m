@@ -231,7 +231,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[super viewDidUnload];
 }
 
-- (void)loadProviderDomainsFromCache{
+- (void)loadProviderDomainsFromCache {
     NSString *name;
     self.domains = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
@@ -542,7 +542,6 @@ static UICompositeViewDescription *compositeDescription = nil;
                     if(!domain) { domain = @""; }
                     self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
                     self.addressField.sipDomain = domain;
-                    [self showProviderImageForSipRegisterDomain:domain];
             }];
             [providerAction setEnabled:YES];
             [alert addAction:providerAction];
