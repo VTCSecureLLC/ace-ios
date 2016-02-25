@@ -158,7 +158,7 @@
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     
-    NSString *domain = [[WizardViewController getProvidersFromCDN] objectAtIndex:row];
+    NSString *domain = [arraySource objectAtIndex:row];
     UIImage *image = [self fetchProviderImageWithDomain:domain];
     UIImageView *providerImageView = [[UIImageView alloc] initWithImage:image];
     providerImageView.frame = CGRectMake(-15, 18, 25, 25);
