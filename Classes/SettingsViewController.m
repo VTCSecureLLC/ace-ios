@@ -757,8 +757,8 @@ static UICompositeViewDescription *compositeDescription = nil;
             linphone_core_set_video_dscp([LinphoneManager getLc], 38);
         } else {
             // Default values
-            linphone_core_set_sip_dscp([LinphoneManager getLc], 26);
-            linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
             linphone_core_set_video_dscp([LinphoneManager getLc], 0);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
