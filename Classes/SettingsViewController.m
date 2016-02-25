@@ -877,12 +877,12 @@ static BOOL isAdvancedSettings = FALSE;
 	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		[hiddenKeys addObject:@"media_encryption_preference"];
 	}
-
-#ifndef DEBUG
-	[hiddenKeys addObject:@"release_button"];
-	[hiddenKeys addObject:@"clear_cache_button"];
-	[hiddenKeys addObject:@"battery_alert_button"];
-#endif
+/*** Commented out for GA ***/
+//#ifndef DEBUG
+//	[hiddenKeys addObject:@"release_button"];
+//	[hiddenKeys addObject:@"clear_cache_button"];
+//	[hiddenKeys addObject:@"battery_alert_button"];
+//#endif
 
 	if (![[LinphoneManager instance] lpConfigBoolForKey:@"debugenable_preference"]) {
 		[hiddenKeys addObject:@"send_logs_button"];
@@ -1020,20 +1020,21 @@ static BOOL isAdvancedSettings = FALSE;
 	NSString *key = [specifier.specifierDict objectForKey:kIASKKey];
 	LinphoneCore *lc = [LinphoneManager getLc];
 #ifdef DEBUG
-	if ([key isEqual:@"release_button"]) {
-		[UIApplication sharedApplication].keyWindow.rootViewController = nil;
-		[[UIApplication sharedApplication].keyWindow setRootViewController:nil];
-		[[LinphoneManager instance] destroyLinphoneCore];
-		[LinphoneManager instanceRelease];
-	} else if ([key isEqual:@"clear_cache_button"]) {
-		[[PhoneMainView instance]
-				.mainViewController clearCache:[NSArray arrayWithObject:[[PhoneMainView instance] currentView]]];
-	} else if ([key isEqual:@"battery_alert_button"]) {
-		[[UIDevice currentDevice] _setBatteryState:UIDeviceBatteryStateUnplugged];
-		[[UIDevice currentDevice] _setBatteryLevel:0.01f];
-		[[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceBatteryLevelDidChangeNotification
-															object:self];
-	}
+/***** Dangerous settings, commented for GA *****/
+//	if ([key isEqual:@"release_button"]) {
+//		[UIApplication sharedApplication].keyWindow.rootViewController = nil;
+//		[[UIApplication sharedApplication].keyWindow setRootViewController:nil];
+//		[[LinphoneManager instance] destroyLinphoneCore];
+//		[LinphoneManager instanceRelease];
+//	} else if ([key isEqual:@"clear_cache_button"]) {
+//		[[PhoneMainView instance]
+//				.mainViewController clearCache:[NSArray arrayWithObject:[[PhoneMainView instance] currentView]]];
+//	} else if ([key isEqual:@"battery_alert_button"]) {
+//		[[UIDevice currentDevice] _setBatteryState:UIDeviceBatteryStateUnplugged];
+//		[[UIDevice currentDevice] _setBatteryLevel:0.01f];
+//		[[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceBatteryLevelDidChangeNotification
+//															object:self];
+//	}
 #endif
 	if ([key isEqual:@"wizard_button"]) {
 		if (linphone_core_get_default_proxy_config(lc) == NULL) {
