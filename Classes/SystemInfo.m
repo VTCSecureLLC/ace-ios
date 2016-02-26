@@ -139,8 +139,6 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
         NSString *video_preset = [NSString stringWithFormat:@"Video preset = %s", linphone_core_get_video_preset(lc)];
         [values addObject:video_preset];
         
-        NSString *adaptiveRateAlgorithm = [NSString stringWithFormat:@"Adaptive rate algorithm = %s",         linphone_core_get_adaptive_rate_algorithm(lc)];
-                [values addObject:adaptiveRateAlgorithm];
         /**Video codecs**/
         
         const MSList *videoCodecs = linphone_core_get_video_codecs(lc);
@@ -199,6 +197,9 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
         //Adaptive rate control
         NSString *adaptiveRateControl = [NSString stringWithFormat:@"adaptive_rate_control = %@", NSStringFromBOOL(linphone_core_adaptive_rate_control_enabled(lc))];
         [values addObject:adaptiveRateControl];
+        
+        NSString *adaptiveRateAlgorithm = [NSString stringWithFormat:@"Adaptive rate algorithm = %s",         linphone_core_get_adaptive_rate_algorithm(lc)];
+        [values addObject:adaptiveRateAlgorithm];
         //STUN
             NSString *stun = @"";
             @try{

@@ -527,6 +527,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 		removeFromHiddenKeys = [video_preset isEqualToString:@"custom"];
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
+        linphone_core_set_video_preset([LinphoneManager getLc], "high-fps");
 	}
     else if([@"ice_preference" compare:notif.object] == NSOrderedSame){
         BOOL iceEnabled = [[notif.userInfo objectForKey:@"ice_preference"] boolValue];
@@ -607,6 +608,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"enable_auto_answer_preference" compare:notif.object] == NSOrderedSame){
         
+    }
+    
+    else if([@"adaptive_rate_control_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"adaptive_rate_control_preference"] boolValue]) ? YES : NO;
+        linphone_core_enable_adaptive_rate_control([LinphoneManager getLc], enabled);
     }
     else if([@"wifi_only_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
@@ -999,7 +1005,7 @@ static BOOL isAdvancedSettings = FALSE;
         [hiddenKeys addObject:@"enable_video_preference"];
         [hiddenKeys addObject:@"avpf_preference"];
         [hiddenKeys addObject:@"outbound_proxy_preference"];
-        [hiddenKeys addObject:@"domain_preference"];
+        [hiddenKeys addObject:@"password_preference"];
         [hiddenKeys addObject:@"proxy_preference"];
         [hiddenKeys addObject:@"transport_preference"];
         [hiddenKeys addObject:@"advanced_account_preference"];
