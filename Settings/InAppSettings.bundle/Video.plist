@@ -82,7 +82,7 @@
 				<string>custom</string>
 			</array>
 			<key>DefaultValue</key>
-			<string>default</string>
+			<string>high-fps</string>
 		</dict>
 		<dict>
 			<key>Key</key>

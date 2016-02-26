@@ -281,9 +281,14 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		[self setBool:previewEnabled forKey:@"preview_preference"];
 
 		const char *preset = linphone_core_get_video_preset(lc);
+        if(!preset){
+            preset = "high-fps";
+            linphone_core_set_video_preset(lc, preset);
+        }
 		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
         
+        linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         
@@ -725,6 +730,9 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		[lm lpConfigSetInt:preview_preference forKey:@"preview_preference"];
 
 		NSString *videoPreset = [self stringForKey:@"video_preset_preference"];
+        if(!videoPreset){
+            videoPreset = @"high-fps";
+        }
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		MSVideoSize vsize;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
