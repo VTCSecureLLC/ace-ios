@@ -135,6 +135,12 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
         /**Video**/
         NSString *videoHeader = @"\nVIDEO: \n";
         [values addObject:videoHeader];
+
+        NSString *video_preset = [NSString stringWithFormat:@"Video preset = %s", linphone_core_get_video_preset(lc)];
+        [values addObject:video_preset];
+        
+        NSString *adaptiveRateAlgorithm = [NSString stringWithFormat:@"Adaptive rate algorithm = %s",         linphone_core_get_adaptive_rate_algorithm(lc)];
+                [values addObject:adaptiveRateAlgorithm];
         /**Video codecs**/
         
         const MSList *videoCodecs = linphone_core_get_video_codecs(lc);
@@ -212,7 +218,7 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
         NSString *avpfRRInterval = [NSString stringWithFormat:@"avpf_rr_interval = %d", linphone_proxy_config_get_avpf_rr_interval(cfg)];
             [values addObject: avpfRRInterval];
 
-        NSString *rtcpFeedback = [NSString stringWithFormat:@"rtcp_feedback = %d", [[LinphoneManager instance] lpConfigIntForKey:@"rtp" forSection:@"rtcp_fb_implicit_rtcp_fb" withDefault:0]];
+        NSString *rtcpFeedback = [NSString stringWithFormat:@"rtcp-fb = %d", lp_config_get_int([[LinphoneManager instance] configDb], "rtp", "rtcp_fb_implicit_rtcp_fb", 1)];
         [values addObject:rtcpFeedback];
         //Video size
             MSVideoSize videoSize = linphone_core_get_preferred_video_size(lc);
