@@ -394,7 +394,12 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			   forKey:@"start_at_boot_preference"];
 		[self setBool:[lm lpConfigBoolForKey:@"autoanswer_notif_preference" withDefault:NO]
 			   forKey:@"autoanswer_notif_preference"];
-		[self setBool:[lm lpConfigBoolForKey:@"enable_first_login_view_preference" withDefault:NO]
+        
+       
+        [self setQoSInitialValues];
+        
+        
+       		[self setBool:[lm lpConfigBoolForKey:@"enable_first_login_view_preference" withDefault:NO]
 			   forKey:@"enable_first_login_view_preference"];
 		LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
 		if (parsed != NULL) {
@@ -419,6 +424,33 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 											  cancelButtonTitle:NSLocalizedString(@"OK", nil)
 											  otherButtonTitles:nil];
 	[alertview show];
+}
+
+- (void)setQoSInitialValues {
+    
+    int sip = linphone_core_get_sip_dscp([LinphoneManager getLc]);
+    int audio = linphone_core_get_audio_dscp([LinphoneManager getLc]);
+    int video = linphone_core_get_video_dscp([LinphoneManager getLc]);
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"]) {
+        // First time
+          [self setBool:YES forKey:@"QoS"];
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] integerValue] == 1) {
+        // Turned On
+        if (sip != 28 && audio != 38 && video != 38) {
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 28);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 38);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 38);
+        }
+        [self setBool:YES forKey:@"QoS"];
+    } else {
+        // Turned Off
+        if (sip != 26 && audio != 46 && video != 0) {
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 0);
+        }
+        [self setBool:NO forKey:@"QoS"];
+    }
 }
 
 - (void)synchronizeAccount {
@@ -834,6 +866,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 		[lm lpConfigSetInt:[self integerForKey:@"start_at_boot_preference"] forKey:@"start_at_boot_preference"];
 		[lm lpConfigSetInt:[self integerForKey:@"autoanswer_notif_preference"] forKey:@"autoanswer_notif_preference"];
+        [lm lpConfigSetInt:[self integerForKey:@"QoS"] forKey:@"QoS"];
 
 		BOOL firstloginview = [self boolForKey:@"enable_first_login_view_preference"];
 		[lm lpConfigSetInt:firstloginview forKey:@"enable_first_login_view_preference"];

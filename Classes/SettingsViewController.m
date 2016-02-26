@@ -749,8 +749,22 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
+    } else if([@"QoS" compare:notif.object] == NSOrderedSame) {
+        BOOL enabled = ([[notif.userInfo objectForKey:@"QoS"] boolValue]) ? YES : NO;
+        if (enabled) {
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 28);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 38);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 38);
+        } else {
+            // Default values
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 0);
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:enabled forKey:@"QoS"];
+        [defaults synchronize];
     }
-
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
