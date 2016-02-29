@@ -283,12 +283,6 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>Development debug actions</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
 			<key>Key</key>
 			<string>about_button</string>
 			<key>Title</key>
@@ -305,53 +299,19 @@
 			<string>IASKButtonSpecifier</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>release_button</string>
 			<key>Title</key>
-			<string>Release core</string>
+			<string>Reset</string>
 			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>Key</key>
-			<string>clear_cache_button</string>
+			<string>reset_all_settings</string>
 			<key>Title</key>
-			<string>Clear cache</string>
+			<string>Reset All Settings</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-		<dict>
-			<key>Key</key>
-			<string>battery_alert_button</string>
-			<key>Title</key>
-			<string>Battery alert</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Auto answer call immediately</string>
-			<key>Key</key>
-			<string>enable_auto_answer_preference</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-        <dict>
-            <key>Title</key>
-            <string>Reset</string>
-            <key>Type</key>
-            <string>PSGroupSpecifier</string>
-        </dict>
-        <dict>
-            <key>Key</key>
-            <string>reset_all_settings</string>
-            <key>Title</key>
-            <string>Reset All Settings</string>
-            <key>Type</key>
-            <string>IASKButtonSpecifier</string>
-        </dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

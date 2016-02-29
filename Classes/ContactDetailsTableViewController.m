@@ -26,6 +26,8 @@
 #import "FastAddressBook.h"
 #import "Utils.h"
 
+#define DATEPICKER_HEIGHT 230
+
 @interface Entry : NSObject
 
 @property(assign) ABMultiValueIdentifier identifier;
@@ -48,8 +50,11 @@
 
 @end
 
-@interface ContactDetailsTableViewController()
+@interface ContactDetailsTableViewController() <UICustomPickerDelegate>
+
 @property NSMutableArray *domains;
+@property (nonatomic, strong) UICustomPicker *providerPickerView;
+
 @end
 
 @implementation ContactDetailsTableViewController
@@ -593,6 +598,9 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	} else if (contactSections[[indexPath section]] == ContactSections_Sip) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"SIP address", nil)];
+        [cell.providerPicker setBackgroundColor:[UIColor darkGrayColor]];
+        [cell.providerPicker setImage:nil forState:UIControlStateNormal];
+        
         if(![self.tableView isEditing]){
             [cell.providerPicker setHidden:YES];
             [cell.providerPicker setEnabled:NO];
@@ -624,7 +632,11 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
     }
 }
 
--(IBAction)onProviderPickerClicked:(id)sender{
+-(IBAction)onProviderPickerClicked:(id)sender {
+    
+    [self setupProviderPickerViewWithTag:[(UIButton*)sender tag]];
+    
+    /*
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
                                                                    message:@"Select the SIP provider of the person you wish to call."
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -670,7 +682,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
                                                  }];
     [alert addAction:none];
     [self presentViewController:alert animated:YES completion:nil];
-
+*/
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -987,6 +999,104 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		[self performSelector:@selector(updateModification) withObject:nil afterDelay:0];
 	}
 	return TRUE;
+}
+
+- (void)setupProviderPickerViewWithTag:(NSUInteger)tag {
+    
+    [self setRecursiveUserInteractionEnabled:false];
+    CGRect frame = CGRectMake(0, 100 + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    self.providerPickerView = [[UICustomPicker alloc] initWithFrame:frame SourceList:self.domains];
+    [self.providerPickerView setAlpha:1.0f];
+    self.providerPickerView.delegate = self;
+    self.providerPickerView.tag = tag;
+    self.providerPickerView.userInteractionEnabled = true;
+    [self.view addSubview:self.providerPickerView];
+    
+    if (self.domains.count > 0) {
+        [self.providerPickerView setSelectedRow:0];
+    }
+}
+
+- (void)setRecursiveUserInteractionEnabled:(BOOL)value {
+    
+    //self.view.userInteractionEnabled =   value;
+    for (UIView *view in self.view.subviews) {
+        view.userInteractionEnabled = value;
+    }
+}
+
+- (NSString *)pathForImageCache {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachePath = [documentsDirectory stringByAppendingPathComponent:@"ImageCache"];
+    
+    return cachePath;
+}
+
+- (UIImage *)fetchProviderImageWithDomain:(NSString *)domain {
+    
+    NSString *lowercaseName = [domain lowercaseString];
+    NSString *name = [lowercaseName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *cachePath = [self pathForImageCache];
+    NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    if (!image) {
+        NSString *localImageName = nil;
+        if ([lowercaseName containsString:@"sorenson"]) {
+            localImageName = @"provider0.png";
+        }
+        else if ([lowercaseName containsString:@"zvrs"]) {
+            localImageName = @"provider1.png";
+        }
+        else if ([lowercaseName containsString:@"star"]) {
+            localImageName = @"provider2.png";
+        }
+        else if ([lowercaseName containsString:@"convo"]) {
+            localImageName = @"provider5.png";
+        }
+        else if ([lowercaseName containsString:@"global"]) {
+            localImageName = @"provider4.png";
+        }
+        else if ([lowercaseName containsString:@"purple"]) {
+            localImageName = @"provider3.png";
+        }
+        else if ([lowercaseName containsString:@"ace"]) {
+            localImageName = @"ace_icon2x.png";
+        }
+        else {
+            localImageName = @"ace_icon2x.png";
+        }
+        image = [UIImage imageNamed:localImageName];
+    }
+    
+    return image;
+}
+
+
+#pragma mark - UICustomPicker Delegate
+- (void)didCancelUICustomPicker:(UICustomPicker *)customPicker {
+    
+    [self setRecursiveUserInteractionEnabled:true];
+}
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker selectedItem:(NSString*)item {
+    
+    [self setRecursiveUserInteractionEnabled:true];
+}
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
+    
+    if (self.domains) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:customPicker.tag inSection:ContactSections_Sip];
+        UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        UIImage *image = [self fetchProviderImageWithDomain:[self.domains objectAtIndex:row]];
+        [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
+        [cell.providerPicker setImage:image forState:UIControlStateNormal];
+        [self setRecursiveUserInteractionEnabled:true];
+    }
 }
 
 @end

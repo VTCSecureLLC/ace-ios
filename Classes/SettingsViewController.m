@@ -527,6 +527,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 		removeFromHiddenKeys = [video_preset isEqualToString:@"custom"];
 		[keys addObject:@"video_preferred_fps_preference"];
 		[keys addObject:@"download_bandwidth_preference"];
+        linphone_core_set_video_preset([LinphoneManager getLc], "high-fps");
 	}
     else if([@"ice_preference" compare:notif.object] == NSOrderedSame){
         BOOL iceEnabled = [[notif.userInfo objectForKey:@"ice_preference"] boolValue];
@@ -607,6 +608,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     else if([@"enable_auto_answer_preference" compare:notif.object] == NSOrderedSame){
         
+    }
+    
+    else if([@"adaptive_rate_control_preference" compare:notif.object] == NSOrderedSame){
+        BOOL enabled = ([[notif.userInfo objectForKey:@"adaptive_rate_control_preference"] boolValue]) ? YES : NO;
+        linphone_core_enable_adaptive_rate_control([LinphoneManager getLc], enabled);
     }
     else if([@"wifi_only_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
@@ -749,8 +755,22 @@ static UICompositeViewDescription *compositeDescription = nil;
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
+    } else if([@"QoS" compare:notif.object] == NSOrderedSame) {
+        BOOL enabled = ([[notif.userInfo objectForKey:@"QoS"] boolValue]) ? YES : NO;
+        if (enabled) {
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 28);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 38);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 38);
+        } else {
+            // Default values
+            linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
+            linphone_core_set_video_dscp([LinphoneManager getLc], 0);
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:enabled forKey:@"QoS"];
+        [defaults synchronize];
     }
-
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
@@ -877,12 +897,12 @@ static BOOL isAdvancedSettings = FALSE;
 	if (!linphone_core_sip_transport_supported([LinphoneManager getLc], LinphoneTransportTls)) {
 		[hiddenKeys addObject:@"media_encryption_preference"];
 	}
-
-#ifndef DEBUG
-	[hiddenKeys addObject:@"release_button"];
-	[hiddenKeys addObject:@"clear_cache_button"];
-	[hiddenKeys addObject:@"battery_alert_button"];
-#endif
+/*** Commented out for GA ***/
+//#ifndef DEBUG
+//	[hiddenKeys addObject:@"release_button"];
+//	[hiddenKeys addObject:@"clear_cache_button"];
+//	[hiddenKeys addObject:@"battery_alert_button"];
+//#endif
 
 	if (![[LinphoneManager instance] lpConfigBoolForKey:@"debugenable_preference"]) {
 		[hiddenKeys addObject:@"send_logs_button"];
@@ -985,7 +1005,7 @@ static BOOL isAdvancedSettings = FALSE;
         [hiddenKeys addObject:@"enable_video_preference"];
         [hiddenKeys addObject:@"avpf_preference"];
         [hiddenKeys addObject:@"outbound_proxy_preference"];
-        [hiddenKeys addObject:@"domain_preference"];
+        [hiddenKeys addObject:@"password_preference"];
         [hiddenKeys addObject:@"proxy_preference"];
         [hiddenKeys addObject:@"transport_preference"];
         [hiddenKeys addObject:@"advanced_account_preference"];
@@ -1020,20 +1040,21 @@ static BOOL isAdvancedSettings = FALSE;
 	NSString *key = [specifier.specifierDict objectForKey:kIASKKey];
 	LinphoneCore *lc = [LinphoneManager getLc];
 #ifdef DEBUG
-	if ([key isEqual:@"release_button"]) {
-		[UIApplication sharedApplication].keyWindow.rootViewController = nil;
-		[[UIApplication sharedApplication].keyWindow setRootViewController:nil];
-		[[LinphoneManager instance] destroyLinphoneCore];
-		[LinphoneManager instanceRelease];
-	} else if ([key isEqual:@"clear_cache_button"]) {
-		[[PhoneMainView instance]
-				.mainViewController clearCache:[NSArray arrayWithObject:[[PhoneMainView instance] currentView]]];
-	} else if ([key isEqual:@"battery_alert_button"]) {
-		[[UIDevice currentDevice] _setBatteryState:UIDeviceBatteryStateUnplugged];
-		[[UIDevice currentDevice] _setBatteryLevel:0.01f];
-		[[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceBatteryLevelDidChangeNotification
-															object:self];
-	}
+/***** Dangerous settings, commented for GA *****/
+//	if ([key isEqual:@"release_button"]) {
+//		[UIApplication sharedApplication].keyWindow.rootViewController = nil;
+//		[[UIApplication sharedApplication].keyWindow setRootViewController:nil];
+//		[[LinphoneManager instance] destroyLinphoneCore];
+//		[LinphoneManager instanceRelease];
+//	} else if ([key isEqual:@"clear_cache_button"]) {
+//		[[PhoneMainView instance]
+//				.mainViewController clearCache:[NSArray arrayWithObject:[[PhoneMainView instance] currentView]]];
+//	} else if ([key isEqual:@"battery_alert_button"]) {
+//		[[UIDevice currentDevice] _setBatteryState:UIDeviceBatteryStateUnplugged];
+//		[[UIDevice currentDevice] _setBatteryLevel:0.01f];
+//		[[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceBatteryLevelDidChangeNotification
+//															object:self];
+//	}
 #endif
 	if ([key isEqual:@"wizard_button"]) {
 		if (linphone_core_get_default_proxy_config(lc) == NULL) {

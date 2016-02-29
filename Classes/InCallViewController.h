@@ -30,8 +30,6 @@
 
 @interface InCallViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICompositeViewDelegate, UITextInput> {
     @private
-    UITapGestureRecognizer* singleFingerTap;
-    NSTimer* hideControlsTimer;
     BOOL videoShown;
     VideoZoomHandler* videoZoomHandler;
 }

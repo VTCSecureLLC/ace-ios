@@ -503,7 +503,7 @@ def main(argv=None):
         additional_args += ["-DENABLE_MPEG4=YES"]
         additional_args += ["-DENABLE_OPENH264=YES"]
         additional_args += ["-DENABLE_VPX=YES"]
-        additional_args += ["-DENABLE_X264=YES"]
+        additional_args += ["-DENABLE_X264=NO"]
     if args.disable_gpl_third_parties is True:
         additional_args += ["-DENABLE_GPL_THIRD_PARTIES=NO"]
     if args.enable_gpl_third_parties is True:

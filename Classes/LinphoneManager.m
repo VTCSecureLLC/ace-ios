@@ -45,6 +45,8 @@
 #import "Utils/DTFoundation/DTAlertView.h"
 #import "PhoneMainView.h"
 #import "SDPNegotiationService.h"
+#import "Utils.h"
+
 #define LINPHONE_LOGS_MAX_ENTRY 5000
 
 static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
@@ -1743,8 +1745,8 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	linphone_core_start_dtmf_stream(theLinphoneCore);
 
 	/*start the video preview in case we are in the main view*/
-	if ([LinphoneManager runningOnIpad] && linphone_core_video_enabled(theLinphoneCore) &&
-		[self lpConfigBoolForKey:@"preview_preference"]) {
+//	if ([LinphoneManager runningOnIpad] && linphone_core_video_enabled(theLinphoneCore) && [self lpConfigBoolForKey:@"preview_preference"]) {
+    if (linphone_core_video_enabled(theLinphoneCore) && [self lpConfigBoolForKey:@"preview_preference"]) {
 		linphone_core_enable_video_preview(theLinphoneCore, TRUE);
 	}
 	/*check last keepalive handler date*/
@@ -1931,6 +1933,15 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 }
 
 - (void)call:(NSString *)address displayName:(NSString *)displayName transfer:(BOOL)transfer {
+    
+    NSString *addressWithoutEmptyStrings = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *phoneNumber = [LinphoneUtils phoneNumberFromURI:addressWithoutEmptyStrings];
+    if ([LinphoneUtils isInternationalPhoneNumber:phoneNumber]) {
+        LinphoneProxyConfig *proxyConfig = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        const char *domain = linphone_proxy_config_get_domain(proxyConfig);
+        address = [NSString stringWithFormat:@"sip:%@@%s;user=phone", phoneNumber, domain];
+    }
+    
 	// First verify that network is available, abort otherwise.
 	if (!linphone_core_is_network_reachable(theLinphoneCore)) {
 		UIAlertView *error = [[UIAlertView alloc]
@@ -2439,6 +2450,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     const MSList *elem;
     
     const MSList *audioCodecs = linphone_core_get_audio_codecs(lc);
+    
+    for (elem = audioCodecs; elem != NULL; elem = elem->next) {
+        pt = (PayloadType *)elem->data;
+        NSString *pref = [SDPNegotiationService getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        
+        if ([pref isEqualToString:codec]) {
+            return pt;
+        }
+        
+    }
+    
+    return nil;
+}
+
+- (PayloadType*)findVideoCodec:(NSString*)codec {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    PayloadType *pt;
+    const MSList *elem;
+    
+    const MSList *audioCodecs = linphone_core_get_video_codecs(lc);
     
     for (elem = audioCodecs; elem != NULL; elem = elem->next) {
         pt = (PayloadType *)elem->data;
