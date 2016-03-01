@@ -1229,8 +1229,6 @@ static BOOL isAdvancedSettings = FALSE;
 	if (buttonIndex != 1)
 		return; /* cancel */
     else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loggedUserInfo"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToWizard];
     }
 }
