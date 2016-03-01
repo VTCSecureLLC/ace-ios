@@ -186,6 +186,16 @@ typedef struct _LinphoneManagerSounds {
  */
 - (NSString *)callIdForCall:(LinphoneCall *)call;
 
+/**
+ *  Checks if video enabled for exact call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return returns YES if video is enabled for exact call otherwise
+ */
+- (BOOL)isVideoEnabledForCall:(LinphoneCall *)call;
+
+
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 
