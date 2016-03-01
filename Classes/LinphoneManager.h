@@ -204,6 +204,15 @@ typedef struct _LinphoneManagerSounds {
  */
 - (LinphoneCallState)callStateForCall:(LinphoneCall *)call;
 
+/**
+ *  Returns current call for linphone core
+ *
+ *  @param linphoneCore LinphoneCore object
+ *
+ *  @return LinphoneCall object
+ */
+- (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore;
+
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 

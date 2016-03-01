@@ -2066,6 +2066,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return linphone_call_get_state(call);
 }
 
+- (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore {
+    
+    return linphone_core_get_current_call(linphoneCore);
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {
