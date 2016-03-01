@@ -603,15 +603,15 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"vga" forKey:@"video_preferred_size_preference"];
 
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1000);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1000);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Explicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum
@@ -1647,7 +1647,7 @@ UIAlertView *transportAlert;
     [self enableAppropriateCodecs:linphone_core_get_video_codecs(lc)];
 
     // bwLimit - ? the name bwlimit is confusing
-    linphone_core_set_video_preset(lc, [DefaultSettingsManager sharedInstance].bwLimit.UTF8String);
+    linphone_core_set_video_preset(lc, "custom");
     
     // upload_bandwidth
     linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
