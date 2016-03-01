@@ -37,44 +37,16 @@
                     }];
 }
 
-- (void)showAlertInController:(UIViewController *)viewController withTitle:(NSString*)title withMessage:(NSString *)message completion:(void (^)())completion {
+
+- (void)changeRootViewControllerWithController:(UIViewController *)viewController {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okAlertAction = [UIAlertAction actionWithTitle:@"OK"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *alertAction) {
-                                                              [alertController dismissViewControllerAnimated:YES completion:^{
-                                                                  if (completion) {
-                                                                      completion();
-                                                                  }
-                                                              }];
-                                                          }];
-    [alertController addAction:okAlertAction];
-    [viewController presentViewController:alertController animated:YES completion:nil];
+    [self transitionToViewController:viewController withTransition:UIViewAnimationOptionTransitionNone];
 }
 
-
-#pragma mark - Instance Methods
-- (UIViewController *)viewControllerWithClass:(Class)controllerClass inStoryboardWithName:(NSString*)storyboardName {
+- (IncomingCallViewControllerNew *)incomingCallViewController {
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass(controllerClass)];
-    
-    if (![viewController isKindOfClass:controllerClass]) {
-        viewController =  nil;
-    }
-
-    return viewController;
-}
-
-- (UIViewController *)initialViewControllerInStoryboard:(NSString *)storyboardName {
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    UIViewController *viewController = [storyboard instantiateInitialViewController];
-    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardIncomingCall bundle:nil];
+    IncomingCallViewControllerNew *viewController = [storyboard instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
     return viewController;
 }
 

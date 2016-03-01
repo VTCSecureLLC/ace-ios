@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "IncomingCallViewControllerNew.h"
 
 
 #define kStoryboardInCall           @"InCall"
@@ -20,7 +21,20 @@
 + (instancetype)sharedManager;
 
 #pragma mark - Instance Methods
-- (UIViewController *)viewControllerWithClass:(Class)controllerClass inStoryboardWithName:(NSString *)storyboardName;
-- (UIViewController *)initialViewControllerInStoryboard:(NSString *)storyboardName;
+
+/**
+ *  Changes rootViewController of window with given viewController
+ *
+ *  @param viewController New view controller
+ */
+- (void)changeRootViewControllerWithController:(UIViewController *)viewController;
+
+/**
+ *  Creates an instance of IncomingCallViewController and returns it
+ *
+ *  @return newly created instance of IncomingCallViewController
+ */
+- (IncomingCallViewControllerNew *)incomingCallViewController;
+
 
 @end
