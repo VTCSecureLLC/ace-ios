@@ -10,6 +10,8 @@
 
 @interface InCallViewControllerNew ()
 
+@property (weak, nonatomic) IBOutlet UIView *videoView;
+
 @end
 
 @implementation InCallViewControllerNew
