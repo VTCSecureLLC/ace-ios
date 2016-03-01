@@ -2061,6 +2061,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return linphone_call_params_video_enabled(callParams);
 }
 
+- (LinphoneCallState)callStateForCall:(LinphoneCall *)call {
+
+    return linphone_call_get_state(call);
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {
