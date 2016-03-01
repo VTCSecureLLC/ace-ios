@@ -738,18 +738,18 @@ static RootViewManager *rootViewManagerInstance = nil;
 
 - (void)displayIncomingCall:(LinphoneCall *)call {
     
-    LinphoneCallLog *callLog = linphone_call_get_call_log(call);
-    NSString *callId = [NSString stringWithUTF8String:linphone_call_log_get_call_id(callLog)];
+    LinphoneManager *linphoneManager = [LinphoneManager instance];
+    NSString *callId = [linphoneManager callIdForCall:call];
     
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         
-        LinphoneManager *lm = [LinphoneManager instance];
-        BOOL callIDFromPush = [lm popPushCallID:callId];
+        
+        BOOL callIDFromPush = [linphoneManager popPushCallID:callId];
         //BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
         //Never autoanswer notification.
         if (callIDFromPush) {
             // accept call automatically
-            [lm acceptCall:call];
+            [linphoneManager acceptCall:call];
             
         } else {
             

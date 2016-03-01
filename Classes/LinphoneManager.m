@@ -2043,6 +2043,18 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	}
 }
 
+- (LinphoneCallLog *)callLogForCall:(LinphoneCall *)call {
+    
+    return linphone_call_get_call_log(call);
+}
+
+- (NSString *)callIdForCall:(LinphoneCall *)call {
+    
+    LinphoneCallLog *callLog = [self callLogForCall:call];
+    const char* callId = linphone_call_log_get_call_id(callLog);
+    return [NSString stringWithUTF8String:callId];
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {
