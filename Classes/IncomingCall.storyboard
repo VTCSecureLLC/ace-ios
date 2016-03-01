@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Incoming Call View Controller-->
         <scene sceneID="paC-NA-QQe">
             <objects>
-                <viewController id="Nb0-Sw-P4c" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IncomingCallViewController" id="Nb0-Sw-P4c" customClass="IncomingCallViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="03E-6z-tFQ"/>
                         <viewControllerLayoutGuide type="bottom" id="ZSU-9D-Ig3"/>
