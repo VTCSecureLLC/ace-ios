@@ -10,6 +10,12 @@
 
 @implementation IncallButton
 
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    
+    self.backgroundColor = [UIColor colorWithRed:0.902 green:0.3569 blue:0.1569 alpha:1.0];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

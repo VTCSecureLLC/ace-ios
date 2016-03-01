@@ -8,11 +8,22 @@
 
 #import "InCallViewControllerNew.h"
 #import "LinphoneManager.h"
+#import "IncallButton.h"
 
 
 @interface InCallViewControllerNew ()
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
+
+@property (weak, nonatomic) IBOutlet UIView *bottomButtonsContainer;
+
+@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+@property (weak, nonatomic) IBOutlet UIButton *voiceButton;
+@property (weak, nonatomic) IBOutlet UIButton *keypadButton;
+@property (weak, nonatomic) IBOutlet UIButton *soundButton;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 
 @end
 
@@ -268,6 +279,32 @@
         default:
             break;
     }
+}
+
+#pragma mark - Actions of buttons
+
+- (IBAction)videoButtonAction:(IncallButton *)sender {
+    
+}
+
+- (IBAction)voiceButtonAction:(IncallButton *)sender {
+    
+}
+
+- (IBAction)keypadButtonAction:(IncallButton *)sender {
+    
+}
+
+- (IBAction)soundButtonAction:(IncallButton *)sender {
+    
+}
+
+- (IBAction)moreButtonAction:(IncallButton *)sender {
+    
+}
+
+
+- (IBAction)endCallButtonAction:(UIButton *)sender {
 }
 
 @end

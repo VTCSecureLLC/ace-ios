@@ -24,33 +24,48 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
                                         <rect key="frame" x="0.0" y="507" width="375" height="49"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUu-6c-4Rj">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUu-6c-4Rj" customClass="IncallButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="75" height="49"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_video_icon"/>
                                                 <state key="selected" image="in_call_video_selected_icon"/>
+                                                <connections>
+                                                    <action selector="videoButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="fd1-ex-rfI"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyq-P1-6CH">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyq-P1-6CH" customClass="IncallButton">
                                                 <rect key="frame" x="75" y="0.0" width="75" height="49"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_voice_icon"/>
                                                 <state key="selected" image="in_call_voice_selected_icon"/>
+                                                <connections>
+                                                    <action selector="voiceButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="mNc-zQ-alb"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-P2-9XR">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-P2-9XR" customClass="IncallButton">
                                                 <rect key="frame" x="150" y="0.0" width="75" height="49"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_keypad_icon"/>
+                                                <connections>
+                                                    <action selector="keypadButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="STn-jd-JZk"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-be-SEr">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-be-SEr" customClass="IncallButton">
                                                 <rect key="frame" x="225" y="0.0" width="75" height="49"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_sound_icon"/>
                                                 <state key="selected" image="in_call_sound_selected_icon"/>
+                                                <connections>
+                                                    <action selector="soundButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="cuE-Z9-Tmh"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEu-8Q-e3Y">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEu-8Q-e3Y" customClass="IncallButton">
                                                 <rect key="frame" x="300" y="0.0" width="75" height="49"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_more_icon"/>
+                                                <connections>
+                                                    <action selector="moreButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="DLX-Z5-er1"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -80,6 +95,9 @@
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSa-EQ-Vtx">
                                         <rect key="frame" x="113" y="558" width="150" height="49"/>
                                         <state key="normal" image="in_call_call_down_icon"/>
+                                        <connections>
+                                            <action selector="endCallButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="C7K-qR-wvR"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,7 +124,14 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="bottomButtonsContainer" destination="WhC-2K-N6O" id="q4B-5h-Oc5"/>
+                        <outlet property="endCallButton" destination="kSa-EQ-Vtx" id="CxB-bc-0tA"/>
+                        <outlet property="keypadButton" destination="3Pl-P2-9XR" id="Jpj-N8-VSh"/>
+                        <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
+                        <outlet property="soundButton" destination="RoB-be-SEr" id="GhA-My-abR"/>
+                        <outlet property="videoButton" destination="cUu-6c-4Rj" id="TSo-wf-3kW"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
+                        <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
