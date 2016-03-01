@@ -112,10 +112,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
             if(![[[defaults dictionaryRepresentation] allKeys] containsObject:pref]){
                 [defaults setBool:TRUE forKey:pref];
                 [defaults synchronize];
-                if ([pref isEqualToString:@"h264_preference"]) {
-                    [defaults setBool:FALSE forKey:pref];
-                    [defaults synchronize];
-                }
             }
             linphone_core_enable_payload_type(lc, pt, [defaults boolForKey:pref]);
 			[self setBool:[defaults boolForKey:pref] forKey:pref];
@@ -282,14 +278,17 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 		const char *preset = linphone_core_get_video_preset(lc);
         if(!preset){
-            preset = "high-fps";
+            preset = "custom";
             linphone_core_set_video_preset(lc, preset);
         }
-		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
+		[self setCString:preset ? preset : "custom" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
         
         linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
+            [defaults setObject:@"vga" forKey:@"video_preferred_size_preference"];
+        }
         [self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
@@ -731,7 +730,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 		NSString *videoPreset = [self stringForKey:@"video_preset_preference"];
         if(!videoPreset){
-            videoPreset = @"high-fps";
+            videoPreset = @"custom";
         }
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		MSVideoSize vsize;
