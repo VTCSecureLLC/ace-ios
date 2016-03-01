@@ -2071,6 +2071,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return linphone_core_get_current_call(linphoneCore);
 }
 
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView {
+
+    linphone_core_set_native_video_window_id(linphoneCore, (__bridge void *)(videoView));
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {

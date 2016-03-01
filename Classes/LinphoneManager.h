@@ -212,6 +212,7 @@ typedef struct _LinphoneManagerSounds {
  *  @return LinphoneCall object
  */
 - (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore;
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView;
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
