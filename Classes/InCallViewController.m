@@ -903,12 +903,9 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [self createNewLocalChatBuffer:text];
                 return;
             }
-     
-        
-        
     }
     
-    if (self.localTextBufferIndex == 0) { // if it's the first message after others
+    if (self.localTextBufferIndex == 0 && !self.localTextBuffer) { // if it's the first message after others
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -966,11 +963,11 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         c = 0x2028;
         enter_pressed=true;
     }
-    
-    NSLog(@"theText %@",theText);
-    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
-    NSLog(@"insertText %@",self.localTextBuffer.msgString);
+//Remove verbose logging
+//    NSLog(@"theText %@",theText);
+//    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+//          linphone_core_get_version());
+//    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
@@ -981,7 +978,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(TEXT_MODE==RTT){
             linphone_chat_message_put_char(msg, c);
     }else if(TEXT_MODE==SIP_SIMPLE){
-        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        //NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
         if(enter_pressed){
             NSLog(@"enter_pressed");
             for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
@@ -1363,7 +1360,6 @@ BOOL didChatResize = NO;
     }
     
     if (msg.msgString.length > 1) {
-        
         NSString *firstCharacter = [msg.msgString substringToIndex:1];
         NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
         if ([firstCharacter isEqualToString:@"\n"]) {
@@ -1390,12 +1386,12 @@ BOOL didChatResize = NO;
     return 20.0f;
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if(decelerate) return;
-    
-    [self scrollViewDidEndDecelerating:scrollView];
-}
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    
+//    if(decelerate) return;
+//    
+//    [self scrollViewDidEndDecelerating:scrollView];
+//}
 
 -(void)updateViewConstraints {
         [super updateViewConstraints];
