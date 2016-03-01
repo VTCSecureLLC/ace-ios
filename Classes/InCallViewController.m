@@ -903,6 +903,10 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [self createNewLocalChatBuffer:text];
                 return;
             }
+            else{
+                [self createNewLocalChatBuffer:text];
+                return;
+            }
     }
     
     if (self.localTextBufferIndex == 0 && !self.localTextBuffer) { // if it's the first message after others
@@ -969,6 +973,8 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 //          linphone_core_get_version());
 //    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call){ return; }
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
