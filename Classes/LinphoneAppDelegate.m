@@ -184,14 +184,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  //  #ifdef DEBUG
+    #ifdef DEBUG
     NSLog(@"Debug: No crashes will be reported, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
           linphone_core_get_version());
-   // #else
+    #else
         [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"387e68d79a17889131eed3ecf97effd7"];
         [[BITHockeyManager sharedHockeyManager] startManager];
         [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-   // #endif
+    #endif
     NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
     
     NSLog(@"Application Launching: %@ iPhone %@, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"], appVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
