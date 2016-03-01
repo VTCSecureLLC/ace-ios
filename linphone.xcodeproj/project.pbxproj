@@ -431,6 +431,7 @@
 		64487C351C85CA0F00D45393 /* InCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */; };
 		64487C3B1C85CAA200D45393 /* IncomingCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */; };
 		64487C3E1C85CC9400D45393 /* IncomingCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */; };
+		64A34D331C85DA9D00055CA9 /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A34D321C85DA9D00055CA9 /* UIManager.m */; };
 		69EE9C131C6500A50010EBB3 /* RTPquality_bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */; };
 		69EE9C141C6500A50010EBB3 /* RTPquality_medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */; };
 		70571E1A13FABCB000CDD3C2 /* rootca.pem in Resources */ = {isa = PBXBuildFile; fileRef = 70571E1913FABCB000CDD3C2 /* rootca.pem */; };
@@ -1763,6 +1764,8 @@
 		64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IncomingCall.storyboard; sourceTree = "<group>"; };
 		64487C3C1C85CC9400D45393 /* IncomingCallViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallViewControllerNew.h; sourceTree = "<group>"; };
 		64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewControllerNew.m; sourceTree = "<group>"; };
+		64A34D311C85DA9D00055CA9 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
+		64A34D321C85DA9D00055CA9 /* UIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIManager.m; sourceTree = "<group>"; };
 		69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_bad@2x.png"; sourceTree = "<group>"; };
 		69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_medium@2x.png"; sourceTree = "<group>"; };
 		70571E1913FABCB000CDD3C2 /* rootca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rootca.pem; path = "liblinphone-sdk/apple-darwin/share/linphone/rootca.pem"; sourceTree = "<group>"; };
@@ -2845,6 +2848,7 @@
 				63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */,
 				D31AAF5C159B3919002C6B02 /* InCallTableViewController.h */,
 				D31AAF5D159B3919002C6B02 /* InCallTableViewController.m */,
+				64A34D2C1C85D73300055CA9 /* Utility */,
 				64487C391C85CA7100D45393 /* Incomming Call */,
 				64487C2C1C85C61000D45393 /* In Call */,
 				D3F83EE91582021700336684 /* InCallViewController.h */,
@@ -3338,6 +3342,15 @@
 				64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */,
 			);
 			name = "Incomming Call";
+			sourceTree = "<group>";
+		};
+		64A34D2C1C85D73300055CA9 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				64A34D311C85DA9D00055CA9 /* UIManager.h */,
+				64A34D321C85DA9D00055CA9 /* UIManager.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		CE036A661C46847900987594 /* SRVResolver */ = {
@@ -5530,6 +5543,7 @@
 				22AA8B0113D83F6300B30535 /* UICamSwitch.m in Sources */,
 				5E6347991C1111C900042AB4 /* InfColorPickerNavigationController.m in Sources */,
 				340751E7150F38FD00B89C47 /* UIVideoButton.m in Sources */,
+				64A34D331C85DA9D00055CA9 /* UIManager.m in Sources */,
 				34216F401547EBCD00EA9777 /* VideoZoomHandler.m in Sources */,
 				D3F83EEC1582021700336684 /* InCallViewController.m in Sources */,
 				D3F83F8E15822ABE00336684 /* PhoneMainView.m in Sources */,
