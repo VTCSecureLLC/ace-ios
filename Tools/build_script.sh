@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES --enable-non-free-codecs --enable-gpl-third-parties
+./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES --enable-non-free-codecs --enable-gpl-third-parties -DENABLE_VCARD=YES
 
 LOGFILE=/tmp/build_script.out
 
@@ -26,6 +26,10 @@ echo "Running make for dependencies"
 make >> $LOGFILE 2>&1
 
 MAKE_RESULT=$?
+
+wget http://ciscobinary.openh264.org/libopenh264-1.5.0-ios.a.bz2
+bzip2 -d libopenh264-1.5.0-ios.a.bz2
+mv -f libopenh264-1.5.0-ios.a liblinphone-sdk/apple-darwin/lib/libopenh264.a
 
 tail -1000 $LOGFILE
 kill $MUTED_PID
