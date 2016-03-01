@@ -428,6 +428,9 @@
 		63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */; };
 		63FB30351A680E73008CA393 /* UIRoundedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB30341A680E73008CA393 /* UIRoundedImageView.m */; };
 		64487C321C85C6A200D45393 /* InCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C311C85C6A200D45393 /* InCall.storyboard */; };
+		64487C351C85CA0F00D45393 /* InCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */; };
+		64487C3B1C85CAA200D45393 /* IncomingCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */; };
+		64487C3E1C85CC9400D45393 /* IncomingCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */; };
 		69EE9C131C6500A50010EBB3 /* RTPquality_bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */; };
 		69EE9C141C6500A50010EBB3 /* RTPquality_medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */; };
 		70571E1A13FABCB000CDD3C2 /* rootca.pem in Resources */ = {isa = PBXBuildFile; fileRef = 70571E1913FABCB000CDD3C2 /* rootca.pem */; };
@@ -1755,6 +1758,11 @@
 		63FB30331A680E73008CA393 /* UIRoundedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRoundedImageView.h; sourceTree = "<group>"; };
 		63FB30341A680E73008CA393 /* UIRoundedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRoundedImageView.m; sourceTree = "<group>"; };
 		64487C311C85C6A200D45393 /* InCall.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InCall.storyboard; sourceTree = "<group>"; };
+		64487C331C85CA0F00D45393 /* InCallViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallViewControllerNew.h; sourceTree = "<group>"; };
+		64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallViewControllerNew.m; sourceTree = "<group>"; };
+		64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IncomingCall.storyboard; sourceTree = "<group>"; };
+		64487C3C1C85CC9400D45393 /* IncomingCallViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallViewControllerNew.h; sourceTree = "<group>"; };
+		64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewControllerNew.m; sourceTree = "<group>"; };
 		69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_bad@2x.png"; sourceTree = "<group>"; };
 		69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_medium@2x.png"; sourceTree = "<group>"; };
 		70571E1913FABCB000CDD3C2 /* rootca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rootca.pem; path = "liblinphone-sdk/apple-darwin/share/linphone/rootca.pem"; sourceTree = "<group>"; };
@@ -2774,7 +2782,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				64487C2C1C85C61000D45393 /* In Call */,
 				5E6345D61C1111C900042AB4 /* InfColorPicker */,
 				5EE6CDAD1BFE1FDF005CA879 /* RTT */,
 				5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */,
@@ -2838,6 +2845,8 @@
 				63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */,
 				D31AAF5C159B3919002C6B02 /* InCallTableViewController.h */,
 				D31AAF5D159B3919002C6B02 /* InCallTableViewController.m */,
+				64487C391C85CA7100D45393 /* Incomming Call */,
+				64487C2C1C85C61000D45393 /* In Call */,
 				D3F83EE91582021700336684 /* InCallViewController.h */,
 				D3F83EEA1582021700336684 /* InCallViewController.m */,
 				D381881C15FE3FCA00C3EDCA /* InCallViewController.xib */,
@@ -3315,8 +3324,20 @@
 			isa = PBXGroup;
 			children = (
 				64487C311C85C6A200D45393 /* InCall.storyboard */,
+				64487C331C85CA0F00D45393 /* InCallViewControllerNew.h */,
+				64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */,
 			);
 			name = "In Call";
+			sourceTree = "<group>";
+		};
+		64487C391C85CA7100D45393 /* Incomming Call */ = {
+			isa = PBXGroup;
+			children = (
+				64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */,
+				64487C3C1C85CC9400D45393 /* IncomingCallViewControllerNew.h */,
+				64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */,
+			);
+			name = "Incomming Call";
 			sourceTree = "<group>";
 		};
 		CE036A661C46847900987594 /* SRVResolver */ = {
@@ -5315,6 +5336,7 @@
 				50B007B31BA09C79002C5723 /* options_transfer_default_landscape~ipad.png in Resources */,
 				D33988C415C6DD1600CAF1E4 /* micro_off_over_landscape~ipad.png in Resources */,
 				50B007FC1BA09C79002C5723 /* setup_back_default~ipad.png in Resources */,
+				64487C3B1C85CAA200D45393 /* IncomingCall.storyboard in Resources */,
 				50B0084C1BA09C79002C5723 /* video_on_default_landscape~ipad.png in Resources */,
 				50B006DE1BA09C79002C5723 /* chat_photo_over.png in Resources */,
 				63158FAD1B468E0E00969917 /* ImageOptim.sh in Resources */,
@@ -5525,6 +5547,7 @@
 				D32648441588F6FC00930C67 /* UIToggleButton.m in Sources */,
 				D36FB2D51589EF7C0036F6F2 /* UIChatButton.m in Sources */,
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
+				64487C351C85CA0F00D45393 /* InCallViewControllerNew.m in Sources */,
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
 				5E1140281C511DC200C9A6C5 /* AsyncProviderLookupOperation.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
@@ -5535,6 +5558,7 @@
 				63B81A101B57DA33009604A6 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				F03CA84318C72F1A0008889D /* UITextViewNoDefine.m in Sources */,
 				63B81A0D1B57DA33009604A6 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				64487C3E1C85CC9400D45393 /* IncomingCallViewControllerNew.m in Sources */,
 				D37DC6C11594AE1800B2A5EB /* LinphoneCoreSettingsStore.m in Sources */,
 				63CD4B4F1A5AAC8C00B84282 /* DTAlertView.m in Sources */,
 				D3EA53FD159850E80037DC6B /* LinphoneManager.m in Sources */,
