@@ -24,6 +24,8 @@
 #import "PhoneMainView.h"
 #import "Utils.h"
 #import "DTActionSheet.h"
+#import "UIManager.h"
+
 
 static RootViewManager *rootViewManagerInstance = nil;
 
@@ -753,19 +755,22 @@ static RootViewManager *rootViewManagerInstance = nil;
             
         } else {
             
-            IncomingCallViewController *controller = nil;
-            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
-                controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);
-            } else {
-                // controller is already presented, don't bother animating a transition
-                controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
-            }
-            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
+            IncomingCallViewControllerNew *viewController = [[UIManager sharedManager] incomingCallViewController];
+            [[UIManager sharedManager] changeRootViewControllerWithController:viewController];
             
-            if (controller != nil) {
-                [controller setCall:call];
-                [controller setDelegate:self];
-            }
+//            IncomingCallViewController *controller = nil;
+//            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
+//                controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);
+//            } else {
+//                // controller is already presented, don't bother animating a transition
+//                controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
+//            }
+//            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
+//            
+//            if (controller != nil) {
+//                [controller setCall:call];
+//                [controller setDelegate:self];
+//            }
         }
     }
 }
