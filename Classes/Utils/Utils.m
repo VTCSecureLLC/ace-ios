@@ -21,7 +21,7 @@
 #include "linphone/linphonecore.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/utsname.h>
-#import "LinphoneManager.h"
+#import "LinphoneAppDelegate.h"
 
 @implementation LinphoneLogger
 
@@ -78,12 +78,12 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     NSString *enterLine = [line stringByAppendingString:@"\n"];
     
     @try {
-        [[[LinphoneManager instance] logFileArray] addObject:enterLine];
+         [[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] addObject:enterLine];
         
-        if ([[LinphoneManager instance] logFileArray].count > 1000 ) {
-            int last1000Elements = (int)([[LinphoneManager instance] logFileArray].count - 1000);
-            NSMutableArray * last1000ElementsOfLogArray = [[[[LinphoneManager instance] logFileArray] subarrayWithRange:NSMakeRange(last1000Elements, 1000)] mutableCopy];
-            [LinphoneManager instance].logFileArray = last1000ElementsOfLogArray;
+        if ([(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray].count > 1000 ) {
+            int last1000ElementsIndex = (int)([(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray].count - 1000);
+            NSMutableArray * last1000ElementsOfLogArray = [[[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] subarrayWithRange:NSMakeRange(last1000ElementsIndex, 1000)] mutableCopy];
+            [(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate setLogArray:last1000ElementsOfLogArray];
         }
     }
     @catch (NSException *exception) { }
