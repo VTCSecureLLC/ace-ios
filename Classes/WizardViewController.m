@@ -970,13 +970,56 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
     NSMutableArray *username = [[NSMutableArray alloc] initWithObjects:self.textFieldUsername.text, nil];
-
+    if (![self checkLoginCredentials]) {
+        return;
+    }
+    if ([[LinphoneManager instance] coreIsRunning]) {
+        [[LinphoneManager instance] destroyLinphoneCore];
+        [LinphoneManager instanceRelease];
+        
+        [LinphoneManager instanceWithUsername:self.textFieldUsername.text andDomain:self.textFieldDomain.text];
+        [[LinphoneManager instance] startLinphoneCore];
+    }
     [[DefaultSettingsManager sharedInstance] setSipRegisterUserNames:username];
     [[DefaultSettingsManager sharedInstance] setSipAuthUsername:self.textFieldUserId.text];
     [[DefaultSettingsManager sharedInstance] setSipAuthPassword:self.textFieldPassword.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterDomain:self.textFieldDomain.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
+}
+
+- (BOOL)checkLoginCredentials {
+    
+    NSString *errorMessage = @"";
+    
+    if ([self.textFieldUsername.text length] == 0 ) {
+        errorMessage = @"The username can't be empty";
+    }
+    
+    if ([self.textFieldPassword.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The password field can't be empty";
+    }
+    
+    if ([self.textFieldDomain.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The domain field can't be empty";
+    }
+    
+    if ([self.textFieldPort.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The Port field can't be empty";
+    }
+
+    if (![errorMessage isEqualToString:@""]) {
+        UIAlertView *errorView =
+        [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check error", nil)
+                                   message:errorMessage
+                                  delegate:nil
+                         cancelButtonTitle:NSLocalizedString(@"Ok", nil)
+                         otherButtonTitles:nil, nil];
+        [errorView show];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (IBAction)onStartClick:(id)sender {

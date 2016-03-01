@@ -1228,8 +1228,9 @@ static BOOL isAdvancedSettings = FALSE;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex != 1)
 		return; /* cancel */
-	else
-		[self goToWizard];
+    else {
+        [self goToWizard];
+    }
 }
 
 #pragma mark - Mail composer for sending logs

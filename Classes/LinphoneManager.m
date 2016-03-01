@@ -91,7 +91,9 @@ extern void libmswebrtc_init(MSFactory *factory);
 	"AV Capture: com.apple.avfoundation.avcapturedevice.built-in_video:0" /*"AV Capture: Back Camera"*/
 
 NSString *const kLinphoneOldChatDBFilename = @"chat_database.sqlite";
-NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
+NSString *kLinphoneInternalChatDBFilename = @"linphone_chats.db";
+NSString *kLinphoneInternalFriendListDBFilename = @"linphoneFriendList";
+NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 @implementation LinphoneCallAppData
 - (id)init {
@@ -174,12 +176,33 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 }
 
 + (LinphoneManager *)instance {
-	@synchronized(self) {
-		if (theLinphoneManager == nil) {
-			theLinphoneManager = [[LinphoneManager alloc] init];
-		}
-	}
-	return theLinphoneManager;
+    @synchronized(self) {
+        if (theLinphoneManager == nil) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"loggedUserInfo"]) {
+                NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"loggedUserInfo"];
+                NSString *userName = [userInfo objectForKey:@"username"];
+                NSString *domainName = [userInfo objectForKey:@"domainName"];
+                theLinphoneManager = [[LinphoneManager alloc] initWithUsername:userName andDomainName:domainName];
+            } else {
+                theLinphoneManager = [[LinphoneManager alloc] init];
+            }
+        }
+    }
+    return theLinphoneManager;
+}
+
++ (LinphoneManager*)instanceWithUsername:(NSString*)userName andDomain:(NSString*)domainName {
+    @synchronized(self) {
+        if (theLinphoneManager == nil) {
+            NSDictionary *userInfo = @{@"username": userName,
+                                       @"domainName" : domainName
+                                       };
+            [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:@"loggedUserInfo"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            theLinphoneManager = [[LinphoneManager alloc] initWithUsername:userName andDomainName:domainName];
+        }
+    }
+    return theLinphoneManager;
 }
 
 #ifdef DEBUG
@@ -203,47 +226,69 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 
 - (id)init {
 	if ((self = [super init])) {
-		AudioSessionInitialize(NULL, NULL, NULL, NULL);
-		OSStatus lStatus = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange,
-														   audioRouteChangeListenerCallback, (__bridge void *)(self));
-		if (lStatus) {
-			LOGE(@"cannot register route change handler [%ld]", lStatus);
-		}
-
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"msg" ofType:@"wav"];
-		self.messagePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path] error:nil];
-
-		sounds.vibrate = kSystemSoundID_Vibrate;
-
-		logs = [[NSMutableArray alloc] init];
-		database = NULL;
-		speakerEnabled = FALSE;
-		bluetoothEnabled = FALSE;
-		tunnelMode = FALSE;
-
-		_fileTransferDelegates = [[NSMutableArray alloc] init];
-        _logFileArray = [NSMutableArray new];
-
-		pushCallIDs = [[NSMutableArray alloc] init];
-		photoLibrary = [[ALAssetsLibrary alloc] init];
-		self->_isTesting = [LinphoneManager isRunningTests];
-
-		[self renameDefaultSettings];
-		[self copyDefaultSettings];
-		[self overrideDefaultSettings];
-
-		// set default values for first boot
-		if ([self lpConfigStringForKey:@"debugenable_preference"] == nil) {
-#ifdef DEBUG
-			[self lpConfigSetBool:TRUE forKey:@"debugenable_preference"];
-#else
-			[self lpConfigSetBool:FALSE forKey:@"debugenable_preference"];
-#endif
-		}
-
-		[self migrateFromUserPrefs];
+        kLinphoneInternalRCFilename = @"linphonerc";
+        [self setLinphoneCoreInitialValues];
 	}
 	return self;
+}
+
+- (id)initWithUsername:(NSString*)userName andDomainName:(NSString*)domainName {
+    if ((self = [super init])) {
+        
+        [self deleteFileWithName:@"linphonerc"];
+        [self deleteFileWithName:@"linphone_chats.db"];
+        [self deleteFileWithName:@"linphoneFriendList"];
+        
+        NSString *profileName = [NSString stringWithFormat:@"%@_%@", userName, domainName];
+        kLinphoneInternalRCFilename = [NSString stringWithFormat:@"%@_linphonerc", profileName];
+        kLinphoneInternalChatDBFilename = [NSString stringWithFormat:@"%@_linphone_chats.db", profileName];
+        kLinphoneInternalFriendListDBFilename = [NSString stringWithFormat:@"%@_linphoneFriendList", profileName];
+        
+        [self setLinphoneCoreInitialValues];
+    }
+    return self;
+}
+
+- (void)setLinphoneCoreInitialValues {
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    OSStatus lStatus = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange,
+                                                       audioRouteChangeListenerCallback, (__bridge void *)(self));
+    if (lStatus) {
+        LOGE(@"cannot register route change handler [%ld]", lStatus);
+    }
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"msg" ofType:@"wav"];
+    self.messagePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path] error:nil];
+    
+    sounds.vibrate = kSystemSoundID_Vibrate;
+    
+    logs = [[NSMutableArray alloc] init];
+    database = NULL;
+    speakerEnabled = FALSE;
+    bluetoothEnabled = FALSE;
+    tunnelMode = FALSE;
+    
+    _fileTransferDelegates = [[NSMutableArray alloc] init];
+   
+    
+    pushCallIDs = [[NSMutableArray alloc] init];
+    photoLibrary = [[ALAssetsLibrary alloc] init];
+    self->_isTesting = [LinphoneManager isRunningTests];
+    
+    [self renameDefaultSettings];
+    [self copyDefaultSettings];
+    [self overrideDefaultSettings];
+    
+    // set default values for first boot
+    if ([self lpConfigStringForKey:@"debugenable_preference"] == nil) {
+#ifdef DEBUG
+        [self lpConfigSetBool:TRUE forKey:@"debugenable_preference"];
+#else
+        [self lpConfigSetBool:FALSE forKey:@"debugenable_preference"];
+#endif
+    }
+    
+    [self migrateFromUserPrefs];
 }
 
 - (void)dealloc {
@@ -253,9 +298,25 @@ NSString *const kLinphoneInternalChatDBFilename = @"linphone_chats.db";
 	if (lStatus) {
 		LOGE(@"cannot un register route change handler [%ld]", lStatus);
 	}
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kLinphoneGlobalStateUpdate];
-	[[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kLinphoneConfiguringStateUpdate];
+- (BOOL)deleteFileWithName:(NSString*)fileName {
+    
+    NSString *dst = [LinphoneManager documentFile:fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *fileError = nil;
+    if ([fileManager fileExistsAtPath:dst]) {
+        [fileManager removeItemAtPath:dst error:&fileError];
+        if (fileError) {
+            LOGW(@"%@ already exists, simply removing %@", dst,
+                 fileError ? fileError.localizedDescription : @"successfully");
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (void)silentPushFailed:(NSTimer *)timer {
@@ -1410,6 +1471,10 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 
 static BOOL libStarted = FALSE;
 
+- (bool)coreIsRunning {
+    return libStarted;
+}
+
 - (void)startLinphoneCore {
 
 	if (libStarted) {
@@ -1790,7 +1855,7 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	// containers from MacOSX, Finder do not display hidden files leading
 	// to useless painful operations to display the .linphonerc file
 	NSString *src = [LinphoneManager documentFile:@".linphonerc"];
-	NSString *dst = [LinphoneManager documentFile:@"linphonerc"];
+	NSString *dst = [LinphoneManager documentFile:kLinphoneInternalRCFilename];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSError *fileError = nil;
 	if ([fileManager fileExistsAtPath:src]) {
@@ -1806,12 +1871,12 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 }
 
 - (void)copyDefaultSettings {
-	NSString *src = [LinphoneManager bundleFile:@"linphonerc"];
+	NSString *src = [LinphoneManager bundleFile:kLinphoneInternalRCFilename];
 	NSString *srcIpad = [LinphoneManager bundleFile:@"linphonerc~ipad"];
 	if ([LinphoneManager runningOnIpad] && [[NSFileManager defaultManager] fileExistsAtPath:srcIpad]) {
 		src = srcIpad;
 	}
-	NSString *dst = [LinphoneManager documentFile:@"linphonerc"];
+	NSString *dst = [LinphoneManager documentFile:kLinphoneInternalRCFilename];
 	[LinphoneManager copyFile:src destination:dst override:FALSE];
 }
 
@@ -1821,7 +1886,7 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	if ([LinphoneManager runningOnIpad] && [[NSFileManager defaultManager] fileExistsAtPath:factoryIpad]) {
 		factory = factoryIpad;
 	}
-	NSString *confiFileName = [LinphoneManager documentFile:@"linphonerc"];
+	NSString *confiFileName = [LinphoneManager documentFile:kLinphoneInternalRCFilename];
 	configDb = lp_config_new_with_factory([confiFileName UTF8String], [factory UTF8String]);
 }
 #pragma mark - Audio route Functions
@@ -2103,6 +2168,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 + (NSString *)documentFile:(NSString *)file {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsPath = [paths objectAtIndex:0];
+    NSString* filePath = [documentsPath stringByAppendingPathComponent:file];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    if (fileExists) {
+        return filePath;
+    }
 	return [documentsPath stringByAppendingPathComponent:file];
 }
 
