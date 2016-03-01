@@ -368,7 +368,6 @@ BOOL hasStartedStream = NO;
 		return;
 	}
     
-    
     if(state == LinphoneCallPausedByRemote){
         UIImage *img = [UIImage imageNamed:@"Hold.png"];
         callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
