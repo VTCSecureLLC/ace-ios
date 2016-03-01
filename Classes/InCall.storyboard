@@ -22,31 +22,34 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
-                                        <rect key="frame" x="0.0" y="517" width="375" height="49"/>
+                                        <rect key="frame" x="0.0" y="507" width="375" height="49"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUu-6c-4Rj">
                                                 <rect key="frame" x="0.0" y="0.0" width="75" height="49"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.35686274509803922" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_video_icon"/>
+                                                <state key="selected" image="in_call_video_selected_icon"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyq-P1-6CH">
                                                 <rect key="frame" x="75" y="0.0" width="75" height="49"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.35686274509803922" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_voice_icon"/>
+                                                <state key="selected" image="in_call_voice_selected_icon"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-P2-9XR">
                                                 <rect key="frame" x="150" y="0.0" width="75" height="49"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.35686274509803922" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_keypad_icon"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-be-SEr">
                                                 <rect key="frame" x="225" y="0.0" width="75" height="49"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.35686274509803922" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_sound_icon"/>
+                                                <state key="selected" image="in_call_sound_selected_icon"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEu-8Q-e3Y">
                                                 <rect key="frame" x="300" y="0.0" width="75" height="49"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.35686274509803922" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="in_call_more_icon"/>
                                             </button>
                                         </subviews>
@@ -75,7 +78,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSa-EQ-Vtx">
-                                        <rect key="frame" x="113" y="568" width="150" height="49"/>
+                                        <rect key="frame" x="113" y="558" width="150" height="49"/>
                                         <state key="normal" image="in_call_call_down_icon"/>
                                     </button>
                                 </subviews>
@@ -84,6 +87,7 @@
                                     <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="5T0-dS-AZx" secondAttribute="leading" id="4bn-w8-af1"/>
                                     <constraint firstAttribute="trailing" secondItem="WhC-2K-N6O" secondAttribute="trailing" id="7WX-04-NSd"/>
                                     <constraint firstItem="kSa-EQ-Vtx" firstAttribute="centerX" secondItem="5T0-dS-AZx" secondAttribute="centerX" id="9Bd-w1-gTL"/>
+                                    <constraint firstAttribute="bottom" secondItem="kSa-EQ-Vtx" secondAttribute="bottom" constant="40" id="lCz-uo-WhG"/>
                                     <constraint firstItem="kSa-EQ-Vtx" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="bottom" constant="2" id="mqT-E9-GMB"/>
                                     <constraint firstItem="WhC-2K-N6O" firstAttribute="centerX" secondItem="5T0-dS-AZx" secondAttribute="centerX" id="pXb-d7-Ghw"/>
                                 </constraints>
@@ -91,7 +95,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="bottom" constant="81" id="D07-DI-VYM"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="M2W-4K-MAV"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="height" secondItem="dGF-2k-5Y3" secondAttribute="height" multiplier="0.074" id="R91-HD-d8D"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
@@ -116,7 +119,10 @@
         <image name="in_call_keypad_icon" width="27" height="36"/>
         <image name="in_call_more_icon" width="56" height="17"/>
         <image name="in_call_sound_icon" width="45" height="35"/>
+        <image name="in_call_sound_selected_icon" width="45" height="56"/>
         <image name="in_call_video_icon" width="51" height="30"/>
+        <image name="in_call_video_selected_icon" width="51" height="33"/>
         <image name="in_call_voice_icon" width="21" height="41"/>
+        <image name="in_call_voice_selected_icon" width="21" height="31"/>
     </resources>
 </document>
