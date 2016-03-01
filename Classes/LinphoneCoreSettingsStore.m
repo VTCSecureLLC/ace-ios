@@ -215,7 +215,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 				[self setCString:tname forKey:@"transport_preference"];
 				[self setBool:(linphone_proxy_config_get_route(cfg) != NULL)forKey:@"outbound_proxy_preference"];
-				[self setBool:linphone_core_video_enabled(lc) forKey:@"enable_video_preference"];
+				[self setBool:true forKey:@"enable_video_preference"];
 				[self setBool:[LinphoneManager.instance lpConfigBoolForKey:@"auto_answer"]
 					   forKey:@"enable_auto_answer_preference"];
                 
