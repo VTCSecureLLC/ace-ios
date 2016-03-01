@@ -816,7 +816,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)incomingCallDeclined:(LinphoneCall *)call {
-	linphone_core_terminate_call([LinphoneManager getLc], call);
+    linphone_core_decline_call([LinphoneManager getLc], call, LinphoneReasonDeclined);
 }
 
 @end
