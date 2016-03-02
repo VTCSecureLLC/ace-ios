@@ -170,6 +170,11 @@ typedef struct _LinphoneManagerSounds {
 - (void)call:(NSString *)address displayName:(NSString*)displayName transfer:(BOOL)transfer;
 
 /**
+ *  Terminates current call
+ */
+- (void)terminateCurrentCall;
+
+/**
  *  Returns call log for call
  *
  *  @param call LinphoneCall object

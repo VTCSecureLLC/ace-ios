@@ -113,4 +113,10 @@
     [rootViewController dismissViewControllerAnimated:animated completion:nil];
 }
 
+- (void)hideInCallViewControllerAnimated:(BOOL)animated {
+    
+    UIViewController* rootViewController = [self topViewController];
+    [rootViewController dismissViewControllerAnimated:animated completion:nil];
+}
+
 @end

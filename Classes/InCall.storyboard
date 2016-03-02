@@ -30,11 +30,12 @@
                             <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
                                 <rect key="frame" x="243" y="379" width="96" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="Aed-4x-4iB"/>
                                     <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
                                     <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="vOh-hP-dKg"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
@@ -130,8 +131,8 @@
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="m5o-SA-nGW"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="height" secondItem="dGF-2k-5Y3" secondAttribute="height" multiplier="0.074" id="n9y-8b-a8R"/>
                             <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="oX2-5J-YRm"/>
-                            <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="20" id="si9-tW-VuG"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.4" id="ucp-Ud-H18"/>
+                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" constant="-288" id="vIB-ND-98j"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -143,7 +144,11 @@
                         <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
                         <outlet property="soundButton" destination="RoB-be-SEr" id="GhA-My-abR"/>
                         <outlet property="videoButton" destination="cUu-6c-4Rj" id="TSo-wf-3kW"/>
+                        <outlet property="videoPreviewBottomConstraint" destination="vIB-ND-98j" id="2nR-7V-lTw"/>
+                        <outlet property="videoPreviewHeightConstraint" destination="v5A-Rj-kxk" id="Iaj-NU-08I"/>
+                        <outlet property="videoPreviewTrailingConstraint" destination="d23-vm-O6v" id="LNx-8u-LsE"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
+                        <outlet property="videoPreviewWidthConstraint" destination="X3X-WX-q0U" id="Hml-te-vgg"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                         <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
                     </connections>

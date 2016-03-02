@@ -2060,6 +2060,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	}
 }
 
+- (void)terminateCurrentCall {
+    
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneCall *currentcall = linphone_core_get_current_call(lc);
+    if (linphone_core_is_in_conference(lc) || linphone_core_get_conference_size(lc) > 0) {
+        
+        linphone_core_terminate_conference(lc);
+    } else if (currentcall != NULL) { // In a call
+        
+        linphone_core_terminate_call(lc, currentcall);
+    } else {
+        
+        const MSList *calls = linphone_core_get_calls(lc);
+        if (ms_list_size(calls) == 1) { // Only one call
+            
+            linphone_core_terminate_call(lc, (LinphoneCall *)(calls->data));
+        }
+    }
+}
+
 - (LinphoneCallLog *)callLogForCall:(LinphoneCall *)call {
     
     return linphone_call_get_call_log(call);

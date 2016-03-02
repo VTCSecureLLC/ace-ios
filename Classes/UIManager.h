@@ -69,6 +69,13 @@
 - (void)hideIncomingCallViewControllerAnimated:(BOOL)animated;
 
 /**
+ *  Hides InCall view controller
+ *
+ *  @param animated
+ */
+- (void)hideInCallViewControllerAnimated:(BOOL)animated;
+
+/**
  *  @brief Retruns visible view controller
  *
  *  @return Visible view controller

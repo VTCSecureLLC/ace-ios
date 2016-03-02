@@ -9,6 +9,8 @@
 #import "InCallViewControllerNew.h"
 #import "LinphoneManager.h"
 #import "IncallButton.h"
+#import "UIManager.h"
+
 
 #define kBottomButtonsAnimationDuration 0.3f
 
@@ -28,6 +30,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewBottomConstraint;
+
 @end
 
 
@@ -37,6 +44,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setVideoPreviewFullScreen];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,17 +54,9 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(callUpdateEvent:)
-                                                 name:kLinphoneCallUpdate
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoModeUpdate:)
-                                                 name:kLinphoneVideModeUpdate
-                                               object:nil];
+    [self setupNotifications];
     
     [self setupSpeaker];
-    [self setupVideo];
     
     LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
     LinphoneCallState linphoneCallState = 0;
@@ -77,10 +78,9 @@
     
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self removeNotifications];
+    [self resetVideoViews];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -120,6 +120,24 @@
 
 
 #pragma mark - Private Methods
+- (void)setupNotifications {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(callUpdateEvent:)
+                                                 name:kLinphoneCallUpdate
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoModeUpdate:)
+                                                 name:kLinphoneVideModeUpdate
+                                               object:nil];
+}
+
+- (void)removeNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+}
+
 - (void)setupSpeaker {
 
     BOOL isSpeakerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSpeakerEnabled"];
@@ -133,9 +151,24 @@
 
 - (void)setupVideo {
     
-    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
+//    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
     [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoPreviewView];
+}
+
+- (void)resetVideoViews {
     
+    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:nil];
+    [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:nil];
+}
+
+- (void)setVideoPreviewFullScreen {
+    
+    _videoPreviewWidthConstraint.constant = _videoView.frame.size.width / 2;
+    _videoPreviewHeightConstraint.constant = _videoView.frame.size.height / 2;
+    _videoPreviewTrailingConstraint.constant = 0.f;
+    _videoPreviewBottomConstraint.constant = 0.f;
+    
+    [self.view layoutIfNeeded];
 }
 
 - (void)callOutgoingInit {
@@ -286,34 +319,148 @@
 //        [self.videoView setHidden:NO];
 //    }
     
+    
     switch (state) {
-        case LinphoneCallIncomingReceived:
-        case LinphoneCallOutgoingInit: {
-            [self callOutgoingInit];
+        case LinphoneCallIdle: {
+            
+            NSAssert(0, @"LinphoneCallIdle: Just need to check this state");
+            break;
         }
-        case LinphoneCallConnected:
+        case LinphoneCallIncomingReceived: {
+            
+            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingInit: {
+            
+//            [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
+//            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingProgress: {
+            
+//            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingRinging: {
+            
+//            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingEarlyMedia: {
+            
+            NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
+            break;
+        }
+        case LinphoneCallConnected: {
+            
+//            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
+            break;
+        }
         case LinphoneCallStreamsRunning: {
-            [self callStreamsRunning];
+            
+            [self setupVideo];
+//            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
+            break;
+        }
+        case LinphoneCallPausing: {
+            
+            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
+            break;
+        }
+        case LinphoneCallPaused: {
+            
+            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
+            break;
+        }
+        case LinphoneCallResuming: {
+            
+            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
+            break;
+        }
+        case LinphoneCallRefered: {
+            
+            NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
+            break;
+        }
+        case LinphoneCallError: {
+            
+            NSAssert(0, @"LinphoneCallError: Just need to check this state");
+            break;
+        }
+        case LinphoneCallEnd: {
+            
+//            linphone_core_terminate_call([LinphoneManager getLc], call);
+            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            break;
+        }
+        case LinphoneCallPausedByRemote: {
+            
+            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallUpdatedByRemote: {
-            [self callUpdatedByRemote];
+            
+//            NSAssert(0, @"LinphoneCallUpdatedByRemote: Just need to check this state");
             break;
         }
-        case LinphoneCallPausing:
-        case LinphoneCallPaused:
-        case LinphoneCallPausedByRemote: {
-            [self callPausedByRemote];
+        case LinphoneCallIncomingEarlyMedia: {
+            
+            NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
             break;
         }
-        case LinphoneCallEnd:
-        case LinphoneCallError: {
-            [self callError];
+        case LinphoneCallUpdating: {
+            
+//            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
+            break;
+        }
+        case LinphoneCallReleased: {
+            
+//            NSAssert(0, @"LinphoneCallReleased: Just need to check this state");
+            break;
+        }
+        case LinphoneCallEarlyUpdatedByRemote: {
+            
+            NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
+            break;
+        }
+        case LinphoneCallEarlyUpdating: {
+            
+            NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
             break;
         }
         default:
             break;
     }
+    
+//    switch (state) {
+//        case LinphoneCallIncomingReceived:
+//        case LinphoneCallOutgoingInit: {
+//            [self callOutgoingInit];
+//        }
+//        case LinphoneCallConnected:
+//        case LinphoneCallStreamsRunning: {
+//            [self callStreamsRunning];
+//            break;
+//        }
+//        case LinphoneCallUpdatedByRemote: {
+//            [self callUpdatedByRemote];
+//            break;
+//        }
+//        case LinphoneCallPausing:
+//        case LinphoneCallPaused:
+//        case LinphoneCallPausedByRemote: {
+//            [self callPausedByRemote];
+//            break;
+//        }
+//        case LinphoneCallEnd:
+//        case LinphoneCallError: {
+//            [self callError];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
 }
 
 - (void)turnOnVideo {
@@ -323,7 +470,6 @@
 
 - (void)turnOffVideo {
 }
-
 
 - (void)showBottomButtons {
     
@@ -369,6 +515,7 @@
     
 }
 
+
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
     
@@ -405,7 +552,7 @@
 
 - (IBAction)endCallButtonAction:(UIButton *)sender {
     
-    [sender setSelected:!sender.selected];
+    [[LinphoneManager instance] terminateCurrentCall];
 }
 
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
@@ -420,6 +567,5 @@
     }
     
 }
-
 
 @end
