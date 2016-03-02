@@ -42,20 +42,41 @@
     [self transitionToViewController:viewController withTransition:UIViewAnimationOptionTransitionNone];
 }
 
+- (UIViewController*)topViewController {
+    return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
+}
+
+#pragma mark - Private methods
+
 - (IncomingCallViewControllerNew *)incomingCallViewController {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardIncomingCall bundle:nil];
-    IncomingCallViewControllerNew *viewController = [storyboard instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
+    IncomingCallViewControllerNew *viewController = (IncomingCallViewControllerNew *)[storyboard instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
     
     return viewController;
 }
 
 
 //Returns InCallViewContorller
-- (InCallViewController *)inCallViewController {
+- (InCallViewControllerNew *)inCallViewController {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardInCall bundle:nil];
-    InCallViewController *inCallViewController = [storyboard instantiateInitialViewController];
+    InCallViewControllerNew *inCallViewController = (InCallViewControllerNew *)[storyboard instantiateInitialViewController];
     
     return inCallViewController;
 }
@@ -74,24 +95,16 @@
                                    completion:nil];
 }
 
-
-- (UIViewController*)topViewController {
-    return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-}
-
-- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
-    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
-        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
-        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
-    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController* navigationController = (UINavigationController*)rootViewController;
-        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
-    } else if (rootViewController.presentedViewController) {
-        UIViewController* presentedViewController = rootViewController.presentedViewController;
-        return [self topViewControllerWithRootViewController:presentedViewController];
-    } else {
-        return rootViewController;
-    }
+- (void)showInCallViewControllerAnimated:(BOOL)animated {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardInCall bundle:nil];
+    UINavigationController *inCallNavigationController = [storyboard instantiateInitialViewController];
+    
+    UIViewController* rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    
+    [rootViewController presentViewController:inCallNavigationController
+                                     animated:animated
+                                   completion:nil];
 }
 
 @end

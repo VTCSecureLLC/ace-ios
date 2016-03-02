@@ -376,6 +376,7 @@ static RootViewManager *rootViewManagerInstance = nil;
         case LinphoneCallOutgoingInit: {
             
             //We need to show InCallViewController
+            [[UIManager sharedManager] showInCallViewControllerAnimated:YES];
             break;
         }
         case LinphoneCallPausedByRemote: {

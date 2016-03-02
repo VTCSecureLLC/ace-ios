@@ -119,16 +119,14 @@
     theAnimation.autoreverses = YES;
     theAnimation.toValue      = (id)[UIColor colorWithRed:0.9255 green:0.5412 blue:0.1569 alpha:1.0].CGColor;
     [self.backgroundView.layer addAnimation:theAnimation forKey:@"animateBackground"];
-    
 }
 
 
 - (void)acceptToCall {
     
-    InCallViewController *inCallViewController = [[UIManager sharedManager] inCallViewController];
+    UIViewController *inCallViewController = (UIViewController *)[[UIManager sharedManager] inCallViewController];
     [self.navigationController pushViewController:inCallViewController
                                          animated:NO];
-    
 }
 
 
@@ -137,7 +135,6 @@
     
     [self showOrHideMessagesContainerAnimated:YES
                                withCompletion:nil];
-    
 }
 
 - (IBAction)acceptButtonAction:(UIButton *)sender {

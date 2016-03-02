@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "IncomingCallViewControllerNew.h"
-#import "InCallViewController.h"
 
 
 #define kStoryboardInCall           @"InCall"
 #define kStoryboardIncomingCall     @"IncomingCall"
+
+
+@class InCallViewControllerNew;
+@class IncomingCallViewControllerNew;
 
 
 @interface UIManager : NSObject
@@ -37,14 +39,13 @@
  */
 - (IncomingCallViewControllerNew *)incomingCallViewController;
 
-- (InCallViewControllerNew *)incallViewController;
 
 /**
  *  @brief Returns InCallViewContorller
  *
  *  @return InCallViewContorller object
  */
-- (InCallViewController *)inCallViewController;
+- (InCallViewControllerNew *)inCallViewController;
 
 /**
  *  @brief Shows incoming call view controller
@@ -53,6 +54,12 @@
  */
 - (void)showIncomingCallViewControllerAnimated:(BOOL)animated;
 
+/**
+ *  @brief Shows incoming call view controller
+ *
+ *  @param animated Show with animation or not
+ */
+- (void)showInCallViewControllerAnimated:(BOOL)animated;
 
 /**
  *  @brief Retruns visible view controller
