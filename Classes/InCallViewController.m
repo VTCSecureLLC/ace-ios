@@ -83,6 +83,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     UIImageView *callQualityImageView;
     CallQualityStatus callQualityStatus;
     NSTimer *timerCallQuality;
+    BOOL isControlsShown;
+    UITapGestureRecognizer* singleFingerTap;
 }
 
 
@@ -103,7 +105,6 @@ static InCallViewController *instance;
 - (id)init {
 	self = [super initWithNibName:@"InCallViewController" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
-		self->singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls:)];
 		self->videoZoomHandler = [[VideoZoomHandler alloc] init];
         callQualityStatus = CallQualityStatusNone;
 	}
@@ -111,12 +112,9 @@ static InCallViewController *instance;
 }
 
 - (void)dealloc {
-
-	[[PhoneMainView instance].view removeGestureRecognizer:singleFingerTap];
-
 	// Remove all observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    [self removeGestureRecognizers];
 }
 
 #pragma mark - UICompositeViewDelegate Functions
@@ -160,8 +158,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     
     self.chatEntries = [[NSMutableArray alloc] init];
-    self.localTextBufferIndex = -1;
-    self.remoteTextBufferIndex = -1;
+    self.localTextBufferIndex = 0;
+    self.remoteTextBufferIndex = 0;
 
     self.localTextBuffer = nil;
     self.remoteTextBuffer = nil;
@@ -177,14 +175,15 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
         self.isRTTLocallyEnabled = YES;
     }
+    isControlsShown = true;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	if (hideControlsTimer != nil) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer != nil) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
 	if (hiddenVolume) {
 		[[PhoneMainView instance] setVolumeHidden:FALSE];
@@ -261,12 +260,8 @@ CGPoint incomingTextChatModePos;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
     [self getBiggestTimeStamps];
-	[singleFingerTap setNumberOfTapsRequired:1];
-	[singleFingerTap setCancelsTouchesInView:FALSE];
-	[[PhoneMainView instance].view addGestureRecognizer:singleFingerTap];
-
+    [self addGestureRecognizers];
 	[videoZoomHandler setup:videoGroup];
 	videoGroup.alpha = 0;
 
@@ -319,9 +314,20 @@ CGPoint incomingTextChatModePos;
     [_blackCurtain setBackgroundColor:[UIColor blackColor]];
 }
 
+- (void)addGestureRecognizers {
+    singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    [singleFingerTap setNumberOfTapsRequired:1];
+    [singleFingerTap setCancelsTouchesInView:FALSE];
+    [self.view addGestureRecognizer:singleFingerTap];
+}
+
+- (void)removeGestureRecognizers {
+    [self.view removeGestureRecognizer:singleFingerTap];
+}
+
 - (void)viewDidUnload {
+    [self removeGestureRecognizers];
 	[super viewDidUnload];
-	[[PhoneMainView instance].view removeGestureRecognizer:singleFingerTap];
 }
 BOOL hasStartedStream = NO;
 -(BOOL) isRTTEnabled{
@@ -503,17 +509,17 @@ BOOL hasStartedStream = NO;
 	}
 }
 
-- (void)showControls:(id)sender {
+-(void)handleSingleTap {
+    (isControlsShown)?[self showControls]:[self hideControls];
+}
+
+- (void)showControls {
     if(self.isFirstResponder || ![self.tableView isHidden]){
         [self resignFirstResponder];
         [self.tableView setHidden:YES];
         return;
     }
-	if (hideControlsTimer) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
-
+    // we want to recognize the tap as a toggle now since we are removing the hideControlsTimer.
 	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		// show controls
 		[UIView beginAnimations:nil context:nil];
@@ -523,30 +529,20 @@ BOOL hasStartedStream = NO;
 		[callTableView setAlpha:1.0];
 		[videoCameraSwitch setAlpha:1.0];
 		[UIView commitAnimations];
-		// hide controls in 5 sec
-		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
-															 target:self
-														   selector:@selector(hideControls:)
-														   userInfo:nil
-															repeats:NO];
-	}
+        isControlsShown = false;
+    }
 }
 
-- (void)hideControls:(id)sender {
-	if (hideControlsTimer) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
-
+- (void)hideControls {
 	if ([[[PhoneMainView instance] currentView] equal:[InCallViewController compositeViewDescription]] && videoShown) {
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
 		[videoCameraSwitch setAlpha:0.0];
 		[callTableView setAlpha:0.0];
 		[UIView commitAnimations];
-
 		[[PhoneMainView instance] showTabBar:false];
 		[[PhoneMainView instance] showStateBar:false];
+        isControlsShown = true;
 	}
 }
 
@@ -649,10 +645,10 @@ BOOL hasStartedStream = NO;
 		[UIView commitAnimations];
 	}
 
-	if (hideControlsTimer != nil) {
-		[hideControlsTimer invalidate];
-		hideControlsTimer = nil;
-	}
+//	if (hideControlsTimer != nil) {
+//		[hideControlsTimer invalidate];
+//		hideControlsTimer = nil;
+//	}
 
 	[[PhoneMainView instance] fullScreen:false];
 }
@@ -859,7 +855,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.chatEntries addObject:self.localTextBuffer];
     if(self.isChatMode){
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self showLatestMessage];
     }
@@ -872,12 +868,12 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         return;
     }
     
-    int indx;
-    if ((int)self.chatEntries.count == 0) {
-        indx = 0;
-    } else {
-        indx = (int)self.chatEntries.count - 1;
-    }
+    int indx = self.localTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        indx = 0;
+//    } else {
+//        indx = (int)self.chatEntries.count - 1;
+//    }
     
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
        
@@ -907,12 +903,13 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [self createNewLocalChatBuffer:text];
                 return;
             }
-     
-        
-        
+            else{
+                [self createNewLocalChatBuffer:text];
+                return;
+            }
     }
     
-    if (self.localTextBufferIndex == -1) { // if it's the first message after others
+    if (self.localTextBufferIndex == 0 && !self.localTextBuffer) { // if it's the first message after others
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -935,7 +932,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
 
         if(self.isChatMode){
-            [self sortChatEntriesArray];
+           // [self sortChatEntriesArray];
             [self.tableView reloadData];
             [self showLatestMessage];
         }
@@ -952,7 +949,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             [self.localTextBuffer removeLast];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+               // [self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
@@ -970,12 +967,14 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         c = 0x2028;
         enter_pressed=true;
     }
-    
-    NSLog(@"theText %@",theText);
-    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
-    NSLog(@"insertText %@",self.localTextBuffer.msgString);
+//Remove verbose logging
+//    NSLog(@"theText %@",theText);
+//    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+//          linphone_core_get_version());
+//    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call){ return; }
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
@@ -985,7 +984,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(TEXT_MODE==RTT){
             linphone_chat_message_put_char(msg, c);
     }else if(TEXT_MODE==SIP_SIMPLE){
-        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        //NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
         if(enter_pressed){
             NSLog(@"enter_pressed");
             for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
@@ -1090,7 +1089,7 @@ NSMutableString *msgBuffer;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-    [self sortChatEntriesArray];
+   // [self sortChatEntriesArray];
     [self.tableView reloadData];
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
@@ -1102,14 +1101,14 @@ NSMutableString *msgBuffer;
     if (asciiCode == 0) {
         return;
     }
-    int index;
-    if ((int)self.chatEntries.count == 0) {
-        index = 0;
-    } else if (self.localTextBufferIndex < 0) { // no local message
-        index = (int)self.chatEntries.count - 1;
-    } else {
-        index = (int)self.chatEntries.count - 2;
-    }
+    int index = self.remoteTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        index = 0;
+//    } else if (self.localTextBufferIndex < 0) { // no local message
+//        index = (int)self.chatEntries.count - 1;
+//    } else {
+//        index = (int)self.chatEntries.count - 2;
+//    }
 
     if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
         
@@ -1152,7 +1151,7 @@ NSMutableString *msgBuffer;
         
         [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
         
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self insertTextIntoMinimizedTextBuffer:text];
         [self showLatestMessage];
@@ -1169,7 +1168,7 @@ NSMutableString *msgBuffer;
             [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+               // [self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
@@ -1248,8 +1247,8 @@ BOOL didChatResize = NO;
         
         self.isChatMode = YES;
         [self.tableView setHidden:NO];
-        [self hideControls:self];
-        [self sortChatEntriesArray];
+        [self hideControls];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
     }
 }
@@ -1346,7 +1345,7 @@ BOOL didChatResize = NO;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
-    NSString *CellIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    NSString *CellIdentifier = @"ChatCell";
     BubbleTableViewCell *cell = (BubbleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -1367,7 +1366,6 @@ BOOL didChatResize = NO;
     }
     
     if (msg.msgString.length > 1) {
-        
         NSString *firstCharacter = [msg.msgString substringToIndex:1];
         NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
         if ([firstCharacter isEqualToString:@"\n"]) {
@@ -1394,12 +1392,12 @@ BOOL didChatResize = NO;
     return 20.0f;
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if(decelerate) return;
-    
-    [self scrollViewDidEndDecelerating:scrollView];
-}
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    
+//    if(decelerate) return;
+//    
+//    [self scrollViewDidEndDecelerating:scrollView];
+//}
 
 -(void)updateViewConstraints {
         [super updateViewConstraints];

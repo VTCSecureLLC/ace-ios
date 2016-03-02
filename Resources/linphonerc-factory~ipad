@@ -13,7 +13,6 @@ eq_gains=50:2:50 100:2:50
 download_bw=1000
 upload_bw=1000
 firewall_policy=ice
-stun_server=bc1.vatrp.net
 
 [video]
 display_filter_auto_rotate=0
@@ -43,6 +42,11 @@ recv_fmtp=CIF=1;QCIF=1
 mime=VP8
 rate=90000
 enabled=1
+
+[video_codec_4]
+mime=MP4V-ES
+rate=90000
+enabled=0
 
 [app]
 #contact_display_username_only=1

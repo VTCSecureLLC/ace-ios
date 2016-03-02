@@ -21,7 +21,7 @@
 #include "linphone/linphonecore.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/utsname.h>
-#import "LinphoneManager.h"
+#import "LinphoneAppDelegate.h"
 
 @implementation LinphoneLogger
 
@@ -78,12 +78,12 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     NSString *enterLine = [line stringByAppendingString:@"\n"];
     
     @try {
-        [[[LinphoneManager instance] logFileArray] addObject:enterLine];
+         [[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] addObject:enterLine];
         
-        if ([[LinphoneManager instance] logFileArray].count > 1000 ) {
-            int last1000Elements = (int)([[LinphoneManager instance] logFileArray].count - 1000);
-            NSMutableArray * last1000ElementsOfLogArray = [[[[LinphoneManager instance] logFileArray] subarrayWithRange:NSMakeRange(last1000Elements, 1000)] mutableCopy];
-            [LinphoneManager instance].logFileArray = last1000ElementsOfLogArray;
+        if ([(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray].count > 1000 ) {
+            int last1000ElementsIndex = (int)([(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray].count - 1000);
+            NSMutableArray * last1000ElementsOfLogArray = [[[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] subarrayWithRange:NSMakeRange(last1000ElementsIndex, 1000)] mutableCopy];
+            [(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate setLogArray:last1000ElementsOfLogArray];
         }
     }
     @catch (NSException *exception) { }
@@ -323,6 +323,57 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
 	uname(&systemInfo);
 
 	return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+}
+
++ (NSString*)phoneNumberFromURI:(NSString*)sipURI {
+
+    NSString *sipWordString = nil;
+    NSString *remainParthString = nil;
+    NSArray *numbersAndDomain = [NSArray new];
+    
+    if (sipURI.length > 4) {
+        sipWordString = [sipURI substringToIndex:4];
+        if ([sipWordString isEqualToString:@"sip:"]) {
+            remainParthString = [sipURI substringFromIndex:4];
+            numbersAndDomain = [remainParthString componentsSeparatedByString:@"@"];
+            if (numbersAndDomain.count > 1) {
+                return [numbersAndDomain firstObject];
+            }
+        } else {
+            numbersAndDomain = [sipURI componentsSeparatedByString:@"@"];
+            
+            return [numbersAndDomain firstObject];
+        }
+    }
+    
+    return sipURI;
+}
+
++ (BOOL)isInternationalPhoneNumber:(NSString*)phoneNumber {
+    
+    NSString *internationalPhoneNumber = nil;
+    NSString *firstTwoNumbers = nil;
+    NSString *remainParthNumbers = nil;
+    if (phoneNumber.length > 2) {
+        firstTwoNumbers = [phoneNumber substringToIndex:2];
+        remainParthNumbers = [phoneNumber substringFromIndex:2];
+    }
+    
+    if ([firstTwoNumbers isEqualToString:@"00"]) {
+        internationalPhoneNumber = [@"+" stringByAppendingString:remainParthNumbers];
+    } else {
+        internationalPhoneNumber = phoneNumber;
+    }
+
+    NSString *expression = @"^\\+(?:[0-9] ?){6,14}[0-9]$";
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:internationalPhoneNumber options:0 range:NSMakeRange(0, [internationalPhoneNumber length])];
+    if (match) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

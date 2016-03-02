@@ -30,7 +30,8 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
     }
 }
 
--(void) loadDataFromCDN{
+- (void)loadDataFromCDN {
+    
     cdnResources = [[NSMutableArray alloc] init];
     urlSession = [NSURLSession sharedSession];
     
@@ -45,7 +46,10 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
                 [cdnResources addObject:resource];
                 NSLog(@"Loaded CDN Resource: %@", [resource objectForKey:@"name"]);
             }
-            [self.tableView reloadData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
         
     }] resume];

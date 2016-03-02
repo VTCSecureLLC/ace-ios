@@ -1,5 +1,8 @@
 #!/bin/bash
-set -x
+set -ex
+
+./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=YES -DENABLE_AMRNB=YES -DENABLE_OPENH264=YES -DENABLE_G729=YES -DENABLE_MPEG4=YES -DENABLE_H263P=YES --enable-non-free-codecs --enable-gpl-third-parties
+
 LOGFILE=/tmp/build_script.out
 
 echo "Building"

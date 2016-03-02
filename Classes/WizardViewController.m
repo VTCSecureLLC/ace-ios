@@ -23,7 +23,6 @@
 #import "PhoneMainView.h"
 #import "UITextField+DoneButton.h"
 #import "DTAlertView.h"
-
 #import <XMLRPCConnection.h>
 #import <XMLRPCConnectionManager.h>
 #import <XMLRPCResponse.h>
@@ -51,7 +50,6 @@ typedef enum _ViewElement {
     UIAlertView *registrationError;
 }
 @synthesize contentView;
-
 @synthesize welcomeView;
 @synthesize choiceView;
 @synthesize createAccountView;
@@ -62,23 +60,19 @@ typedef enum _ViewElement {
 @synthesize serviceSelectionView;
 @synthesize loginView;
 @synthesize waitView;
-
 @synthesize backButton;
 @synthesize startButton;
 @synthesize createAccountButton;
 @synthesize connectAccountButton;
 @synthesize externalAccountButton;
 @synthesize remoteProvisioningButton;
-
 @synthesize provisionedDomain, provisionedPassword, provisionedUsername;
-
 @synthesize choiceViewLogoImageView;
-
 @synthesize viewTapGestureRecognizer;
+
 
 static NSMutableArray *cdnResources;
 #pragma mark - Lifecycle Functions
-
 - (id)init {
 	self = [super initWithNibName:@"WizardViewController" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
@@ -94,6 +88,7 @@ static NSMutableArray *cdnResources;
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 #pragma mark - UICompositeViewDelegate Functions
 
@@ -115,8 +110,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return compositeDescription;
 }
 
-#pragma mark - ViewController Functions
 
+#pragma mark - ViewController Functions
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -135,7 +130,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    
     [super viewDidAppear:animated];
+    
     [self showAcceptanceScreen];
     [self loadProviderDomainsFromCache];
     self.asyncProviderLookupOperation = [[AsyncProviderLookupOperation alloc] init];
@@ -144,38 +141,23 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.asyncProviderLookupOperation reloadProviderDomains];
 }
 
-
-
--(void) loadProviderDomainsFromCache{
+- (void)loadProviderDomainsFromCache {
+    
     NSString *name;
     cdnResources = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
     
-    for(int i = 1; name; i++){
+    for (int i = 1; name; i++) {
         [cdnResources addObject:name];
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
     }
-
-       providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-        [providerPickerView setAlpha:1.0f];
-        providerPickerView.delegate = self;
-    
-    if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:0];
-        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
-        NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
-        }
-        
-        if(domain == nil){domain = @"";}
-        [self.textFieldDomain setText:domain];
-    }
+    [self setupProviderPickerView];
 }
 
-+(NSMutableArray*)getProvidersFromCDN{
++ (NSMutableArray *)getProvidersFromCDN {
     return cdnResources;
 }
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
@@ -249,12 +231,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 }
 
-#pragma mark - DefaultSettingsManager delegate method
 
+#pragma mark - DefaultSettingsManager delegate method
 - (void)didFinishLoadingConfigData {
     [self initLoginSettingsFields];
 }
--(void) didFinishWithError{
+
+- (void)didFinishWithError {
     @try{
         //Try signing in even though rue config not found via SRV
         [self apiSignIn];
@@ -273,8 +256,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self apiSignIn];
 }
 
-#pragma mark -
 
+#pragma mark -
 + (void)cleanTextField:(UIView *)view {
 	if ([view isKindOfClass:[UITextField class]]) {
 		[(UITextField *)view setText:@""];
@@ -591,7 +574,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     linphone_core_set_default_proxy_config(lc, proxyCfg);
     
     // expiration_time
-    linphone_proxy_config_set_expires(proxyCfg, [DefaultSettingsManager sharedInstance].exparitionTime);
+    linphone_proxy_config_set_expires(proxyCfg, ([DefaultSettingsManager sharedInstance].exparitionTime)?[DefaultSettingsManager sharedInstance].exparitionTime:3600);
     
     PayloadType *pt;
     const MSList *elem;
@@ -620,15 +603,15 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"vga" forKey:@"video_preferred_size_preference"];
 
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1000);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1000);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Explicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum
@@ -711,8 +694,76 @@ static UICompositeViewDescription *compositeDescription = nil;
 	return [uri substringFromIndex:[scheme length] + 1];
 }
 
-#pragma mark - Linphone XMLRPC
+- (NSString *)pathForImageCache {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachePath = [documentsDirectory stringByAppendingPathComponent:@"ImageCache"];
+    
+    return cachePath;
+}
 
+- (UIImage *)fetchProviderImageWithDomain:(NSString *)domain {
+    
+    NSString *lowercaseName = [domain lowercaseString];
+    NSString *name = [lowercaseName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *cachePath = [self pathForImageCache];
+    NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    if (!image) {
+        NSString *localImageName = nil;
+        if ([lowercaseName containsString:@"sorenson"]) {
+            localImageName = @"provider0.png";
+        }
+        else if ([lowercaseName containsString:@"zvrs"]) {
+            localImageName = @"provider1.png";
+        }
+        else if ([lowercaseName containsString:@"star"]) {
+            localImageName = @"provider2.png";
+        }
+        else if ([lowercaseName containsString:@"convo"]) {
+            localImageName = @"provider5.png";
+        }
+        else if ([lowercaseName containsString:@"global"]) {
+            localImageName = @"provider4.png";
+        }
+        else if ([lowercaseName containsString:@"purple"]) {
+            localImageName = @"provider3.png";
+        }
+        else if ([lowercaseName containsString:@"ace"]) {
+            localImageName = @"ace_icon2x.png";
+        }
+        else {
+            localImageName = @"ace_icon2x.png";
+        }
+        image = [UIImage imageNamed:localImageName];
+    }
+    
+    return image;
+}
+
+- (void)setupProviderPickerView {
+    
+    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+    [providerPickerView setAlpha:1.0f];
+    providerPickerView.delegate = self;
+    
+    if(cdnResources.count > 0) {
+        [providerPickerView setSelectedRow:0];
+        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
+        [self.selectProviderButton layoutSubviews];
+        NSString *domain;
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        }
+        self.textFieldDomain.text = (domain != nil)?domain:@"";
+    }
+}
+
+
+#pragma mark - Linphone XMLRPC
 - (void)checkUserExist:(NSString *)username {
 	LOGI(@"XMLRPC check_account %@", username);
 
@@ -757,8 +808,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[waitView setHidden:false];
 }
 
-#pragma mark -
 
+#pragma mark -
 - (void)registrationUpdate:(LinphoneRegistrationState)state message:(NSString *)message {
 	switch (state) {
 	case LinphoneRegistrationOk: {
@@ -804,8 +855,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[[LinphoneManager instance] resetLinphoneCore];
 }
 
-#pragma mark - UITextFieldDelegate Functions
 
+#pragma mark - UITextFieldDelegate Functions
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
@@ -860,6 +911,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	return YES;
 }
+
 - (void)hideError:(NSTimer *)timer {
 	UILabel *error_label = [WizardViewController findLabel:ViewElement_Username_Error view:contentView];
 	if (error_label) {
@@ -873,8 +925,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 }
 
-#pragma mark - Action Functions
 
+#pragma mark - Action Functions
 - (IBAction)onVideoRelayServiceClick:(id)sender {
     [self changeView:loginView back:FALSE animation:TRUE];
 }
@@ -886,7 +938,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (IBAction)onIPCTSClick:(id)sender {
     [self changeView:loginView back:FALSE animation:TRUE];
 }
-
 
 - (IBAction)onSelectProviderClick:(id)sender {
     if(!cdnResources || cdnResources.count == 0){
@@ -903,7 +954,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.view addSubview:providerPickerView];
 }
 
--(void)setRecursiveUserInteractionEnabled:(BOOL)value{
+- (void)setRecursiveUserInteractionEnabled:(BOOL)value {
     
     //self.view.userInteractionEnabled =   value;
     for (UIView *view in self.view.subviews) {
@@ -916,13 +967,55 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
     NSMutableArray *username = [[NSMutableArray alloc] initWithObjects:self.textFieldUsername.text, nil];
-
+    if (![self checkLoginCredentials]) {
+        return;
+    }
+    if ([[LinphoneManager instance] coreIsRunning]) {
+        [[LinphoneManager instance] destroyLinphoneCore];
+        [LinphoneManager instanceRelease];
+        [LinphoneManager instanceWithUsername:self.textFieldUsername.text andDomain:self.textFieldDomain.text];
+        [[LinphoneManager instance] startLinphoneCore];
+    }
     [[DefaultSettingsManager sharedInstance] setSipRegisterUserNames:username];
     [[DefaultSettingsManager sharedInstance] setSipAuthUsername:self.textFieldUserId.text];
     [[DefaultSettingsManager sharedInstance] setSipAuthPassword:self.textFieldPassword.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterDomain:self.textFieldDomain.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
+}
+
+- (BOOL)checkLoginCredentials {
+    
+    NSString *errorMessage = @"";
+    
+    if ([self.textFieldUsername.text length] == 0 ) {
+        errorMessage = @"The username can't be empty";
+    }
+    
+    if ([self.textFieldPassword.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The password field can't be empty";
+    }
+    
+    if ([self.textFieldDomain.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The domain field can't be empty";
+    }
+    
+    if ([self.textFieldPort.text length] == 0 && [errorMessage isEqualToString:@""]) {
+        errorMessage = @"The Port field can't be empty";
+    }
+
+    if (![errorMessage isEqualToString:@""]) {
+        UIAlertView *errorView =
+        [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Check error", nil)
+                                   message:errorMessage
+                                  delegate:nil
+                         cancelButtonTitle:NSLocalizedString(@"Ok", nil)
+                         otherButtonTitles:nil, nil];
+        [errorView show];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (IBAction)onStartClick:(id)sender {
@@ -1006,11 +1099,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 	return TRUE;
 }
+
 - (void)verificationSignInWithUsername:(NSString *)username
 							  password:(NSString *)password
 								domain:(NSString *)domain
 						 withTransport:(NSString *)transport
-                                  port:(int)port{
+                                  port:(int)port {
 	if ([self verificationWithUsername:username password:password domain:domain withTransport:transport]) {
 		[waitView setHidden:false];
 		if ([LinphoneManager instance].connectivity == none) {
@@ -1157,6 +1251,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[LinphoneUtils findAndResignFirstResponder:currentView];
 }
 
+
 #pragma mark - UIAlertViewDelegate
 UIAlertView *transportAlert;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -1225,15 +1320,15 @@ UIAlertView *transportAlert;
 	}
 }
 
-#pragma mark - Event Functions
 
+#pragma mark - Event Functions
 - (void)registrationUpdateEvent:(NSNotification *)notif {
 	NSString *message = [notif.userInfo objectForKey:@"message"];
 	[self registrationUpdate:[[notif.userInfo objectForKey:@"state"] intValue] message:message];
 }
 
-#pragma mark - XMLRPCConnectionDelegate Functions
 
+#pragma mark - XMLRPCConnectionDelegate Functions
 - (void)request:(XMLRPCRequest *)request didReceiveResponse:(XMLRPCResponse *)response {
 	LOGI(@"XMLRPC %@: %@", [request method], [response body]);
 	[waitView setHidden:true];
@@ -1319,8 +1414,8 @@ UIAlertView *transportAlert;
 - (void)request:(XMLRPCRequest *)request didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 }
 
-#pragma mark - TPMultiLayoutViewController Functions
 
+#pragma mark - TPMultiLayoutViewController Functions
 - (NSDictionary *)attributesForView:(UIView *)view {
 	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 	[attributes setObject:[NSValue valueWithCGRect:view.frame] forKey:@"frame"];
@@ -1343,8 +1438,8 @@ UIAlertView *transportAlert;
 	view.autoresizingMask = [[attributes objectForKey:@"autoresizingMask"] integerValue];
 }
 
-#pragma mark - UIGestureRecognizerDelegate Functions
 
+#pragma mark - UIGestureRecognizerDelegate Functions
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
 	if ([touch.view isKindOfClass:[UIButton class]]) {
 		/* we resign any keyboard that's displayed when a button is touched */
@@ -1355,48 +1450,25 @@ UIAlertView *transportAlert;
 	return YES;
 }
 
+
 #pragma mark - UICustomPicker Delegate
--(void) didCancelUICustomPicker:(UICustomPicker*)customPicker
-{
+- (void)didCancelUICustomPicker:(UICustomPicker *)customPicker {
     [self setRecursiveUserInteractionEnabled:true];
 }
-- (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker selectedItem:(NSString*)item {
     [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
     [self setRecursiveUserInteractionEnabled:true];
 }
+
 - (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
-    NSString *imgResource;
-    /*Load hard baked logos for beta stability.
-     Going forward we will be loading these from the CDN*/
-    if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"sorenson"]){
-        imgResource = @"provider0.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"zvrs"]){
-        imgResource = @"provider1.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"star"]){
-        imgResource = @"provider2.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"convo"]){
-        imgResource = @"provider5.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"global"]){
-        imgResource = @"provider4.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"purple"]){
-        imgResource = @"provider3.png";
-    }
-    else if([[[cdnResources objectAtIndex:row] lowercaseString] containsString:@"ace"]){
-        imgResource = @"ace_icon2x.png";
-    }
-    else{
-        imgResource = @"ace_icon2x.png";
-    }
-    UIImage *img = [UIImage imageNamed:imgResource];
+    
+    UIImage *image = [self fetchProviderImageWithDomain:[cdnResources objectAtIndex:row]];
     [providerButtonLeftImageView removeFromSuperview];
     providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
     [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
-    [providerButtonLeftImageView setImage:img];
+    [providerButtonLeftImageView setImage:image];
+    providerButtonLeftImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.selectProviderButton addSubview:providerButtonLeftImageView];
     
     NSString *domain;
@@ -1407,7 +1479,6 @@ UIAlertView *transportAlert;
     if(domain == nil){domain = @"";}
     [self.textFieldDomain setText:domain];
     [self setRecursiveUserInteractionEnabled:true];
-
 }
 
 - (void)apiSignIn {
@@ -1572,19 +1643,19 @@ UIAlertView *transportAlert;
     [self enableAppropriateCodecs:linphone_core_get_video_codecs(lc)];
 
     // bwLimit - ? the name bwlimit is confusing
-    linphone_core_set_video_preset(lc, [DefaultSettingsManager sharedInstance].bwLimit.UTF8String);
+    linphone_core_set_video_preset(lc, "custom");
     
     // upload_bandwidth
     linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
 
-    // download_bandwidth
-    linphone_core_set_download_bandwidth(lc, [DefaultSettingsManager sharedInstance].downloadBandwidth);
+    // download_bandwidth , related to the document
+    linphone_core_set_download_bandwidth(lc, ([DefaultSettingsManager sharedInstance].downloadBandwidth)?[DefaultSettingsManager sharedInstance].downloadBandwidth:1500);
     
-    // enable_stun
-    linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyNoFirewall);
+    // enable_stun, related to the document
+    linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, [DefaultSettingsManager sharedInstance].stunServer.UTF8String);
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
@@ -1621,10 +1692,16 @@ UIAlertView *transportAlert;
     for (elem = codecs; elem != NULL; elem = elem->next) {
         pt = (PayloadType *)elem->data;
         linphone_core_enable_payload_type(lc, pt, [[DefaultSettingsManager sharedInstance].enabledCodecs containsObject:[NSString stringWithUTF8String:pt->mime_type]]);
+        
+        // download_bandwidth , related to the document
+        if ([[NSString stringWithUTF8String:pt->mime_type] isEqualToString:@"H264"]) {
+            PayloadType *pt = [[LinphoneManager instance] findVideoCodec:@"h264_preference"];
+            linphone_core_enable_payload_type(lc, pt, 0);
+        }
     }
 }
 
-- (OrtpLogLevel)logLevel:(NSString*)logInfo {
+- (OrtpLogLevel)logLevel:(NSString *)logInfo {
     
     if ([logInfo isEqualToString:@"info"]) {
         return ORTP_MESSAGE;
@@ -1643,7 +1720,7 @@ UIAlertView *transportAlert;
     return ORTP_DEBUG;
 }
 
--(void) showAlert:(NSString*)message{
+- (void)showAlert:(NSString*)message {
     NSLog(@"VisualAccessHomeViewController showAlert %@",message);
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"VisualAccess"
@@ -1690,7 +1767,7 @@ static BOOL isAdvancedShown = NO;
     acceptButtonClicked = YES;
 }
 
--(void) viewWillLayoutSubviews {
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     if (acceptButtonClicked) {
         acceptButtonClicked = NO;
@@ -1710,24 +1787,10 @@ static BOOL isAdvancedShown = NO;
     }
 }
 
--(void)onProviderLookupFinished:(NSMutableArray *)domains{
-    cdnResources = domains;
-    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-    [providerPickerView setAlpha:1.0f];
-    providerPickerView.delegate = self;
+- (void)onProviderLookupFinished:(NSMutableArray *)domains {
     
-    if(cdnResources.count > 0){
-        [providerPickerView setSelectedRow:0];
-        [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
-        [self.selectProviderButton layoutSubviews];
-        NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
-        }
-        
-        if(domain == nil){domain = @"";}
-        [self.textFieldDomain setText:domain];
-    }
-
+    cdnResources = domains;
+    [self setupProviderPickerView];
 }
+
 @end

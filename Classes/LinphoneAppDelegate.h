@@ -30,11 +30,12 @@
 }
 
 - (void)processRemoteNotification:(NSDictionary*)userInfo;
+- (void)setLogArray:(NSMutableArray*)arrayToSet;
 
 @property (nonatomic, retain) UIAlertView *waitingIndicator;
 @property (nonatomic, retain) NSString *configURL;
 @property (nonatomic, strong) UIWindow* window;
-
+@property (strong) NSMutableArray *logFileArray;
 
 @end
 

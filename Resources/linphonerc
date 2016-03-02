@@ -17,6 +17,7 @@ register_only_when_network_is_up=1
 auto_net_state_mon=0
 keepalive_period=30000
 ping_with_options=0
+dscp=28
 
 
 [rtp]
@@ -30,6 +31,8 @@ rtcp_xr_rcvr_rtt_mode=all
 rtcp_xr_rcvr_rtt_max_size=10000
 rtcp_xr_stat_summary_enabled=1
 rtcp_xr_voip_metrics_enabled=1
+audio_dscp=38
+video_dscp=38
 
 [video]
 display=1
@@ -67,11 +70,15 @@ mime=VP8
 rate=90000
 enabled=1
 
+[video_codec_4]
+mime=MP4V-ES
+rate=90000
+enabled=0
+
 [net]
 download_bw=1000
 upload_bw=1000
 firewall_policy=ice
-stun_server=bc1.vatrp.net
 
 [sound]
 playback_dev_id=AU: Audio Unit Receiver

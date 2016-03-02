@@ -448,6 +448,7 @@
 		737A0A161C65359400D7D0DB /* libebml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A0A151C65359400D7D0DB /* libebml2.a */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
+		739D5AB01C754DDC00DD0EA7 /* libbctoolbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */; };
 		739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */; };
 		739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DF1C4D3ABE002EB5A7 /* libbelr.a */; };
 		739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 223CA7E516D9255800EF1BEC /* libbellesip.a */; };
@@ -1776,6 +1777,7 @@
 		737A0A151C65359400D7D0DB /* libebml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libebml2.a; path = "liblinphone-sdk/apple-darwin/lib/libebml2.a"; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbctoolbox.a; path = "liblinphone-sdk/apple-darwin/lib/libbctoolbox.a"; sourceTree = "<group>"; };
 		739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelcard.a; path = "liblinphone-sdk/apple-darwin/lib/libbelcard.a"; sourceTree = "<group>"; };
 		739F82DF1C4D3ABE002EB5A7 /* libbelr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelr.a; path = "liblinphone-sdk/apple-darwin/lib/libbelr.a"; sourceTree = "<group>"; };
 		73E3E1E31BB34A1A00295CF3 /* libvo-amrwbenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvo-amrwbenc.a"; path = "liblinphone-sdk/apple-darwin/lib/libvo-amrwbenc.a"; sourceTree = "<group>"; };
@@ -2588,6 +2590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B39A22ED1C713B4400070799 /* calabash.framework in Frameworks */,
+				739D5AB01C754DDC00DD0EA7 /* libbctoolbox.a in Frameworks */,
 				0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */,
 				737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */,
 				739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */,
@@ -3052,6 +3055,7 @@
 			isa = PBXGroup;
 			children = (
 				B39A22EC1C713B4400070799 /* calabash.framework */,
+				739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */,
 				737A0A151C65359400D7D0DB /* libebml2.a */,
 				737A0A131C65355600D7D0DB /* libcorec.a */,
 				737A0A0D1C65323E00D7D0DB /* libmatroska2.a */,

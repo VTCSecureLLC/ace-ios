@@ -195,6 +195,20 @@ static RootViewManager *rootViewManagerInstance = nil;
 											 selector:@selector(batteryLevelChanged:)
 												 name:UIDeviceBatteryLevelDidChangeNotification
 											   object:nil];
+    /*** Request camera / microphone permission if not set ***/
+    /*** Testers can verify by going to Settings > General > Reset > Reset Location & Privacy ***/
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        if(granted){
+            NSLog(@"Camera authorized");
+        }
+    }];
+    
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        if(granted){
+            NSLog(@"Microphone authorized");
+        } else {
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -737,20 +751,22 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)displayIncomingCall:(LinphoneCall *)call {
-	LinphoneCallLog *callLog = linphone_call_get_call_log(call);
-	NSString *callId = [NSString stringWithUTF8String:linphone_call_log_get_call_id(callLog)];
-
-	if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-		LinphoneManager *lm = [LinphoneManager instance];
-		BOOL callIDFromPush = [lm popPushCallID:callId];
-		//BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
-        //Never autoanswer notification. 
-		if (callIDFromPush) {
-			// accept call automatically
-			[lm acceptCall:call];
-
-		} else {
-
+    
+    LinphoneCallLog *callLog = linphone_call_get_call_log(call);
+    NSString *callId = [NSString stringWithUTF8String:linphone_call_log_get_call_id(callLog)];
+    
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+        
+        LinphoneManager *lm = [LinphoneManager instance];
+        BOOL callIDFromPush = [lm popPushCallID:callId];
+        //BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
+        //Never autoanswer notification.
+        if (callIDFromPush) {
+            // accept call automatically
+            [lm acceptCall:call];
+            
+        } else {
+            
             IncomingCallViewController *controller = nil;
             if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
                 controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);
@@ -759,25 +775,11 @@ static RootViewManager *rootViewManagerInstance = nil;
                 controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
             }
             // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
-			if(controller != nil) {
-
-			IncomingCallViewController *controller = nil;
-			if (![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]) {
-				controller = DYNAMIC_CAST(
-					[self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],
-					IncomingCallViewController);
-			} else {
-				// controller is already presented, don't bother animating a transition
-				controller =
-					DYNAMIC_CAST([self.mainViewController getCurrentViewController], IncomingCallViewController);
-			}
-            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
-
-			if (controller != nil) {
-				[controller setCall:call];
-				[controller setDelegate:self];
-			}
-		}
+            
+            if (controller != nil) {
+                [controller setCall:call];
+                [controller setDelegate:self];
+            }
         }
     }
 }
@@ -828,7 +830,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)incomingCallDeclined:(LinphoneCall *)call {
-	linphone_core_terminate_call([LinphoneManager getLc], call);
+    linphone_core_decline_call([LinphoneManager getLc], call, LinphoneReasonDeclined);
 }
 
 @end

@@ -8,9 +8,9 @@
 
 #import "UICustomPicker.h"
 #import "WizardViewController.h"
+
 @interface UICustomPicker () <UIPickerViewDelegate, UIPickerViewDataSource> {
     UIPickerView *pickerView;
-    
     NSArray *arraySource;
 }
 
@@ -19,12 +19,13 @@
 
 @end
 
+
 @implementation UICustomPicker
 
 @synthesize delegate = _delegate;
 @synthesize datePickerMode = _datePickerMode;
 
-- (id) initWithFrame:(CGRect)frame SourceList:(NSArray*)sourceList {
+- (id)initWithFrame:(CGRect)frame SourceList:(NSArray*)sourceList {
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -57,14 +58,14 @@
     return self;
 }
 
-- (void) onButtonCancel:(id)sender {
+- (void)onButtonCancel:(id)sender {
     if ([_delegate respondsToSelector:@selector(didCancelUICustomPicker:)]) {
         [_delegate didCancelUICustomPicker:self];
     }
     [self removeFromSuperview];
 }
 
-- (void) onButtonSelect:(id)sender {
+- (void)onButtonSelect:(id)sender {
     [self onButtonCancel:nil];
     
     if ([_delegate respondsToSelector:@selector(didSelectUICustomPicker:selectedItem:)]) {
@@ -77,8 +78,60 @@
     }
 }
 
-#pragma mark - UIPickerView DataSource
 
+#pragma mark - Private Methods
+- (NSString *)pathForImageCache {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachePath = [documentsDirectory stringByAppendingPathComponent:@"ImageCache"];
+    
+    return cachePath;
+}
+
+- (UIImage *)fetchProviderImageWithDomain:(NSString *)domain {
+    
+    NSString *lowercaseName = [domain lowercaseString];
+    NSString *name = [lowercaseName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *cachePath = [self pathForImageCache];
+    NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    if (!image) {
+        NSString *localImageName = nil;
+        if ([lowercaseName containsString:@"sorenson"]) {
+            localImageName = @"provider0.png";
+        }
+        else if ([lowercaseName containsString:@"zvrs"]) {
+            localImageName = @"provider1.png";
+        }
+        else if ([lowercaseName containsString:@"star"]) {
+            localImageName = @"provider2.png";
+        }
+        else if ([lowercaseName containsString:@"convo"]) {
+            localImageName = @"provider5.png";
+        }
+        else if ([lowercaseName containsString:@"global"]) {
+            localImageName = @"provider4.png";
+        }
+        else if ([lowercaseName containsString:@"purple"]) {
+            localImageName = @"provider3.png";
+        }
+        else if ([lowercaseName containsString:@"ace"]) {
+            localImageName = @"ace_icon2x.png";
+        }
+        else {
+            localImageName = @"ace_icon2x.png";
+        }
+        image = [UIImage imageNamed:localImageName];
+    }
+    
+    return image;
+}
+
+
+#pragma mark - UIPickerView DataSource
 // returns the number of 'columns' to display.
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
@@ -89,18 +142,13 @@
     return arraySource.count;
 }
 
+
 #pragma mark - UIPickerView Delegate
-
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-//    return [arraySource objectAtIndex:row];
-//}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     _selectedRow = row;
 }
 
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title = [arraySource objectAtIndex:row];
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -108,40 +156,11 @@
     
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    NSString *imgResource;
-    /*Load hard baked logos for beta stability.
-     Going forward we will be loading these from the CDN*/
-    if([WizardViewController getProvidersFromCDN] != nil){
-        if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"sorenson"]){
-            imgResource = @"provider0.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"zvrs"]){
-            imgResource = @"provider1.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString]  containsString:@"star"]){
-            imgResource = @"provider2.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString]  containsString:@"convo"]){
-            imgResource = @"provider5.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"global"]){
-            imgResource = @"provider4.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"purple"]){
-            imgResource = @"provider3.png";
-        }
-        else if([[[[WizardViewController getProvidersFromCDN] objectAtIndex:row] lowercaseString] containsString:@"ace"]){
-            imgResource = @"ace_icon2x.png";
-        }
-    }
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     
-    if(!imgResource){
-        imgResource = @"ace_icon2x.png";
-    }
-    
-    UIImage *img = [UIImage imageNamed:imgResource];
-    UIImageView *providerImageView = [[UIImageView alloc] initWithImage:img];
+    NSString *domain = [arraySource objectAtIndex:row];
+    UIImage *image = [self fetchProviderImageWithDomain:domain];
+    UIImageView *providerImageView = [[UIImageView alloc] initWithImage:image];
     providerImageView.frame = CGRectMake(-15, 18, 25, 25);
     
     UILabel *providerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 150, 60)];

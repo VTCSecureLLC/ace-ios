@@ -93,15 +93,43 @@ UILongPressGestureRecognizer *lpgr;
                                  NSError *error = nil;
                                  if (![[NSFileManager defaultManager] fileExistsAtPath:stringPath])
                                      [[NSFileManager defaultManager] createDirectoryAtPath:stringPath withIntermediateDirectories:NO attributes:nil error:&error];
-                                 if(vcard)
-                                 {
-                                     MFMailComposeViewController *composeMail =
-                                     [[MFMailComposeViewController alloc] init];
-                                     composeMail.mailComposeDelegate = self;
-                                     [composeMail addAttachmentData:vcard mimeType:@"text/vcard" fileName:@"ACE_contact.vcard"];
-                                     [self presentViewController:composeMail animated:NO completion:^{
-                                     }];
-                                    
+                                 if (vcard) {
+                                     
+                                     if ([MFMailComposeViewController canSendMail]) {
+                                         MFMailComposeViewController *composeMail =
+                                         [[MFMailComposeViewController alloc] init];
+                                         composeMail.mailComposeDelegate = self;
+                                         [composeMail addAttachmentData:vcard mimeType:@"text/vcard" fileName:@"ACE_contact.vcard"];
+                                         [self presentViewController:composeMail animated:NO completion:^{
+                                         }];
+
+                                     } else {
+                                         UIAlertController *alert = [UIAlertController
+                                                                     alertControllerWithTitle:@"WARNING!"
+                                                                     message:@"There is no default email\n Do you want to go to settings?"
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                                         
+                                         UIAlertAction* ok = [UIAlertAction
+                                                                   actionWithTitle:@"Go to Settings"
+                                                                   style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+                                                                   }];
+                                         
+                                         UIAlertAction* cancel = [UIAlertAction
+                                                                  actionWithTitle:@"No Thanks"
+                                                                  style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action)
+                                                                  {
+                                                                      [alert dismissViewControllerAnimated:YES completion:nil];
+                                                                      
+                                                                  }];
+                                         [alert addAction:ok];
+                                         [alert addAction:cancel];
+                                         
+                                         [self presentViewController:alert animated:YES completion:nil];
+                                         
+                                     }
 //                                    MFMessageComposeViewController *composeMessage = [[MFMessageComposeViewController alloc] init];
 //                                     [composeMessage addAttachmentData:vcard
 //                                                        typeIdentifier:@"public.contact" filename:@"contact.vcard"];
@@ -109,7 +137,6 @@ UILongPressGestureRecognizer *lpgr;
 //                                     [self presentViewController:composeMessage animated:NO completion:^(void){
 //
 //                                     }];
-                                     
                                  }
                                  [alert dismissViewControllerAnimated:NO completion:nil];
                                  
