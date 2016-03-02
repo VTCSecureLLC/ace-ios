@@ -10,7 +10,7 @@
 #import "LinphoneManager.h"
 #import "IncallButton.h"
 
-#define kBottomButtonsAnimationDuration 0.5f
+#define kBottomButtonsAnimationDuration 0.3f
 
 @interface InCallViewControllerNew ()
 
@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (nonatomic, assign) BOOL videoShown;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
+@property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
 
 @end
 
@@ -39,6 +42,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(callUpdateEvent:)
@@ -74,6 +79,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -128,6 +135,7 @@
     
     [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
     [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoPreviewView];
+    
 }
 
 - (void)callOutgoingInit {
@@ -317,6 +325,50 @@
 }
 
 
+- (void)showBottomButtons {
+    
+    
+    
+    [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                     animations:^{
+                         
+                         self.endCallBottomConstraint.constant = 40;
+                         [self.bottomButtonsContainer setAlpha:1];
+                         [self.endCallButton setAlpha:1];
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         
+                         if (finished) {
+                             
+                             if (self.bottomButtonsContainer.alpha) {
+                                 
+                                 [self.bottomButtonsAnimationTimer invalidate];
+                                 self.bottomButtonsAnimationTimer = nil;
+                                 self.bottomButtonsAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.f
+                                                                                                     target:self
+                                                                                                   selector:@selector(hideBottomButtons)
+                                                                                                   userInfo:nil
+                                                                                                    repeats:NO];
+                             }
+                         }
+                     }];
+    }
+
+- (void)hideBottomButtons {
+    
+    [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                     animations:^{
+                         
+                         self.endCallBottomConstraint.constant = -(CGRectGetHeight(self.view.frame) - self.bottomButtonsContainer.frame.origin.y) + 40;
+                         [self.bottomButtonsContainer setAlpha:0];
+                         [self.endCallButton setAlpha:0];
+                         [self.view layoutIfNeeded];
+                     }];
+    
+    [self.view layoutIfNeeded];
+    
+}
+
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
     
@@ -358,11 +410,14 @@
 
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
     
-    [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                     animations:^{
-                         [self.bottomButtonsContainer setAlpha:!self.bottomButtonsContainer.alpha];
-                         [self.endCallButton setAlpha:!self.endCallButton.alpha];
-                     }];
+    if (self.bottomButtonsContainer.alpha == 0) {
+        
+        [self showBottomButtons];
+    }
+    else {
+        
+        [self hideBottomButtons];
+    }
     
 }
 
