@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "IncomingCallViewControllerNew.h"
+#import "InCallViewControllerNew.h"
 
 
 #define kStoryboardInCall           @"InCall"
@@ -36,5 +37,6 @@
  */
 - (IncomingCallViewControllerNew *)incomingCallViewController;
 
+- (InCallViewControllerNew *)incallViewController;
 
 @end

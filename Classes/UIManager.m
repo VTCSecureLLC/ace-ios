@@ -37,7 +37,6 @@
                     }];
 }
 
-
 - (void)changeRootViewControllerWithController:(UIViewController *)viewController {
     
     [self transitionToViewController:viewController withTransition:UIViewAnimationOptionTransitionNone];
@@ -47,7 +46,16 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardIncomingCall bundle:nil];
     IncomingCallViewControllerNew *viewController = [storyboard instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
+    
     return viewController;
+}
+
+- (InCallViewControllerNew *)incallViewController {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardInCall bundle:nil];
+    InCallViewControllerNew *incallViewController = [storyboard instantiateViewControllerWithIdentifier:@"InCallViewControllerNew"];
+    
+    return incallViewController;
 }
 
 @end

@@ -219,7 +219,7 @@ typedef struct _LinphoneManagerSounds {
  *  @param linphoneCore LinphoneCore object
  *  @param videoView    videoView which must be shown as partner's video screen
  */
-- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView;
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view;
 
 /**
  *  Takes view and sets makes it native preview video window
@@ -227,7 +227,7 @@ typedef struct _LinphoneManagerSounds {
  *  @param linphoneCore LinphoneCore object
  *  @param videoView    videoView which must be shown as caller video screen
  */
-- (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView;
+- (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view;
 
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
