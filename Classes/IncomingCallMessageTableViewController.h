@@ -20,5 +20,4 @@ typedef void (^MessageDidSelectedBlock)(NSUInteger);
 
 @property (nonatomic, copy) MessageDidSelectedBlock messageDidSelectedCallback;
 
-
 @end

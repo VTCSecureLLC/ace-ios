@@ -51,7 +51,7 @@
     [self setupSpeaker];
     [self setupVideo];
     
-    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCallForLinphoneCore:[LinphoneManager getLc]];
+    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
     LinphoneCallState linphoneCallState = 0;
     if (linphoneCall != NULL) {
         linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];

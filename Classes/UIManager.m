@@ -107,4 +107,10 @@
                                    completion:nil];
 }
 
+- (void)hideIncomingCallViewControllerAnimated:(BOOL)animated {
+    
+    UIViewController* rootViewController = [self topViewController];
+    [rootViewController dismissViewControllerAnimated:animated completion:nil];
+}
+
 @end
