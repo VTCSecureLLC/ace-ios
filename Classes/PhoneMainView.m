@@ -347,7 +347,7 @@ static RootViewManager *rootViewManagerInstance = nil;
     
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
-	NSString *message = [notif.userInfo objectForKey:@"message"];
+//	NSString *message = [notif.userInfo objectForKey:@"message"];
 
     bool canHideInCallView = NO;
     
