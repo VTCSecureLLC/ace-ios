@@ -123,6 +123,8 @@ typedef struct _LinphoneManagerSounds {
 }
 
 + (LinphoneManager*)instance;
++ (LinphoneManager*)instanceWithUsername:(NSString*)userName andDomain:(NSString*)domainName;
+- (bool)coreIsRunning;
 #ifdef DEBUG
 + (void)instanceRelease;
 #endif
@@ -223,6 +225,5 @@ void configH264HardwareAcell(bool encode, bool decode);
 @property (readonly) LpConfig *configDb;
 @property (readonly) InAppProductsManager *iapManager;
 @property(strong, nonatomic) NSMutableArray *fileTransferDelegates;
-@property (strong) NSMutableArray *logFileArray;
 
 @end

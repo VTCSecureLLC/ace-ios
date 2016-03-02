@@ -494,10 +494,8 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] setBool:enableRtt forKey:@"enable_rtt"];
         [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
         
-    } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
-		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
-		[keys addObject:@"video_menu"];
-	} else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
+    }
+    else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = ![[notif.userInfo objectForKey:@"random_port_preference"] boolValue];
 		[keys addObject:@"port_preference"];
 	} else if ([@"backgroundmode_preference" compare:notif.object] == NSOrderedSame) {
@@ -947,10 +945,6 @@ static BOOL isAdvancedSettings = FALSE;
 
 	[hiddenKeys addObject:@"enable_first_login_view_preference"];
 
-	if (!linphone_core_video_supported([LinphoneManager getLc])) {
-		[hiddenKeys addObject:@"enable_video_preference"];
-	}
-
 	if (!linphone_core_video_enabled([LinphoneManager getLc])) {
 		[hiddenKeys addObject:@"video_menu"];
 	}
@@ -1002,7 +996,6 @@ static BOOL isAdvancedSettings = FALSE;
 		[hiddenKeys addObject:@"repeat_call_notification_preference"];
 	}
     if(!isAdvancedSettings){
-        [hiddenKeys addObject:@"enable_video_preference"];
         [hiddenKeys addObject:@"avpf_preference"];
         [hiddenKeys addObject:@"outbound_proxy_preference"];
         [hiddenKeys addObject:@"password_preference"];
@@ -1228,8 +1221,9 @@ static BOOL isAdvancedSettings = FALSE;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex != 1)
 		return; /* cancel */
-	else
-		[self goToWizard];
+    else {
+        [self goToWizard];
+    }
 }
 
 #pragma mark - Mail composer for sending logs

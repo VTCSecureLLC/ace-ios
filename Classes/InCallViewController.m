@@ -158,8 +158,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     }
     
     self.chatEntries = [[NSMutableArray alloc] init];
-    self.localTextBufferIndex = -1;
-    self.remoteTextBufferIndex = -1;
+    self.localTextBufferIndex = 0;
+    self.remoteTextBufferIndex = 0;
 
     self.localTextBuffer = nil;
     self.remoteTextBuffer = nil;
@@ -855,7 +855,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     [self.chatEntries addObject:self.localTextBuffer];
     if(self.isChatMode){
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self showLatestMessage];
     }
@@ -868,12 +868,12 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         return;
     }
     
-    int indx;
-    if ((int)self.chatEntries.count == 0) {
-        indx = 0;
-    } else {
-        indx = (int)self.chatEntries.count - 1;
-    }
+    int indx = self.localTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        indx = 0;
+//    } else {
+//        indx = (int)self.chatEntries.count - 1;
+//    }
     
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
        
@@ -903,12 +903,13 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
                 [self createNewLocalChatBuffer:text];
                 return;
             }
-     
-        
-        
+            else{
+                [self createNewLocalChatBuffer:text];
+                return;
+            }
     }
     
-    if (self.localTextBufferIndex == -1) { // if it's the first message after others
+    if (self.localTextBufferIndex == 0 && !self.localTextBuffer) { // if it's the first message after others
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -931,7 +932,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
 
         if(self.isChatMode){
-            [self sortChatEntriesArray];
+           // [self sortChatEntriesArray];
             [self.tableView reloadData];
             [self showLatestMessage];
         }
@@ -948,7 +949,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
             [self.localTextBuffer removeLast];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+               // [self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
@@ -966,12 +967,14 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
         c = 0x2028;
         enter_pressed=true;
     }
-    
-    NSLog(@"theText %@",theText);
-    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
-    NSLog(@"insertText %@",self.localTextBuffer.msgString);
+//Remove verbose logging
+//    NSLog(@"theText %@",theText);
+//    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+//          linphone_core_get_version());
+//    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call){ return; }
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
 
@@ -981,7 +984,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
     if(TEXT_MODE==RTT){
             linphone_chat_message_put_char(msg, c);
     }else if(TEXT_MODE==SIP_SIMPLE){
-        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        //NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
         if(enter_pressed){
             NSLog(@"enter_pressed");
             for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
@@ -1086,7 +1089,7 @@ NSMutableString *msgBuffer;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-    [self sortChatEntriesArray];
+   // [self sortChatEntriesArray];
     [self.tableView reloadData];
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
@@ -1098,14 +1101,14 @@ NSMutableString *msgBuffer;
     if (asciiCode == 0) {
         return;
     }
-    int index;
-    if ((int)self.chatEntries.count == 0) {
-        index = 0;
-    } else if (self.localTextBufferIndex < 0) { // no local message
-        index = (int)self.chatEntries.count - 1;
-    } else {
-        index = (int)self.chatEntries.count - 2;
-    }
+    int index = self.remoteTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        index = 0;
+//    } else if (self.localTextBufferIndex < 0) { // no local message
+//        index = (int)self.chatEntries.count - 1;
+//    } else {
+//        index = (int)self.chatEntries.count - 2;
+//    }
 
     if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
         
@@ -1148,7 +1151,7 @@ NSMutableString *msgBuffer;
         
         [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
         
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self insertTextIntoMinimizedTextBuffer:text];
         [self showLatestMessage];
@@ -1165,7 +1168,7 @@ NSMutableString *msgBuffer;
             [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+               // [self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
@@ -1245,7 +1248,7 @@ BOOL didChatResize = NO;
         self.isChatMode = YES;
         [self.tableView setHidden:NO];
         [self hideControls];
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
     }
 }
@@ -1342,7 +1345,7 @@ BOOL didChatResize = NO;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
-    NSString *CellIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    NSString *CellIdentifier = @"ChatCell";
     BubbleTableViewCell *cell = (BubbleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -1363,7 +1366,6 @@ BOOL didChatResize = NO;
     }
     
     if (msg.msgString.length > 1) {
-        
         NSString *firstCharacter = [msg.msgString substringToIndex:1];
         NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
         if ([firstCharacter isEqualToString:@"\n"]) {
@@ -1390,12 +1392,12 @@ BOOL didChatResize = NO;
     return 20.0f;
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if(decelerate) return;
-    
-    [self scrollViewDidEndDecelerating:scrollView];
-}
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    
+//    if(decelerate) return;
+//    
+//    [self scrollViewDidEndDecelerating:scrollView];
+//}
 
 -(void)updateViewConstraints {
         [super updateViewConstraints];

@@ -12,7 +12,8 @@
 #import "LinphoneIOSVersion.h"
 #import "ResourcesViewController.h"
 #import "PhoneMainView.h"
-#import "LinphoneManager.h"
+#import "LinphoneAppDelegate.h"
+
 @interface HelpViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -64,7 +65,7 @@
         [items addObject:deviceInfo];
         //NSData *dataArray = [NSKeyedArchiver archivedDataWithRootObject:[LinphoneManager instance].logFileArray];
         NSArray *array = [NSArray new];
-        array  = [[[LinphoneManager instance] logFileArray] mutableCopy];
+        array  = [[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] mutableCopy];
         
         NSString * logFilePath = [self logFilePath];
         [array writeToFile:logFilePath atomically:YES];

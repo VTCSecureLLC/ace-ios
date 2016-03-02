@@ -34,8 +34,9 @@
         self.textLabel.font = [UIFont systemFontOfSize:14.0];
         
         self.imageView.userInteractionEnabled = YES;
-        self.imageView.layer.cornerRadius = 5.0;
-        self.imageView.layer.masksToBounds = YES;
+//        self.imageView.layer.cornerRadius = 5.0;
+//        self.imageView.layer.masksToBounds = NO;
+//        self.imageView.layer.shouldRasterize = YES;
         
         screenRect = [[UIScreen mainScreen] bounds];
         BubbleWidthOffset = 30.0f;
