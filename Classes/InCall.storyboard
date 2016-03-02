@@ -21,7 +21,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5T0-dS-AZx" userLabel="VideoView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="mso-9X-rkP" appends="YES" id="h7K-5j-PIc"/>
@@ -29,7 +29,7 @@
                             </view>
                             <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
                                 <rect key="frame" x="243" y="379" width="96" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -144,11 +144,7 @@
                         <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
                         <outlet property="soundButton" destination="RoB-be-SEr" id="GhA-My-abR"/>
                         <outlet property="videoButton" destination="cUu-6c-4Rj" id="TSo-wf-3kW"/>
-                        <outlet property="videoPreviewBottomConstraint" destination="vIB-ND-98j" id="2nR-7V-lTw"/>
-                        <outlet property="videoPreviewHeightConstraint" destination="v5A-Rj-kxk" id="Iaj-NU-08I"/>
-                        <outlet property="videoPreviewTrailingConstraint" destination="d23-vm-O6v" id="LNx-8u-LsE"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
-                        <outlet property="videoPreviewWidthConstraint" destination="X3X-WX-q0U" id="Hml-te-vgg"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                         <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
                     </connections>

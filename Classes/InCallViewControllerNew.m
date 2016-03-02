@@ -30,11 +30,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewTrailingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewBottomConstraint;
-
 @end
 
 
@@ -44,8 +39,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    [self setVideoPreviewFullScreen];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,6 +50,7 @@
     [self setupNotifications];
     
     [self setupSpeaker];
+    [self setupVideo];
     
     LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
     LinphoneCallState linphoneCallState = 0;
@@ -151,7 +145,7 @@
 
 - (void)setupVideo {
     
-//    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
+    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
     [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoPreviewView];
 }
 
@@ -159,16 +153,6 @@
     
     [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:nil];
     [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:nil];
-}
-
-- (void)setVideoPreviewFullScreen {
-    
-    _videoPreviewWidthConstraint.constant = _videoView.frame.size.width / 2;
-    _videoPreviewHeightConstraint.constant = _videoView.frame.size.height / 2;
-    _videoPreviewTrailingConstraint.constant = 0.f;
-    _videoPreviewBottomConstraint.constant = 0.f;
-    
-    [self.view layoutIfNeeded];
 }
 
 - (void)callOutgoingInit {
@@ -333,7 +317,6 @@
         }
         case LinphoneCallOutgoingInit: {
             
-//            [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
 //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
@@ -359,7 +342,6 @@
         }
         case LinphoneCallStreamsRunning: {
             
-            [self setupVideo];
 //            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
             break;
         }
@@ -390,7 +372,6 @@
         }
         case LinphoneCallEnd: {
             
-//            linphone_core_terminate_call([LinphoneManager getLc], call);
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             break;
         }
