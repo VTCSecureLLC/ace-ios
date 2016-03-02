@@ -10,6 +10,7 @@
 #import "LinphoneManager.h"
 #import "IncallButton.h"
 
+#define kBottomButtonsAnimationDuration 0.5f
 
 @interface InCallViewControllerNew ()
 
@@ -318,7 +319,9 @@
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
- 
+    
+    [sender setSelected:!sender.selected];
+
     if (_videoShown) {
         [self turnOffVideo];
     }
@@ -330,21 +333,38 @@
 
 - (IBAction)voiceButtonAction:(IncallButton *)sender {
     
+    [sender setSelected:!sender.selected];
 }
 
 - (IBAction)keypadButtonAction:(IncallButton *)sender {
     
+    [sender setSelected:!sender.selected];
 }
 
 - (IBAction)soundButtonAction:(IncallButton *)sender {
     
+    [sender setSelected:!sender.selected];
 }
 
 - (IBAction)moreButtonAction:(IncallButton *)sender {
     
+    [sender setSelected:!sender.selected];
 }
 
 - (IBAction)endCallButtonAction:(UIButton *)sender {
+    
+    [sender setSelected:!sender.selected];
 }
+
+- (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
+    
+    [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                     animations:^{
+                         [self.bottomButtonsContainer setAlpha:!self.bottomButtonsContainer.alpha];
+                         [self.endCallButton setAlpha:!self.endCallButton.alpha];
+                     }];
+    
+}
+
 
 @end

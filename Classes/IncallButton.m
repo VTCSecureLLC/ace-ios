@@ -13,7 +13,12 @@
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     
-    self.backgroundColor = [UIColor colorWithRed:0.902 green:0.3569 blue:0.1569 alpha:1.0];
+    if (selected) {
+        self.backgroundColor = [UIColor colorWithRed:0.902 green:0.3569 blue:0.1569 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
 }
 
 /*
