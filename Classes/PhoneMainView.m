@@ -357,13 +357,6 @@ static RootViewManager *rootViewManagerInstance = nil;
         canHideInCallView = YES;
     }
 
-	// Don't handle call state during incoming call view
-    // It will be ignored in IncomingCallViewController
-//	if ([[self currentView] equal:[IncomingCallViewController compositeViewDescription]] &&
-//		state != LinphoneCallError && state != LinphoneCallEnd) {
-//		return;
-//	}
-
     switch (state) {
         case LinphoneCallIncomingReceived: {
             
@@ -394,18 +387,11 @@ static RootViewManager *rootViewManagerInstance = nil;
         case LinphoneCallStreamsRunning: {
             
             NSAssert(1, @"LinphoneCallStreamsRunning: Just need to check this state");
-//            [self changeCurrentView:[InCallViewController compositeViewDescription]];
             break;
         }
         case LinphoneCallUpdatedByRemote: {
             
             NSAssert(1, @"LinphoneCallUpdatedByRemote: Just need to check this state");
-//            const LinphoneCallParams *current = linphone_call_get_current_params(call);
-//            const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-//            
-//            if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
-//                [self changeCurrentView:[InCallViewController compositeViewDescription]];
-//            }
             break;
         }
         case LinphoneCallError: {
@@ -418,20 +404,6 @@ static RootViewManager *rootViewManagerInstance = nil;
             
             NSAssert(1, @"LinphoneCallEnd: Just need to check this state");
             break;
-            
-//            if (canHideInCallView) {
-//                // Go to dialer view
-//                DialerViewController *controller = DYNAMIC_CAST(
-//                                                                [self changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
-//                if (controller != nil) {
-//                    [controller setAddress:@""];
-//                    [controller setTransferMode:FALSE];
-//                }
-//            } else {
-//                [self changeCurrentView:[InCallViewController compositeViewDescription]];
-//            }
-//            
-//            [[InCallViewController sharedInstance] hideCallQualityView];
         }
         default:
             break;
