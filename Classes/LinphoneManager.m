@@ -2093,6 +2093,12 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     linphone_core_set_native_preview_window_id([LinphoneManager getLc], (__bridge void *)(view));
 }
 
+- (NSUInteger)callsCountForLinphoneCore:(LinphoneCore *)linphoneCore {
+    
+    const MSList *callsList = linphone_core_get_calls(linphoneCore);
+    return ms_list_size(callsList);
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {

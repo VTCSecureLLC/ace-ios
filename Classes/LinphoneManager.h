@@ -229,6 +229,14 @@ typedef struct _LinphoneManagerSounds {
  */
 - (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view;
 
+/**
+ *  Returns calls count for LinphoneCore
+ *
+ *  @param linphoneCore LinphoneCore object
+ *
+ *  @return calls count for core
+ */
+- (NSUInteger)callsCountForLinphoneCore:(LinphoneCore *)linphoneCore;
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;

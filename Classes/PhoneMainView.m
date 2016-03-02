@@ -349,7 +349,11 @@ static RootViewManager *rootViewManagerInstance = nil;
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	NSString *message = [notif.userInfo objectForKey:@"message"];
 
-	bool canHideInCallView = (linphone_core_get_calls([LinphoneManager getLc]) == NULL);
+    bool canHideInCallView = NO;
+    
+    if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] == 0) {
+        canHideInCallView = YES;
+    }
 
 	// Don't handle call state during incoming call view
     // It will be ignored in IncomingCallViewController
@@ -358,53 +362,80 @@ static RootViewManager *rootViewManagerInstance = nil;
 //		return;
 //	}
 
-	switch (state) {
-	case LinphoneCallIncomingReceived:
-	case LinphoneCallIncomingEarlyMedia: {
-		[self displayIncomingCall:call];
-		break;
-	}
-	case LinphoneCallOutgoingInit:
-	case LinphoneCallPausedByRemote:
-	case LinphoneCallConnected:
-	case LinphoneCallStreamsRunning: {
-		[self changeCurrentView:[InCallViewController compositeViewDescription]];
-		break;
-	}
-	case LinphoneCallUpdatedByRemote: {
-		const LinphoneCallParams *current = linphone_call_get_current_params(call);
-		const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-
-		if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
-			[self changeCurrentView:[InCallViewController compositeViewDescription]];
-		}
-		break;
-	}
-	case LinphoneCallError: {
-		[self displayCallError:call message:message];
-        
-        [[InCallViewController sharedInstance] hideCallQualityView];
-	}
-	case LinphoneCallEnd: {
-		if (canHideInCallView) {
-			// Go to dialer view
-			DialerViewController *controller = DYNAMIC_CAST(
-				[self changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
-			if (controller != nil) {
-				[controller setAddress:@""];
-				[controller setTransferMode:FALSE];
-			}
-		} else {
-			[self changeCurrentView:[InCallViewController compositeViewDescription]];
-		}
-        
-        [[InCallViewController sharedInstance] hideCallQualityView];
-        
-		break;
-	}
-	default:
-		break;
-	}
+    switch (state) {
+        case LinphoneCallIncomingReceived: {
+            
+            [self displayIncomingCall:call];
+            break;
+        }
+        case LinphoneCallIncomingEarlyMedia: {
+            
+            NSAssert(1, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingInit: {
+            
+            //We need to show InCallViewController
+            break;
+        }
+        case LinphoneCallPausedByRemote: {
+            
+            NSAssert(1, @"LinphoneCallPausedByRemote: Just need to check this state");
+            break;
+        }
+        case LinphoneCallConnected: {
+            
+            NSAssert(1, @"LinphoneCallConnected: Just need to check this state");
+            break;
+        }
+        case LinphoneCallStreamsRunning: {
+            
+            NSAssert(1, @"LinphoneCallStreamsRunning: Just need to check this state");
+//            [self changeCurrentView:[InCallViewController compositeViewDescription]];
+            break;
+        }
+        case LinphoneCallUpdatedByRemote: {
+            
+            NSAssert(1, @"LinphoneCallUpdatedByRemote: Just need to check this state");
+//            const LinphoneCallParams *current = linphone_call_get_current_params(call);
+//            const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
+//            
+//            if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
+//                [self changeCurrentView:[InCallViewController compositeViewDescription]];
+//            }
+            break;
+        }
+        case LinphoneCallError: {
+            
+            NSAssert(1, @"LinphoneCallError: Just need to check this state");
+            break;
+            
+//            [self displayCallError:call message:message];
+//            [[InCallViewController sharedInstance] hideCallQualityView];
+        }
+        case LinphoneCallEnd: {
+            
+            NSAssert(1, @"LinphoneCallEnd: Just need to check this state");
+            break;
+            
+//            if (canHideInCallView) {
+//                // Go to dialer view
+//                DialerViewController *controller = DYNAMIC_CAST(
+//                                                                [self changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
+//                if (controller != nil) {
+//                    [controller setAddress:@""];
+//                    [controller setTransferMode:FALSE];
+//                }
+//            } else {
+//                [self changeCurrentView:[InCallViewController compositeViewDescription]];
+//            }
+//            
+//            [[InCallViewController sharedInstance] hideCallQualityView];
+        }
+        default:
+            break;
+    }
+    
 	[self updateApplicationBadgeNumber];
 }
 
