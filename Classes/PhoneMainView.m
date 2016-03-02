@@ -779,8 +779,10 @@ static RootViewManager *rootViewManagerInstance = nil;
             
         } else {
             
-            IncomingCallViewControllerNew *viewController = [[UIManager sharedManager] incomingCallViewController];
-            [[UIManager sharedManager] changeRootViewControllerWithController:viewController];
+            [[UIManager sharedManager] showIncomingCallViewControllerAnimated:NO];
+            
+//            IncomingCallViewControllerNew *viewController = [[UIManager sharedManager] incomingCallViewController];
+//            [[UIManager sharedManager] changeRootViewControllerWithController:viewController];
             
 //            IncomingCallViewController *controller = nil;
 //            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
