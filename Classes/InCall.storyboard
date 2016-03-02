@@ -21,6 +21,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5T0-dS-AZx" userLabel="VideoView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
+                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
+                                        <rect key="frame" x="259" y="359" width="96" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
+                                            <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
                                         <rect key="frame" x="0.0" y="507" width="375" height="49"/>
                                         <subviews>
@@ -105,6 +113,8 @@
                                     <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="5T0-dS-AZx" secondAttribute="leading" id="4bn-w8-af1"/>
                                     <constraint firstAttribute="trailing" secondItem="WhC-2K-N6O" secondAttribute="trailing" id="7WX-04-NSd"/>
                                     <constraint firstItem="kSa-EQ-Vtx" firstAttribute="centerX" secondItem="5T0-dS-AZx" secondAttribute="centerX" id="9Bd-w1-gTL"/>
+                                    <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="20" id="Jff-o9-GlJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="M0g-DS-D6E"/>
                                     <constraint firstAttribute="bottom" secondItem="kSa-EQ-Vtx" secondAttribute="bottom" constant="40" id="lCz-uo-WhG"/>
                                     <constraint firstItem="kSa-EQ-Vtx" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="bottom" constant="2" id="mqT-E9-GMB"/>
                                     <constraint firstItem="WhC-2K-N6O" firstAttribute="centerX" secondItem="5T0-dS-AZx" secondAttribute="centerX" id="pXb-d7-Ghw"/>
@@ -130,6 +140,7 @@
                         <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
                         <outlet property="soundButton" destination="RoB-be-SEr" id="GhA-My-abR"/>
                         <outlet property="videoButton" destination="cUu-6c-4Rj" id="TSo-wf-3kW"/>
+                        <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                         <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
                     </connections>

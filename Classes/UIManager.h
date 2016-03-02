@@ -37,6 +37,7 @@
  */
 - (IncomingCallViewControllerNew *)incomingCallViewController;
 
+- (InCallViewControllerNew *)incallViewController;
 
 /**
  *  @brief Returns InCallViewContorller

@@ -14,6 +14,7 @@
 @interface InCallViewControllerNew ()
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
+@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet UIView *bottomButtonsContainer;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *voiceButton;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
+@property (nonatomic, assign) BOOL videoShown;
 
 @end
 
@@ -123,7 +125,8 @@
 
 - (void)setupVideo {
     
-    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toVideoView:_videoView];
+    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoView];
+    [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:_videoPreviewView];
 }
 
 - (void)callOutgoingInit {
@@ -304,11 +307,25 @@
     }
 }
 
+- (void)turnOnVideo {
+    
+    
+}
+
+- (void)turnOffVideo {
+}
+
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
  
-    
+    if (_videoShown) {
+        [self turnOffVideo];
+    }
+    else {
+        [self turnOnVideo];
+    }
+    _videoShown = !_videoShown;
 }
 
 - (IBAction)voiceButtonAction:(IncallButton *)sender {

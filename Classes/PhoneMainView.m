@@ -344,26 +344,19 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)callUpdate:(NSNotification *)notif {
+    
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	NSString *message = [notif.userInfo objectForKey:@"message"];
 
 	bool canHideInCallView = (linphone_core_get_calls([LinphoneManager getLc]) == NULL);
-    
-    // Reject inbound call when already two active calls are active.
-    if (state == LinphoneCallIncomingReceived || state == LinphoneCallIncomingEarlyMedia) {
-        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
-        if (ms_list_size(call_list) >= 3) {
-            linphone_core_terminate_call([LinphoneManager getLc], call);
-            return;
-        }
-    }
 
 	// Don't handle call state during incoming call view
-	if ([[self currentView] equal:[IncomingCallViewController compositeViewDescription]] &&
-		state != LinphoneCallError && state != LinphoneCallEnd) {
-		return;
-	}
+    // It will be ignored in IncomingCallViewController
+//	if ([[self currentView] equal:[IncomingCallViewController compositeViewDescription]] &&
+//		state != LinphoneCallError && state != LinphoneCallEnd) {
+//		return;
+//	}
 
 	switch (state) {
 	case LinphoneCallIncomingReceived:
