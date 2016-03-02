@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		025BD0B01C87105500384158 /* IncomingCallNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */; };
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		046FFD141C6B639100781FF6 /* camera_mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 046FFD131C6B639100781FF6 /* camera_mute.png */; };
 		0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */; };
@@ -1016,6 +1017,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		025BD0AE1C87105500384158 /* IncomingCallNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallNavigationController.h; sourceTree = "<group>"; };
+		025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallNavigationController.m; sourceTree = "<group>"; };
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
 		046FFD131C6B639100781FF6 /* camera_mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_mute.png; sourceTree = "<group>"; };
 		0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -3347,6 +3350,8 @@
 				64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */,
 				64487C3C1C85CC9400D45393 /* IncomingCallViewControllerNew.h */,
 				64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */,
+				025BD0AE1C87105500384158 /* IncomingCallNavigationController.h */,
+				025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */,
 				C6E529911C862BE90029D3BB /* Incoming Call Message */,
 			);
 			name = "Incomming Call";
@@ -5660,6 +5665,7 @@
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
 				5EE6CDB01BFE2043005CA879 /* RTTMessageModel.m in Sources */,
+				025BD0B01C87105500384158 /* IncomingCallNavigationController.m in Sources */,
 				730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,

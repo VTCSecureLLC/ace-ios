@@ -1042,6 +1042,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 {
     return TRUE;
 }
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     //	Prefer (force) landscape if currently in landscape

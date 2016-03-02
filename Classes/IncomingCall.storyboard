@@ -7,10 +7,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Incoming Call Navigation Controller-->
         <scene sceneID="NJp-z7-yed">
             <objects>
-                <navigationController navigationBarHidden="YES" id="lhi-C3-9DF" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="lhi-C3-9DF" customClass="IncomingCallNavigationController" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bZD-2b-Ktx">
@@ -37,10 +37,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kSX-6a-DT9" userLabel="Background View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSX-6a-DT9" userLabel="Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fby-oD-8ED">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fby-oD-8ED">
                                         <rect key="frame" x="74" y="30" width="226" height="226"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -65,7 +65,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gQO-2f-EKO" userLabel="Bottom Buttons Container">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQO-2f-EKO" userLabel="Bottom Buttons Container">
                                         <rect key="frame" x="0.0" y="594" width="375" height="73"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEg-1e-kfh" userLabel="Accept Container">
@@ -155,7 +155,7 @@
                                             <constraint firstItem="Bhy-ss-pGT" firstAttribute="top" secondItem="gQO-2f-EKO" secondAttribute="top" id="tB5-eG-htE"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLB-OL-Ezq" userLabel="Message Answer View">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLB-OL-Ezq" userLabel="Message Answer View">
                                         <rect key="frame" x="0.0" y="534" width="375" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'll call you back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-XF-w1N">
@@ -200,7 +200,7 @@
                                             <constraint firstAttribute="bottom" secondItem="bGl-XF-w1N" secondAttribute="bottom" id="x3b-sj-wHk"/>
                                         </constraints>
                                     </view>
-                                    <containerView hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-U5-kls" userLabel="Answer Messages Container View">
+                                    <containerView hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-U5-kls" userLabel="Answer Messages Container View">
                                         <rect key="frame" x="0.0" y="342" width="375" height="192"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
