@@ -563,7 +563,18 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 }
 
 - (void)onCall:(LinphoneCall *)call StateChanged:(LinphoneCallState)state withMessage:(const char *)message {
-
+    
+    
+    // Reject inbound call when already two active calls are active.
+    // Also it is not posting notification. No need to check it in view controllers
+    if ([self isThirdIncomingCall:state]) {
+        
+        [self rejectCall:call];
+        return;
+    }
+    
+    
+    
 	// Handling wrapper
 	LinphoneCallAppData *data = (__bridge LinphoneCallAppData *)linphone_call_get_user_data(call);
 	if (!data) {
@@ -773,7 +784,8 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		@"message" : [NSString stringWithUTF8String:message]
 	};
 	LOGI(@"Call %p changed to state %s: %s", call, linphone_call_state_to_string(state), message);
-	[[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneCallUpdate object:self userInfo:dict];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneCallUpdate object:self userInfo:dict];
 }
 
 static void linphone_iphone_call_state(LinphoneCore *lc, LinphoneCall *call, LinphoneCallState state,
@@ -2076,6 +2088,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     linphone_core_set_native_video_window_id(linphoneCore, (__bridge void *)(videoView));
 }
 
+- (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView {
+    
+    linphone_core_set_native_preview_window_id([LinphoneManager getLc], (__bridge void *)(videoView));
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {
@@ -2515,6 +2532,28 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     }
     
     return nil;
+}
+
+#pragma mark - Private methods
+
+- (BOOL)isThirdIncomingCall:(LinphoneCallState)state {
+
+    BOOL isThirdIncoming = NO;
+    if (state == LinphoneCallIncomingReceived || state == LinphoneCallIncomingEarlyMedia) {
+        
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        int size = ms_list_size(call_list);
+        if (size >= 3) {
+            
+            isThirdIncoming = YES;
+        }
+    }
+    return isThirdIncoming;
+}
+
+- (void)rejectCall:(LinphoneCall *)call {
+    
+    linphone_core_terminate_call([LinphoneManager getLc], call);
 }
 
 @end
