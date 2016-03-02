@@ -36,6 +36,7 @@
     [super viewDidLoad];
     
     [self setupController];
+    [self update];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -303,6 +304,5 @@
             break;
     }
 }
-
 
 @end
