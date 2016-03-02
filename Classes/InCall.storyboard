@@ -9,7 +9,7 @@
         <!--In Call View Controller New-->
         <scene sceneID="NOB-AP-X0c">
             <objects>
-                <viewController id="i7c-Y5-iNb" customClass="InCallViewControllerNew" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InCallViewControllerNew" id="i7c-Y5-iNb" customClass="InCallViewControllerNew" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YgE-gZ-e8E"/>
                         <viewControllerLayoutGuide type="bottom" id="qgE-uq-Pbv"/>

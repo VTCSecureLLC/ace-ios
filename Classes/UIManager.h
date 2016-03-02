@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "IncomingCallViewControllerNew.h"
+#import "InCallViewController.h"
 
 
 #define kStoryboardInCall           @"InCall"
@@ -23,18 +24,40 @@
 #pragma mark - Instance Methods
 
 /**
- *  Changes rootViewController of window with given viewController
+ *  @brief Changes rootViewController of window with given viewController
  *
  *  @param viewController New view controller
  */
 - (void)changeRootViewControllerWithController:(UIViewController *)viewController;
 
 /**
- *  Creates an instance of IncomingCallViewController and returns it
+ *  @brief Creates an instance of IncomingCallViewController and returns it
  *
  *  @return newly created instance of IncomingCallViewController
  */
 - (IncomingCallViewControllerNew *)incomingCallViewController;
 
+
+/**
+ *  @brief Returns InCallViewContorller
+ *
+ *  @return InCallViewContorller object
+ */
+- (InCallViewController *)inCallViewController;
+
+/**
+ *  @brief Shows incoming call view controller
+ *
+ *  @param animated Show with animation or not
+ */
+- (void)showIncomingCallViewControllerAnimated:(BOOL)animated;
+
+
+/**
+ *  @brief Retruns visible view controller
+ *
+ *  @return Visible view controller
+ */
+- (UIViewController*)topViewController;
 
 @end
