@@ -2055,6 +2055,27 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return [NSString stringWithUTF8String:callId];
 }
 
+- (BOOL)isVideoEnabledForCall:(LinphoneCall *)call {
+    
+    const LinphoneCallParams *callParams = linphone_call_get_current_params(call);
+    return linphone_call_params_video_enabled(callParams);
+}
+
+- (LinphoneCallState)callStateForCall:(LinphoneCall *)call {
+
+    return linphone_call_get_state(call);
+}
+
+- (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore {
+    
+    return linphone_core_get_current_call(linphoneCore);
+}
+
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toVideoView:(UIView *)videoView {
+
+    linphone_core_set_native_video_window_id(linphoneCore, (__bridge void *)(videoView));
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {

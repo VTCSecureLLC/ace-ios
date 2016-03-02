@@ -14,15 +14,12 @@
 @interface InCallViewControllerNew ()
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
-
 @property (weak, nonatomic) IBOutlet UIView *bottomButtonsContainer;
-
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *voiceButton;
 @property (weak, nonatomic) IBOutlet UIButton *keypadButton;
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 
 @end
@@ -48,6 +45,16 @@
                                              selector:@selector(videoModeUpdate:)
                                                  name:kLinphoneVideModeUpdate
                                                object:nil];
+    
+    [self setupSpeaker];
+    [self setupVideo];
+    
+    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCallForLinphoneCore:[LinphoneManager getLc]];
+    LinphoneCallState linphoneCallState = 0;
+    if (linphoneCall != NULL) {
+        linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];
+    }
+    [self callUpdate:linphoneCall state:linphoneCallState animated:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -83,9 +90,9 @@
 #pragma mark - Event Methods
 - (void)callUpdateEvent:(NSNotification *)notification {
     
-    LinphoneCall *call = [[notification.userInfo objectForKey:@"call"] pointerValue];
-    LinphoneCallState state = [[notification.userInfo objectForKey:@"state"] intValue];
-    [self callUpdate:call state:state animated:TRUE];
+    LinphoneCall *linphoneCall = [[notification.userInfo objectForKey:@"call"] pointerValue];
+    LinphoneCallState linphoneCallState = [[notification.userInfo objectForKey:@"state"] intValue];
+    [self callUpdate:linphoneCall state:linphoneCallState animated:TRUE];
 }
 
 - (void)videoModeUpdate:(NSNotification *)notification {
@@ -103,6 +110,22 @@
 
 
 #pragma mark - Private Methods
+- (void)setupSpeaker {
+
+    BOOL isSpeakerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSpeakerEnabled"];
+    if (isSpeakerEnabled){
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+    }
+    else {
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
+    }
+}
+
+- (void)setupVideo {
+    
+    [[LinphoneManager instance] setVideoWindowForLinphoneCore:[LinphoneManager getLc] toVideoView:_videoView];
+}
+
 - (void)callOutgoingInit {
     
 //    if (linphone_core_get_calls_nb(lc) > 1) {
@@ -118,8 +141,8 @@
 
 - (void)callStreamsRunning {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
-                                                        object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
+//                                                        object:nil];
 //    if(state == LinphoneCallStreamsRunning){
 //        if(self.isRTTLocallyEnabled){
 //            if (linphone_call_params_realtime_text_enabled(linphone_call_get_remote_params(call))){
@@ -281,9 +304,10 @@
     }
 }
 
-#pragma mark - Actions of buttons
 
+#pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
+ 
     
 }
 
@@ -302,7 +326,6 @@
 - (IBAction)moreButtonAction:(IncallButton *)sender {
     
 }
-
 
 - (IBAction)endCallButtonAction:(UIButton *)sender {
 }
