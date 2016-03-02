@@ -157,7 +157,15 @@ static inline NSString* NSStringFromBOOL(BOOL aBool) {
                         NSLog(@"%@", [e description]);
                     }
             }
-
+        /*** Hardware Acceleration Status ***/
+        MSFactory *f = linphone_core_get_ms_factory(lc);
+        BOOL isHWEncode = ms_factory_filter_from_name_enabled(f, "VideoToolboxH264encoder");
+        BOOL isHWDecode = ms_factory_filter_from_name_enabled(f, "VideoToolboxH264decoder");
+        NSString *hwAccelEncode = [NSString stringWithFormat:@"H.264 hardware encoder = %@", NSStringFromBOOL(isHWEncode)];
+        NSString *hwAccelDecode = [NSString stringWithFormat:@"H.264 hardware decoder = %@", NSStringFromBOOL(isHWDecode)];
+        [values addObject: hwAccelEncode];
+        [values addObject: hwAccelDecode];
+        
         /**Audio**/
         NSString *audioHeader = @"\nAUDIO: \n";
         [values addObject:audioHeader];
