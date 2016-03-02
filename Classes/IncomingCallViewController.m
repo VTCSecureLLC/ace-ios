@@ -34,7 +34,7 @@
 @synthesize delegate;
 @synthesize ringCountLabel;
 @synthesize ringLabel;
-
+@synthesize flashingView;
 #pragma mark - Lifecycle Functions
 
 - (id)init {
