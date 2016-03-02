@@ -15,6 +15,11 @@
 require 'calabash-cucumber/launcher'
 
 APP_BUNDLE_PATH = "/Users/leo/Library/Developer/Xcode/DerivedData/linphone-hdoekljewhilimduhgugkjrkjryc/Build/Products/Debug-iphonesimulator/linphone.app"
+
+#APP_BUNDLE_PATH=`echo ~/Library/Developer/Xcode/DerivedData/$(ls -1t ~/Library/Developer/Xcode/DerivedData/ | grep linphone | head -1)/Build/Products/Debug-iphonesimulator/linphone.app`.strip
+
+#puts "APP_BUNDLE_PATH=#{APP_BUNDLE_PATH}"
+
 # You may uncomment the above to overwrite the APP_BUNDLE_PATH
 # However the recommended approach is to let Calabash find the app itself
 # or set the environment variable APP_BUNDLE_PATH

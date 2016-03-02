@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DTDKCrashLogSortDescriptors4.5</key>
+	<array>
+		<dict>
+			<key>NSAscending</key>
+			<false/>
+			<key>NSKey</key>
+			<string>dateTime</string>
+			<key>NSSelector</key>
+			<string>compare:</string>
+		</dict>
+		<dict>
+			<key>NSAscending</key>
+			<true/>
+			<key>NSKey</key>
+			<string>processName</string>
+			<key>NSSelector</key>
+			<string>compare:</string>
+		</dict>
+	</array>
+	<key>DTDKLastLSRegisterHashes</key>
+	<dict>
+		<key>/System/Library/CoreServices/CoreTypes.bundle</key>
+		<data>
+		TaxHTb3h4BxdqLid+LRI94dLGuY=
+		</data>
+		<key>/System/Library/CoreServices/CoreTypes.bundle/Contents/Library/MobileDevices.bundle</key>
+		<data>
+		dwT4AS7mSPTdi+XLQS3v0ucaTNE=
+		</data>
+	</dict>
+	<key>DVTDeveloperAccountManagerAppleIDs</key>
+	<array>
+		<dict>
+			<key>username</key>
+			<string>leopold.claussen@vtcsecure.com</string>
+		</dict>
+	</array>
+	<key>DVTDevicesWindowConsoleDividerPosition</key>
+	<real>658</real>
+	<key>DVTDevicesWindowConsoleVisible</key>
+	<true/>
+	<key>DVTDevicesWindowControllerSelectedDeviceIdentifier</key>
+	<string>9EEA291B-FE0C-5F4C-B657-B0ED28C1B616</string>
+	<key>DVTDisclosureViewDisclosedStates</key>
+	<dict/>
+	<key>DVTDownloadableAutomaticUpdate</key>
+	<false/>
+	<key>DVTFontAndColorCurrentTheme</key>
+	<string>Default.dvtcolortheme</string>
+	<key>DVTIgnoredDevices</key>
+	<array/>
+	<key>DVTInvalidationLastHardAssertTimeInterval</key>
+	<real>477072872.378196</real>
+	<key>DVTLibraryUIState.Xcode.IDETemplateLibrary.Library.Files</key>
+	<dict>
+		<key>DVTLibraryAssetTileViewUIState</key>
+		<dict>
+			<key>assetViewStyle</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>DVTSourceControlAccountDefaultsKey</key>
+	<array>
+		<dict>
+			<key>DVTSourceControlAccountAuthTypeKey</key>
+			<integer>2</integer>
+			<key>DVTSourceControlAccountNameKey</key>
+			<string>ace-ios</string>
+			<key>DVTSourceControlAccountURLKey</key>
+			<string>git@github.com:VTCSecureLLC/ace-ios.git</string>
+			<key>DVTSourceControlAccountUsernameKey</key>
+			<string>git</string>
+			<key>DVTSourceControlRepositoryIdentifierKey</key>
+			<string>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</string>
+			<key>DVTSourceControlSystemIdentifierKey</key>
+			<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+		</dict>
+		<dict>
+			<key>DVTSourceControlAccountAuthTypeKey</key>
+			<integer>1</integer>
+			<key>DVTSourceControlAccountNameKey</key>
+			<string>KIF</string>
+			<key>DVTSourceControlAccountURLKey</key>
+			<string>https://github.com/kif-framework/KIF</string>
+			<key>DVTSourceControlRepositoryIdentifierKey</key>
+			<string>10265E242415D473A6A613214DB7AC3EE3D43F93</string>
+			<key>DVTSourceControlSystemIdentifierKey</key>
+			<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+		</dict>
+		<dict>
+			<key>DVTSourceControlAccountAuthTypeKey</key>
+			<integer>1</integer>
+			<key>DVTSourceControlAccountNameKey</key>
+			<string>linphone</string>
+			<key>DVTSourceControlAccountURLKey</key>
+			<string>git://github.com/VTCSecureLLC/linphone.git</string>
+			<key>DVTSourceControlRepositoryIdentifierKey</key>
+			<string>B9A509D4F3D25560F565CB53A09A75E2140C5232</string>
+			<key>DVTSourceControlSystemIdentifierKey</key>
+			<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+		</dict>
+	</array>
+	<key>DeveloperAccountForProject</key>
+	<dict>
+		<key>29B97313FDCFA39411CA2CEA</key>
+		<string>leopold.claussen@vtcsecure.com</string>
+	</dict>
+	<key>IBAppliesAutoResizingRulesWhileResizing</key>
+	<false/>
+	<key>IBDocumentOutlineViewExpanded</key>
+	<true/>
+	<key>IBDocumentOutlineViewMode</key>
+	<string>IBOutlineViewController</string>
+	<key>IBPreferencesMigrated</key>
+	<true/>
+	<key>IBStoryboardOutlineViewExpanded</key>
+	<true/>
+	<key>IBStructureAreaLastKnownOutlineViewModeWidth</key>
+	<real>270</real>
+	<key>IDEActivityLogShowsAllBuildSteps</key>
+	<false/>
+	<key>IDEActivityLogShowsAnalyzerResults</key>
+	<false/>
+	<key>IDEActivityLogShowsErrors</key>
+	<true/>
+	<key>IDEActivityLogShowsWarnings</key>
+	<false/>
+	<key>IDEBuildLocationStyle</key>
+	<string>Unique</string>
+	<key>IDEDefaultPrimaryEditorFrameSizeForPaths</key>
+	<dict>
+		<key>file:///Users/leo/Downloads/features/dial_pad.feature</key>
+		<dict>
+			<key>height</key>
+			<real>750</real>
+			<key>width</key>
+			<real>800</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/features/in_call_dial_pad.feature</key>
+		<dict>
+			<key>height</key>
+			<real>1391</real>
+			<key>width</key>
+			<real>1599</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/features/login.feature</key>
+		<dict>
+			<key>height</key>
+			<real>1005</real>
+			<key>width</key>
+			<real>1599</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/features/logout.feature</key>
+		<dict>
+			<key>height</key>
+			<real>750</real>
+			<key>width</key>
+			<real>800</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/features/step_definitions/login.rb</key>
+		<dict>
+			<key>height</key>
+			<real>750</real>
+			<key>width</key>
+			<real>800</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/features/step_definitions/logout.rb</key>
+		<dict>
+			<key>height</key>
+			<real>750</real>
+			<key>width</key>
+			<real>800</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/test_environment_creation_scripts/install_apps_for_test_environment.sh</key>
+		<dict>
+			<key>height</key>
+			<real>1395</real>
+			<key>width</key>
+			<real>1599</real>
+		</dict>
+		<key>file:///Users/leo/Downloads/test_environment_creation_scripts/update_xcode_command_line_tools.sh</key>
+		<dict>
+			<key>height</key>
+			<real>1395</real>
+			<key>width</key>
+			<real>1599</real>
+		</dict>
+		<key>x-xcode-debug-views://7fee316cc310</key>
+		<dict>
+			<key>height</key>
+			<real>728</real>
+			<key>width</key>
+			<real>800</real>
+		</dict>
+	</dict>
+	<key>IDEHasConvertedXcode3BuildPrefs</key>
+	<true/>
+	<key>IDEInspectorAreaUserPreferredCategories</key>
+	<array>
+		<string>Xcode.InterfaceBuilderKit.InspectorCategory.Identity</string>
+		<string>Xcode.InterfaceBuilderKit.InspectorCategory.Connections</string>
+		<string>Xcode.InterfaceBuilderKit.InspectorCategory.Attributes</string>
+	</array>
+	<key>IDEKeyBindingCurrentPreferenceSet</key>
+	<string>Default.idekeybindings</string>
+	<key>IDEKeyBindingExcludedPreferenceSet</key>
+	<array>
+		<string>Default</string>
+	</array>
+	<key>IDELastLSRegisterHashes</key>
+	<dict>
+		<key>/Applications/Xcode.app/Contents/Applications/Accessibility Inspector.app</key>
+		<data>
+		MjCRNEup39MIJCT6lOxj8OGytv8=
+		</data>
+		<key>/Applications/Xcode.app/Contents/Applications/Application Loader.app</key>
+		<data>
+		Q8kgZ6XQr9/53iWSKMrIuQcbebk=
+		</data>
+		<key>/Applications/Xcode.app/Contents/Applications/FileMerge.app</key>
+		<data>
+		70BOEL0iX+JOolB54oWT14i6hqk=
+		</data>
+		<key>/Applications/Xcode.app/Contents/Applications/Instruments.app</key>
+		<data>
+		zFwtvHIDtZAuo5da+7rTVL9L4II=
+		</data>
+		<key>/Applications/Xcode.app/Contents/Developer/Applications/Simulator (Watch).app</key>
+		<data>
+		kz4mHcJHSs/N67gmKYiws9X1PI0=
+		</data>
+		<key>/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app</key>
+		<data>
+		fgfx7hMXOPI91BjuMepN2z2RmcA=
+		</data>
+		<key>/System/Library/CoreServices/CoreTypes.bundle</key>
+		<data>
+		TaxHTb3h4BxdqLid+LRI94dLGuY=
+		</data>
+	</dict>
+	<key>IDELogNavigatorGroupByKey</key>
+	<false/>
+	<key>IDEProductsViewControllerSelectedSegmentIdentifier</key>
+	<string>Xcode.ProductsWindow.ProductionSection.Archives</string>
+	<key>IDERecentEditorDocuments</key>
+	<array>
+		<data>
+		Ym9vazQEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAMAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzAAoAAAABAQAAQmFzZS5scHJvagAADwAAAAEBAABXaXph
+		cmRWaWV3cy54aWIAIAAAAAEGAAAEAAAAFAAAACAAAAAwAAAARAAAAFQAAABk
+		AAAAeAAAAAgAAAAEAwAAJiwGAAAAAAAIAAAABAMAAPueBgAAAAAACAAAAAQD
+		AAAHgBoAAAAAAAgAAAAEAwAAXoAaAAAAAAAIAAAABAMAAH1iHwAAAAAACAAA
+		AAQDAABKYx8AAAAAAAgAAAAEAwAAUmMfAAAAAAAIAAAABAMAAHljHwAAAAAA
+		IAAAAAEGAAC4AAAAyAAAANgAAADoAAAA+AAAAAgBAAAYAQAAKAEAAAgAAAAA
+		BAAAQbxw9KYAAAAYAAAAAQIAAAEAAAAAAAAADwAAAAAAAAAAAAAAAAAAAAgA
+		AAAEAwAABgAAAAAAAAAEAAAAAwMAAPUBAAAIAAAAAQkAAGZpbGU6Ly8vDAAA
+		AAEBAABNYWNpbnRvc2ggSEQIAAAABAMAAAAAACg6AAAACAAAAAAEAABBvGVj
+		fQAAACQAAAABAQAAOTc3RUNCQTQtQTVBNi0zODZELUEzMzUtOUNGQUQ4MzBG
+		MTc2GAAAAAECAACBAAAAAQAAAO8TAAABAAAAAAAAAAAAAAABAAAAAQEAAC8A
+		AAAAAAAAAQUAANcAAAABAgAAYmY4MzA5MDBlMzViMDEwMWNlNWMwOGViOWRh
+		ZTUxNzU0NWU4MDUzMTswMDAwMDAwMDswMDAwMDAwMDswMDAwMDAwMDAwMDAw
+		MDIwO2NvbS5hcHBsZS5hcHAtc2FuZGJveC5yZWFkLXdyaXRlOzAwMDAwMDAx
+		OzAxMDAwMDA0OzAwMDAwMDAwMDAxZjYzNzk7L3VzZXJzL2xlby9naXRodWIv
+		dnRjc2VjdXJlL2FjZS1pb3MvY2xhc3Nlcy9iYXNlLmxwcm9qL3dpemFyZHZp
+		ZXdzLnhpYgAAzAAAAP7///8BAAAAAAAAABAAAAAEEAAAkAAAAAAAAAAFEAAA
+		OAEAAAAAAAAQEAAAcAEAAAAAAABAEAAAYAEAAAAAAAACIAAAPAIAAAAAAAAF
+		IAAArAEAAAAAAAAQIAAAvAEAAAAAAAARIAAA8AEAAAAAAAASIAAA0AEAAAAA
+		AAATIAAA4AEAAAAAAAAgIAAAHAIAAAAAAAAwIAAASAIAAAAAAAABwAAAkAEA
+		AAAAAAARwAAAFAAAAAAAAAASwAAAoAEAAAAAAACA8AAAUAIAAAAAAAA=
+		</data>
+		<data>
+		Ym9va7wDAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAuAIAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABgAA
+		AAEBAABtYWluLm0AABgAAAABBgAABAAAABQAAAAgAAAAMAAAAEQAAABUAAAA
+		CAAAAAQDAAAmLAYAAAAAAAgAAAAEAwAA+54GAAAAAAAIAAAABAMAAAeAGgAA
+		AAAACAAAAAQDAABegBoAAAAAAAgAAAAEAwAAfWIfAAAAAAAIAAAABAMAACVs
+		HwAAAAAAGAAAAAEGAACEAAAAlAAAAKQAAAC0AAAAxAAAANQAAAAIAAAAAAQA
+		AEG8cPSnAAAAGAAAAAECAAABAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAIAAAA
+		BAMAAAQAAAAAAAAABAAAAAMDAAD1AQAACAAAAAEJAABmaWxlOi8vLwwAAAAB
+		AQAATWFjaW50b3NoIEhECAAAAAQDAAAAAAAoOgAAAAgAAAAABAAAQbxlY30A
+		AAAkAAAAAQEAADk3N0VDQkE0LUE1QTYtMzg2RC1BMzM1LTlDRkFEODMwRjE3
+		NhgAAAABAgAAgQAAAAEAAADvEwAAAQAAAAAAAAAAAAAAAQAAAAEBAAAvAAAA
+		AAAAAAEFAAC7AAAAAQIAAGYwMzI5NDM0ZjE5Yzg3OGU3ZjI2OWRmZTk2NzVl
+		YTQwYzg2NWVlOTY7MDAwMDAwMDA7MDAwMDAwMDA7MDAwMDAwMDAwMDAwMDAy
+		MDtjb20uYXBwbGUuYXBwLXNhbmRib3gucmVhZC13cml0ZTswMDAwMDAwMTsw
+		MTAwMDAwNDswMDAwMDAwMDAwMWY2YzI1Oy91c2Vycy9sZW8vZ2l0aHViL3Z0
+		Y3NlY3VyZS9hY2UtaW9zL21haW4ubQAAzAAAAP7///8BAAAAAAAAABAAAAAE
+		EAAAZAAAAAAAAAAFEAAA5AAAAAAAAAAQEAAAFAEAAAAAAABAEAAABAEAAAAA
+		AAACIAAA4AEAAAAAAAAFIAAAUAEAAAAAAAAQIAAAYAEAAAAAAAARIAAAlAEA
+		AAAAAAASIAAAdAEAAAAAAAATIAAAhAEAAAAAAAAgIAAAwAEAAAAAAAAwIAAA
+		7AEAAAAAAAABwAAANAEAAAAAAAARwAAAFAAAAAAAAAASwAAARAEAAAAAAACA
+		8AAA9AEAAAAAAAA=
+		</data>
+		<data>
+		Ym9va9gAAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAiAAAAHwAAAABAQAAeC14Y29kZS1kaXNhc3NlbWJseTovL3N0YWNrX2Zy
+		YW1lP2xhdW5jaFNlc3Npb25SZWY9N2ZlZTMxNmNjMzEwJnN0YWNrRnJhbWVI
+		YXNoPTM2OTI2OTE4NTQ1NTAxMjM4MSZzdGFja0ZyYW1lUmVmPTdmZWUxOWM5
+		NmVmMBgAAAD+////AQAAAAAAAAABAAAAAxAAAAQAAAAAAAAA
+		</data>
+		<data>
+		Ym9va4AEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAfAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MACgAA
+		AAEBAABzdWJtb2R1bGVzAAAIAAAAAQEAAGxpbnBob25lBAAAAAEBAABvUlRQ
+		AwAAAAEBAABzcmMACwAAAAEBAABzdHJfdXRpbHMuYwAoAAAAAQYAAAQAAAAU
+		AAAAIAAAADAAAABEAAAAVAAAAGgAAAB4AAAAhAAAAJAAAAAIAAAABAMAACYs
+		BgAAAAAACAAAAAQDAAD7ngYAAAAAAAgAAAAEAwAAB4AaAAAAAAAIAAAABAMA
+		AF6AGgAAAAAACAAAAAQDAAB9Yh8AAAAAAAgAAAAEAwAAxGwfAAAAAAAIAAAA
+		BAMAAAFtHwAAAAAACAAAAAQDAABLwR8AAAAAAAgAAAAEAwAAUcYfAAAAAAAI
+		AAAABAMAAHLGHwAAAAAAKAAAAAEGAADUAAAA5AAAAPQAAAAEAQAAFAEAACQB
+		AAA0AQAARAEAAFQBAABkAQAACAAAAAAEAABBvHD4bQAAABgAAAABAgAAAQAA
+		AAAAAAAPAAAAAAAAAAAAAAAAAAAACAAAAAQDAAAIAAAAAAAAAAQAAAADAwAA
+		9QEAAAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAE
+		AwAAAAAAKDoAAAAIAAAAAAQAAEG8ZWN9AAAAJAAAAAEBAAA5NzdFQ0JBNC1B
+		NUE2LTM4NkQtQTMzNS05Q0ZBRDgzMEYxNzYYAAAAAQIAAIEAAAABAAAA7xMA
+		AAEAAAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAABBQAA3QAAAAECAAAyOWZh
+		M2Y2MDE0Njg4MDM0YTQwMjNjYzQ3OTEwODg3OTBkN2VmZjJkOzAwMDAwMDAw
+		OzAwMDAwMDAwOzAwMDAwMDAwMDAwMDAwMjA7Y29tLmFwcGxlLmFwcC1zYW5k
+		Ym94LnJlYWQtd3JpdGU7MDAwMDAwMDE7MDEwMDAwMDQ7MDAwMDAwMDAwMDFm
+		YzY3MjsvdXNlcnMvbGVvL2dpdGh1Yi92dGNzZWN1cmUvYWNlLWlvcy9zdWJt
+		b2R1bGVzL2xpbnBob25lL29ydHAvc3JjL3N0cl91dGlscy5jAAAAAMwAAAD+
+		////AQAAAAAAAAAQAAAABBAAAKQAAAAAAAAABRAAAHQBAAAAAAAAEBAAALQB
+		AAAAAAAAQBAAAKQBAAAAAAAAAiAAAIACAAAAAAAABSAAAPABAAAAAAAAECAA
+		AAACAAAAAAAAESAAADQCAAAAAAAAEiAAABQCAAAAAAAAEyAAACQCAAAAAAAA
+		ICAAAGACAAAAAAAAMCAAAIwCAAAAAAAAAcAAANQBAAAAAAAAEcAAABQAAAAA
+		AAAAEsAAAOQBAAAAAAAAgPAAAJQCAAAAAAAA
+		</data>
+		<data>
+		Ym9vawwEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAACAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzABYAAAABAQAAV2l6YXJkVmlld0NvbnRyb2xsZXIuaAAA
+		HAAAAAEGAAAEAAAAFAAAACAAAAAwAAAARAAAAFQAAABkAAAACAAAAAQDAAAm
+		LAYAAAAAAAgAAAAEAwAA+54GAAAAAAAIAAAABAMAAAeAGgAAAAAACAAAAAQD
+		AABegBoAAAAAAAgAAAAEAwAAfWIfAAAAAAAIAAAABAMAAEpjHwAAAAAACAAA
+		AAQDAACQZR8AAAAAABwAAAABBgAAqAAAALgAAADIAAAA2AAAAOgAAAD4AAAA
+		CAEAAAgAAAAABAAAQbxw9KYAAAAYAAAAAQIAAAEAAAAAAAAADwAAAAAAAAAA
+		AAAAAAAAAAgAAAAEAwAABQAAAAAAAAAEAAAAAwMAAPUBAAAIAAAAAQkAAGZp
+		bGU6Ly8vDAAAAAEBAABNYWNpbnRvc2ggSEQIAAAABAMAAAAAACg6AAAACAAA
+		AAAEAABBvGVjfQAAACQAAAABAQAAOTc3RUNCQTQtQTVBNi0zODZELUEzMzUt
+		OUNGQUQ4MzBGMTc2GAAAAAECAACBAAAAAQAAAO8TAAABAAAAAAAAAAAAAAAB
+		AAAAAQEAAC8AAAAAAAAAAQUAANMAAAABAgAAMWZhNDExNGNlZWY0NDVjNmUy
+		MjQ0ZDNiYWNhNTVhMWEzMTgwMTUyMTswMDAwMDAwMDswMDAwMDAwMDswMDAw
+		MDAwMDAwMDAwMDIwO2NvbS5hcHBsZS5hcHAtc2FuZGJveC5yZWFkLXdyaXRl
+		OzAwMDAwMDAxOzAxMDAwMDA0OzAwMDAwMDAwMDAxZjY1OTA7L3VzZXJzL2xl
+		by9naXRodWIvdnRjc2VjdXJlL2FjZS1pb3MvY2xhc3Nlcy93aXphcmR2aWV3
+		Y29udHJvbGxlci5oAADMAAAA/v///wEAAAAAAAAAEAAAAAQQAACEAAAAAAAA
+		AAUQAAAYAQAAAAAAABAQAABMAQAAAAAAAEAQAAA8AQAAAAAAAAIgAAAYAgAA
+		AAAAAAUgAACIAQAAAAAAABAgAACYAQAAAAAAABEgAADMAQAAAAAAABIgAACs
+		AQAAAAAAABMgAAC8AQAAAAAAACAgAAD4AQAAAAAAADAgAAAkAgAAAAAAAAHA
+		AABsAQAAAAAAABHAAAAUAAAAAAAAABLAAAB8AQAAAAAAAIDwAAAsAgAAAAAA
+		AA==
+		</data>
+		<data>
+		Ym9va0wEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAASAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzAAoAAAABAQAAQmFzZS5scHJvagAAHAAAAAEBAABGaXJz
+		dExvZ2luVmlld0NvbnRyb2xsZXIueGliIAAAAAEGAAAEAAAAFAAAACAAAAAw
+		AAAARAAAAFQAAABkAAAAeAAAAAgAAAAEAwAAJiwGAAAAAAAIAAAABAMAAPue
+		BgAAAAAACAAAAAQDAAAHgBoAAAAAAAgAAAAEAwAAXoAaAAAAAAAIAAAABAMA
+		AH1iHwAAAAAACAAAAAQDAABKYx8AAAAAAAgAAAAEAwAAUmMfAAAAAAAIAAAA
+		BAMAAGVjHwAAAAAAIAAAAAEGAADEAAAA1AAAAOQAAAD0AAAABAEAABQBAAAk
+		AQAANAEAAAgAAAAABAAAQbxw9KYAAAAYAAAAAQIAAAEAAAAAAAAADwAAAAAA
+		AAAAAAAAAAAAAAgAAAAEAwAABgAAAAAAAAAEAAAAAwMAAPUBAAAIAAAAAQkA
+		AGZpbGU6Ly8vDAAAAAEBAABNYWNpbnRvc2ggSEQIAAAABAMAAAAAACg6AAAA
+		CAAAAAAEAABBvGVjfQAAACQAAAABAQAAOTc3RUNCQTQtQTVBNi0zODZELUEz
+		MzUtOUNGQUQ4MzBGMTc2GAAAAAECAACBAAAAAQAAAO8TAAABAAAAAAAAAAAA
+		AAABAAAAAQEAAC8AAAAAAAAAAQUAAOQAAAABAgAAMmU2Y2QxNTE3YjhjMWQ3
+		OGM5NDVlZWIyY2ExMTI4ZDMzZjBmZWJiMDswMDAwMDAwMDswMDAwMDAwMDsw
+		MDAwMDAwMDAwMDAwMDIwO2NvbS5hcHBsZS5hcHAtc2FuZGJveC5yZWFkLXdy
+		aXRlOzAwMDAwMDAxOzAxMDAwMDA0OzAwMDAwMDAwMDAxZjYzNjU7L3VzZXJz
+		L2xlby9naXRodWIvdnRjc2VjdXJlL2FjZS1pb3MvY2xhc3Nlcy9iYXNlLmxw
+		cm9qL2ZpcnN0bG9naW52aWV3Y29udHJvbGxlci54aWIAzAAAAP7///8BAAAA
+		AAAAABAAAAAEEAAAnAAAAAAAAAAFEAAARAEAAAAAAAAQEAAAfAEAAAAAAABA
+		EAAAbAEAAAAAAAACIAAASAIAAAAAAAAFIAAAuAEAAAAAAAAQIAAAyAEAAAAA
+		AAARIAAA/AEAAAAAAAASIAAA3AEAAAAAAAATIAAA7AEAAAAAAAAgIAAAKAIA
+		AAAAAAAwIAAAVAIAAAAAAAABwAAAnAEAAAAAAAARwAAAFAAAAAAAAAASwAAA
+		rAEAAAAAAACA8AAAXAIAAAAAAAA=
+		</data>
+		<data>
+		Ym9va1AEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAATAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzAAgAAAABAQAAZnIubHByb2ogAAAAAQEAAEZpcnN0TG9n
+		aW5WaWV3Q29udHJvbGxlci5zdHJpbmdzIAAAAAEGAAAEAAAAFAAAACAAAAAw
+		AAAARAAAAFQAAABkAAAAdAAAAAgAAAAEAwAAJiwGAAAAAAAIAAAABAMAAPue
+		BgAAAAAACAAAAAQDAAAHgBoAAAAAAAgAAAAEAwAAXoAaAAAAAAAIAAAABAMA
+		AH1iHwAAAAAACAAAAAQDAABKYx8AAAAAAAgAAAAEAwAAu2UfAAAAAAAIAAAA
+		BAMAAMRlHwAAAAAAIAAAAAEGAADEAAAA1AAAAOQAAAD0AAAABAEAABQBAAAk
+		AQAANAEAAAgAAAAABAAAQbxw9KYAAAAYAAAAAQIAAAEAAAAAAAAADwAAAAAA
+		AAAAAAAAAAAAAAgAAAAEAwAABgAAAAAAAAAEAAAAAwMAAPUBAAAIAAAAAQkA
+		AGZpbGU6Ly8vDAAAAAEBAABNYWNpbnRvc2ggSEQIAAAABAMAAAAAACg6AAAA
+		CAAAAAAEAABBvGVjfQAAACQAAAABAQAAOTc3RUNCQTQtQTVBNi0zODZELUEz
+		MzUtOUNGQUQ4MzBGMTc2GAAAAAECAACBAAAAAQAAAO8TAAABAAAAAAAAAAAA
+		AAABAAAAAQEAAC8AAAAAAAAAAQUAAOYAAAABAgAAMGMzZDlmMWRmYzYyZTRj
+		MjM0YWEyODY5OTkyZDRmMDAxZTU5NDk5MzswMDAwMDAwMDswMDAwMDAwMDsw
+		MDAwMDAwMDAwMDAwMDIwO2NvbS5hcHBsZS5hcHAtc2FuZGJveC5yZWFkLXdy
+		aXRlOzAwMDAwMDAxOzAxMDAwMDA0OzAwMDAwMDAwMDAxZjY1YzQ7L3VzZXJz
+		L2xlby9naXRodWIvdnRjc2VjdXJlL2FjZS1pb3MvY2xhc3Nlcy9mci5scHJv
+		ai9maXJzdGxvZ2ludmlld2NvbnRyb2xsZXIuc3RyaW5ncwAAAMwAAAD+////
+		AQAAAAAAAAAQAAAABBAAAJwAAAAAAAAABRAAAEQBAAAAAAAAEBAAAHwBAAAA
+		AAAAQBAAAGwBAAAAAAAAAiAAAEgCAAAAAAAABSAAALgBAAAAAAAAECAAAMgB
+		AAAAAAAAESAAAPwBAAAAAAAAEiAAANwBAAAAAAAAEyAAAOwBAAAAAAAAICAA
+		ACgCAAAAAAAAMCAAAFQCAAAAAAAAAcAAAJwBAAAAAAAAEcAAABQAAAAAAAAA
+		EsAAAKwBAAAAAAAAgPAAAFwCAAAAAAAA
+		</data>
+		<data>
+		Ym9va1wEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAWAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzAAoAAAABAQAAQmFzZS5scHJvagAAIwAAAAEBAABJbmNv
+		bWluZ0NhbGxWaWV3Q29udHJvbGxlcn5pcGFkLnhpYgAgAAAAAQYAAAQAAAAU
+		AAAAIAAAADAAAABEAAAAVAAAAGQAAAB4AAAACAAAAAQDAAAmLAYAAAAAAAgA
+		AAAEAwAA+54GAAAAAAAIAAAABAMAAAeAGgAAAAAACAAAAAQDAABegBoAAAAA
+		AAgAAAAEAwAAfWIfAAAAAAAIAAAABAMAAEpjHwAAAAAACAAAAAQDAABSYx8A
+		AAAAAAgAAAAEAwAAcWMfAAAAAAAgAAAAAQYAAMwAAADcAAAA7AAAAPwAAAAM
+		AQAAHAEAACwBAAA8AQAACAAAAAAEAABBvHD0pgAAABgAAAABAgAAAQAAAAAA
+		AAAPAAAAAAAAAAAAAAAAAAAACAAAAAQDAAAGAAAAAAAAAAQAAAADAwAA9QEA
+		AAgAAAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAA
+		AAAAKDoAAAAIAAAAAAQAAEG8ZWN9AAAAJAAAAAEBAAA5NzdFQ0JBNC1BNUE2
+		LTM4NkQtQTMzNS05Q0ZBRDgzMEYxNzYYAAAAAQIAAIEAAAABAAAA7xMAAAEA
+		AAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAABBQAA6wAAAAECAAA4YzEyNjQ4
+		YzMzNzIxYjE2NjAwNjVlZmQyZmI3NzQ0ZWRlYjJjMjU3OzAwMDAwMDAwOzAw
+		MDAwMDAwOzAwMDAwMDAwMDAwMDAwMjA7Y29tLmFwcGxlLmFwcC1zYW5kYm94
+		LnJlYWQtd3JpdGU7MDAwMDAwMDE7MDEwMDAwMDQ7MDAwMDAwMDAwMDFmNjM3
+		MTsvdXNlcnMvbGVvL2dpdGh1Yi92dGNzZWN1cmUvYWNlLWlvcy9jbGFzc2Vz
+		L2Jhc2UubHByb2ovaW5jb21pbmdjYWxsdmlld2NvbnRyb2xsZXJ+aXBhZC54
+		aWIAAMwAAAD+////AQAAAAAAAAAQAAAABBAAAKQAAAAAAAAABRAAAEwBAAAA
+		AAAAEBAAAIQBAAAAAAAAQBAAAHQBAAAAAAAAAiAAAFACAAAAAAAABSAAAMAB
+		AAAAAAAAECAAANABAAAAAAAAESAAAAQCAAAAAAAAEiAAAOQBAAAAAAAAEyAA
+		APQBAAAAAAAAICAAADACAAAAAAAAMCAAAFwCAAAAAAAAAcAAAKQBAAAAAAAA
+		EcAAABQAAAAAAAAAEsAAALQBAAAAAAAAgPAAAGQCAAAAAAAA
+		</data>
+		<data>
+		Ym9vaxQEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAEAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzABoAAAABAQAARmlyc3RMb2dpblZpZXdDb250cm9sbGVy
+		Lm0AABwAAAABBgAABAAAABQAAAAgAAAAMAAAAEQAAABUAAAAZAAAAAgAAAAE
+		AwAAJiwGAAAAAAAIAAAABAMAAPueBgAAAAAACAAAAAQDAAAHgBoAAAAAAAgA
+		AAAEAwAAXoAaAAAAAAAIAAAABAMAAH1iHwAAAAAACAAAAAQDAABKYx8AAAAA
+		AAgAAAAEAwAAl2MfAAAAAAAcAAAAAQYAAKwAAAC8AAAAzAAAANwAAADsAAAA
+		/AAAAAwBAAAIAAAAAAQAAEG8cPSmAAAAGAAAAAECAAABAAAAAAAAAA8AAAAA
+		AAAAAAAAAAAAAAAIAAAABAMAAAUAAAAAAAAABAAAAAMDAAD1AQAACAAAAAEJ
+		AABmaWxlOi8vLwwAAAABAQAATWFjaW50b3NoIEhECAAAAAQDAAAAAAAoOgAA
+		AAgAAAAABAAAQbxlY30AAAAkAAAAAQEAADk3N0VDQkE0LUE1QTYtMzg2RC1B
+		MzM1LTlDRkFEODMwRjE3NhgAAAABAgAAgQAAAAEAAADvEwAAAQAAAAAAAAAA
+		AAAAAQAAAAEBAAAvAAAAAAAAAAEFAADXAAAAAQIAADJlYjhiOGVjOWQ4N2Fi
+		ZjkxODM3OGVkNDE3M2JlMDgzNzNlZGQ1NDk7MDAwMDAwMDA7MDAwMDAwMDA7
+		MDAwMDAwMDAwMDAwMDAyMDtjb20uYXBwbGUuYXBwLXNhbmRib3gucmVhZC13
+		cml0ZTswMDAwMDAwMTswMTAwMDAwNDswMDAwMDAwMDAwMWY2Mzk3Oy91c2Vy
+		cy9sZW8vZ2l0aHViL3Z0Y3NlY3VyZS9hY2UtaW9zL2NsYXNzZXMvZmlyc3Rs
+		b2dpbnZpZXdjb250cm9sbGVyLm0AAMwAAAD+////AQAAAAAAAAAQAAAABBAA
+		AIgAAAAAAAAABRAAABwBAAAAAAAAEBAAAFABAAAAAAAAQBAAAEABAAAAAAAA
+		AiAAABwCAAAAAAAABSAAAIwBAAAAAAAAECAAAJwBAAAAAAAAESAAANABAAAA
+		AAAAEiAAALABAAAAAAAAEyAAAMABAAAAAAAAICAAAPwBAAAAAAAAMCAAACgC
+		AAAAAAAAAcAAAHABAAAAAAAAEcAAABQAAAAAAAAAEsAAAIABAAAAAAAAgPAA
+		ADACAAAAAAAA
+		</data>
+		<data>
+		Ym9vaxQEAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAEAMAAAUAAAABAQAAVXNlcnMAAAADAAAAAQEAAGxlbwAGAAAAAQEAAEdp
+		dGh1YgAACQAAAAEBAABWVENTZWN1cmUAAAAHAAAAAQEAAGFjZS1pb3MABwAA
+		AAEBAABDbGFzc2VzABoAAAABAQAARmlyc3RMb2dpblZpZXdDb250cm9sbGVy
+		LmgAABwAAAABBgAABAAAABQAAAAgAAAAMAAAAEQAAABUAAAAZAAAAAgAAAAE
+		AwAAJiwGAAAAAAAIAAAABAMAAPueBgAAAAAACAAAAAQDAAAHgBoAAAAAAAgA
+		AAAEAwAAXoAaAAAAAAAIAAAABAMAAH1iHwAAAAAACAAAAAQDAABKYx8AAAAA
+		AAgAAAAEAwAAlmMfAAAAAAAcAAAAAQYAAKwAAAC8AAAAzAAAANwAAADsAAAA
+		/AAAAAwBAAAIAAAAAAQAAEG8cPSmAAAAGAAAAAECAAABAAAAAAAAAA8AAAAA
+		AAAAAAAAAAAAAAAIAAAABAMAAAUAAAAAAAAABAAAAAMDAAD1AQAACAAAAAEJ
+		AABmaWxlOi8vLwwAAAABAQAATWFjaW50b3NoIEhECAAAAAQDAAAAAAAoOgAA
+		AAgAAAAABAAAQbxlY30AAAAkAAAAAQEAADk3N0VDQkE0LUE1QTYtMzg2RC1B
+		MzM1LTlDRkFEODMwRjE3NhgAAAABAgAAgQAAAAEAAADvEwAAAQAAAAAAAAAA
+		AAAAAQAAAAEBAAAvAAAAAAAAAAEFAADXAAAAAQIAADIwZGMyN2VhNWRlZjIy
+		M2RiMzBlZGUzMDAzOTQ1NDdlOWY4NDg4NjM7MDAwMDAwMDA7MDAwMDAwMDA7
+		MDAwMDAwMDAwMDAwMDAyMDtjb20uYXBwbGUuYXBwLXNhbmRib3gucmVhZC13
+		cml0ZTswMDAwMDAwMTswMTAwMDAwNDswMDAwMDAwMDAwMWY2Mzk2Oy91c2Vy
+		cy9sZW8vZ2l0aHViL3Z0Y3NlY3VyZS9hY2UtaW9zL2NsYXNzZXMvZmlyc3Rs
+		b2dpbnZpZXdjb250cm9sbGVyLmgAAMwAAAD+////AQAAAAAAAAAQAAAABBAA
+		AIgAAAAAAAAABRAAABwBAAAAAAAAEBAAAFABAAAAAAAAQBAAAEABAAAAAAAA
+		AiAAABwCAAAAAAAABSAAAIwBAAAAAAAAECAAAJwBAAAAAAAAESAAANABAAAA
+		AAAAEiAAALABAAAAAAAAEyAAAMABAAAAAAAAICAAAPwBAAAAAAAAMCAAACgC
+		AAAAAAAAAcAAAHABAAAAAAAAEcAAABQAAAAAAAAAEsAAAIABAAAAAAAAgPAA
+		ADACAAAAAAAA
+		</data>
+	</array>
+	<key>IDESourceControlKnownSSHHostsDefaultsKey</key>
+	<dict>
+		<key>bc1.vatrp.net</key>
+		<string>7BA4D364A4AB067C1108DDF7FF4F77A6</string>
+		<key>github.com</key>
+		<string>1627ACA576282D36631B564DEBDFA648</string>
+		<key>st1.vatrp.net</key>
+		<string>8BB9A4D1EEE0CEC35DEA448BCD23E5A3</string>
+	</dict>
+	<key>IDESourceControlPreferencesVersion</key>
+	<integer>201</integer>
+	<key>IDESourceControlRecentsFavoritesRepositoriesUserDefaultsKey</key>
+	<array>
+		<dict>
+			<key>DVTSourceControlWorkspaceBlueprintFavoriteStatusKey</key>
+			<false/>
+			<key>DVTSourceControlWorkspaceBlueprintIdentifierKey</key>
+			<string>013CD6DE-2C87-4890-B152-3EFCE36D90FB</string>
+			<key>DVTSourceControlWorkspaceBlueprintNameKey</key>
+			<string>linphone</string>
+			<key>DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey</key>
+			<string>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</string>
+			<key>DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey</key>
+			<string>linphone.xcodeproj</string>
+			<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey</key>
+			<array>
+				<dict>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey</key>
+					<string>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey</key>
+					<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey</key>
+					<string>github.com:VTCSecureLLC/ace-ios.git</string>
+				</dict>
+				<dict>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey</key>
+					<string>10265E242415D473A6A613214DB7AC3EE3D43F93</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey</key>
+					<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey</key>
+					<string>https://github.com/kif-framework/KIF</string>
+				</dict>
+				<dict>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey</key>
+					<string>B9A509D4F3D25560F565CB53A09A75E2140C5232</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey</key>
+					<string>com.apple.dt.Xcode.sourcecontrol.Git</string>
+					<key>DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey</key>
+					<string>git://github.com/VTCSecureLLC/linphone.git</string>
+				</dict>
+			</array>
+			<key>DVTSourceControlWorkspaceBlueprintVersion</key>
+			<integer>204</integer>
+			<key>DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey</key>
+			<dict>
+				<key>0D7533C70B3E77874DB4DC9E2131A9B1895C2C86</key>
+				<string>ace-ios/</string>
+				<key>10265E242415D473A6A613214DB7AC3EE3D43F93</key>
+				<string>ace-ios/Classes/KIF/</string>
+				<key>B9A509D4F3D25560F565CB53A09A75E2140C5232</key>
+				<string>ace-ios/submodules/linphone/</string>
+			</dict>
+		</dict>
+	</array>
+	<key>IDESourceTreeDisplayNames</key>
+	<dict/>
+	<key>IDEUserWantsToEnableDeveloperMode</key>
+	<true/>
+	<key>NSNavLastRootDirectory</key>
+	<string>~/Desktop</string>
+	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 498}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{712, 565}</string>
+	<key>NSSplitView Subview Frames Main Products Split</key>
+	<array>
+		<string>0.000000, 0.000000, 80.000000, 600.000000, YES, NO</string>
+		<string>0.000000, 0.000000, 1200.000000, 700.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 192.000000, 360.000000, YES, NO</string>
+	</array>
+	<key>NSTableView Columns InspectedCustomAttributes</key>
+	<array>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErB2tleVBhdGiG
+		</data>
+		<string>65</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErBHR5cGWG
+		</data>
+		<string>65</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErBXZhbHVlhg==
+		</data>
+		<string>120</string>
+	</array>
+	<key>NSTableView Hidden Columns InspectedCustomAttributes</key>
+	<array/>
+	<key>NSTableView Sort Ordering InspectedCustomAttributes</key>
+	<array/>
+	<key>NSToolbar Configuration DocsViewerToolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/13E1C149-B36B-4BFA-9FA3-7735EFAF3E19</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/1E43D096-13B7-41E0-BABD-C7E9AF2BB248</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/4AF39BFF-98F6-4BE8-B882-026F4F59C24C</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/73C422E9-4DA9-4125-A749-06E2F89728A0</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/7B99E9C7-A137-4C39-8233-C1EF14BCAFA0</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/A18491C7-1DE5-41BD-A12F-BC35843993D5</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/CAAE578C-FDBC-4267-B389-ECC7AD88D70B</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/CE482593-09E4-43DC-B800-4E98CC673609</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/E6BDE2FF-9C40-4BBF-B9FF-E8018F5555D6</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/EE4269F9-00A2-411E-BC8A-5B26C447F6F7</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.SimpleFilesFocused/EFE560FF-4E98-448F-AD30-9883B618A830</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.Workspace/41FDA075-6971-41D1-B3CE-323DAD72BCD5</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6-WithTitleBarOnly</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Run</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.MultiStop</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.ActiveScheme</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-3-WithTitleBarOnly</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+		<key>TB Item Identifiers</key>
+		<array>
+			<string>Xcode.IDEKit.CustomToolbarItem.Run</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.MultiStop</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.ActiveScheme</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+		</array>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.Workspace/906FD270-6392-4689-B98D-0FE1D2ABD262</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6-WithTitleBarOnly</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Run</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.MultiStop</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.ActiveScheme</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-3-WithTitleBarOnly</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration Xcode.IDEKit.ToolbarDefinition.Workspace/EA84D5E1-FC9A-4664-BC62-F629AD7420EC</key>
+	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6-WithTitleBarOnly</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Run</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.MultiStop</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.ActiveScheme</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-6</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Activity</string>
+			<string>NSToolbarFlexibleSpaceItem</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.EditorMode</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Separator</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Views</string>
+			<string>Xcode.IDEKit.CustomToolbarItem.Space-3-WithTitleBarOnly</string>
+		</array>
+		<key>TB Display Mode</key>
+		<integer>2</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Item Identifiers</key>
+		<array/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame Devices Window</key>
+	<string>151 20 1360 836 0 0 1680 1027 </string>
+	<key>NSWindow Frame Documentation</key>
+	<string>142 63 1400 920 0 0 1680 1027 </string>
+	<key>NSWindow Frame IDEPreferencesPanel</key>
+	<string>465 400 750 494 0 0 1680 1027 </string>
+	<key>NSWindow Frame Products</key>
+	<string>-1853 844 1200 700 -1920 591 1920 1057 </string>
+	<key>Xcode3BuildSettingsEditorMode</key>
+	<integer>0</integer>
+	<key>Xcode3ProjectEditorSourceListVisible</key>
+	<false/>
+</dict>
+</plist>
