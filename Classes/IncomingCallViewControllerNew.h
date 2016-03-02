@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LinphoneManager.h"
 
 
 @interface IncomingCallViewControllerNew : UIViewController
-
 
 @end

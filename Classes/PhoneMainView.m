@@ -25,6 +25,8 @@
 #import "Utils.h"
 #import "DTActionSheet.h"
 #import "UIManager.h"
+#import "IncomingCallViewControllerNew.h"
+
 
 
 static RootViewManager *rootViewManagerInstance = nil;
@@ -347,7 +349,7 @@ static RootViewManager *rootViewManagerInstance = nil;
     
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
-//	NSString *message = [notif.userInfo objectForKey:@"message"];
+	NSString *message = [notif.userInfo objectForKey:@"message"];
 
     bool canHideInCallView = NO;
     
@@ -408,11 +410,9 @@ static RootViewManager *rootViewManagerInstance = nil;
         }
         case LinphoneCallError: {
             
-            NSAssert(1, @"LinphoneCallError: Just need to check this state");
+            [self displayCallError:call message:message];
+            [[InCallViewController sharedInstance] hideCallQualityView];
             break;
-            
-//            [self displayCallError:call message:message];
-//            [[InCallViewController sharedInstance] hideCallQualityView];
         }
         case LinphoneCallEnd: {
             
@@ -781,10 +781,7 @@ static RootViewManager *rootViewManagerInstance = nil;
         } else {
             
             [[UIManager sharedManager] showIncomingCallViewControllerAnimated:NO];
-            
-//            IncomingCallViewControllerNew *viewController = [[UIManager sharedManager] incomingCallViewController];
-//            [[UIManager sharedManager] changeRootViewControllerWithController:viewController];
-            
+        
 //            IncomingCallViewController *controller = nil;
 //            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
 //                controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);

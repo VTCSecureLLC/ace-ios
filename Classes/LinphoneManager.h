@@ -166,6 +166,7 @@ typedef struct _LinphoneManagerSounds {
 
 // Calls
 - (void)acceptCall:(LinphoneCall *)call;
+- (void)declineCall:(LinphoneCall *)call;
 - (void)call:(NSString *)address displayName:(NSString*)displayName transfer:(BOOL)transfer;
 
 /**
@@ -207,11 +208,9 @@ typedef struct _LinphoneManagerSounds {
 /**
  *  Returns current call for linphone core
  *
- *  @param linphoneCore LinphoneCore object
- *
  *  @return LinphoneCall object
  */
-- (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore;
+- (LinphoneCall *)currentCall;
 
 /**
  *  Takes view and sets makes it native video window

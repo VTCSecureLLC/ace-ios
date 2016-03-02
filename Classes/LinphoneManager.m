@@ -1944,6 +1944,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
 
+- (void)declineCall:(LinphoneCall *)call {
+    
+    linphone_core_terminate_call(theLinphoneCore, call);
+}
+
 - (void)call:(NSString *)address displayName:(NSString *)displayName transfer:(BOOL)transfer {
     
     NSString *addressWithoutEmptyStrings = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -2078,9 +2083,9 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return linphone_call_get_state(call);
 }
 
-- (LinphoneCall *)currentCallForLinphoneCore:(LinphoneCore *)linphoneCore {
+- (LinphoneCall *)currentCall {
     
-    return linphone_core_get_current_call(linphoneCore);
+    return linphone_core_get_current_call(theLinphoneCore);
 }
 
 - (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {
