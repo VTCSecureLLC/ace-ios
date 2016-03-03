@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
-@property (nonatomic, assign) BOOL videoShown;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
@@ -45,6 +44,7 @@
     [super viewDidLoad];
     
     [self setupBottomButtonsContainer];
+    [self setupVideoButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -455,10 +455,12 @@
 
 - (void)turnOnVideo {
     
-    
+    [[LinphoneManager instance] enableCameraForCurrentCall];
 }
 
 - (void)turnOffVideo {
+
+    [[LinphoneManager instance] disableCameraForCurrentCall];
 }
 
 - (void)showBottomButtons {
@@ -536,6 +538,17 @@
     self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 
+- (void)setupVideoButton {
+    
+    if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
+        
+        _videoButton.selected = NO;
+    }
+    else {
+        
+        _videoButton.selected = YES;
+    }
+}
 
 - (void)startVideoPreviewAnimaton {
     
@@ -556,14 +569,12 @@
     
     [sender setSelected:!sender.selected];
 
-    if (_videoShown) {
+    if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         [self turnOffVideo];
     }
     else {
         [self turnOnVideo];
     }
-    _videoShown = !_videoShown;
-    
     
     [self updateBottomButtonsTimer];
 }

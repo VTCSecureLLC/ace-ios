@@ -249,6 +249,15 @@ typedef struct _LinphoneManagerSounds {
  */
 - (BOOL)isCameraEnabledForCurrentCall;
 
+/**
+ *  Enables camera for current call
+ */
+- (void)enableCameraForCurrentCall;
+
+/**
+ *  Disables camera for current call
+ */
+- (void)disableCameraForCurrentCall;
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
