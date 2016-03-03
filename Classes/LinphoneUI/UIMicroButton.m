@@ -25,14 +25,14 @@
 
 - (void)onOn {
 	linphone_core_mute_mic([LinphoneManager getLc], false);
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:false forKey:@"isCallAudioMuted"];
+        //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+       // [defaults setBool:false forKey:@"isCallAudioMuted"];
 }
 
 - (void)onOff {
 	linphone_core_mute_mic([LinphoneManager getLc], true);
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:true forKey:@"isCallAudioMuted"];
+        //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //[defaults setBool:true forKey:@"isCallAudioMuted"];
 }
 
 - (bool)onUpdate {
