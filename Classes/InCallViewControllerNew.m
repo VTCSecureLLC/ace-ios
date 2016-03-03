@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet UIView *bottomButtonsContainer;
+@property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UIButton *voiceButton;
 @property (weak, nonatomic) IBOutlet UIButton *keypadButton;
@@ -30,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
 
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewAfterAnimationConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewBeforeAnimationConstraints;
+
 @end
 
 
@@ -39,6 +43,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setupBottomButtonsContainer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,6 +72,9 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    
+    [self startVideoPreviewAnimaton];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -367,7 +376,7 @@
         }
         case LinphoneCallError: {
             
-            NSAssert(0, @"LinphoneCallError: Just need to check this state");
+//            NSAssert(0, @"LinphoneCallError: Just need to check this state");
             break;
         }
         case LinphoneCallEnd: {
@@ -454,8 +463,6 @@
 
 - (void)showBottomButtons {
     
-    
-    
     [UIView animateWithDuration:kBottomButtonsAnimationDuration
                      animations:^{
                          
@@ -463,19 +470,13 @@
                          [self.bottomButtonsContainer setAlpha:1];
                          [self.endCallButton setAlpha:1];
                          [self.view layoutIfNeeded];
+                         
                      } completion:^(BOOL finished) {
                          
                          if (finished) {
                              
-                             if (self.bottomButtonsContainer.alpha) {
-                                 
-                                 [self.bottomButtonsAnimationTimer invalidate];
-                                 self.bottomButtonsAnimationTimer = nil;
-                                 self.bottomButtonsAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.f
-                                                                                                     target:self
-                                                                                                   selector:@selector(hideBottomButtons)
-                                                                                                   userInfo:nil
-                                                                                                    repeats:NO];
+                             if (self.bottomButtonsContainer.tag == 1) {
+                                 [self updateBottomButtonsTimer];
                              }
                          }
                      }];
@@ -489,13 +490,66 @@
                          self.endCallBottomConstraint.constant = -(CGRectGetHeight(self.view.frame) - self.bottomButtonsContainer.frame.origin.y) + 40;
                          [self.bottomButtonsContainer setAlpha:0];
                          [self.endCallButton setAlpha:0];
+                         [self hideMoreMenu];
                          [self.view layoutIfNeeded];
                      }];
     
     [self.view layoutIfNeeded];
-    
 }
 
+
+- (void)showMoreMenu {
+    
+    self.moreMenuContainer.hidden = NO;
+    self.moreMenuContainer.tag = 1;
+    [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                     animations:^{
+                         self.moreMenuContainer.alpha = 1;
+                     }];
+}
+
+- (void)hideMoreMenu {
+    
+     self.moreMenuContainer.tag = 0;
+    [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                     animations:^{
+                         self.moreMenuContainer.alpha = 0;
+                         [self.moreButton setSelected:NO];
+                     }];
+}
+
+- (void)updateBottomButtonsTimer {
+    
+    [self.bottomButtonsAnimationTimer invalidate];
+    self.bottomButtonsAnimationTimer = nil;
+    self.bottomButtonsAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.f
+                                                                        target:self
+                                                                      selector:@selector(hideBottomButtons)
+                                                                      userInfo:nil
+                                                                    repeats:NO];
+}
+
+- (void)setupBottomButtonsContainer {
+    self.bottomButtonsContainer.layer.borderWidth = 0.3f;
+    self.bottomButtonsContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.moreMenuContainer.layer.borderWidth = 0.5f;
+    self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
+}
+
+
+- (void)startVideoPreviewAnimaton {
+    
+    [UIView animateWithDuration:2
+                          delay:4
+                        options:0
+                     animations:^{
+                         [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
+                         [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+    
+}
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
@@ -509,26 +563,46 @@
         [self turnOnVideo];
     }
     _videoShown = !_videoShown;
+    
+    
+    [self updateBottomButtonsTimer];
 }
 
 - (IBAction)voiceButtonAction:(IncallButton *)sender {
     
     [sender setSelected:!sender.selected];
+    
+    [self updateBottomButtonsTimer];
 }
 
 - (IBAction)keypadButtonAction:(IncallButton *)sender {
     
     [sender setSelected:!sender.selected];
+    
+    [self updateBottomButtonsTimer];
 }
 
 - (IBAction)soundButtonAction:(IncallButton *)sender {
     
     [sender setSelected:!sender.selected];
+    
+    [self updateBottomButtonsTimer];
 }
 
 - (IBAction)moreButtonAction:(IncallButton *)sender {
     
     [sender setSelected:!sender.selected];
+    
+    [self updateBottomButtonsTimer];
+    
+    if (self.moreMenuContainer.tag == 0) {
+        
+        [self showMoreMenu];
+    }
+    else {
+        
+        [self hideMoreMenu];
+    }
 }
 
 - (IBAction)endCallButtonAction:(UIButton *)sender {
@@ -538,15 +612,33 @@
 
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
     
-    if (self.bottomButtonsContainer.alpha == 0) {
+    if (self.bottomButtonsContainer.tag == 0) {
         
         [self showBottomButtons];
+        self.bottomButtonsContainer.tag = 1;
     }
     else {
         
         [self hideBottomButtons];
+        self.bottomButtonsContainer.tag = 0;
     }
     
+}
+
+- (IBAction)switchCameraButtonAction:(UIButton *)sender {
+    
+    [self updateBottomButtonsTimer];
+}
+
+- (IBAction)changeVideoLayoutButtonAction:(UIButton *)sender {
+    
+    [self updateBottomButtonsTimer];
+}
+
+
+- (void)dealloc {
+    [self.bottomButtonsAnimationTimer invalidate];
+    self.bottomButtonsAnimationTimer = nil;
 }
 
 @end
