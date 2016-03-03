@@ -205,13 +205,11 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
     return theLinphoneManager;
 }
 
-#ifdef DEBUG
 + (void)instanceRelease {
 	if (theLinphoneManager != nil) {
 		theLinphoneManager = nil;
 	}
 }
-#endif
 
 + (BOOL)langageDirectionIsRTL {
 	static NSLocaleLanguageDirection dir = NSLocaleLanguageDirectionLeftToRight;
