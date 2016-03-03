@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
 
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewAfterAnimationConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewBeforeAnimationConstraints;
+
 @end
 
 
@@ -69,6 +72,9 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    
+    [self startVideoPreviewAnimaton];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -370,7 +376,7 @@
         }
         case LinphoneCallError: {
             
-            NSAssert(0, @"LinphoneCallError: Just need to check this state");
+//            NSAssert(0, @"LinphoneCallError: Just need to check this state");
             break;
         }
         case LinphoneCallEnd: {
@@ -530,6 +536,20 @@
     self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 
+
+- (void)startVideoPreviewAnimaton {
+    
+    [UIView animateWithDuration:2
+                          delay:4
+                        options:0
+                     animations:^{
+                         [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
+                         [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+    
+}
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {

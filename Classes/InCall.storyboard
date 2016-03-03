@@ -28,8 +28,8 @@
                                 </connections>
                             </view>
                             <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
-                                <rect key="frame" x="243" y="379" width="96" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -37,6 +37,12 @@
                                     <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
                                     <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="X3X-WX-q0U"/>
+                                        <exclude reference="v5A-Rj-kxk"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
                                 <rect key="frame" x="-1" y="524" width="377" height="50"/>
@@ -193,10 +199,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="17" id="2Wg-N7-kPg"/>
+                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="6Ij-F9-ja4"/>
                             <constraint firstItem="usF-dg-Fv0" firstAttribute="height" secondItem="WhC-2K-N6O" secondAttribute="height" multiplier="2" id="6Q0-9P-dbq"/>
                             <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="usF-dg-Fv0" secondAttribute="bottom" id="9Bx-C2-fTu"/>
                             <constraint firstAttribute="trailing" secondItem="WhC-2K-N6O" secondAttribute="trailing" constant="-1" id="B6J-r9-2x1"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="BXW-ce-sXT"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" id="FH2-N7-jsM"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="M2W-4K-MAV"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="bottom" constant="1" id="Tqk-IB-Qp9"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
@@ -204,12 +213,19 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="kSa-EQ-Vtx" secondAttribute="bottom" constant="40" id="fMG-aQ-oOw"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="hBY-II-BXn"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="m5o-SA-nGW"/>
+                            <constraint firstAttribute="trailing" secondItem="HJr-Bj-pWa" secondAttribute="trailing" id="mLs-CI-Mw4"/>
                             <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="-1" id="oX2-5J-YRm"/>
                             <constraint firstItem="usF-dg-Fv0" firstAttribute="width" secondItem="WhC-2K-N6O" secondAttribute="width" multiplier="0.5" id="pip-QS-fTp"/>
+                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="u1U-ZO-oih"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.4" id="ucp-Ud-H18"/>
-                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" constant="-288" id="vIB-ND-98j"/>
                             <constraint firstAttribute="trailing" secondItem="usF-dg-Fv0" secondAttribute="trailing" id="zdc-7c-xF7"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="d23-vm-O6v"/>
+                                <exclude reference="2Wg-N7-kPg"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -224,6 +240,14 @@
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                         <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
+                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="v5A-Rj-kxk" id="UAo-ls-vKh"/>
+                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="2Wg-N7-kPg" id="CNo-Lo-z3l"/>
+                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="X3X-WX-q0U" id="Kzu-0q-mwt"/>
+                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="d23-vm-O6v" id="hNa-EA-4QX"/>
+                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="u1U-ZO-oih" id="lfO-Lh-Yhb"/>
+                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="mLs-CI-Mw4" id="fb0-gX-ZeM"/>
+                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="FH2-N7-jsM" id="JAx-b2-zft"/>
+                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="6Ij-F9-ja4" id="kPV-6N-aWp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
