@@ -197,7 +197,7 @@ typedef struct _LinphoneManagerSounds {
  *
  *  @param call LinphoneCall object
  *
- *  @return returns YES if video is enabled for exact call otherwise
+ *  @return returns YES if video is enabled for exact call otherwise NO
  */
 - (BOOL)isVideoEnabledForCall:(LinphoneCall *)call;
 
@@ -241,6 +241,14 @@ typedef struct _LinphoneManagerSounds {
  *  @return calls count for core
  */
 - (NSUInteger)callsCountForLinphoneCore:(LinphoneCore *)linphoneCore;
+
+/**
+ *  Determines if camera is enabled for current call
+ *
+ *  @return YES if camera enabled, otherwise NO
+ */
+- (BOOL)isCameraEnabledForCurrentCall;
+
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;

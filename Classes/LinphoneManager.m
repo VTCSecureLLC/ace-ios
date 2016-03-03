@@ -2124,6 +2124,20 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return ms_list_size(callsList);
 }
 
+- (BOOL)isCameraEnabledForCurrentCall {
+    
+    BOOL camera_enabled = NO;
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+    if (linphone_core_video_supported(lc)) {
+        if (linphone_core_video_enabled(lc) && currentCall && linphone_call_camera_enabled(currentCall) &&
+            linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning) {
+            camera_enabled = NO;
+        }
+    }
+    return camera_enabled;
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {
