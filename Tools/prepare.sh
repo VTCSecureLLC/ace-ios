@@ -6,7 +6,7 @@ which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 
 pushd /usr/local/Library/Homebrew/; git branch --set-upstream-to=origin/master master ; git pull ; popd
 brew update 1>/dev/null
-brew install doxygen homebrew/versions/nasm21106 yasm optipng imagemagick intltool ninja antlr cmake
+brew install doxygen nasm yasm optipng imagemagick intltool ninja antlr cmake
 wget --no-check-certificate https://raw.githubusercontent.com/FFmpeg/gas-preprocessor/master/gas-preprocessor.pl
 chmod +x gas-preprocessor.pl
 sudo mv -f gas-preprocessor.pl /usr/local/bin

@@ -758,10 +758,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
             domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
         }
-        
-        if(domain == nil) {
-            domain = @"";
-        }
+        self.textFieldDomain.text = (domain != nil)?domain:@"";
     }
 }
 
@@ -976,7 +973,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     if ([[LinphoneManager instance] coreIsRunning]) {
         [[LinphoneManager instance] destroyLinphoneCore];
         [LinphoneManager instanceRelease];
-        
         [LinphoneManager instanceWithUsername:self.textFieldUsername.text andDomain:self.textFieldDomain.text];
         [[LinphoneManager instance] startLinphoneCore];
     }
