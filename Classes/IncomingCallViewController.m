@@ -47,14 +47,24 @@
 
 #pragma mark - ViewController Functions
 
+- (NSString *)timeFormatted:(int)totalSeconds{
+    
+    int seconds = (totalSeconds % 60);
+    int minutes = (totalSeconds / 60) % 60;
+    
+    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+}
+int ringCount;
 - (void)displayIncrementedRingCount {
     ringCountLabel.hidden = NO;
     ringLabel.hidden = NO;
     [UIView transitionWithView: ringCountLabel
-                      duration:0.5f
+                      duration:1
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
-                        ringCountLabel.text = [@(ringCountLabel.text.intValue + 1) stringValue];
+                        ringCount++;
+                        ringCountLabel.text = [self timeFormatted:ringCount];
+                        NSLog(@"%@", [self timeFormatted:ringCount]);
                     }
                     completion:nil];
 }
@@ -62,7 +72,8 @@
 - (void)stopRingCount {
     ringCountLabel.hidden = YES;
     ringLabel.hidden = YES;
-    ringCountLabel.text = @"0";
+    ringCountLabel.text = @"00:00";
+    ringCount = 0;
 }
 
 -(void) toggleBackgroundColor {
@@ -70,6 +81,7 @@
     [UIView animateKeyframesWithDuration:0.6 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
         self.view.backgroundColor = [UIColor redColor];
         self.flashingView.backgroundColor = [UIColor redColor];
+        
     } completion:nil];
     
 }
@@ -77,8 +89,9 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
     ringCountLabel.hidden = YES;
+    ringCount = 0;
     ringLabel.hidden = YES;
-    ringCountLabel.text = @"0";
+    ringCountLabel.text = @"00:00";
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     self.device = nil;
     if (captureDeviceClass != nil) {
@@ -145,7 +158,8 @@
                                                                 userInfo:nil
                                                                  repeats:YES];
     [self.cameraLedFlasherTimer fire];
-    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
+
+    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:1.01f
                                                           target:self
                                                         selector:@selector(vibrate)
                                                         userInfo:nil
