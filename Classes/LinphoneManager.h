@@ -125,9 +125,9 @@ typedef struct _LinphoneManagerSounds {
 + (LinphoneManager*)instance;
 + (LinphoneManager*)instanceWithUsername:(NSString*)userName andDomain:(NSString*)domainName;
 - (bool)coreIsRunning;
-#ifdef DEBUG
+
 + (void)instanceRelease;
-#endif
+
 + (LinphoneCore*) getLc;
 + (BOOL)runningOnIpad;
 + (BOOL)isNotIphone3G;
