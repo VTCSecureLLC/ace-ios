@@ -2173,6 +2173,38 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     }
 }
 
+- (BOOL)isMicrophoneEnabled {
+    
+    return linphone_core_mic_enabled(theLinphoneCore);
+}
+
+- (void)enableMicrophone {
+    
+    linphone_core_enable_mic(theLinphoneCore, true);
+}
+
+- (void)disableMicrophone {
+    
+    linphone_core_enable_mic(theLinphoneCore, false);
+}
+
+- (BOOL)isSpeakerEnabled {
+    
+    return speakerEnabled;
+}
+
+- (void)enableSpeaker {
+
+    [self setSpeakerEnabled:YES];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+}
+
+- (void)disableSpeaker {
+    
+    [self setSpeakerEnabled:NO];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {

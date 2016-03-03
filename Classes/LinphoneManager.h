@@ -259,6 +259,35 @@ typedef struct _LinphoneManagerSounds {
  */
 - (void)disableCameraForCurrentCall;
 
+/**
+ *  Tells whether the microphone is enabled
+ *
+ *  @return YES if the microphone is enabled, NO if disabled
+ */
+- (BOOL)isMicrophoneEnabled;
+
+/**
+ *  Enables microphone
+ */
+- (void)enableMicrophone;
+
+/**
+ *  Disables microphone
+ */
+- (void)disableMicrophone;
+
+/**
+ *  Tells whether the speaker is enabled
+ *
+ *  @return YES if speaker is enabled, NO if disabled
+ */
+- (BOOL)isSpeakerEnabled;
+
+- (void)enableSpeaker;
+
+- (void)disableSpeaker;
+
+
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 

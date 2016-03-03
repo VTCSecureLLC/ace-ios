@@ -44,7 +44,6 @@
     [super viewDidLoad];
     
     [self setupBottomButtonsContainer];
-    [self setupVideoButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,16 +53,16 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     [self setupNotifications];
-    
-    [self setupSpeaker];
+    [self resetSpeakerWithSettings];
+    [self resetMicrophoneWithSettings];
     [self setupVideo];
     
-    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
-    LinphoneCallState linphoneCallState = 0;
-    if (linphoneCall != NULL) {
-        linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];
-    }
-    [self callUpdate:linphoneCall state:linphoneCallState animated:FALSE];
+//    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
+//    LinphoneCallState linphoneCallState = 0;
+//    if (linphoneCall != NULL) {
+//        linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];
+//    }
+//    [self callUpdate:linphoneCall state:linphoneCallState animated:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,7 +73,6 @@
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     
     [self startVideoPreviewAnimaton];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -139,17 +137,6 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
-}
-
-- (void)setupSpeaker {
-
-    BOOL isSpeakerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSpeakerEnabled"];
-    if (isSpeakerEnabled){
-        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
-    }
-    else {
-        linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
-    }
 }
 
 - (void)setupVideo {
@@ -376,7 +363,7 @@
         }
         case LinphoneCallError: {
             
-//            NSAssert(0, @"LinphoneCallError: Just need to check this state");
+            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             break;
         }
         case LinphoneCallEnd: {
@@ -423,6 +410,10 @@
             break;
     }
     
+    [self setupVideoButtonState];
+    [self setupMicriphoneButtonState];
+    [self setupSpeakerButtonState];
+    
 //    switch (state) {
 //        case LinphoneCallIncomingReceived:
 //        case LinphoneCallOutgoingInit: {
@@ -451,16 +442,6 @@
 //        default:
 //            break;
 //    }
-}
-
-- (void)turnOnVideo {
-    
-    [[LinphoneManager instance] enableCameraForCurrentCall];
-}
-
-- (void)turnOffVideo {
-
-    [[LinphoneManager instance] disableCameraForCurrentCall];
 }
 
 - (void)showBottomButtons {
@@ -538,15 +519,63 @@
     self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 
-- (void)setupVideoButton {
+- (void)setupVideoButtonState {
     
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         
-        _videoButton.selected = NO;
+        _videoButton.selected = YES;
     }
     else {
         
-        _videoButton.selected = YES;
+        _videoButton.selected = NO;
+    }
+}
+
+- (void)resetMicrophoneWithSettings {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
+    if (isCallAudioMuted) {
+        
+        [[LinphoneManager instance] disableMicrophone];
+    }
+    else {
+        [[LinphoneManager instance] enableMicrophone];
+    }
+}
+
+- (void)setupMicriphoneButtonState {
+    
+    if ([[LinphoneManager instance] isMicrophoneEnabled]) {
+        
+        _voiceButton.selected = YES;
+    }
+    else {
+        
+        _voiceButton.selected = NO;
+    }
+}
+
+- (void)resetSpeakerWithSettings {
+    
+    BOOL isSpeakerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSpeakerEnabled"];
+    if (isSpeakerEnabled){
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+    }
+    else {
+        linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
+    }
+}
+
+- (void)setupSpeakerButtonState {
+    
+    if ([[LinphoneManager instance] isSpeakerEnabled]) {
+        
+        _soundButton.selected = YES;
+    }
+    else {
+        
+        _soundButton.selected = NO;
     }
 }
 
@@ -566,23 +595,28 @@
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
-    
-    [sender setSelected:!sender.selected];
 
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
-        [self turnOffVideo];
+        [[LinphoneManager instance] disableCameraForCurrentCall];
     }
     else {
-        [self turnOnVideo];
+        [[LinphoneManager instance] enableCameraForCurrentCall];
     }
     
+    [self setupVideoButtonState];
     [self updateBottomButtonsTimer];
 }
 
 - (IBAction)voiceButtonAction:(IncallButton *)sender {
     
-    [sender setSelected:!sender.selected];
+    if ([[LinphoneManager instance] isMicrophoneEnabled]) {
+        [[LinphoneManager instance] disableMicrophone];
+    }
+    else {
+        [[LinphoneManager instance] enableMicrophone];
+    }
     
+    [self setupMicriphoneButtonState];
     [self updateBottomButtonsTimer];
 }
 
@@ -595,8 +629,14 @@
 
 - (IBAction)soundButtonAction:(IncallButton *)sender {
     
-    [sender setSelected:!sender.selected];
+    if ([[LinphoneManager instance] isSpeakerEnabled]) {
+        [[LinphoneManager instance] disableSpeaker];
+    }
+    else {
+        [[LinphoneManager instance] enableSpeaker];
+    }
     
+    [self setupSpeakerButtonState];
     [self updateBottomButtonsTimer];
 }
 
