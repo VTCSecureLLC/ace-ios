@@ -470,6 +470,11 @@
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
 		A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */; };
 		A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */; };
+		C656335E1C88565E00EF8EDA /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656335D1C88565E00EF8EDA /* BaseView.m */; };
+		C65633661C8856EA00EF8EDA /* InCallNewCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = C65633651C8856EA00EF8EDA /* InCallNewCallView.m */; };
+		C65633681C8856FB00EF8EDA /* InCallNewCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633671C8856FB00EF8EDA /* InCallNewCallView.xib */; };
+		C656336F1C886F3900EF8EDA /* InCallNewCallNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */; };
+		C65633711C886F3F00EF8EDA /* InCallNewCallNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */; };
 		C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
@@ -1804,6 +1809,14 @@
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		C656335C1C88565E00EF8EDA /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		C656335D1C88565E00EF8EDA /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		C65633641C8856EA00EF8EDA /* InCallNewCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallNewCallView.h; sourceTree = "<group>"; };
+		C65633651C8856EA00EF8EDA /* InCallNewCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallNewCallView.m; sourceTree = "<group>"; };
+		C65633671C8856FB00EF8EDA /* InCallNewCallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallNewCallView.xib; sourceTree = "<group>"; };
+		C656336D1C886F3900EF8EDA /* InCallNewCallNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallNewCallNotificationView.h; sourceTree = "<group>"; };
+		C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallNewCallNotificationView.m; sourceTree = "<group>"; };
+		C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallNewCallNotificationView.xib; sourceTree = "<group>"; };
 		C6E529961C862C400029D3BB /* IncomingCallMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallMessageTableViewController.h; sourceTree = "<group>"; };
 		C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallMessageTableViewController.m; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
@@ -3369,10 +3382,34 @@
 		64A34D371C85EC6C00055CA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */,
+				C656335C1C88565E00EF8EDA /* BaseView.h */,
+				C656335D1C88565E00EF8EDA /* BaseView.m */,
+				C65633631C88566F00EF8EDA /* InCallNewCallView */,
 				64A34D3C1C85ECB800055CA9 /* IncallButton.h */,
 				64A34D3D1C85ECB800055CA9 /* IncallButton.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		C65633631C88566F00EF8EDA /* InCallNewCallView */ = {
+			isa = PBXGroup;
+			children = (
+				C65633641C8856EA00EF8EDA /* InCallNewCallView.h */,
+				C65633651C8856EA00EF8EDA /* InCallNewCallView.m */,
+				C65633671C8856FB00EF8EDA /* InCallNewCallView.xib */,
+			);
+			name = InCallNewCallView;
+			sourceTree = "<group>";
+		};
+		C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */ = {
+			isa = PBXGroup;
+			children = (
+				C656336D1C886F3900EF8EDA /* InCallNewCallNotificationView.h */,
+				C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */,
+				C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */,
+			);
+			name = "In Call New Call Notification View";
 			sourceTree = "<group>";
 		};
 		C6E529911C862BE90029D3BB /* Incoming Call Message */ = {
@@ -4832,6 +4869,7 @@
 				2242E313125235120061DDCE /* ring.caf in Resources */,
 				D38187C915FE346400C3EDCA /* FirstLoginViewController.xib in Resources */,
 				50B0072B1BA09C79002C5723 /* dialer_padding_right.png in Resources */,
+				C65633681C8856FB00EF8EDA /* InCallNewCallView.xib in Resources */,
 				2214783D1386A2030020F8B8 /* Localizable.strings in Resources */,
 				50B007D41BA09C79002C5723 /* route_bluetooth_on_default_landscape.png in Resources */,
 				50B006841BA09C79002C5723 /* add_contact_over.png in Resources */,
@@ -5190,6 +5228,7 @@
 				50B0079A1BA09C79002C5723 /* options_add_disabled_landscape.png in Resources */,
 				D37C638E15AAD251009D0BAC /* contact_number_over.png in Resources */,
 				D381881515FE3F7F00C3EDCA /* UIContactDetailsHeader.xib in Resources */,
+				C65633711C886F3F00EF8EDA /* InCallNewCallNotificationView.xib in Resources */,
 				50B006D41BA09C79002C5723 /* chat_message_delivered.png in Resources */,
 				D3C6526B15AC228A0092A874 /* contact_ok_default.png in Resources */,
 				D3C6526D15AC228A0092A874 /* contact_ok_over.png in Resources */,
@@ -5598,6 +5637,7 @@
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
 				CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */,
 				D35E7581159328EB0066B1C1 /* UIAddressTextField.m in Sources */,
+				C65633661C8856EA00EF8EDA /* InCallNewCallView.m in Sources */,
 				D35E7597159460580066B1C1 /* ChatViewController.m in Sources */,
 				D35E759F159460B70066B1C1 /* SettingsViewController.m in Sources */,
 				63B81A101B57DA33009604A6 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
@@ -5611,6 +5651,7 @@
 				D3EA540D1598528B0037DC6B /* ChatTableViewController.m in Sources */,
 				D3EA5411159853750037DC6B /* UIChatCell.m in Sources */,
 				D3F26BF115986B73005F9CAB /* IncomingCallViewController.m in Sources */,
+				C656336F1C886F3900EF8EDA /* InCallNewCallNotificationView.m in Sources */,
 				D31B4B21159876C0002E6C72 /* UICompositeViewController.m in Sources */,
 				D31AAF5E159B3919002C6B02 /* InCallTableViewController.m in Sources */,
 				D3211BB0159C4EF10098460B /* UIConferenceHeader.m in Sources */,
@@ -5648,6 +5689,7 @@
 				F4CE03021BCF9B9B00157254 /* ExtenableTextField.m in Sources */,
 				C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */,
 				D3807FE815C2894A005BE9BC /* IASKAppSettingsViewController.m in Sources */,
+				C656335E1C88565E00EF8EDA /* BaseView.m in Sources */,
 				D3807FEA15C2894A005BE9BC /* IASKAppSettingsWebViewController.m in Sources */,
 				D3807FEC15C2894A005BE9BC /* IASKSpecifierValuesViewController.m in Sources */,
 				D3807FEE15C2894A005BE9BC /* IASKSettingsReader.m in Sources */,
@@ -6242,7 +6284,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: jehan monnier";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -6258,7 +6300,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
-				PROVISIONING_PROFILE = "0636A6EA-90EB-4D92-B707-19FC32F9A7CF";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6333,7 +6375,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -6424,7 +6466,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: jehan monnier";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -6440,7 +6482,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
-				PROVISIONING_PROFILE = "C7F794BC-6D48-41F2-B37D-E1B1B1A40901";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6515,7 +6557,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: jehan monnier (E8MYPN2NXL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6533,7 +6575,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2AC0DC11-4546-47B6-8B8A-453CCA80903C";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				TARGETED_DEVICE_FAMILY = "1,2";

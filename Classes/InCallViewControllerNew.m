@@ -10,6 +10,8 @@
 #import "LinphoneManager.h"
 #import "IncallButton.h"
 #import "UIManager.h"
+#import "InCallNewCallView.h"
+#import "InCallNewCallNotificationView.h"
 
 
 #define kBottomButtonsAnimationDuration 0.3f
@@ -26,6 +28,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
+@property (weak, nonatomic) IBOutlet InCallNewCallView *inCallNewCallView;
+@property (weak, nonatomic) IBOutlet InCallNewCallNotificationView *inCallNewCallNotificationView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
 @property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
@@ -45,6 +51,8 @@
     
     [self setupBottomButtonsContainer];
     [self setupVideoButton];
+    [self setupInCallNewCallView];
+    [self setupInCallNewCallNotificationView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,7 +82,6 @@
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     
     [self startVideoPreviewAnimaton];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -476,27 +483,31 @@
                      } completion:^(BOOL finished) {
                          
                          if (finished) {
-                             
-                             if (self.bottomButtonsContainer.tag == 1) {
-                                 [self updateBottomButtonsTimer];
-                             }
+                             self.bottomButtonsContainer.tag = 1;
+                             [self updateBottomButtonsTimer];
                          }
                      }];
     }
 
 - (void)hideBottomButtons {
     
-    [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                     animations:^{
-                         
-                         self.endCallBottomConstraint.constant = -(CGRectGetHeight(self.view.frame) - self.bottomButtonsContainer.frame.origin.y) + 40;
-                         [self.bottomButtonsContainer setAlpha:0];
-                         [self.endCallButton setAlpha:0];
-                         [self hideMoreMenu];
-                         [self.view layoutIfNeeded];
-                     }];
-    
-    [self.view layoutIfNeeded];
+    if (self.bottomButtonsContainer.tag == 1) {
+        
+        [UIView animateWithDuration:kBottomButtonsAnimationDuration
+                         animations:^{
+                             
+                             self.endCallBottomConstraint.constant = -(CGRectGetHeight(self.view.frame) - self.bottomButtonsContainer.frame.origin.y) + 40;
+                             [self.bottomButtonsContainer setAlpha:0];
+                             [self.endCallButton setAlpha:0];
+                             [self hideMoreMenu];
+                             [self.view layoutIfNeeded];
+                         } completion:^(BOOL finished) {
+                             
+                             if (finished) {
+                                 self.bottomButtonsContainer.tag = 0;
+                             }
+                         }];
+    }
 }
 
 
@@ -553,14 +564,65 @@
 - (void)startVideoPreviewAnimaton {
     
     [UIView animateWithDuration:2
-                          delay:4
-                        options:0
                      animations:^{
+                         [self hideBottomButtons];
+                         self.videoView.userInteractionEnabled = NO;
                          [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
                          [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
                          [self.view layoutIfNeeded];
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             self.videoView.userInteractionEnabled = YES;
+                         }
+                     }];
+    
+}
+
+
+- (void)showInCallNewCallView {
+    
+    self.inCallNewCallView.hidden = NO;
+    self.inCallNewCallView.alpha = 1.f;
+    [UIView animateWithDuration:1.f
+                     animations:^{
+                         self.inCallNewCallViewBottomConstraint.constant = 0;
+                         [self.view layoutIfNeeded];
+                     }];
+}
+
+
+- (void)hideInCallNewCallView {
+        [UIView animateWithDuration:1.f
+                     animations:^{
+                         self.inCallNewCallViewBottomConstraint.constant = -CGRectGetHeight(self.inCallNewCallView.frame);
+                         self.inCallNewCallView.alpha = 0.f;
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         self.inCallNewCallView.hidden = YES;
+                     }];
+}
+
+- (void)setupInCallNewCallView {
+    
+    self.inCallNewCallView.messageButtonBlock = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallNewCallView.declineButtonBlock = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallNewCallView.acceptButtonBlock = ^(UIButton *sender) {
+        
+    };
+}
+
+- (void)setupInCallNewCallNotificationView {
+    
+    self.inCallNewCallNotificationView.notificationViewActionBlock = ^(UIButton *sender) {
+        
+    };
     
 }
 
@@ -626,14 +688,13 @@
     if (self.bottomButtonsContainer.tag == 0) {
         
         [self showBottomButtons];
-        self.bottomButtonsContainer.tag = 1;
+        [self hideInCallNewCallView];
     }
     else {
         
         [self hideBottomButtons];
-        self.bottomButtonsContainer.tag = 0;
+        [self showInCallNewCallView];
     }
-    
 }
 
 - (IBAction)switchCameraButtonAction:(UIButton *)sender {
