@@ -12,6 +12,7 @@
 #import "UIManager.h"
 #import "InCallNewCallView.h"
 #import "InCallNewCallNotificationView.h"
+#import "InCallOnHoldView.h"
 
 
 #define kBottomButtonsAnimationDuration 0.3f
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (weak, nonatomic) IBOutlet InCallNewCallView *inCallNewCallView;
 @property (weak, nonatomic) IBOutlet InCallNewCallNotificationView *inCallNewCallNotificationView;
+@property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 
@@ -50,6 +52,9 @@
     [super viewDidLoad];
     
     [self setupBottomButtonsContainer];
+    [self setupInCallNewCallNotificationView];
+    [self setupInCallNewCallView];
+    [self setupInCallOnHoldView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -591,7 +596,7 @@
 
 - (void)startVideoPreviewAnimaton {
     
-    [UIView animateWithDuration:2
+    [UIView animateWithDuration:1
                      animations:^{
                          [self hideBottomButtons];
                          self.videoView.userInteractionEnabled = NO;
@@ -612,7 +617,7 @@
     
     self.inCallNewCallView.hidden = NO;
     self.inCallNewCallView.alpha = 1.f;
-    [UIView animateWithDuration:1.f
+    [UIView animateWithDuration:0.5f
                      animations:^{
                          self.inCallNewCallViewBottomConstraint.constant = 0;
                          [self.view layoutIfNeeded];
@@ -621,7 +626,7 @@
 
 
 - (void)hideInCallNewCallView {
-        [UIView animateWithDuration:1.f
+        [UIView animateWithDuration:0.5f
                      animations:^{
                          self.inCallNewCallViewBottomConstraint.constant = -CGRectGetHeight(self.inCallNewCallView.frame);
                          self.inCallNewCallView.alpha = 0.f;
@@ -648,11 +653,24 @@
 
 - (void)setupInCallNewCallNotificationView {
     
-    self.inCallNewCallNotificationView.notificationViewActionBlock = ^(UIButton *sender) {
+    [self.inCallNewCallNotificationView hideNotificationWithAnimation:NO];
+    
+    self.inCallNewCallNotificationView.notificationViewActionBlock = ^(LinphoneCall *call) {
         
     };
     
 }
+
+- (void)setupInCallOnHoldView {
+    
+    [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft];
+    
+    self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
+        
+    };
+    
+}
+
 
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
@@ -727,12 +745,18 @@
     if (self.bottomButtonsContainer.tag == 0) {
         
         [self showBottomButtons];
+        [self.inCallOnHoldView showWithAnimation:YES direction:arc4random_uniform(2)];
         [self hideInCallNewCallView];
+        [self.inCallNewCallNotificationView hideNotificationWithAnimation:YES];
     }
     else {
         
         [self hideBottomButtons];
+        [self.inCallOnHoldView hideWithAnimation:YES direction:arc4random_uniform(2)];
         [self showInCallNewCallView];
+        [self.inCallNewCallNotificationView showNotificationWithAnimation:YES];
+        
+        
     }
 }
 
