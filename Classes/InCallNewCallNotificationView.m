@@ -10,6 +10,7 @@
 
 #define kAnimationDuration 0.5f
 
+static NSString *BackgroundAnimationKey = @"animateBackground";
 
 @interface InCallNewCallNotificationView ()
 
@@ -43,7 +44,6 @@
     self.profileImageView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
     self.profileImageView.layer.borderWidth = 1.f;
     self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    
 }
 
 //Filles notification data with LinphoneCall model
@@ -70,6 +70,7 @@
     
     self.backgroundViewTopConstraint.constant = 0;
     self.alpha = 1;
+    [self startBackgroundColorAnimation];
     if (animation) {
         [UIView animateWithDuration:kAnimationDuration
                          animations:^{
@@ -82,7 +83,7 @@
 - (void)hideNotificationWithAnimation:(BOOL)animation {
     
     self.backgroundViewTopConstraint.constant = -CGRectGetHeight(self.frame);
-    
+    [self stopBackgroundColorAnimation];
     if (animation) {
         [UIView animateWithDuration:kAnimationDuration
                          animations:^{
@@ -95,6 +96,22 @@
     }
     
 }
+
+
+- (void)startBackgroundColorAnimation {
+    
+    CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    theAnimation.duration = 0.7f;
+    theAnimation.repeatCount = HUGE_VAL;
+    theAnimation.autoreverses = YES;
+    theAnimation.toValue = (id)[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0].CGColor;
+    [self.backgroundView.layer addAnimation:theAnimation forKey:BackgroundAnimationKey];
+}
+
+- (void)stopBackgroundColorAnimation {
+    [self.backgroundView.layer removeAnimationForKey:BackgroundAnimationKey];
+}
+
 
 
 /*
