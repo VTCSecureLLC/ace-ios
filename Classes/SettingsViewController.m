@@ -1161,11 +1161,19 @@ static BOOL isAdvancedSettings = FALSE;
     }
 }
 
+-(void) resetMediaSettings{
+    if([LinphoneManager getLc]){
+        //Default to no media encryption
+        linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionNone);
+    }
+}
+
 - (void)factoryReset {
     [self resetTheme];
     [self clearUserDefaults];
     [self deleteStorageFiles];
     [self clearCacheData];
+    [self resetMediaSettings];
     [self goToWizard];
 }
 
