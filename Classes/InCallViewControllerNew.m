@@ -319,7 +319,8 @@
         }
         case LinphoneCallIncomingReceived: {
             
-            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
+            // This is second call
+//            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingInit: {
@@ -637,14 +638,17 @@
     
     self.inCallNewCallView.messageButtonBlock = ^(UIButton *sender) {
         
+        // TODO: Send message to second caller
     };
     
     self.inCallNewCallView.declineButtonBlock = ^(UIButton *sender) {
         
+        // TODO: Decline second call
     };
     
     self.inCallNewCallView.acceptButtonBlock = ^(UIButton *sender) {
         
+        // TODO: Answer second call
     };
 }
 
@@ -654,6 +658,7 @@
     
     self.inCallNewCallNotificationView.notificationViewActionBlock = ^(LinphoneCall *call) {
         
+        // TODO switch between calls
     };
 }
 
@@ -752,8 +757,6 @@
         [self.inCallOnHoldView hideWithAnimation:YES direction:arc4random_uniform(2)];
         [self showInCallNewCallView];
         [self.inCallNewCallNotificationView showNotificationWithAnimation:YES];
-        
-        
     }
 }
 
