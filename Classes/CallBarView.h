@@ -15,7 +15,7 @@
  *
  *  @param sender Pressed button
  */
-typedef void (^ButtonActionCallback)(UIButton *sender);
+typedef void (^ButtonActionHandler)(UIButton *sender);
 
 /**
  *  @brief Calles when call bar will hides
@@ -27,14 +27,14 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 
 @interface CallBarView : BaseView
 
-@property (nonatomic, copy) ButtonActionCallback videoButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback voiceButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback keypadButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback soundButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback moreButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback switchCameraButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback changeVideoLayoutButtonActionBlock;
-@property (nonatomic, copy) ButtonActionCallback endCallButtonActionBlock;
+@property (nonatomic, copy) ButtonActionHandler videoButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler voiceButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler keypadButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler soundButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler moreButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler switchCameraButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler changeVideoLayoutButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler endCallButtonActionHandler;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillHideWithDurationBlock;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillShowWithDurationBlock;
 @property (nonatomic, assign, getter=isVideoButtonSelected) BOOL videoButtonSelected;

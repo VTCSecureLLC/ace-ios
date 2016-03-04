@@ -148,6 +148,11 @@
     [[LinphoneManager instance] setPreviewWindowForLinphoneCore:[LinphoneManager getLc] toView:nil];
 }
 
+- (void)incomingReceivedWithCall:(LinphoneCall *)call {
+    
+    [self showSecondIncomingCallUIWithCall:(LinphoneCall *)call];
+}
+
 - (void)callOutgoingInit {
     
 //    if (linphone_core_get_calls_nb(lc) > 1) {
@@ -305,6 +310,7 @@
         }
         case LinphoneCallIncomingReceived: {
             
+            [self incomingReceivedWithCall:call];
             // This is second call
 //            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
             break;
@@ -341,17 +347,17 @@
         }
         case LinphoneCallPausing: {
             
-            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
+//            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
             break;
         }
         case LinphoneCallPaused: {
             
-            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
+//            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
             break;
         }
         case LinphoneCallResuming: {
             
-            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
+//            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
             break;
         }
         case LinphoneCallRefered: {
@@ -366,7 +372,13 @@
         }
         case LinphoneCallEnd: {
             
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callsCount == 0) {
+                [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            }
+            else {
+                [[LinphoneManager instance] declineCall:call];
+            }
             break;
         }
         case LinphoneCallPausedByRemote: {
@@ -390,6 +402,8 @@
             break;
         }
         case LinphoneCallReleased: {
+            
+            [self hideSecondIncomingCallUI];
             
 //            NSAssert(0, @"LinphoneCallReleased: Just need to check this state");
             break;
@@ -458,7 +472,7 @@
     };
     
     
-    self.callBarView.videoButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.videoButtonActionHandler = ^(UIButton *sender) {
         
         if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
             [[LinphoneManager instance] disableCameraForCurrentCall];
@@ -470,7 +484,7 @@
         [weakSelf setupVideoButtonState];
     };
     
-    self.callBarView.voiceButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.voiceButtonActionHandler = ^(UIButton *sender) {
         
         if ([[LinphoneManager instance] isMicrophoneEnabled]) {
             [[LinphoneManager instance] disableMicrophone];
@@ -482,11 +496,11 @@
         [weakSelf setupMicriphoneButtonState];
     };
     
-    self.callBarView.keypadButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.keypadButtonActionHandler = ^(UIButton *sender) {
         
     };
     
-    self.callBarView.soundButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.soundButtonActionHandler = ^(UIButton *sender) {
         
         if ([[LinphoneManager instance] isSpeakerEnabled]) {
             [[LinphoneManager instance] disableSpeaker];
@@ -498,21 +512,34 @@
         [weakSelf setupSpeakerButtonState];
     };
     
-    self.callBarView.switchCameraButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.switchCameraButtonActionHandler = ^(UIButton *sender) {
         
         [[LinphoneManager instance] switchCamera];
     };
     
-    self.callBarView.changeVideoLayoutButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.changeVideoLayoutButtonActionHandler = ^(UIButton *sender) {
         
     };
     
-    self.callBarView.endCallButtonActionBlock = ^(UIButton *sender) {
+    self.callBarView.endCallButtonActionHandler = ^(UIButton *sender) {
         
         [[LinphoneManager instance] terminateCurrentCall];
     };
 }
 
+- (void)showSecondIncomingCallUIWithCall:(LinphoneCall *)call {
+    
+    [self.callBarView hideWithAnimation:NO completion:nil];
+    self.secondIncomingCallBarView.linphoneCall = call;
+    [self.secondIncomingCallBarView showWithAnimation:YES completion:nil];
+    [self.secondIncomingCallView showNotificationWithAnimation:YES completion:nil];
+}
+
+- (void)hideSecondIncomingCallUI {
+    
+    [self.secondIncomingCallBarView hideWithAnimation:YES completion:nil];
+    [self.secondIncomingCallView hideNotificationWithAnimation:YES completion:nil];
+}
 
 - (void)setupVideoButtonState {
     
@@ -576,19 +603,21 @@
 
 - (void)setupInCallNewCallView {
     
-    self.secondIncomingCallBarView.messageButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.messageButtonBlock = ^(LinphoneCall *linphoneCall) {
         
         // TODO: Send message to second caller
     };
     
-    self.secondIncomingCallBarView.declineButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.declineButtonBlock = ^(LinphoneCall *linphoneCall) {
         
-        // TODO: Decline second call
+        [[LinphoneManager instance] declineCall:linphoneCall];
+        [self hideSecondIncomingCallUI];
     };
     
-    self.secondIncomingCallBarView.acceptButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.acceptButtonBlock = ^(LinphoneCall *linphoneCall) {
         
-        // TODO: Answer second call
+        [[LinphoneManager instance] acceptCall:linphoneCall];
+        [self hideSecondIncomingCallUI];
     };
 }
 
@@ -645,6 +674,5 @@
         [self.callBarView hideWithAnimation:YES completion:nil];
     }
 }
-
 
 @end
