@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--In Call View Controller New-->
@@ -44,160 +43,14 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhC-2K-N6O" userLabel="Bottom Buttons Container">
-                                <rect key="frame" x="-1" y="524" width="377" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUu-6c-4Rj" customClass="IncallButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="in_call_video_icon"/>
-                                        <state key="selected" image="in_call_video_selected_icon"/>
-                                        <connections>
-                                            <action selector="videoButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="fd1-ex-rfI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyq-P1-6CH" customClass="IncallButton">
-                                        <rect key="frame" x="75" y="0.0" width="76" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="in_call_voice_icon"/>
-                                        <state key="selected" image="in_call_voice_selected_icon"/>
-                                        <connections>
-                                            <action selector="voiceButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="mNc-zQ-alb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pl-P2-9XR" customClass="IncallButton">
-                                        <rect key="frame" x="151" y="0.0" width="75" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="in_call_keypad_icon"/>
-                                        <connections>
-                                            <action selector="keypadButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="STn-jd-JZk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-be-SEr" customClass="IncallButton">
-                                        <rect key="frame" x="226" y="0.0" width="76" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="in_call_sound_icon"/>
-                                        <state key="selected" image="in_call_sound_selected_icon"/>
-                                        <connections>
-                                            <action selector="soundButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="cuE-Z9-Tmh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEu-8Q-e3Y" customClass="IncallButton">
-                                        <rect key="frame" x="302" y="0.0" width="75" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="in_call_more_icon"/>
-                                        <connections>
-                                            <action selector="moreButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="DLX-Z5-er1"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
+                                <rect key="frame" x="0.0" y="424" width="375" height="203"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="3Pl-P2-9XR" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="top" id="2U7-gu-cIv"/>
-                                    <constraint firstAttribute="bottom" secondItem="cUu-6c-4Rj" secondAttribute="bottom" id="3wL-R3-liM"/>
-                                    <constraint firstItem="KEu-8Q-e3Y" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="top" id="4Gb-Yg-NFR"/>
-                                    <constraint firstItem="RoB-be-SEr" firstAttribute="width" secondItem="3Pl-P2-9XR" secondAttribute="width" id="5Ic-8a-MHi"/>
-                                    <constraint firstItem="RoB-be-SEr" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="top" id="6gK-Od-wLX"/>
-                                    <constraint firstItem="eyq-P1-6CH" firstAttribute="width" secondItem="cUu-6c-4Rj" secondAttribute="width" id="Afh-ty-PSU"/>
-                                    <constraint firstItem="eyq-P1-6CH" firstAttribute="leading" secondItem="cUu-6c-4Rj" secondAttribute="trailing" id="BLf-iO-TcF"/>
-                                    <constraint firstItem="3Pl-P2-9XR" firstAttribute="width" secondItem="eyq-P1-6CH" secondAttribute="width" id="C7s-Ss-6Kg"/>
-                                    <constraint firstItem="KEu-8Q-e3Y" firstAttribute="leading" secondItem="RoB-be-SEr" secondAttribute="trailing" id="Ff0-tL-eGC"/>
-                                    <constraint firstAttribute="bottom" secondItem="3Pl-P2-9XR" secondAttribute="bottom" id="LtQ-xX-Uig"/>
-                                    <constraint firstItem="KEu-8Q-e3Y" firstAttribute="width" secondItem="RoB-be-SEr" secondAttribute="width" id="MbR-ZH-yJ0"/>
-                                    <constraint firstItem="cUu-6c-4Rj" firstAttribute="leading" secondItem="WhC-2K-N6O" secondAttribute="leading" id="SxI-BG-GT4"/>
-                                    <constraint firstItem="cUu-6c-4Rj" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="top" id="Y4p-fb-v0b"/>
-                                    <constraint firstAttribute="height" constant="50" id="bbz-pz-Wny"/>
-                                    <constraint firstAttribute="bottom" secondItem="RoB-be-SEr" secondAttribute="bottom" id="dbb-xV-gSO"/>
-                                    <constraint firstItem="3Pl-P2-9XR" firstAttribute="leading" secondItem="eyq-P1-6CH" secondAttribute="trailing" id="elF-ci-4H0"/>
-                                    <constraint firstItem="RoB-be-SEr" firstAttribute="leading" secondItem="3Pl-P2-9XR" secondAttribute="trailing" id="gsI-M4-E2N"/>
-                                    <constraint firstAttribute="bottom" secondItem="KEu-8Q-e3Y" secondAttribute="bottom" id="jGl-eG-Cru"/>
-                                    <constraint firstAttribute="bottom" secondItem="eyq-P1-6CH" secondAttribute="bottom" id="kXs-PW-CcI"/>
-                                    <constraint firstAttribute="trailing" secondItem="KEu-8Q-e3Y" secondAttribute="trailing" id="mBy-1G-5CW"/>
-                                    <constraint firstItem="eyq-P1-6CH" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="top" id="rOZ-GT-E4p"/>
+                                    <constraint firstAttribute="height" constant="203" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usF-dg-Fv0" userLabel="More Menu Container">
-                                <rect key="frame" x="185" y="424" width="190" height="100"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRs-oO-BfI" userLabel="First Button Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="190" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EA-r0-wnP">
-                                                <rect key="frame" x="10" y="0.0" width="180" height="50"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                <state key="normal" title="Switch camera">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="switchCameraButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="kZn-gF-LRJ"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="0EA-r0-wnP" firstAttribute="leading" secondItem="pRs-oO-BfI" secondAttribute="leading" constant="10" id="5ZW-e8-MEu"/>
-                                            <constraint firstAttribute="bottom" secondItem="0EA-r0-wnP" secondAttribute="bottom" id="B2t-hU-mST"/>
-                                            <constraint firstAttribute="trailing" secondItem="0EA-r0-wnP" secondAttribute="trailing" id="bBY-Hc-YH8"/>
-                                            <constraint firstItem="0EA-r0-wnP" firstAttribute="top" secondItem="pRs-oO-BfI" secondAttribute="top" id="cYY-F5-vMK"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMi-VL-exQ" userLabel="White Line">
-                                        <rect key="frame" x="0.0" y="50" width="190" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="aGS-NS-meJ"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGg-T0-KUX" userLabel="Second Button Container">
-                                        <rect key="frame" x="0.0" y="51" width="190" height="49"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rh8-na-BQ4">
-                                                <rect key="frame" x="10" y="0.0" width="180" height="49"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                <state key="normal" title="Change Video Layout">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeVideoLayoutButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="UAY-yw-2OM"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Rh8-na-BQ4" secondAttribute="trailing" id="DcG-ST-1Xn"/>
-                                            <constraint firstItem="Rh8-na-BQ4" firstAttribute="leading" secondItem="MGg-T0-KUX" secondAttribute="leading" constant="10" id="Rc2-eY-LGg"/>
-                                            <constraint firstItem="Rh8-na-BQ4" firstAttribute="top" secondItem="MGg-T0-KUX" secondAttribute="top" id="ZtZ-gA-fF3"/>
-                                            <constraint firstAttribute="bottom" secondItem="Rh8-na-BQ4" secondAttribute="bottom" id="jfo-DS-DhW"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="MGg-T0-KUX" firstAttribute="top" secondItem="rMi-VL-exQ" secondAttribute="bottom" id="1iO-Us-UA3"/>
-                                    <constraint firstItem="rMi-VL-exQ" firstAttribute="top" secondItem="pRs-oO-BfI" secondAttribute="bottom" id="1ww-W5-rPZ"/>
-                                    <constraint firstItem="pRs-oO-BfI" firstAttribute="top" secondItem="usF-dg-Fv0" secondAttribute="top" id="76I-Mb-jSY"/>
-                                    <constraint firstAttribute="trailing" secondItem="rMi-VL-exQ" secondAttribute="trailing" id="FF4-ZT-vKw"/>
-                                    <constraint firstItem="pRs-oO-BfI" firstAttribute="leading" secondItem="usF-dg-Fv0" secondAttribute="leading" id="HTA-Nh-zSW"/>
-                                    <constraint firstItem="MGg-T0-KUX" firstAttribute="height" secondItem="pRs-oO-BfI" secondAttribute="height" id="MAY-77-1c8"/>
-                                    <constraint firstAttribute="trailing" secondItem="MGg-T0-KUX" secondAttribute="trailing" id="Wgl-V1-qfG"/>
-                                    <constraint firstAttribute="trailing" secondItem="pRs-oO-BfI" secondAttribute="trailing" id="XVt-Iq-TyG"/>
-                                    <constraint firstItem="MGg-T0-KUX" firstAttribute="leading" secondItem="usF-dg-Fv0" secondAttribute="leading" id="dcY-Vh-W8G"/>
-                                    <constraint firstAttribute="width" constant="190" id="ikF-kd-cEu"/>
-                                    <constraint firstItem="rMi-VL-exQ" firstAttribute="leading" secondItem="usF-dg-Fv0" secondAttribute="leading" id="lza-Mi-RiN"/>
-                                    <constraint firstAttribute="bottom" secondItem="MGg-T0-KUX" secondAttribute="bottom" id="oo3-et-D4o"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSa-EQ-Vtx">
-                                <rect key="frame" x="112" y="575" width="150" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="xch-YB-dep"/>
-                                </constraints>
-                                <state key="normal" image="in_call_call_down_icon"/>
-                                <connections>
-                                    <action selector="endCallButtonAction:" destination="i7c-Y5-iNb" eventType="touchUpInside" id="C7K-qR-wvR"/>
-                                </connections>
-                            </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="InCallNewCallView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBar">
                                 <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -221,67 +74,54 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="17" id="2Wg-N7-kPg"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
                             <constraint firstItem="HJr-Bj-pWa" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="6Ij-F9-ja4"/>
-                            <constraint firstItem="usF-dg-Fv0" firstAttribute="height" secondItem="WhC-2K-N6O" secondAttribute="height" multiplier="2" id="6Q0-9P-dbq"/>
-                            <constraint firstItem="WhC-2K-N6O" firstAttribute="top" secondItem="usF-dg-Fv0" secondAttribute="bottom" id="9Bx-C2-fTu"/>
-                            <constraint firstAttribute="trailing" secondItem="WhC-2K-N6O" secondAttribute="trailing" constant="-1" id="B6J-r9-2x1"/>
-                            <constraint firstItem="kSa-EQ-Vtx" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="BXW-ce-sXT"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" id="FH2-N7-jsM"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="KRJ-9x-ZsP"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="M2W-4K-MAV"/>
+                            <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
-                            <constraint firstItem="kSa-EQ-Vtx" firstAttribute="top" secondItem="WhC-2K-N6O" secondAttribute="bottom" constant="1" id="Tqk-IB-Qp9"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
+                            <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="-60" id="cXo-2d-S9U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="eOL-Vh-Fc4"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="kSa-EQ-Vtx" secondAttribute="bottom" constant="40" id="fMG-aQ-oOw"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="hBY-II-BXn"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="m5o-SA-nGW"/>
                             <constraint firstAttribute="trailing" secondItem="HJr-Bj-pWa" secondAttribute="trailing" id="mLs-CI-Mw4"/>
                             <constraint firstItem="0Fx-gY-047" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="mef-gd-shX"/>
-                            <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="-1" id="oX2-5J-YRm"/>
+                            <constraint firstAttribute="trailing" secondItem="8w2-q5-8wx" secondAttribute="trailing" id="ncm-q6-dTx"/>
                             <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="u1U-ZO-oih"/>
-                            <constraint firstItem="kSa-EQ-Vtx" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.4" id="ucp-Ud-H18"/>
                             <constraint firstAttribute="trailing" secondItem="R3N-QA-id6" secondAttribute="trailing" id="ylk-jX-TCI"/>
-                            <constraint firstAttribute="trailing" secondItem="usF-dg-Fv0" secondAttribute="trailing" id="zdc-7c-xF7"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="d23-vm-O6v"/>
-                                <exclude reference="2Wg-N7-kPg"/>
+                                <exclude reference="cXo-2d-S9U"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="bottomButtonsContainer" destination="WhC-2K-N6O" id="q4B-5h-Oc5"/>
-                        <outlet property="endCallBottomConstraint" destination="fMG-aQ-oOw" id="cHj-g3-3Pr"/>
-                        <outlet property="endCallButton" destination="kSa-EQ-Vtx" id="CxB-bc-0tA"/>
+                        <outlet property="callBarView" destination="8w2-q5-8wx" id="nFw-Ou-ZkY"/>
                         <outlet property="inCallNewCallNotificationView" destination="Flh-2b-FH0" id="jvP-5h-ech"/>
                         <outlet property="inCallNewCallView" destination="0Fx-gY-047" id="FIw-3g-Wft"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
-                        <outlet property="keypadButton" destination="3Pl-P2-9XR" id="Jpj-N8-VSh"/>
-                        <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
-                        <outlet property="moreMenuContainer" destination="usF-dg-Fv0" id="c2D-W8-Mk3"/>
-                        <outlet property="soundButton" destination="RoB-be-SEr" id="GhA-My-abR"/>
-                        <outlet property="videoButton" destination="cUu-6c-4Rj" id="TSo-wf-3kW"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
+                        <outlet property="videoPreviewViewBottomConstraint" destination="cXo-2d-S9U" id="D3I-97-tgl"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
-                        <outlet property="voiceButton" destination="eyq-P1-6CH" id="QXT-Cw-IAy"/>
                         <outletCollection property="videoPreviewAfterAnimationConstraints" destination="v5A-Rj-kxk" id="UAo-ls-vKh"/>
-                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="2Wg-N7-kPg" id="CNo-Lo-z3l"/>
                         <outletCollection property="videoPreviewAfterAnimationConstraints" destination="X3X-WX-q0U" id="Kzu-0q-mwt"/>
                         <outletCollection property="videoPreviewAfterAnimationConstraints" destination="d23-vm-O6v" id="hNa-EA-4QX"/>
                         <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="u1U-ZO-oih" id="lfO-Lh-Yhb"/>
                         <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="mLs-CI-Mw4" id="fb0-gX-ZeM"/>
                         <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="FH2-N7-jsM" id="JAx-b2-zft"/>
                         <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="6Ij-F9-ja4" id="kPV-6N-aWp"/>
+                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="cXo-2d-S9U" id="WQ2-V5-Tzj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -294,15 +134,4 @@
             <point key="canvasLocation" x="254.5" y="-112.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="in_call_call_down_icon" width="150" height="65"/>
-        <image name="in_call_keypad_icon" width="26" height="35"/>
-        <image name="in_call_more_icon" width="56" height="17"/>
-        <image name="in_call_sound_icon" width="45" height="35"/>
-        <image name="in_call_sound_selected_icon" width="28" height="35"/>
-        <image name="in_call_video_icon" width="53" height="31"/>
-        <image name="in_call_video_selected_icon" width="53" height="31"/>
-        <image name="in_call_voice_icon" width="18" height="35"/>
-        <image name="in_call_voice_selected_icon" width="24" height="35"/>
-    </resources>
 </document>

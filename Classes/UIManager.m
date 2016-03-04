@@ -98,11 +98,11 @@
 - (void)showInCallViewControllerAnimated:(BOOL)animated {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardInCall bundle:nil];
-    UINavigationController *inCallNavigationController = [storyboard instantiateInitialViewController];
+    UIViewController *inCallViewController = [storyboard instantiateViewControllerWithIdentifier:@"InCallViewControllerNew"];
     
     UIViewController* rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     
-    [rootViewController presentViewController:inCallNavigationController
+    [rootViewController presentViewController:inCallViewController
                                      animated:animated
                                    completion:nil];
 }

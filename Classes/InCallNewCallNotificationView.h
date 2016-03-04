@@ -16,10 +16,10 @@
  */
 typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
 
-
 @interface InCallNewCallNotificationView : BaseView
 
-@property (nonatomic, strong) NotificationActionCallback notificationViewActionBlock;
+
+@property (nonatomic, copy) NotificationActionCallback notificationViewActionBlock;
 
 /**
  *  @brief Filles notification data with LinphoneCall model

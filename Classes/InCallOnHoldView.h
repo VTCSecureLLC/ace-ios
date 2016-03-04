@@ -24,7 +24,7 @@ typedef void (^HoldViewActionCallback)(LinphoneCall *linphoneCall);
 
 @interface InCallOnHoldView : BaseView
 
-@property (nonatomic, strong) HoldViewActionCallback holdViewActionBlock;
+@property (nonatomic, copy) HoldViewActionCallback holdViewActionBlock;
 
 /**
  *  @brief Filles notification data with LinphoneCall model

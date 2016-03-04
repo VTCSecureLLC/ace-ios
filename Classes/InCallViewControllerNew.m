@@ -10,9 +10,10 @@
 #import "LinphoneManager.h"
 #import "IncallButton.h"
 #import "UIManager.h"
-#import "InCallNewCallView.h"
+#import "SecondIncomingCallBarView.h"
 #import "InCallNewCallNotificationView.h"
 #import "InCallOnHoldView.h"
+#import "CallBarView.h"
 
 
 #define kBottomButtonsAnimationDuration 0.3f
@@ -21,23 +22,12 @@
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
-@property (weak, nonatomic) IBOutlet UIView *bottomButtonsContainer;
-@property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
-@property (weak, nonatomic) IBOutlet UIButton *videoButton;
-@property (weak, nonatomic) IBOutlet UIButton *voiceButton;
-@property (weak, nonatomic) IBOutlet UIButton *keypadButton;
-@property (weak, nonatomic) IBOutlet UIButton *soundButton;
-@property (weak, nonatomic) IBOutlet UIButton *moreButton;
-@property (weak, nonatomic) IBOutlet UIButton *endCallButton;
-@property (weak, nonatomic) IBOutlet InCallNewCallView *inCallNewCallView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet CallBarView *callBarView;
+@property (weak, nonatomic) IBOutlet SecondIncomingCallBarView *secondIncomingCallBarView;
 @property (weak, nonatomic) IBOutlet InCallNewCallNotificationView *inCallNewCallNotificationView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *endCallBottomConstraint;
-@property (nonatomic, strong) NSTimer *bottomButtonsAnimationTimer;
-
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewAfterAnimationConstraints;
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewBeforeAnimationConstraints;
 
@@ -51,7 +41,7 @@
     
     [super viewDidLoad];
     
-    [self setupBottomButtonsContainer];
+    [self setupCallBarView];
     [self setupInCallNewCallNotificationView];
     [self setupInCallNewCallView];
     [self setupInCallOnHoldView];
@@ -456,93 +446,87 @@
 //    }
 }
 
-- (void)showBottomButtons {
+- (void)setupCallBarView {
     
-    [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                     animations:^{
-                         
-                         self.endCallBottomConstraint.constant = 40;
-                         [self.bottomButtonsContainer setAlpha:1];
-                         [self.endCallButton setAlpha:1];
-                         [self.view layoutIfNeeded];
-                         
-                     } completion:^(BOOL finished) {
-                         
-                         if (finished) {
-                             self.bottomButtonsContainer.tag = 1;
-                             [self updateBottomButtonsTimer];
-                         }
-                     }];
-    }
-
-- (void)hideBottomButtons {
+    self.callBarView.hideAfterDelay = 3.f;
+    __weak InCallViewControllerNew *weakSelf = self;
     
-    if (self.bottomButtonsContainer.tag == 1) {
+    self.callBarView.callBarWillHideWithDurationBlock = ^(NSTimeInterval duration) {
         
-        [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                         animations:^{
-                             
-                             self.endCallBottomConstraint.constant = -(CGRectGetHeight(self.view.frame) - self.bottomButtonsContainer.frame.origin.y) + 40;
-                             [self.bottomButtonsContainer setAlpha:0];
-                             [self.endCallButton setAlpha:0];
-                             [self hideMoreMenu];
-                             [self.view layoutIfNeeded];
-                         } completion:^(BOOL finished) {
-                             
-                             if (finished) {
-                                 self.bottomButtonsContainer.tag = 0;
-                             }
-                         }];
-    }
-}
-
-- (void)showMoreMenu {
+        [weakSelf animateToBottomVideoPreviewViewWithDuration:duration];
+    };
     
-    self.moreMenuContainer.hidden = NO;
-    self.moreMenuContainer.tag = 1;
-    [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                     animations:^{
-                         self.moreMenuContainer.alpha = 1;
-                     }];
-}
-
-- (void)hideMoreMenu {
+    self.callBarView.callBarWillShowWithDurationBlock = ^(NSTimeInterval duration) {
+        
+        [weakSelf animateToTopVideoPreviewViewWithDuration:duration];
+    };
     
-     self.moreMenuContainer.tag = 0;
-    [UIView animateWithDuration:kBottomButtonsAnimationDuration
-                     animations:^{
-                         self.moreMenuContainer.alpha = 0;
-                         [self.moreButton setSelected:NO];
-                     }];
-}
-
-- (void)updateBottomButtonsTimer {
     
-    [self.bottomButtonsAnimationTimer invalidate];
-    self.bottomButtonsAnimationTimer = nil;
-    self.bottomButtonsAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.f
-                                                                        target:self
-                                                                      selector:@selector(hideBottomButtons)
-                                                                      userInfo:nil
-                                                                    repeats:NO];
+    self.callBarView.videoButtonActionBlock = ^(UIButton *sender) {
+        
+        if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
+            [[LinphoneManager instance] disableCameraForCurrentCall];
+        }
+        else {
+            [[LinphoneManager instance] enableCameraForCurrentCall];
+        }
+        
+        [weakSelf setupVideoButtonState];
+    };
+    
+    self.callBarView.voiceButtonActionBlock = ^(UIButton *sender) {
+        
+        if ([[LinphoneManager instance] isMicrophoneEnabled]) {
+            [[LinphoneManager instance] disableMicrophone];
+        }
+        else {
+            [[LinphoneManager instance] enableMicrophone];
+        }
+        
+        [weakSelf setupMicriphoneButtonState];
+    };
+    
+    self.callBarView.keypadButtonActionBlock = ^(UIButton *sender) {
+        
+    };
+    
+    self.callBarView.soundButtonActionBlock = ^(UIButton *sender) {
+        
+        if ([[LinphoneManager instance] isSpeakerEnabled]) {
+            [[LinphoneManager instance] disableSpeaker];
+        }
+        else {
+            [[LinphoneManager instance] enableSpeaker];
+        }
+        
+        [weakSelf setupSpeakerButtonState];
+    };
+    
+    self.callBarView.switchCameraButtonActionBlock = ^(UIButton *sender) {
+        
+        [[LinphoneManager instance] switchCamera];
+    };
+    
+    self.callBarView.changeVideoLayoutButtonActionBlock = ^(UIButton *sender) {
+        
+    };
+    
+    self.callBarView.endCallButtonActionBlock = ^(UIButton *sender) {
+        
+        [[LinphoneManager instance] terminateCurrentCall];
+    };
 }
 
-- (void)setupBottomButtonsContainer {
-    self.bottomButtonsContainer.layer.borderWidth = 0.3f;
-    self.bottomButtonsContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.moreMenuContainer.layer.borderWidth = 0.5f;
-    self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
-}
 
 - (void)setupVideoButtonState {
     
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         
-        _videoButton.selected = YES;
+        self.callBarView.videoButtonSelected = YES;
     }
     else {
         
-        _videoButton.selected = NO;
+        self.callBarView.videoButtonSelected = NO;
     }
 }
 
@@ -563,11 +547,11 @@
     
     if ([[LinphoneManager instance] isMicrophoneEnabled]) {
         
-        _voiceButton.selected = YES;
+        self.callBarView.voiceButtonSelected = YES;
     }
     else {
         
-        _voiceButton.selected = NO;
+        self.callBarView.voiceButtonSelected = NO;
     }
 }
 
@@ -586,11 +570,11 @@
     
     if ([[LinphoneManager instance] isSpeakerEnabled]) {
         
-        _soundButton.selected = YES;
+        self.callBarView.soundButtonSelected = YES;
     }
     else {
         
-        _soundButton.selected = NO;
+        self.callBarView.soundButtonSelected = NO;
     }
 }
 
@@ -598,7 +582,7 @@
     
     [UIView animateWithDuration:1
                      animations:^{
-                         [self hideBottomButtons];
+                         [self.callBarView hideWithAnimation:YES completion:nil];
                          self.videoView.userInteractionEnabled = NO;
                          [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
                          [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
@@ -612,41 +596,19 @@
     
 }
 
-- (void)showInCallNewCallView {
-    
-    self.inCallNewCallView.hidden = NO;
-    self.inCallNewCallView.alpha = 1.f;
-    [UIView animateWithDuration:0.5f
-                     animations:^{
-                         self.inCallNewCallViewBottomConstraint.constant = 0;
-                         [self.view layoutIfNeeded];
-                     }];
-}
-
-- (void)hideInCallNewCallView {
-        [UIView animateWithDuration:0.5f
-                     animations:^{
-                         self.inCallNewCallViewBottomConstraint.constant = -CGRectGetHeight(self.inCallNewCallView.frame);
-                         self.inCallNewCallView.alpha = 0.f;
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL finished) {
-                         self.inCallNewCallView.hidden = YES;
-                     }];
-}
-
 - (void)setupInCallNewCallView {
     
-    self.inCallNewCallView.messageButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.messageButtonBlock = ^(UIButton *sender) {
         
         // TODO: Send message to second caller
     };
     
-    self.inCallNewCallView.declineButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.declineButtonBlock = ^(UIButton *sender) {
         
         // TODO: Decline second call
     };
     
-    self.inCallNewCallView.acceptButtonBlock = ^(UIButton *sender) {
+    self.secondIncomingCallBarView.acceptButtonBlock = ^(UIButton *sender) {
         
         // TODO: Answer second call
     };
@@ -673,107 +635,44 @@
 }
 
 
+- (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
+    
+    __weak InCallViewControllerNew *weakSelf = self;
+
+    self.videoPreviewViewBottomConstraint.constant = -CGRectGetHeight(self.callBarView.frame);
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         [weakSelf.view layoutIfNeeded];
+                     }];
+}
+
+- (void)animateToTopVideoPreviewViewWithDuration:(NSTimeInterval)duration {
+    
+    __weak InCallViewControllerNew *weakSelf = self;
+    
+    self.videoPreviewViewBottomConstraint.constant = -60;
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         [weakSelf.view layoutIfNeeded];
+                     }];
+}
+
+
+
 // TODO: Create separated logic for call bar
 #pragma mark - Actions Methods
-- (IBAction)videoButtonAction:(IncallButton *)sender {
-
-    if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
-        [[LinphoneManager instance] disableCameraForCurrentCall];
-    }
-    else {
-        [[LinphoneManager instance] enableCameraForCurrentCall];
-    }
-    
-    [self setupVideoButtonState];
-    [self updateBottomButtonsTimer];
-}
-
-- (IBAction)voiceButtonAction:(IncallButton *)sender {
-    
-    if ([[LinphoneManager instance] isMicrophoneEnabled]) {
-        [[LinphoneManager instance] disableMicrophone];
-    }
-    else {
-        [[LinphoneManager instance] enableMicrophone];
-    }
-    
-    [self setupMicriphoneButtonState];
-    [self updateBottomButtonsTimer];
-}
-
-- (IBAction)keypadButtonAction:(IncallButton *)sender {
-    
-    [sender setSelected:!sender.selected];
-    
-    [self updateBottomButtonsTimer];
-}
-
-- (IBAction)soundButtonAction:(IncallButton *)sender {
-    
-    if ([[LinphoneManager instance] isSpeakerEnabled]) {
-        [[LinphoneManager instance] disableSpeaker];
-    }
-    else {
-        [[LinphoneManager instance] enableSpeaker];
-    }
-    
-    [self setupSpeakerButtonState];
-    [self updateBottomButtonsTimer];
-}
-
-- (IBAction)moreButtonAction:(IncallButton *)sender {
-    
-    [sender setSelected:!sender.selected];
-    
-    [self updateBottomButtonsTimer];
-    
-    if (self.moreMenuContainer.tag == 0) {
-        
-        [self showMoreMenu];
-    }
-    else {
-        
-        [self hideMoreMenu];
-    }
-}
-
-- (IBAction)endCallButtonAction:(UIButton *)sender {
-    
-    [[LinphoneManager instance] terminateCurrentCall];
-}
-
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
-    
-    if (self.bottomButtonsContainer.tag == 0) {
+
+    if (self.callBarView.tag == 0) {
         
-        [self showBottomButtons];
-        [self.inCallOnHoldView showWithAnimation:YES direction:arc4random_uniform(2)];
-        [self hideInCallNewCallView];
-        [self.inCallNewCallNotificationView hideNotificationWithAnimation:YES];
+        [self.secondIncomingCallBarView showWithAnimation:NO completion:nil];
+        [self.callBarView showWithAnimation:YES completion:nil];
     }
     else {
-        
-        [self hideBottomButtons];
-        [self.inCallOnHoldView hideWithAnimation:YES direction:arc4random_uniform(2)];
-        [self showInCallNewCallView];
-        [self.inCallNewCallNotificationView showNotificationWithAnimation:YES];
+        [self.secondIncomingCallBarView hideWithAnimation:NO completion:nil]; 
+        [self.callBarView hideWithAnimation:YES completion:nil];
     }
 }
 
-- (IBAction)switchCameraButtonAction:(UIButton *)sender {
-    
-    [[LinphoneManager instance] switchCamera];
-    [self updateBottomButtonsTimer];
-}
-
-- (IBAction)changeVideoLayoutButtonAction:(UIButton *)sender {
-    
-    [self updateBottomButtonsTimer];
-}
-
-- (void)dealloc {
-    [self.bottomButtonsAnimationTimer invalidate];
-    self.bottomButtonsAnimationTimer = nil;
-}
 
 @end
