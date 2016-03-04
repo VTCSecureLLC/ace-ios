@@ -70,13 +70,15 @@
                                                       target:self
                                                     selector:@selector(hideTimerHandler:)
                                                     userInfo:nil
-                                                     repeats:YES];
+                                                     repeats:NO];
     }
 }
 
 - (void)hideTimerHandler:(NSTimer *)timer {
     
     [self hideWithAnimation:YES completion:nil];
+    [self.hideTimer invalidate];
+    self.hideTimer = nil;
 }
 
 //Resets timer which hides the view with animation
@@ -118,7 +120,6 @@
     self.viewState = VS_Animating;
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
     [self hideMoreMenu];
-    [self resetHideTimer];
     
     if (self.callBarWillShowWithDurationBlock) {
         self.callBarWillShowWithDurationBlock(duration);

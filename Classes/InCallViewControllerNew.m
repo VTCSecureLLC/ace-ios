@@ -582,7 +582,7 @@
     
     [UIView animateWithDuration:1
                      animations:^{
-                         [self.callBarView hideWithAnimation:YES completion:nil];
+//                         [self.callBarView hideWithAnimation:YES completion:nil];
                          self.videoView.userInteractionEnabled = NO;
                          [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
                          [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
@@ -649,17 +649,14 @@
 - (void)animateToTopVideoPreviewViewWithDuration:(NSTimeInterval)duration {
     
     __weak InCallViewControllerNew *weakSelf = self;
-    
-    self.videoPreviewViewBottomConstraint.constant = -60;
     [UIView animateWithDuration:duration
                      animations:^{
+                         self.videoPreviewViewBottomConstraint.constant = -60;
                          [weakSelf.view layoutIfNeeded];
                      }];
 }
 
 
-
-// TODO: Create separated logic for call bar
 #pragma mark - Actions Methods
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
 
