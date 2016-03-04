@@ -476,6 +476,8 @@
 		C656336F1C886F3900EF8EDA /* InCallNewCallNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */; };
 		C65633711C886F3F00EF8EDA /* InCallNewCallNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */; };
 		C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */; };
+		C6F3E7D41C888663002C06E1 /* InCallOnHoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F3E7D31C888663002C06E1 /* InCallOnHoldView.m */; };
+		C6F3E7D61C888670002C06E1 /* InCallOnHoldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F3E7D51C888670002C06E1 /* InCallOnHoldView.xib */; };
 		C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */; };
 		C9C8254515AE204D00D493FA /* options_transfer_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254015AE204D00D493FA /* options_transfer_disabled.png */; };
 		C9C8254715AE204D00D493FA /* transfer_call_default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254115AE204D00D493FA /* transfer_call_default.png */; };
@@ -1819,6 +1821,9 @@
 		C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallNewCallNotificationView.xib; sourceTree = "<group>"; };
 		C6E529961C862C400029D3BB /* IncomingCallMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallMessageTableViewController.h; sourceTree = "<group>"; };
 		C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallMessageTableViewController.m; sourceTree = "<group>"; };
+		C6F3E7D21C888663002C06E1 /* InCallOnHoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallOnHoldView.h; sourceTree = "<group>"; };
+		C6F3E7D31C888663002C06E1 /* InCallOnHoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallOnHoldView.m; sourceTree = "<group>"; };
+		C6F3E7D51C888670002C06E1 /* InCallOnHoldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallOnHoldView.xib; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9B3A6FD15B485DB006F52EE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
@@ -3382,24 +3387,25 @@
 		64A34D371C85EC6C00055CA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */,
 				C656335C1C88565E00EF8EDA /* BaseView.h */,
 				C656335D1C88565E00EF8EDA /* BaseView.m */,
-				C65633631C88566F00EF8EDA /* InCallNewCallView */,
+				C6F3E7D11C888530002C06E1 /* In Call On Hold View */,
+				C65633631C88566F00EF8EDA /* In Call New Call View */,
+				C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */,
 				64A34D3C1C85ECB800055CA9 /* IncallButton.h */,
 				64A34D3D1C85ECB800055CA9 /* IncallButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		C65633631C88566F00EF8EDA /* InCallNewCallView */ = {
+		C65633631C88566F00EF8EDA /* In Call New Call View */ = {
 			isa = PBXGroup;
 			children = (
 				C65633641C8856EA00EF8EDA /* InCallNewCallView.h */,
 				C65633651C8856EA00EF8EDA /* InCallNewCallView.m */,
 				C65633671C8856FB00EF8EDA /* InCallNewCallView.xib */,
 			);
-			name = InCallNewCallView;
+			name = "In Call New Call View";
 			sourceTree = "<group>";
 		};
 		C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */ = {
@@ -3419,6 +3425,16 @@
 				C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */,
 			);
 			name = "Incoming Call Message";
+			sourceTree = "<group>";
+		};
+		C6F3E7D11C888530002C06E1 /* In Call On Hold View */ = {
+			isa = PBXGroup;
+			children = (
+				C6F3E7D21C888663002C06E1 /* InCallOnHoldView.h */,
+				C6F3E7D31C888663002C06E1 /* InCallOnHoldView.m */,
+				C6F3E7D51C888670002C06E1 /* InCallOnHoldView.xib */,
+			);
+			name = "In Call On Hold View";
 			sourceTree = "<group>";
 		};
 		CE036A661C46847900987594 /* SRVResolver */ = {
@@ -4910,6 +4926,7 @@
 				50B006B11BA09C79002C5723 /* call_state_pause_default.png in Resources */,
 				D38327FA1580FE3A00FA0D23 /* chat_selected.png in Resources */,
 				D3832800158100E400FA0D23 /* contacts_over.png in Resources */,
+				C6F3E7D61C888670002C06E1 /* InCallOnHoldView.xib in Resources */,
 				D3832801158100E400FA0D23 /* history_over.png in Resources */,
 				D3832802158100E400FA0D23 /* settings_over.png in Resources */,
 				D3832803158100E400FA0D23 /* chat_over.png in Resources */,
@@ -5625,6 +5642,7 @@
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
 				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
+				C6F3E7D41C888663002C06E1 /* InCallOnHoldView.m in Sources */,
 				D3A55FBC15877E5E003FD403 /* UIContactCell.m in Sources */,
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,
 				D326483E1588950F00930C67 /* UICallBar.m in Sources */,

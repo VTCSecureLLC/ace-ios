@@ -9,10 +9,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InCallNewCallNotificationView">
             <connections>
                 <outlet property="backgroundView" destination="hf5-GZ-SmS" id="0nE-th-CSY"/>
+                <outlet property="backgroundViewTopConstraint" destination="hVq-Gb-YdW" id="cWf-H2-TQq"/>
                 <outlet property="callStatusLabel" destination="osc-VM-sw3" id="XTE-Wp-B4Z"/>
                 <outlet property="nameLabel" destination="69H-Bw-631" id="jJ0-Wr-etN"/>
                 <outlet property="profileImageView" destination="sZq-kK-dL1" id="L74-rs-il5"/>
-                <outlet property="ringCount" destination="0jT-ex-9GR" id="6GT-Bd-wzc"/>
+                <outlet property="ringCountLabel" destination="0jT-ex-9GR" id="ZgV-Au-n1t"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -82,7 +83,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hf5-GZ-SmS" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="0ZA-IP-quE"/>
                 <constraint firstItem="hf5-GZ-SmS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AFn-kq-x7P"/>

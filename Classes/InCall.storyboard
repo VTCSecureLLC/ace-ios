@@ -206,9 +206,16 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Flh-2b-FH0" customClass="InCallNewCallNotificationView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="p3y-o1-WNq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3N-QA-id6" customClass="InCallOnHoldView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Dru-Ec-489"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -229,6 +236,7 @@
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
+                            <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="eOL-Vh-Fc4"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="kSa-EQ-Vtx" secondAttribute="bottom" constant="40" id="fMG-aQ-oOw"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="hBY-II-BXn"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
@@ -238,7 +246,9 @@
                             <constraint firstItem="WhC-2K-N6O" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="-1" id="oX2-5J-YRm"/>
                             <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="u1U-ZO-oih"/>
                             <constraint firstItem="kSa-EQ-Vtx" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.4" id="ucp-Ud-H18"/>
+                            <constraint firstAttribute="trailing" secondItem="R3N-QA-id6" secondAttribute="trailing" id="ylk-jX-TCI"/>
                             <constraint firstAttribute="trailing" secondItem="usF-dg-Fv0" secondAttribute="trailing" id="zdc-7c-xF7"/>
+                            <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -255,6 +265,7 @@
                         <outlet property="inCallNewCallNotificationView" destination="Flh-2b-FH0" id="jvP-5h-ech"/>
                         <outlet property="inCallNewCallView" destination="0Fx-gY-047" id="FIw-3g-Wft"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
+                        <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="keypadButton" destination="3Pl-P2-9XR" id="Jpj-N8-VSh"/>
                         <outlet property="moreButton" destination="KEu-8Q-e3Y" id="zUH-eP-6B0"/>
                         <outlet property="moreMenuContainer" destination="usF-dg-Fv0" id="c2D-W8-Mk3"/>
