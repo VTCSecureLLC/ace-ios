@@ -1813,6 +1813,7 @@
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		C63B18251C89B51600969395 /* InCallViewConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InCallViewConstants.h; sourceTree = "<group>"; };
 		C656335C1C88565E00EF8EDA /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
 		C656335D1C88565E00EF8EDA /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		C65633641C8856EA00EF8EDA /* SecondIncomingCallBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondIncomingCallBarView.h; sourceTree = "<group>"; };
@@ -3394,34 +3395,43 @@
 			children = (
 				C656335C1C88565E00EF8EDA /* BaseView.h */,
 				C656335D1C88565E00EF8EDA /* BaseView.m */,
-				C6BC55451C897089006B24DE /* Call Bar View */,
-				C6F3E7D11C888530002C06E1 /* In Call On Hold View */,
-				C65633631C88566F00EF8EDA /* In Call New Call View */,
-				C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */,
+				C63B18241C89B4E100969395 /* In Call View Controller */,
 				64A34D3C1C85ECB800055CA9 /* IncallButton.h */,
 				64A34D3D1C85ECB800055CA9 /* IncallButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		C65633631C88566F00EF8EDA /* In Call New Call View */ = {
+		C63B18241C89B4E100969395 /* In Call View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C63B18251C89B51600969395 /* InCallViewConstants.h */,
+				C6BC55451C897089006B24DE /* Call Bar View */,
+				C6F3E7D11C888530002C06E1 /* In Call On Hold View */,
+				C65633631C88566F00EF8EDA /* Second Incoming Call Bar View */,
+				C656336C1C886EFD00EF8EDA /* Second Incoming Call View */,
+			);
+			name = "In Call View Controller";
+			sourceTree = "<group>";
+		};
+		C65633631C88566F00EF8EDA /* Second Incoming Call Bar View */ = {
 			isa = PBXGroup;
 			children = (
 				C65633641C8856EA00EF8EDA /* SecondIncomingCallBarView.h */,
 				C65633651C8856EA00EF8EDA /* SecondIncomingCallBarView.m */,
 				C65633671C8856FB00EF8EDA /* SecondIncomingCallBarView.xib */,
 			);
-			name = "In Call New Call View";
+			name = "Second Incoming Call Bar View";
 			sourceTree = "<group>";
 		};
-		C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */ = {
+		C656336C1C886EFD00EF8EDA /* Second Incoming Call View */ = {
 			isa = PBXGroup;
 			children = (
 				C656336D1C886F3900EF8EDA /* SecondIncomingCallView.h */,
 				C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */,
 				C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */,
 			);
-			name = "In Call New Call Notification View";
+			name = "Second Incoming Call View";
 			sourceTree = "<group>";
 		};
 		C6BC55451C897089006B24DE /* Call Bar View */ = {
@@ -4781,7 +4791,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = C4LW2LW68L;
+						DevelopmentTeam = SJGPQWR594;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;

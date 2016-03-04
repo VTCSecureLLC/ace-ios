@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #include "linphone/linphonecore.h"
+#include "InCallViewConstants.h"
 
 /**
  *  @brief Callback for view's buttons
@@ -22,14 +23,6 @@ typedef void (^ButtonActionCallback)(UIButton *sender);
  *  @param duration Animation duration
  */
 typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval duration);
-
-typedef enum {
-    
-    VS_None = 0,
-    VS_Animating,
-    VS_Opened,
-    VS_Closed
-} ViewState;
 
 
 @interface CallBarView : BaseView
@@ -64,7 +57,7 @@ typedef enum {
  *  @brief Hides view
  *
  *  @param animation  Hide with animation or not
- *  @param completion Completion block
+ *  @param completion Animation completion block
  */
 - (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion;
 

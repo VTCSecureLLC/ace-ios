@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #include "linphone/linphonecore.h"
+#import "InCallViewConstants.h"
 
 /**
  *  @brief Callback for view's buttons
@@ -18,6 +19,7 @@ typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
 
 @interface SecondIncomingCallView : BaseView
 
+@property (nonatomic, assign) ViewState viewState;
 
 @property (nonatomic, copy) NotificationActionCallback notificationViewActionBlock;
 
@@ -32,14 +34,18 @@ typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
  *  @brief Showes view
  *
  *  @param animation Show with animation or not
+ *  @param completion Animation completion block
  */
-- (void)showNotificationWithAnimation:(BOOL)animation;
+- (void)showNotificationWithAnimation:(BOOL)animation
+                           completion:(void(^)())completion;
 
 /**
  *  @brief Hides view
  *
  *  @param animation Hide with animation or not
+ *  @param completion Animation completion block
  */
-- (void)hideNotificationWithAnimation:(BOOL)animation;
+- (void)hideNotificationWithAnimation:(BOOL)animation
+                           completion:(void(^)())completion;
 
 @end

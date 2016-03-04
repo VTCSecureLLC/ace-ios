@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #include "linphone/linphonecore.h"
+#import "InCallViewConstants.h"
 
 typedef NS_ENUM(BOOL, AnimationDirection) {
     AnimationDirectionRight,
@@ -21,8 +22,9 @@ typedef NS_ENUM(BOOL, AnimationDirection) {
  */
 typedef void (^HoldViewActionCallback)(LinphoneCall *linphoneCall);
 
-
 @interface InCallOnHoldView : BaseView
+
+@property (nonatomic, assign) ViewState viewState;
 
 @property (nonatomic, copy) HoldViewActionCallback holdViewActionBlock;
 
@@ -36,17 +38,24 @@ typedef void (^HoldViewActionCallback)(LinphoneCall *linphoneCall);
 /**
  *  @brief Showes view
  *
- *  @param animation Show with animation or not
- *  @param direction Showing direction
+ *  @param animation  Show with animation or not
+ *  @param direction  Animation direction
+ *  @param completion Animation completion block
  */
-- (void)showWithAnimation:(BOOL)animation direction:(AnimationDirection)direction;
+- (void)showWithAnimation:(BOOL)animation
+                direction:(AnimationDirection)direction
+               completion:(void(^)())completion;
+
 
 /**
  *  @brief Hides view
  *
- *  @param animation Hide with animation or not
- *  @param direction Hide direction
+ *  @param animation  Hide with animation or not
+ *  @param direction  Hide direction
+ *  @param completion Animation completion block
  */
-- (void)hideWithAnimation:(BOOL)animation direction:(AnimationDirection)direction;
+- (void)hideWithAnimation:(BOOL)animation
+                direction:(AnimationDirection)direction
+               completion:(void(^)())completion;
 
 @end

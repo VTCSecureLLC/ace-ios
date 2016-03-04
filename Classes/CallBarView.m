@@ -121,8 +121,8 @@
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
     [self hideMoreMenu];
     
-    if (self.callBarWillShowWithDurationBlock) {
-        self.callBarWillShowWithDurationBlock(duration);
+    if (self.callBarWillHideWithDurationBlock) {
+        self.callBarWillHideWithDurationBlock(duration);
     }
     
     [UIView animateWithDuration:duration
@@ -251,6 +251,8 @@
 - (void)setHideAfterDelay:(NSTimeInterval)hideAfterDelay {
     
     _hideAfterDelay = hideAfterDelay;
+    
+    [self resetHideTimer];
 }
 
 - (void)setVideoButtonSelected:(BOOL)videoButtonSelected {

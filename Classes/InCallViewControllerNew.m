@@ -28,8 +28,6 @@
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewAfterAnimationConstraints;
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewBeforeAnimationConstraints;
 
 @end
 
@@ -72,8 +70,6 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-    
-    [self startVideoPreviewAnimaton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -578,24 +574,6 @@
     }
 }
 
-- (void)startVideoPreviewAnimaton {
-    
-    [UIView animateWithDuration:1
-                     animations:^{
-//                         [self.callBarView hideWithAnimation:YES completion:nil];
-                         self.videoView.userInteractionEnabled = NO;
-                         [self.view removeConstraints:self.videoPreviewBeforeAnimationConstraints];
-                         [self.view addConstraints:self.videoPreviewAfterAnimationConstraints];
-                         [self.view layoutIfNeeded];
-                     }
-                     completion:^(BOOL finished) {
-                         if (finished) {
-                             self.videoView.userInteractionEnabled = YES;
-                         }
-                     }];
-    
-}
-
 - (void)setupInCallNewCallView {
     
     self.secondIncomingCallBarView.messageButtonBlock = ^(UIButton *sender) {
@@ -616,7 +594,7 @@
 
 - (void)setupInCallNewCallNotificationView {
     
-    [self.secondIncomingCallView hideNotificationWithAnimation:NO];
+    [self.secondIncomingCallView hideNotificationWithAnimation:NO completion:nil];
     
     self.secondIncomingCallView.notificationViewActionBlock = ^(LinphoneCall *call) {
         
@@ -626,7 +604,7 @@
 
 - (void)setupInCallOnHoldView {
     
-    [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft];
+    [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft completion:nil];
     
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
         
@@ -634,14 +612,13 @@
     
 }
 
-
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
     
     __weak InCallViewControllerNew *weakSelf = self;
 
-    self.videoPreviewViewBottomConstraint.constant = -CGRectGetHeight(self.callBarView.frame);
     [UIView animateWithDuration:duration
                      animations:^{
+                         weakSelf.videoPreviewViewBottomConstraint.constant = 20;
                          [weakSelf.view layoutIfNeeded];
                      }];
 }
@@ -651,7 +628,7 @@
     __weak InCallViewControllerNew *weakSelf = self;
     [UIView animateWithDuration:duration
                      animations:^{
-                         self.videoPreviewViewBottomConstraint.constant = -60;
+                         weakSelf.videoPreviewViewBottomConstraint.constant = 160;
                          [weakSelf.view layoutIfNeeded];
                      }];
 }
@@ -662,12 +639,10 @@
 
     if (self.callBarView.viewState == VS_Closed) {
         
-        [self.secondIncomingCallBarView showWithAnimation:NO completion:nil];
         [self.callBarView showWithAnimation:YES completion:nil];
     }
     else if (self.callBarView.viewState == VS_Opened) {
-        [self.secondIncomingCallBarView hideWithAnimation:NO completion:nil]; 
-        [self.callBarView hideWithAnimation:NO completion:nil];
+        [self.callBarView hideWithAnimation:YES completion:nil];
     }
 }
 

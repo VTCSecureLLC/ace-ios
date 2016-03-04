@@ -25,18 +25,19 @@
 #pragma mark - Private Methods
 - (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewBottomConstraint.constant = 0;
     self.alpha = 1;
-    
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
+
     if (animation) {
-        [UIView animateWithDuration:kAnimationDuration
+        [UIView animateWithDuration:duration
                          animations:^{
-                             
+                             self.backgroundViewBottomConstraint.constant = 0;
                              [self layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              
+                             self.viewState = VS_Opened;
                              if (completion && finished) {
-                                 
                                  completion();
                              }
                          }];
@@ -49,19 +50,20 @@
 
 - (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewBottomConstraint.constant = -CGRectGetHeight(self.backgroundView.frame);
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     
     if (animation) {
         
-        [UIView animateWithDuration:kAnimationDuration
+        [UIView animateWithDuration:duration
                          animations:^{
-                             
+                             self.backgroundViewBottomConstraint.constant = -CGRectGetHeight(self.backgroundView.frame);
                              [self layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              
                              self.alpha = 0;
+                             self.viewState = VS_Closed;
                              if (completion && finished) {
-                                 
                                  completion();
                              }
                          }];

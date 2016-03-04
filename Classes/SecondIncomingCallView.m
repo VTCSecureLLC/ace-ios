@@ -66,30 +66,44 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 #pragma mark - Animations
 
 //Showes view
-- (void)showNotificationWithAnimation:(BOOL)animation {
+- (void)showNotificationWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewTopConstraint.constant = 0;
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     self.alpha = 1;
     [self startBackgroundColorAnimation];
-    if (animation) {
-        [UIView animateWithDuration:kAnimationDuration
-                         animations:^{
-                             [self layoutIfNeeded];
-                         }];
-    }
+    
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         
+                         self.backgroundViewTopConstraint.constant = 0;
+                         [self layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         
+                         self.viewState = VS_Opened;
+                         if (completion && finished) {
+                             completion();
+                         }
+                     }];
 }
 
 //Hides view
-- (void)hideNotificationWithAnimation:(BOOL)animation {
+- (void)hideNotificationWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewTopConstraint.constant = -CGRectGetHeight(self.frame);
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     [self stopBackgroundColorAnimation];
     if (animation) {
-        [UIView animateWithDuration:kAnimationDuration
+        [UIView animateWithDuration:duration
                          animations:^{
+                             self.backgroundViewTopConstraint.constant = -CGRectGetHeight(self.frame);
                              [self layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              self.alpha = 0;
+                             self.viewState = VS_Closed;
+                             if (completion && finished) {
+                                 completion();
+                             }
                          }];
     } else {
         self.alpha = 0;

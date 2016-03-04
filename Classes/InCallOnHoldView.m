@@ -65,20 +65,27 @@
 
 #pragma mark - Animations
 //Showes view
-- (void)showWithAnimation:(BOOL)animation direction:(AnimationDirection)direction {
+- (void)showWithAnimation:(BOOL)animation
+                direction:(AnimationDirection)direction
+               completion:(void(^)())completion{
     
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     switch (direction) {
         case AnimationDirectionRight: {
             
             self.backgroundViewLeadingConstraint.constant = -CGRectGetWidth(self.frame);
             self.alpha = 1;
-            [UIView animateWithDuration:kAnimationDuration
+            [UIView animateWithDuration:duration
                              animations:^{
                                  
                                  self.backgroundViewLeadingConstraint.constant = 0;
                                  [self layoutIfNeeded];
                              } completion:^(BOOL finished) {
-                                 
+                                 self.viewState = VS_Opened;
+                                 if (completion && finished) {
+                                     completion();
+                                 }
                              }];
             break;
         }
@@ -86,13 +93,16 @@
             
             self.backgroundViewLeadingConstraint.constant = CGRectGetWidth(self.frame);
             self.alpha = 1;
-            [UIView animateWithDuration:kAnimationDuration
+            [UIView animateWithDuration:duration
                              animations:^{
                                  
                                  self.backgroundViewLeadingConstraint.constant = 0;
                                  [self layoutIfNeeded];
                              } completion:^(BOOL finished) {
-                                 
+                                 self.viewState = VS_Opened;
+                                 if (completion && finished) {
+                                     completion();
+                                 }
                              }];
             break;
         }
@@ -101,30 +111,43 @@
 }
 
 //Hides view
-- (void)hideWithAnimation:(BOOL)animation direction:(AnimationDirection)direction {
+- (void)hideWithAnimation:(BOOL)animation
+                direction:(AnimationDirection)direction
+               completion:(void(^)())completion{
+    
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     
     switch (direction) {
         case AnimationDirectionRight: {
             
-            [UIView animateWithDuration:kAnimationDuration
+            [UIView animateWithDuration:duration
                              animations:^{
                                  
                                  self.backgroundViewLeadingConstraint.constant = CGRectGetWidth(self.frame);
                                  [self layoutIfNeeded];
                              } completion:^(BOOL finished) {
                                  self.alpha = 0;
+                                 self.viewState = VS_Closed;
+                                 if (completion && finished) {
+                                     completion();
+                                 }
                              }];
             break;
         }
         case AnimationDirectionLeft: {
             
-            [UIView animateWithDuration:kAnimationDuration
+            [UIView animateWithDuration:duration
                              animations:^{
                                  
                                  self.backgroundViewLeadingConstraint.constant = -CGRectGetWidth(self.frame);
                                  [self layoutIfNeeded];
                              } completion:^(BOOL finished) {
                                  self.alpha = 0;
+                                 self.viewState = VS_Closed;
+                                 if (completion && finished) {
+                                     completion();
+                                 }
                              }];
             break;
         }

@@ -27,7 +27,7 @@
                                 </connections>
                             </view>
                             <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="243" y="519" width="96" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
                                     <bool key="isElement" value="YES"/>
@@ -36,12 +36,6 @@
                                     <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
                                     <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="X3X-WX-q0U"/>
-                                        <exclude reference="v5A-Rj-kxk"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
                                 <rect key="frame" x="0.0" y="424" width="375" height="203"/>
@@ -75,34 +69,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
-                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="6Ij-F9-ja4"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" id="FH2-N7-jsM"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="KRJ-9x-ZsP"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="M2W-4K-MAV"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="20" id="M6j-lE-fXg"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
-                            <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="-60" id="cXo-2d-S9U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="eOL-Vh-Fc4"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="hBY-II-BXn"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="m5o-SA-nGW"/>
-                            <constraint firstAttribute="trailing" secondItem="HJr-Bj-pWa" secondAttribute="trailing" id="mLs-CI-Mw4"/>
                             <constraint firstItem="0Fx-gY-047" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="mef-gd-shX"/>
                             <constraint firstAttribute="trailing" secondItem="8w2-q5-8wx" secondAttribute="trailing" id="ncm-q6-dTx"/>
-                            <constraint firstItem="HJr-Bj-pWa" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="u1U-ZO-oih"/>
                             <constraint firstAttribute="trailing" secondItem="R3N-QA-id6" secondAttribute="trailing" id="ylk-jX-TCI"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="d23-vm-O6v"/>
-                                <exclude reference="cXo-2d-S9U"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -112,16 +96,8 @@
                         <outlet property="secondIncomingCallBarView" destination="0Fx-gY-047" id="VcJ-ds-GtW"/>
                         <outlet property="secondIncomingCallView" destination="Flh-2b-FH0" id="BNF-ya-rkF"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
-                        <outlet property="videoPreviewViewBottomConstraint" destination="cXo-2d-S9U" id="D3I-97-tgl"/>
+                        <outlet property="videoPreviewViewBottomConstraint" destination="M6j-lE-fXg" id="i6Q-W1-Ril"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
-                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="v5A-Rj-kxk" id="UAo-ls-vKh"/>
-                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="X3X-WX-q0U" id="Kzu-0q-mwt"/>
-                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="d23-vm-O6v" id="hNa-EA-4QX"/>
-                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="u1U-ZO-oih" id="lfO-Lh-Yhb"/>
-                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="mLs-CI-Mw4" id="fb0-gX-ZeM"/>
-                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="FH2-N7-jsM" id="JAx-b2-zft"/>
-                        <outletCollection property="videoPreviewBeforeAnimationConstraints" destination="6Ij-F9-ja4" id="kPV-6N-aWp"/>
-                        <outletCollection property="videoPreviewAfterAnimationConstraints" destination="cXo-2d-S9U" id="WQ2-V5-Tzj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>

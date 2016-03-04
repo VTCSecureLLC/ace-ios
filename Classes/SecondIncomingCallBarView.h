@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "InCallViewConstants.h"
 
 /**
  *  @brief Callback for view's buttons
@@ -20,6 +21,8 @@ typedef void (^ButtonActionCallback)(UIButton *sender);
 @property (nonatomic, copy) ButtonActionCallback messageButtonBlock;
 @property (nonatomic, copy) ButtonActionCallback declineButtonBlock;
 @property (nonatomic, copy) ButtonActionCallback acceptButtonBlock;
+@property (nonatomic, assign) ViewState viewState;
+
 
 /**
  *  @brief Showes view
