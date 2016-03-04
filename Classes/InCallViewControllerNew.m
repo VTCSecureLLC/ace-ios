@@ -657,6 +657,17 @@
     };
 }
 
+- (void)setupInCallOnHoldView {
+    
+    [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft];
+    
+    self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
+        
+    };
+    
+}
+
+
 // TODO: Create separated logic for call bar
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
