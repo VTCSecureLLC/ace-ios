@@ -622,7 +622,18 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 }
 
 - (void)onCall:(LinphoneCall *)call StateChanged:(LinphoneCallState)state withMessage:(const char *)message {
-
+    
+    
+    // Reject inbound call when already two active calls are active.
+    // Also it is not posting notification. No need to check it in view controllers
+    if ([self isThirdIncomingCall:state]) {
+        
+        [self rejectCall:call];
+        return;
+    }
+    
+    
+    
 	// Handling wrapper
 	LinphoneCallAppData *data = (__bridge LinphoneCallAppData *)linphone_call_get_user_data(call);
 	if (!data) {
@@ -832,7 +843,8 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		@"message" : [NSString stringWithUTF8String:message]
 	};
 	LOGI(@"Call %p changed to state %s: %s", call, linphone_call_state_to_string(state), message);
-	[[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneCallUpdate object:self userInfo:dict];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneCallUpdate object:self userInfo:dict];
 }
 
 static void linphone_iphone_call_state(LinphoneCore *lc, LinphoneCall *call, LinphoneCallState state,
@@ -1995,6 +2007,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
 
+- (void)declineCall:(LinphoneCall *)call {
+    
+    linphone_core_terminate_call(theLinphoneCore, call);
+}
+
 - (void)call:(NSString *)address displayName:(NSString *)displayName transfer:(BOOL)transfer {
     
     NSString *addressWithoutEmptyStrings = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -2104,6 +2121,177 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		linphone_address_destroy(addr);
 		linphone_call_params_destroy(lcallParams);
 	}
+}
+
+- (void)terminateCurrentCall {
+    
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneCall *currentcall = linphone_core_get_current_call(lc);
+    if (linphone_core_is_in_conference(lc) || linphone_core_get_conference_size(lc) > 0) {
+        
+        linphone_core_terminate_conference(lc);
+    } else if (currentcall != NULL) { // In a call
+        
+        linphone_core_terminate_call(lc, currentcall);
+    } else {
+        
+        const MSList *calls = linphone_core_get_calls(lc);
+        if (ms_list_size(calls) == 1) { // Only one call
+            
+            linphone_core_terminate_call(lc, (LinphoneCall *)(calls->data));
+        }
+    }
+}
+
+- (LinphoneCallLog *)callLogForCall:(LinphoneCall *)call {
+    
+    return linphone_call_get_call_log(call);
+}
+
+- (NSString *)callIdForCall:(LinphoneCall *)call {
+    
+    LinphoneCallLog *callLog = [self callLogForCall:call];
+    const char* callId = linphone_call_log_get_call_id(callLog);
+    return [NSString stringWithUTF8String:callId];
+}
+
+- (BOOL)isVideoEnabledForCall:(LinphoneCall *)call {
+    
+    const LinphoneCallParams *callParams = linphone_call_get_current_params(call);
+    return linphone_call_params_video_enabled(callParams);
+}
+
+- (LinphoneCallState)callStateForCall:(LinphoneCall *)call {
+
+    return linphone_call_get_state(call);
+}
+
+- (LinphoneCall *)currentCall {
+    
+    return linphone_core_get_current_call(theLinphoneCore);
+}
+
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {
+
+    linphone_core_set_native_video_window_id(linphoneCore, (__bridge void *)(view));
+}
+
+- (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {
+    
+    linphone_core_set_native_preview_window_id([LinphoneManager getLc], (__bridge void *)(view));
+}
+
+- (NSUInteger)callsCountForLinphoneCore:(LinphoneCore *)linphoneCore {
+    
+    const MSList *callsList = linphone_core_get_calls(linphoneCore);
+    return ms_list_size(callsList);
+}
+
+- (BOOL)isCameraEnabledForCurrentCall {
+    
+    BOOL camera_enabled = NO;
+    
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+    
+    if (linphone_core_video_supported(lc)) {
+        if (linphone_core_video_enabled(lc) && currentCall && linphone_call_camera_enabled(currentCall) &&
+            linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning) {
+            camera_enabled = YES;
+        }
+    }
+    return camera_enabled;
+}
+
+- (void)enableCameraForCurrentCall {
+    
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    
+    if (call) {
+        LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
+        callAppData->videoRequested =
+        TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
+        linphone_call_enable_camera(call, TRUE);
+        LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
+        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
+        linphone_call_send_info_message(call, linphoneInfoMessage);
+    } else {
+        LOGW(@"Cannot toggle video button, because no current call");
+    }
+}
+
+- (void)disableCameraForCurrentCall {
+    
+    LinphoneCore *lc = [LinphoneManager getLc];
+
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if (call) {
+        linphone_call_enable_camera(call, FALSE);
+        LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
+        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
+        linphone_call_send_info_message(call, linphoneInfoMessage);
+    } else {
+        LOGW(@"Cannot toggle video button, because no current call");
+    }
+}
+
+- (BOOL)isMicrophoneEnabled {
+    
+    return linphone_core_mic_enabled(theLinphoneCore);
+}
+
+- (void)enableMicrophone {
+    
+    linphone_core_enable_mic(theLinphoneCore, true);
+}
+
+- (void)disableMicrophone {
+    
+    linphone_core_enable_mic(theLinphoneCore, false);
+}
+
+- (BOOL)isSpeakerEnabled {
+    
+    return speakerEnabled;
+}
+
+- (void)enableSpeaker {
+
+    [self setSpeakerEnabled:YES];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+}
+
+- (void)disableSpeaker {
+    
+    [self setSpeakerEnabled:NO];
+    linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
+}
+
+- (void)switchCamera {
+    
+    const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+    const char **cameras = linphone_core_get_video_devices([LinphoneManager getLc]);
+    const char *newCamId = NULL;
+    int i;
+    
+    for (i = 0; cameras[i] != NULL; ++i) {
+        if (strcmp(cameras[i], "StaticImage: Static picture") == 0)
+            continue;
+        if (strcmp(cameras[i], currentCamId) != 0) {
+            newCamId = cameras[i];
+            break;
+        }
+    }
+    if (newCamId) {
+        LOGI(@"Switching from [%s] to [%s]", currentCamId, newCamId);
+        linphone_core_set_video_device([LinphoneManager getLc], newCamId);
+        LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+        if (call != NULL) {
+            // Liz E. - OK - this is currently the way to update for a device change.
+            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+        }
+    }
 }
 
 #pragma mark - Property Functions
@@ -2550,6 +2738,28 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     }
     
     return nil;
+}
+
+#pragma mark - Private methods
+
+- (BOOL)isThirdIncomingCall:(LinphoneCallState)state {
+
+    BOOL isThirdIncoming = NO;
+    if (state == LinphoneCallIncomingReceived || state == LinphoneCallIncomingEarlyMedia) {
+        
+        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+        int size = ms_list_size(call_list);
+        if (size >= 3) {
+            
+            isThirdIncoming = YES;
+        }
+    }
+    return isThirdIncoming;
+}
+
+- (void)rejectCall:(LinphoneCall *)call {
+    
+    linphone_core_terminate_call([LinphoneManager getLc], call);
 }
 
 @end
