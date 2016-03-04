@@ -6,13 +6,13 @@
 //
 //
 
-#import "InCallNewCallNotificationView.h"
+#import "SecondIncomingCallView.h"
 
 #define kAnimationDuration 0.5f
 
 static NSString *BackgroundAnimationKey = @"animateBackground";
 
-@interface InCallNewCallNotificationView ()
+@interface SecondIncomingCallView ()
 
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundViewTopConstraint;
@@ -26,7 +26,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 
 @end
 
-@implementation InCallNewCallNotificationView
+@implementation SecondIncomingCallView
 
 #pragma mark - Private Methods
 

@@ -473,8 +473,8 @@
 		C656335E1C88565E00EF8EDA /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656335D1C88565E00EF8EDA /* BaseView.m */; };
 		C65633661C8856EA00EF8EDA /* SecondIncomingCallBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C65633651C8856EA00EF8EDA /* SecondIncomingCallBarView.m */; };
 		C65633681C8856FB00EF8EDA /* SecondIncomingCallBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633671C8856FB00EF8EDA /* SecondIncomingCallBarView.xib */; };
-		C656336F1C886F3900EF8EDA /* InCallNewCallNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */; };
-		C65633711C886F3F00EF8EDA /* InCallNewCallNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */; };
+		C656336F1C886F3900EF8EDA /* SecondIncomingCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */; };
+		C65633711C886F3F00EF8EDA /* SecondIncomingCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */; };
 		C6BC554C1C897094006B24DE /* CallBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BC554B1C897094006B24DE /* CallBarView.m */; };
 		C6BC554E1C89709E006B24DE /* CallBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6BC554D1C89709E006B24DE /* CallBarView.xib */; };
 		C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */; };
@@ -1818,9 +1818,9 @@
 		C65633641C8856EA00EF8EDA /* SecondIncomingCallBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondIncomingCallBarView.h; sourceTree = "<group>"; };
 		C65633651C8856EA00EF8EDA /* SecondIncomingCallBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondIncomingCallBarView.m; sourceTree = "<group>"; };
 		C65633671C8856FB00EF8EDA /* SecondIncomingCallBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondIncomingCallBarView.xib; sourceTree = "<group>"; };
-		C656336D1C886F3900EF8EDA /* InCallNewCallNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallNewCallNotificationView.h; sourceTree = "<group>"; };
-		C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallNewCallNotificationView.m; sourceTree = "<group>"; };
-		C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallNewCallNotificationView.xib; sourceTree = "<group>"; };
+		C656336D1C886F3900EF8EDA /* SecondIncomingCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondIncomingCallView.h; sourceTree = "<group>"; };
+		C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondIncomingCallView.m; sourceTree = "<group>"; };
+		C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondIncomingCallView.xib; sourceTree = "<group>"; };
 		C6BC554A1C897094006B24DE /* CallBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallBarView.h; sourceTree = "<group>"; };
 		C6BC554B1C897094006B24DE /* CallBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallBarView.m; sourceTree = "<group>"; };
 		C6BC554D1C89709E006B24DE /* CallBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallBarView.xib; sourceTree = "<group>"; };
@@ -3417,9 +3417,9 @@
 		C656336C1C886EFD00EF8EDA /* In Call New Call Notification View */ = {
 			isa = PBXGroup;
 			children = (
-				C656336D1C886F3900EF8EDA /* InCallNewCallNotificationView.h */,
-				C656336E1C886F3900EF8EDA /* InCallNewCallNotificationView.m */,
-				C65633701C886F3F00EF8EDA /* InCallNewCallNotificationView.xib */,
+				C656336D1C886F3900EF8EDA /* SecondIncomingCallView.h */,
+				C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */,
+				C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */,
 			);
 			name = "In Call New Call Notification View";
 			sourceTree = "<group>";
@@ -5261,7 +5261,7 @@
 				50B0079A1BA09C79002C5723 /* options_add_disabled_landscape.png in Resources */,
 				D37C638E15AAD251009D0BAC /* contact_number_over.png in Resources */,
 				D381881515FE3F7F00C3EDCA /* UIContactDetailsHeader.xib in Resources */,
-				C65633711C886F3F00EF8EDA /* InCallNewCallNotificationView.xib in Resources */,
+				C65633711C886F3F00EF8EDA /* SecondIncomingCallView.xib in Resources */,
 				50B006D41BA09C79002C5723 /* chat_message_delivered.png in Resources */,
 				D3C6526B15AC228A0092A874 /* contact_ok_default.png in Resources */,
 				D3C6526D15AC228A0092A874 /* contact_ok_over.png in Resources */,
@@ -5686,7 +5686,7 @@
 				D3EA540D1598528B0037DC6B /* ChatTableViewController.m in Sources */,
 				D3EA5411159853750037DC6B /* UIChatCell.m in Sources */,
 				D3F26BF115986B73005F9CAB /* IncomingCallViewController.m in Sources */,
-				C656336F1C886F3900EF8EDA /* InCallNewCallNotificationView.m in Sources */,
+				C656336F1C886F3900EF8EDA /* SecondIncomingCallView.m in Sources */,
 				D31B4B21159876C0002E6C72 /* UICompositeViewController.m in Sources */,
 				D31AAF5E159B3919002C6B02 /* InCallTableViewController.m in Sources */,
 				D3211BB0159C4EF10098460B /* UIConferenceHeader.m in Sources */,

@@ -41,6 +41,10 @@
                              }
                          }];
     }
+    else {
+        
+        [self layoutIfNeeded];
+    }
 }
 
 - (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion {
@@ -61,6 +65,10 @@
                                  completion();
                              }
                          }];
+    }
+    else {
+        
+        [self layoutIfNeeded];
     }
 }
 

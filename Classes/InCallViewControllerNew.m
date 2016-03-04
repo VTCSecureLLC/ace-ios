@@ -11,7 +11,7 @@
 #import "IncallButton.h"
 #import "UIManager.h"
 #import "SecondIncomingCallBarView.h"
-#import "InCallNewCallNotificationView.h"
+#import "SecondIncomingCallView.h"
 #import "InCallOnHoldView.h"
 #import "CallBarView.h"
 
@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet CallBarView *callBarView;
 @property (weak, nonatomic) IBOutlet SecondIncomingCallBarView *secondIncomingCallBarView;
-@property (weak, nonatomic) IBOutlet InCallNewCallNotificationView *inCallNewCallNotificationView;
+@property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *videoPreviewAfterAnimationConstraints;
@@ -616,9 +616,9 @@
 
 - (void)setupInCallNewCallNotificationView {
     
-    [self.inCallNewCallNotificationView hideNotificationWithAnimation:NO];
+    [self.secondIncomingCallView hideNotificationWithAnimation:NO];
     
-    self.inCallNewCallNotificationView.notificationViewActionBlock = ^(LinphoneCall *call) {
+    self.secondIncomingCallView.notificationViewActionBlock = ^(LinphoneCall *call) {
         
         // TODO switch between calls
     };
@@ -663,14 +663,14 @@
 #pragma mark - Actions Methods
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
 
-    if (self.callBarView.tag == 0) {
+    if (self.callBarView.viewState == VS_Closed) {
         
         [self.secondIncomingCallBarView showWithAnimation:NO completion:nil];
         [self.callBarView showWithAnimation:YES completion:nil];
     }
-    else {
+    else if (self.callBarView.viewState == VS_Opened) {
         [self.secondIncomingCallBarView hideWithAnimation:NO completion:nil]; 
-        [self.callBarView hideWithAnimation:YES completion:nil];
+        [self.callBarView hideWithAnimation:NO completion:nil];
     }
 }
 

@@ -23,6 +23,15 @@ typedef void (^ButtonActionCallback)(UIButton *sender);
  */
 typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval duration);
 
+typedef enum {
+    
+    VS_None = 0,
+    VS_Animating,
+    VS_Opened,
+    VS_Closed
+} ViewState;
+
+
 @interface CallBarView : BaseView
 
 @property (nonatomic, copy) ButtonActionCallback videoButtonActionBlock;
@@ -41,7 +50,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 @property (nonatomic, assign, getter=isSoundButtonSelected) BOOL soundButtonSelected;
 @property (nonatomic, assign, getter=isMoreButtonSelected) BOOL moreButtonSelected;
 @property (nonatomic, assign) NSTimeInterval hideAfterDelay;
-
+@property (nonatomic, assign) ViewState viewState;
 
 /**
  *  @brief Showes view

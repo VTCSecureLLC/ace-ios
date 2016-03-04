@@ -54,6 +54,7 @@
     self.bottomButtonsContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.moreMenuContainer.layer.borderWidth = 0.5f;
     self.moreMenuContainer.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.viewState = VS_Opened;
 }
 
 
@@ -84,64 +85,58 @@
     [self startHideTimerWithDelay:self.hideAfterDelay];
 }
 
-
 #pragma mark - Animations
 //Showes view
 - (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewBottomConstraint.constant = 0;
-    self.tag = 1;
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     [self resetHideTimer];
-    if (animation) {
-        if (self.callBarWillShowWithDurationBlock) {
-            self.callBarWillShowWithDurationBlock(kAnimationDuration);
-        }
-        [UIView animateWithDuration:kAnimationDuration
-                         animations:^{
-                             
-                             self.alpha = 1;
-                             [self layoutIfNeeded];
-                         } completion:^(BOOL finished) {
-                             
-                             if (completion && finished) {
-                                 completion();
-                             }
-                         }];
+    
+    if (self.callBarWillShowWithDurationBlock) {
+        self.callBarWillShowWithDurationBlock(duration);
     }
-    else {
-        if (self.callBarWillShowWithDurationBlock) {
-            self.callBarWillShowWithDurationBlock(0);
-        }
-    }
+    
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         
+                         self.backgroundViewBottomConstraint.constant = 0;
+                         self.alpha = 1;
+                         [self layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         
+                         self.viewState = VS_Opened;
+                         if (completion && finished) {
+                             completion();
+                         }
+                     }];
 }
 
 //Hides view
 - (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
-    self.backgroundViewBottomConstraint.constant = -CGRectGetHeight(self.backgroundView.frame);
+    self.viewState = VS_Animating;
+    NSTimeInterval duration = animation ? kAnimationDuration : 0;
     [self hideMoreMenu];
-    self.tag = 0;
-    if (animation) {
-        if (self.callBarWillHideWithDurationBlock) {
-            self.callBarWillHideWithDurationBlock(kAnimationDuration);
-        }
-        [UIView animateWithDuration:kAnimationDuration
-                         animations:^{
-                             
-                             self.alpha = 0;
-                             [self layoutIfNeeded];
-                         } completion:^(BOOL finished) {
-                             
-                             if (completion && finished) {
-                                 completion();
-                             }
-                         }];
+    [self resetHideTimer];
+    
+    if (self.callBarWillShowWithDurationBlock) {
+        self.callBarWillShowWithDurationBlock(duration);
     }
-    else {
-        if (self.callBarWillHideWithDurationBlock) {
-            self.callBarWillHideWithDurationBlock(0);
-        }
-    }
+    
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         
+                         self.backgroundViewBottomConstraint.constant = -CGRectGetHeight(self.backgroundView.frame);
+                         self.alpha = 0;
+                         [self layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         
+                         self.viewState = VS_Closed;
+                         if (completion && finished) {
+                             completion();
+                         }
+                     }];
 }
 
 - (void)showMoreMenu {
