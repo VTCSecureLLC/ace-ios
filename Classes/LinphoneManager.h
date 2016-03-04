@@ -287,6 +287,8 @@ typedef struct _LinphoneManagerSounds {
 
 - (void)disableSpeaker;
 
+- (void)switchCamera;
+
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;

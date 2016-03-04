@@ -2205,6 +2205,32 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
 }
 
+- (void)switchCamera {
+    
+    const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+    const char **cameras = linphone_core_get_video_devices([LinphoneManager getLc]);
+    const char *newCamId = NULL;
+    int i;
+    
+    for (i = 0; cameras[i] != NULL; ++i) {
+        if (strcmp(cameras[i], "StaticImage: Static picture") == 0)
+            continue;
+        if (strcmp(cameras[i], currentCamId) != 0) {
+            newCamId = cameras[i];
+            break;
+        }
+    }
+    if (newCamId) {
+        LOGI(@"Switching from [%s] to [%s]", currentCamId, newCamId);
+        linphone_core_set_video_device([LinphoneManager getLc], newCamId);
+        LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+        if (call != NULL) {
+            // Liz E. - OK - this is currently the way to update for a device change.
+            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+        }
+    }
+}
+
 #pragma mark - Property Functions
 
 - (void)setPushNotificationToken:(NSData *)apushNotificationToken {

@@ -490,7 +490,6 @@
     }
 }
 
-
 - (void)showMoreMenu {
     
     self.moreMenuContainer.hidden = NO;
@@ -607,7 +606,6 @@
     
 }
 
-
 - (void)showInCallNewCallView {
     
     self.inCallNewCallView.hidden = NO;
@@ -618,7 +616,6 @@
                          [self.view layoutIfNeeded];
                      }];
 }
-
 
 - (void)hideInCallNewCallView {
         [UIView animateWithDuration:1.f
@@ -651,9 +648,9 @@
     self.inCallNewCallNotificationView.notificationViewActionBlock = ^(UIButton *sender) {
         
     };
-    
 }
 
+// TODO: Create separated logic for call bar
 #pragma mark - Actions Methods
 - (IBAction)videoButtonAction:(IncallButton *)sender {
 
@@ -738,6 +735,7 @@
 
 - (IBAction)switchCameraButtonAction:(UIButton *)sender {
     
+    [[LinphoneManager instance] switchCamera];
     [self updateBottomButtonsTimer];
 }
 
@@ -745,7 +743,6 @@
     
     [self updateBottomButtonsTimer];
 }
-
 
 - (void)dealloc {
     [self.bottomButtonsAnimationTimer invalidate];
