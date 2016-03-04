@@ -277,6 +277,8 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
     [self copyDefaultSettings];
     [self overrideDefaultSettings];
     
+    
+    
     // set default values for first boot
     if ([self lpConfigStringForKey:@"debugenable_preference"] == nil) {
 #ifdef DEBUG
@@ -1593,6 +1595,8 @@ void configH264HardwareAcell(bool encode, bool decode){
 	/*call iterate once immediately in order to initiate background connections with sip server or remote provisioning
 	 * grab, if any */
 	linphone_core_iterate(theLinphoneCore);
+    NSString *friendListFilePath = [LinphoneManager documentFile:kLinphoneInternalFriendListDBFilename];
+    linphone_core_set_friends_database_path(theLinphoneCore, [friendListFilePath UTF8String]);
 	// start scheduler
 	mIterateTimer =
 		[NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(iterate) userInfo:nil repeats:YES];
