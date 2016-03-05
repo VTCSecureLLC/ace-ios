@@ -8,7 +8,9 @@
 
 #import "SecondIncomingCallBarView.h"
 
+
 #define kAnimationDuration 0.5f
+
 
 @interface SecondIncomingCallBarView ()
 
@@ -20,7 +22,19 @@
 
 @end
 
+
 @implementation SecondIncomingCallBarView
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self hideWithAnimation:NO completion:nil];
+    }
+    
+    return self;
+}
+
 
 #pragma mark - Private Methods
 - (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion {
@@ -34,6 +48,7 @@
                          animations:^{
                              self.backgroundViewBottomConstraint.constant = 0;
                              [self layoutIfNeeded];
+                             
                          } completion:^(BOOL finished) {
                              
                              self.viewState = VS_Opened;
@@ -43,7 +58,6 @@
                          }];
     }
     else {
-        
         [self layoutIfNeeded];
     }
 }
@@ -54,11 +68,11 @@
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
     
     if (animation) {
-        
         [UIView animateWithDuration:duration
                          animations:^{
                              self.backgroundViewBottomConstraint.constant = -CGRectGetHeight(self.backgroundView.frame);
                              [self layoutIfNeeded];
+                             
                          } completion:^(BOOL finished) {
                              
                              self.alpha = 0;
@@ -69,7 +83,6 @@
                          }];
     }
     else {
-        
         [self layoutIfNeeded];
     }
 }
@@ -78,25 +91,23 @@
 #pragma mark - Action Methods
 - (IBAction)messageButtonAction:(UIButton *)sender {
     
-    __weak UIButton *weakSender = sender;
     if (self.messageButtonBlock) {
-        self.messageButtonBlock(weakSender);
+        self.messageButtonBlock(_linphoneCall);
     }
 }
 
 - (IBAction)declineButtonAction:(UIButton *)sender {
     
-    __weak UIButton *weakSender = sender;
     if (self.declineButtonBlock) {
-        self.declineButtonBlock(weakSender);
+        self.declineButtonBlock(_linphoneCall);
     }
 }
 
 - (IBAction)acceptButtonAction:(UIButton *)sender {
     
-    __weak UIButton *weakSender = sender;
     if (self.acceptButtonBlock) {
-        self.acceptButtonBlock(weakSender);
+        self.acceptButtonBlock(_linphoneCall);
     }
 }
+
 @end

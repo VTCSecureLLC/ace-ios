@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="height" constant="203" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
                                 <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

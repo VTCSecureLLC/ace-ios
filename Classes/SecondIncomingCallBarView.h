@@ -8,13 +8,15 @@
 
 #import "BaseView.h"
 #import "InCallViewConstants.h"
+#import "LinphoneManager.h"
+
 
 /**
  *  @brief Callback for view's buttons
  *
  *  @param sender Pressed button
  */
-typedef void (^ButtonActionCallback)(UIButton *sender);
+typedef void (^ButtonActionCallback)(LinphoneCall *linphoneCall);
 
 @interface SecondIncomingCallBarView : BaseView
 
@@ -22,6 +24,7 @@ typedef void (^ButtonActionCallback)(UIButton *sender);
 @property (nonatomic, copy) ButtonActionCallback declineButtonBlock;
 @property (nonatomic, copy) ButtonActionCallback acceptButtonBlock;
 @property (nonatomic, assign) ViewState viewState;
+@property (nonatomic, assign) LinphoneCall *linphoneCall;
 
 
 /**

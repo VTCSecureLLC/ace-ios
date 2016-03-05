@@ -168,8 +168,8 @@
     
     [self resetHideTimer];
     
-    if (self.videoButtonActionBlock) {
-        self.videoButtonActionBlock(sender);
+    if (self.videoButtonActionHandler) {
+        self.videoButtonActionHandler(sender);
     }
     
 }
@@ -178,8 +178,8 @@
     
     [self resetHideTimer];
     
-    if (self.voiceButtonActionBlock) {
-        self.voiceButtonActionBlock(sender);
+    if (self.voiceButtonActionHandler) {
+        self.voiceButtonActionHandler(sender);
     }
 }
 
@@ -187,8 +187,8 @@
     
     [self resetHideTimer];
     
-    if (self.keypadButtonActionBlock) {
-        self.keypadButtonActionBlock(sender);
+    if (self.keypadButtonActionHandler) {
+        self.keypadButtonActionHandler(sender);
     }
 }
 
@@ -196,8 +196,8 @@
     
     [self resetHideTimer];
     
-    if (self.soundButtonActionBlock) {
-        self.soundButtonActionBlock(sender);
+    if (self.soundButtonActionHandler) {
+        self.soundButtonActionHandler(sender);
     }
 }
 
@@ -216,8 +216,8 @@
         [self hideMoreMenu];
     }
     
-    if (self.moreButtonActionBlock) {
-        self.moreButtonActionBlock(sender);
+    if (self.moreButtonActionHandler) {
+        self.moreButtonActionHandler(sender);
     }
 }
 
@@ -225,8 +225,8 @@
     
     [self resetHideTimer];
     
-    if (self.switchCameraButtonActionBlock) {
-        self.switchCameraButtonActionBlock(sender);
+    if (self.switchCameraButtonActionHandler) {
+        self.switchCameraButtonActionHandler(sender);
     }
 }
 
@@ -234,15 +234,15 @@
     
     [self resetHideTimer];
     
-    if (self.changeVideoLayoutButtonActionBlock) {
-        self.changeVideoLayoutButtonActionBlock(sender);
+    if (self.changeVideoLayoutButtonActionHandler) {
+        self.changeVideoLayoutButtonActionHandler(sender);
     }
 }
 
 - (IBAction)endCallButtonAction:(UIButton *)sender {
     
-    if (self.endCallButtonActionBlock) {
-        self.endCallButtonActionBlock(sender);
+    if (self.endCallButtonActionHandler) {
+        self.endCallButtonActionHandler(sender);
     }
 }
 
