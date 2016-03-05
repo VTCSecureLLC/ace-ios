@@ -135,10 +135,11 @@
 - (void)animateBackgroundColor {
     
     CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    theAnimation.duration = 1.f;
+    theAnimation.duration = 0.8f;
     theAnimation.repeatCount = HUGE_VAL;
     theAnimation.autoreverses = YES;
-    theAnimation.toValue = (id)[UIColor colorWithRed:0.9255 green:0.5412 blue:0.1569 alpha:1.0].CGColor;
+    
+    theAnimation.toValue = (id)[UIColor colorWithRed:1 green:0.7 blue:0 alpha:1].CGColor;
     [self.backgroundView.layer addAnimation:theAnimation forKey:@"animateBackground"];
 }
 
