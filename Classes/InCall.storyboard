@@ -27,7 +27,7 @@
                                 </connections>
                             </view>
                             <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
-                                <rect key="frame" x="243" y="519" width="96" height="128"/>
+                                <rect key="frame" x="243" y="379" width="96" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
                                     <bool key="isElement" value="YES"/>
@@ -71,7 +71,7 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="KRJ-9x-ZsP"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="M2W-4K-MAV"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="20" id="M6j-lE-fXg"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="160" id="M6j-lE-fXg"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
