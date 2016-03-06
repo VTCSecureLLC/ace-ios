@@ -2,8 +2,8 @@
 //  BaseView.m
 //  PTO
 //
-//  Created by Misha Torosyan on 12/2/15.
-//  Copyright © 2015 WeDoApps. All rights reserved.
+//  Created by Ruben Semerjyan on 12/2/15.
+//  Copyright © 2015 VTCSecure. All rights reserved.
 //
 
 #import "BaseView.h"
