@@ -42,7 +42,8 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 @property (nonatomic, assign, getter=isKeypadButtonSelected) BOOL keypadButtonSelected;
 @property (nonatomic, assign, getter=isSoundButtonSelected) BOOL soundButtonSelected;
 @property (nonatomic, assign, getter=isMoreButtonSelected) BOOL moreButtonSelected;
-@property (nonatomic, assign) NSTimeInterval hideAfterDelay;
+// NOTICE: [Gagik] Hiding automatic bar closing 
+//@property (nonatomic, assign) NSTimeInterval hideAfterDelay;
 @property (nonatomic, assign) ViewState viewState;
 
 /**
@@ -64,6 +65,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 /**
  *  @brief Resets timer which hides the view with animation
  */
-- (void)resetHideTimer;
+// Automatic hiding
+//- (void)resetHideTimer;
 
 @end

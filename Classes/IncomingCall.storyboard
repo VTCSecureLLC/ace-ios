@@ -211,7 +211,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.35686274509999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.45490196078431372" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="iTO-Qt-A5F" firstAttribute="width" secondItem="rcY-hY-vFt" secondAttribute="width" id="0yA-W0-bdL"/>
                                     <constraint firstItem="rcY-hY-vFt" firstAttribute="top" secondItem="fby-oD-8ED" secondAttribute="bottom" constant="15" id="0yb-MI-Kp7"/>

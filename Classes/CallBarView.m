@@ -24,7 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (weak, nonatomic) IBOutlet UIButton *switchCameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeVideoLayoutButton;
-@property (nonatomic, strong) NSTimer *hideTimer;
+
+// Automatic hiding
+//@property (nonatomic, strong) NSTimer *hideTimer;
 
 @end
 
@@ -42,8 +44,9 @@
 
 - (void)dealloc {
     
-    [self.hideTimer invalidate];
-    self.hideTimer = nil;
+    // Automatic hiding
+//    [self.hideTimer invalidate];
+//    self.hideTimer = nil;
 }
 
 
@@ -59,33 +62,36 @@
 
 
 #pragma mark - Hide Timer
-- (void)startHideTimerWithDelay:(NSTimeInterval)delay {
-    
-    if (delay > 0) {
-        
-        [self.hideTimer invalidate];
-        self.hideTimer = nil;
-        
-        _hideTimer = [NSTimer scheduledTimerWithTimeInterval:delay
-                                                      target:self
-                                                    selector:@selector(hideTimerHandler:)
-                                                    userInfo:nil
-                                                     repeats:NO];
-    }
-}
+// Automatic hiding
+//- (void)startHideTimerWithDelay:(NSTimeInterval)delay {
+//    
+//    if (delay > 0) {
+//        
+//        [self.hideTimer invalidate];
+//        self.hideTimer = nil;
+//        
+//        _hideTimer = [NSTimer scheduledTimerWithTimeInterval:delay
+//                                                      target:self
+//                                                    selector:@selector(hideTimerHandler:)
+//                                                    userInfo:nil
+//                                                     repeats:NO];
+//    }
+//}
 
-- (void)hideTimerHandler:(NSTimer *)timer {
-    
-    [self hideWithAnimation:YES completion:nil];
-    [self.hideTimer invalidate];
-    self.hideTimer = nil;
-}
+// Automatic hiding
+//- (void)hideTimerHandler:(NSTimer *)timer {
+//    
+//    [self hideWithAnimation:YES completion:nil];
+//    [self.hideTimer invalidate];
+//    self.hideTimer = nil;
+//}
 
-//Resets timer which hides the view with animation
-- (void)resetHideTimer {
-    
-    [self startHideTimerWithDelay:self.hideAfterDelay];
-}
+// Automatic hiding
+////Resets timer which hides the view with animation
+//- (void)resetHideTimer {
+//    
+//    [self startHideTimerWithDelay:self.hideAfterDelay];
+//}
 
 #pragma mark - Animations
 //Showes view
@@ -93,7 +99,8 @@
     
     self.viewState = VS_Animating;
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
-    [self resetHideTimer];
+// Automatic hiding
+//    [self resetHideTimer];
     
     if (self.callBarWillShowWithDurationBlock) {
         self.callBarWillShowWithDurationBlock(duration);
@@ -144,10 +151,12 @@
     
     self.moreMenuContainer.hidden = NO;
     self.moreMenuContainer.tag = 1;
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     [UIView animateWithDuration:kAnimationDuration
                      animations:^{
                          self.moreMenuContainer.alpha = 1;
+                         [self.moreButton setSelected:YES];
                      }];
 }
 
@@ -166,7 +175,8 @@
 #pragma mark - Action methods
 - (IBAction)videoButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+// Automatic hiding
+//    [self resetHideTimer];
     
     if (self.videoButtonActionHandler) {
         self.videoButtonActionHandler(sender);
@@ -176,7 +186,8 @@
 
 - (IBAction)voiceButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.voiceButtonActionHandler) {
         self.voiceButtonActionHandler(sender);
@@ -185,7 +196,8 @@
 
 - (IBAction)keypadButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.keypadButtonActionHandler) {
         self.keypadButtonActionHandler(sender);
@@ -194,7 +206,8 @@
 
 - (IBAction)soundButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.soundButtonActionHandler) {
         self.soundButtonActionHandler(sender);
@@ -203,9 +216,8 @@
 
 - (IBAction)moreButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
-    
-    [sender setSelected:!sender.selected];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.moreMenuContainer.tag == 0) {
         
@@ -223,7 +235,8 @@
 
 - (IBAction)switchCameraButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.switchCameraButtonActionHandler) {
         self.switchCameraButtonActionHandler(sender);
@@ -232,7 +245,8 @@
 
 - (IBAction)changeVideoLayoutButtonAction:(UIButton *)sender {
     
-    [self resetHideTimer];
+    // Automatic hiding
+//    [self resetHideTimer];
     
     if (self.changeVideoLayoutButtonActionHandler) {
         self.changeVideoLayoutButtonActionHandler(sender);
@@ -248,12 +262,13 @@
 
 
 #pragma mark - Setters/Getters
-- (void)setHideAfterDelay:(NSTimeInterval)hideAfterDelay {
-    
-    _hideAfterDelay = hideAfterDelay;
-    
-    [self resetHideTimer];
-}
+// Automatic hiding
+//- (void)setHideAfterDelay:(NSTimeInterval)hideAfterDelay {
+//    
+//    _hideAfterDelay = hideAfterDelay;
+//    
+//    [self resetHideTimer];
+//}
 
 - (void)setVideoButtonSelected:(BOOL)videoButtonSelected {
     

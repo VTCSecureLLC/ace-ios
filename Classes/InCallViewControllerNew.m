@@ -118,6 +118,193 @@
 
 
 #pragma mark - Private Methods
+- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
+    
+    //    LinphoneCore *lc = [LinphoneManager getLc];
+    //    if (hiddenVolume) {
+    //        [[PhoneMainView instance] setVolumeHidden:FALSE];
+    //        hiddenVolume = FALSE;
+    //    }
+    //
+    //    // Update table
+    //    [callTableView reloadData];
+    //
+    //    // Fake call update
+    //    if (call == NULL) {
+    //        return;
+    //    }
+    //
+    //    if(state == LinphoneCallPausedByRemote){
+    //        UIImage *img = [UIImage imageNamed:@"Hold.png"];
+    //        callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
+    //        [callOnHoldImageView setCenter:self.videoView.center];
+    //        [callOnHoldImageView setHidden:NO];
+    //        [callOnHoldImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    //        [self.view addSubview:callOnHoldImageView];
+    //        [self.videoView setHidden:YES];
+    //    }
+    //    else{
+    //        if(callOnHoldImageView){
+    //            [callOnHoldImageView removeFromSuperview];
+    //        }
+    //        [self.videoView setHidden:NO];
+    //    }
+    
+    
+    switch (state) {
+        case LinphoneCallIdle: {
+            
+            NSAssert(0, @"LinphoneCallIdle: Just need to check this state");
+            break;
+        }
+        case LinphoneCallIncomingReceived: {
+            
+            [self incomingReceivedWithCall:call];
+            // This is second call
+            //            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingInit: {
+            
+            //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingProgress: {
+            
+            //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingRinging: {
+            
+            //            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
+            break;
+        }
+        case LinphoneCallOutgoingEarlyMedia: {
+            
+            NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
+            break;
+        }
+        case LinphoneCallConnected: {
+            
+            //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
+            break;
+        }
+        case LinphoneCallStreamsRunning: {
+            
+            //            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
+            break;
+        }
+        case LinphoneCallPausing: {
+            
+            //            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
+            break;
+        }
+        case LinphoneCallPaused: {
+            
+            //            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
+            break;
+        }
+        case LinphoneCallResuming: {
+            
+            //            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
+            break;
+        }
+        case LinphoneCallRefered: {
+            
+            NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
+            break;
+        }
+        case LinphoneCallError: {
+            
+            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            break;
+        }
+        case LinphoneCallEnd: {
+            
+            NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callsCount == 0) {
+                [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            }
+            else {
+                [[LinphoneManager instance] declineCall:call];
+            }
+            break;
+        }
+        case LinphoneCallPausedByRemote: {
+            
+            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
+            break;
+        }
+        case LinphoneCallUpdatedByRemote: {
+            
+            //            NSAssert(0, @"LinphoneCallUpdatedByRemote: Just need to check this state");
+            break;
+        }
+        case LinphoneCallIncomingEarlyMedia: {
+            
+            NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
+            break;
+        }
+        case LinphoneCallUpdating: {
+            
+            //            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
+            break;
+        }
+        case LinphoneCallReleased: {
+            
+            [self hideSecondIncomingCallUI];
+            
+            //            NSAssert(0, @"LinphoneCallReleased: Just need to check this state");
+            break;
+        }
+        case LinphoneCallEarlyUpdatedByRemote: {
+            
+            NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
+            break;
+        }
+        case LinphoneCallEarlyUpdating: {
+            
+            NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
+            break;
+        }
+        default:
+            break;
+    }
+    
+    [self setupVideoButtonState];
+    [self setupMicriphoneButtonState];
+    [self setupSpeakerButtonState];
+    
+    //    switch (state) {
+    //        case LinphoneCallIncomingReceived:
+    //        case LinphoneCallOutgoingInit: {
+    //            [self callOutgoingInit];
+    //        }
+    //        case LinphoneCallConnected:
+    //        case LinphoneCallStreamsRunning: {
+    //            [self callStreamsRunning];
+    //            break;
+    //        }
+    //        case LinphoneCallUpdatedByRemote: {
+    //            [self callUpdatedByRemote];
+    //            break;
+    //        }
+    //        case LinphoneCallPausing:
+    //        case LinphoneCallPaused:
+    //        case LinphoneCallPausedByRemote: {
+    //            [self callPausedByRemote];
+    //            break;
+    //        }
+    //        case LinphoneCallEnd:
+    //        case LinphoneCallError: {
+    //            [self callError];
+    //            break;
+    //        }
+    //        default:
+    //            break;
+    //    }
+}
+
 - (void)setupNotifications {
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -269,196 +456,10 @@
 //    callQualityImageView.hidden = YES;
 }
 
-- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
-    
-//    LinphoneCore *lc = [LinphoneManager getLc];
-//    if (hiddenVolume) {
-//        [[PhoneMainView instance] setVolumeHidden:FALSE];
-//        hiddenVolume = FALSE;
-//    }
-//    
-//    // Update table
-//    [callTableView reloadData];
-//    
-//    // Fake call update
-//    if (call == NULL) {
-//        return;
-//    }
-//    
-//    if(state == LinphoneCallPausedByRemote){
-//        UIImage *img = [UIImage imageNamed:@"Hold.png"];
-//        callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
-//        [callOnHoldImageView setCenter:self.videoView.center];
-//        [callOnHoldImageView setHidden:NO];
-//        [callOnHoldImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-//        [self.view addSubview:callOnHoldImageView];
-//        [self.videoView setHidden:YES];
-//    }
-//    else{
-//        if(callOnHoldImageView){
-//            [callOnHoldImageView removeFromSuperview];
-//        }
-//        [self.videoView setHidden:NO];
-//    }
-    
-    
-    switch (state) {
-        case LinphoneCallIdle: {
-            
-            NSAssert(0, @"LinphoneCallIdle: Just need to check this state");
-            break;
-        }
-        case LinphoneCallIncomingReceived: {
-            
-            [self incomingReceivedWithCall:call];
-            // This is second call
-//            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
-            break;
-        }
-        case LinphoneCallOutgoingInit: {
-            
-//            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
-            break;
-        }
-        case LinphoneCallOutgoingProgress: {
-            
-//            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
-            break;
-        }
-        case LinphoneCallOutgoingRinging: {
-            
-//            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
-            break;
-        }
-        case LinphoneCallOutgoingEarlyMedia: {
-            
-            NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
-            break;
-        }
-        case LinphoneCallConnected: {
-            
-//            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
-            break;
-        }
-        case LinphoneCallStreamsRunning: {
-            
-//            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
-            break;
-        }
-        case LinphoneCallPausing: {
-            
-//            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
-            break;
-        }
-        case LinphoneCallPaused: {
-            
-//            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
-            break;
-        }
-        case LinphoneCallResuming: {
-            
-//            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
-            break;
-        }
-        case LinphoneCallRefered: {
-            
-            NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
-            break;
-        }
-        case LinphoneCallError: {
-            
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
-            break;
-        }
-        case LinphoneCallEnd: {
-            
-            NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
-            if (callsCount == 0) {
-                [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
-            }
-            else {
-                [[LinphoneManager instance] declineCall:call];
-            }
-            break;
-        }
-        case LinphoneCallPausedByRemote: {
-            
-            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
-            break;
-        }
-        case LinphoneCallUpdatedByRemote: {
-            
-//            NSAssert(0, @"LinphoneCallUpdatedByRemote: Just need to check this state");
-            break;
-        }
-        case LinphoneCallIncomingEarlyMedia: {
-            
-            NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
-            break;
-        }
-        case LinphoneCallUpdating: {
-            
-//            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
-            break;
-        }
-        case LinphoneCallReleased: {
-            
-            [self hideSecondIncomingCallUI];
-            
-//            NSAssert(0, @"LinphoneCallReleased: Just need to check this state");
-            break;
-        }
-        case LinphoneCallEarlyUpdatedByRemote: {
-            
-            NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
-            break;
-        }
-        case LinphoneCallEarlyUpdating: {
-            
-            NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
-            break;
-        }
-        default:
-            break;
-    }
-    
-    [self setupVideoButtonState];
-    [self setupMicriphoneButtonState];
-    [self setupSpeakerButtonState];
-    
-//    switch (state) {
-//        case LinphoneCallIncomingReceived:
-//        case LinphoneCallOutgoingInit: {
-//            [self callOutgoingInit];
-//        }
-//        case LinphoneCallConnected:
-//        case LinphoneCallStreamsRunning: {
-//            [self callStreamsRunning];
-//            break;
-//        }
-//        case LinphoneCallUpdatedByRemote: {
-//            [self callUpdatedByRemote];
-//            break;
-//        }
-//        case LinphoneCallPausing:
-//        case LinphoneCallPaused:
-//        case LinphoneCallPausedByRemote: {
-//            [self callPausedByRemote];
-//            break;
-//        }
-//        case LinphoneCallEnd:
-//        case LinphoneCallError: {
-//            [self callError];
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-}
-
 - (void)setupCallBarView {
     
-    self.callBarView.hideAfterDelay = 3.f;
+    // Automatic hiding
+//    self.callBarView.hideAfterDelay = 3.f;
     __weak InCallViewControllerNew *weakSelf = self;
     
     self.callBarView.callBarWillHideWithDurationBlock = ^(NSTimeInterval duration) {
@@ -545,11 +546,11 @@
     
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         
-        self.callBarView.videoButtonSelected = YES;
+        self.callBarView.videoButtonSelected = NO;
     }
     else {
         
-        self.callBarView.videoButtonSelected = NO;
+        self.callBarView.videoButtonSelected = YES;
     }
 }
 
@@ -570,11 +571,11 @@
     
     if ([[LinphoneManager instance] isMicrophoneEnabled]) {
         
-        self.callBarView.voiceButtonSelected = YES;
+        self.callBarView.voiceButtonSelected = NO;
     }
     else {
         
-        self.callBarView.voiceButtonSelected = NO;
+        self.callBarView.voiceButtonSelected = YES;
     }
 }
 
@@ -593,11 +594,11 @@
     
     if ([[LinphoneManager instance] isSpeakerEnabled]) {
         
-        self.callBarView.soundButtonSelected = YES;
+        self.callBarView.soundButtonSelected = NO;
     }
     else {
         
-        self.callBarView.soundButtonSelected = NO;
+        self.callBarView.soundButtonSelected = YES;
     }
 }
 
