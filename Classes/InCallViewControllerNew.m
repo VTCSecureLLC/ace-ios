@@ -28,8 +28,8 @@
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
-
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
 
 @end
 
@@ -107,15 +107,14 @@
 
 - (void)videoModeUpdate:(NSNotification *)notification {
     
-//    NSString *videoMode = [notification.userInfo objectForKey: @"videoModeStatus"];
-//    if ([videoMode isEqualToString:@"camera_mute_off"]) {
-//        [_cameraStatusModeImageView setImage:[UIImage imageNamed:@"camera_mute.png"]];
-//        [_blackCurtain addSubview:_cameraStatusModeImageView];
-//        [self.videoGroup insertSubview:_blackCurtain belowSubview:self.videoPreview];
-//    }
-//    if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
-//        [_blackCurtain removeFromSuperview];
-//    }
+    NSString *videoMode = [notification.userInfo objectForKey: @"videoModeStatus"];
+    if ([videoMode isEqualToString:@"camera_mute_off"]) {
+        _cameraImageView.hidden = YES;
+    }
+    
+    if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
+        _cameraImageView.hidden = NO;
+    }
 }
 
 
