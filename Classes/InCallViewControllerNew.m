@@ -378,6 +378,7 @@
     self.secondIncomingCallBarView.linphoneCall = call;
     [self.secondIncomingCallBarView showWithAnimation:YES completion:nil];
     [self.secondIncomingCallView showNotificationWithAnimation:YES completion:nil];
+    [self.secondIncomingCallView fillWithCallModel:call];
 }
 
 - (void)hideSecondIncomingCallUI {

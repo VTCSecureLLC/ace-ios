@@ -17,10 +17,10 @@
  */
 typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
 
+
 @interface SecondIncomingCallView : BaseView
 
 @property (nonatomic, assign) ViewState viewState;
-
 @property (nonatomic, copy) NotificationActionCallback notificationViewActionBlock;
 
 /**
