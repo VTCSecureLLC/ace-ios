@@ -1331,12 +1331,12 @@ BOOL didChatResize = NO;
     RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
     
     if ([msg.msgString isEqualToString:@"\n"] || [msg.msgString isEqualToString:@""]) {
-        return 17;
+        return [UIFont systemFontSize] + 4.0f;
     } else {
         
         size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - 30.0f, CGFLOAT_MAX)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:[UIFont systemFontSize] + 4.0f]}
                                                  context:nil].size;
     }
     return size.height;
@@ -1366,6 +1366,8 @@ BOOL didChatResize = NO;
     }
     
     if (msg.msgString.length > 1) {
+        [cell.textLabel setAdjustsFontSizeToFitWidth:NO];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:[UIFont systemFontSize] + 4]];
         NSString *firstCharacter = [msg.msgString substringToIndex:1];
         NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
         if ([firstCharacter isEqualToString:@"\n"]) {
