@@ -19,6 +19,13 @@
 
 #define kBottomButtonsAnimationDuration 0.3f
 
+typedef NS_ENUM(NSInteger, CallQualityStatus) {
+    CallQualityStatusBad,
+    CallQualityStatusMedium,
+    CallQualityStatusGood,
+    CallQualityStatusNone
+};
+
 @interface InCallViewControllerNew ()
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
@@ -31,6 +38,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
+
+// Call Quality
+@property (weak, nonatomic) IBOutlet UIImageView *qualityImageView;
+@property (strong, nonatomic) NSTimer *callQualityTimer;
+
 
 @end
 
@@ -166,7 +178,7 @@
             // Show first call in hold view
             
             [self checkHoldCall];
-            
+            [self showQualityIndicator];
             break;
         }
         case LinphoneCallPausing: {
@@ -508,6 +520,40 @@
                          weakSelf.videoPreviewViewBottomConstraint.constant = 160;
                          [weakSelf.view layoutIfNeeded];
                      }];
+}
+
+// Call quality
+- (void)showQualityIndicator {
+    
+    _qualityImageView.hidden = NO;
+    _callQualityTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                        target:self
+                                                      selector:@selector(callQualityTimerBody)
+                                                      userInfo:nil
+                                                       repeats:YES];
+}
+
+- (void)hideQualityIndicator {
+    
+    _qualityImageView.hidden = YES;
+    [_callQualityTimer invalidate];
+    _callQualityTimer = nil;
+}
+
+- (void) callQualityTimerBody {
+    
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    CallQualityStatus quality = linphone_call_get_current_quality(call);
+    UIImage *image = nil;
+    if (quality <= CallQualityStatusBad) {
+        
+        image = [UIImage imageNamed:@"RTPquality_bad.png"];
+    } else if (quality >= CallQualityStatusMedium) {
+        
+        image = [UIImage imageNamed:@"RTPquality_medium.png"];
+    }
+    
+    [_qualityImageView setImage:image];
 }
 
 #pragma mark - Actions Methods

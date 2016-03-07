@@ -75,6 +75,10 @@
                                     <constraint firstAttribute="width" secondItem="opN-Qd-xDg" secondAttribute="height" multiplier="4:1" id="pYC-Vp-iuj"/>
                                 </constraints>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RTPquality_bad.png" translatesAutoresizingMaskIntoConstraints="NO" id="cga-Yh-tX1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="766-3n-CkP">
                                 <rect key="frame" x="67" y="270" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,13 +93,17 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="LoX-Pv-GJ2"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="160" id="M6j-lE-fXg"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="MLf-cV-I1W"/>
+                            <constraint firstAttribute="trailing" secondItem="cga-Yh-tX1" secondAttribute="trailing" id="Nz6-bD-xIl"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
+                            <constraint firstItem="cga-Yh-tX1" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="TAY-qR-uV5"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="V9t-fN-cCV"/>
+                            <constraint firstItem="cga-Yh-tX1" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="top" id="YBs-9A-qJe"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
                             <constraint firstAttribute="trailing" secondItem="opN-Qd-xDg" secondAttribute="trailing" constant="87" id="cR5-wT-mos"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cga-Yh-tX1" secondAttribute="bottom" id="eCm-Aa-LCH"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="eOL-Vh-Fc4"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstItem="opN-Qd-xDg" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="88" id="mNq-Id-jBo"/>
@@ -121,6 +129,7 @@
                         <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
+                        <outlet property="qualityImageView" destination="cga-Yh-tX1" id="9bs-mN-3lZ"/>
                         <outlet property="secondIncomingCallBarView" destination="0Fx-gY-047" id="VcJ-ds-GtW"/>
                         <outlet property="secondIncomingCallView" destination="Flh-2b-FH0" id="BNF-ya-rkF"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
@@ -140,6 +149,7 @@
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
+        <image name="RTPquality_bad.png" width="75" height="75"/>
         <image name="camera_mute.png" width="313" height="313"/>
     </resources>
 </document>
