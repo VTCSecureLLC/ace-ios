@@ -542,7 +542,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     _callQualityTimer = nil;
 }
 
-- (void) callQualityTimerBody {
+- (void)callQualityTimerBody {
     
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     if (call) {
@@ -551,9 +551,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         if (quality <= CallQualityStatusBad) {
             
             image = [UIImage imageNamed:@"RTPquality_bad.png"];
-        } else if (quality >= CallQualityStatusMedium) {
+        } else if (quality == CallQualityStatusMedium) {
             
             image = [UIImage imageNamed:@"RTPquality_medium.png"];
+        } else if (quality < CallQualityStatusMedium) {
+            
+            image = nil;
         }
         
         [_qualityImageView setImage:image];
