@@ -485,9 +485,8 @@
     
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
         
-        // TODO: Switch to second call
+        [self.inCallOnHoldView fillWithCallModel:[[LinphoneManager instance] currentCall]];
         [[LinphoneManager instance] resumeCall:call];
-        
     };
 }
 
