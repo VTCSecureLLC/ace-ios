@@ -57,13 +57,6 @@
     [self resetSpeakerWithSettings];
     [self resetMicrophoneWithSettings];
     [self setupVideo];
-    
-//    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
-//    LinphoneCallState linphoneCallState = 0;
-//    if (linphoneCall != NULL) {
-//        linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];
-//    }
-//    [self callUpdate:linphoneCall state:linphoneCallState animated:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -109,11 +102,11 @@
     
     NSString *videoMode = [notification.userInfo objectForKey: @"videoModeStatus"];
     if ([videoMode isEqualToString:@"camera_mute_off"]) {
-        _cameraImageView.hidden = YES;
+        _cameraImageView.hidden = NO;
     }
     
     if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
-        _cameraImageView.hidden = NO;
+        _cameraImageView.hidden = YES;
     }
 }
 
