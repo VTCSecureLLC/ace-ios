@@ -167,6 +167,7 @@ typedef struct _LinphoneManagerSounds {
 // Calls
 - (void)acceptCall:(LinphoneCall *)call;
 - (void)declineCall:(LinphoneCall *)call;
+- (void)resumeCall:(LinphoneCall *)call;
 - (void)call:(NSString *)address displayName:(NSString*)displayName transfer:(BOOL)transfer;
 
 /**

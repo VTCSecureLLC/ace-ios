@@ -1945,6 +1945,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
 
+- (void)resumeCall:(LinphoneCall *)call {
+    
+    linphone_core_resume_call(theLinphoneCore, call);
+}
+
 - (void)declineCall:(LinphoneCall *)call {
     
     linphone_core_terminate_call(theLinphoneCore, call);

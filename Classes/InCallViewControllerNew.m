@@ -172,7 +172,7 @@
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
-            [self checkHoldedCall];
+            [self checkHoldCall];
             
             break;
         }
@@ -206,10 +206,12 @@
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+                [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             }
             else {
                 [[LinphoneManager instance] declineCall:call];
             }
+            
             break;
         }
         case LinphoneCallPausedByRemote: {
@@ -256,11 +258,11 @@
     [self setupSpeakerButtonState];
 }
 
-- (void)checkHoldedCall {
+- (void)checkHoldCall {
     
-    LinphoneCall *holdedCall = [[LinphoneManager instance] holdCall];
-    if (holdedCall) {
-        [self.inCallOnHoldView fillWithCallModel:holdedCall];
+    LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
+    if (holdCall) {
+        [self.inCallOnHoldView fillWithCallModel:holdCall];
         [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
     }
 }
@@ -462,7 +464,9 @@
     
     self.secondIncomingCallBarView.acceptButtonBlock = ^(LinphoneCall *linphoneCall) {
         
+//        [[LinphoneManager instance] pauseCall:[[LinphoneManager instance] currentCall]];
         [[LinphoneManager instance] acceptCall:linphoneCall];
+        
         [self hideSecondIncomingCallUI];
     };
 }
@@ -483,6 +487,8 @@
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
         
         // TODO: Switch to second call
+        [[LinphoneManager instance] resumeCall:call];
+        
     };
 }
 
