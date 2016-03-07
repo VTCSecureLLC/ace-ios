@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-./prepare.py -d devices -G Ninja -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=NO -DENABLE_AMRNB=NO -DENABLE_OPENH264=YES -DENABLE_G729=NO -DENABLE_MPEG4=NO -DENABLE_H263P=NO --enable-non-free-codecs --enable-gpl-third-parties
+./prepare.py -d devices -G Ninja --enable-non-free-codecs --enable-gpl-third-parties -DENABLE_WEBRTC_AEC=ON -DENABLE_H263=YES -DENABLE_FFMPEG=YES -DENABLE_H263=YES -DENABLE_AMRWB=NO -DENABLE_AMRNB=NO -DENABLE_OPENH264=YES -DENABLE_G729=NO -DENABLE_MPEG4=NO -DENABLE_H263P=NO
 
 LOGFILE=/tmp/build_script.out
 
