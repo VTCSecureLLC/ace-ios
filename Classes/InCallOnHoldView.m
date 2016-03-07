@@ -7,6 +7,8 @@
 //
 
 #import "InCallOnHoldView.h"
+#import "LinphoneManager.h"
+
 
 #define kAnimationDuration 0.5f
 
@@ -15,46 +17,64 @@
 
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundViewLeadingConstraint;
-
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *callStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *holdTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-
 @property (nonatomic, assign) LinphoneCall *call;
+@property (nonatomic, strong) NSTimer *holdTimer;
+@property (nonatomic, strong) NSDate *holdDate;
 
 @end
 
+
 @implementation InCallOnHoldView
 
-#pragma mark - Private Methods
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+#pragma mark - Life Cycle
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    
     self = [super initWithCoder:coder];
     if (self) {
         [self setupView];
     }
+    
     return self;
 }
 
+
+#pragma mark - Private Methods
 - (void)setupView {
     
     self.profileImageView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
     self.profileImageView.layer.borderWidth = 1.f;
+    self.profileImageView.layer.masksToBounds = YES;
     self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    
 }
 
-//Filles notification data with LinphoneCall model
-- (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
-    //TODO: Fill with passed method's param
+- (NSString *)elapsedTime:(NSTimeInterval)time {
     
-    self.call = linphoneCall;
+    NSString *timeString = nil;
+    
+    NSInteger timeInterval = (NSInteger)fabs(time);
+    NSInteger seconds = timeInterval % 60;
+    NSInteger minutes = (timeInterval / 60) % 60;
+    NSInteger hours = (timeInterval / 3600);
+    if (hours > 0) {
+        timeString = [NSString stringWithFormat:@"%02li:%02li:%02li", (long)hours, (long)minutes, (long)seconds];
+    }
+    else {
+        timeString = [NSString stringWithFormat:@"%02li:%02li", (long)minutes, (long)seconds];
+    }
+    
+    return timeString;
 }
 
-#pragma mark - Action Methods
+- (void)holdTimerFired:(NSTimer *)timer {
+    
+    NSTimeInterval elapsedTime = [[NSDate new] timeIntervalSinceDate:_holdDate];
+    _timerLabel.text = [self elapsedTime:elapsedTime];
+}
 
 - (IBAction)holdViewAction:(UIButton *)sender {
     
@@ -63,11 +83,39 @@
     }
 }
 
-#pragma mark - Animations
-//Showes view
+
+#pragma mark - Instance Methods
+- (void)pause {
+    
+    _holdDate = [NSDate new];
+    _holdTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(holdTimerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
+}
+
+- (void)resume {
+    
+    _holdDate = nil;
+    [_holdTimer invalidate];
+    _holdTimer = nil;
+}
+
+- (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
+    
+    self.call = linphoneCall;
+    
+    [[LinphoneManager instance] fetchProfileImageWithCall:linphoneCall withCompletion:^(UIImage *image) {
+        
+        _profileImageView.image = image;
+    }];
+    _nameLabel.text = [[LinphoneManager instance] fetchAddressWithCall:linphoneCall];
+}
+
 - (void)showWithAnimation:(BOOL)animation
                 direction:(AnimationDirection)direction
-               completion:(void(^)())completion{
+               completion:(void(^)())completion {
     
     self.viewState = VS_Animating;
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
@@ -81,7 +129,10 @@
                                  
                                  self.backgroundViewLeadingConstraint.constant = 0;
                                  [self layoutIfNeeded];
+                                 
                              } completion:^(BOOL finished) {
+                                 
+                                 [self pause];
                                  self.viewState = VS_Opened;
                                  if (completion && finished) {
                                      completion();
@@ -98,7 +149,10 @@
                                  
                                  self.backgroundViewLeadingConstraint.constant = 0;
                                  [self layoutIfNeeded];
+                                 
                              } completion:^(BOOL finished) {
+                                 
+                                 [self pause];
                                  self.viewState = VS_Opened;
                                  if (completion && finished) {
                                      completion();
@@ -107,13 +161,11 @@
             break;
         }
     }
-    
 }
 
-//Hides view
 - (void)hideWithAnimation:(BOOL)animation
                 direction:(AnimationDirection)direction
-               completion:(void(^)())completion{
+               completion:(void(^)())completion {
     
     self.viewState = VS_Animating;
     NSTimeInterval duration = animation ? kAnimationDuration : 0;
@@ -124,9 +176,13 @@
             [UIView animateWithDuration:duration
                              animations:^{
                                  
+                                 
                                  self.backgroundViewLeadingConstraint.constant = CGRectGetWidth(self.frame);
                                  [self layoutIfNeeded];
+                                 
                              } completion:^(BOOL finished) {
+                                 
+                                 [self resume];
                                  self.alpha = 0;
                                  self.viewState = VS_Closed;
                                  if (completion && finished) {
@@ -142,7 +198,10 @@
                                  
                                  self.backgroundViewLeadingConstraint.constant = -CGRectGetWidth(self.frame);
                                  [self layoutIfNeeded];
+                                 
                              } completion:^(BOOL finished) {
+                                 
+                                 [self resume];
                                  self.alpha = 0;
                                  self.viewState = VS_Closed;
                                  if (completion && finished) {
@@ -152,18 +211,6 @@
             break;
         }
     }
-    
 }
-
-
-
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 @end
