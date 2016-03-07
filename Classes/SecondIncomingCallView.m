@@ -24,6 +24,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 @property (weak, nonatomic) IBOutlet UILabel *callStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
 @property (nonatomic, assign) LinphoneCall *call;
+@property (nonatomic, strong) NSTimer *ringsCountTimer;
 
 @end
 
@@ -44,6 +45,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 - (void)setupView {
     
     self.profileImageView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
+    self.profileImageView.layer.masksToBounds = YES;
     self.profileImageView.layer.borderWidth = 1.f;
     self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 }
@@ -175,4 +177,34 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
     }
 }
 
+- (void)displayIncrementedRingCount {
+    
+    self.ringCountLabel.hidden = NO;
+    self.ringCountLabel.hidden = NO;
+    [UIView transitionWithView:self.ringCountLabel
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
+                    }
+                    completion:nil];
+}
+
+- (void)startCalculatingRingsCount {
+    
+    self.ringsCountTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                            target:self
+                                                          selector:@selector(displayIncrementedRingCount)
+                                                          userInfo:nil
+                                                           repeats:YES];
+}
+
+- (void)stopAndResetRingsCount {
+    
+    self.ringCountLabel.text = @"0";
+    if (self.ringsCountTimer) {
+        [self.ringsCountTimer invalidate];
+        self.ringsCountTimer = nil;
+    }
+}
 @end
