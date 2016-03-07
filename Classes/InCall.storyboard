@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -65,6 +66,16 @@
                                     <constraint firstAttribute="height" constant="50" id="Dru-Ec-489"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hold.png" translatesAutoresizingMaskIntoConstraints="NO" id="opN-Qd-xDg">
+                                <rect key="frame" x="88" y="88" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="opN-Qd-xDg" secondAttribute="height" multiplier="4:1" id="pYC-Vp-iuj"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="766-3n-CkP">
+                                <rect key="frame" x="67" y="270" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -76,21 +87,30 @@
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="aJk-ah-JNv"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
+                            <constraint firstAttribute="trailing" secondItem="opN-Qd-xDg" secondAttribute="trailing" constant="87" id="cR5-wT-mos"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="eOL-Vh-Fc4"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="hBY-II-BXn"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="m5o-SA-nGW"/>
+                            <constraint firstItem="opN-Qd-xDg" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="88" id="mNq-Id-jBo"/>
                             <constraint firstItem="0Fx-gY-047" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="mef-gd-shX"/>
                             <constraint firstAttribute="trailing" secondItem="8w2-q5-8wx" secondAttribute="trailing" id="ncm-q6-dTx"/>
+                            <constraint firstItem="opN-Qd-xDg" firstAttribute="top" secondItem="Flh-2b-FH0" secondAttribute="bottom" constant="8" id="xec-3w-evK"/>
                             <constraint firstAttribute="trailing" secondItem="R3N-QA-id6" secondAttribute="trailing" id="ylk-jX-TCI"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="766-3n-CkP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="callBarView" destination="8w2-q5-8wx" id="nFw-Ou-ZkY"/>
+                        <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="secondIncomingCallBarView" destination="0Fx-gY-047" id="VcJ-ds-GtW"/>
@@ -110,4 +130,7 @@
             <point key="canvasLocation" x="254.5" y="-112.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Hold.png" width="400" height="100"/>
+    </resources>
 </document>

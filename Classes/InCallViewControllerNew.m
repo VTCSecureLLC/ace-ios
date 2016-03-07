@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 
+@property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
+
 @end
 
 
@@ -192,6 +194,7 @@
         case LinphoneCallStreamsRunning: {
             
             //            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
+            _holdByRemoteImageView.hidden = YES;
             break;
         }
         case LinphoneCallPausing: {
@@ -232,7 +235,8 @@
         }
         case LinphoneCallPausedByRemote: {
             
-            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
+            _holdByRemoteImageView.hidden = NO;
+//            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallUpdatedByRemote: {
