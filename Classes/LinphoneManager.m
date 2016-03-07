@@ -46,6 +46,7 @@
 #import "PhoneMainView.h"
 #import "SDPNegotiationService.h"
 #import "Utils.h"
+#import "UILinphone.h"
 
 #define LINPHONE_LOGS_MAX_ENTRY 5000
 
@@ -2230,6 +2231,80 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         }
     }
 }
+
+- (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion {
+    
+    __block UIImage *image = [UIImage imageNamed:@"avatar_unknown.png"];
+    
+    const LinphoneAddress *address = linphone_call_get_remote_address(linphoneCall);
+    if (address != NULL) {
+        
+        char *lAddress = linphone_address_as_string_uri_only(address);
+        if (lAddress) {
+            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
+            ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+            if (contact) {
+                UIImage *tmpImage = [FastAddressBook getContactImage:contact thumbnail:false];
+                if (tmpImage != nil) {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, (unsigned long)NULL),
+                                   ^(void) {
+                                       image = [UIImage decodedImageWithImage:tmpImage];
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           completion(image);
+                                       });
+                                   });
+                }
+                else {
+                    completion(image);
+                }
+            }
+            else {
+                completion(image);
+            }
+            ms_free(lAddress);
+        }
+        else {
+            completion(image);
+        }
+    }
+    else {
+        completion(image);
+    }
+}
+
+- (NSString *)fetchAddressWithCall:(LinphoneCall *)linphoneCall {
+    
+    NSString *address = @"Unknown";
+    const LinphoneAddress *addr = linphone_call_get_remote_address(linphoneCall);
+    if (addr != NULL) {
+        BOOL useLinphoneAddress = true;
+        // contact name
+        char *lAddress = linphone_address_as_string_uri_only(addr);
+        if (lAddress) {
+            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
+            ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+            if (contact) {
+                address = [FastAddressBook getContactDisplayName:contact];
+                useLinphoneAddress = false;
+            }
+            ms_free(lAddress);
+        }
+        
+        if (useLinphoneAddress) {
+            const char *lDisplayName = linphone_address_get_display_name(addr);
+            const char *lUserName = linphone_address_get_username(addr);
+            if (lDisplayName) {
+                address = [NSString stringWithUTF8String:lDisplayName];
+            }
+            else if (lUserName) {
+                address = [NSString stringWithUTF8String:lUserName];
+            }
+        }
+    }
+
+    return address;
+}
+
 
 #pragma mark - Property Functions
 

@@ -7,31 +7,31 @@
 //
 
 #import "SecondIncomingCallView.h"
+#import "LinphoneManager.h"
+#import "UILinphone.h"
+
 
 #define kAnimationDuration 0.5f
-
 static NSString *BackgroundAnimationKey = @"animateBackground";
+
 
 @interface SecondIncomingCallView ()
 
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundViewTopConstraint;
-
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *callStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
-
 @property (nonatomic, assign) LinphoneCall *call;
 
 @end
 
+
 @implementation SecondIncomingCallView
 
-#pragma mark - Private Methods
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+#pragma mark - Life Cycle
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self setupView];
@@ -39,6 +39,8 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
     return self;
 }
 
+
+#pragma mark - Private Methods
 - (void)setupView {
     
     self.profileImageView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
@@ -46,15 +48,69 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
     self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
-//Filles notification data with LinphoneCall model
-- (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
-    //TODO: Fill with passed method's param
+- (void)startBackgroundColorAnimation {
     
-    self.call = linphoneCall;
+    CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    theAnimation.duration = 0.7f;
+    theAnimation.repeatCount = HUGE_VAL;
+    theAnimation.autoreverses = YES;
+    theAnimation.toValue = (id)[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0].CGColor;
+    [self.backgroundView.layer addAnimation:theAnimation forKey:BackgroundAnimationKey];
 }
 
-#pragma mark - Action Methods
+- (void)stopBackgroundColorAnimation {
+    
+    [self.backgroundView.layer removeAnimationForKey:BackgroundAnimationKey];
+}
 
+- (void)update {
+    
+    [_profileImageView setImage:[UIImage imageNamed:@"avatar_unknown.png"]];
+    
+    NSString *address = nil;
+    const LinphoneAddress *addr = linphone_call_get_remote_address([[LinphoneManager instance] currentCall]);
+    if (addr != NULL) {
+        BOOL useLinphoneAddress = true;
+        // contact name
+        char *lAddress = linphone_address_as_string_uri_only(addr);
+        if (lAddress) {
+            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
+            ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+            if (contact) {
+                UIImage *tmpImage = [FastAddressBook getContactImage:contact thumbnail:false];
+                if (tmpImage != nil) {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, (unsigned long)NULL),
+                                   ^(void) {
+                                       UIImage *tmpImage2 = [UIImage decodedImageWithImage:tmpImage];
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           _profileImageView.image = tmpImage2;
+                                       });
+                                   });
+                }
+                address = [FastAddressBook getContactDisplayName:contact];
+                useLinphoneAddress = false;
+            }
+            ms_free(lAddress);
+        }
+        if (useLinphoneAddress) {
+            const char *lDisplayName = linphone_address_get_display_name(addr);
+            const char *lUserName = linphone_address_get_username(addr);
+            if (lDisplayName)
+                address = [NSString stringWithUTF8String:lDisplayName];
+            else if (lUserName)
+                address = [NSString stringWithUTF8String:lUserName];
+        }
+    }
+    
+    // Set Address
+    if (address == nil) {
+        address = @"Unknown";
+    }
+    [_nameLabel setText:address];
+}
+
+
+#pragma mark - Action Methods
 - (IBAction)notificationViewAction:(UIButton *)sender {
     
     if (self.notificationViewActionBlock) {
@@ -63,9 +119,19 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 }
 
 
-#pragma mark - Animations
+#pragma mark - Instance Methods
+- (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
+    //TODO: Fill with passed method's param
+    
+    self.call = linphoneCall;
+    
+    [[LinphoneManager instance] fetchProfileImageWithCall:linphoneCall withCompletion:^(UIImage *image) {
+        
+        _profileImageView.image = image;
+    }];
+    _nameLabel.text = [[LinphoneManager instance] fetchAddressWithCall:linphoneCall];
+}
 
-//Showes view
 - (void)showNotificationWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
     self.viewState = VS_Animating;
@@ -87,7 +153,6 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                      }];
 }
 
-//Hides view
 - (void)hideNotificationWithAnimation:(BOOL)animation completion:(void(^)())completion {
     
     self.viewState = VS_Animating;
@@ -108,32 +173,6 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
     } else {
         self.alpha = 0;
     }
-    
 }
-
-
-- (void)startBackgroundColorAnimation {
-    
-    CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    theAnimation.duration = 0.7f;
-    theAnimation.repeatCount = HUGE_VAL;
-    theAnimation.autoreverses = YES;
-    theAnimation.toValue = (id)[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0].CGColor;
-    [self.backgroundView.layer addAnimation:theAnimation forKey:BackgroundAnimationKey];
-}
-
-- (void)stopBackgroundColorAnimation {
-    [self.backgroundView.layer removeAnimationForKey:BackgroundAnimationKey];
-}
-
-
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 @end

@@ -289,6 +289,9 @@ typedef struct _LinphoneManagerSounds {
 
 - (void)switchCamera;
 
+- (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion;
+- (NSString *)fetchAddressWithCall:(LinphoneCall *)linphoneCall;
+
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
 +(void)setValueInMessageAppData:(id)value forKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
