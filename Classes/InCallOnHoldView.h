@@ -30,9 +30,11 @@ typedef void (^HoldViewActionCallback)(LinphoneCall *linphoneCall);
 @property (nonatomic, copy) HoldViewActionCallback holdViewActionBlock;
 
 #pragma mark - Instance Methods
-- (void)pause;
+- (void)startTimeCounting;
 
-- (void)resume;
+- (void)stopTimeCounting;
+
+- (void)resetTimeCounting;
 
 /**
  *  @brief Filles notification data with LinphoneCall model
