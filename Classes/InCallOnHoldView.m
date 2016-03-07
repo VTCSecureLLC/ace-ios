@@ -100,6 +100,7 @@
     _holdDate = nil;
     [_holdTimer invalidate];
     _holdTimer = nil;
+    _timerLabel.text = @"00:00";
 }
 
 - (void)resetTimeCounting {
@@ -112,7 +113,8 @@
     
     self.call = linphoneCall;
     
-    [self resetTimeCounting];
+    [self stopTimeCounting];
+    [self startTimeCounting];
     [[LinphoneManager instance] fetchProfileImageWithCall:linphoneCall withCompletion:^(UIImage *image) {
         
         _profileImageView.image = image;

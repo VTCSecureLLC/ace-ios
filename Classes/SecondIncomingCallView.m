@@ -33,10 +33,12 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 
 #pragma mark - Life Cycle
 - (instancetype)initWithCoder:(NSCoder *)coder {
+    
     self = [super initWithCoder:coder];
     if (self) {
         [self setupView];
     }
+    
     return self;
 }
 
@@ -65,51 +67,6 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
     [self.backgroundView.layer removeAnimationForKey:BackgroundAnimationKey];
 }
 
-- (void)update {
-    
-    [_profileImageView setImage:[UIImage imageNamed:@"avatar_unknown.png"]];
-    
-    NSString *address = nil;
-    const LinphoneAddress *addr = linphone_call_get_remote_address([[LinphoneManager instance] currentCall]);
-    if (addr != NULL) {
-        BOOL useLinphoneAddress = true;
-        // contact name
-        char *lAddress = linphone_address_as_string_uri_only(addr);
-        if (lAddress) {
-            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
-            ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
-            if (contact) {
-                UIImage *tmpImage = [FastAddressBook getContactImage:contact thumbnail:false];
-                if (tmpImage != nil) {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, (unsigned long)NULL),
-                                   ^(void) {
-                                       UIImage *tmpImage2 = [UIImage decodedImageWithImage:tmpImage];
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           _profileImageView.image = tmpImage2;
-                                       });
-                                   });
-                }
-                address = [FastAddressBook getContactDisplayName:contact];
-                useLinphoneAddress = false;
-            }
-            ms_free(lAddress);
-        }
-        if (useLinphoneAddress) {
-            const char *lDisplayName = linphone_address_get_display_name(addr);
-            const char *lUserName = linphone_address_get_username(addr);
-            if (lDisplayName)
-                address = [NSString stringWithUTF8String:lDisplayName];
-            else if (lUserName)
-                address = [NSString stringWithUTF8String:lUserName];
-        }
-    }
-    
-    // Set Address
-    if (address == nil) {
-        address = @"Unknown";
-    }
-    [_nameLabel setText:address];
-}
 
 
 #pragma mark - Action Methods
@@ -123,7 +80,6 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 
 #pragma mark - Instance Methods
 - (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
-    //TODO: Fill with passed method's param
     
     self.call = linphoneCall;
     
@@ -146,6 +102,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                          
                          self.backgroundViewTopConstraint.constant = 0;
                          [self layoutIfNeeded];
+                         
                      } completion:^(BOOL finished) {
                          
                          self.viewState = VS_Opened;
@@ -166,7 +123,9 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                          animations:^{
                              self.backgroundViewTopConstraint.constant = -CGRectGetHeight(self.frame);
                              [self layoutIfNeeded];
+                             
                          } completion:^(BOOL finished) {
+                             
                              self.alpha = 0;
                              self.viewState = VS_Closed;
                              [self stopAndResetRingsCount];
@@ -174,7 +133,8 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                                  completion();
                              }
                          }];
-    } else {
+    }
+    else {
         self.alpha = 0;
     }
 }
@@ -194,7 +154,8 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 
 - (void)startCalculatingRingsCount {
     
-    self.ringsCountTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
+    NSTimeInterval timeInterval = [[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"];
+    self.ringsCountTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                             target:self
                                                           selector:@selector(displayIncrementedRingCount)
                                                           userInfo:nil

@@ -11,6 +11,7 @@
 #import "IncallButton.h"
 #import "UIManager.h"
 #import "SecondIncomingCallBarView.h"
+#import "IncomingCallViewControllerNew.h"
 #import "SecondIncomingCallView.h"
 #import "InCallOnHoldView.h"
 #import "CallBarView.h"
@@ -57,13 +58,6 @@
     [self resetSpeakerWithSettings];
     [self resetMicrophoneWithSettings];
     [self setupVideo];
-    
-//    LinphoneCall *linphoneCall = [[LinphoneManager instance] currentCall];
-//    LinphoneCallState linphoneCallState = 0;
-//    if (linphoneCall != NULL) {
-//        linphoneCallState = [[LinphoneManager instance] callStateForCall:linphoneCall];
-//    }
-//    [self callUpdate:linphoneCall state:linphoneCallState animated:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -109,11 +103,11 @@
     
     NSString *videoMode = [notification.userInfo objectForKey: @"videoModeStatus"];
     if ([videoMode isEqualToString:@"camera_mute_off"]) {
-        _cameraImageView.hidden = YES;
+        _cameraImageView.hidden = NO;
     }
     
     if ([videoMode isEqualToString:@"isCameraMuted"] || [videoMode isEqualToString:@"camera_mute_on"]) {
-        _cameraImageView.hidden = NO;
+        _cameraImageView.hidden = YES;
     }
 }
 
@@ -202,13 +196,19 @@
         }
         case LinphoneCallEnd: {
             
+            [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
-                [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             }
-            else {
-                [[LinphoneManager instance] declineCall:call];
+            else if (callsCount == 1) {
+                LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
+                if ([[LinphoneManager instance] callStateForCall:holdCall] == LinphoneCallIncomingReceived) {
+                    if ([self.navigationController.rotatingFooterView isKindOfClass:[IncomingCallViewControllerNew class]]) {
+                        [(IncomingCallViewControllerNew *)self.navigationController.rotatingFooterView setCall:holdCall];
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
             
             break;

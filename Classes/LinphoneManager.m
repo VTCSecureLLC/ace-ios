@@ -2849,7 +2849,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     int size = ms_list_size(call_list);
     LinphoneCall *currentCall = [self currentCall];
     if (size > 0) {
-        while (call_list->next) {
+        while (call_list) {
             LinphoneCall *call = (LinphoneCall *)call_list->data;
             if (currentCall != call) {
                 return call;
