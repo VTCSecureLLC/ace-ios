@@ -204,6 +204,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         case LinphoneCallError: {
             
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            [self hideQualityIndicator];
             break;
         }
         case LinphoneCallEnd: {
@@ -211,6 +212,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
+                [self hideQualityIndicator];
                 [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             }
             else if (callsCount == 1) {
@@ -543,17 +545,19 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void) callQualityTimerBody {
     
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
-    CallQualityStatus quality = linphone_call_get_current_quality(call);
-    UIImage *image = nil;
-    if (quality <= CallQualityStatusBad) {
+    if (call) {
+        CallQualityStatus quality = linphone_call_get_current_quality(call);
+        UIImage *image = nil;
+        if (quality <= CallQualityStatusBad) {
+            
+            image = [UIImage imageNamed:@"RTPquality_bad.png"];
+        } else if (quality >= CallQualityStatusMedium) {
+            
+            image = [UIImage imageNamed:@"RTPquality_medium.png"];
+        }
         
-        image = [UIImage imageNamed:@"RTPquality_bad.png"];
-    } else if (quality >= CallQualityStatusMedium) {
-        
-        image = [UIImage imageNamed:@"RTPquality_medium.png"];
+        [_qualityImageView setImage:image];
     }
-    
-    [_qualityImageView setImage:image];
 }
 
 #pragma mark - Actions Methods
