@@ -372,6 +372,7 @@ static RootViewManager *rootViewManagerInstance = nil;
             
             //We need to show InCallViewController
             [[UIManager sharedManager] showInCallViewControllerAnimated:YES];
+            
             break;
         }
         case LinphoneCallPausedByRemote: {
@@ -752,7 +753,10 @@ static RootViewManager *rootViewManagerInstance = nil;
             
         } else {
             
-            [[UIManager sharedManager] showIncomingCallViewControllerAnimated:NO];
+            UIViewController *rootViewController = [[UIManager sharedManager] showIncomingCallViewControllerAnimated:NO];
+            if ([rootViewController isKindOfClass:[IncomingCallViewControllerNew class]]) {
+                [(IncomingCallViewController *)rootViewController setCall:call];
+            }
         
 //            IncomingCallViewController *controller = nil;
 //            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){

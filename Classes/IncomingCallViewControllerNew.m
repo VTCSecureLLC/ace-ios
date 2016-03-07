@@ -36,7 +36,7 @@
     [super viewDidLoad];
     
     [self setupController];
-    [self updateWithCall:[[LinphoneManager instance] currentCall]];
+    [self updateWithCall:_call];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -259,7 +259,13 @@
         case LinphoneCallReleased: {
             
             // Dismiss controller
-            [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            NSUInteger callCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callCount == 0) {
+                [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            }
+            else {
+                [self updateWithCall:[[LinphoneManager instance] holdCall]];
+            }
             break;
         }
         default:

@@ -12,4 +12,6 @@
 
 @interface IncomingCallViewControllerNew : UIViewController
 
+@property (nonatomic, assign) LinphoneCall *call;
+
 @end

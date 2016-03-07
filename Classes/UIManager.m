@@ -83,7 +83,7 @@
 
 
 //Shows incoming call view controller
-- (void)showIncomingCallViewControllerAnimated:(BOOL)animated {
+- (UIViewController *)showIncomingCallViewControllerAnimated:(BOOL)animated {
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kStoryboardIncomingCall bundle:nil];
     UINavigationController *incomingCallNavigationController = [storyboard instantiateInitialViewController];
@@ -93,6 +93,8 @@
     [rootViewController presentViewController:incomingCallNavigationController
                                      animated:animated
                                    completion:nil];
+    
+    return [incomingCallNavigationController.viewControllers firstObject];
 }
 
 - (void)showInCallViewControllerAnimated:(BOOL)animated {

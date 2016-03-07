@@ -52,7 +52,7 @@
  *
  *  @param animated Show with animation or not
  */
-- (void)showIncomingCallViewControllerAnimated:(BOOL)animated;
+- (UIViewController *)showIncomingCallViewControllerAnimated:(BOOL)animated;
 
 /**
  *  @brief Shows incoming call view controller

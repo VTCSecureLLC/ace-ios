@@ -11,6 +11,7 @@
 #import "IncallButton.h"
 #import "UIManager.h"
 #import "SecondIncomingCallBarView.h"
+#import "IncomingCallViewControllerNew.h"
 #import "SecondIncomingCallView.h"
 #import "InCallOnHoldView.h"
 #import "CallBarView.h"
@@ -195,13 +196,19 @@
         }
         case LinphoneCallEnd: {
             
+            [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
-                [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             }
-            else {
-                [[LinphoneManager instance] declineCall:call];
+            else if (callsCount == 1) {
+                LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
+                if ([[LinphoneManager instance] callStateForCall:holdCall] == LinphoneCallIncomingReceived) {
+                    if ([self.navigationController.rotatingFooterView isKindOfClass:[IncomingCallViewControllerNew class]]) {
+                        [(IncomingCallViewControllerNew *)self.navigationController.rotatingFooterView setCall:holdCall];
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
             
             break;
