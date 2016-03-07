@@ -149,6 +149,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                      } completion:^(BOOL finished) {
                          
                          self.viewState = VS_Opened;
+                         [self startCalculatingRingsCount];
                          if (completion && finished) {
                              completion();
                          }
@@ -168,6 +169,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
                          } completion:^(BOOL finished) {
                              self.alpha = 0;
                              self.viewState = VS_Closed;
+                             [self stopAndResetRingsCount];
                              if (completion && finished) {
                                  completion();
                              }
@@ -192,7 +194,7 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
 
 - (void)startCalculatingRingsCount {
     
-    self.ringsCountTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+    self.ringsCountTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
                                                             target:self
                                                           selector:@selector(displayIncrementedRingCount)
                                                           userInfo:nil
@@ -207,4 +209,5 @@ static NSString *BackgroundAnimationKey = @"animateBackground";
         self.ringsCountTimer = nil;
     }
 }
+
 @end

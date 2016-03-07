@@ -464,7 +464,6 @@
     
     self.secondIncomingCallBarView.acceptButtonBlock = ^(LinphoneCall *linphoneCall) {
         
-//        [[LinphoneManager instance] pauseCall:[[LinphoneManager instance] currentCall]];
         [[LinphoneManager instance] acceptCall:linphoneCall];
         
         [self hideSecondIncomingCallUI];
