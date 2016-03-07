@@ -85,7 +85,7 @@
 
 
 #pragma mark - Instance Methods
-- (void)pause {
+- (void)startTimeCounting {
     
     _holdDate = [NSDate new];
     _holdTimer = [NSTimer scheduledTimerWithTimeInterval:1
@@ -95,17 +95,24 @@
                                                  repeats:YES];
 }
 
-- (void)resume {
+- (void)stopTimeCounting {
     
     _holdDate = nil;
     [_holdTimer invalidate];
     _holdTimer = nil;
 }
 
+- (void)resetTimeCounting {
+    
+    [self stopTimeCounting];
+    [self startTimeCounting];
+}
+
 - (void)fillWithCallModel:(LinphoneCall *)linphoneCall {
     
     self.call = linphoneCall;
     
+    [self resetTimeCounting];
     [[LinphoneManager instance] fetchProfileImageWithCall:linphoneCall withCompletion:^(UIImage *image) {
         
         _profileImageView.image = image;
@@ -132,7 +139,6 @@
                                  
                              } completion:^(BOOL finished) {
                                  
-                                 [self pause];
                                  self.viewState = VS_Opened;
                                  if (completion && finished) {
                                      completion();
@@ -152,7 +158,6 @@
                                  
                              } completion:^(BOOL finished) {
                                  
-                                 [self pause];
                                  self.viewState = VS_Opened;
                                  if (completion && finished) {
                                      completion();
@@ -182,7 +187,6 @@
                                  
                              } completion:^(BOOL finished) {
                                  
-                                 [self resume];
                                  self.alpha = 0;
                                  self.viewState = VS_Closed;
                                  if (completion && finished) {
@@ -201,7 +205,6 @@
                                  
                              } completion:^(BOOL finished) {
                                  
-                                 [self resume];
                                  self.alpha = 0;
                                  self.viewState = VS_Closed;
                                  if (completion && finished) {
