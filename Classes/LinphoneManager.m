@@ -2124,6 +2124,7 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return ms_list_size(callsList);
 }
 
+
 - (BOOL)isCameraEnabledForCurrentCall {
     
     BOOL camera_enabled = NO;
@@ -2692,6 +2693,23 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (void)rejectCall:(LinphoneCall *)call {
     
     linphone_core_terminate_call([LinphoneManager getLc], call);
+}
+
+- (LinphoneCall *)holdCall {
+    
+    const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
+    int size = ms_list_size(call_list);
+    LinphoneCall *currentCall = [self currentCall];
+    if (size > 0) {
+        while (call_list->next) {
+            LinphoneCall *call = (LinphoneCall *)call_list->data;
+            if (currentCall != call) {
+                return call;
+            }
+            call_list = call_list->next;
+        }
+    }
+    return nil;
 }
 
 @end

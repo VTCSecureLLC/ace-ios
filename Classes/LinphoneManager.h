@@ -218,6 +218,13 @@ typedef struct _LinphoneManagerSounds {
 - (LinphoneCall *)currentCall;
 
 /**
+ *  @brief Retruns call which in hold
+ *
+ *  @return LinphoneCall object
+ */
+- (LinphoneCall *)holdCall;
+
+/**
  *  Takes view and sets makes it native video window
  *
  *  @param linphoneCore LinphoneCore object

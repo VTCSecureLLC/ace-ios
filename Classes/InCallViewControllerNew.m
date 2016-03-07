@@ -42,8 +42,8 @@
     [super viewDidLoad];
     
     [self setupCallBarView];
-    [self setupInCallNewCallNotificationView];
-    [self setupInCallNewCallView];
+    [self setupSecondIncomingCallView];
+    [self setupSecondIncomingCallBarView];
     [self setupInCallOnHoldView];
 }
 
@@ -122,36 +122,13 @@
 #pragma mark - Private Methods
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
     
-    //    LinphoneCore *lc = [LinphoneManager getLc];
-    //    if (hiddenVolume) {
-    //        [[PhoneMainView instance] setVolumeHidden:FALSE];
-    //        hiddenVolume = FALSE;
-    //    }
-    //
-    //    // Update table
-    //    [callTableView reloadData];
-    //
-    //    // Fake call update
-    //    if (call == NULL) {
-    //        return;
-    //    }
-    //
-    //    if(state == LinphoneCallPausedByRemote){
-    //        UIImage *img = [UIImage imageNamed:@"Hold.png"];
-    //        callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
-    //        [callOnHoldImageView setCenter:self.videoView.center];
-    //        [callOnHoldImageView setHidden:NO];
-    //        [callOnHoldImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    //        [self.view addSubview:callOnHoldImageView];
-    //        [self.videoView setHidden:YES];
-    //    }
-    //    else{
-    //        if(callOnHoldImageView){
-    //            [callOnHoldImageView removeFromSuperview];
-    //        }
-    //        [self.videoView setHidden:NO];
-    //    }
+//    LinphoneCore *lc = [LinphoneManager getLc];
+//    if (hiddenVolume) {
+//        [[PhoneMainView instance] setVolumeHidden:FALSE];
+//        hiddenVolume = FALSE;
+//    }
     
+    NSAssert(call, @"Call cannot be NULL");
     
     switch (state) {
         case LinphoneCallIdle: {
@@ -163,7 +140,6 @@
             
             [self incomingReceivedWithCall:call];
             // This is second call
-            //            NSAssert(0, @"LinphoneCallIncomingReceived: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingInit: {
@@ -193,8 +169,11 @@
         }
         case LinphoneCallStreamsRunning: {
             
-            //            NSAssert(0, @"LinphoneCallStreamsRunning: Just need to check this state");
             _holdByRemoteImageView.hidden = YES;
+            // Show first call in hold view
+            
+            [self checkHoldedCall];
+            
             break;
         }
         case LinphoneCallPausing: {
@@ -236,7 +215,6 @@
         case LinphoneCallPausedByRemote: {
             
             _holdByRemoteImageView.hidden = NO;
-//            NSAssert(0, @"LinphoneCallPausedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallUpdatedByRemote: {
@@ -257,8 +235,6 @@
         case LinphoneCallReleased: {
             
             [self hideSecondIncomingCallUI];
-            
-            //            NSAssert(0, @"LinphoneCallReleased: Just need to check this state");
             break;
         }
         case LinphoneCallEarlyUpdatedByRemote: {
@@ -278,35 +254,15 @@
     [self setupVideoButtonState];
     [self setupMicriphoneButtonState];
     [self setupSpeakerButtonState];
+}
+
+- (void)checkHoldedCall {
     
-    //    switch (state) {
-    //        case LinphoneCallIncomingReceived:
-    //        case LinphoneCallOutgoingInit: {
-    //            [self callOutgoingInit];
-    //        }
-    //        case LinphoneCallConnected:
-    //        case LinphoneCallStreamsRunning: {
-    //            [self callStreamsRunning];
-    //            break;
-    //        }
-    //        case LinphoneCallUpdatedByRemote: {
-    //            [self callUpdatedByRemote];
-    //            break;
-    //        }
-    //        case LinphoneCallPausing:
-    //        case LinphoneCallPaused:
-    //        case LinphoneCallPausedByRemote: {
-    //            [self callPausedByRemote];
-    //            break;
-    //        }
-    //        case LinphoneCallEnd:
-    //        case LinphoneCallError: {
-    //            [self callError];
-    //            break;
-    //        }
-    //        default:
-    //            break;
-    //    }
+    LinphoneCall *holdedCall = [[LinphoneManager instance] holdCall];
+    if (holdedCall) {
+        [self.inCallOnHoldView fillWithCallModel:holdedCall];
+        [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
+    }
 }
 
 - (void)setupNotifications {
@@ -342,122 +298,6 @@
 - (void)incomingReceivedWithCall:(LinphoneCall *)call {
     
     [self showSecondIncomingCallUIWithCall:(LinphoneCall *)call];
-}
-
-- (void)callOutgoingInit {
-    
-//    if (linphone_core_get_calls_nb(lc) > 1) {
-//        [callTableController minimizeAll];
-//    }
-//    
-//    if(!self.isRTTLocallyEnabled){
-//        linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), FALSE);
-//    }
-//    
-//    callQualityImageView.hidden = YES;
-}
-
-- (void)callStreamsRunning {
-    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification
-//                                                        object:nil];
-//    if(state == LinphoneCallStreamsRunning){
-//        if(self.isRTTLocallyEnabled){
-//            if (linphone_call_params_realtime_text_enabled(linphone_call_get_remote_params(call))){
-//                self.isRTTEnabled = YES;
-//            }
-//            else{
-//                self.isRTTEnabled = NO;
-//            }
-//        }
-//        else{
-//            self.isRTTEnabled = NO;
-//        }
-//        hasStartedStream = YES;
-//    }
-//    else{
-//        self.isRTTEnabled = YES;
-//    }
-//    // check video
-//    if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
-//        [self displayVideoCall:animated];
-//        const LinphoneCallParams *params = linphone_call_get_current_params(call);
-//        if(params != NULL){
-//            if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
-//                linphone_core_set_device_rotation([LinphoneManager getLc], 270);
-//                linphone_core_update_call([LinphoneManager getLc], call, NULL);
-//            }
-//            else{
-//                [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
-//            }
-//        }
-//    } else {
-//        [self displayTableCall:animated];
-//        const LinphoneCallParams *param = linphone_call_get_current_params(call);
-//        const LinphoneCallAppData *callAppData =
-//        (__bridge const LinphoneCallAppData *)(linphone_call_get_user_pointer(call));
-//        if (state == LinphoneCallStreamsRunning && callAppData->videoRequested &&
-//            linphone_call_params_low_bandwidth_enabled(param)) {
-//            // too bad video was not enabled because low bandwidth
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:NSLocalizedString(@"Low bandwidth", nil)
-//                                  message:NSLocalizedString(@"Video cannot be activated because of low bandwidth "
-//                                                            @"condition, only audio is available",
-//                                                            nil)
-//                                  delegate:nil
-//                                  cancelButtonTitle:NSLocalizedString(@"Continue", nil)
-//                                  otherButtonTitles:nil];
-//            [alert show];
-//            callAppData->videoRequested = FALSE; /*reset field*/
-//        }
-//    }
-//    
-//    timerCallQuality = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                        target:self
-//                                                      selector:@selector(callQualityTimerBody)
-//                                                      userInfo:nil
-//                                                       repeats:YES];
-//    
-//    [self createCallQuality];
-//    callQualityImageView.hidden = NO;
-}
-
-- (void)callUpdatedByRemote {
-    
-//    const LinphoneCallParams *current = linphone_call_get_current_params(call);
-//    const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-//    /* remote wants to add video */
-//    if (linphone_core_video_enabled(lc) && !linphone_call_params_video_enabled(current) &&
-//        linphone_call_params_video_enabled(remote) && !linphone_core_get_video_policy(lc)->automatically_accept) {
-//        linphone_core_defer_call_update(lc, call);
-//        [self displayAskToEnableVideoCall:call];
-//    }
-//    else if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
-//        [self displayTableCall:animated];
-//    }
-}
-
-- (void)callPausedByRemote {
-    
-//    [self displayTableCall:animated];
-}
-
-- (void)callError {
-    
-//    if(self.incomingTextView){
-//        self.incomingTextView.text = @"";
-//    }
-//    //        if(self.outgoingTextLabel){
-//    //            self.outgoingTextLabel.text = @"";
-//    //        }
-//    if (linphone_core_get_calls_nb(lc) <= 2 && !videoShown) {
-//        [callTableController maximizeAll];
-//    }
-//    
-//    [timerCallQuality invalidate];
-//    timerCallQuality = nil;
-//    
-//    callQualityImageView.hidden = YES;
 }
 
 - (void)setupCallBarView {
@@ -606,7 +446,7 @@
     }
 }
 
-- (void)setupInCallNewCallView {
+- (void)setupSecondIncomingCallBarView {
     
     self.secondIncomingCallBarView.messageButtonBlock = ^(LinphoneCall *linphoneCall) {
         
@@ -626,13 +466,12 @@
     };
 }
 
-- (void)setupInCallNewCallNotificationView {
+- (void)setupSecondIncomingCallView {
     
     [self.secondIncomingCallView hideNotificationWithAnimation:NO completion:nil];
     
     self.secondIncomingCallView.notificationViewActionBlock = ^(LinphoneCall *call) {
-        
-        // TODO switch between calls
+        // We don't have any action here
     };
 }
 
@@ -642,8 +481,8 @@
     
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
         
+        // TODO: Switch to second call
     };
-    
 }
 
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
@@ -666,7 +505,6 @@
                          [weakSelf.view layoutIfNeeded];
                      }];
 }
-
 
 #pragma mark - Actions Methods
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
