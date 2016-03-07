@@ -169,6 +169,7 @@ typedef struct _LinphoneManagerSounds {
 // Calls
 - (void)acceptCall:(LinphoneCall *)call;
 - (void)declineCall:(LinphoneCall *)call;
+- (void)resumeCall:(LinphoneCall *)call;
 - (void)call:(NSString *)address displayName:(NSString*)displayName transfer:(BOOL)transfer;
 
 /**
@@ -218,6 +219,13 @@ typedef struct _LinphoneManagerSounds {
  *  @return LinphoneCall object
  */
 - (LinphoneCall *)currentCall;
+
+/**
+ *  @brief Retruns call which in hold
+ *
+ *  @return LinphoneCall object
+ */
+- (LinphoneCall *)holdCall;
 
 /**
  *  Takes view and sets makes it native video window
@@ -290,6 +298,9 @@ typedef struct _LinphoneManagerSounds {
 - (void)disableSpeaker;
 
 - (void)switchCamera;
+
+- (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion;
+- (NSString *)fetchAddressWithCall:(LinphoneCall *)linphoneCall;
 
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;

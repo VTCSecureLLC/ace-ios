@@ -17,11 +17,22 @@
  */
 typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
 
+
 @interface SecondIncomingCallView : BaseView
 
 @property (nonatomic, assign) ViewState viewState;
-
 @property (nonatomic, copy) NotificationActionCallback notificationViewActionBlock;
+
+
+/**
+ *  @brief Increments rings count
+ */
+- (void)startCalculatingRingsCount;
+
+/**
+ *  @brief Stops and resets rings count
+ */
+- (void)stopAndResetRingsCount;
 
 /**
  *  @brief Filles notification data with LinphoneCall model
