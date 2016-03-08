@@ -228,18 +228,25 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.incomingTextView setHidden:YES];
     [self.incomingTextView setText:@""];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isSpeakerEnabled = [defaults boolForKey:@"isSpeakerEnabled"];
-    
+    //Speaker mute
     const float mute_db = -1000.0f;
-    if(isSpeakerEnabled){
+   
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerMuted = [defaults boolForKey:@"mute_speaker_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_speaker_preference"]){
+        isSpeakerMuted = NO;
+    }
+    
+    if(!isSpeakerMuted){
         linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
     }
     else{
         linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
     }
-            self.isRTTEnabled = YES;
-            self.isRTTLocallyEnabled = YES;
+    
+    self.isRTTEnabled = YES;
+    self.isRTTLocallyEnabled = YES;
     
     self.incomingTextView.layoutManager.allowsNonContiguousLayout = FALSE;
 }
