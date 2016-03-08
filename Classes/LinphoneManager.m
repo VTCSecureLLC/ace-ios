@@ -807,7 +807,7 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		state == LinphoneCallStreamsRunning) {
         
           NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL enableSpeaker = [defaults boolForKey:@"isSpeakerEnabled"];
+        BOOL enableSpeaker = [defaults boolForKey:@"mute_speaker_preference"];
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled && enableSpeaker == YES) {
 			[self setSpeakerEnabled:TRUE];
 			speaker_already_enabled = TRUE;

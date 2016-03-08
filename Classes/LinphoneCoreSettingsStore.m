@@ -307,6 +307,22 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
        
         [self setRtcpFbMode: TRUE];
     }
+    //Speaker mute
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerMuted = [defaults boolForKey:@"mute_speaker_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_speaker_preference"]){
+        isSpeakerMuted = NO;
+    }
+
+    [self setBool:isSpeakerMuted forKey:@"mute_speaker_preference"];
+    //Mic mute
+    BOOL isMicMuted = [defaults boolForKey:@"mute_microphone_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_microphone_preference"]){
+        isMicMuted = NO;
+    }
+    [self setBool:isMicMuted forKey:@"mute_microphone_preference"];
 
 	// call section
 	{

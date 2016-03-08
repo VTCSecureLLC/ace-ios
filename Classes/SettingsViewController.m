@@ -579,7 +579,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults setBool:isMuted forKey:@"mute_microphone_preference"];
         [defaults synchronize];
 
     }
@@ -591,9 +591,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     }
     else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
-        BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
+        BOOL isSpeakerMuted = [[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
+        [defaults setBool:isSpeakerMuted forKey:@"mute_speaker_preference"];
         [defaults synchronize];
     }
     else if([@"mwi_uri_preference" compare:notif.object] == NSOrderedSame){
