@@ -368,7 +368,6 @@ BOOL hasStartedStream = NO;
 		return;
 	}
     
-    
     if(state == LinphoneCallPausedByRemote){
         UIImage *img = [UIImage imageNamed:@"Hold.png"];
         callOnHoldImageView = [[UIImageView alloc] initWithImage:img];
@@ -1046,6 +1045,7 @@ static void hideSpinner(LinphoneCall *call, void *user_data) {
 {
     return TRUE;
 }
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     //	Prefer (force) landscape if currently in landscape

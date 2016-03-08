@@ -166,8 +166,141 @@ typedef struct _LinphoneManagerSounds {
 + (NSString*)documentFile:(NSString*)file;
 + (NSString*)cacheDirectory;
 
+// Calls
 - (void)acceptCall:(LinphoneCall *)call;
+- (void)declineCall:(LinphoneCall *)call;
+- (void)resumeCall:(LinphoneCall *)call;
 - (void)call:(NSString *)address displayName:(NSString*)displayName transfer:(BOOL)transfer;
+
+/**
+ *  Terminates current call
+ */
+- (void)terminateCurrentCall;
+
+/**
+ *  Returns call log for call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return LinphoneCallLog object
+ */
+- (LinphoneCallLog *)callLogForCall:(LinphoneCall *)call;
+
+/**
+ *  Returns callId string for call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return callId string for call
+ */
+- (NSString *)callIdForCall:(LinphoneCall *)call;
+
+/**
+ *  Checks if video enabled for exact call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return returns YES if video is enabled for exact call otherwise NO
+ */
+- (BOOL)isVideoEnabledForCall:(LinphoneCall *)call;
+
+/**
+ *  Returns call state for exact call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return call state for given call
+ */
+- (LinphoneCallState)callStateForCall:(LinphoneCall *)call;
+
+/**
+ *  Returns current call for linphone core
+ *
+ *  @return LinphoneCall object
+ */
+- (LinphoneCall *)currentCall;
+
+/**
+ *  @brief Retruns call which in hold
+ *
+ *  @return LinphoneCall object
+ */
+- (LinphoneCall *)holdCall;
+
+/**
+ *  Takes view and sets makes it native video window
+ *
+ *  @param linphoneCore LinphoneCore object
+ *  @param videoView    videoView which must be shown as partner's video screen
+ */
+- (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view;
+
+/**
+ *  Takes view and sets makes it native preview video window
+ *
+ *  @param linphoneCore LinphoneCore object
+ *  @param videoView    videoView which must be shown as caller video screen
+ */
+- (void)setPreviewWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view;
+
+/**
+ *  Returns calls count for LinphoneCore
+ *
+ *  @param linphoneCore LinphoneCore object
+ *
+ *  @return calls count for core
+ */
+- (NSUInteger)callsCountForLinphoneCore:(LinphoneCore *)linphoneCore;
+
+/**
+ *  Determines if camera is enabled for current call
+ *
+ *  @return YES if camera enabled, otherwise NO
+ */
+- (BOOL)isCameraEnabledForCurrentCall;
+
+/**
+ *  Enables camera for current call
+ */
+- (void)enableCameraForCurrentCall;
+
+/**
+ *  Disables camera for current call
+ */
+- (void)disableCameraForCurrentCall;
+
+/**
+ *  Tells whether the microphone is enabled
+ *
+ *  @return YES if the microphone is enabled, NO if disabled
+ */
+- (BOOL)isMicrophoneEnabled;
+
+/**
+ *  Enables microphone
+ */
+- (void)enableMicrophone;
+
+/**
+ *  Disables microphone
+ */
+- (void)disableMicrophone;
+
+/**
+ *  Tells whether the speaker is enabled
+ *
+ *  @return YES if speaker is enabled, NO if disabled
+ */
+- (BOOL)isSpeakerEnabled;
+
+- (void)enableSpeaker;
+
+- (void)disableSpeaker;
+
+- (void)switchCamera;
+
+- (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion;
+- (NSString *)fetchAddressWithCall:(LinphoneCall *)linphoneCall;
 
 
 +(id)getMessageAppDataForKey:(NSString*)key inMessage:(LinphoneChatMessage*)msg;
