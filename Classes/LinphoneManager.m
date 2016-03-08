@@ -1554,7 +1554,7 @@ void configH264HardwareAcell(bool encode, bool decode){
 	libmswebrtc_init(f);
   
 	linphone_core_reload_ms_plugins(theLinphoneCore, NULL);
-    configH264HardwareAcell(true, true);
+    configH264HardwareAcell(false, false);
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
