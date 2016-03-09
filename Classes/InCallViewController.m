@@ -1378,7 +1378,7 @@ BOOL didChatResize = NO;
     return cell;
 }
 
-#pragma mark - BubbleTableViewCellDataSource methods
+#pragma mark - BubbleTableViewCellDataSourfce methods
 
 - (CGFloat)minInsetForCell:(BubbleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {

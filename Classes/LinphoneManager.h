@@ -229,6 +229,14 @@ typedef struct _LinphoneManagerSounds {
 - (BOOL)isChatEnabledForCall:(LinphoneCall *)call;
 
 /**
+ *  @brief Enables or desables RTT messaging
+ *
+ *  @param call   LinphoneCall object
+ *  @param avtive YES to enable RTT messaging NO otherwise
+ */
+- (void)changeRTTStateForCall:(LinphoneCall *)call avtive:(BOOL)avtive;
+
+/**
  *  @brief Retruns call which in hold
  *
  *  @return LinphoneCall object

@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 };
 
 
-@interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource>
+@interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource, UITextInput>
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
@@ -218,11 +218,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallIncomingReceived: {
             
+            self.isRTTEnabled = NO;
             [self incomingReceivedWithCall:call];
             // This is second call
             break;
         }
         case LinphoneCallOutgoingInit: {
+            
+            if (!self.isRTTLocallyEnabled) {
+                [[LinphoneManager instance] changeRTTStateForCall:call avtive:NO];
+            }
             
             //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
@@ -361,24 +366,20 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)checkRTTForCall:(LinphoneCall *)call {
 
-    LinphoneCallState state = [[LinphoneManager instance] callStateForCall:call];
-    if (state == LinphoneCallStreamsRunning) {
-        if (self.isRTTLocallyEnabled) {
-            if ([[LinphoneManager instance] isChatEnabledForCall:call]) {
-                self.isRTTEnabled = YES;
-            }
-            else {
-                self.isRTTEnabled = NO;
-            }
+    if (self.isRTTLocallyEnabled) {
+        if ([[LinphoneManager instance] isChatEnabledForCall:call]) {
+            self.isRTTEnabled = YES;
         }
         else {
             self.isRTTEnabled = NO;
         }
-        self.hasStartedStream = YES;
     }
     else {
-        self.isRTTEnabled = YES;
+        self.isRTTEnabled = NO;
     }
+    self.hasStartedStream = YES;
+    
+    [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
 }
 
 - (void)setupNotifications {
@@ -512,10 +513,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
-        self.isChatMode = YES;
-        self.tableView.hidden = NO;
-        [self.tableView reloadData];
-        [self.incomingTextView becomeFirstResponder];
+        if (self.isRTTEnabled) {
+            self.isChatMode = YES;
+            self.tableView.hidden = NO;
+            [self.tableView reloadData];
+            [self becomeFirstResponder];
+        }
     };
     
     self.callBarView.endCallButtonActionHandler = ^(UIButton *sender) {
@@ -741,7 +744,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                      }];
 }
 
-
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
     
@@ -796,6 +798,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     return [[LinphoneManager instance] isChatEnabledForCall:[[LinphoneManager instance] currentCall]];
 }
 
+- (void)closeRTTChat {
+
+    self.isChatMode = NO;
+    self.tableView.hidden = YES;
+    [self resignFirstResponder];
+}
+
 
 #pragma mark - Call Quality
 - (void)showQualityIndicator {
@@ -837,6 +846,18 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 
+#pragma mark - BubbleTableViewCellDataSource methods
+- (CGFloat)minInsetForCell:(BubbleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    {
+        return 80.0f;
+    }
+    
+    return 20.0f;
+}
+
+
 #pragma mark - Actions Methods
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
 
@@ -856,6 +877,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 #pragma mark - RTT Methods
+/* A field that must be implemented for the text protocol */
+- (BOOL)hasText {
+    
+    return YES;
+}
+
 /* Text Mode RTT or SIP SIMPLE duplicate with Android*/
 - (int)getTextMode {
     //SET TO RTT BY DEFAULT, THIS WILL CHANGE IN GLOBAL SETTINGS.

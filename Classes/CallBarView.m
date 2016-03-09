@@ -328,5 +328,10 @@
     return self.moreButton.selected;
 }
 
+- (void)changeChatButtonVisibility:(BOOL)hidden {
+    
+    self.chatButton.hidden = hidden;
+}
+
 
 @end

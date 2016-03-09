@@ -2125,6 +2125,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return isChatEnabled;
 }
 
+- (void)changeRTTStateForCall:(LinphoneCall *)call avtive:(BOOL)avtive {
+
+    linphone_call_params_enable_realtime_text(linphone_core_create_call_params([LinphoneManager getLc], call), avtive);
+}
+
 - (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {
 
     linphone_core_set_native_video_window_id(linphoneCore, (__bridge void *)(view));

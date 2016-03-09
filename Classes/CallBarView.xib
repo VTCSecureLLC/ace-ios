@@ -185,7 +185,7 @@
                                 <constraint firstItem="Hbs-qg-cZT" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="zkg-xq-9dB"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2T-Ml-2c6">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2T-Ml-2c6">
                             <rect key="frame" x="31" y="151" width="80" height="52"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="HbW-f0-qGN"/>
