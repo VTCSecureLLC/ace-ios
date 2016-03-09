@@ -597,7 +597,7 @@
 
 -(void) initUserCallPrefs{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
+    BOOL isCallAudioMuted = [userDefaults boolForKey:@"mute_microphone_preference"];
     if(linphone_core_get_calls_nb([LinphoneManager getLc]) <= 1){
         linphone_core_mute_mic([LinphoneManager getLc], isCallAudioMuted);
     }

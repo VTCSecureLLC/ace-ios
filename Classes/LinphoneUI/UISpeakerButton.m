@@ -92,8 +92,8 @@ const float mute_db = -1000.0f;
 }
 
 - (bool)onUpdate {
-	[self setEnabled:YES];
-    [[LinphoneManager instance] setSpeakerEnabled:YES];
+//	[self setEnabled:YES];
+//    [[LinphoneManager instance] setSpeakerEnabled:YES];
     return (linphone_core_get_playback_gain_db([LinphoneManager getLc]) > mute_db);
 }
 

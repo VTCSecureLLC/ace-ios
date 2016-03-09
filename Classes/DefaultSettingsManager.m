@@ -178,6 +178,11 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)setSipRegisterTransport:(NSString*)transport {
+    [[NSUserDefaults standardUserDefaults] setObject:transport forKey:@"sip_register_transport"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)setSipMwUri:(NSString *)sipMwiUri {
     [[NSUserDefaults standardUserDefaults] setObject:sipMwiUri forKey:@"mwi_uri_preference"];
     [[NSUserDefaults standardUserDefaults] synchronize];

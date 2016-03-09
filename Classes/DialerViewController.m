@@ -199,7 +199,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
     [settingsStore transformLinphoneCoreToKeys];
-    
+    [settingsStore synchronize];
 	[zeroButton setDigit:'0'];
 	[oneButton setDigit:'1'];
 	[twoButton setDigit:'2'];

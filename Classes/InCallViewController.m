@@ -228,18 +228,25 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.incomingTextView setHidden:YES];
     [self.incomingTextView setText:@""];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isSpeakerEnabled = [defaults boolForKey:@"isSpeakerEnabled"];
-    
+    //Speaker mute
     const float mute_db = -1000.0f;
-    if(isSpeakerEnabled){
+   
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerMuted = [defaults boolForKey:@"mute_speaker_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_speaker_preference"]){
+        isSpeakerMuted = NO;
+    }
+    
+    if(!isSpeakerMuted){
         linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
     }
     else{
         linphone_core_set_playback_gain_db([LinphoneManager getLc], mute_db);
     }
-            self.isRTTEnabled = YES;
-            self.isRTTLocallyEnabled = YES;
+    
+    self.isRTTEnabled = YES;
+    self.isRTTLocallyEnabled = YES;
     
     self.incomingTextView.layoutManager.allowsNonContiguousLayout = FALSE;
 }
@@ -1331,12 +1338,12 @@ BOOL didChatResize = NO;
     RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
     
     if ([msg.msgString isEqualToString:@"\n"] || [msg.msgString isEqualToString:@""]) {
-        return 17;
+        return [UIFont systemFontSize] + 4.0f;
     } else {
         
         size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - 30.0f, CGFLOAT_MAX)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:[UIFont systemFontSize] + 4.0f]}
                                                  context:nil].size;
     }
     return size.height;
@@ -1366,6 +1373,8 @@ BOOL didChatResize = NO;
     }
     
     if (msg.msgString.length > 1) {
+        [cell.textLabel setAdjustsFontSizeToFitWidth:NO];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:[UIFont systemFontSize] + 4]];
         NSString *firstCharacter = [msg.msgString substringToIndex:1];
         NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
         if ([firstCharacter isEqualToString:@"\n"]) {

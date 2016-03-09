@@ -567,12 +567,19 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
         [defaults synchronize];
     }
+    else if([@"use_ipv6" compare:notif.object] == NSOrderedSame){
+        BOOL use_ipv6 = [[notif.userInfo objectForKey:@"use_ipv6"] boolValue];
+        linphone_core_enable_ipv6([LinphoneManager getLc], use_ipv6);
+        [[LinphoneManager instance] lpConfigSetBool:use_ipv6 forKey:@"use_ipv6"];
+        [[NSUserDefaults standardUserDefaults] setBool:use_ipv6 forKey:@"use_ipv6"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     else if ([@"mute_microphone_preference" compare:notif.object] == NSOrderedSame) {
         BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults setBool:isMuted forKey:@"mute_microphone_preference"];
         [defaults synchronize];
 
     }
@@ -584,9 +591,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     }
     else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
-        BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
+        BOOL isSpeakerMuted = [[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
+        [defaults setBool:isSpeakerMuted forKey:@"mute_speaker_preference"];
         [defaults synchronize];
     }
     else if([@"mwi_uri_preference" compare:notif.object] == NSOrderedSame){
