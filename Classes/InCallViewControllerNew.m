@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet CallBarView *callBarView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *callBarViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet SecondIncomingCallBarView *secondIncomingCallBarView;
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
@@ -635,6 +636,38 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                          weakSelf.videoPreviewViewBottomConstraint.constant = 160;
                          [weakSelf.view layoutIfNeeded];
                      }];
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
+    
+    [self rotateVideoPreviewWithOrientation:toInterfaceOrientation];
+    
+    if (toInterfaceOrientation == UIDeviceOrientationLandscapeRight || toInterfaceOrientation == UIDeviceOrientationLandscapeLeft) {
+        self.callBarViewBottomConstraint.constant = 5;
+    }
+    else {
+        self.callBarViewBottomConstraint.constant = 40;
+    }
+}
+
+
+- (void)rotateVideoPreviewWithOrientation:(UIInterfaceOrientation)orientation {
+    
+    CGFloat rotationAngle = 0;
+    
+    if (orientation == UIDeviceOrientationLandscapeRight) {
+        rotationAngle = M_PI_2;
+    }
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        rotationAngle = -M_PI_2;
+    }
+    
+    __weak InCallViewControllerNew *weakSelf = self;
+    [UIView animateWithDuration:0.3 animations:^{
+        weakSelf.videoPreviewView.transform = CGAffineTransformMakeRotation(rotationAngle);
+    } completion:nil];
 }
 
 

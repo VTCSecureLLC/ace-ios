@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <tableView hidden="YES" clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cto-wd-TgW">
-                                <rect key="frame" x="37.5" y="20" width="300" height="647"/>
+                                <rect key="frame" x="38" y="20" width="300" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="i7c-Y5-iNb" id="okt-A1-XbH"/>
@@ -149,6 +149,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="callBarView" destination="8w2-q5-8wx" id="nFw-Ou-ZkY"/>
+                        <outlet property="callBarViewBottomConstraint" destination="5o4-IW-zgJ" id="NT1-CH-Tvi"/>
                         <outlet property="cameraImageView" destination="RGY-s2-faC" id="q2v-pu-UHW"/>
                         <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
                         <outlet property="inCallDialpadView" destination="2HI-Bp-9qL" id="WFP-pQ-SkL"/>
