@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewWidthConstraint;
 @property (weak, nonatomic) IBOutlet CallBarView *callBarView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *callBarViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet SecondIncomingCallBarView *secondIncomingCallBarView;
@@ -676,7 +678,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
     
-    [self rotateVideoPreviewWithOrientation:toInterfaceOrientation];
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self updateVideoPreviewFrameWithOrientation:toInterfaceOrientation];
+    [self orientationUpdate:toInterfaceOrientation];
     
     if (toInterfaceOrientation == UIDeviceOrientationLandscapeRight || toInterfaceOrientation == UIDeviceOrientationLandscapeLeft) {
         self.callBarViewBottomConstraint.constant = 5;
@@ -686,21 +690,38 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
-- (void)rotateVideoPreviewWithOrientation:(UIInterfaceOrientation)orientation {
+- (void)updateVideoPreviewFrameWithOrientation:(UIInterfaceOrientation)orientation {
     
-    CGFloat rotationAngle = 0;
-    
-    if (orientation == UIDeviceOrientationLandscapeRight) {
-        rotationAngle = M_PI_2;
+    CGFloat tempValue = 0;
+    if (orientation == UIDeviceOrientationPortrait) {
+        tempValue = self.videoPreviewHeightConstraint.constant;
+        self.videoPreviewHeightConstraint.constant = self.videoPreviewWidthConstraint.constant;
+        self.videoPreviewWidthConstraint.constant = tempValue;
+        
+        if (self.callBarView.viewState == VS_Opened) {
+            self.videoPreviewViewBottomConstraint.constant = 160;
+        }
+        else if (self.callBarView.viewState == VS_Closed) {
+            self.videoPreviewViewBottomConstraint.constant = 20;
+        }
     }
-    if (orientation == UIDeviceOrientationLandscapeLeft) {
-        rotationAngle = -M_PI_2;
+    else {
+        tempValue = self.videoPreviewWidthConstraint.constant;
+        self.videoPreviewWidthConstraint.constant = self.videoPreviewHeightConstraint.constant;
+        self.videoPreviewHeightConstraint.constant = tempValue;
+        
+        if (self.callBarView.viewState == VS_Opened) {
+            self.videoPreviewViewBottomConstraint.constant = 120;
+        }
+        else if (self.callBarView.viewState == VS_Closed) {
+            self.videoPreviewViewBottomConstraint.constant = 20;
+        }
     }
     
     __weak InCallViewControllerNew *weakSelf = self;
-    [UIView animateWithDuration:0.3 animations:^{
-        weakSelf.videoPreviewView.transform = CGAffineTransformMakeRotation(rotationAngle);
-    } completion:nil];
+    [UIView animateWithDuration:0.2 animations:^{
+        [weakSelf.view layoutIfNeeded];
+    }];
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -1101,8 +1122,53 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
         }
     }
-    
 }
+
+- (void)orientationUpdate:(UIInterfaceOrientation)orientation {
+    int oldLinphoneOrientation = linphone_core_get_device_rotation([LinphoneManager getLc]);
+    int newRotation = 0;
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait:
+            newRotation = 0;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            newRotation = 180;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            newRotation = 270;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            newRotation = 90;
+            break;
+        default:
+            newRotation = oldLinphoneOrientation;
+    }
+    if (oldLinphoneOrientation != newRotation) {
+        linphone_core_set_device_rotation([LinphoneManager getLc], newRotation);
+        LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+        if (call && linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && linphone_call_camera_enabled(call)) {
+            // Liz E. - is there any way to trigger the recipient UI to update for the new device rotation wihtout
+            //    calling linphone_core_update_call? Not yet is the answer. This is how Linphone docs say to do it.
+            // Orientation has changed, must call update call
+            
+            
+            const LinphoneCallParams *params = linphone_call_get_current_params(call);
+            if(params != NULL){
+                if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                    if(orientation == UIInterfaceOrientationPortrait){
+                        linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                    }
+                    else if(orientation == UIInterfaceOrientationPortraitUpsideDown){
+                        linphone_core_set_device_rotation([LinphoneManager getLc], 90);
+                    }
+                }
+            }
+            
+            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+        }
+    }
+}
+
 
 - (void)createNewRemoteChatBuffer:(NSString *)text {
     

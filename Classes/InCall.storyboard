@@ -42,7 +42,7 @@
                             </tableView>
                             <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
                                 <rect key="frame" x="243" y="379" width="96" height="128"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -159,8 +159,10 @@
                         <outlet property="secondIncomingCallBarView" destination="0Fx-gY-047" id="VcJ-ds-GtW"/>
                         <outlet property="secondIncomingCallView" destination="Flh-2b-FH0" id="BNF-ya-rkF"/>
                         <outlet property="tableView" destination="cto-wd-TgW" id="AoH-aY-sQs"/>
+                        <outlet property="videoPreviewHeightConstraint" destination="v5A-Rj-kxk" id="YD8-DJ-q5m"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
                         <outlet property="videoPreviewViewBottomConstraint" destination="M6j-lE-fXg" id="i6Q-W1-Ril"/>
+                        <outlet property="videoPreviewWidthConstraint" destination="X3X-WX-q0U" id="Q8q-Ef-osM"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                     </connections>
                 </viewController>
