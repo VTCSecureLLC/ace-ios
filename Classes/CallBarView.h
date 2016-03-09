@@ -11,13 +11,6 @@
 #include "InCallViewConstants.h"
 
 /**
- *  @brief Callback for view's buttons
- *
- *  @param sender Pressed button
- */
-typedef void (^ButtonActionHandler)(UIButton *sender);
-
-/**
  *  @brief Calles when call bar will hides
  *
  *  @param duration Animation duration

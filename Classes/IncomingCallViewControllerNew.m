@@ -212,6 +212,10 @@
         case LinphoneCallIncomingReceived: {
             
             NSAssert(1, @"LinphoneCallIncomingReceived: Just need to check this state");
+            NSUInteger callCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callCount == 2) {
+                [[LinphoneManager instance] declineCall:[[LinphoneManager instance] holdCall]];
+            }
             break;
         }
         case LinphoneCallIncomingEarlyMedia: {
@@ -253,7 +257,10 @@
         case LinphoneCallEnd: {
             
             // Dismiss controller
-            [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            NSUInteger callCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callCount == 0) {
+                [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            }
             break;
         }
         case LinphoneCallReleased: {
@@ -263,7 +270,7 @@
             if (callCount == 0) {
                 [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
             }
-            else {
+            else if ([[LinphoneManager instance] holdCall]) {
                 [self updateWithCall:[[LinphoneManager instance] holdCall]];
             }
             break;

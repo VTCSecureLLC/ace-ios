@@ -15,6 +15,7 @@
 #import "SecondIncomingCallView.h"
 #import "InCallOnHoldView.h"
 #import "CallBarView.h"
+#import "InCallDialpadView.h"
 
 
 #define kBottomButtonsAnimationDuration 0.3f
@@ -35,6 +36,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet SecondIncomingCallBarView *secondIncomingCallBarView;
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
+@property (weak, nonatomic) IBOutlet InCallDialpadView *inCallDialpadView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
@@ -58,6 +60,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self setupSecondIncomingCallView];
     [self setupSecondIncomingCallBarView];
     [self setupInCallOnHoldView];
+    [self setupInCallDialpadView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -217,7 +220,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
             else if (callsCount == 1) {
                 LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
-                if ([[LinphoneManager instance] callStateForCall:holdCall] == LinphoneCallIncomingReceived) {
+                if (holdCall && [[LinphoneManager instance] callStateForCall:holdCall] == LinphoneCallIncomingReceived) {
                     if ([self.navigationController.rotatingFooterView isKindOfClass:[IncomingCallViewControllerNew class]]) {
                         [(IncomingCallViewControllerNew *)self.navigationController.rotatingFooterView setCall:holdCall];
                     }
@@ -275,8 +278,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
     if (holdCall) {
-        [self.inCallOnHoldView fillWithCallModel:holdCall];
-        [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
+        LinphoneCallState holdCallState = [[LinphoneManager instance] callStateForCall:holdCall];
+        if (holdCallState != LinphoneCallIncomingReceived && holdCallState != LinphoneCallIdle) {
+            [self.inCallOnHoldView fillWithCallModel:holdCall];
+            [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
+        }
     }
 }
 
@@ -358,6 +364,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.keypadButtonActionHandler = ^(UIButton *sender) {
         
+        if (self.inCallDialpadView.viewState == VS_Closed) {
+            
+            sender.selected = YES;
+            [weakSelf.inCallDialpadView showWithAnimation:YES completion:nil];
+        }
+        else if (self.inCallDialpadView.viewState == VS_Opened) {
+            
+            sender.selected = NO;
+            [weakSelf.inCallDialpadView hideWithAnimation:YES completion:nil];
+        }
     };
     
     self.callBarView.soundButtonActionHandler = ^(UIButton *sender) {
@@ -503,6 +519,60 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     };
 }
 
+- (void)setupInCallDialpadView {
+    
+    [self.inCallDialpadView hideWithAnimation:NO completion:nil];
+    
+    self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
+        
+    };
+
+    self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
+        
+    };
+    
+}
+
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
     
     __weak InCallViewControllerNew *weakSelf = self;
@@ -571,7 +641,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self.callBarView showWithAnimation:YES completion:nil];
     }
     else if (self.callBarView.viewState == VS_Opened) {
+        
         [self.callBarView hideWithAnimation:YES completion:nil];
+        
+        if (self.inCallDialpadView.viewState == VS_Opened) {
+            self.callBarView.keypadButtonSelected = NO;
+            [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+        }
     }
 }
 

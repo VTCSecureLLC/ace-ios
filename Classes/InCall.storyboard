@@ -80,6 +80,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
+                                <rect key="frame" x="47" y="140" width="281" height="334"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="334" id="hHZ-FX-rCg"/>
+                                    <constraint firstAttribute="width" constant="281" id="jVr-2n-Jkj"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="766-3n-CkP">
                                 <rect key="frame" x="67" y="270" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,6 +95,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="-50" id="27I-I9-kS4"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="RGY-s2-faC" secondAttribute="bottom" id="Gx2-wC-xzN"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="KRJ-9x-ZsP"/>
@@ -94,6 +103,7 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="LoX-Pv-GJ2"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="160" id="M6j-lE-fXg"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="MLf-cV-I1W"/>
+                            <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="NBS-cS-hLU"/>
                             <constraint firstAttribute="trailing" secondItem="cga-Yh-tX1" secondAttribute="trailing" id="Nz6-bD-xIl"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
                             <constraint firstItem="cga-Yh-tX1" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="TAY-qR-uV5"/>
@@ -128,6 +138,7 @@
                         <outlet property="callBarView" destination="8w2-q5-8wx" id="nFw-Ou-ZkY"/>
                         <outlet property="cameraImageView" destination="RGY-s2-faC" id="q2v-pu-UHW"/>
                         <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
+                        <outlet property="inCallDialpadView" destination="2HI-Bp-9qL" id="WFP-pQ-SkL"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="qualityImageView" destination="cga-Yh-tX1" id="9bs-mN-3lZ"/>

@@ -112,7 +112,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-17-E3U" userLabel="Bottom Buttons Container">
-                            <rect key="frame" x="0.0" y="100" width="375" height="50"/>
+                            <rect key="frame" x="-1" y="100" width="377" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlw-Jt-6jk" customClass="IncallButton">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
@@ -124,7 +124,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-de-4m4" customClass="IncallButton">
-                                    <rect key="frame" x="75" y="0.0" width="75" height="50"/>
+                                    <rect key="frame" x="75" y="0.0" width="76" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="in_call_voice_icon"/>
                                     <state key="selected" image="in_call_voice_selected_icon"/>
@@ -133,7 +133,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dph-Pk-SyG" customClass="IncallButton">
-                                    <rect key="frame" x="150" y="0.0" width="75" height="50"/>
+                                    <rect key="frame" x="151" y="0.0" width="75" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="in_call_keypad_icon"/>
                                     <connections>
@@ -141,7 +141,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wxh-sT-g9T" customClass="IncallButton">
-                                    <rect key="frame" x="225" y="0.0" width="75" height="50"/>
+                                    <rect key="frame" x="226" y="0.0" width="76" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="in_call_sound_icon"/>
                                     <state key="selected" image="in_call_sound_selected_icon"/>
@@ -150,7 +150,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbs-qg-cZT" customClass="IncallButton">
-                                    <rect key="frame" x="300" y="0.0" width="75" height="50"/>
+                                    <rect key="frame" x="302" y="0.0" width="75" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="in_call_more_icon"/>
                                     <connections>
@@ -187,12 +187,12 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="xvQ-NC-QPH" firstAttribute="centerX" secondItem="0Yf-ly-MKb" secondAttribute="centerX" id="49E-9M-kTi"/>
-                        <constraint firstItem="hIc-17-E3U" firstAttribute="leading" secondItem="0Yf-ly-MKb" secondAttribute="leading" id="KPL-FT-UTn"/>
+                        <constraint firstItem="hIc-17-E3U" firstAttribute="leading" secondItem="0Yf-ly-MKb" secondAttribute="leading" constant="-1" id="KPL-FT-UTn"/>
                         <constraint firstItem="bgC-0Y-R1k" firstAttribute="height" secondItem="hIc-17-E3U" secondAttribute="height" multiplier="2" id="MQN-5i-CKV"/>
                         <constraint firstAttribute="bottom" secondItem="xvQ-NC-QPH" secondAttribute="bottom" id="Nyv-at-1v4"/>
                         <constraint firstAttribute="trailing" secondItem="bgC-0Y-R1k" secondAttribute="trailing" id="eaX-Hb-toX"/>
                         <constraint firstItem="hIc-17-E3U" firstAttribute="top" secondItem="bgC-0Y-R1k" secondAttribute="bottom" id="oQT-ql-wZG"/>
-                        <constraint firstAttribute="trailing" secondItem="hIc-17-E3U" secondAttribute="trailing" id="skP-1I-9b0"/>
+                        <constraint firstAttribute="trailing" secondItem="hIc-17-E3U" secondAttribute="trailing" constant="-1" id="skP-1I-9b0"/>
                         <constraint firstItem="xvQ-NC-QPH" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="bottom" constant="1" id="zI5-1C-wSd"/>
                     </constraints>
                 </view>
