@@ -2117,7 +2117,12 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 
 - (BOOL)isChatEnabledForCall:(LinphoneCall *)call {
 
-    return linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call));
+    BOOL isChatEnabled = NO;
+    if (call != NULL) {
+        isChatEnabled = linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call));
+    }
+    
+    return isChatEnabled;
 }
 
 - (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {

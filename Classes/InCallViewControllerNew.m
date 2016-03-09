@@ -153,6 +153,51 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    if (self.isRTTEnabled) {
+        CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGFloat keyboardPos = keyboardFrame.origin.y;
+        
+        CGFloat remote_video_delta = (self.videoView.frame.origin.y +
+                              self.videoView.frame.size.height) - keyboardPos;
+        CGFloat chat_delta = (self.tableView.frame.origin.y + self.tableView.frame.size.height) - keyboardPos;
+        
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
+                                          self.tableView.frame.size.width,
+                                          self.tableView.frame.size.height - chat_delta);
+        [self showLatestMessage];
+        CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
+        [self.videoView setCenter:remote_video_center];
+        
+        self.incomingTextView.text = @"";
+        [self.incomingTextView setHidden:YES];
+        [self.closeChatButton setHidden:YES];
+        
+        self.isChatMode = YES;
+        [self.tableView setHidden:NO];
+//        [self hideControls];
+        [self sortChatEntriesArray];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)notification {
+    
+    CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardPos = keyboardFrame.origin.y;
+    CGFloat remote_video_delta = (self.videoView.frame.origin.y +
+                          self.videoView.frame.size.height) - keyboardPos;
+    
+    CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
+    [self.videoView setCenter:remote_video_center];
+    
+    [self.incomingTextView setHidden:YES];
+    [self.closeChatButton setHidden:YES];
+    
+    self.isChatMode = NO;
+}
+
 
 #pragma mark - Private Methods
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
@@ -346,12 +391,30 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                                              selector:@selector(videoModeUpdate:)
                                                  name:kLinphoneVideModeUpdate
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textComposeEvent:)
+                                                 name:kLinphoneTextComposeEvent
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)removeNotifications {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneVideModeUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextComposeEvent object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)setupVideo {
@@ -449,6 +512,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
+        self.isChatMode = YES;
+        self.tableView.hidden = NO;
+        [self.tableView reloadData];
+        [self.incomingTextView becomeFirstResponder];
     };
     
     self.callBarView.endCallButtonActionHandler = ^(UIButton *sender) {
@@ -1169,6 +1236,35 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
+- (void)runonmainthread:(NSString *)text {
+    
+    [self insertTextIntoRemoteBuffer:text];
+}
+
+- (void)runonmainthreadremove {
+    
+    [self backspaceInRemoteBuffer];
+}
+
+- (void)textComposeEvent:(NSNotification *)notif {
+    LinphoneChatRoom *room = [[[notif userInfo] objectForKey:@"room"] pointerValue];
+    if (room) {
+        uint32_t c = linphone_chat_room_get_char(room);
+        
+        if (c == 0x2028 || c == 10){ // In case of enter.
+            [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:@"\n" waitUntilDone:NO];
+        }
+        else if (c == '\b' || c == 8){ // In case of backspace.
+            [self performSelectorOnMainThread:@selector(runonmainthreadremove) withObject:nil waitUntilDone:NO];
+        }
+        else// In case of everything else except empty.
+        {
+            NSLog(@"The logging: %d", c);
+            NSString * string = [NSString stringWithFormat:@"%C", (unichar)c];
+            [self performSelectorOnMainThread:@selector(runonmainthread:) withObject:string waitUntilDone:NO];
+        }
+    }
+}
 
 - (void)createNewRemoteChatBuffer:(NSString *)text {
     
@@ -1272,6 +1368,120 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
         }
     }
+}
+
+
+- (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction {
+    return UITextWritingDirectionLeftToRight;
+}
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position {
+    return CGRectZero;
+}
+
+- (void)unmarkText {
+    
+}
+
+- (UITextRange *)characterRangeAtPoint:(CGPoint)point {
+    return nil;
+}
+
+- (UITextRange *)characterRangeByExtendingPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction {
+    return nil;
+}
+
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point {
+    return nil;
+}
+
+- (UITextPosition *)closestPositionToPoint:(CGPoint)point withinRange:(UITextRange *)range {
+    return nil;
+}
+
+- (NSComparisonResult)comparePosition:(UITextPosition *)position toPosition:(UITextPosition *)other {
+    return NSOrderedDescending;
+}
+
+- (void)dictationRecognitionFailed {
+}
+
+- (void)dictationRecordingDidEnd {
+    //    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+    //    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+    //
+    //    }
+}
+
+- (CGRect)firstRectForRange:(UITextRange *)range {
+    return CGRectZero;
+}
+
+- (CGRect)frameForDictationResultPlaceholder:(id)placeholder {
+    return CGRectZero;
+}
+
+- (void)insertDictationResult:(NSArray *)dictationResult {
+    LinphoneCall *c = linphone_core_get_current_call([LinphoneManager getLc]);
+    if (c && linphone_call_get_state(c) == LinphoneCallStreamsRunning) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        //String text_mode=prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT");
+        [defaults setObject:@"SIP_SIMPLE" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+        for(UIDictationPhrase *phrase in dictationResult){
+            [self insertText:[phrase text]];
+        }
+        [self insertText:@"\n"];
+        [defaults setObject:@"RTT" forKey:@"pref_text_settings_send_mode_key"];
+        [defaults synchronize];
+    }
+}
+
+- (id)insertDictationResultPlaceholder {
+    return @"";
+}
+
+- (NSInteger)offsetFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition {
+    return 0;
+}
+
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset {
+    return nil;
+}
+
+- (UITextPosition *)positionFromPosition:(UITextPosition *)position offset:(NSInteger)offset {
+    return nil;
+}
+
+- (UITextPosition *)positionWithinRange:(UITextRange *)range farthestInDirection:(UITextLayoutDirection)direction {
+    return nil;
+}
+
+- (void)removeDictationResultPlaceholder:(id)placeholder willInsertResult:(BOOL)willInsertResult {
+}
+
+- (void)replaceRange:(UITextRange *)range withText:(NSString *)text {
+}
+
+- (NSArray *)selectionRectsForRange:(UITextRange *)range {
+    return nil;
+}
+
+- (void)setBaseWritingDirection:(UITextWritingDirection)writingDirection forRange:(UITextRange *)range {
+}
+
+- (void)setMarkedText:(NSString *)markedText selectedRange:(NSRange)selectedRange {
+}
+
+- (NSString *)textInRange:(UITextRange *)range {
+    
+    return @"";
+}
+
+- (UITextRange *)textRangeFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition {
+    
+    return [[UITextRange alloc] init];
 }
 
 @end
