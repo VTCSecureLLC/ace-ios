@@ -146,7 +146,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *name;
     cdnResources = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
-    
     for (int i = 1; name; i++) {
         [cdnResources addObject:name];
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
@@ -1659,7 +1658,7 @@ UIAlertView *transportAlert;
     linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String : self.textFieldDomain.text.UTF8String);
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
