@@ -16,9 +16,17 @@
 #import "InCallOnHoldView.h"
 #import "CallBarView.h"
 #import "InCallDialpadView.h"
+#import "RTTMessageModel.h"
+#import "BubbleTableViewCell.h"
 
 
-#define kBottomButtonsAnimationDuration 0.3f
+#define kBottomButtonsAnimationDuration     0.3f
+#define RTT_MAX_PARAGRAPH_CHAR              250
+#define RTT_SOFT_MAX_PARAGRAPH_CHAR         200
+
+#define NO_TEXT     -1
+#define RTT         0
+#define SIP_SIMPLE  1
 
 typedef NS_ENUM(NSInteger, CallQualityStatus) {
     CallQualityStatusBad,
@@ -27,7 +35,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     CallQualityStatusNone
 };
 
-@interface InCallViewControllerNew ()
+
+@interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
@@ -40,11 +49,22 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
-
-// Call Quality
 @property (weak, nonatomic) IBOutlet UIImageView *qualityImageView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSTimer *callQualityTimer;
-
+@property (strong, nonatomic) NSMutableArray *chatEntries;
+@property (assign, nonatomic) BOOL isRTTLocallyEnabled;
+@property (assign, nonatomic) BOOL isChatMode;
+@property (strong, nonatomic) RTTMessageModel *localTextBuffer;
+@property (strong, nonatomic) RTTMessageModel *remoteTextBuffer;
+@property (assign, nonatomic) int localTextBufferIndex;
+@property (assign, nonatomic) int remoteTextBufferIndex;
+@property (assign, nonatomic) NSTimeInterval year2037TimeStamp;
+@property (assign, nonatomic) NSTimeInterval year2036TimeStamp;
+@property (strong, nonatomic) UIColor *localColor;
+@property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
+@property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
+@property (strong, nonatomic) NSMutableString *msgBuffer;
 
 @end
 
@@ -61,6 +81,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self setupSecondIncomingCallBarView];
     [self setupInCallOnHoldView];
     [self setupInCallDialpadView];
+    [self setupRTT];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -570,7 +591,29 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
         
     };
+}
+
+- (void)setupRTT {
+
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init] ;
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"] ;
+    NSDate *date2037 = [dateFormatter dateFromString:@"2037-01-01"];
+    NSDate *date2036 = [dateFormatter dateFromString:@"2036-01-01"];
+    self.year2037TimeStamp = [date2037 timeIntervalSince1970];
+    self.year2036TimeStamp = [date2036 timeIntervalSince1970];
     
+    self.chatEntries = [[NSMutableArray alloc] init];
+    self.localTextBufferIndex = -1;
+    self.remoteTextBufferIndex = -1;
+    
+    self.isChatMode = NO;
+    if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
+        self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
+        self.isRTTLocallyEnabled = YES;
+    }
 }
 
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
@@ -594,7 +637,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                      }];
 }
 
-// Call quality
+
+#pragma mark - Call Quality
 - (void)showQualityIndicator {
     
     _qualityImageView.hidden = NO;
@@ -633,6 +677,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
+
 #pragma mark - Actions Methods
 - (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
 
@@ -647,6 +692,447 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         if (self.inCallDialpadView.viewState == VS_Opened) {
             self.callBarView.keypadButtonSelected = NO;
             [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+        }
+    }
+}
+
+#pragma mark - RTT Methods
+/* Text Mode RTT or SIP SIMPLE duplicate with Android*/
+- (int)getTextMode {
+    //SET TO RTT BY DEFAULT, THIS WILL CHANGE IN GLOBAL SETTINGS.
+    int TEXT_MODE=RTT;
+    
+    //prefs = PreferenceManager.getDefaultSharedPreferences(LinphoneActivity.instance());
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    //String text_mode=prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT");
+    NSString* text_mode_string=[defaults stringForKey:@"pref_text_settings_send_mode_key"];
+    
+    //Log.d("Text Send Mode" + prefs.getString(getString(R.string.pref_text_settings_send_mode_key), "RTT"));
+    NSLog(@"Text mode is %@",text_mode_string);
+    //    if(text_mode.equals("SIP_SIMPLE")) {
+    //        TEXT_MODE=SIP_SIMPLE;
+    //    }else if(text_mode.equals("RTT")) {
+    //        TEXT_MODE=RTT;
+    //
+    //    }
+    
+    if([text_mode_string isEqualToString:@"SIP_SIMPLE"]) {
+        TEXT_MODE=SIP_SIMPLE;
+    }else if([text_mode_string isEqualToString:@"RTT"]) {
+        TEXT_MODE=RTT;
+    }
+    NSLog(@"Text mode is %d",TEXT_MODE);
+    //Log.d("TEXT_MODE ", TEXT_MODE);
+    return TEXT_MODE;
+}
+
+- (void)sortChatEntriesArray {
+    
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"modifiedTimeInterval" ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
+    [self.chatEntries removeAllObjects];
+    for (RTTMessageModel *msgModel in reverseOrder) {
+        [self.chatEntries addObject:msgModel];
+    }
+}
+
+- (void)showLatestMessage {
+    
+    if (self.tableView && self.chatEntries) {
+        NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
+        if (index.section >= 0 && index.section < (int)self.chatEntries.count) {
+            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+    }
+}
+
+
+#pragma mark - UITableViewDataSource Methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return self.chatEntries.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *CellIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    BubbleTableViewCell *cell = (BubbleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[BubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.backgroundColor = self.tableView.backgroundColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.dataSource = self;
+    }
+    
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+    
+    if ([msg.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
+        cell.authorType = BubbleTableViewCellTypeSelf;
+        cell.bubbleColor = BubbleColorBlue;
+    } else {
+        cell.authorType = BubbleTableViewCellTypeOther;
+        cell.bubbleColor = BubbleColorGray;
+    }
+    
+    if (msg.msgString.length > 1) {
+        
+        NSString *firstCharacter = [msg.msgString substringToIndex:1];
+        NSString *stringWithoutNewLine = [msg.msgString substringFromIndex:1];
+        if ([firstCharacter isEqualToString:@"\n"]) {
+            cell.textLabel.text = stringWithoutNewLine;
+        } else {
+            cell.textLabel.text = msg.msgString;
+        }
+    } else {
+        cell.textLabel.text = msg.msgString;
+    }
+    
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate methods
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 20;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    CGSize size;
+    
+    RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
+    
+    if ([msg.msgString isEqualToString:@"\n"] || [msg.msgString isEqualToString:@""]) {
+        return 17;
+    } else {
+        
+        size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - 30.0f, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
+                                                 context:nil].size;
+    }
+    
+    return size.height;
+}
+
+
+#pragma mark Outgoing Text Logic
+- (void)createNewLocalChatBuffer:(NSString *)text {
+    
+    self.localTextBuffer = [[RTTMessageModel alloc] initWithString:text];
+    self.localTextBuffer.modifiedTimeInterval = self.year2037TimeStamp;
+    self.localTextBuffer.color = [UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8];
+    self.localColor = self.localTextBuffer.color;
+    self.localTextBufferIndex = (int)self.chatEntries.count;
+    [self.chatEntries addObject:self.localTextBuffer];
+    if(self.isChatMode){
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+        [self sortChatEntriesArray];
+        [self.tableView reloadData];
+        [self showLatestMessage];
+    }
+}
+
+- (void)insertTextIntoBuffer:(NSString *)text {
+    
+    int asciiCode = [text characterAtIndex:0];
+    if (asciiCode == 0) {
+        return;
+    }
+    
+    int indx;
+    if ((int)self.chatEntries.count == 0) {
+        indx = 0;
+    } else {
+        indx = (int)self.chatEntries.count - 1;
+    }
+    
+    if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
+        
+        RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
+        NSString *currentCharacter = currentRttModel.msgString;
+        
+        
+        BOOL enter_pressed=[currentCharacter isEqualToString:@"\n"];
+        // if the last one is not mine and it's not a first my messages
+        if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && enter_pressed) {
+            return;
+        }
+        
+        if (!enter_pressed) { // do not add row if previous mine is empty
+            if (indx == 0) { // if it's the first message
+                [self createNewLocalChatBuffer:text];
+                return;
+            } else {
+                self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
+            }
+            
+            // If the previous is my message
+            if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
+                self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
+            }
+            
+            [self createNewLocalChatBuffer:text];
+            return;
+        }
+        
+        
+        
+    }
+    
+    if (self.localTextBufferIndex == -1) { // if it's the first message after others
+        [self createNewLocalChatBuffer:text];
+        return;
+    }
+    
+    self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
+    if(self.localTextBuffer){
+        if(self.localTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
+            [self createNewLocalChatBuffer:text];
+            return;
+        }
+        if(self.localTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR){
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.localTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
+                [self createNewLocalChatBuffer:@""];
+                return;
+            }
+        }
+        [self.localTextBuffer.msgString appendString: text];
+        [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
+        
+        if(self.isChatMode){
+            [self sortChatEntriesArray];
+            [self.tableView reloadData];
+            [self showLatestMessage];
+        }
+    }
+}
+
+- (void)backspaceInLocalBuffer {
+    
+    if(!self.localTextBuffer){
+        return;
+    }
+    self.localTextBuffer = [self.chatEntries objectAtIndex:self.localTextBufferIndex];
+    if(self.localTextBuffer){
+        if(self.localTextBuffer.msgString.length > 0){
+            [self.localTextBuffer removeLast];
+            [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
+            if(self.isChatMode){
+                [self sortChatEntriesArray];
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
+        }
+    }
+}
+
+/* Called when text is inserted */
+- (void)insertText:(NSString *)theText {
+    
+    // Send a character.
+    bool enter_pressed=false;
+    unichar c = [theText characterAtIndex:0];
+    /* A Line Separator that should be added. */
+    if (c == '\n'){
+        c = 0x2028;
+        enter_pressed=true;
+    }
+    
+    NSLog(@"theText %@",theText);
+    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    NSLog(@"insertText %@",self.localTextBuffer.msgString);
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneChatRoom* room = linphone_call_get_chat_room(call);
+    LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
+    
+    
+    int TEXT_MODE=[self getTextMode];
+    
+    if(TEXT_MODE==RTT){
+        linphone_chat_message_put_char(msg, c);
+    }else if(TEXT_MODE==SIP_SIMPLE){
+        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        if(enter_pressed){
+            NSLog(@"enter_pressed");
+            for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
+                NSLog(@"Sending char %hu",[self.localTextBuffer.msgString characterAtIndex:j]);
+                unichar c1 = [self.localTextBuffer.msgString characterAtIndex:j];
+                if (c1 == '\n'){
+                    c1 = 0x2028;
+                }
+                linphone_chat_message_put_char(msg, c1);
+            }
+        }
+    }
+    [self insertTextIntoBuffer:theText];
+    
+}
+
+/* Called when backspace is inserted */
+- (void)deleteBackward {
+    
+    // Send a backspace.
+    NSLog(@"Remove one sign. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          linphone_core_get_version());
+    
+    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneChatRoom* room = linphone_call_get_chat_room(call);
+    LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
+    linphone_chat_message_put_char(msg, (char)8);
+    
+    [self backspaceInLocalBuffer];
+}
+
+
+#pragma mark Incoming Text Logic
+- (void)insertTextIntoMinimizedTextBuffer:(NSString *)text {
+    
+    if (!self.isChatMode) {
+        if(![text isEqualToString:@""]){
+            if([self.incomingTextView isHidden]){
+                [self.closeChatButton setEnabled:YES];
+                
+                [self.incomingTextView setHidden:NO];
+                [self.closeChatButton setHidden:NO];
+                
+                self.msgBuffer = [[NSMutableString alloc] initWithString:@""];
+                [self.incomingTextView setText:self.msgBuffer];
+            }
+            
+            [self.msgBuffer appendString:text];
+            [self.incomingTextView setText:self.msgBuffer];
+            if(self.incomingTextView.text.length > 0 ) {
+                NSRange range = NSMakeRange(self.incomingTextView.text.length-1, 1);
+                [self.incomingTextView scrollRangeToVisible:range];
+                
+            }
+        }
+    }
+    
+}
+
+- (void)createNewRemoteChatBuffer:(NSString *)text {
+    
+    self.remoteTextBuffer = [[RTTMessageModel alloc] initWithString:text];
+    self.remoteTextBuffer.color = [UIColor lightGrayColor];
+    self.remoteTextBuffer.modifiedTimeInterval = self.year2036TimeStamp;
+    
+    self.remoteTextBufferIndex = (int)self.chatEntries.count;
+    
+    [self.chatEntries addObject:self.remoteTextBuffer];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+    [self sortChatEntriesArray];
+    [self.tableView reloadData];
+    [self showLatestMessage];
+    [self insertTextIntoMinimizedTextBuffer:text];
+}
+
+- (void)insertTextIntoRemoteBuffer:(NSString *)text {
+    
+    int asciiCode = [text characterAtIndex:0];
+    if (asciiCode == 0) {
+        return;
+    }
+    int index;
+    if ((int)self.chatEntries.count == 0) {
+        index = 0;
+    } else if (self.localTextBufferIndex < 0) { // no local message
+        index = (int)self.chatEntries.count - 1;
+    } else {
+        index = (int)self.chatEntries.count - 2;
+    }
+    
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
+        
+        if (![self.remoteTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
+            
+            if (index == 0 && ((int)self.chatEntries.count == 0)) {
+                [self createNewRemoteChatBuffer:text];
+                return;
+            }
+            
+            if (index >= 0) {
+                self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
+                self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
+            }
+            
+            [self createNewRemoteChatBuffer:text];
+            
+        }
+        return;
+    }
+    
+    self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
+    
+    if(self.remoteTextBuffer){
+        if(self.remoteTextBuffer.msgString.length + text.length >= RTT_MAX_PARAGRAPH_CHAR){
+            [self createNewRemoteChatBuffer:text];
+            return;
+        }
+        if(self.remoteTextBuffer.msgString.length + text.length >= RTT_SOFT_MAX_PARAGRAPH_CHAR && self.remoteTextBuffer.msgString.length + text.length < RTT_MAX_PARAGRAPH_CHAR){
+            
+            if([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","]){
+                [self.remoteTextBuffer.msgString appendString: text];
+                [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
+                [self createNewRemoteChatBuffer:@""];
+                return;
+            }
+        }
+        // [self.remoteTextBuffer.msgString appendString:text];
+        self.remoteTextBuffer.msgString = [[self.remoteTextBuffer.msgString stringByAppendingString:text] mutableCopy];
+        
+        [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
+        
+        [self sortChatEntriesArray];
+        [self.tableView reloadData];
+        [self insertTextIntoMinimizedTextBuffer:text];
+        [self showLatestMessage];
+    }
+}
+
+- (void)backspaceInRemoteBuffer {
+    
+    if(!self.remoteTextBuffer){
+        return;
+    }
+    self.remoteTextBuffer = [self.chatEntries objectAtIndex:self.remoteTextBufferIndex];
+    if(self.remoteTextBuffer){
+        if(self.remoteTextBuffer.msgString.length > 0){
+            [self.remoteTextBuffer removeLast];
+            [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
+            if(self.isChatMode){
+                [self sortChatEntriesArray];
+                [self.tableView reloadData];
+                [self showLatestMessage];
+            }
+            else if(!self.isChatMode && self.msgBuffer){
+                if (self.msgBuffer.length == 0)
+                    return;
+                [self.msgBuffer deleteCharactersInRange:NSMakeRange(self.msgBuffer.length -1,1)];
+                [self.incomingTextView setText:self.msgBuffer];
+            }
         }
     }
 }
