@@ -1670,6 +1670,7 @@ static int comp_call_state_paused(const LinphoneCall *call, const void *param) {
 	LOGI(@"Long running task started, remaining [%g s] because at least one call is paused",
 		 [[UIApplication sharedApplication] backgroundTimeRemaining]);
 }
+
 - (BOOL)enterBackgroundMode {
 	LinphoneProxyConfig *proxyCfg;
 	linphone_core_get_default_proxy(theLinphoneCore, &proxyCfg);
@@ -2112,6 +2113,11 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (LinphoneCall *)currentCall {
     
     return linphone_core_get_current_call(theLinphoneCore);
+}
+
+- (BOOL)isChatEnabledForCall:(LinphoneCall *)call {
+
+    return linphone_call_params_realtime_text_enabled(linphone_call_get_current_params(call));
 }
 
 - (void)setVideoWindowForLinphoneCore:(LinphoneCore *)linphoneCore toView:(UIView *)view {

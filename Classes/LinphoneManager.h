@@ -218,6 +218,16 @@ typedef struct _LinphoneManagerSounds {
  */
 - (LinphoneCall *)currentCall;
 
+
+/**
+ *  @brief Checks if chat enabled for exact call
+ *
+ *  @param call LinphoneCall object
+ *
+ *  @return returns YES if chat is enabled for exact call otherwise NO
+ */
+- (BOOL)isChatEnabledForCall:(LinphoneCall *)call;
+
 /**
  *  @brief Retruns call which in hold
  *

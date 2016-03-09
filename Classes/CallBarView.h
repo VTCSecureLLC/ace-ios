@@ -27,6 +27,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 @property (nonatomic, copy) ButtonActionHandler moreButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler switchCameraButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler changeVideoLayoutButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler chatButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler endCallButtonActionHandler;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillHideWithDurationBlock;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillShowWithDurationBlock;

@@ -55,7 +55,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (strong, nonatomic) NSTimer *callQualityTimer;
 @property (strong, nonatomic) NSMutableArray *chatEntries;
 @property (assign, nonatomic) BOOL isRTTLocallyEnabled;
+@property (assign, nonatomic) BOOL isRTTEnabled;
 @property (assign, nonatomic) BOOL isChatMode;
+@property (assign, nonatomic) BOOL hasStartedStream;
 @property (strong, nonatomic) RTTMessageModel *localTextBuffer;
 @property (strong, nonatomic) RTTMessageModel *remoteTextBuffer;
 @property (assign, nonatomic) int localTextBufferIndex;
@@ -66,6 +68,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
+@property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
 
 @end
 
@@ -202,6 +205,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
+            [self checkRTTForCall:call];
             [self checkHoldCall];
             [self showQualityIndicator];
             break;
@@ -305,6 +309,28 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.inCallOnHoldView fillWithCallModel:holdCall];
             [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
         }
+    }
+}
+
+- (void)checkRTTForCall:(LinphoneCall *)call {
+
+    LinphoneCallState state = [[LinphoneManager instance] callStateForCall:call];
+    if (state == LinphoneCallStreamsRunning) {
+        if (self.isRTTLocallyEnabled) {
+            if ([[LinphoneManager instance] isChatEnabledForCall:call]) {
+                self.isRTTEnabled = YES;
+            }
+            else {
+                self.isRTTEnabled = NO;
+            }
+        }
+        else {
+            self.isRTTEnabled = NO;
+        }
+        self.hasStartedStream = YES;
+    }
+    else {
+        self.isRTTEnabled = YES;
     }
 }
 
@@ -416,6 +442,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     };
     
     self.callBarView.changeVideoLayoutButtonActionHandler = ^(UIButton *sender) {
+        
+    };
+    
+    self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
     };
     
@@ -607,6 +637,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.localTextBufferIndex = -1;
     self.remoteTextBufferIndex = -1;
     
+    self.localTextBuffer = nil;
+    self.remoteTextBuffer = nil;
+    self.minimizedTextBuffer = nil;
+    
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
@@ -652,7 +686,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
-
 - (void)rotateVideoPreviewWithOrientation:(UIInterfaceOrientation)orientation {
     
     CGFloat rotationAngle = 0;
@@ -668,6 +701,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.videoPreviewView.transform = CGAffineTransformMakeRotation(rotationAngle);
     } completion:nil];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    
+    return [[LinphoneManager instance] isChatEnabledForCall:[[LinphoneManager instance] currentCall]];
 }
 
 

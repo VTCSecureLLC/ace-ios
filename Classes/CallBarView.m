@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *keypadButton;
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (weak, nonatomic) IBOutlet UIButton *switchCameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeVideoLayoutButton;
@@ -250,6 +251,13 @@
     
     if (self.changeVideoLayoutButtonActionHandler) {
         self.changeVideoLayoutButtonActionHandler(sender);
+    }
+}
+
+- (IBAction)chatButtonAction:(UIButton *)sender {
+    
+    if (self.chatButtonActionHandler) {
+        self.chatButtonActionHandler(sender);
     }
 }
 
