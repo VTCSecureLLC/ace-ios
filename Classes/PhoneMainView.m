@@ -406,7 +406,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 	}
 	case LinphoneCallEnd: {
         if (![previousMessage isEqualToString:message]) {
-            [self displayCallError:call message:message];
+            if (linphone_call_get_dir(call) == LinphoneCallOutgoing) {
+                [self displayCallError:call message:message];
+            }
         }
 		if (canHideInCallView) {
 			// Go to dialer view
