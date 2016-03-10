@@ -146,7 +146,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *name;
     cdnResources = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
-    
     for (int i = 1; name; i++) {
         [cdnResources addObject:name];
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
@@ -601,10 +600,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"vga" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
 
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
         linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
         linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
@@ -1647,7 +1646,7 @@ UIAlertView *transportAlert;
     [self enableAppropriateCodecs:linphone_core_get_video_codecs(lc)];
 
     // bwLimit - ? the name bwlimit is confusing
-    linphone_core_set_video_preset(lc, "custom");
+    linphone_core_set_video_preset(lc, "high-fps");
     
     // upload_bandwidth
     linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
@@ -1659,7 +1658,7 @@ UIAlertView *transportAlert;
     linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String : self.textFieldDomain.text.UTF8String);
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
