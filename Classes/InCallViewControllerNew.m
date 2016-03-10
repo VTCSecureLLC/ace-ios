@@ -807,6 +807,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.isChatMode = NO;
     self.tableView.hidden = YES;
     [self resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 
@@ -883,6 +884,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
         }
     }
+    
+    
 }
 
 
