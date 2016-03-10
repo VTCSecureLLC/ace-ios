@@ -321,7 +321,7 @@
 	_outgoingRingCountLabel.hidden = NO;
 	outgoingRingLabel.hidden = NO;
 	[UIView transitionWithView:_outgoingRingCountLabel
-					  duration:0.5f
+					  duration:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
 					   options:UIViewAnimationOptionTransitionCrossDissolve
 					animations:^{
 					  _outgoingRingCountLabel.text = [@(_outgoingRingCountLabel.text.intValue + 1) stringValue];
