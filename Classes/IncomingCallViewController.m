@@ -46,15 +46,6 @@
 }
 
 #pragma mark - ViewController Functions
-
-- (NSString *)timeFormatted:(int)totalSeconds{
-    
-    int seconds = (totalSeconds % 60);
-    int minutes = (totalSeconds / 60) % 60;
-    
-    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
-}
-int ringCount;
 - (void)displayIncrementedRingCount {
     ringCountLabel.hidden = NO;
     ringLabel.hidden = NO;
@@ -62,9 +53,7 @@ int ringCount;
                       duration:1
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
-                        ringCount++;
-                        ringCountLabel.text = [self timeFormatted:ringCount];
-                        NSLog(@"%@", [self timeFormatted:ringCount]);
+                        ringCountLabel.text = [@(ringCountLabel.text.intValue + 1) stringValue];
                     }
                     completion:nil];
 }
@@ -72,8 +61,7 @@ int ringCount;
 - (void)stopRingCount {
     ringCountLabel.hidden = YES;
     ringLabel.hidden = YES;
-    ringCountLabel.text = @"00:00";
-    ringCount = 0;
+    ringCountLabel.text = @"0";
 }
 
 -(void) toggleBackgroundColor {
@@ -81,7 +69,6 @@ int ringCount;
     [UIView animateKeyframesWithDuration:0.6 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAllowUserInteraction animations:^{
         self.view.backgroundColor = [UIColor redColor];
         self.flashingView.backgroundColor = [UIColor redColor];
-        
     } completion:nil];
     
 }
@@ -89,9 +76,8 @@ int ringCount;
 -(void) viewDidLoad {
     [super viewDidLoad];
     ringCountLabel.hidden = YES;
-    ringCount = 0;
     ringLabel.hidden = YES;
-    ringCountLabel.text = @"00:00";
+    ringCountLabel.text = @"0";
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     self.device = nil;
     if (captureDeviceClass != nil) {
