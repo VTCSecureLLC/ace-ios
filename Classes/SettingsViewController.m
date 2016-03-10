@@ -1067,12 +1067,8 @@ static BOOL isAdvancedSettings = FALSE;
         [alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
         [alert addButtonWithTitle:NSLocalizedString(@"Launch Wizard", nil)
                             block:^{
-                                NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-                                [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
                                 linphone_core_clear_proxy_config(lc);
                                 linphone_core_clear_all_auth_info(lc);
-                                [settingsStore transformLinphoneCoreToKeys];
-                                [settingsController.tableView reloadData];
                                 [self goToWizard];
                             }];
         [alert setDelegate:self];
