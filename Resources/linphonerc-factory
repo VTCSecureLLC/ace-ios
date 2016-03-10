@@ -62,4 +62,4 @@ enabled=0
 incoming_flashlight_frequency=0.5
 incoming_flashred_frequency=0.5
 incoming_vibrate_frequency=1.0
-outgoing_ring_duration=1.01
+outgoing_ring_duration=2.8
