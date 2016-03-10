@@ -23,7 +23,7 @@ touch $LOGFILE
 MUTED_PID=$!
 
 echo "Running make for dependencies"
-./compile.sh >> $LOGFILE 2>&1
+$DIR/compile.sh >> $LOGFILE 2>&1
 
 MAKE_RESULT=$?
 
