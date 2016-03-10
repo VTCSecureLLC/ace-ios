@@ -321,7 +321,7 @@
 	_outgoingRingCountLabel.hidden = NO;
 	outgoingRingLabel.hidden = NO;
 	[UIView transitionWithView:_outgoingRingCountLabel
-					  duration:1.01f
+					  duration:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
 					   options:UIViewAnimationOptionTransitionCrossDissolve
 					animations:^{
 					  _outgoingRingCountLabel.text = [@(_outgoingRingCountLabel.text.intValue + 1) stringValue];
@@ -362,7 +362,7 @@
             [stateImage setHidden:false];
             [chatButton setHidden:true];
             if (self.outgoingRingCountTimer == nil) {
-                self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:1.01f
+                self.outgoingRingCountTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
                                                                   target:self
                                                                 selector:@selector(displayIncrementedOutgoingRingCount)
                                                                 userInfo:nil
