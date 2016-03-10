@@ -41,6 +41,7 @@
     
     [self setupController];
     [self updateWithCall:_call];
+    [self setupRinging];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,7 +49,7 @@
     [super viewWillAppear:animated];
     
     [self setupNotifications];
-    [self setupRinging];
+    [self startRinging];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -198,8 +199,15 @@
     self.device = nil;
     if (captureDeviceClass != nil) {
         self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        if (![self.device hasTorch] || ![self.device hasFlash]) self.device = nil;
+        if (![self.device hasTorch] || ![self.device hasFlash]) {
+            self.device = nil;self.device = nil;
+        }
     }
+}
+
+- (void)startRinging {
+    
+    [self stopRinging];
     
     self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
                                                                   target:self
@@ -207,6 +215,7 @@
                                                                 userInfo:nil
                                                                  repeats:YES];
     [self.cameraLedFlasherTimer fire];
+    
     self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
                                                           target:self
                                                         selector:@selector(vibrate)
@@ -255,6 +264,9 @@
     
     [self stopFlashCameraLed];
     [self.vibratorTimer invalidate];
+    
+    self.vibratorTimer = nil;
+    self.cameraLedFlasherTimer = nil;
 }
 
 #pragma mark - Actions Methods
