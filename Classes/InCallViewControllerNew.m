@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (assign, nonatomic) NSTimeInterval year2037TimeStamp;
 @property (assign, nonatomic) NSTimeInterval year2036TimeStamp;
 @property (strong, nonatomic) UIColor *localColor;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rttMessageContainerViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet UIView *rttMessageContainerView;
 @property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
@@ -171,6 +173,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self.videoView setCenter:remote_video_center];
         
         self.incomingTextView.text = @"";
+        [self.rttMessageContainerView setHidden:YES];
         [self.incomingTextView setHidden:YES];
         [self.closeChatButton setHidden:YES];
         
@@ -192,6 +195,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
     
+    [self.rttMessageContainerView setHidden:YES];
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
     
@@ -1206,6 +1210,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if([self.incomingTextView isHidden]){
                 [self.closeChatButton setEnabled:YES];
                 
+                [self.rttMessageContainerView setHidden:NO];
                 [self.incomingTextView setHidden:NO];
                 [self.closeChatButton setHidden:NO];
                 
