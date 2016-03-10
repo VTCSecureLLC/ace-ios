@@ -2,7 +2,7 @@
 //  InCallOnHoldView.h
 //  linphone
 //
-//  Created by Misha Torosyan on 3/3/16.
+//  Created by Hrachya Stepanyan on 3/3/16.
 //
 //
 

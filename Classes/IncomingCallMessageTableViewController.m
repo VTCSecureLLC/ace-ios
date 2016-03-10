@@ -2,7 +2,7 @@
 //  IncomingCallMessageTableViewController.m
 //  linphone
 //
-//  Created by Misha Torosyan on 3/2/16.
+//  Created by Hrachya Stepanyan on 3/2/16.
 //
 //
 

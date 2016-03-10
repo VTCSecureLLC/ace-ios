@@ -2,7 +2,7 @@
 //  InCallDialpadView.m
 //  linphone
 //
-//  Created by Misha Torosyan on 3/9/16.
+//  Created by Hrachya Stepanyan on 3/9/16.
 //
 //
 
