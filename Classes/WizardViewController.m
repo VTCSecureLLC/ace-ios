@@ -1719,11 +1719,6 @@ UIAlertView *transportAlert;
         pt = (PayloadType *)elem->data;
         linphone_core_enable_payload_type(lc, pt, [[DefaultSettingsManager sharedInstance].enabledCodecs containsObject:[NSString stringWithUTF8String:pt->mime_type]]);
         
-        // download_bandwidth , related to the document
-        if ([[NSString stringWithUTF8String:pt->mime_type] isEqualToString:@"H264"]) {
-            PayloadType *pt = [[LinphoneManager instance] findVideoCodec:@"h264_preference"];
-            linphone_core_enable_payload_type(lc, pt, 0);
-        }
     }
 }
 
