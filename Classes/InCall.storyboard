@@ -24,9 +24,6 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="mso-9X-rkP" appends="YES" id="h7K-5j-PIc"/>
-                                </connections>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera_mute.png" translatesAutoresizingMaskIntoConstraints="NO" id="RGY-s2-faC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
@@ -99,6 +96,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="-50" id="27I-I9-kS4"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
@@ -136,6 +134,9 @@
                             <constraint firstAttribute="trailing" secondItem="R3N-QA-id6" secondAttribute="trailing" id="ylk-jX-TCI"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="roq-mU-HSX" appends="YES" id="8Sf-M2-cwv"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -158,9 +159,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="mso-9X-rkP">
+                <tapGestureRecognizer id="roq-mU-HSX">
                     <connections>
-                        <action selector="videoViewAction:" destination="i7c-Y5-iNb" id="dYa-iP-c46"/>
+                        <action selector="singleTapped:" destination="i7c-Y5-iNb" id="kDC-sK-70W"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

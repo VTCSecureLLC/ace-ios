@@ -795,7 +795,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (BOOL)canBecomeFirstResponder {
     
-    return [[LinphoneManager instance] isChatEnabledForCall:[[LinphoneManager instance] currentCall]];
+    return [[LinphoneManager instance] isChatEnabledForCall:[[LinphoneManager instance] currentCall]] && self.isChatMode;
 }
 
 - (void)closeRTTChat {
@@ -859,22 +859,28 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 
 #pragma mark - Actions Methods
-- (IBAction)videoViewAction:(UITapGestureRecognizer *)sender {
-
-    if (self.callBarView.viewState == VS_Closed) {
-        
-        [self.callBarView showWithAnimation:YES completion:nil];
+- (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
+    
+    if (self.isChatMode) {
+        [self closeRTTChat];
     }
-    else if (self.callBarView.viewState == VS_Opened) {
-        
-        [self.callBarView hideWithAnimation:YES completion:nil];
-        
-        if (self.inCallDialpadView.viewState == VS_Opened) {
-            self.callBarView.keypadButtonSelected = NO;
-            [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+    else {
+        if (self.callBarView.viewState == VS_Closed) {
+            
+            [self.callBarView showWithAnimation:YES completion:nil];
+        }
+        else if (self.callBarView.viewState == VS_Opened) {
+            
+            [self.callBarView hideWithAnimation:YES completion:nil];
+            
+            if (self.inCallDialpadView.viewState == VS_Opened) {
+                self.callBarView.keypadButtonSelected = NO;
+                [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+            }
         }
     }
 }
+
 
 #pragma mark - RTT Methods
 /* A field that must be implemented for the text protocol */
