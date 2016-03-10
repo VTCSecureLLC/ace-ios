@@ -366,6 +366,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 	NSString *message = [notif.userInfo objectForKey:@"message"];
 
     bool canHideInCallView = NO;
+
     
     if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] == 0) {
         canHideInCallView = YES;
@@ -709,6 +710,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 		case LinphoneReasonBusy:
 			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
 			break;
+        case LinphoneReasonDeclined:
+            lMessage = NSLocalizedString(@"The user is not available", nil);
+            break;
 		default:
 			if (message != nil) {
 				lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];
