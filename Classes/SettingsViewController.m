@@ -494,10 +494,8 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] setBool:enableRtt forKey:@"enable_rtt"];
         [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
         
-    } else if ([@"enable_video_preference" compare:notif.object] == NSOrderedSame) {
-		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"enable_video_preference"] boolValue];
-		[keys addObject:@"video_menu"];
-	} else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
+    }
+    else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = ![[notif.userInfo objectForKey:@"random_port_preference"] boolValue];
 		[keys addObject:@"port_preference"];
 	} else if ([@"backgroundmode_preference" compare:notif.object] == NSOrderedSame) {
@@ -569,12 +567,19 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
         [defaults synchronize];
     }
+    else if([@"use_ipv6" compare:notif.object] == NSOrderedSame){
+        BOOL use_ipv6 = [[notif.userInfo objectForKey:@"use_ipv6"] boolValue];
+        linphone_core_enable_ipv6([LinphoneManager getLc], use_ipv6);
+        [[LinphoneManager instance] lpConfigSetBool:use_ipv6 forKey:@"use_ipv6"];
+        [[NSUserDefaults standardUserDefaults] setBool:use_ipv6 forKey:@"use_ipv6"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     else if ([@"mute_microphone_preference" compare:notif.object] == NSOrderedSame) {
         BOOL isMuted = [[notif.userInfo objectForKey:@"mute_microphone_preference"] boolValue];
         linphone_core_mute_mic([LinphoneManager getLc], isMuted);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isMuted forKey:@"isCallAudioMuted"];
+        [defaults setBool:isMuted forKey:@"mute_microphone_preference"];
         [defaults synchronize];
 
     }
@@ -586,9 +591,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
     }
     else if ([@"mute_speaker_preference" compare:notif.object] == NSOrderedSame) {
-        BOOL isSpeakerEnabled = ([[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue]) ? NO : YES;
+        BOOL isSpeakerMuted = [[notif.userInfo objectForKey:@"mute_speaker_preference"] boolValue];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:isSpeakerEnabled forKey:@"isSpeakerEnabled"];
+        [defaults setBool:isSpeakerMuted forKey:@"mute_speaker_preference"];
         [defaults synchronize];
     }
     else if([@"mwi_uri_preference" compare:notif.object] == NSOrderedSame){
@@ -947,10 +952,6 @@ static BOOL isAdvancedSettings = FALSE;
 
 	[hiddenKeys addObject:@"enable_first_login_view_preference"];
 
-	if (!linphone_core_video_supported([LinphoneManager getLc])) {
-		[hiddenKeys addObject:@"enable_video_preference"];
-	}
-
 	if (!linphone_core_video_enabled([LinphoneManager getLc])) {
 		[hiddenKeys addObject:@"video_menu"];
 	}
@@ -1002,7 +1003,6 @@ static BOOL isAdvancedSettings = FALSE;
 		[hiddenKeys addObject:@"repeat_call_notification_preference"];
 	}
     if(!isAdvancedSettings){
-        [hiddenKeys addObject:@"enable_video_preference"];
         [hiddenKeys addObject:@"avpf_preference"];
         [hiddenKeys addObject:@"outbound_proxy_preference"];
         [hiddenKeys addObject:@"password_preference"];
@@ -1061,15 +1061,22 @@ static BOOL isAdvancedSettings = FALSE;
 			[self goToWizard];
 			return;
 		}
-		UIAlertView *alert = [[UIAlertView alloc]
-				initWithTitle:NSLocalizedString(@"Warning", nil)
-					  message:
-						  NSLocalizedString(
-							  @"Launching the Wizard will delete any existing proxy config.\nAre you sure to want it?",
-							  nil)
-					 delegate:self
-			cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-			otherButtonTitles:NSLocalizedString(@"Launch Wizard", nil), nil];
+		DTAlertView *alert = [[DTAlertView alloc]
+                    initWithTitle:NSLocalizedString(@"Warning", nil)
+					  message:NSLocalizedString(@"Launching the Wizard will delete any existing proxy config.\nAre you sure to want to logout?",nil)];
+        [alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"Launch Wizard", nil)
+                            block:^{
+                                NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                                [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+                                linphone_core_clear_proxy_config(lc);
+                                linphone_core_clear_all_auth_info(lc);
+                                [settingsStore transformLinphoneCoreToKeys];
+                                [settingsController.tableView reloadData];
+                                [self goToWizard];
+                            }];
+        [alert setDelegate:self];
+        
 		[alert show];
 	} else if ([key isEqual:@"clear_proxy_button"]) {
 		if (linphone_core_get_default_proxy_config(lc) == NULL) {
@@ -1083,6 +1090,8 @@ static BOOL isAdvancedSettings = FALSE;
 		[alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
 		[alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)
 							block:^{
+                              NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                              [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
 							  linphone_core_clear_proxy_config(lc);
 							  linphone_core_clear_all_auth_info(lc);
 							  [settingsStore transformLinphoneCoreToKeys];
@@ -1168,11 +1177,19 @@ static BOOL isAdvancedSettings = FALSE;
     }
 }
 
+-(void) resetMediaSettings{
+    if([LinphoneManager getLc]){
+        //Default to no media encryption
+        linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionNone);
+    }
+}
+
 - (void)factoryReset {
     [self resetTheme];
     [self clearUserDefaults];
     [self deleteStorageFiles];
     [self clearCacheData];
+    [self resetMediaSettings];
     [self goToWizard];
 }
 
@@ -1228,8 +1245,9 @@ static BOOL isAdvancedSettings = FALSE;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex != 1)
 		return; /* cancel */
-	else
-		[self goToWizard];
+    else {
+        [self goToWizard];
+    }
 }
 
 #pragma mark - Mail composer for sending logs

@@ -199,6 +199,20 @@ static RootViewManager *rootViewManagerInstance = nil;
 											 selector:@selector(batteryLevelChanged:)
 												 name:UIDeviceBatteryLevelDidChangeNotification
 											   object:nil];
+    /*** Request camera / microphone permission if not set ***/
+    /*** Testers can verify by going to Settings > General > Reset > Reset Location & Privacy ***/
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        if(granted){
+            NSLog(@"Camera authorized");
+        }
+    }];
+    
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        if(granted){
+            NSLog(@"Microphone authorized");
+        } else {
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -821,7 +835,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)incomingCallDeclined:(LinphoneCall *)call {
-	linphone_core_terminate_call([LinphoneManager getLc], call);
+    linphone_core_decline_call([LinphoneManager getLc], call, LinphoneReasonDeclined);
 }
 
 @end

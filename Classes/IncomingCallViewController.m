@@ -34,7 +34,7 @@
 @synthesize delegate;
 @synthesize ringCountLabel;
 @synthesize ringLabel;
-
+@synthesize flashingView;
 #pragma mark - Lifecycle Functions
 
 - (id)init {
@@ -46,12 +46,11 @@
 }
 
 #pragma mark - ViewController Functions
-
 - (void)displayIncrementedRingCount {
     ringCountLabel.hidden = NO;
     ringLabel.hidden = NO;
     [UIView transitionWithView: ringCountLabel
-                      duration:0.5f
+                      duration:1
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         ringCountLabel.text = [@(ringCountLabel.text.intValue + 1) stringValue];
@@ -145,7 +144,8 @@
                                                                 userInfo:nil
                                                                  repeats:YES];
     [self.cameraLedFlasherTimer fire];
-    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
+
+    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:1.01f
                                                           target:self
                                                         selector:@selector(vibrate)
                                                         userInfo:nil

@@ -2904,6 +2904,8 @@
 				D37DC6C01594AE1800B2A5EB /* LinphoneCoreSettingsStore.m */,
 				D3EA53FB159850E80037DC6B /* LinphoneManager.h */,
 				D3EA53FC159850E80037DC6B /* LinphoneManager.m */,
+				041B220B1C89849A00B8A616 /* VSContactsManager.h */,
+				041B220C1C89849A00B8A616 /* VSContactsManager.m */,
 				2214EB7012F84668002A5394 /* LinphoneUI */,
 				F0642EF019DAC891009DB336 /* MainStoryboard.storyboard */,
 				D3F83F8C158229C500336684 /* PhoneMainView.h */,

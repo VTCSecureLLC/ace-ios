@@ -213,16 +213,6 @@
 			<false/>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Enable video</string>
-			<key>Key</key>
-			<string>enable_video_preference</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
 			<key>Key</key>
 			<string>audio_menu</string>
 			<key>File</key>

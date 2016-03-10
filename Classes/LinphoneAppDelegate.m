@@ -265,6 +265,8 @@
         [[LinphoneManager instance] lpConfigSetBool:YES forKey:@"rtt"];
     }
     
+     _logFileArray = [NSMutableArray new];
+    
 	return YES;
 }
 
@@ -616,6 +618,10 @@
 	linphone_core_set_provisioning_uri([LinphoneManager getLc], [configURL UTF8String]);
 	[[LinphoneManager instance] destroyLinphoneCore];
 	[[LinphoneManager instance] startLinphoneCore];
+}
+
+- (void)setLogArray:(NSMutableArray*)arrayToSet {
+    _logFileArray = arrayToSet;
 }
 
 @end
