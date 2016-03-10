@@ -18,6 +18,12 @@ typedef enum {
     VS_Closed
 } ViewState;
 
+/**
+ *  @brief Callback for view's buttons
+ *
+ *  @param sender Pressed button
+ */
+typedef void (^ButtonActionHandler)(UIButton *sender);
 
 
 #endif /* InCallViewConstants_h */
