@@ -1061,15 +1061,22 @@ static BOOL isAdvancedSettings = FALSE;
 			[self goToWizard];
 			return;
 		}
-		UIAlertView *alert = [[UIAlertView alloc]
-				initWithTitle:NSLocalizedString(@"Warning", nil)
-					  message:
-						  NSLocalizedString(
-							  @"Launching the Wizard will delete any existing proxy config.\nAre you sure to want it?",
-							  nil)
-					 delegate:self
-			cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-			otherButtonTitles:NSLocalizedString(@"Launch Wizard", nil), nil];
+		DTAlertView *alert = [[DTAlertView alloc]
+                    initWithTitle:NSLocalizedString(@"Warning", nil)
+					  message:NSLocalizedString(@"Launching the Wizard will delete any existing proxy config.\nAre you sure to want to logout?",nil)];
+        [alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"Launch Wizard", nil)
+                            block:^{
+                                NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                                [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+                                linphone_core_clear_proxy_config(lc);
+                                linphone_core_clear_all_auth_info(lc);
+                                [settingsStore transformLinphoneCoreToKeys];
+                                [settingsController.tableView reloadData];
+                                [self goToWizard];
+                            }];
+        [alert setDelegate:self];
+        
 		[alert show];
 	} else if ([key isEqual:@"clear_proxy_button"]) {
 		if (linphone_core_get_default_proxy_config(lc) == NULL) {
@@ -1083,6 +1090,8 @@ static BOOL isAdvancedSettings = FALSE;
 		[alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
 		[alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)
 							block:^{
+                              NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                              [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
 							  linphone_core_clear_proxy_config(lc);
 							  linphone_core_clear_all_auth_info(lc);
 							  [settingsStore transformLinphoneCoreToKeys];
