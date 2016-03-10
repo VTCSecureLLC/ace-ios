@@ -385,7 +385,7 @@
 
 	LOGI(@"%@ - state = %ld", NSStringFromSelector(_cmd), (long)application.applicationState);
 
-	[self fixRing];
+//	[self fixRing];
 
 	if ([notification.userInfo objectForKey:@"callId"] != nil) {
 		// some local notifications have an internal timer to relaunch themselves at specified intervals
