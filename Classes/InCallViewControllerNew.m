@@ -21,6 +21,7 @@
 
 
 #define kBottomButtonsAnimationDuration     0.3f
+#define kRTTContainerAnimationDuration      0.3f
 #define RTT_MAX_PARAGRAPH_CHAR              250
 #define RTT_SOFT_MAX_PARAGRAPH_CHAR         200
 
@@ -67,6 +68,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (assign, nonatomic) NSTimeInterval year2037TimeStamp;
 @property (assign, nonatomic) NSTimeInterval year2036TimeStamp;
 @property (strong, nonatomic) UIColor *localColor;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rttMessageContainerViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet UIView *rttMessageContainerView;
 @property (weak, nonatomic) IBOutlet UITextView *incomingTextView;
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
@@ -100,6 +103,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self resetSpeakerWithSettings];
     [self resetMicrophoneWithSettings];
     [self setupVideo];
+    [self hideRTTContainer];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -191,7 +195,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
     [self.videoView setCenter:remote_video_center];
-    
     [self.incomingTextView setHidden:YES];
     [self.closeChatButton setHidden:YES];
     
@@ -536,6 +539,32 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self.secondIncomingCallView fillWithCallModel:call];
 }
 
+- (void)showRTTContainer {
+    
+    self.incomingTextView.hidden = NO;
+    self.rttMessageContainerViewBottomConstraint.constant = 120;
+    [UIView animateWithDuration:kRTTContainerAnimationDuration
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished) {
+                    
+                     }];
+}
+
+- (void)hideRTTContainer {
+    
+    self.rttMessageContainerViewBottomConstraint.constant = -self.rttMessageContainerView.frame.size.height;;
+    [UIView animateWithDuration:kRTTContainerAnimationDuration
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         self.incomingTextView.hidden = YES;
+                     }];
+}
+
 - (void)hideSecondIncomingCallUI {
     
     [self.secondIncomingCallBarView hideWithAnimation:YES completion:nil];
@@ -803,6 +832,34 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.isChatMode = NO;
     self.tableView.hidden = YES;
     [self resignFirstResponder];
+    [self.view endEditing:YES];
+}
+
+- (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
+    
+    if (self.isChatMode) {
+        [self closeRTTChat];
+    }
+    else {
+        if (self.callBarView.viewState == VS_Closed) {
+            
+            [self.callBarView showWithAnimation:YES completion:nil];
+        }
+        else if (self.callBarView.viewState == VS_Opened) {
+            
+            [self.callBarView hideWithAnimation:YES completion:nil];
+            
+            if (self.inCallDialpadView.viewState == VS_Opened) {
+                self.callBarView.keypadButtonSelected = NO;
+                [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+            }
+        }
+    }
+}
+
+- (IBAction)closeButtonAction:(id)sender {
+
+    [self hideRTTContainer];
 }
 
 
@@ -857,29 +914,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     return 20.0f;
 }
 
-
-#pragma mark - Actions Methods
-- (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
-    
-    if (self.isChatMode) {
-        [self closeRTTChat];
-    }
-    else {
-        if (self.callBarView.viewState == VS_Closed) {
-            
-            [self.callBarView showWithAnimation:YES completion:nil];
-        }
-        else if (self.callBarView.viewState == VS_Opened) {
-            
-            [self.callBarView hideWithAnimation:YES completion:nil];
-            
-            if (self.inCallDialpadView.viewState == VS_Opened) {
-                self.callBarView.keypadButtonSelected = NO;
-                [self.inCallDialpadView hideWithAnimation:YES completion:nil];
-            }
-        }
-    }
-}
 
 
 #pragma mark - RTT Methods
@@ -1202,8 +1236,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)insertTextIntoMinimizedTextBuffer:(NSString *)text {
     
     if (!self.isChatMode) {
-        if(![text isEqualToString:@""]){
-            if([self.incomingTextView isHidden]){
+        if (![text isEqualToString:@""]) {
+            if ([self.incomingTextView isHidden] && self.isRTTEnabled) {
+                [self showRTTContainer];
                 [self.closeChatButton setEnabled:YES];
                 
                 [self.incomingTextView setHidden:NO];
@@ -1515,6 +1550,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (UITextRange *)textRangeFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition {
     
     return [[UITextRange alloc] init];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    
+    self.isChatMode = YES;
+    [self becomeFirstResponder];
+    return NO;
 }
 
 @end

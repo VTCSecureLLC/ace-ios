@@ -146,7 +146,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *name;
     cdnResources = [[NSMutableArray alloc] init];
     name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", 0]];
-    
     for (int i = 1; name; i++) {
         [cdnResources addObject:name];
         name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
@@ -249,11 +248,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)initLoginSettingsFields {
     self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
-    //self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
-    self.transportTextField.text = [[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString];
+    self.transportTextField.text = [[[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
-    self.textFieldUserId.text = [DefaultSettingsManager sharedInstance].sipAuthUsername;
-    [self apiSignIn];
+    self.textFieldUserId.text = [[DefaultSettingsManager sharedInstance].sipAuthUsername stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 }
 
 
@@ -603,10 +600,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
     
     if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"vga" forKey:@"video_preferred_size_preference"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"cif" forKey:@"video_preferred_size_preference"];
 
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
         linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
         linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
@@ -745,20 +742,26 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)setupProviderPickerView {
-    
-    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
-    [providerPickerView setAlpha:1.0f];
-    providerPickerView.delegate = self;
+    if(!providerPickerView){
+        providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:[[NSArray alloc] init]];
+        [providerPickerView setAlpha:1.0f];
+        providerPickerView.delegate = self;
+    }
     
     if(cdnResources.count > 0) {
-        [providerPickerView setSelectedRow:0];
+        [providerPickerView setDataSource:cdnResources];
+        if(providerPickerView.selectedRow < 1){
+            NSString *domain;
+            if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+                if([self.textFieldDomain.text isEqualToString:@""]){
+                    domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+                     self.textFieldDomain.text = (domain != nil)?domain:@"";
+                }
+            }
+        }
         [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
         [self.selectProviderButton layoutSubviews];
-        NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
-        }
-        self.textFieldDomain.text = (domain != nil)?domain:@"";
+        
     }
 }
 
@@ -807,7 +810,6 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	[waitView setHidden:false];
 }
-
 
 #pragma mark -
 - (void)registrationUpdate:(LinphoneRegistrationState)state message:(NSString *)message {
@@ -980,6 +982,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [[DefaultSettingsManager sharedInstance] setSipAuthUsername:self.textFieldUserId.text];
     [[DefaultSettingsManager sharedInstance] setSipAuthPassword:self.textFieldPassword.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterDomain:self.textFieldDomain.text];
+    [[DefaultSettingsManager sharedInstance] setSipRegisterTransport:self.transportTextField.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
 }
@@ -1472,12 +1475,12 @@ UIAlertView *transportAlert;
     [self.selectProviderButton addSubview:providerButtonLeftImageView];
     
     NSString *domain;
-    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)row]]){
-             domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)row]];
+    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)providerPickerView.selectedRow]]){
+             domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain",(long)providerPickerView.selectedRow]];
     }
 
     if(domain == nil){domain = @"";}
-    [self.textFieldDomain setText:domain];
+    self.textFieldDomain.text = domain;
     [self setRecursiveUserInteractionEnabled:true];
 }
 
@@ -1643,7 +1646,7 @@ UIAlertView *transportAlert;
     [self enableAppropriateCodecs:linphone_core_get_video_codecs(lc)];
 
     // bwLimit - ? the name bwlimit is confusing
-    linphone_core_set_video_preset(lc, "custom");
+    linphone_core_set_video_preset(lc, "high-fps");
     
     // upload_bandwidth
     linphone_core_set_upload_bandwidth(lc, [DefaultSettingsManager sharedInstance].uploadBandwidth);
@@ -1655,7 +1658,7 @@ UIAlertView *transportAlert;
     linphone_core_set_firewall_policy(lc, ([DefaultSettingsManager sharedInstance].enableStun)?LinphonePolicyUseStun:LinphonePolicyUseStun);
     
     //stun_server
-    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String:"stl.vatrp.net");
+    linphone_core_set_stun_server(lc, ([DefaultSettingsManager sharedInstance].stunServer.UTF8String)?[DefaultSettingsManager sharedInstance].stunServer.UTF8String : self.textFieldDomain.text.UTF8String);
     
     // enable_ice
     if ([DefaultSettingsManager sharedInstance].enableIce) {
@@ -1668,15 +1671,22 @@ UIAlertView *transportAlert;
     // logging
     linphone_core_set_log_level([self logLevel:[DefaultSettingsManager sharedInstance].logging]);
     linphone_core_set_log_handler((OrtpLogFunc)linphone_iphone_log_handler);
-    LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
-    if(cfg){
-        //If autoconfig fails, but you have a valid proxy config, continue to register
-        [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
-        linphone_proxy_config_enable_register(cfg, TRUE);
-        if(!linphone_proxy_config_is_registered(cfg)){
-            [[LinphoneManager instance] refreshRegisters];
-        }
-    }
+    
+    
+    LinphoneAuthInfo *info = linphone_auth_info_new(self.textFieldUsername.text.UTF8String, self.textFieldUserId.text.UTF8String, self.textFieldPassword.text.UTF8String, NULL, NULL, self.textFieldDomain.text.UTF8String);
+    
+    linphone_core_add_auth_info([LinphoneManager getLc], info);
+    [LinphoneManager.instance refreshRegisters];
+//    
+//    LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+//    if(cfg){
+//        //If autoconfig fails, but you have a valid proxy config, continue to register
+//        [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
+//        linphone_proxy_config_enable_register(cfg, TRUE);
+//        if(!linphone_proxy_config_is_registered(cfg)){
+//            [[LinphoneManager instance] refreshRegisters];
+//        }
+//    }
     // sip_mwi_uri - ?
     
     // sip_videomail_uri - ?
