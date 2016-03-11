@@ -278,16 +278,16 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 		const char *preset = linphone_core_get_video_preset(lc);
         if(!preset){
-            preset = "custom";
+            preset = "high-fps";
             linphone_core_set_video_preset(lc, preset);
         }
-		[self setCString:preset ? preset : "custom" forKey:@"video_preset_preference"];
+		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
         
         linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
-            [defaults setObject:@"vga" forKey:@"video_preferred_size_preference"];
+            [defaults setObject:@"cif" forKey:@"video_preferred_size_preference"];
         }
         [self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         
@@ -307,6 +307,22 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
        
         [self setRtcpFbMode: TRUE];
     }
+    //Speaker mute
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isSpeakerMuted = [defaults boolForKey:@"mute_speaker_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_speaker_preference"]){
+        isSpeakerMuted = NO;
+    }
+
+    [self setBool:isSpeakerMuted forKey:@"mute_speaker_preference"];
+    //Mic mute
+    BOOL isMicMuted = [defaults boolForKey:@"mute_microphone_preference"];
+    
+    if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"mute_microphone_preference"]){
+        isMicMuted = NO;
+    }
+    [self setBool:isMicMuted forKey:@"mute_microphone_preference"];
 
 	// call section
 	{
@@ -730,7 +746,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 
 		NSString *videoPreset = [self stringForKey:@"video_preset_preference"];
         if(!videoPreset){
-            videoPreset = @"custom";
+            videoPreset = @"high-fps";
         }
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		MSVideoSize vsize;

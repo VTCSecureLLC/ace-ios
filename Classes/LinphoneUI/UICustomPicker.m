@@ -132,6 +132,12 @@
 
 
 #pragma mark - UIPickerView DataSource
+
+-(void) setDataSource:(NSArray *)_dataSource{
+    if(!_dataSource) return;
+   
+    arraySource = _dataSource;
+}
 // returns the number of 'columns' to display.
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;

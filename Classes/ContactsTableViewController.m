@@ -24,6 +24,8 @@
 #import "UACellBackgroundView.h"
 #import "UILinphone.h"
 #import "Utils.h"
+#import "VSContactsManager.h"
+
 @implementation ContactsTableViewController
 
 static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info, void *context);
@@ -70,8 +72,29 @@ UILongPressGestureRecognizer *lpgr;
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
-    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    OrderedDictionary *subDic = [addressBookMap objectForKey:[addressBookMap keyAtIndex:[indexPath section]]];
+    NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
+    ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
+    
+    if (![self contactHasValidSipDomain:contact]) {
+        
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:@"WARINING!"
+                                    message:@"You can't export this conctact\nthe contact has no sip URI"
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* ok = [UIAlertAction
+                             actionWithTitle:@"Ok"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {}];
+        
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        return;
+    }
+    
     if(gestureRecognizer.state == UIGestureRecognizerStateRecognized){
         UIAlertController *alert = [UIAlertController
                                     alertControllerWithTitle:@"Export contact?"
@@ -86,13 +109,10 @@ UILongPressGestureRecognizer *lpgr;
                                  OrderedDictionary *subDic = [addressBookMap objectForKey:[addressBookMap keyAtIndex:[indexPath section]]];
                                  NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
                                  ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
-                                 CFArrayRef contacts = CFArrayCreate(NULL, &contact, 1, NULL);
-                                 NSData *vcard = (__bridge NSData*)ABPersonCreateVCardRepresentationWithPeople(contacts);
-                              
-                                 NSString *stringPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"/File"];
-                                 NSError *error = nil;
-                                 if (![[NSFileManager defaultManager] fileExistsAtPath:stringPath])
-                                     [[NSFileManager defaultManager] createDirectoryAtPath:stringPath withIntermediateDirectories:NO attributes:nil error:&error];
+                                 
+                                 NSString *exportedContactFilePath = [[VSContactsManager sharedInstance] exportContact:contact];
+                                 NSData *vcard = [[NSFileManager defaultManager] contentsAtPath:exportedContactFilePath];
+                                 
                                  if (vcard) {
                                      
                                      if ([MFMailComposeViewController canSendMail]) {

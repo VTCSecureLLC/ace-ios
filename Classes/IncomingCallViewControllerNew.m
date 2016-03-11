@@ -11,6 +11,7 @@
 #import "InCallViewController.h"
 #import "UIManager.h"
 #import "UILinphone.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 #define kMessagesAnimationDuration   0.5f
@@ -24,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIView *answerMessagesContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *answerMessagesViewStatusArrow;
+@property (nonatomic, strong) NSTimer *cameraLedFlasherTimer;
+@property (nonatomic, strong) NSTimer *vibratorTimer;
+@property (nonatomic, strong) AVCaptureDevice *device;
 
 @end
 
@@ -37,6 +41,7 @@
     
     [self setupController];
     [self updateWithCall:_call];
+    [self setupRinging];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -44,6 +49,7 @@
     [super viewWillAppear:animated];
     
     [self setupNotifications];
+    [self startRinging];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -57,6 +63,7 @@
     [super viewWillDisappear:animated];
     
     [self removeNotifications];
+    [self stopRinging];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -185,6 +192,83 @@
 }
 
 
+#pragma mark - Ringing
+- (void)setupRinging {
+    
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    self.device = nil;
+    if (captureDeviceClass != nil) {
+        self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if (![self.device hasTorch] || ![self.device hasFlash]) {
+            self.device = nil;self.device = nil;
+        }
+    }
+}
+
+- (void)startRinging {
+    
+    [self stopRinging];
+    
+    self.cameraLedFlasherTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_flashlight_frequency" forSection:@"vtcsecure"]
+                                                                  target:self
+                                                                selector:@selector(toggleCameraLed)
+                                                                userInfo:nil
+                                                                 repeats:YES];
+    [self.cameraLedFlasherTimer fire];
+    
+    self.vibratorTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
+                                                          target:self
+                                                        selector:@selector(vibrate)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    [self.vibratorTimer fire];
+}
+
+- (void)toggleCameraLed {
+    if (self.device != nil){
+        [self.device lockForConfiguration:nil];
+        if (self.device.torchMode == AVCaptureTorchModeOff){
+            [self.device setTorchMode:AVCaptureTorchModeOn];
+            [self.device setFlashMode:AVCaptureFlashModeOn];
+        } else {
+            [self.device setTorchMode:AVCaptureTorchModeOff];
+            [self.device setFlashMode:AVCaptureFlashModeOff];
+        }
+        [self.device unlockForConfiguration];
+    }
+}
+
+- (void)stopFlashCameraLed {
+    if (self.cameraLedFlasherTimer != nil) {
+        [self.cameraLedFlasherTimer invalidate];
+        self.cameraLedFlasherTimer = nil;
+        Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+        if (captureDeviceClass != nil) {
+            AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+            if ([device hasTorch] && [device hasFlash]){
+                [device lockForConfiguration:nil];
+                if (device.torchMode == AVCaptureTorchModeOn) {
+                    [device setTorchMode:AVCaptureTorchModeOff];
+                    [device setFlashMode:AVCaptureFlashModeOff];            }
+                [device unlockForConfiguration];
+            }
+        }
+    }
+}
+
+- (void) vibrate {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+}
+
+- (void)stopRinging {
+    
+    [self stopFlashCameraLed];
+    [self.vibratorTimer invalidate];
+    
+    self.vibratorTimer = nil;
+    self.cameraLedFlasherTimer = nil;
+}
+
 #pragma mark - Actions Methods
 - (IBAction)messageAnswerViewButtonAction:(UIButton *)sender {
     
@@ -212,6 +296,10 @@
         case LinphoneCallIncomingReceived: {
             
             NSAssert(1, @"LinphoneCallIncomingReceived: Just need to check this state");
+            NSUInteger callCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callCount == 2) {
+                [[LinphoneManager instance] declineCall:[[LinphoneManager instance] holdCall]];
+            }
             break;
         }
         case LinphoneCallIncomingEarlyMedia: {
@@ -253,7 +341,10 @@
         case LinphoneCallEnd: {
             
             // Dismiss controller
-            [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            NSUInteger callCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
+            if (callCount == 0) {
+                [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
+            }
             break;
         }
         case LinphoneCallReleased: {
@@ -263,7 +354,7 @@
             if (callCount == 0) {
                 [[UIManager sharedManager] hideIncomingCallViewControllerAnimated:YES];
             }
-            else {
+            else if ([[LinphoneManager instance] holdCall]) {
                 [self updateWithCall:[[LinphoneManager instance] holdCall]];
             }
             break;

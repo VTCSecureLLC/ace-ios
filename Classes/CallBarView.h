@@ -11,13 +11,6 @@
 #include "InCallViewConstants.h"
 
 /**
- *  @brief Callback for view's buttons
- *
- *  @param sender Pressed button
- */
-typedef void (^ButtonActionHandler)(UIButton *sender);
-
-/**
  *  @brief Calles when call bar will hides
  *
  *  @param duration Animation duration
@@ -34,6 +27,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
 @property (nonatomic, copy) ButtonActionHandler moreButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler switchCameraButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler changeVideoLayoutButtonActionHandler;
+@property (nonatomic, copy) ButtonActionHandler chatButtonActionHandler;
 @property (nonatomic, copy) ButtonActionHandler endCallButtonActionHandler;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillHideWithDurationBlock;
 @property (nonatomic, copy) CallBarWillStartAnimateWithDurationCallback callBarWillShowWithDurationBlock;
@@ -67,5 +61,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
  */
 // Automatic hiding
 //- (void)resetHideTimer;
+
+- (void)changeChatButtonVisibility:(BOOL)hidden;
 
 @end

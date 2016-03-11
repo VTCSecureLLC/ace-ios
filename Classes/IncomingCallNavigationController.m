@@ -7,6 +7,7 @@
 //
 
 #import "IncomingCallNavigationController.h"
+#import "InCallViewControllerNew.h"
 
 @interface IncomingCallNavigationController ()
 
@@ -25,6 +26,9 @@
 }
 
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if ([self.visibleViewController isKindOfClass:[InCallViewControllerNew class]]) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+    }
     return UIInterfaceOrientationMaskPortrait;
 }
 

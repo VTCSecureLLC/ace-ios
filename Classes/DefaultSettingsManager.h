@@ -26,7 +26,7 @@
 @property (setter=setSipAuthPassword:, nonatomic) NSString *sipAuthPassword;
 @property (setter=setSipRegisterDomain:, nonatomic) NSString *sipRegisterDomain;
 @property (setter=setSipRegisterPort:, nonatomic) int sipRegisterPort;
-@property (readonly) NSString *sipRegisterTransport;
+@property (setter=setSipRegisterTransport:, nonatomic) NSString *sipRegisterTransport;
 @property (readonly) BOOL enableEchoCancellation;
 @property (readonly) BOOL enableVideo;
 @property (readonly) BOOL enableRtt;

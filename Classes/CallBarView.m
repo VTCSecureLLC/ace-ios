@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *keypadButton;
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (weak, nonatomic) IBOutlet UIButton *switchCameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeVideoLayoutButton;
@@ -253,6 +254,13 @@
     }
 }
 
+- (IBAction)chatButtonAction:(UIButton *)sender {
+    
+    if (self.chatButtonActionHandler) {
+        self.chatButtonActionHandler(sender);
+    }
+}
+
 - (IBAction)endCallButtonAction:(UIButton *)sender {
     
     if (self.endCallButtonActionHandler) {
@@ -318,6 +326,11 @@
 - (BOOL)isMoreButtonSelected {
     
     return self.moreButton.selected;
+}
+
+- (void)changeChatButtonVisibility:(BOOL)hidden {
+    
+    self.chatButton.hidden = hidden;
 }
 
 
