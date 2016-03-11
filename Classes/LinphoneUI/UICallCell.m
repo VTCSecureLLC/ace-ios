@@ -154,7 +154,7 @@
 
 		_outgoingRingCountLabel.hidden = YES;
 		outgoingRingLabel.hidden = YES;
-		_outgoingRingCountLabel.text = @"0";
+		_outgoingRingCountLabel.text = @"1";
 
 		self->detailsRightSwipeGestureRecognizer =
 			[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(doDetailsSwipe:)];
@@ -321,12 +321,13 @@
 	_outgoingRingCountLabel.hidden = NO;
 	outgoingRingLabel.hidden = NO;
 	[UIView transitionWithView:_outgoingRingCountLabel
-					  duration:0.5f
+					  duration:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
 					   options:UIViewAnimationOptionTransitionCrossDissolve
 					animations:^{
-					  _outgoingRingCountLabel.text = [@(_outgoingRingCountLabel.text.intValue + 1) stringValue];
 					}
-					completion:nil];
+					completion:^(BOOL finished) {
+                        _outgoingRingCountLabel.text = [@(_outgoingRingCountLabel.text.intValue + 1) stringValue];
+                    }];
 }
 
 - (void)stopOutgoingRingCount {
@@ -334,7 +335,7 @@
 		[_outgoingRingCountTimer invalidate];
 	_outgoingRingCountLabel.hidden = YES;
 	outgoingRingLabel.hidden = YES;
-	_outgoingRingCountLabel.text = @"0";
+	_outgoingRingCountLabel.text = @"1";
 	_outgoingRingCountTimer = nil;
 }
 

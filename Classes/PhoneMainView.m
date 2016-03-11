@@ -359,7 +359,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	NSString *message = [notif.userInfo objectForKey:@"message"];
-
+    NSString *previousMessage = @"";
 	bool canHideInCallView = (linphone_core_get_calls([LinphoneManager getLc]) == NULL);
     
     // Reject inbound call when already two active calls are active.
@@ -400,11 +400,16 @@ static RootViewManager *rootViewManagerInstance = nil;
 		break;
 	}
 	case LinphoneCallError: {
+        previousMessage = message;
 		[self displayCallError:call message:message];
-        
         [[InCallViewController sharedInstance] hideCallQualityView];
 	}
 	case LinphoneCallEnd: {
+        if (![previousMessage isEqualToString:message]) {
+            if (linphone_call_get_dir(call) == LinphoneCallOutgoing) {
+                [self displayCallError:call message:message];
+            }
+        }
 		if (canHideInCallView) {
 			// Go to dialer view
 			DialerViewController *controller = DYNAMIC_CAST(
@@ -709,6 +714,9 @@ static RootViewManager *rootViewManagerInstance = nil;
 		case LinphoneReasonBusy:
 			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
 			break;
+        case LinphoneReasonDeclined:
+            lMessage = NSLocalizedString(@"The user is not available", nil);
+            break;
 		default:
 			if (message != nil) {
 				lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];

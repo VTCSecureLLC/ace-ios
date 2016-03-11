@@ -54,3 +54,10 @@ enabled=0
 
 [in_app_purchase]
 enabled=0
+
+[vtcsecure]
+incoming_flashlight_frequency=0.5
+incoming_flashred_frequency=0.5
+incoming_vibrate_frequency=1.0
+outgoing_ring_duration=2.8
+
