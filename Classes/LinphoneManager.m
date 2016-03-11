@@ -278,6 +278,8 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
     [self copyDefaultSettings];
     [self overrideDefaultSettings];
     
+    
+    
     // set default values for first boot
     if ([self lpConfigStringForKey:@"debugenable_preference"] == nil) {
 #ifdef DEBUG
@@ -819,7 +821,7 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
 		state == LinphoneCallStreamsRunning) {
         
           NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL enableSpeaker = [defaults boolForKey:@"isSpeakerEnabled"];
+        BOOL enableSpeaker = [defaults boolForKey:@"mute_speaker_preference"];
 		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled && enableSpeaker == YES) {
 			[self setSpeakerEnabled:TRUE];
 			speaker_already_enabled = TRUE;
@@ -1567,7 +1569,7 @@ void configH264HardwareAcell(bool encode, bool decode){
 	libmswebrtc_init(f);
   
 	linphone_core_reload_ms_plugins(theLinphoneCore, NULL);
-    configH264HardwareAcell(true, true);
+    configH264HardwareAcell(false, false);
 
 	// Set audio assets
 	const char *lRing = [[LinphoneManager bundleFile:@"ring.wav"] UTF8String];
@@ -1606,6 +1608,8 @@ void configH264HardwareAcell(bool encode, bool decode){
 	/*call iterate once immediately in order to initiate background connections with sip server or remote provisioning
 	 * grab, if any */
 	linphone_core_iterate(theLinphoneCore);
+    NSString *friendListFilePath = [LinphoneManager documentFile:kLinphoneInternalFriendListDBFilename];
+    linphone_core_set_friends_database_path(theLinphoneCore, [friendListFilePath UTF8String]);
 	// start scheduler
 	mIterateTimer =
 		[NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(iterate) userInfo:nil repeats:YES];
