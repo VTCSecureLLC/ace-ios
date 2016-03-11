@@ -2067,12 +2067,6 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
     }
     
-    NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
-    if (emergency != nil && ([address hasPrefix:emergency] || [address hasPrefix:[@"sip:" stringByAppendingString:emergency]])) {
-        NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
-        linphone_call_params_add_custom_header(lcallParams, "X-ACE-Geolocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-    }
-    
 	LinphoneAddress *addr = NULL;
 	// Continue by checking that the provided address is a valid SIP address, abort otherwise.
 	if ([address length] == 0) {
@@ -2108,6 +2102,17 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		if ([[LinphoneManager instance] lpConfigBoolForKey:@"override_domain_with_default_one"]) {
 			linphone_address_set_domain(
 				addr, [[[LinphoneManager instance] lpConfigStringForKey:@"domain" forSection:@"wizard"] UTF8String]);
+		}
+
+		NSString *emergency = [[LinphoneManager instance] lpConfigStringForKey:@"emergency_username" forSection:@"vtcsecure"];
+		if (emergency == nil) emergency = @"911";
+		if (emergency != nil &&
+		    ([address hasPrefix:emergency] ||
+		     [address hasPrefix:[@"sip:" stringByAppendingString:emergency]] ||
+		     [address hasPrefix:[@"sip:1" stringByAppendingString:emergency]] ||
+		     [address hasPrefix:[@"sip:+1" stringByAppendingString:emergency]] )) {
+			NSString *locationString = [[LinphoneLocationManager sharedManager] currentLocationAsText];
+			linphone_call_params_add_custom_header(lcallParams, "Geolocation", [locationString cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 		}
 
 		if (transfer) {
