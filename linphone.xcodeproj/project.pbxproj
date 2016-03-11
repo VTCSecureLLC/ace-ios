@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041B220D1C89849A00B8A616 /* VSContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B220C1C89849A00B8A616 /* VSContactsManager.m */; };
 		025BD0B01C87105500384158 /* IncomingCallNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */; };
+		041B220D1C89849A00B8A616 /* VSContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B220C1C89849A00B8A616 /* VSContactsManager.m */; };
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		046FFD141C6B639100781FF6 /* camera_mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 046FFD131C6B639100781FF6 /* camera_mute.png */; };
 		0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */; };
@@ -1029,10 +1029,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		041B220B1C89849A00B8A616 /* VSContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSContactsManager.h; sourceTree = "<group>"; };
-		041B220C1C89849A00B8A616 /* VSContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSContactsManager.m; sourceTree = "<group>"; };
 		025BD0AE1C87105500384158 /* IncomingCallNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallNavigationController.h; sourceTree = "<group>"; };
 		025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallNavigationController.m; sourceTree = "<group>"; };
+		041B220B1C89849A00B8A616 /* VSContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSContactsManager.h; sourceTree = "<group>"; };
+		041B220C1C89849A00B8A616 /* VSContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSContactsManager.m; sourceTree = "<group>"; };
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
 		046FFD131C6B639100781FF6 /* camera_mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_mute.png; sourceTree = "<group>"; };
 		0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -6293,7 +6293,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ruben Semerjyan (3LQ2FSFV5Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
@@ -6332,7 +6332,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
-				PROVISIONING_PROFILE = "91a5819f-d5bd-4b37-9d0c-cb6e2994e387";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
@@ -6423,7 +6423,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
-				PROVISIONING_PROFILE = "91a5819f-d5bd-4b37-9d0c-cb6e2994e387";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
@@ -6514,7 +6514,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
-				PROVISIONING_PROFILE = "91a5819f-d5bd-4b37-9d0c-cb6e2994e387";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
@@ -6605,7 +6605,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
-				PROVISIONING_PROFILE = "91a5819f-d5bd-4b37-9d0c-cb6e2994e387";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
