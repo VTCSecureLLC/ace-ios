@@ -30,6 +30,7 @@
 
 
 #define DATEPICKER_HEIGHT 230
+#define DEFAULT_ERROR_DATA_MESSAGE @"Improper registration data."
 
 typedef enum _ViewElement {
 	ViewElement_Username = 100,
@@ -247,7 +248,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)initLoginSettingsFields {
-    self.textFieldDomain.text = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
+    self.textFieldDomain.text = [[DefaultSettingsManager sharedInstance].sipRegisterDomain stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     self.transportTextField.text = [[[DefaultSettingsManager sharedInstance].sipRegisterTransport uppercaseString] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     self.textFieldPort.text = [NSString stringWithFormat:@"%d", [DefaultSettingsManager sharedInstance].sipRegisterPort];
     self.textFieldUserId.text = [[DefaultSettingsManager sharedInstance].sipAuthUsername stringByReplacingOccurrencesOfString:@"\"" withString:@""];
@@ -518,8 +519,21 @@ static UICompositeViewDescription *compositeDescription = nil;
             }
         }
         // when the domain is specified (for external login), take it as the server address
-        linphone_proxy_config_set_server_addr(proxyCfg, [server_address UTF8String]);
-        linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
+        int result = linphone_proxy_config_set_server_addr(proxyCfg, [server_address UTF8String]);
+        
+        if (result) {
+            [self showDefaultRegistrationFailedMessage];
+            [waitView setHidden:true];
+            return NO;
+        }
+
+        result = linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
+        
+        if (result) {
+            [self showDefaultRegistrationFailedMessage];
+            [waitView setHidden:true];
+            return NO;
+        }
     }
     
     char* extractedAddres = linphone_address_as_string_uri_only(linphoneAddress);
@@ -540,8 +554,14 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     char *c_parsedAddress = linphone_address_as_string_uri_only(parsedAddress);
     
-    linphone_proxy_config_set_identity(proxyCfg, c_parsedAddress);
+    int result = linphone_proxy_config_set_identity(proxyCfg, c_parsedAddress);
     
+    if (result) {
+        [self showDefaultRegistrationFailedMessage];
+        [waitView setHidden:true];
+        return NO;
+    }
+
     linphone_address_destroy(parsedAddress);
     ms_free(c_parsedAddress);
     
@@ -1796,6 +1816,15 @@ static BOOL isAdvancedShown = NO;
     
     cdnResources = domains;
     [self setupProviderPickerView];
+}
+
+- (void) showDefaultRegistrationFailedMessage {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Registration failure", nil)
+                                                    message:DEFAULT_ERROR_DATA_MESSAGE
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

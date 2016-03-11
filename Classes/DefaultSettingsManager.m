@@ -169,7 +169,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (void)setSipRegisterDomain:(NSString *)sipRegisterDomain {
-    [[NSUserDefaults standardUserDefaults] setObject:sipRegisterDomain forKey:@"sip_register_domain"];
+    [[NSUserDefaults standardUserDefaults] setObject:[sipRegisterDomain stringByReplacingOccurrencesOfString:@"\"" withString:@""] forKey:@"sip_register_domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
