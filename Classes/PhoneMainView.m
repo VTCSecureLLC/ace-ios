@@ -24,6 +24,10 @@
 #import "PhoneMainView.h"
 #import "Utils.h"
 #import "DTActionSheet.h"
+#import "UIManager.h"
+#import "IncomingCallViewControllerNew.h"
+
+
 
 static RootViewManager *rootViewManagerInstance = nil;
 
@@ -356,19 +360,15 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)callUpdate:(NSNotification *)notif {
+    
 	LinphoneCall *call = [[notif.userInfo objectForKey:@"call"] pointerValue];
 	LinphoneCallState state = [[notif.userInfo objectForKey:@"state"] intValue];
 	NSString *message = [notif.userInfo objectForKey:@"message"];
     NSString *previousMessage = @"";
 	bool canHideInCallView = (linphone_core_get_calls([LinphoneManager getLc]) == NULL);
     
-    // Reject inbound call when already two active calls are active.
-    if (state == LinphoneCallIncomingReceived || state == LinphoneCallIncomingEarlyMedia) {
-        const MSList *call_list = linphone_core_get_calls([LinphoneManager getLc]);
-        if (ms_list_size(call_list) >= 3) {
-            linphone_core_terminate_call([LinphoneManager getLc], call);
-            return;
-        }
+    if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] == 0) {
+        canHideInCallView = YES;
     }
 
 	// Don't handle call state during incoming call view
@@ -760,34 +760,39 @@ static RootViewManager *rootViewManagerInstance = nil;
 
 - (void)displayIncomingCall:(LinphoneCall *)call {
     
-    LinphoneCallLog *callLog = linphone_call_get_call_log(call);
-    NSString *callId = [NSString stringWithUTF8String:linphone_call_log_get_call_id(callLog)];
+    LinphoneManager *linphoneManager = [LinphoneManager instance];
+    NSString *callId = [linphoneManager callIdForCall:call];
     
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         
-        LinphoneManager *lm = [LinphoneManager instance];
-        BOOL callIDFromPush = [lm popPushCallID:callId];
+        
+        BOOL callIDFromPush = [linphoneManager popPushCallID:callId];
         //BOOL autoAnswer = [lm lpConfigBoolForKey:@"autoanswer_notif_preference"];
         //Never autoanswer notification.
         if (callIDFromPush) {
             // accept call automatically
-            [lm acceptCall:call];
+            [linphoneManager acceptCall:call];
             
         } else {
             
-            IncomingCallViewController *controller = nil;
-            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
-                controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);
-            } else {
-                // controller is already presented, don't bother animating a transition
-                controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
+            UIViewController *rootViewController = [[UIManager sharedManager] showIncomingCallViewControllerAnimated:NO];
+            if ([rootViewController isKindOfClass:[IncomingCallViewControllerNew class]]) {
+                [(IncomingCallViewController *)rootViewController setCall:call];
             }
-            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
-            
-            if (controller != nil) {
-                [controller setCall:call];
-                [controller setDelegate:self];
-            }
+        
+//            IncomingCallViewController *controller = nil;
+//            if( ![currentView.name isEqualToString:[IncomingCallViewController compositeViewDescription].name]){
+//                controller = DYNAMIC_CAST([self changeCurrentView:[IncomingCallViewController compositeViewDescription] push:TRUE],IncomingCallViewController);
+//            } else {
+//                // controller is already presented, don't bother animating a transition
+//                controller = DYNAMIC_CAST([self.mainViewController getCurrentViewController],IncomingCallViewController);
+//            }
+//            // Moved to the IncomingCall View, in recurring mode for VTCSecure - AudioServicesPlaySystemSound(lm.sounds.vibrate);
+//            
+//            if (controller != nil) {
+//                [controller setCall:call];
+//                [controller setDelegate:self];
+//            }
         }
     }
 }

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InCallDialpadView">
+            <connections>
+                <outlet property="backgroundView" destination="R4g-QX-rd8" id="jCM-nF-rym"/>
+                <outlet property="backgroundViewBottomConstraint" destination="mB8-RW-8lT" id="Xlv-pS-dOK"/>
+                <outlet property="eightButton" destination="dHn-ZM-qA2" id="vjG-60-eI7"/>
+                <outlet property="fiveButton" destination="sxO-tz-ffd" id="hjK-Mv-YaH"/>
+                <outlet property="fourButton" destination="jLa-nY-xlb" id="6vV-FO-9kh"/>
+                <outlet property="nineButton" destination="gxa-Im-2qW" id="8qT-5f-4PP"/>
+                <outlet property="oneButton" destination="H0B-t8-2gK" id="Qt4-2l-bku"/>
+                <outlet property="sevenButton" destination="GqL-hi-uLc" id="BBH-6m-acg"/>
+                <outlet property="sharpButton" destination="O4d-SC-7VU" id="sj5-BQ-JKu"/>
+                <outlet property="sixButton" destination="bVS-ki-k9B" id="Lfe-48-ykK"/>
+                <outlet property="starButton" destination="NRK-jP-fz9" id="ikF-Yf-uIl"/>
+                <outlet property="threeButton" destination="RtE-0c-MJV" id="2It-il-x8I"/>
+                <outlet property="twoButton" destination="fni-Kb-37y" id="tPN-TL-kPT"/>
+                <outlet property="zeroButton" destination="rZb-4R-A2E" id="yga-tL-Zrs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="z4t-Yg-ilg">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="334"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4g-QX-rd8">
+                    <rect key="frame" x="0.0" y="0.0" width="281" height="334"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" tag="25" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TST-cM-6co" userLabel="conferenceButton">
+                            <rect key="frame" x="0.0" y="0.0" width="209" height="136"/>
+                            <accessibility key="accessibilityConfiguration" label="Start conference"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" image="conference_default.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" image="conference_over.png"/>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H0B-t8-2gK" userLabel="1" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="2" width="91" height="81"/>
+                            <color key="backgroundColor" red="0.40000001000000002" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                            <accessibility key="accessibilityConfiguration" label="1"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">1
+   </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="oneButtonAction:" destination="-1" eventType="touchUpInside" id="H9H-9v-lQf"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fni-Kb-37y" userLabel="2" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="2" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="2"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">2
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ABC">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="twoButtonAction:" destination="-1" eventType="touchUpInside" id="pGz-SQ-pgx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RtE-0c-MJV" userLabel="3" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="2" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="3"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">3
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="DEF">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.75"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="threeButtonAction:" destination="-1" eventType="touchUpInside" id="fW4-i9-g8g"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLa-nY-xlb" userLabel="4" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="85" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="4"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">4
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="GHI">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="fourButtonAction:" destination="-1" eventType="touchUpInside" id="nd8-6P-CnF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sxO-tz-ffd" userLabel="5" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="85" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="5"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">5
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="JKL">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="fiveButtonAction:" destination="-1" eventType="touchUpInside" id="zPU-Oe-PXx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bVS-ki-k9B" userLabel="6" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="85" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="6"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">6
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="MNO">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="sixButtonAction:" destination="-1" eventType="touchUpInside" id="yB7-sZ-Wke"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GqL-hi-uLc" userLabel="7" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="168" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="7"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">7
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="PQRS">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="sevenButtonAction:" destination="-1" eventType="touchUpInside" id="56n-IT-Rg4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dHn-ZM-qA2" userLabel="8" customClass="UIDigitButton">
+                            <rect key="frame" x="95" y="168" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="8"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">8
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="TUV">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="eightButtonAction:" destination="-1" eventType="touchUpInside" id="vNl-bd-6Rq"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gxa-Im-2qW" userLabel="9" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="168" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="9"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">9
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="WXYZ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="nineButtonAction:" destination="-1" eventType="touchUpInside" id="3Ss-C6-9Tx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRK-jP-fz9" userLabel="*" customClass="UIDigitButton">
+                            <rect key="frame" x="2" y="251" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="Star"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="*">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="starButtonAction:" destination="-1" eventType="touchUpInside" id="fow-r4-fqe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZb-4R-A2E" userLabel="0" customClass="UIDigitButtonLongPlus">
+                            <rect key="frame" x="95" y="251" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="0"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">0
+</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="+">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="23" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.65000000000000002"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="zeroButtonAction:" destination="-1" eventType="touchUpInside" id="Lj1-jv-tOu"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4d-SC-7VU" userLabel="#" customClass="UIDigitButton">
+                            <rect key="frame" x="188" y="251" width="91" height="81"/>
+                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
+                            <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="#">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="39" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted" backgroundImage="dial_pad_button_pressed.png"/>
+                            <connections>
+                                <action selector="sharpButtonAction:" destination="-1" eventType="touchUpInside" id="tIe-qb-qMc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="dHn-ZM-qA2" firstAttribute="width" secondItem="gxa-Im-2qW" secondAttribute="width" id="0Go-ae-d2Y"/>
+                        <constraint firstItem="gxa-Im-2qW" firstAttribute="top" secondItem="bVS-ki-k9B" secondAttribute="bottom" constant="2" id="37c-8d-u7h"/>
+                        <constraint firstItem="jLa-nY-xlb" firstAttribute="height" secondItem="H0B-t8-2gK" secondAttribute="height" id="3U4-e2-zfd"/>
+                        <constraint firstItem="fni-Kb-37y" firstAttribute="width" secondItem="RtE-0c-MJV" secondAttribute="width" id="6X4-YS-y6u"/>
+                        <constraint firstItem="NRK-jP-fz9" firstAttribute="width" secondItem="rZb-4R-A2E" secondAttribute="width" id="8lZ-Ci-Uy5"/>
+                        <constraint firstItem="rZb-4R-A2E" firstAttribute="width" secondItem="O4d-SC-7VU" secondAttribute="width" id="Bqz-Fi-VPz"/>
+                        <constraint firstItem="sxO-tz-ffd" firstAttribute="width" secondItem="bVS-ki-k9B" secondAttribute="width" id="Cof-cI-90J"/>
+                        <constraint firstItem="dHn-ZM-qA2" firstAttribute="top" secondItem="sxO-tz-ffd" secondAttribute="bottom" constant="2" id="D3K-Hf-JvI"/>
+                        <constraint firstItem="NRK-jP-fz9" firstAttribute="leading" secondItem="R4g-QX-rd8" secondAttribute="leading" constant="2" id="D6n-eI-K5M"/>
+                        <constraint firstItem="rZb-4R-A2E" firstAttribute="leading" secondItem="NRK-jP-fz9" secondAttribute="trailing" constant="2" id="GEH-jv-exV"/>
+                        <constraint firstAttribute="bottom" secondItem="O4d-SC-7VU" secondAttribute="bottom" constant="2" id="HDZ-2E-IYg"/>
+                        <constraint firstItem="fni-Kb-37y" firstAttribute="top" secondItem="R4g-QX-rd8" secondAttribute="top" constant="2" id="IfR-PL-g66"/>
+                        <constraint firstItem="bVS-ki-k9B" firstAttribute="leading" secondItem="sxO-tz-ffd" secondAttribute="trailing" constant="2" id="KFS-VB-u8E"/>
+                        <constraint firstAttribute="trailing" secondItem="bVS-ki-k9B" secondAttribute="trailing" constant="2" id="KLV-hb-mfD"/>
+                        <constraint firstItem="bVS-ki-k9B" firstAttribute="top" secondItem="RtE-0c-MJV" secondAttribute="bottom" constant="2" id="Knc-4W-i9S"/>
+                        <constraint firstItem="dHn-ZM-qA2" firstAttribute="leading" secondItem="GqL-hi-uLc" secondAttribute="trailing" constant="2" id="Kpt-1d-ksn"/>
+                        <constraint firstItem="rZb-4R-A2E" firstAttribute="height" secondItem="O4d-SC-7VU" secondAttribute="height" id="LRw-MS-WRk"/>
+                        <constraint firstItem="gxa-Im-2qW" firstAttribute="leading" secondItem="dHn-ZM-qA2" secondAttribute="trailing" constant="2" id="MKq-Lt-bDA"/>
+                        <constraint firstItem="fni-Kb-37y" firstAttribute="height" secondItem="RtE-0c-MJV" secondAttribute="height" id="Pe1-nU-dPj"/>
+                        <constraint firstItem="GqL-hi-uLc" firstAttribute="leading" secondItem="R4g-QX-rd8" secondAttribute="leading" constant="2" id="QFd-ra-E9R"/>
+                        <constraint firstItem="H0B-t8-2gK" firstAttribute="leading" secondItem="R4g-QX-rd8" secondAttribute="leading" constant="2" id="QGX-1s-m3X"/>
+                        <constraint firstItem="fni-Kb-37y" firstAttribute="leading" secondItem="H0B-t8-2gK" secondAttribute="trailing" constant="2" id="QWd-RI-cCr"/>
+                        <constraint firstItem="rZb-4R-A2E" firstAttribute="top" secondItem="dHn-ZM-qA2" secondAttribute="bottom" constant="2" id="Qad-kK-nIv"/>
+                        <constraint firstItem="H0B-t8-2gK" firstAttribute="top" secondItem="R4g-QX-rd8" secondAttribute="top" constant="2" id="RPK-fh-bdF"/>
+                        <constraint firstItem="GqL-hi-uLc" firstAttribute="top" secondItem="jLa-nY-xlb" secondAttribute="bottom" constant="2" id="SHM-aG-fOa"/>
+                        <constraint firstItem="O4d-SC-7VU" firstAttribute="top" secondItem="gxa-Im-2qW" secondAttribute="bottom" constant="2" id="SkD-PZ-H1u"/>
+                        <constraint firstItem="GqL-hi-uLc" firstAttribute="width" secondItem="dHn-ZM-qA2" secondAttribute="width" id="Srk-Lv-xdQ"/>
+                        <constraint firstAttribute="bottom" secondItem="rZb-4R-A2E" secondAttribute="bottom" constant="2" id="Uig-x0-mkx"/>
+                        <constraint firstItem="H0B-t8-2gK" firstAttribute="height" secondItem="fni-Kb-37y" secondAttribute="height" id="VXT-eq-CoC"/>
+                        <constraint firstItem="NRK-jP-fz9" firstAttribute="height" secondItem="GqL-hi-uLc" secondAttribute="height" id="Vee-TP-NqN"/>
+                        <constraint firstItem="jLa-nY-xlb" firstAttribute="leading" secondItem="R4g-QX-rd8" secondAttribute="leading" constant="2" id="XHa-in-0GP"/>
+                        <constraint firstItem="sxO-tz-ffd" firstAttribute="top" secondItem="fni-Kb-37y" secondAttribute="bottom" constant="2" id="XLu-RA-DT9"/>
+                        <constraint firstItem="NRK-jP-fz9" firstAttribute="height" secondItem="rZb-4R-A2E" secondAttribute="height" id="YuW-73-JlF"/>
+                        <constraint firstItem="NRK-jP-fz9" firstAttribute="top" secondItem="GqL-hi-uLc" secondAttribute="bottom" constant="2" id="bDC-uR-Dla"/>
+                        <constraint firstItem="GqL-hi-uLc" firstAttribute="height" secondItem="jLa-nY-xlb" secondAttribute="height" id="dyQ-Bc-BVn"/>
+                        <constraint firstItem="sxO-tz-ffd" firstAttribute="leading" secondItem="jLa-nY-xlb" secondAttribute="trailing" constant="2" id="dym-V9-luR"/>
+                        <constraint firstAttribute="bottom" secondItem="NRK-jP-fz9" secondAttribute="bottom" constant="2" id="e1S-dH-8Ic"/>
+                        <constraint firstItem="jLa-nY-xlb" firstAttribute="top" secondItem="H0B-t8-2gK" secondAttribute="bottom" constant="2" id="ehp-QA-DF2"/>
+                        <constraint firstItem="RtE-0c-MJV" firstAttribute="top" secondItem="R4g-QX-rd8" secondAttribute="top" constant="2" id="f5l-UX-LZT"/>
+                        <constraint firstAttribute="trailing" secondItem="RtE-0c-MJV" secondAttribute="trailing" constant="2" id="fDK-Vd-co5"/>
+                        <constraint firstItem="H0B-t8-2gK" firstAttribute="width" secondItem="fni-Kb-37y" secondAttribute="width" id="ipH-sb-YXQ"/>
+                        <constraint firstItem="dHn-ZM-qA2" firstAttribute="height" secondItem="gxa-Im-2qW" secondAttribute="height" id="j7R-Tx-ZQH"/>
+                        <constraint firstItem="jLa-nY-xlb" firstAttribute="height" secondItem="sxO-tz-ffd" secondAttribute="height" id="keO-ji-n9C"/>
+                        <constraint firstItem="sxO-tz-ffd" firstAttribute="height" secondItem="bVS-ki-k9B" secondAttribute="height" id="pPl-81-r2z"/>
+                        <constraint firstItem="O4d-SC-7VU" firstAttribute="leading" secondItem="rZb-4R-A2E" secondAttribute="trailing" constant="2" id="q7B-FJ-DUI"/>
+                        <constraint firstItem="jLa-nY-xlb" firstAttribute="width" secondItem="sxO-tz-ffd" secondAttribute="width" id="ule-wA-vVr"/>
+                        <constraint firstAttribute="trailing" secondItem="O4d-SC-7VU" secondAttribute="trailing" constant="2" id="veP-D0-wP6"/>
+                        <constraint firstItem="RtE-0c-MJV" firstAttribute="leading" secondItem="fni-Kb-37y" secondAttribute="trailing" constant="2" id="w4a-fY-orf"/>
+                        <constraint firstAttribute="trailing" secondItem="gxa-Im-2qW" secondAttribute="trailing" constant="2" id="zNC-Pc-583"/>
+                        <constraint firstItem="GqL-hi-uLc" firstAttribute="height" secondItem="dHn-ZM-qA2" secondAttribute="height" id="zrL-Da-qYZ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="R4g-QX-rd8" firstAttribute="leading" secondItem="z4t-Yg-ilg" secondAttribute="leading" id="Jww-8s-d0Z"/>
+                <constraint firstItem="R4g-QX-rd8" firstAttribute="height" secondItem="z4t-Yg-ilg" secondAttribute="height" id="kxZ-yO-cdZ"/>
+                <constraint firstAttribute="bottom" secondItem="R4g-QX-rd8" secondAttribute="bottom" id="mB8-RW-8lT"/>
+                <constraint firstAttribute="trailing" secondItem="R4g-QX-rd8" secondAttribute="trailing" id="qXf-0E-XeI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="100" y="34"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="conference_default.png" width="209" height="136"/>
+        <image name="conference_over.png" width="209" height="136"/>
+        <image name="dial_pad_button_pressed.png" width="210" height="113"/>
+        <image name="dial_pad_button_unpressed.png" width="210" height="113"/>
+    </resources>
+</document>
