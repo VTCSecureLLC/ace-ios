@@ -367,7 +367,6 @@ static RootViewManager *rootViewManagerInstance = nil;
 
     bool canHideInCallView = NO;
 
-    
     if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] == 0) {
         canHideInCallView = YES;
     }
