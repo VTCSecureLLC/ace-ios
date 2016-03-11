@@ -761,7 +761,11 @@ static UICompositeViewDescription *compositeDescription = nil;
         }
         [self.selectProviderButton setTitle:[cdnResources objectAtIndex:0] forState:UIControlStateNormal];
         [self.selectProviderButton layoutSubviews];
-        
+        NSString *domain;
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", 0]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", 0]];
+        }
+        self.textFieldDomain.text = (domain != nil)?domain:@"";
     }
 }
 
