@@ -220,8 +220,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallIncomingReceived: {
-            
-            self.isRTTEnabled = NO;
             [self incomingReceivedWithCall:call];
             // This is second call
             break;
@@ -260,7 +258,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
-            [self checkRTTForCall:call];
+           
             [self checkHoldCall];
             [self showQualityIndicator];
             break;
@@ -353,6 +351,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self setupVideoButtonState];
     [self setupMicriphoneButtonState];
     [self setupSpeakerButtonState];
+    [self checkRTTForCall:call];
 }
 
 - (void)checkHoldCall {
