@@ -16,6 +16,11 @@ if [ "$TRAVIS_BRANCH" != "master" ] ; then
   exit 0
 fi
 
+if [ "$TRAVIS_PULL_REQUEST" = "true"  ]; then
+  echo "This is a Pull Request. Deploy skipped"
+  exit 0
+fi
+
 # Prepare codesigning keys
 
 if [ -z "${AWS_ACCESS_KEY_ID}" ]; then
