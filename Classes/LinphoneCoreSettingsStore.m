@@ -453,22 +453,19 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
     int video = linphone_core_get_video_dscp([LinphoneManager getLc]);
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"]) {
         // First time
-          [self setBool:YES forKey:@"QoS"];
+        [self setBool:YES forKey:@"QoS"];
+        linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
+        linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
+        linphone_core_set_video_dscp([LinphoneManager getLc], 46);
     } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] integerValue] == 1) {
-        // Turned On
-        if (sip != 28 && audio != 38 && video != 38) {
-            linphone_core_set_sip_dscp([LinphoneManager getLc], 28);
-            linphone_core_set_audio_dscp([LinphoneManager getLc], 38);
-            linphone_core_set_video_dscp([LinphoneManager getLc], 38);
-        }
+        linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
+        linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
+        linphone_core_set_video_dscp([LinphoneManager getLc], 46);
         [self setBool:YES forKey:@"QoS"];
     } else {
-        // Turned Off
-        if (sip != 26 && audio != 46 && video != 0) {
-            linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
-            linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
-            linphone_core_set_video_dscp([LinphoneManager getLc], 0);
-        }
+        linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
+        linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
+        linphone_core_set_video_dscp([LinphoneManager getLc], 0);
         [self setBool:NO forKey:@"QoS"];
     }
 }
