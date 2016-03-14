@@ -447,10 +447,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 }
 
 - (void)setQoSInitialValues {
-    
-    int sip = linphone_core_get_sip_dscp([LinphoneManager getLc]);
-    int audio = linphone_core_get_audio_dscp([LinphoneManager getLc]);
-    int video = linphone_core_get_video_dscp([LinphoneManager getLc]);
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"]) {
         // First time
         [self setBool:YES forKey:@"QoS"];
