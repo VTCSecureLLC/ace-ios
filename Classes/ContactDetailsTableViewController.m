@@ -596,11 +596,25 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		[cell.detailTextField setKeyboardType:UIKeyboardTypePhonePad];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"Phone number", nil)];
 	} else if (contactSections[[indexPath section]] == ContactSections_Sip) {
+        
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"SIP address", nil)];
         [cell.providerPicker setBackgroundColor:[UIColor darkGrayColor]];
         
-        NSString *currentDomain = [[cell.detailTextField.text componentsSeparatedByString:@"@"] lastObject];
+        NSString *currentDomain = [self getDomainFromSip:value];
+        NSString *currentSipAddress = [self getAddressFromSip:value];
+        
+        if(![self.tableView isEditing]){
+            [cell.providerPicker setHidden:YES];
+            [cell.providerPicker setEnabled:NO];
+            cell.detailTextLabel.text = currentSipAddress;
+        }
+        else{
+            [cell.providerPicker setHidden:NO];
+            [cell.providerPicker setEnabled:YES];
+            cell.detailTextField.text = currentSipAddress;
+        }
+        
         if (currentDomain.length > 0) {
             
             UIImage *image = [self fetchProviderImageWithDomain:currentDomain];
@@ -613,22 +627,6 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
         else {
             [cell.providerPicker setImage:nil forState:UIControlStateNormal];
         }
-
-        if(![self.tableView isEditing]){
-            [cell.providerPicker setHidden:YES];
-            [cell.providerPicker setEnabled:NO];
-        }
-        else{
-            [cell.providerPicker setHidden:NO];
-            [cell.providerPicker setEnabled:YES];
-        }
-//        if(![self.tableView isEditing]){
-//            [cell.providerPicker setUserInteractionEnabled:NO];
-//        }
-//        else{
-//            [cell.providerPicker setUserInteractionEnabled:YES];
-//        }
-
 	} else if (contactSections[[indexPath section]] == ContactSections_Email) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"Email address", nil)];
@@ -1113,6 +1111,23 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
     }
 }
 
+- (NSString *)getDomainFromSip:(NSString *)sip {
+    
+    if ([sip containsString:@"@"]) {
+        
+        NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
+        if (separatedSip.count > 0) {
+            return [separatedSip lastObject];
+        }
+        else {
+            return @"";
+        }
+    }
+    else {
+        return @"";
+    }
+}
+
 #pragma mark - UICustomPicker Delegate
 - (void)didCancelUICustomPicker:(UICustomPicker *)customPicker {
     
@@ -1130,7 +1145,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
         NSIndexPath *path = [NSIndexPath indexPathForRow:customPicker.tag inSection:ContactSections_Sip];
         UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
         NSString *selectedDomain = [self.domains objectAtIndex:row];
-        NSString *sipAddress = [self getAddressFromSip:cell.detailTextField.text];
+        NSString *sipAddress = [self getAddressFromSip:cell.detailTextLabel.text];
         NSString *newSipAddress = [NSString stringWithFormat:@"%@@%@", sipAddress, selectedDomain];
         
         NSIndexPath *cellPath = [self.tableView indexPathForCell:cell];
@@ -1138,8 +1153,13 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
         Entry *entry = [sectionDict objectAtIndex:cellPath.row];
         [self setSipContactEntry:entry withValue:newSipAddress];
         
-        cell.detailTextLabel.text = newSipAddress;
-        cell.detailTextField.text = newSipAddress;
+        if(![self.tableView isEditing]){
+            cell.detailTextField.text = newSipAddress;
+        }
+        else{
+            cell.detailTextLabel.text = newSipAddress;
+        }
+        
         
         UIImage *image = [self fetchProviderImageWithDomain:selectedDomain];
         [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
