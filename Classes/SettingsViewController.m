@@ -804,11 +804,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     } else if([@"QoS" compare:notif.object] == NSOrderedSame) {
         BOOL enabled = ([[notif.userInfo objectForKey:@"QoS"] boolValue]) ? YES : NO;
         if (enabled) {
-<<<<<<< HEAD
-            linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
-            linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
-            linphone_core_set_video_dscp([LinphoneManager getLc], 46);
-=======
             int signalValue = 24;
             int audioValue = 46;
             int videoValue = 46;
@@ -825,7 +820,6 @@ static UICompositeViewDescription *compositeDescription = nil;
             [settingsStore setInteger:signalValue forKey:@"signaling_preference"];
             [settingsStore setInteger:audioValue forKey:@"audio_preference"];
             [settingsStore setInteger:videoValue forKey:@"video_preference"];
->>>>>>> 427b6e6c1e13492af7a0137669838b035f41a966
         } else {
             // Default values
             linphone_core_set_sip_dscp([LinphoneManager getLc], 0);

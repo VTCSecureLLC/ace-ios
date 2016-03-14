@@ -447,6 +447,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 }
 
 - (void)setQoSInitialValues {
+    
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"]) {
         // First time
         [self setBool:YES forKey:@"QoS"];
