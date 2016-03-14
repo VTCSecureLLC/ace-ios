@@ -450,18 +450,34 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"]) {
         // First time
         [self setBool:YES forKey:@"QoS"];
-        linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
-        linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
-        linphone_core_set_video_dscp([LinphoneManager getLc], 46);
     } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] integerValue] == 1) {
-        linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
-        linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
-        linphone_core_set_video_dscp([LinphoneManager getLc], 46);
+        // Turned On
+        int signalValue = 24;
+        int audioValue = 46;
+        int videoValue = 46;
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] ||
+            [[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] ||
+            [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"]) {
+            signalValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] intValue];
+            audioValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] intValue];
+            videoValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"] intValue];
+        }
+        linphone_core_set_sip_dscp([LinphoneManager getLc], signalValue);
+        linphone_core_set_audio_dscp([LinphoneManager getLc], audioValue);
+        linphone_core_set_video_dscp([LinphoneManager getLc], videoValue);
+        
+        [self setInteger:signalValue forKey:@"signaling_preference"];
+        [self setInteger:audioValue forKey:@"audio_preference"];
+        [self setInteger:videoValue forKey:@"video_preference"];
         [self setBool:YES forKey:@"QoS"];
     } else {
+        // Turned Off
         linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
         linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
         linphone_core_set_video_dscp([LinphoneManager getLc], 0);
+        [self setInteger:0 forKey:@"signaling_preference"];
+        [self setInteger:0 forKey:@"audio_preference"];
+        [self setInteger:0 forKey:@"video_preference"];
         [self setBool:NO forKey:@"QoS"];
     }
 }

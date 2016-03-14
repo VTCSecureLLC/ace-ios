@@ -757,24 +757,88 @@ static UICompositeViewDescription *compositeDescription = nil;
             [defaults synchronize];
         }
     }
+    else if([@"signaling_preference" compare:notif.object] == NSOrderedSame) {
+        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] boolValue]) {
+            [self refreshTable];
+        } else {
+            int signalValue = [[notif.userInfo objectForKey:@"signaling_preference"] intValue];
+            linphone_core_set_sip_dscp([LinphoneManager getLc], signalValue);
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setInteger:signalValue forKey:@"signaling_preference"];
+            [defaults synchronize];
+        }
+    }
+    else if([@"audio_preference" compare:notif.object] == NSOrderedSame) {
+        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] boolValue]) {
+            [self refreshTable];
+        } else {
+            int audioValue = [[notif.userInfo objectForKey:@"audio_preference"] intValue];
+            linphone_core_set_audio_dscp([LinphoneManager getLc], audioValue);
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setInteger:audioValue forKey:@"audio_preference"];
+            [defaults synchronize];
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] boolValue]) {
+                [settingsStore setBool:1 forKey:@"echo_cancel_preference"];
+                [self refreshTable];
+            }
+        }
+    }
+    else if([@"video_preference" compare:notif.object] == NSOrderedSame) {
+        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] boolValue]) {
+            [self refreshTable];
+        } else {
+            int videoValue = [[notif.userInfo objectForKey:@"video_preference"] intValue];
+            linphone_core_set_video_dscp([LinphoneManager getLc], videoValue);
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setInteger:videoValue forKey:@"video_preference"];
+            [defaults synchronize];
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] boolValue]) {
+                [settingsStore setBool:1 forKey:@"echo_cancel_preference"];
+                [self refreshTable];
+            }
+        }
+    }
     else if([@"echo_cancel_preference" compare:notif.object] == NSOrderedSame){
         BOOL isEchoCancelEnabled = ([[notif.userInfo objectForKey:@"echo_cancel_preference"] boolValue]) ? YES : NO;
         linphone_core_enable_echo_cancellation([LinphoneManager getLc], isEchoCancelEnabled);
     } else if([@"QoS" compare:notif.object] == NSOrderedSame) {
         BOOL enabled = ([[notif.userInfo objectForKey:@"QoS"] boolValue]) ? YES : NO;
         if (enabled) {
+<<<<<<< HEAD
             linphone_core_set_sip_dscp([LinphoneManager getLc], 24);
             linphone_core_set_audio_dscp([LinphoneManager getLc], 46);
             linphone_core_set_video_dscp([LinphoneManager getLc], 46);
+=======
+            int signalValue = 24;
+            int audioValue = 46;
+            int videoValue = 46;
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] ||
+                [[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] ||
+                [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"]) {
+                signalValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] intValue];
+                audioValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] intValue];
+                videoValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"] intValue];
+            }
+            linphone_core_set_sip_dscp([LinphoneManager getLc], signalValue);
+            linphone_core_set_audio_dscp([LinphoneManager getLc], audioValue);
+            linphone_core_set_video_dscp([LinphoneManager getLc], videoValue);
+            [settingsStore setInteger:signalValue forKey:@"signaling_preference"];
+            [settingsStore setInteger:audioValue forKey:@"audio_preference"];
+            [settingsStore setInteger:videoValue forKey:@"video_preference"];
+>>>>>>> 427b6e6c1e13492af7a0137669838b035f41a966
         } else {
             // Default values
             linphone_core_set_sip_dscp([LinphoneManager getLc], 0);
             linphone_core_set_audio_dscp([LinphoneManager getLc], 0);
             linphone_core_set_video_dscp([LinphoneManager getLc], 0);
+            [settingsStore setObject:@"0" forKey:@"signaling_preference"];
+            [settingsStore setObject:@"0" forKey:@"audio_preference"];
+            [settingsStore setObject:@"0" forKey:@"video_preference"];
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:enabled forKey:@"QoS"];
         [defaults synchronize];
+        [self refreshTable];
     }
 
 	for (NSString *key in keys) {
@@ -785,6 +849,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	}
 
 	[settingsController setHiddenKeys:hiddenKeys animated:TRUE];
+}
+
+- (void)refreshTable {
+    [settingsStore transformLinphoneCoreToKeys];
+    settingsController.hiddenKeys = [self findHiddenKeys];
+    [settingsController.tableView reloadData];
 }
 
 - (void) changeColor: (NSString*) pref
