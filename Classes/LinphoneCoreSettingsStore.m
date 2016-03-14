@@ -453,9 +453,9 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         [self setBool:YES forKey:@"QoS"];
     } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"QoS"] integerValue] == 1) {
         // Turned On
-        int signalValue = 28;
-        int audioValue = 38;
-        int videoValue = 38;
+        int signalValue = 24;
+        int audioValue = 46;
+        int videoValue = 46;
         if ([[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] ||
             [[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] ||
             [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"]) {

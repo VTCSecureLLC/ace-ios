@@ -804,9 +804,9 @@ static UICompositeViewDescription *compositeDescription = nil;
     } else if([@"QoS" compare:notif.object] == NSOrderedSame) {
         BOOL enabled = ([[notif.userInfo objectForKey:@"QoS"] boolValue]) ? YES : NO;
         if (enabled) {
-            int signalValue = 28;
-            int audioValue = 38;
-            int videoValue = 38;
+            int signalValue = 24;
+            int audioValue = 46;
+            int videoValue = 46;
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"signaling_preference"] ||
                 [[NSUserDefaults standardUserDefaults] objectForKey:@"audio_preference"] ||
                 [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preference"]) {
