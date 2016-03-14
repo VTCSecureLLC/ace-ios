@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIView *answerMessagesContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *answerMessagesViewStatusArrow;
+@property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
 @property (nonatomic, strong) NSTimer *cameraLedFlasherTimer;
 @property (nonatomic, strong) NSTimer *vibratorTimer;
 @property (nonatomic, strong) AVCaptureDevice *device;
@@ -112,6 +113,20 @@
 
 
 #pragma mark - Private Methods
+
+- (void)displayIncrementedRingCount {
+    self.ringCountLabel.hidden = NO;
+    [UIView transitionWithView: self.ringCountLabel
+                      duration:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                    }
+                    completion:^(BOOL finished) {
+                        self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
+                    }];
+}
+
+
 - (void)setupProfileImageView {
     
     [self.profileImageView.layer setMasksToBounds:YES];
@@ -257,6 +272,7 @@
 }
 
 - (void) vibrate {
+    [self displayIncrementedRingCount];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
