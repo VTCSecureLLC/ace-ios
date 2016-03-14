@@ -598,6 +598,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	} else if (contactSections[[indexPath section]] == ContactSections_Sip) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
 		[cell.detailTextField setPlaceholder:NSLocalizedString(@"SIP address", nil)];
+        [cell.providerPicker setBackgroundColor:[UIColor darkGrayColor]];
         
         NSString *currentDomain = [[cell.detailTextField.text componentsSeparatedByString:@"@"] lastObject];
         if (currentDomain.length > 0) {
@@ -608,20 +609,25 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
             if (image) {
                 [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
             }
-            else {
-                [cell.providerPicker setBackgroundColor:[UIColor darkGrayColor]];
-            }
         }
         else {
             [cell.providerPicker setImage:nil forState:UIControlStateNormal];
         }
-        
+
         if(![self.tableView isEditing]){
-            [cell.providerPicker setUserInteractionEnabled:NO];
+            [cell.providerPicker setHidden:YES];
+            [cell.providerPicker setEnabled:NO];
         }
         else{
-            [cell.providerPicker setUserInteractionEnabled:YES];
+            [cell.providerPicker setHidden:NO];
+            [cell.providerPicker setEnabled:YES];
         }
+//        if(![self.tableView isEditing]){
+//            [cell.providerPicker setUserInteractionEnabled:NO];
+//        }
+//        else{
+//            [cell.providerPicker setUserInteractionEnabled:YES];
+//        }
 
 	} else if (contactSections[[indexPath section]] == ContactSections_Email) {
 		[cell.detailTextField setKeyboardType:UIKeyboardTypeASCIICapable];
@@ -826,14 +832,14 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 				[self addEntry:self.tableView section:section animated:animated];
 			}
 
-//            if(contactSections[section] == ContactSections_Sip){
-//                for(int row = 0; row < [[self getSectionData:section] count]; ++row){
-//                    NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:ContactSections_Sip];
-//                    UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-//                    [cell.providerPicker setHidden:YES];
-//                    [cell.providerPicker setEnabled:NO];
-//                }
-//            }
+            if(contactSections[section] == ContactSections_Sip){
+                for(int row = 0; row < [[self getSectionData:section] count]; ++row){
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:ContactSections_Sip];
+                    UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+                    [cell.providerPicker setHidden:YES];
+                    [cell.providerPicker setEnabled:NO];
+                }
+            }
         }
         
 	} else {
@@ -977,19 +983,6 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	return YES;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    UIView *view = [textField superview];
-    // Find TableViewCell
-    while (view != nil && ![view isKindOfClass:[UIEditableTableViewCell class]])
-        view = [view superview];
-    if (view != nil) {
-        UIEditableTableViewCell *cell = (UIEditableTableViewCell *)view;
-        [cell setEditing:YES animated:YES];
-    }
-    
-    return YES;
-}
-
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
 	UIView *view = [textField superview];
 	// Find TableViewCell
@@ -997,8 +990,6 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		view = [view superview];
 	if (view != nil) {
 		UIEditableTableViewCell *cell = (UIEditableTableViewCell *)view;
-        [cell setEditing:NO animated:YES];
-
 		NSIndexPath *path = [self.tableView indexPathForCell:cell];
 		NSMutableArray *sectionDict = [self getSectionData:[path section]];
 		Entry *entry = [sectionDict objectAtIndex:[path row]];
