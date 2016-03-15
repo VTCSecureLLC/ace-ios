@@ -590,6 +590,13 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		CFRelease(lMap);
 	}
 	[cell.textLabel setText:label];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    } else {
+        [cell.textLabel setTextColor:[UIColor grayColor]];
+    }
+    
 	[cell.detailTextLabel setText:value];
 	[cell.detailTextField setText:value];
 	if (contactSections[[indexPath section]] == ContactSections_Number) {
@@ -865,8 +872,38 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 	if (section == ContactSections_None) {
 		return [headerController view];
 	} else {
-		return nil;
+        // create the parent view that will hold header Label
+        UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, [self tableView:tableView heightForHeaderInSection:section])];
+        
+        if (contactSections[section] == ContactSections_Number ||
+            contactSections[section] == ContactSections_Sip ||
+            contactSections[section] == ContactSections_Email) {
+            UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+            headerLabel.backgroundColor = [UIColor clearColor];
+            headerLabel.opaque = NO;
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+                headerLabel.textColor = [UIColor blackColor];
+            } else {
+                headerLabel.textColor = [UIColor grayColor];
+            }
+            headerLabel.font = [UIFont boldSystemFontOfSize:17];
+            headerLabel.frame = CGRectMake(10.0, 0.0, customView.frame.size.width, customView.frame.size.height);
+            
+            if (contactSections[section] == ContactSections_Number) {
+                headerLabel.text = NSLocalizedString(@"Phone numbers", nil);
+            } else if (contactSections[section] == ContactSections_Sip) {
+                headerLabel.text = NSLocalizedString(@"SIP addresses", nil);
+            } else if (contactSections[section] == ContactSections_Email) {
+                headerLabel.text = NSLocalizedString(@"Email addresses", nil);
+            }
+
+            [customView addSubview:headerLabel];
+            
+            return customView;
+        }
 	}
+    
+    return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -874,20 +911,6 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 		if (ABRecordGetRecordID(contact) != kABRecordInvalidID) {
 			return [footerController view];
 		}
-	}
-	return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if ([[self getSectionData:section] count] == 0)
-		return nil;
-
-	if (contactSections[section] == ContactSections_Number) {
-		return NSLocalizedString(@"Phone numbers", nil);
-	} else if (contactSections[section] == ContactSections_Sip) {
-		return NSLocalizedString(@"SIP addresses", nil);
-	} else if (contactSections[section] == ContactSections_Email) {
-		return NSLocalizedString(@"Email addresses", nil);
 	}
 	return nil;
 }
