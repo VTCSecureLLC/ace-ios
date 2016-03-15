@@ -579,7 +579,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		const char *identity = linphone_address_as_string_uri_only(linphoneAddress);
 		const char *password = [accountPassword UTF8String];
 		const char *ha1 = [accountHa1 UTF8String];
-        [self setRtcpFbMode: FALSE];
+    
 		if (linphone_proxy_config_set_identity(proxyCfg, identity) == -1) {
 			error = NSLocalizedString(@"Invalid username or domain", nil);
 			goto bad_proxy;

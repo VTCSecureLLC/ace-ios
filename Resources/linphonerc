@@ -125,6 +125,3 @@ incoming_vibrate_frequency=1.0
 outgoing_ring_duration=2.8
 emergency_username=911
 external_domains=Sorenson.com,ZVRS.com,CAAG.com,PurpleVRS.com,GlobalVRS.com,Convo.com
-
-[proxy_default_values]
-avpf=1
