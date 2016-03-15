@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallBarView">
+            <connections>
+                <outlet property="backgroundView" destination="0Yf-ly-MKb" id="akr-j2-bGm"/>
+                <outlet property="backgroundViewBottomConstraint" destination="qZe-aU-5D6" id="AvM-kW-TsB"/>
+                <outlet property="bottomButtonsContainer" destination="hIc-17-E3U" id="05L-fn-gi9"/>
+                <outlet property="changeVideoLayoutButton" destination="9iU-OK-Oq7" id="Qqt-Xc-KV2"/>
+                <outlet property="chatButton" destination="w2T-Ml-2c6" id="Hya-qh-MFq"/>
+                <outlet property="endCallButton" destination="xvQ-NC-QPH" id="Cp3-U8-hgy"/>
+                <outlet property="keypadButton" destination="dph-Pk-SyG" id="wCb-p8-gqj"/>
+                <outlet property="moreButton" destination="Hbs-qg-cZT" id="doA-qT-eFq"/>
+                <outlet property="moreMenuContainer" destination="bgC-0Y-R1k" id="zCj-Vt-Piu"/>
+                <outlet property="soundButton" destination="Wxh-sT-g9T" id="x93-Re-dIE"/>
+                <outlet property="switchCameraButton" destination="xqc-bm-JDs" id="JrN-qe-HFm"/>
+                <outlet property="videoButton" destination="Vlw-Jt-6jk" id="GfD-Rb-l6k"/>
+                <outlet property="voiceButton" destination="qRN-de-4m4" id="6mg-Tb-l2v"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Yf-ly-MKb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
+                    <subviews>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgC-0Y-R1k" userLabel="More Menu Container">
+                            <rect key="frame" x="185" y="0.0" width="190" height="100"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zei-6O-A4E" userLabel="First Button Container">
+                                    <rect key="frame" x="0.0" y="0.0" width="190" height="49.5"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-bm-JDs">
+                                            <rect key="frame" x="10" y="0.0" width="180" height="49.5"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                            <state key="normal" title="Switch camera">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="switchCameraButtonAction:" destination="-1" eventType="touchUpInside" id="CuH-i9-BFA"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="xqc-bm-JDs" firstAttribute="leading" secondItem="zei-6O-A4E" secondAttribute="leading" constant="10" id="EwD-C4-045"/>
+                                        <constraint firstAttribute="trailing" secondItem="xqc-bm-JDs" secondAttribute="trailing" id="Ocl-61-Swn"/>
+                                        <constraint firstAttribute="bottom" secondItem="xqc-bm-JDs" secondAttribute="bottom" id="mi7-QK-NwI"/>
+                                        <constraint firstItem="xqc-bm-JDs" firstAttribute="top" secondItem="zei-6O-A4E" secondAttribute="top" id="tPP-E7-XhJ"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKE-Yo-V2a" userLabel="White Line">
+                                    <rect key="frame" x="0.0" y="49" width="190" height="1"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="Ktp-VG-1tl"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WDC-tx-7Gh" userLabel="Second Button Container">
+                                    <rect key="frame" x="0.0" y="50" width="190" height="49.5"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iU-OK-Oq7">
+                                            <rect key="frame" x="10" y="0.0" width="180" height="49.5"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                            <state key="normal" title="Change Video Layout">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="changeVideoLayoutButtonAction:" destination="-1" eventType="touchUpInside" id="7df-b5-tcZ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="9iU-OK-Oq7" firstAttribute="top" secondItem="WDC-tx-7Gh" secondAttribute="top" id="G8C-gv-oLP"/>
+                                        <constraint firstAttribute="trailing" secondItem="9iU-OK-Oq7" secondAttribute="trailing" id="Oz2-Wp-eTl"/>
+                                        <constraint firstItem="9iU-OK-Oq7" firstAttribute="leading" secondItem="WDC-tx-7Gh" secondAttribute="leading" constant="10" id="be7-ae-7lL"/>
+                                        <constraint firstAttribute="bottom" secondItem="9iU-OK-Oq7" secondAttribute="bottom" id="o9w-q1-tvP"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="WDC-tx-7Gh" firstAttribute="top" secondItem="iKE-Yo-V2a" secondAttribute="bottom" id="EP8-Fx-xbd"/>
+                                <constraint firstAttribute="trailing" secondItem="iKE-Yo-V2a" secondAttribute="trailing" id="H8g-QR-km0"/>
+                                <constraint firstItem="zei-6O-A4E" firstAttribute="top" secondItem="bgC-0Y-R1k" secondAttribute="top" id="IGz-ng-0gg"/>
+                                <constraint firstAttribute="trailing" secondItem="WDC-tx-7Gh" secondAttribute="trailing" id="S8E-73-hPI"/>
+                                <constraint firstItem="WDC-tx-7Gh" firstAttribute="leading" secondItem="bgC-0Y-R1k" secondAttribute="leading" id="UC8-rf-Xzt"/>
+                                <constraint firstItem="zei-6O-A4E" firstAttribute="leading" secondItem="bgC-0Y-R1k" secondAttribute="leading" id="bGv-Nb-2Rr"/>
+                                <constraint firstAttribute="trailing" secondItem="zei-6O-A4E" secondAttribute="trailing" id="cfC-o7-Ulc"/>
+                                <constraint firstItem="iKE-Yo-V2a" firstAttribute="top" secondItem="zei-6O-A4E" secondAttribute="bottom" id="kOq-lI-Vnv"/>
+                                <constraint firstAttribute="width" constant="190" id="nEQ-2V-YXv"/>
+                                <constraint firstAttribute="bottom" secondItem="WDC-tx-7Gh" secondAttribute="bottom" id="uBv-PW-t57"/>
+                                <constraint firstItem="iKE-Yo-V2a" firstAttribute="leading" secondItem="bgC-0Y-R1k" secondAttribute="leading" id="uqL-tN-p0q"/>
+                                <constraint firstItem="WDC-tx-7Gh" firstAttribute="height" secondItem="zei-6O-A4E" secondAttribute="height" id="zg2-cc-8xM"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvQ-NC-QPH">
+                            <rect key="frame" x="112" y="151" width="150" height="52"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="52" id="Ng2-8r-z0X"/>
+                                <constraint firstAttribute="width" constant="150" id="idc-Ny-0vc"/>
+                            </constraints>
+                            <state key="normal" image="in_call_call_down_icon"/>
+                            <connections>
+                                <action selector="endCallButtonAction:" destination="-1" eventType="touchUpInside" id="v5b-Yj-JvI"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-17-E3U" userLabel="Bottom Buttons Container">
+                            <rect key="frame" x="-1" y="100" width="377" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlw-Jt-6jk" customClass="IncallButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="75.5" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="in_call_video_icon"/>
+                                    <state key="selected" image="in_call_video_selected_icon"/>
+                                    <connections>
+                                        <action selector="videoButtonAction:" destination="-1" eventType="touchUpInside" id="tFn-Vh-LVd"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-de-4m4" customClass="IncallButton">
+                                    <rect key="frame" x="75" y="0.0" width="75.5" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="in_call_voice_icon"/>
+                                    <state key="selected" image="in_call_voice_selected_icon"/>
+                                    <connections>
+                                        <action selector="voiceButtonAction:" destination="-1" eventType="touchUpInside" id="3Zw-Zq-uCo"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dph-Pk-SyG" customClass="IncallButton">
+                                    <rect key="frame" x="151" y="0.0" width="75" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="in_call_keypad_icon"/>
+                                    <connections>
+                                        <action selector="keypadButtonAction:" destination="-1" eventType="touchUpInside" id="Ia0-Bs-2Ny"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wxh-sT-g9T" customClass="IncallButton">
+                                    <rect key="frame" x="226" y="0.0" width="75.5" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="in_call_sound_icon"/>
+                                    <state key="selected" image="in_call_sound_selected_icon"/>
+                                    <connections>
+                                        <action selector="soundButtonAction:" destination="-1" eventType="touchUpInside" id="H0N-HI-GaL"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbs-qg-cZT" customClass="IncallButton">
+                                    <rect key="frame" x="301" y="0.0" width="75.5" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="in_call_more_icon"/>
+                                    <connections>
+                                        <action selector="moreButtonAction:" destination="-1" eventType="touchUpInside" id="yK8-It-p4w"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Hbs-qg-cZT" firstAttribute="leading" secondItem="Wxh-sT-g9T" secondAttribute="trailing" id="3mX-Ej-1P1"/>
+                                <constraint firstItem="qRN-de-4m4" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="42u-dD-5fL"/>
+                                <constraint firstAttribute="height" constant="50" id="4wk-eJ-lig"/>
+                                <constraint firstItem="Vlw-Jt-6jk" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="5Er-jg-3Uv"/>
+                                <constraint firstItem="Wxh-sT-g9T" firstAttribute="leading" secondItem="dph-Pk-SyG" secondAttribute="trailing" id="AMG-II-6nM"/>
+                                <constraint firstAttribute="bottom" secondItem="Vlw-Jt-6jk" secondAttribute="bottom" id="Hs5-Zj-GZk"/>
+                                <constraint firstAttribute="trailing" secondItem="Hbs-qg-cZT" secondAttribute="trailing" id="IH5-0j-qVd"/>
+                                <constraint firstItem="Wxh-sT-g9T" firstAttribute="width" secondItem="dph-Pk-SyG" secondAttribute="width" id="KjR-li-zC9"/>
+                                <constraint firstItem="dph-Pk-SyG" firstAttribute="leading" secondItem="qRN-de-4m4" secondAttribute="trailing" id="LBR-ro-0aj"/>
+                                <constraint firstItem="Hbs-qg-cZT" firstAttribute="width" secondItem="Wxh-sT-g9T" secondAttribute="width" id="P2L-Ka-GqD"/>
+                                <constraint firstItem="qRN-de-4m4" firstAttribute="leading" secondItem="Vlw-Jt-6jk" secondAttribute="trailing" id="QPz-6t-CIN"/>
+                                <constraint firstItem="Vlw-Jt-6jk" firstAttribute="leading" secondItem="hIc-17-E3U" secondAttribute="leading" id="a4d-ug-7Z1"/>
+                                <constraint firstAttribute="bottom" secondItem="dph-Pk-SyG" secondAttribute="bottom" id="blL-J6-unZ"/>
+                                <constraint firstItem="dph-Pk-SyG" firstAttribute="width" secondItem="qRN-de-4m4" secondAttribute="width" id="coy-BY-if5"/>
+                                <constraint firstItem="dph-Pk-SyG" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="fya-Xu-PVF"/>
+                                <constraint firstItem="Wxh-sT-g9T" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="hWI-JJ-Kka"/>
+                                <constraint firstAttribute="bottom" secondItem="Wxh-sT-g9T" secondAttribute="bottom" id="qNW-W8-zd5"/>
+                                <constraint firstAttribute="bottom" secondItem="qRN-de-4m4" secondAttribute="bottom" id="rE3-70-y8n"/>
+                                <constraint firstItem="qRN-de-4m4" firstAttribute="width" secondItem="Vlw-Jt-6jk" secondAttribute="width" id="shD-g7-gDS"/>
+                                <constraint firstAttribute="bottom" secondItem="Hbs-qg-cZT" secondAttribute="bottom" id="zTE-gR-rXJ"/>
+                                <constraint firstItem="Hbs-qg-cZT" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="top" id="zkg-xq-9dB"/>
+                            </constraints>
+                        </view>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2T-Ml-2c6">
+                            <rect key="frame" x="31" y="151" width="80" height="52"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="HbW-f0-qGN"/>
+                            </constraints>
+                            <state key="normal" image="chat_icon"/>
+                            <connections>
+                                <action selector="chatButtonAction:" destination="-1" eventType="touchUpInside" id="WYq-It-h4x"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="xvQ-NC-QPH" firstAttribute="centerX" secondItem="0Yf-ly-MKb" secondAttribute="centerX" id="49E-9M-kTi"/>
+                        <constraint firstItem="w2T-Ml-2c6" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="bottom" constant="1" id="9w4-BT-xXV"/>
+                        <constraint firstAttribute="bottom" secondItem="w2T-Ml-2c6" secondAttribute="bottom" id="Jx1-Lw-zHO"/>
+                        <constraint firstItem="hIc-17-E3U" firstAttribute="leading" secondItem="0Yf-ly-MKb" secondAttribute="leading" constant="-1" id="KPL-FT-UTn"/>
+                        <constraint firstItem="bgC-0Y-R1k" firstAttribute="height" secondItem="hIc-17-E3U" secondAttribute="height" multiplier="2" id="MQN-5i-CKV"/>
+                        <constraint firstAttribute="bottom" secondItem="xvQ-NC-QPH" secondAttribute="bottom" id="Nyv-at-1v4"/>
+                        <constraint firstAttribute="trailing" secondItem="bgC-0Y-R1k" secondAttribute="trailing" id="eaX-Hb-toX"/>
+                        <constraint firstItem="hIc-17-E3U" firstAttribute="top" secondItem="bgC-0Y-R1k" secondAttribute="bottom" id="oQT-ql-wZG"/>
+                        <constraint firstItem="xvQ-NC-QPH" firstAttribute="leading" secondItem="w2T-Ml-2c6" secondAttribute="trailing" constant="1" id="qCZ-Ix-ft0"/>
+                        <constraint firstAttribute="trailing" secondItem="hIc-17-E3U" secondAttribute="trailing" constant="-1" id="skP-1I-9b0"/>
+                        <constraint firstItem="xvQ-NC-QPH" firstAttribute="top" secondItem="hIc-17-E3U" secondAttribute="bottom" constant="1" id="zI5-1C-wSd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0Yf-ly-MKb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="o1d-1j-izV"/>
+                <constraint firstAttribute="bottom" secondItem="0Yf-ly-MKb" secondAttribute="bottom" id="qZe-aU-5D6"/>
+                <constraint firstItem="0Yf-ly-MKb" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="sRF-Xg-Xf6"/>
+                <constraint firstItem="0Yf-ly-MKb" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="uGN-Mm-lG9"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="312.5" y="571.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chat_icon" width="37" height="37"/>
+        <image name="in_call_call_down_icon" width="150" height="65"/>
+        <image name="in_call_keypad_icon" width="26" height="35"/>
+        <image name="in_call_more_icon" width="56" height="17"/>
+        <image name="in_call_sound_icon" width="45" height="35"/>
+        <image name="in_call_sound_selected_icon" width="28" height="35"/>
+        <image name="in_call_video_icon" width="53" height="31"/>
+        <image name="in_call_video_selected_icon" width="53" height="31"/>
+        <image name="in_call_voice_icon" width="18" height="35"/>
+        <image name="in_call_voice_selected_icon" width="24" height="35"/>
+    </resources>
+</document>
