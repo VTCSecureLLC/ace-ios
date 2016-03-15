@@ -93,6 +93,9 @@
     if(![self.detailTextField.placeholder isEqualToString:NSLocalizedString(@"SIP address", nil)]){
         [self.providerPicker setHidden:YES];
     }
+    else {
+        [self.providerPicker setHidden:NO];
+    }
 }
 
 #pragma mark - UITableViewCell Functions

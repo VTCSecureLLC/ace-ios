@@ -555,12 +555,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 
         }
     }
-     UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
-                            style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                            self.sipDomainLabel.text = @"";
-                                                            self.addressField.sipDomain = nil;
-                                                            }];
+    UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                     self.sipDomainLabel.text = @"";
+                                                     self.addressField.sipDomain = nil;
+                                                     self.providerImageView.image = nil;
+                                                 }];
     [alert addAction:none];
     [self presentViewController:alert animated:YES completion:nil];
 }
