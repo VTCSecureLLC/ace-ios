@@ -234,7 +234,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallOutgoingProgress: {
-            
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
             break;
         }
@@ -456,6 +455,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.videoButtonActionHandler = ^(UIButton *sender) {
         
+        
+        LinphoneCore *lc = [LinphoneManager getLc];
+        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        
+   
+        if (linphone_call_get_state(currentCall) != LinphoneCallStreamsRunning) {
+            return;
+        }
+
         if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
             [[LinphoneManager instance] disableCameraForCurrentCall];
         }
