@@ -414,11 +414,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			   forKey:@"start_at_boot_preference"];
 		[self setBool:[lm lpConfigBoolForKey:@"autoanswer_notif_preference" withDefault:NO]
 			   forKey:@"autoanswer_notif_preference"];
-        
-       
         [self setQoSInitialValues];
-        
-        
+        [self set508ForceInitialValue];
        		[self setBool:[lm lpConfigBoolForKey:@"enable_first_login_view_preference" withDefault:NO]
 			   forKey:@"enable_first_login_view_preference"];
 		LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
@@ -470,6 +467,17 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
             linphone_core_set_video_dscp([LinphoneManager getLc], 0);
         }
         [self setBool:NO forKey:@"QoS"];
+    }
+}
+
+- (void)set508ForceInitialValue {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"force508"]) {
+        // First time
+        [self setBool:YES forKey:@"force_508_preference"];
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] integerValue] == 1) {
+        [self setBool:YES forKey:@"force_508_preference"];
+    } else {
+        [self setBool:NO forKey:@"force_508_preference"];
     }
 }
 
