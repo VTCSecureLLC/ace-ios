@@ -19,7 +19,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
-
+#import "ContactFavoritesManager.h"
 #import "ImagePickerViewController.h"
 #import "ContactDetailsDelegate.h"
 
@@ -38,6 +38,7 @@
 @property (nonatomic, strong) IBOutlet UIView *editView;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet id<ContactDetailsDelegate> contactDetailsDelegate;
+@property (weak, nonatomic) IBOutlet UIButton *toggleFavoriteButton;
 
 @property (strong, nonatomic) ImagePickerViewController* popoverController;
 

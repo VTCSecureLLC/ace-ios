@@ -331,6 +331,7 @@
 		57F005CA15EE2D9200914747 /* linphonerc-factory~ipad in Resources */ = {isa = PBXBuildFile; fileRef = 57F005C715EE2D9200914747 /* linphonerc-factory~ipad */; };
 		5E1140281C511DC200C9A6C5 /* AsyncProviderLookupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */; };
 		5E11403A1C566F8C00C9A6C5 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1140391C566F8C00C9A6C5 /* SystemInfo.m */; };
+		5E34FA4B1C9854CD00ABA721 /* ContactFavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E34FA4A1C9854CD00ABA721 /* ContactFavoritesManager.m */; };
 		5E3CA6461BF10A9600D9913F /* SDPNegotiationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */; };
 		5E63471B1C1111C900042AB4 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345D81C1111C900042AB4 /* InfColorBarPicker.m */; };
 		5E63471C1C1111C900042AB4 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6345DA1C1111C900042AB4 /* InfColorIndicatorView.m */; };
@@ -1656,6 +1657,8 @@
 		5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncProviderLookupOperation.m; sourceTree = "<group>"; };
 		5E1140381C566F8C00C9A6C5 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		5E1140391C566F8C00C9A6C5 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
+		5E34FA491C9854CD00ABA721 /* ContactFavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactFavoritesManager.h; sourceTree = "<group>"; };
+		5E34FA4A1C9854CD00ABA721 /* ContactFavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactFavoritesManager.m; sourceTree = "<group>"; };
 		5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPNegotiationService.h; sourceTree = "<group>"; };
 		5E3CA6451BF10A9500D9913F /* SDPNegotiationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPNegotiationService.m; sourceTree = "<group>"; };
 		5E6345D71C1111C900042AB4 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
@@ -2933,6 +2936,8 @@
 				5E1140271C511DC200C9A6C5 /* AsyncProviderLookupOperation.m */,
 				5E1140381C566F8C00C9A6C5 /* SystemInfo.h */,
 				5E1140391C566F8C00C9A6C5 /* SystemInfo.m */,
+				5E34FA491C9854CD00ABA721 /* ContactFavoritesManager.h */,
+				5E34FA4A1C9854CD00ABA721 /* ContactFavoritesManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -5713,6 +5718,7 @@
 				63B81A0D1B57DA33009604A6 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				64487C3E1C85CC9400D45393 /* IncomingCallViewControllerNew.m in Sources */,
 				D37DC6C11594AE1800B2A5EB /* LinphoneCoreSettingsStore.m in Sources */,
+				5E34FA4B1C9854CD00ABA721 /* ContactFavoritesManager.m in Sources */,
 				63CD4B4F1A5AAC8C00B84282 /* DTAlertView.m in Sources */,
 				D3EA53FD159850E80037DC6B /* LinphoneManager.m in Sources */,
 				63B81A0E1B57DA33009604A6 /* TPKeyboardAvoidingScrollView.m in Sources */,
