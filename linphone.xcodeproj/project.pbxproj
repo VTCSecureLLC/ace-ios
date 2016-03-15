@@ -4812,7 +4812,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = SJGPQWR594;
+						DevelopmentTeam = N35DF75MHS;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -6605,7 +6605,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vtcsecure.ace.ios;
 				PRODUCT_NAME = linphone;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "91a5819f-d5bd-4b37-9d0c-cb6e2994e387";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (

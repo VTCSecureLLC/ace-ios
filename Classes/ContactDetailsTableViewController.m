@@ -618,10 +618,12 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
         if (currentDomain.length > 0) {
             
             UIImage *image = [self fetchProviderImageWithDomain:currentDomain];
-            [cell.providerPicker setImage:image forState:UIControlStateNormal];
             
             if (image) {
                 [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
+            }
+            else {
+                [cell.providerPicker setImage:nil forState:UIControlStateNormal];
             }
         }
         else {
@@ -1096,19 +1098,20 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 
 - (NSString *)getAddressFromSip:(NSString *)sip {
     
+    NSString *address = @"";
+    
     if ([sip containsString:@"@"]) {
         
         NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
         if (separatedSip.count > 0) {
-            return [separatedSip firstObject];
+            address = [separatedSip firstObject];
         }
         else {
-            return sip;
+            address = sip;
         }
     }
-    else {
-        return sip;
-    }
+    
+    return address;
 }
 
 - (NSString *)getDomainFromSip:(NSString *)sip {
