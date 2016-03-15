@@ -620,6 +620,7 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
             UIImage *image = [self fetchProviderImageWithDomain:currentDomain];
             
             if (image) {
+                [cell.providerPicker setImage:image forState:UIControlStateNormal];
                 [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
             }
             else {
