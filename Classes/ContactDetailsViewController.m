@@ -133,6 +133,8 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 		LOGI(@"Save AddressBook: Success!");
 	}
 	[[LinphoneManager instance].fastAddressBook reload];
+    
+    [self resetData];
 }
 
 - (void)selectContact:(ABRecordRef)acontact andReload:(BOOL)reload {
