@@ -18,7 +18,7 @@
 #import "InCallDialpadView.h"
 #import "RTTMessageModel.h"
 #import "BubbleTableViewCell.h"
-
+#import "PhoneMainView.h"
 
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
@@ -260,6 +260,24 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
            
             [self checkHoldCall];
             [self showQualityIndicator];
+            // check video
+            if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
+                const LinphoneCallParams *params = linphone_call_get_current_params(call);
+                if(params != NULL){
+                    //If H.263, rotate video sideways when in portrait to work around codec limitations
+                    if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                        if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
+                           linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
+                            
+                            linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                        }
+                    }
+                    else{
+                        [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
+                    }
+                }
+            }
             break;
         }
         case LinphoneCallPausing: {
