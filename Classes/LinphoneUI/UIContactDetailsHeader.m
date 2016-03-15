@@ -118,7 +118,19 @@
 
 	// Contact label
 	{ [addressLabel setText:[FastAddressBook getContactDisplayName:contact]]; }
+   
+    NSArray *favorites = [ContactFavoritesManager getFavorites];
+    if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
+       
+        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
+    }
+    else{
+       
+        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
+    }
 
+    
+    
 	[tableView reloadData];
 }
 
@@ -375,9 +387,11 @@
     NSArray *favorites = [ContactFavoritesManager getFavorites];
     if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
         [ContactFavoritesManager removeFavorite:ABRecordGetRecordID(contact)];
+        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
     }
     else{
         [ContactFavoritesManager addFavorite:ABRecordGetRecordID(contact)];
+        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
     }
 }
 
