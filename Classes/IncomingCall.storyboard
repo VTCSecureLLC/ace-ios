@@ -54,7 +54,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ringing..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iTO-Qt-A5F">
-                                        <rect key="frame" x="74" y="413" width="226" height="46"/>
+                                        <rect key="frame" x="74" y="382" width="226" height="46"/>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="33"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -210,6 +210,12 @@
                                             <segue destination="ugB-YS-SRb" kind="embed" identifier="IncomingCallMessageTableViewController" id="KvF-Wz-BWE"/>
                                         </connections>
                                     </containerView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="0Qg-nU-Fyy" userLabel="Ring Count Label">
+                                        <rect key="frame" x="74" y="428" width="226" height="46"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="33"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.45490196078431372" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -217,14 +223,16 @@
                                     <constraint firstItem="rcY-hY-vFt" firstAttribute="top" secondItem="fby-oD-8ED" secondAttribute="bottom" constant="15" id="0yb-MI-Kp7"/>
                                     <constraint firstItem="ZfB-xS-uCJ" firstAttribute="width" secondItem="rcY-hY-vFt" secondAttribute="width" id="34N-FP-Uzw"/>
                                     <constraint firstItem="rcY-hY-vFt" firstAttribute="width" secondItem="fby-oD-8ED" secondAttribute="width" id="9Wp-PG-ye0"/>
+                                    <constraint firstItem="0Qg-nU-Fyy" firstAttribute="leading" secondItem="iTO-Qt-A5F" secondAttribute="leading" id="A1m-1A-ahF"/>
                                     <constraint firstItem="fby-oD-8ED" firstAttribute="centerX" secondItem="kSX-6a-DT9" secondAttribute="centerX" id="B35-D0-BXN"/>
                                     <constraint firstItem="gQO-2f-EKO" firstAttribute="leading" secondItem="kSX-6a-DT9" secondAttribute="leading" id="BUD-sS-kqc"/>
                                     <constraint firstItem="ZfB-xS-uCJ" firstAttribute="top" secondItem="rcY-hY-vFt" secondAttribute="bottom" constant="8" id="FI7-Ml-CxD"/>
                                     <constraint firstItem="fby-oD-8ED" firstAttribute="top" secondItem="kSX-6a-DT9" secondAttribute="top" constant="30" id="ItE-XV-TEh"/>
                                     <constraint firstAttribute="trailing" secondItem="BLB-OL-Ezq" secondAttribute="trailing" id="JDr-wl-tKB"/>
                                     <constraint firstItem="fjg-U5-kls" firstAttribute="leading" secondItem="kSX-6a-DT9" secondAttribute="leading" id="Ncp-mP-mFy"/>
+                                    <constraint firstItem="0Qg-nU-Fyy" firstAttribute="top" secondItem="iTO-Qt-A5F" secondAttribute="bottom" id="T2z-hA-q2B"/>
                                     <constraint firstItem="BLB-OL-Ezq" firstAttribute="leading" secondItem="kSX-6a-DT9" secondAttribute="leading" id="Yx4-cR-v55"/>
-                                    <constraint firstItem="iTO-Qt-A5F" firstAttribute="top" secondItem="ZfB-xS-uCJ" secondAttribute="bottom" constant="51" id="do1-Oz-YRt"/>
+                                    <constraint firstItem="iTO-Qt-A5F" firstAttribute="top" secondItem="ZfB-xS-uCJ" secondAttribute="bottom" constant="20" id="do1-Oz-YRt"/>
                                     <constraint firstAttribute="trailing" secondItem="gQO-2f-EKO" secondAttribute="trailing" id="fdN-iN-vDi"/>
                                     <constraint firstItem="ZfB-xS-uCJ" firstAttribute="centerX" secondItem="kSX-6a-DT9" secondAttribute="centerX" id="iZV-Qr-Ont"/>
                                     <constraint firstItem="BLB-OL-Ezq" firstAttribute="top" secondItem="fjg-U5-kls" secondAttribute="bottom" id="ojB-7Z-lBl"/>
@@ -232,6 +240,7 @@
                                     <constraint firstItem="gQO-2f-EKO" firstAttribute="top" secondItem="BLB-OL-Ezq" secondAttribute="bottom" id="rfI-Jj-7xc"/>
                                     <constraint firstAttribute="trailing" secondItem="fjg-U5-kls" secondAttribute="trailing" id="s9t-GR-KA4"/>
                                     <constraint firstAttribute="bottom" secondItem="gQO-2f-EKO" secondAttribute="bottom" id="sMO-ff-WtA"/>
+                                    <constraint firstItem="0Qg-nU-Fyy" firstAttribute="trailing" secondItem="iTO-Qt-A5F" secondAttribute="trailing" id="saj-cz-6mw"/>
                                     <constraint firstItem="iTO-Qt-A5F" firstAttribute="centerX" secondItem="kSX-6a-DT9" secondAttribute="centerX" id="z1c-68-bdc"/>
                                 </constraints>
                             </view>
@@ -255,6 +264,7 @@
                         <outlet property="backgroundView" destination="kSX-6a-DT9" id="7m0-LJ-OgH"/>
                         <outlet property="nameLabel" destination="rcY-hY-vFt" id="q13-0w-IXP"/>
                         <outlet property="profileImageView" destination="fby-oD-8ED" id="Rx3-Af-aqe"/>
+                        <outlet property="ringCountLabel" destination="0Qg-nU-Fyy" id="ans-JQ-T8x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFk-c3-CRK" userLabel="First Responder" sceneMemberID="firstResponder"/>
