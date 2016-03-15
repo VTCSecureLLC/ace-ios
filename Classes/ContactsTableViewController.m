@@ -25,7 +25,7 @@
 #import "UILinphone.h"
 #import "Utils.h"
 #import "VSContactsManager.h"
-
+#import "ContactFavoritesManager.h"
 @implementation ContactsTableViewController
 
 static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info, void *context);
@@ -77,6 +77,7 @@ UILongPressGestureRecognizer *lpgr;
     NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
     ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
     
+    [ContactFavoritesManager addFavorite:ABRecordGetRecordID(contact)];
     if (![self contactHasValidSipDomain:contact]) {
         
         UIAlertController *alert = [UIAlertController
@@ -189,11 +190,11 @@ UILongPressGestureRecognizer *lpgr;
 	ABMultiValueRef personSipAddresses = ABRecordCopyValue(person, kABPersonInstantMessageProperty);
 	BOOL match = false;
 	NSString *filter = [ContactSelection getSipFilter];
-
+   
 	for (int i = 0; i < ABMultiValueGetCount(personSipAddresses) && !match; ++i) {
 		CFDictionaryRef lDict = ABMultiValueCopyValueAtIndex(personSipAddresses, i);
 		if (CFDictionaryContainsKey(lDict, @"username")) {
-				match = true;
+			//	match = true;
 		} else {
 			// check domain
 			LinphoneAddress *address = linphone_address_new(
@@ -206,12 +207,16 @@ UILongPressGestureRecognizer *lpgr;
 
 					if (([filter compare:@"*" options:NSCaseInsensitiveSearch] == NSOrderedSame) ||
 						([filter compare:domain options:NSCaseInsensitiveSearch] == NSOrderedSame)) {
-						match = true;
+						//match = true;
 					}
 				}
 				linphone_address_destroy(address);
 			}
 		}
+        //Filter by favorites
+        if([[ContactFavoritesManager getFavorites] containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(person)]]){
+            match = true;
+        }
 		CFRelease(lDict);
 	}
 	CFRelease(personSipAddresses);

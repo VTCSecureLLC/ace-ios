@@ -349,8 +349,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
     
     [self setupVideoButtonState];
-    [self setupMicriphoneButtonState];
-    [self setupSpeakerButtonState];
+//    [self setupMicriphoneButtonState];
+//    [self setupSpeakerButtonState];
     [self checkRTTForCall:call];
 }
 
@@ -583,15 +583,17 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)resetMicrophoneWithSettings {
+
+    BOOL isCallAudioEnabled = (![[NSUserDefaults standardUserDefaults] boolForKey:@"mute_microphone_preference"] ||
+                                [[NSUserDefaults standardUserDefaults] boolForKey:@"mute_microphone_preference"] == 0);
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL isCallAudioMuted = [userDefaults boolForKey:@"isCallAudioMuted"];
-    if (isCallAudioMuted) {
-        
-        [[LinphoneManager instance] disableMicrophone];
+    if (isCallAudioEnabled) {
+        [[LinphoneManager instance] enableMicrophone];
+        self.callBarView.voiceButtonSelected = NO;
     }
     else {
-        [[LinphoneManager instance] enableMicrophone];
+        [[LinphoneManager instance] disableMicrophone];
+        self.callBarView.voiceButtonSelected = YES;
     }
 }
 
@@ -608,13 +610,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)resetSpeakerWithSettings {
-    
-    BOOL isSpeakerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSpeakerEnabled"];
-    if (isSpeakerEnabled){
+
+    BOOL isSpeakerEnabled = (![[NSUserDefaults standardUserDefaults] boolForKey:@"mute_speaker_preference"] ||
+                          [[NSUserDefaults standardUserDefaults] boolForKey:@"mute_speaker_preference"] == 0);
+    if (isSpeakerEnabled) {
         linphone_core_set_playback_gain_db([LinphoneManager getLc], 0);
+        self.callBarView.soundButtonSelected = NO;
     }
     else {
         linphone_core_set_playback_gain_db([LinphoneManager getLc], -1000.0f);
+        self.callBarView.soundButtonSelected = YES;
     }
 }
 

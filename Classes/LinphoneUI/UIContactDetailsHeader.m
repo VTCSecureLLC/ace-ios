@@ -24,7 +24,6 @@
 #import "UILinphone.h"
 #import "PhoneMainView.h"
 #import "DTActionSheet.h"
-
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @implementation UIContactDetailsHeader
@@ -37,7 +36,7 @@
 @synthesize tableView;
 @synthesize contactDetailsDelegate;
 @synthesize popoverController;
-
+@synthesize toggleFavoriteButton;
 #pragma mark - Lifecycle Functions
 
 - (void)initUIContactDetailsHeader {
@@ -119,7 +118,19 @@
 
 	// Contact label
 	{ [addressLabel setText:[FastAddressBook getContactDisplayName:contact]]; }
+   
+    NSArray *favorites = [ContactFavoritesManager getFavorites];
+    if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
+       
+        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
+    }
+    else{
+       
+        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
+    }
 
+    
+    
 	[tableView reloadData];
 }
 
@@ -370,6 +381,18 @@
 		[self performSelector:@selector(updateModification) withObject:nil afterDelay:0.1];
 	}
 	return TRUE;
+}
+- (IBAction)toggleFavorite:(id)sender {
+    if(!contact) return;
+    NSArray *favorites = [ContactFavoritesManager getFavorites];
+    if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
+        [ContactFavoritesManager removeFavorite:ABRecordGetRecordID(contact)];
+        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
+    }
+    else{
+        [ContactFavoritesManager addFavorite:ABRecordGetRecordID(contact)];
+        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
+    }
 }
 
 @end
