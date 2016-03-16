@@ -552,6 +552,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.callBarView.endCallButtonActionHandler = ^(UIButton *sender) {
         
         [[LinphoneManager instance] terminateCurrentCall];
+        if(linphone_core_get_calls_nb([LinphoneManager getLc]) == 0){
+            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+        }
     };
 }
 
