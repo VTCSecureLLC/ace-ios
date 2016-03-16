@@ -19,6 +19,9 @@
 #import "RTTMessageModel.h"
 #import "BubbleTableViewCell.h"
 #import "PhoneMainView.h"
+#import "StatusBar.h"
+#import "UICallCellDataNew.h"
+#import "CallInfoView.h"
 
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
@@ -74,6 +77,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
 @property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
+@property (weak, nonatomic) IBOutlet StatusBar *statusBar;
+@property (weak, nonatomic) IBOutlet CallInfoView *callInfoView;
 
 @end
 
@@ -85,6 +90,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [super viewDidLoad];
     
+    [self setupCallInfoView];
     [self setupCallBarView];
     [self setupSecondIncomingCallView];
     [self setupSecondIncomingCallBarView];
@@ -158,7 +164,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
     if (self.isRTTEnabled) {
         CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         CGFloat keyboardPos = keyboardFrame.origin.y;
@@ -187,7 +192,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-    
     CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardPos = keyboardFrame.origin.y;
     CGFloat remote_video_delta = (self.videoView.frame.origin.y +
@@ -303,12 +307,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         case LinphoneCallError: {
             
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            [self.callInfoView stopDataUpdating];
             [self hideQualityIndicator];
             break;
         }
         case LinphoneCallEnd: {
             
             [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
+            [self.callInfoView stopDataUpdating];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [self hideQualityIndicator];
@@ -782,6 +788,33 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
+- (void)setupCallInfoView {
+    
+    [self.callInfoView hideWithAnimation:NO completion:nil];
+    
+    __weak InCallViewControllerNew *weakSelf = self;
+    self.statusBar.statusBarActionHandler = ^(UIButton *sender) {
+        if (weakSelf.callInfoView.viewState == VS_Closed) {
+            [weakSelf.callInfoView showWithAnimation:YES completion:nil];
+        }
+        else if (weakSelf.callInfoView.viewState == VS_Opened) {
+            [weakSelf.callInfoView hideWithAnimation:YES completion:nil];
+        }
+        
+    };
+    
+    UICallCellDataNew *data = nil;
+    LinphoneCall *call = [[LinphoneManager instance] currentCall];
+    if (call != NULL) {
+        LinphoneCallAppData *appData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
+        if (appData != NULL) {
+            data = [[UICallCellDataNew alloc] init:call minimized:NO];
+        }
+    }
+    
+    self.callInfoView.data = data;
+}
+
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
     
     __weak InCallViewControllerNew *weakSelf = self;
@@ -884,6 +917,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 [self.inCallDialpadView hideWithAnimation:YES completion:nil];
             }
         }
+        
+        if (self.callInfoView.viewState == VS_Opened) {
+            [self.callInfoView hideWithAnimation:YES completion:nil];
+        }
     }
 }
 
@@ -985,13 +1022,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)sortChatEntriesArray {
     
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"modifiedTimeInterval" ascending:YES];
-    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
-    [self.chatEntries removeAllObjects];
-    for (RTTMessageModel *msgModel in reverseOrder) {
-        [self.chatEntries addObject:msgModel];
+    if (self.chatEntries.count > 0) {
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"modifiedTimeInterval" ascending:YES];
+        NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+        [self.chatEntries sortUsingDescriptors:descriptors];
     }
+    //    NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
+    //    [self.chatEntries removeAllObjects];
+    //    for (RTTMessageModel *msgModel in reverseOrder) {
+    //        [self.chatEntries addObject:msgModel];
+    //    }
 }
 
 - (void)showLatestMessage {
