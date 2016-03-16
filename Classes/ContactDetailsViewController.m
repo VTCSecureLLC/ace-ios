@@ -250,6 +250,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[editButton setOn];
 	[cancelButton setHidden:FALSE];
 	[backButton setHidden:TRUE];
+    
+    [tableController.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.25];
 }
 
 - (void)disableEdit:(BOOL)animated {

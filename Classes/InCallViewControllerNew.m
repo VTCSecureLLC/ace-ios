@@ -21,7 +21,7 @@
 #import "StatusBar.h"
 #import "UICallCellDataNew.h"
 #import "CallInfoView.h"
-
+#import "PhoneMainView.h"
 
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
@@ -238,7 +238,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallOutgoingProgress: {
-            
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
             break;
         }
@@ -265,6 +264,24 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
            
             [self checkHoldCall];
             [self showQualityIndicator];
+            // check video
+            if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
+                const LinphoneCallParams *params = linphone_call_get_current_params(call);
+                if(params != NULL){
+                    //If H.263, rotate video sideways when in portrait to work around codec limitations
+                    if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                        if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
+                           linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
+                            
+                            linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                        }
+                    }
+                    else{
+                        [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
+                    }
+                }
+            }
             break;
         }
         case LinphoneCallPausing: {
@@ -462,6 +479,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.videoButtonActionHandler = ^(UIButton *sender) {
         
+        
+        LinphoneCore *lc = [LinphoneManager getLc];
+        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        
+   
+        if (linphone_call_get_state(currentCall) != LinphoneCallStreamsRunning) {
+            return;
+        }
+
         if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
             [[LinphoneManager instance] disableCameraForCurrentCall];
         }
