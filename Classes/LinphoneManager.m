@@ -816,35 +816,34 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
         }
     }
 
-	// Enable speaker when video
-	if (state == LinphoneCallIncomingReceived || state == LinphoneCallOutgoingInit || state == LinphoneCallConnected ||
-		state == LinphoneCallStreamsRunning) {
-        
-          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL enableSpeaker = [defaults boolForKey:@"mute_speaker_preference"];
-		if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled && enableSpeaker == YES) {
-			[self setSpeakerEnabled:TRUE];
-			speaker_already_enabled = TRUE;
-		}
+    // Enable speaker when video
+    if (state == LinphoneCallIncomingReceived || state == LinphoneCallOutgoingInit || state == LinphoneCallConnected ||
+        state == LinphoneCallStreamsRunning) {
+        BOOL isSpeakerEnabled = (![[NSUserDefaults standardUserDefaults] boolForKey:@"mute_speaker_preference"] ||
+                                 [[NSUserDefaults standardUserDefaults] boolForKey:@"mute_speaker_preference"] == 0);
+        if (linphone_call_params_video_enabled(linphone_call_get_current_params(call)) && !speaker_already_enabled && isSpeakerEnabled == YES) {
+            [self setSpeakerEnabled:YES];
+            speaker_already_enabled = YES;
+        }
         else{
-            [self setSpeakerEnabled:FALSE];
-            speaker_already_enabled = FALSE;
+            [self setSpeakerEnabled:NO];
+            speaker_already_enabled = NO;
         }
         if(state == LinphoneCallOutgoingInit){
             [[SDPNegotiationService sharedInstance] initializeSDP:theLinphoneCore];
         }
-	}
-
-	if (state == LinphoneCallConnected && !mCallCenter) {
-		/*only register CT call center CB for connected call*/
-		[self setupGSMInteraction];
-	}
-	// Post event
-	NSDictionary *dict = @{
-		@"call" : [NSValue valueWithPointer:call],
-		@"state" : [NSNumber numberWithInt:state],
-		@"message" : [NSString stringWithUTF8String:message]
-	};
+    }
+    
+    if (state == LinphoneCallConnected && !mCallCenter) {
+        /*only register CT call center CB for connected call*/
+        [self setupGSMInteraction];
+    }
+    // Post event
+    NSDictionary *dict = @{
+                           @"call" : [NSValue valueWithPointer:call],
+                           @"state" : [NSNumber numberWithInt:state],
+                           @"message" : [NSString stringWithUTF8String:message]
+                           };
 	LOGI(@"Call %p changed to state %s: %s", call, linphone_call_state_to_string(state), message);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneCallUpdate object:self userInfo:dict];

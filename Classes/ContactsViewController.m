@@ -211,8 +211,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[linphoneButton setBackgroundImage:[UIImage imageNamed:@"contacts_linphone_selected.png"]
 							  forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
-	[linphoneButton setTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
-					forState:UIControlStateNormal];
+//	[linphoneButton setTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+//					forState:UIControlStateNormal];
 
 	[LinphoneUtils buttonFixStates:linphoneButton];
 
