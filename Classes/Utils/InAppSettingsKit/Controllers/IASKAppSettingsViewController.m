@@ -425,6 +425,23 @@ CGRect IASKCGRectSwap(CGRect rect);
 	return header;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    // Background color
+    view.tintColor = [UIColor blackColor];
+    
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] intValue] == 1) {
+        [header.textLabel setTextColor:[UIColor whiteColor]];
+    }
+     else {
+        [header.textLabel setTextColor:[UIColor colorWithRed:0.427451 green:0.427451 blue:0.447059 alpha:1]];
+    }
+
+}
+
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
 	if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForSection:)]) {
 		return [self.delegate settingsViewController:self tableView:tableView viewForHeaderForSection:section];
@@ -499,6 +516,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
 	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+    cell.textLabel.textColor = [UIColor blackColor];
 	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
 	return cell;
 }
