@@ -414,11 +414,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			   forKey:@"start_at_boot_preference"];
 		[self setBool:[lm lpConfigBoolForKey:@"autoanswer_notif_preference" withDefault:NO]
 			   forKey:@"autoanswer_notif_preference"];
-        
-       
         [self setQoSInitialValues];
-        
-        
+        [self set508ForceInitialValue];
        		[self setBool:[lm lpConfigBoolForKey:@"enable_first_login_view_preference" withDefault:NO]
 			   forKey:@"enable_first_login_view_preference"];
 		LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
@@ -480,6 +477,17 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         [self setInteger:0 forKey:@"audio_preference"];
         [self setInteger:0 forKey:@"video_preference"];
         [self setBool:NO forKey:@"QoS"];
+    }
+}
+
+- (void)set508ForceInitialValue {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"force508"]) {
+        // First time
+        [self setBool:YES forKey:@"force_508_preference"];
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] integerValue] == 1) {
+        [self setBool:YES forKey:@"force_508_preference"];
+    } else {
+        [self setBool:NO forKey:@"force_508_preference"];
     }
 }
 
@@ -579,7 +587,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		const char *identity = linphone_address_as_string_uri_only(linphoneAddress);
 		const char *password = [accountPassword UTF8String];
 		const char *ha1 = [accountHa1 UTF8String];
-        [self setRtcpFbMode: FALSE];
+    
 		if (linphone_proxy_config_set_identity(proxyCfg, identity) == -1) {
 			error = NSLocalizedString(@"Invalid username or domain", nil);
 			goto bad_proxy;
