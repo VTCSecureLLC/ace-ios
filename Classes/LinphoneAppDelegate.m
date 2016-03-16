@@ -529,6 +529,9 @@
 				if (call)
 					linphone_core_decline_call(lc, call, LinphoneReasonDeclined);
 			}
+            else{
+                [self application:application didReceiveLocalNotification:notification];
+            }
 		} else if ([notification.category isEqualToString:@"incoming_msg"]) {
 			if ([identifier isEqualToString:@"reply"]) {
 				// use the standard handler
