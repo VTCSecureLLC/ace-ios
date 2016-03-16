@@ -7,7 +7,7 @@
 //
 
 #import "BaseView.h"
-#include "InCallViewConstants.h"
+#import "InCallViewConstants.h"
 
 @interface InCallDialpadView : BaseView
 
@@ -32,7 +32,7 @@
  *  @param animation  Show with animation or not
  *  @param completion Completion block
  */
-- (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)showWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 /**
  *  @brief Hides view
@@ -40,6 +40,6 @@
  *  @param animation  Hide with animation or not
  *  @param completion Animation completion block
  */
-- (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)hideWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 @end

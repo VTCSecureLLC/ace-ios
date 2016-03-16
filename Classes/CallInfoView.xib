@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallInfoView">
+            <connections>
+                <outlet property="audioCodecHeaderLabel" destination="QfS-TA-Ude" id="fKG-76-GXs"/>
+                <outlet property="audioCodecLabel" destination="4IH-W5-o4j" id="qME-jh-ZdQ"/>
+                <outlet property="audioDownloadBandwidthHeaderLabel" destination="pZw-SZ-Ec8" id="s9e-fb-ZFa"/>
+                <outlet property="audioDownloadBandwidthLabel" destination="6pt-54-WLr" id="cei-9E-DWE"/>
+                <outlet property="audioIceConnectivityHeaderLabel" destination="Hp9-cy-TfT" id="eea-Gi-6tc"/>
+                <outlet property="audioIceConnectivityLabel" destination="qff-Ex-3c8" id="iBl-Uu-IEl"/>
+                <outlet property="audioStatsView" destination="m0X-2f-kTQ" id="Kpo-Sz-AAM"/>
+                <outlet property="audioUploadBandwidthHeaderLabel" destination="wDU-jc-dy9" id="p2l-za-dEY"/>
+                <outlet property="audioUploadBandwidthLabel" destination="nk7-de-iw1" id="pcX-Z0-hCj"/>
+                <outlet property="avatarImage" destination="lYL-DY-yYU" id="my0-tp-UO7"/>
+                <outlet property="avatarView" destination="s0z-Oh-cAO" id="ONU-Xy-irV"/>
+                <outlet property="backgroundView" destination="zua-wT-TXT" id="2n0-Lh-WcB"/>
+                <outlet property="detailsLeftSwipeGestureRecognizer" destination="nSs-Qe-N9h" id="prQ-0c-tOC"/>
+                <outlet property="detailsRightSwipeGestureRecognizer" destination="f2O-rY-bie" id="G3A-5X-3cO"/>
+                <outlet property="videoCodecHeaderLabel" destination="FrS-nE-hCG" id="Gch-Dv-pc0"/>
+                <outlet property="videoCodecLabel" destination="UUE-wK-zN2" id="kKx-IQ-unr"/>
+                <outlet property="videoDownloadBandwidthHeaderLabel" destination="EA9-jm-hnS" id="sac-aG-nkq"/>
+                <outlet property="videoDownloadBandwidthLabel" destination="YbI-Nn-vTW" id="LMJ-h8-4wj"/>
+                <outlet property="videoIceConnectivityHeaderLabel" destination="Xp1-zM-FHJ" id="cNA-PA-9Qu"/>
+                <outlet property="videoIceConnectivityLabel" destination="LF1-Rm-vTK" id="Vdg-Hd-wkC"/>
+                <outlet property="videoRecvSizeFPSHeaderLabel" destination="dvK-fH-raZ" id="7nY-V6-ggq"/>
+                <outlet property="videoRecvSizeFPSLabel" destination="BTk-Xt-kXZ" id="5u4-6Z-WIx"/>
+                <outlet property="videoSentSizeFPSHeaderLabel" destination="D9q-Ak-Vg7" id="l53-0S-JT7"/>
+                <outlet property="videoSentSizeFPSLabel" destination="Tb4-f9-ZeN" id="W7v-Ad-EiN"/>
+                <outlet property="videoStatsView" destination="nvN-bP-Usr" id="cCt-a0-wFg"/>
+                <outlet property="videoUploadBandwidthHeaderLabel" destination="a1D-9u-tL3" id="dzV-b3-knX"/>
+                <outlet property="videoUploadBandwidthLabel" destination="hRq-mg-Mh2" id="Jfg-Z8-yLx"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zua-wT-TXT" userLabel="Background View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvN-bP-Usr" userLabel="videoStatsView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pL3-NX-8Aj" userLabel="videoCodecView">
+                                    <rect key="frame" x="10" y="50" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Codec:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="FrS-nE-hCG" userLabel="videoCodecHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="ov5-3X-ZjJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SILK" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="UUE-wK-zN2" userLabel="videoCodecLabel">
+                                            <rect key="frame" x="70" y="0.0" width="230" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video codec">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="UUE-wK-zN2" firstAttribute="leading" secondItem="FrS-nE-hCG" secondAttribute="trailing" constant="10" id="85u-xD-CDy"/>
+                                        <constraint firstAttribute="bottom" secondItem="FrS-nE-hCG" secondAttribute="bottom" id="BYQ-6f-onD"/>
+                                        <constraint firstAttribute="trailing" secondItem="UUE-wK-zN2" secondAttribute="trailing" id="KbY-Lk-mHN"/>
+                                        <constraint firstItem="FrS-nE-hCG" firstAttribute="leading" secondItem="pL3-NX-8Aj" secondAttribute="leading" id="OGv-NO-xiU"/>
+                                        <constraint firstAttribute="bottom" secondItem="UUE-wK-zN2" secondAttribute="bottom" id="Pbe-i8-qa0"/>
+                                        <constraint firstItem="UUE-wK-zN2" firstAttribute="top" secondItem="pL3-NX-8Aj" secondAttribute="top" id="bpy-dG-IT6"/>
+                                        <constraint firstItem="FrS-nE-hCG" firstAttribute="top" secondItem="pL3-NX-8Aj" secondAttribute="top" id="vFx-Jw-ntK"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeZ-c4-Urk" userLabel="videoSentSizeFPSView">
+                                    <rect key="frame" x="10" y="80" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Size sent (FPS):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-Ak-Vg7" userLabel="videoSentSizeFPSHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="rL8-FQ-TTI"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="320x240 (15FPS)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Tb4-f9-ZeN" userLabel="videoSentSizeFPSLabel">
+                                            <rect key="frame" x="170" y="0.0" width="130" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video upload bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Tb4-f9-ZeN" secondAttribute="bottom" id="ItL-B0-wWE"/>
+                                        <constraint firstItem="D9q-Ak-Vg7" firstAttribute="top" secondItem="CeZ-c4-Urk" secondAttribute="top" id="Nez-zm-n4K"/>
+                                        <constraint firstItem="Tb4-f9-ZeN" firstAttribute="leading" secondItem="D9q-Ak-Vg7" secondAttribute="trailing" constant="10" id="V7z-kB-fJe"/>
+                                        <constraint firstAttribute="bottom" secondItem="D9q-Ak-Vg7" secondAttribute="bottom" id="drR-fI-biw"/>
+                                        <constraint firstAttribute="trailing" secondItem="Tb4-f9-ZeN" secondAttribute="trailing" id="qUL-Af-dYu"/>
+                                        <constraint firstItem="Tb4-f9-ZeN" firstAttribute="top" secondItem="CeZ-c4-Urk" secondAttribute="top" id="tVo-9F-gsp"/>
+                                        <constraint firstItem="D9q-Ak-Vg7" firstAttribute="leading" secondItem="CeZ-c4-Urk" secondAttribute="leading" id="wkv-6k-Dke"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAE-rA-EGk" userLabel="videoRecvSizeFPSView">
+                                    <rect key="frame" x="10" y="110" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Size received (FPS):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="dvK-fH-raZ" userLabel="videoRecvSizeFPSHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="PPI-pf-j9K"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="320x240 (15FPS)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BTk-Xt-kXZ" userLabel="videoRecvSizeFPSLabel">
+                                            <rect key="frame" x="170" y="0.0" width="130" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video upload bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="BTk-Xt-kXZ" firstAttribute="leading" secondItem="dvK-fH-raZ" secondAttribute="trailing" constant="10" id="1T1-Fw-ZcM"/>
+                                        <constraint firstItem="dvK-fH-raZ" firstAttribute="top" secondItem="wAE-rA-EGk" secondAttribute="top" id="3qC-qH-Slq"/>
+                                        <constraint firstAttribute="trailing" secondItem="BTk-Xt-kXZ" secondAttribute="trailing" id="MYQ-rC-Eou"/>
+                                        <constraint firstAttribute="bottom" secondItem="dvK-fH-raZ" secondAttribute="bottom" id="Mgf-oJ-p2J"/>
+                                        <constraint firstItem="dvK-fH-raZ" firstAttribute="leading" secondItem="wAE-rA-EGk" secondAttribute="leading" id="cIM-Nk-mzj"/>
+                                        <constraint firstAttribute="bottom" secondItem="BTk-Xt-kXZ" secondAttribute="bottom" id="hTk-7y-hHK"/>
+                                        <constraint firstItem="BTk-Xt-kXZ" firstAttribute="top" secondItem="wAE-rA-EGk" secondAttribute="top" id="sev-JJ-wFe"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8eQ-iW-YQL" userLabel="videoUploadBandwidthView">
+                                    <rect key="frame" x="10" y="140" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Upload bandwidth:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="a1D-9u-tL3" userLabel="videoUploadBandwidthHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="npI-hO-X5R"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2 KB/s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hRq-mg-Mh2" userLabel="videoUploadBandwidthLabel">
+                                            <rect key="frame" x="170" y="0.0" width="130" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video upload bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="hRq-mg-Mh2" firstAttribute="leading" secondItem="a1D-9u-tL3" secondAttribute="trailing" constant="10" id="DSv-cg-wQt"/>
+                                        <constraint firstAttribute="trailing" secondItem="hRq-mg-Mh2" secondAttribute="trailing" id="G8s-4S-dPO"/>
+                                        <constraint firstItem="a1D-9u-tL3" firstAttribute="leading" secondItem="8eQ-iW-YQL" secondAttribute="leading" id="GPU-Oj-MiY"/>
+                                        <constraint firstAttribute="bottom" secondItem="hRq-mg-Mh2" secondAttribute="bottom" id="HYW-8J-oj5"/>
+                                        <constraint firstAttribute="bottom" secondItem="a1D-9u-tL3" secondAttribute="bottom" id="jAf-sF-q7n"/>
+                                        <constraint firstItem="hRq-mg-Mh2" firstAttribute="top" secondItem="8eQ-iW-YQL" secondAttribute="top" id="osr-1O-BFa"/>
+                                        <constraint firstItem="a1D-9u-tL3" firstAttribute="top" secondItem="8eQ-iW-YQL" secondAttribute="top" id="rPB-zV-MxR"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reg-mR-2f9" userLabel="videoDownloadBandwidthView">
+                                    <rect key="frame" x="10" y="170" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Download bandwidth:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="EA9-jm-hnS" userLabel="videoDownloadBandwidthHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="182" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="182" id="eL6-gd-jBH"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10.0 KB/s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="YbI-Nn-vTW" userLabel="videoDownloadBandwidthLabel">
+                                            <rect key="frame" x="192" y="0.0" width="108" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Audio download bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="YbI-Nn-vTW" secondAttribute="bottom" id="1IH-o5-kpn"/>
+                                        <constraint firstAttribute="trailing" secondItem="YbI-Nn-vTW" secondAttribute="trailing" id="4U2-wE-zAR"/>
+                                        <constraint firstItem="YbI-Nn-vTW" firstAttribute="leading" secondItem="EA9-jm-hnS" secondAttribute="trailing" constant="10" id="6Wm-B3-Mj1"/>
+                                        <constraint firstAttribute="bottom" secondItem="EA9-jm-hnS" secondAttribute="bottom" id="Hfd-fC-MrC"/>
+                                        <constraint firstItem="EA9-jm-hnS" firstAttribute="leading" secondItem="reg-mR-2f9" secondAttribute="leading" id="YeG-Q8-wws"/>
+                                        <constraint firstItem="EA9-jm-hnS" firstAttribute="top" secondItem="reg-mR-2f9" secondAttribute="top" id="fUb-Y2-oqQ"/>
+                                        <constraint firstItem="YbI-Nn-vTW" firstAttribute="top" secondItem="reg-mR-2f9" secondAttribute="top" id="pl0-nW-ArC"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ti6-ZL-UaW" userLabel="videoIceConnectivityView">
+                                    <rect key="frame" x="10" y="200" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ICE connectivity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Xp1-zM-FHJ" userLabel="videoIceConnectivityHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="142" id="5Ic-iX-1RA"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="not activated" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="LF1-Rm-vTK" userLabel="videoIceConnectivityLabel">
+                                            <rect key="frame" x="152" y="0.0" width="148" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video ICE connectivity state">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Xp1-zM-FHJ" secondAttribute="bottom" id="3B5-2g-7Ap"/>
+                                        <constraint firstItem="Xp1-zM-FHJ" firstAttribute="leading" secondItem="ti6-ZL-UaW" secondAttribute="leading" id="CSV-CH-8er"/>
+                                        <constraint firstItem="LF1-Rm-vTK" firstAttribute="top" secondItem="ti6-ZL-UaW" secondAttribute="top" id="HCu-nI-Tfi"/>
+                                        <constraint firstItem="Xp1-zM-FHJ" firstAttribute="top" secondItem="ti6-ZL-UaW" secondAttribute="top" id="I9j-rV-N9R"/>
+                                        <constraint firstAttribute="bottom" secondItem="LF1-Rm-vTK" secondAttribute="bottom" id="R9L-bH-9KE"/>
+                                        <constraint firstAttribute="trailing" secondItem="LF1-Rm-vTK" secondAttribute="trailing" id="svD-We-jso"/>
+                                        <constraint firstItem="LF1-Rm-vTK" firstAttribute="leading" secondItem="Xp1-zM-FHJ" secondAttribute="trailing" constant="10" id="wWy-8Q-7NQ"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Video" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hxf-Vw-s5M" userLabel="videoLabel">
+                                    <rect key="frame" x="10" y="10" width="300" height="27"/>
+                                    <accessibility key="accessibilityConfiguration" label="Video section"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="27" id="Dpj-4r-Iom"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="reg-mR-2f9" firstAttribute="top" secondItem="8eQ-iW-YQL" secondAttribute="bottom" constant="9" id="6h7-tQ-JcJ"/>
+                                <constraint firstAttribute="trailing" secondItem="pL3-NX-8Aj" secondAttribute="trailing" constant="10" id="6ki-kG-GVv"/>
+                                <constraint firstItem="wAE-rA-EGk" firstAttribute="height" secondItem="CeZ-c4-Urk" secondAttribute="height" id="7SK-Qf-7Rb"/>
+                                <constraint firstItem="8eQ-iW-YQL" firstAttribute="top" secondItem="wAE-rA-EGk" secondAttribute="bottom" constant="9" id="7kd-4z-G9f"/>
+                                <constraint firstItem="pL3-NX-8Aj" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="7kn-aH-lno"/>
+                                <constraint firstAttribute="bottom" secondItem="ti6-ZL-UaW" secondAttribute="bottom" constant="11" id="97A-Hz-SNd"/>
+                                <constraint firstItem="CeZ-c4-Urk" firstAttribute="top" secondItem="pL3-NX-8Aj" secondAttribute="bottom" constant="9" id="Bcg-nH-N5G"/>
+                                <constraint firstItem="Hxf-Vw-s5M" firstAttribute="top" secondItem="nvN-bP-Usr" secondAttribute="top" constant="10" id="D4Q-Lv-iwe"/>
+                                <constraint firstItem="ti6-ZL-UaW" firstAttribute="height" secondItem="reg-mR-2f9" secondAttribute="height" id="Fio-hG-n1S"/>
+                                <constraint firstItem="wAE-rA-EGk" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="Q7z-Dh-okc"/>
+                                <constraint firstItem="8eQ-iW-YQL" firstAttribute="height" secondItem="wAE-rA-EGk" secondAttribute="height" id="SpH-Hu-Zm0"/>
+                                <constraint firstItem="ti6-ZL-UaW" firstAttribute="top" secondItem="reg-mR-2f9" secondAttribute="bottom" constant="9" id="UH8-RX-joa"/>
+                                <constraint firstItem="Hxf-Vw-s5M" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="ZMb-BV-fhR"/>
+                                <constraint firstAttribute="trailing" secondItem="ti6-ZL-UaW" secondAttribute="trailing" constant="10" id="aE6-Dn-3VK"/>
+                                <constraint firstItem="reg-mR-2f9" firstAttribute="height" secondItem="8eQ-iW-YQL" secondAttribute="height" id="aNc-qX-Deu"/>
+                                <constraint firstItem="CeZ-c4-Urk" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="arX-He-hpr"/>
+                                <constraint firstAttribute="trailing" secondItem="wAE-rA-EGk" secondAttribute="trailing" constant="10" id="eHn-Y6-X6g"/>
+                                <constraint firstItem="pL3-NX-8Aj" firstAttribute="top" secondItem="Hxf-Vw-s5M" secondAttribute="bottom" constant="13" id="eXw-YK-dTq"/>
+                                <constraint firstAttribute="trailing" secondItem="8eQ-iW-YQL" secondAttribute="trailing" constant="10" id="gda-pi-V5D"/>
+                                <constraint firstItem="CeZ-c4-Urk" firstAttribute="height" secondItem="pL3-NX-8Aj" secondAttribute="height" id="iui-Hn-iHw"/>
+                                <constraint firstItem="8eQ-iW-YQL" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="qAO-J1-DTF"/>
+                                <constraint firstAttribute="trailing" secondItem="reg-mR-2f9" secondAttribute="trailing" constant="10" id="uPu-Ja-7aA"/>
+                                <constraint firstAttribute="trailing" secondItem="Hxf-Vw-s5M" secondAttribute="trailing" constant="10" id="uek-73-H0o"/>
+                                <constraint firstAttribute="trailing" secondItem="CeZ-c4-Urk" secondAttribute="trailing" constant="10" id="wwX-9N-PdO"/>
+                                <constraint firstItem="ti6-ZL-UaW" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="z4Z-Kb-4Wk"/>
+                                <constraint firstItem="wAE-rA-EGk" firstAttribute="top" secondItem="CeZ-c4-Urk" secondAttribute="bottom" constant="9" id="z8p-3d-JLQ"/>
+                                <constraint firstItem="reg-mR-2f9" firstAttribute="leading" secondItem="nvN-bP-Usr" secondAttribute="leading" constant="10" id="zRv-PR-SRQ"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m0X-2f-kTQ" userLabel="audioStatsView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Audio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="7Z6-R6-qfe" userLabel="audioLabel">
+                                    <rect key="frame" x="10" y="10" width="300" height="27"/>
+                                    <accessibility key="accessibilityConfiguration" label="Audio section"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="27" id="kJ3-7b-tNP"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                    <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xmx-EW-5SR" userLabel="audioCodecView">
+                                    <rect key="frame" x="10" y="50" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SILK" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4IH-W5-o4j" userLabel="audioCodecLabel">
+                                            <rect key="frame" x="70" y="0.0" width="230" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Audio codec">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Codec:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="QfS-TA-Ude" userLabel="audioCodecHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="K2N-Oe-TYD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="QfS-TA-Ude" firstAttribute="top" secondItem="Xmx-EW-5SR" secondAttribute="top" id="1zE-g8-4he"/>
+                                        <constraint firstItem="4IH-W5-o4j" firstAttribute="top" secondItem="Xmx-EW-5SR" secondAttribute="top" id="3FY-vQ-nCO"/>
+                                        <constraint firstAttribute="bottom" secondItem="QfS-TA-Ude" secondAttribute="bottom" id="9kE-pC-I8E"/>
+                                        <constraint firstItem="4IH-W5-o4j" firstAttribute="leading" secondItem="QfS-TA-Ude" secondAttribute="trailing" constant="10" id="IMp-ul-a9h"/>
+                                        <constraint firstAttribute="trailing" secondItem="4IH-W5-o4j" secondAttribute="trailing" id="ZUC-M3-0dj"/>
+                                        <constraint firstItem="QfS-TA-Ude" firstAttribute="leading" secondItem="Xmx-EW-5SR" secondAttribute="leading" id="h3g-1c-ckI"/>
+                                        <constraint firstAttribute="bottom" secondItem="4IH-W5-o4j" secondAttribute="bottom" id="xtt-U8-Y5w"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBf-bi-OnE" userLabel="audioUploadBandwidthView">
+                                    <rect key="frame" x="10" y="80" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Upload bandwidth:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="wDU-jc-dy9" userLabel="audioUploadBandwidthHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="gqt-tP-0cw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2 KB/s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-de-iw1" userLabel="audioUploadBandwidthLabel">
+                                            <rect key="frame" x="170" y="0.0" width="130" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Audio upload bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="nk7-de-iw1" secondAttribute="trailing" id="2SG-XF-ssi"/>
+                                        <constraint firstAttribute="bottom" secondItem="wDU-jc-dy9" secondAttribute="bottom" id="Dd8-1W-X7L"/>
+                                        <constraint firstAttribute="bottom" secondItem="nk7-de-iw1" secondAttribute="bottom" id="Hkb-9W-8Lt"/>
+                                        <constraint firstItem="wDU-jc-dy9" firstAttribute="leading" secondItem="vBf-bi-OnE" secondAttribute="leading" id="Vbh-PW-iH3"/>
+                                        <constraint firstItem="wDU-jc-dy9" firstAttribute="top" secondItem="vBf-bi-OnE" secondAttribute="top" id="ffm-XR-WeL"/>
+                                        <constraint firstItem="nk7-de-iw1" firstAttribute="top" secondItem="vBf-bi-OnE" secondAttribute="top" id="kc0-Ao-6YX"/>
+                                        <constraint firstItem="nk7-de-iw1" firstAttribute="leading" secondItem="wDU-jc-dy9" secondAttribute="trailing" constant="10" id="w0O-US-GfJ"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5U-OZ-P2g" userLabel="audioDownloadBandwidthView">
+                                    <rect key="frame" x="10" y="110" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Download bandwidth:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pZw-SZ-Ec8" userLabel="audioDownloadBandwidthHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="182" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="182" id="PUl-dQ-wzc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10.0 KB/s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="6pt-54-WLr" userLabel="audioDownloadBandwidthLabel">
+                                            <rect key="frame" x="192" y="0.0" width="108" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Video upload bandwidth">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="pZw-SZ-Ec8" firstAttribute="top" secondItem="x5U-OZ-P2g" secondAttribute="top" id="2hz-Q6-seu"/>
+                                        <constraint firstAttribute="bottom" secondItem="6pt-54-WLr" secondAttribute="bottom" id="AUx-f3-FWf"/>
+                                        <constraint firstAttribute="bottom" secondItem="pZw-SZ-Ec8" secondAttribute="bottom" id="FMa-dA-Zss"/>
+                                        <constraint firstItem="6pt-54-WLr" firstAttribute="leading" secondItem="pZw-SZ-Ec8" secondAttribute="trailing" constant="10" id="Giy-Qn-lOb"/>
+                                        <constraint firstAttribute="trailing" secondItem="6pt-54-WLr" secondAttribute="trailing" id="X6T-Tt-a4h"/>
+                                        <constraint firstItem="pZw-SZ-Ec8" firstAttribute="leading" secondItem="x5U-OZ-P2g" secondAttribute="leading" id="h4w-4I-95l"/>
+                                        <constraint firstItem="6pt-54-WLr" firstAttribute="top" secondItem="x5U-OZ-P2g" secondAttribute="top" id="vNE-kE-b2R"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DhW-9V-3iJ" userLabel="audioIceConnectivityView">
+                                    <rect key="frame" x="10" y="140" width="300" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ICE connectivity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hp9-cy-TfT" userLabel="audioIceConnectivityHeaderLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="21"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="142" id="9Oo-Id-cBN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="not activated" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="qff-Ex-3c8" userLabel="audioIceConnectivityLabel">
+                                            <rect key="frame" x="152" y="0.0" width="148" height="21"/>
+                                            <accessibility key="accessibilityConfiguration" label="Audio ICE connectivity state">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="Hp9-cy-TfT" firstAttribute="leading" secondItem="DhW-9V-3iJ" secondAttribute="leading" id="55n-8c-cG6"/>
+                                        <constraint firstAttribute="bottom" secondItem="qff-Ex-3c8" secondAttribute="bottom" id="Bzm-eF-DmJ"/>
+                                        <constraint firstItem="qff-Ex-3c8" firstAttribute="leading" secondItem="Hp9-cy-TfT" secondAttribute="trailing" constant="10" id="NVo-2d-Qz5"/>
+                                        <constraint firstAttribute="bottom" secondItem="Hp9-cy-TfT" secondAttribute="bottom" id="Urg-hm-HlO"/>
+                                        <constraint firstItem="qff-Ex-3c8" firstAttribute="top" secondItem="DhW-9V-3iJ" secondAttribute="top" id="ZBJ-SX-hzl"/>
+                                        <constraint firstAttribute="trailing" secondItem="qff-Ex-3c8" secondAttribute="trailing" id="cVV-y6-eXg"/>
+                                        <constraint firstItem="Hp9-cy-TfT" firstAttribute="top" secondItem="DhW-9V-3iJ" secondAttribute="top" id="lEA-MT-gCS"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Xmx-EW-5SR" secondAttribute="trailing" constant="10" id="1PO-u5-ap0"/>
+                                <constraint firstItem="x5U-OZ-P2g" firstAttribute="height" secondItem="vBf-bi-OnE" secondAttribute="height" id="2VI-nf-aAp"/>
+                                <constraint firstItem="vBf-bi-OnE" firstAttribute="top" secondItem="Xmx-EW-5SR" secondAttribute="bottom" constant="9" id="5Mk-q9-YOE"/>
+                                <constraint firstAttribute="trailing" secondItem="x5U-OZ-P2g" secondAttribute="trailing" constant="10" id="C41-JQ-YX2"/>
+                                <constraint firstItem="vBf-bi-OnE" firstAttribute="top" secondItem="Xmx-EW-5SR" secondAttribute="bottom" constant="9" id="EBa-Ja-FsN"/>
+                                <constraint firstItem="DhW-9V-3iJ" firstAttribute="height" secondItem="x5U-OZ-P2g" secondAttribute="height" id="Ir6-Ld-Nfn"/>
+                                <constraint firstItem="x5U-OZ-P2g" firstAttribute="leading" secondItem="m0X-2f-kTQ" secondAttribute="leading" constant="10" id="aSq-8d-GAc"/>
+                                <constraint firstItem="x5U-OZ-P2g" firstAttribute="top" secondItem="vBf-bi-OnE" secondAttribute="bottom" constant="9" id="d9R-wA-9Yd"/>
+                                <constraint firstItem="vBf-bi-OnE" firstAttribute="height" secondItem="Xmx-EW-5SR" secondAttribute="height" id="dNb-Dn-FUS"/>
+                                <constraint firstItem="Xmx-EW-5SR" firstAttribute="leading" secondItem="m0X-2f-kTQ" secondAttribute="leading" constant="10" id="fKa-we-bMb"/>
+                                <constraint firstAttribute="trailing" secondItem="vBf-bi-OnE" secondAttribute="trailing" constant="10" id="jZX-La-YYQ"/>
+                                <constraint firstAttribute="bottom" secondItem="DhW-9V-3iJ" secondAttribute="bottom" constant="71" id="lY0-df-lB2"/>
+                                <constraint firstItem="DhW-9V-3iJ" firstAttribute="top" secondItem="x5U-OZ-P2g" secondAttribute="bottom" constant="9" id="mTZ-eD-faQ"/>
+                                <constraint firstItem="7Z6-R6-qfe" firstAttribute="leading" secondItem="m0X-2f-kTQ" secondAttribute="leading" constant="10" id="njO-E9-U7k"/>
+                                <constraint firstItem="Xmx-EW-5SR" firstAttribute="top" secondItem="7Z6-R6-qfe" secondAttribute="bottom" constant="13" id="ph5-Fp-XMU"/>
+                                <constraint firstAttribute="trailing" secondItem="DhW-9V-3iJ" secondAttribute="trailing" constant="10" id="q7x-hL-jSn"/>
+                                <constraint firstItem="7Z6-R6-qfe" firstAttribute="top" secondItem="m0X-2f-kTQ" secondAttribute="top" constant="10" id="ri0-XG-jsj"/>
+                                <constraint firstAttribute="trailing" secondItem="7Z6-R6-qfe" secondAttribute="trailing" constant="10" id="se5-D4-9UL"/>
+                                <constraint firstItem="DhW-9V-3iJ" firstAttribute="leading" secondItem="m0X-2f-kTQ" secondAttribute="leading" constant="10" id="vy5-In-7Tb"/>
+                                <constraint firstItem="vBf-bi-OnE" firstAttribute="leading" secondItem="m0X-2f-kTQ" secondAttribute="leading" constant="10" id="wRq-4R-Dy2"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0z-Oh-cAO" userLabel="avatarView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="avatar_unknown.png" translatesAutoresizingMaskIntoConstraints="NO" id="lYL-DY-yYU" userLabel="avatarImage">
+                                    <rect key="frame" x="80" y="8" width="160" height="170"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" label="Contact avatar">
+                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                        <bool key="isElement" value="YES"/>
+                                    </accessibility>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="lYL-DY-yYU" secondAttribute="height" multiplier="16:17" id="vab-7J-vN8"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="lYL-DY-yYU" firstAttribute="leading" secondItem="s0z-Oh-cAO" secondAttribute="leading" constant="80" id="0mS-7J-2UD"/>
+                                <constraint firstItem="lYL-DY-yYU" firstAttribute="top" secondItem="s0z-Oh-cAO" secondAttribute="top" constant="8" id="jCn-mv-Kk9"/>
+                                <constraint firstAttribute="trailing" secondItem="lYL-DY-yYU" secondAttribute="trailing" constant="80" id="r36-2a-JDh"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="m0X-2f-kTQ" firstAttribute="leading" secondItem="zua-wT-TXT" secondAttribute="leading" id="3qW-o4-wWN"/>
+                        <constraint firstItem="nvN-bP-Usr" firstAttribute="top" secondItem="zua-wT-TXT" secondAttribute="top" id="5BH-Ms-gm4"/>
+                        <constraint firstAttribute="bottom" secondItem="s0z-Oh-cAO" secondAttribute="bottom" id="6Mf-EI-aFF"/>
+                        <constraint firstItem="s0z-Oh-cAO" firstAttribute="leading" secondItem="zua-wT-TXT" secondAttribute="leading" id="MwW-jq-PK9"/>
+                        <constraint firstAttribute="bottom" secondItem="m0X-2f-kTQ" secondAttribute="bottom" id="Pta-XP-rBZ"/>
+                        <constraint firstAttribute="trailing" secondItem="s0z-Oh-cAO" secondAttribute="trailing" id="TVE-wT-jeJ"/>
+                        <constraint firstAttribute="bottom" secondItem="s0z-Oh-cAO" secondAttribute="bottom" id="Wmp-C1-RCb"/>
+                        <constraint firstAttribute="trailing" secondItem="s0z-Oh-cAO" secondAttribute="trailing" id="bSI-cd-LhG"/>
+                        <constraint firstAttribute="trailing" secondItem="m0X-2f-kTQ" secondAttribute="trailing" id="cFr-lI-h2k"/>
+                        <constraint firstItem="s0z-Oh-cAO" firstAttribute="leading" secondItem="zua-wT-TXT" secondAttribute="leading" id="d6h-VM-uk1"/>
+                        <constraint firstItem="m0X-2f-kTQ" firstAttribute="top" secondItem="zua-wT-TXT" secondAttribute="top" id="enJ-zR-obM"/>
+                        <constraint firstAttribute="bottom" secondItem="nvN-bP-Usr" secondAttribute="bottom" id="fPs-rk-7aS"/>
+                        <constraint firstAttribute="trailing" secondItem="nvN-bP-Usr" secondAttribute="trailing" id="mVV-Wi-dCp"/>
+                        <constraint firstItem="nvN-bP-Usr" firstAttribute="leading" secondItem="zua-wT-TXT" secondAttribute="leading" id="nuL-yn-IEA"/>
+                        <constraint firstItem="s0z-Oh-cAO" firstAttribute="top" secondItem="zua-wT-TXT" secondAttribute="top" id="prB-6C-xsc"/>
+                        <constraint firstItem="s0z-Oh-cAO" firstAttribute="top" secondItem="zua-wT-TXT" secondAttribute="top" id="yyv-aW-xgx"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="zua-wT-TXT" secondAttribute="trailing" id="3mg-xq-FbX"/>
+                <constraint firstAttribute="bottom" secondItem="zua-wT-TXT" secondAttribute="bottom" id="4ad-UR-4zW"/>
+                <constraint firstItem="zua-wT-TXT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="anl-7t-MpA"/>
+                <constraint firstItem="zua-wT-TXT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gtz-ly-aCA"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="f2O-rY-bie" appends="YES" id="obW-cc-ln5"/>
+                <outletCollection property="gestureRecognizers" destination="nSs-Qe-N9h" appends="YES" id="mtu-WX-j87"/>
+            </connections>
+            <point key="canvasLocation" x="256" y="321"/>
+        </view>
+        <swipeGestureRecognizer direction="right" id="f2O-rY-bie" userLabel="Right Swipe Gesture Recognizer">
+            <connections>
+                <action selector="doDetailsSwipe:" destination="-1" id="OjZ-3T-YUV"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="nSs-Qe-N9h" userLabel="Left Swipe Gesture Recognizer">
+            <connections>
+                <action selector="doDetailsSwipe:" destination="-1" id="mCo-pV-Kti"/>
+            </connections>
+        </swipeGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="avatar_unknown.png" width="320" height="339"/>
+    </resources>
+</document>
