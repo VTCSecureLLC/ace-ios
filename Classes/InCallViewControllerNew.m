@@ -73,6 +73,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
 @property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
+@property (assign, nonatomic) LinphoneCall *rttCall;
 
 @end
 
@@ -323,6 +324,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                         [(IncomingCallViewControllerNew *)self.navigationController.rotatingFooterView setCall:holdCall];
                     }
                     [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+                if (self.rttCall == call) {
+                    [self setupRTT];
                 }
             }
             
@@ -792,6 +797,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.remoteTextBuffer = nil;
     self.minimizedTextBuffer = nil;
     
+    self.rttCall = [[LinphoneManager instance] currentCall];
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
