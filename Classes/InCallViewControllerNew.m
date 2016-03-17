@@ -905,8 +905,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
     else {
         if (self.callBarView.viewState == VS_Closed) {
-            
+            if(self.statusBar.hidden){
+                [self.statusBar setHidden:NO];
+            }
             [self.callBarView showWithAnimation:YES completion:nil];
+            
         }
         else if (self.callBarView.viewState == VS_Opened) {
             
@@ -915,6 +918,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if (self.inCallDialpadView.viewState == VS_Opened) {
                 self.callBarView.keypadButtonSelected = NO;
                 [self.inCallDialpadView hideWithAnimation:YES completion:nil];
+            }
+            
+            if(!self.statusBar.hidden){
+                [self.statusBar setHidden:YES];
             }
         }
         
