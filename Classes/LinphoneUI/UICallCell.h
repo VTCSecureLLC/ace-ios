@@ -23,17 +23,17 @@
 #include "UIChatButton.h"
 #import "UITransparentTVCell.h"
 
-typedef enum _UICallCellOtherView {
-    UICallCellOtherView_Avatar = 0,
-    UICallCellOtherView_AudioStats,
-    UICallCellOtherView_VideoStats,
-    UICallCellOtherView_MAX
-} UICallCellOtherView;
+typedef enum CallCellOtherView {
+    CallCellOtherView_Avatar = 0,
+    CallCellOtherView_AudioStats,
+    CallCellOtherView_VideoStats,
+    CallCellOtherView_MAX
+} CallCellOtherView;
 
 @interface UICallCellData : NSObject {
     @public
     bool minimize;
-    UICallCellOtherView view;
+    CallCellOtherView view;
     LinphoneCall *call;
 }   
 

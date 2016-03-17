@@ -33,7 +33,7 @@ typedef void (^ButtonActionCallback)(LinphoneCall *linphoneCall);
  *  @param animation  Show with animation or not
  *  @param completion Completion block
  */
-- (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)showWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 /**
  *  @brief Hides view
@@ -41,6 +41,6 @@ typedef void (^ButtonActionCallback)(LinphoneCall *linphoneCall);
  *  @param animation  Hide with animation or not
  *  @param completion Completion block
  */
-- (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)hideWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 @end
