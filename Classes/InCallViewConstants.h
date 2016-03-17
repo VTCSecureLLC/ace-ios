@@ -25,5 +25,9 @@ typedef enum {
  */
 typedef void (^ButtonActionHandler)(UIButton *sender);
 
+/**
+ *  @brief Completion block
+ */
+typedef void (^Completion)();
 
 #endif /* InCallViewConstants_h */

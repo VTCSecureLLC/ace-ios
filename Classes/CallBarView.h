@@ -8,7 +8,7 @@
 
 #import "BaseView.h"
 #include "linphone/linphonecore.h"
-#include "InCallViewConstants.h"
+#import "InCallViewConstants.h"
 
 /**
  *  @brief Calles when call bar will hides
@@ -46,7 +46,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
  *  @param animation  Show with animation or not
  *  @param completion Completion block
  */
-- (void)showWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)showWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 /**
  *  @brief Hides view
@@ -54,7 +54,7 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
  *  @param animation  Hide with animation or not
  *  @param completion Animation completion block
  */
-- (void)hideWithAnimation:(BOOL)animation completion:(void(^)())completion;
+- (void)hideWithAnimation:(BOOL)animation completion:(Completion)completion;
 
 /**
  *  @brief Resets timer which hides the view with animation

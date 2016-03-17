@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusBar">
+            <connections>
+                <outlet property="backgroundView" destination="iN0-l3-epB" id="Nd5-p8-LDP"/>
+                <outlet property="backgroundViewBottomConstraint" destination="ADv-f0-3kF" id="2vf-Be-6hN"/>
+                <outlet property="callQualityImageView" destination="HnU-UV-P3n" id="tO0-12-RvO"/>
+                <outlet property="callSecurityButton" destination="gT4-wK-yLm" id="wcr-r5-rp0"/>
+                <outlet property="callSecurityImageView" destination="bbG-Xq-Sp3" id="loo-eL-OMr"/>
+                <outlet property="registrationStatusImageView" destination="xRF-98-NpH" id="nha-QZ-iGb"/>
+                <outlet property="registrationStatusLabel" destination="KC1-66-d5I" id="22b-Ox-wYS"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mwz-RV-cpn">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="led_disconnected.png" translatesAutoresizingMaskIntoConstraints="NO" id="xRF-98-NpH">
+                            <rect key="frame" x="6" y="6" width="11" height="11"/>
+                            <accessibility key="accessibilityConfiguration" label="Registration state">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="xRF-98-NpH" secondAttribute="height" multiplier="1:1" id="klh-bk-cjs"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnU-UV-P3n" userLabel="Call Quality Image View">
+                            <rect key="frame" x="306" y="3" width="27" height="17"/>
+                            <accessibility key="accessibilityConfiguration" label="Call quality"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="HnU-UV-P3n" secondAttribute="height" multiplier="27:17" id="Npw-1H-LTw"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="bbG-Xq-Sp3" userLabel="Call Security Image View">
+                            <rect key="frame" x="338" y="3" width="27" height="17"/>
+                            <accessibility key="accessibilityConfiguration" label="Security state"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="bbG-Xq-Sp3" secondAttribute="height" multiplier="27:17" id="Bb7-Ei-TK0"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="CARAMBA" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KC1-66-d5I" userLabel="Registration Status Label">
+                            <rect key="frame" x="23" y="0.0" width="221" height="23"/>
+                            <accessibility key="accessibilityConfiguration" label="Registration state"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-wK-yLm" userLabel="Call Security Button">
+                            <rect key="frame" x="337" y="0.0" width="30" height="23"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="callSecurityButtonAction:" destination="-1" eventType="touchUpInside" id="Nbq-1c-FKz"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Utq-ZL-yWy">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
+                            <connections>
+                                <action selector="statusBarAction:" destination="-1" eventType="touchUpInside" id="me1-2b-Qrd"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1843137255" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="gT4-wK-yLm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3ki-LY-6J8"/>
+                        <constraint firstAttribute="bottom" secondItem="KC1-66-d5I" secondAttribute="bottom" id="7en-Tp-J8f"/>
+                        <constraint firstAttribute="bottom" secondItem="gT4-wK-yLm" secondAttribute="bottom" id="8UR-CT-5yL"/>
+                        <constraint firstItem="bbG-Xq-Sp3" firstAttribute="leading" secondItem="HnU-UV-P3n" secondAttribute="trailing" constant="5" id="Dzp-Ah-L8c"/>
+                        <constraint firstItem="xRF-98-NpH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="GMS-SK-YF8"/>
+                        <constraint firstItem="KC1-66-d5I" firstAttribute="leading" secondItem="xRF-98-NpH" secondAttribute="trailing" constant="6" id="MJ9-KV-ZWG"/>
+                        <constraint firstAttribute="bottom" secondItem="Utq-ZL-yWy" secondAttribute="bottom" id="NOt-xX-kxJ"/>
+                        <constraint firstItem="HnU-UV-P3n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="PX2-ep-iGK"/>
+                        <constraint firstItem="bbG-Xq-Sp3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="RvS-4W-zOf"/>
+                        <constraint firstItem="KC1-66-d5I" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ULe-Fi-hZT"/>
+                        <constraint firstAttribute="bottom" secondItem="xRF-98-NpH" secondAttribute="bottom" constant="6" id="WOg-4e-Rsw"/>
+                        <constraint firstItem="Utq-ZL-yWy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XWG-xK-oxX"/>
+                        <constraint firstItem="HnU-UV-P3n" firstAttribute="leading" secondItem="KC1-66-d5I" secondAttribute="trailing" constant="62" id="btV-MR-tw8"/>
+                        <constraint firstItem="gT4-wK-yLm" firstAttribute="centerX" secondItem="bbG-Xq-Sp3" secondAttribute="centerX" id="dMs-dP-J1G"/>
+                        <constraint firstAttribute="bottom" secondItem="HnU-UV-P3n" secondAttribute="bottom" constant="3" id="fQP-qR-1Uz"/>
+                        <constraint firstAttribute="trailing" secondItem="bbG-Xq-Sp3" secondAttribute="trailing" constant="10" id="ibc-nm-V90"/>
+                        <constraint firstItem="xRF-98-NpH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="kl2-1C-VWw"/>
+                        <constraint firstAttribute="bottom" secondItem="bbG-Xq-Sp3" secondAttribute="bottom" constant="3" id="mdS-gT-Tp1"/>
+                        <constraint firstItem="Utq-ZL-yWy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pAs-zM-ZK7"/>
+                        <constraint firstAttribute="trailing" secondItem="Utq-ZL-yWy" secondAttribute="trailing" id="yjH-U4-7A4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="ADv-f0-3kF"/>
+                <constraint firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="BEI-99-oyV"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="height" secondItem="mwz-RV-cpn" secondAttribute="height" id="Hbd-h9-tLQ"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="leading" secondItem="mwz-RV-cpn" secondAttribute="leading" id="fac-sk-ByY"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="278" y="-41"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="led_disconnected.png" width="18" height="17"/>
+    </resources>
+</document>

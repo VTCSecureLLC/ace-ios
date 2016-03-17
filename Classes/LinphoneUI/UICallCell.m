@@ -33,7 +33,7 @@
 	self = [super init];
 	if (self != nil) {
 		self->minimize = minimized;
-		self->view = UICallCellOtherView_Avatar;
+		self->view = CallCellOtherView_Avatar;
 		self->call = acall;
 		image = [UIImage imageNamed:@"avatar_unknown.png"];
 		address = NSLocalizedString(@"Unknown", nil);
@@ -487,15 +487,15 @@
 		LOGW(@"Cannot update call cell: null call or data");
 		return;
 	}
-	if (data->view == UICallCellOtherView_Avatar && avatarView.isHidden) {
+	if (data->view == CallCellOtherView_Avatar && avatarView.isHidden) {
 		[self->avatarView setHidden:FALSE];
 		[self->audioStatsView setHidden:TRUE];
 		[self->videoStatsView setHidden:TRUE];
-	} else if (data->view == UICallCellOtherView_AudioStats && audioStatsView.isHidden) {
+	} else if (data->view == CallCellOtherView_AudioStats && audioStatsView.isHidden) {
 		[self->avatarView setHidden:TRUE];
 		[self->audioStatsView setHidden:FALSE];
 		[self->videoStatsView setHidden:TRUE];
-	} else if (data->view == UICallCellOtherView_VideoStats && videoStatsView.isHidden) {
+	} else if (data->view == CallCellOtherView_VideoStats && videoStatsView.isHidden) {
 		[self->avatarView setHidden:TRUE];
 		[self->audioStatsView setHidden:TRUE];
 		[self->videoStatsView setHidden:FALSE];
@@ -535,7 +535,7 @@
 	CATransition *trans = nil;
 	if (data != nil) {
 		if (sender.direction == UISwipeGestureRecognizerDirectionLeft) {
-			if (data->view == UICallCellOtherView_MAX - 1) {
+			if (data->view == CallCellOtherView_MAX - 1) {
 				data->view = 0;
 			} else {
 				++data->view;
@@ -547,7 +547,7 @@
 			[trans setSubtype:kCATransitionFromRight];
 		} else if (sender.direction == UISwipeGestureRecognizerDirectionRight) {
 			if (data->view == 0) {
-				data->view = UICallCellOtherView_MAX - 1;
+				data->view = CallCellOtherView_MAX - 1;
 			} else {
 				--data->view;
 			}
