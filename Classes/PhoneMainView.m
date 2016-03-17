@@ -716,6 +716,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 	switch (linphone_call_get_reason(call)) {
 		case LinphoneReasonNotFound:
 			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is not registered.", nil), lUserName];
+            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
 			break;
 		case LinphoneReasonBusy:
 			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
