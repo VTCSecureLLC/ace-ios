@@ -106,7 +106,7 @@
 	return self;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView     RowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
 	// Background View
@@ -833,6 +833,16 @@ static UICompositeViewDescription *compositeDescription = nil;
         [defaults setBool:enabled forKey:@"QoS"];
         [defaults synchronize];
         [self refreshTable];
+    }
+    else if([@"force_508_preference" compare:notif.object] == NSOrderedSame){
+        BOOL is508Enabled = ([[notif.userInfo objectForKey:@"force_508_preference"] boolValue]) ? YES : NO;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:is508Enabled forKey:@"force508"];
+        [defaults synchronize];
+        
+        [settingsStore transformLinphoneCoreToKeys];
+        settingsController.hiddenKeys = [self findHiddenKeys];
+        [settingsController.tableView reloadData];
     }
 
 	for (NSString *key in keys) {
