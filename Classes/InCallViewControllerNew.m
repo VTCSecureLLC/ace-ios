@@ -727,51 +727,51 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
     
     self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '1');
     };
     
     self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '2');
     };
     
     self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '3');
     };
     
     self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '4');
     };
     
     self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '5');
     };
     
     self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '6');
     };
     
     self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '7');
     };
 
     self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '8');
     };
     
     self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '9');
     };
     
     self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '*');
     };
     
     self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '0');
     };
     
     self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '#');
     };
 }
 
