@@ -112,8 +112,16 @@ UILongPressGestureRecognizer *lpgr;
                                  ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
                                  
                                  NSString *exportedContactFilePath = [[VSContactsManager sharedInstance] exportContact:contact];
+                                 if ([exportedContactFilePath isEqualToString:@""]) {
+                                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                     message:@"The contact has invalid sip address"
+                                                                                    delegate:self
+                                                                           cancelButtonTitle:@"OK"
+                                                                           otherButtonTitles:nil];
+                                     [alert show];
+                                     return;
+                                 }
                                  NSData *vcard = [[NSFileManager defaultManager] contentsAtPath:exportedContactFilePath];
-                                 
                                  if (vcard) {
                                      
                                      if ([MFMailComposeViewController canSendMail]) {
@@ -151,13 +159,6 @@ UILongPressGestureRecognizer *lpgr;
                                          [self presentViewController:alert animated:YES completion:nil];
                                          
                                      }
-//                                    MFMessageComposeViewController *composeMessage = [[MFMessageComposeViewController alloc] init];
-//                                     [composeMessage addAttachmentData:vcard
-//                                                        typeIdentifier:@"public.contact" filename:@"contact.vcard"];
-//                                     composeMessage.messageComposeDelegate = self;
-//                                     [self presentViewController:composeMessage animated:NO completion:^(void){
-//
-//                                     }];
                                  }
                                  [alert dismissViewControllerAnimated:NO completion:nil];
                                  
