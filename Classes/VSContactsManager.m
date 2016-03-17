@@ -24,8 +24,9 @@
 - (NSString*)exportContact:(ABRecordRef)abRecord {
     
     LinphoneFriend *friend = [self createFriendFromContact:abRecord];
-    #pragma unused(friend)
-
+    if (friend == NULL) {
+        return @"";
+    }
     NSString *documtensDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
     NSString *exportedContactFilePath = [documtensDirectoryPath stringByAppendingString:[NSString stringWithFormat:@"/%@%@.vcard", @"ACE_", @"Contacts"]];
 
@@ -99,8 +100,9 @@
         linphone_friend_edit(newFriend);
         linphone_friend_set_name(newFriend, [name  UTF8String]);
         linphone_friend_done(newFriend);
+        linphone_core_add_friend([LinphoneManager getLc], newFriend);
     }
-    linphone_core_add_friend([LinphoneManager getLc], newFriend);
+    
     return newFriend;
 }
 
