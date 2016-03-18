@@ -83,7 +83,7 @@
 }
 
 - (NSString*)currentLocationAsText{
-    return [NSString stringWithFormat:@"%f,%f",self.locationManager.location.coordinate.latitude,self.locationManager.location.coordinate.longitude ];
+    return [NSString stringWithFormat:@"<geo:%f,%f>",self.locationManager.location.coordinate.latitude,self.locationManager.location.coordinate.longitude ];
 }
 
 -(BOOL)isAuthorized:(BOOL)askUserIfUnknown  {

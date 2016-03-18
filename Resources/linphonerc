@@ -122,9 +122,6 @@ max_calls=3
 incoming_flashlight_frequency=0.5
 incoming_flashred_frequency=0.5
 incoming_vibrate_frequency=1.0
-outgoing_ring_duration=1.01
+outgoing_ring_duration=2.8
 emergency_username=911
 external_domains=Sorenson.com,ZVRS.com,CAAG.com,PurpleVRS.com,GlobalVRS.com,Convo.com
-
-[proxy_default_values]
-avpf=1

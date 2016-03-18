@@ -133,6 +133,8 @@ static void sync_address_book(ABAddressBookRef addressBook, CFDictionaryRef info
 		LOGI(@"Save AddressBook: Success!");
 	}
 	[[LinphoneManager instance].fastAddressBook reload];
+    
+    [self resetData];
 }
 
 - (void)selectContact:(ABRecordRef)acontact andReload:(BOOL)reload {
@@ -248,6 +250,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[editButton setOn];
 	[cancelButton setHidden:FALSE];
 	[backButton setHidden:TRUE];
+    
+    [tableController.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.25];
 }
 
 - (void)disableEdit:(BOOL)animated {

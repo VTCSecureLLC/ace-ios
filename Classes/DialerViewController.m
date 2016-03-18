@@ -182,7 +182,19 @@ static UICompositeViewDescription *compositeDescription = nil;
     // the image will be stretched to fill the button, if you resize it.
    // twoButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    
+ 
+    [self applyButtonToForce508:self.zeroButton];
+    [self applyButtonToForce508:self.oneButton];
+    [self applyButtonToForce508:self.twoButton];
+    [self applyButtonToForce508:self.threeButton];
+    [self applyButtonToForce508:self.fourButton];
+    [self applyButtonToForce508:self.fiveButton];
+    [self applyButtonToForce508:self.sevenButton];
+    [self applyButtonToForce508:self.sixButton];
+    [self applyButtonToForce508:self.eightButton];
+    [self applyButtonToForce508:self.nineButton];
+    [self applyButtonToForce508:self.starButton];
+    [self applyButtonToForce508:self.sharpButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -555,18 +567,32 @@ static UICompositeViewDescription *compositeDescription = nil;
 
         }
     }
-     UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
-                            style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                            self.sipDomainLabel.text = @"";
-                                                            self.addressField.sipDomain = nil;
-                                                            }];
+    UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                     self.sipDomainLabel.text = @"";
+                                                     self.addressField.sipDomain = nil;
+                                                     self.providerImageView.image = nil;
+                                                 }];
     [alert addAction:none];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)onProviderLookupFinished:(NSMutableArray *)domains {
     self.domains = domains;
+}
+
+- (void) applyButtonToForce508:(UIDigitButton*)button {
+    float alphe = 0.6;
+    [button setBackgroundColor:[UIColor colorWithRed:55.0/255.0 green:55.0/255.0 blue:55.0/255.0 alpha:alphe]];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+        alphe = 1.0;
+    }
+    
+    [button.titleLabel setAlpha:alphe];
+    [button.layer setBorderColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:alphe].CGColor];
+    [button.layer setBorderWidth:1.0];
 }
 
 @end

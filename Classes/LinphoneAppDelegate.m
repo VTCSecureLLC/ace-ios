@@ -387,7 +387,7 @@
 
 	LOGI(@"%@ - state = %ld", NSStringFromSelector(_cmd), (long)application.applicationState);
 
-	[self fixRing];
+//	[self fixRing];
 
 	if ([notification.userInfo objectForKey:@"callId"] != nil) {
 		// some local notifications have an internal timer to relaunch themselves at specified intervals
@@ -529,6 +529,9 @@
 				if (call)
 					linphone_core_decline_call(lc, call, LinphoneReasonDeclined);
 			}
+            else{
+                [self application:application didReceiveLocalNotification:notification];
+            }
 		} else if ([notification.category isEqualToString:@"incoming_msg"]) {
 			if ([identifier isEqualToString:@"reply"]) {
 				// use the standard handler
