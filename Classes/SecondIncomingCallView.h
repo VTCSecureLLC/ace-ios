@@ -48,7 +48,7 @@ typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
  *  @param completion Animation completion block
  */
 - (void)showNotificationWithAnimation:(BOOL)animation
-                           completion:(void(^)())completion;
+                           completion:(Completion)completion;
 
 /**
  *  @brief Hides view
@@ -57,6 +57,6 @@ typedef void (^NotificationActionCallback)(LinphoneCall *linphoneCall);
  *  @param completion Animation completion block
  */
 - (void)hideNotificationWithAnimation:(BOOL)animation
-                           completion:(void(^)())completion;
+                           completion:(Completion)completion;
 
 @end

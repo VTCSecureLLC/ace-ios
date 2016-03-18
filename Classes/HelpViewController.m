@@ -52,7 +52,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
   
-    if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Instant Feedback"]){
+    if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Instant Feedback"]
+       || [[tableData objectAtIndex:indexPath.row] isEqualToString:@"Technical Support"]){
         
         NSMutableArray *items = [[NSMutableArray alloc] init];
         
@@ -63,7 +64,7 @@
                                 [NSString stringWithCString:systemInfo.machine
                                                    encoding:NSUTF8StringEncoding], [[UIDevice currentDevice] systemName], [[UIDevice currentDevice] systemVersion], @"Beta"];
         [items addObject:deviceInfo];
-        //NSData *dataArray = [NSKeyedArchiver archivedDataWithRootObject:[LinphoneManager instance].logFileArray];
+       
         NSArray *array = [NSArray new];
         array  = [[(LinphoneAppDelegate *)[UIApplication sharedApplication].delegate logFileArray] mutableCopy];
         
@@ -72,8 +73,10 @@
     
         NSData *logFileData = [NSData dataWithContentsOfFile:logFilePath];
         [items addObject:logFileData];
-        
-        [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:items];
+       
+        if([BITHockeyManager sharedHockeyManager] && [BITHockeyManager sharedHockeyManager].feedbackManager){
+            [[BITHockeyManager sharedHockeyManager].feedbackManager showFeedbackComposeViewWithPreparedItems:items];
+        }
     }
     
     else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Deaf / Hard of Hearing Resources"]){

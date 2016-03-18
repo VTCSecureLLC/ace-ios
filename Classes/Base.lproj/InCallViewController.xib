@@ -107,7 +107,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="35" y="379"/>
+            <point key="canvasLocation" x="-67" y="377"/>
         </view>
         <tableViewController id="162" userLabel="callTableController" customClass="InCallTableViewController">
             <extendedEdge key="edgesForExtendedLayout"/>

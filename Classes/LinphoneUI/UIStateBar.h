@@ -21,7 +21,7 @@
 #import "TPMultiLayoutViewController.h"
 #import "DTActionSheet.h"
 
-@interface UIStateBar : TPMultiLayoutViewController<UIActionSheetDelegate> {
+@interface UIStateBar : TPMultiLayoutViewController <UIActionSheetDelegate> {
     DTActionSheet *securitySheet;
 }
 
