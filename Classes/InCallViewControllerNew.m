@@ -227,6 +227,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self incomingReceivedWithCall:call];
             [self closeRTTChat];
             
+            [[LinphoneManager instance] changeRTTStateForCall:call avtive:self.isRTTLocallyEnabled];
+           
             // This is second call
             break;
         }
@@ -284,6 +286,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                     }
                 }
             }
+            [self checkRTT];
             break;
         }
         case LinphoneCallPausing: {
@@ -416,12 +419,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTEnabled = NO;
     }
     
-    if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] > 1) {
-        [self.callBarView changeChatButtonVisibility:YES];
-    }
-    else {
-        [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
-    }
+    [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
+    
 }
 
 - (void)setupNotifications {
@@ -1273,7 +1272,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
-    
     // Send a character.
     bool enter_pressed=false;
     unichar c = [theText characterAtIndex:0];
@@ -1289,6 +1287,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 //    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
     if(!call) return;
+    if(linphone_call_get_state(call) != LinphoneCallStreamsRunning) return;
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     
@@ -1322,6 +1322,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
           linphone_core_get_version());
     
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call) return;
+    if(linphone_call_get_state(call) != LinphoneCallStreamsRunning) return;
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     linphone_chat_message_put_char(msg, (char)8);
