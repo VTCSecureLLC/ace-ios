@@ -18,6 +18,9 @@
 #import "InCallDialpadView.h"
 #import "RTTMessageModel.h"
 #import "BubbleTableViewCell.h"
+#import "StatusBar.h"
+#import "UICallCellDataNew.h"
+#import "CallInfoView.h"
 #import "PhoneMainView.h"
 
 #define kBottomButtonsAnimationDuration     0.3f
@@ -60,7 +63,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (assign, nonatomic) BOOL isRTTLocallyEnabled;
 @property (assign, nonatomic) BOOL isRTTEnabled;
 @property (assign, nonatomic) BOOL isChatMode;
-@property (assign, nonatomic) BOOL hasStartedStream;
 @property (strong, nonatomic) RTTMessageModel *localTextBuffer;
 @property (strong, nonatomic) RTTMessageModel *remoteTextBuffer;
 @property (assign, nonatomic) int localTextBufferIndex;
@@ -74,6 +76,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIButton *closeChatButton;
 @property (strong, nonatomic) NSMutableString *msgBuffer;
 @property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
+@property (weak, nonatomic) IBOutlet StatusBar *statusBar;
+@property (weak, nonatomic) IBOutlet CallInfoView *callInfoView;
 
 @end
 
@@ -85,12 +89,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [super viewDidLoad];
     
+    [self setupCallInfoView];
     [self setupCallBarView];
     [self setupSecondIncomingCallView];
     [self setupSecondIncomingCallBarView];
     [self setupInCallOnHoldView];
     [self setupInCallDialpadView];
     [self setupRTT];
+    [self checkRTT];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -158,7 +164,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
     if (self.isRTTEnabled) {
         CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         CGFloat keyboardPos = keyboardFrame.origin.y;
@@ -187,7 +192,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
-    
     CGRect keyboardFrame =  [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardPos = keyboardFrame.origin.y;
     CGFloat remote_video_delta = (self.videoView.frame.origin.y +
@@ -221,6 +225,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallIncomingReceived: {
             [self incomingReceivedWithCall:call];
+            [self closeRTTChat];
+            
             // This is second call
             break;
         }
@@ -303,12 +309,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         case LinphoneCallError: {
             
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            [self.callInfoView stopDataUpdating];
             [self hideQualityIndicator];
             break;
         }
         case LinphoneCallEnd: {
             
             [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
+            [self.callInfoView stopDataUpdating];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [self hideQualityIndicator];
@@ -368,7 +376,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self setupVideoButtonState];
 //    [self setupMicriphoneButtonState];
 //    [self setupSpeakerButtonState];
-    [self checkRTTForCall:call];
+    [self checkRTT];
 }
 
 - (void)checkHoldCall {
@@ -383,11 +391,22 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
-- (void)checkRTTForCall:(LinphoneCall *)call {
-
-    if (self.isRTTLocallyEnabled) {
-        if ([[LinphoneManager instance] isChatEnabledForCall:call]) {
-            self.isRTTEnabled = YES;
+- (void)checkRTT {
+    
+    LinphoneCall *call = [[LinphoneManager instance] currentCall];
+    if (call != NULL) {
+        if ([[LinphoneManager instance] callStateForCall:call] == LinphoneCallStreamsRunning) {
+            if (self.isRTTLocallyEnabled) {
+                if ([[LinphoneManager instance] isChatEnabledForCall:call]) {
+                    self.isRTTEnabled = YES;
+                }
+                else {
+                    self.isRTTEnabled = NO;
+                }
+            }
+            else {
+                self.isRTTEnabled = NO;
+            }
         }
         else {
             self.isRTTEnabled = NO;
@@ -396,9 +415,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     else {
         self.isRTTEnabled = NO;
     }
-    self.hasStartedStream = YES;
     
-    [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
+    if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] > 1) {
+        [self.callBarView changeChatButtonVisibility:YES];
+    }
+    else {
+        [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
+    }
 }
 
 - (void)setupNotifications {
@@ -710,51 +733,51 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
     
     self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '1');
     };
     
     self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '2');
     };
     
     self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '3');
     };
     
     self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '4');
     };
     
     self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '5');
     };
     
     self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '6');
     };
     
     self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '7');
     };
 
     self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '8');
     };
     
     self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '9');
     };
     
     self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '*');
     };
     
     self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '0');
     };
     
     self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
-        
+        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '#');
     };
 }
 
@@ -783,6 +806,33 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enable_rtt"];
         self.isRTTLocallyEnabled = YES;
     }
+}
+
+- (void)setupCallInfoView {
+    
+    [self.callInfoView hideWithAnimation:NO completion:nil];
+    
+    __weak InCallViewControllerNew *weakSelf = self;
+    self.statusBar.statusBarActionHandler = ^(UIButton *sender) {
+        if (weakSelf.callInfoView.viewState == VS_Closed) {
+            [weakSelf.callInfoView showWithAnimation:YES completion:nil];
+        }
+        else if (weakSelf.callInfoView.viewState == VS_Opened) {
+            [weakSelf.callInfoView hideWithAnimation:YES completion:nil];
+        }
+        
+    };
+    
+    UICallCellDataNew *data = nil;
+    LinphoneCall *call = [[LinphoneManager instance] currentCall];
+    if (call != NULL) {
+        LinphoneCallAppData *appData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
+        if (appData != NULL) {
+            data = [[UICallCellDataNew alloc] init:call minimized:NO];
+        }
+    }
+    
+    self.callInfoView.data = data;
 }
 
 - (void)animateToBottomVideoPreviewViewWithDuration:(NSTimeInterval)duration {
@@ -875,8 +925,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
     else {
         if (self.callBarView.viewState == VS_Closed) {
-            
+            if(self.statusBar.hidden){
+                [self.statusBar setHidden:NO];
+            }
             [self.callBarView showWithAnimation:YES completion:nil];
+            
         }
         else if (self.callBarView.viewState == VS_Opened) {
             
@@ -886,6 +939,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 self.callBarView.keypadButtonSelected = NO;
                 [self.inCallDialpadView hideWithAnimation:YES completion:nil];
             }
+            
+            if(!self.statusBar.hidden){
+                [self.statusBar setHidden:YES];
+            }
+        }
+        
+        if (self.callInfoView.viewState == VS_Opened) {
+            [self.callInfoView hideWithAnimation:YES completion:nil];
         }
     }
 }
@@ -988,13 +1049,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)sortChatEntriesArray {
     
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"modifiedTimeInterval" ascending:YES];
-    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
-    [self.chatEntries removeAllObjects];
-    for (RTTMessageModel *msgModel in reverseOrder) {
-        [self.chatEntries addObject:msgModel];
+    if (self.chatEntries.count > 0) {
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"modifiedTimeInterval" ascending:YES];
+        NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+        [self.chatEntries sortUsingDescriptors:descriptors];
     }
+    //    NSMutableArray *reverseOrder = [[self.chatEntries sortedArrayUsingDescriptors:descriptors] mutableCopy];
+    //    [self.chatEntries removeAllObjects];
+    //    for (RTTMessageModel *msgModel in reverseOrder) {
+    //        [self.chatEntries addObject:msgModel];
+    //    }
 }
 
 - (void)showLatestMessage {

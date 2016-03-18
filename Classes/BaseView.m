@@ -20,7 +20,7 @@
                                                          owner:self
                                                        options:nil];
     
-    UIView *xibView = [nibContents lastObject];
+    UIView *xibView = [nibContents firstObject];
     [xibView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:xibView];
     

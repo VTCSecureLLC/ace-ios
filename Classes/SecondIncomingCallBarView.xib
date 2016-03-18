@@ -42,7 +42,7 @@
                                                 <constraint firstAttribute="width" secondItem="Xv5-mt-vRe" secondAttribute="height" multiplier="40:34" id="zYr-B5-Ln0"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'll call you back." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hO-92-SJC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="I'll call you back." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hO-92-SJC">
                                             <rect key="frame" x="0.0" y="38" width="187" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="goS-Kg-gwY"/>
@@ -89,7 +89,7 @@
                                                 <constraint firstAttribute="width" secondItem="P7x-Sg-BCE" secondAttribute="height" multiplier="50:32" id="NQR-Oh-nHN"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="decline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLY-Ak-dNv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="decline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLY-Ak-dNv">
                                             <rect key="frame" x="0.0" y="37" width="187" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="HYP-tc-MzL"/>
@@ -135,10 +135,10 @@
                                 <constraint firstItem="3zv-Od-NzX" firstAttribute="width" secondItem="HkZ-SA-7Ro" secondAttribute="width" id="s0U-Mh-Uhc"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EBd-bt-AAG" userLabel="Accept Container">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EBd-bt-AAG" userLabel="Accept Container">
                             <rect key="frame" x="0.0" y="60" width="375" height="60"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_call_accept_icon" translatesAutoresizingMaskIntoConstraints="NO" id="8Ag-pB-9Fu">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="new_call_accept_icon" translatesAutoresizingMaskIntoConstraints="NO" id="8Ag-pB-9Fu">
                                     <rect key="frame" x="161" y="4" width="52" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="8Ag-pB-9Fu" secondAttribute="height" multiplier="50:32" id="YOX-Bc-nwL"/>
@@ -153,7 +153,7 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddi-YE-OII">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddi-YE-OII">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                     <connections>
                                         <action selector="acceptButtonAction:" destination="-1" eventType="touchUpInside" id="80R-5c-WMM"/>

@@ -1252,15 +1252,17 @@ void networkReachabilityCallBack(SCNetworkReachabilityRef target, SCNetworkReach
 			else
 				newConnectivity = wifi;
 
-			if (newConnectivity == wwan && proxy && isWifiOnly &&
-				(lm.connectivity == newConnectivity || lm.connectivity == none)) {
-				linphone_proxy_config_expires(proxy, 0);
-			} else if (proxy) {
-				NSInteger defaultExpire = [lm lpConfigIntForKey:@"default_expires"];
-				if (defaultExpire >= 0)
-					linphone_proxy_config_expires(proxy, (int)defaultExpire);
-				// else keep default value from linphonecore
-			}
+            if (newConnectivity == wwan && proxy && isWifiOnly && (lm.connectivity == newConnectivity || lm.connectivity == none)) {
+                linphone_proxy_config_expires(proxy, 0);
+                linphone_core_set_network_reachable(theLinphoneCore, false);
+            } else if (proxy) {
+                //				NSInteger defaultExpire = [lm lpConfigIntForKey:@"default_expires"];
+                //				if (defaultExpire >= 0)
+                // Here the default expire is 280.
+                linphone_proxy_config_expires(proxy, 280);
+                linphone_core_set_network_reachable(theLinphoneCore, true);
+                // else keep default value from linphonecore
+            }
 
 			if (lm.connectivity != newConnectivity) {
 				if (tunnel)
