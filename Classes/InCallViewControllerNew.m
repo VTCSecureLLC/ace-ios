@@ -186,7 +186,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isChatMode = YES;
         [self.tableView setHidden:NO];
 //        [self hideControls];
-        [self sortChatEntriesArray];
+       // [self sortChatEntriesArray];
         [self.tableView reloadData];
     }
 }
@@ -227,6 +227,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self incomingReceivedWithCall:call];
             [self closeRTTChat];
             
+            [[LinphoneManager instance] changeRTTStateForCall:call avtive:self.isRTTLocallyEnabled];
+           
             // This is second call
             break;
         }
@@ -284,6 +286,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                     }
                 }
             }
+            [self checkRTT];
             break;
         }
         case LinphoneCallPausing: {
@@ -416,12 +419,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTEnabled = NO;
     }
     
-    if ([[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]] > 1) {
-        [self.callBarView changeChatButtonVisibility:YES];
-    }
-    else {
-        [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
-    }
+    [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
+    
 }
 
 - (void)setupNotifications {
@@ -791,8 +790,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.year2036TimeStamp = [date2036 timeIntervalSince1970];
     
     self.chatEntries = [[NSMutableArray alloc] init];
-    self.localTextBufferIndex = -1;
-    self.remoteTextBufferIndex = -1;
+    self.localTextBufferIndex = 0;
+    self.remoteTextBufferIndex = 0;
     
     self.localTextBuffer = nil;
     self.remoteTextBuffer = nil;
@@ -1086,7 +1085,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *CellIdentifier = [[NSString alloc] initWithFormat:@"%ld", (long)indexPath.section];
+    NSString *CellIdentifier = @"ChatCell";
     BubbleTableViewCell *cell = (BubbleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -1168,7 +1167,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self.chatEntries addObject:self.localTextBuffer];
     if(self.isChatMode){
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self showLatestMessage];
     }
@@ -1181,12 +1180,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         return;
     }
     
-    int indx;
-    if ((int)self.chatEntries.count == 0) {
-        indx = 0;
-    } else {
-        indx = (int)self.chatEntries.count - 1;
-    }
+    int indx = self.localTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        indx = 0;
+//    } else {
+//        indx = (int)self.chatEntries.count - 1;
+//    }
     
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
         
@@ -1216,12 +1215,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self createNewLocalChatBuffer:text];
             return;
         }
-        
-        
-        
+        else{
+            [self createNewLocalChatBuffer:text];
+            return;
+        }
     }
     
-    if (self.localTextBufferIndex == -1) { // if it's the first message after others
+    if (self.localTextBufferIndex == 0 && !self.localTextBuffer) { // if it's the first message after others
         [self createNewLocalChatBuffer:text];
         return;
     }
@@ -1244,7 +1244,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
         
         if(self.isChatMode){
-            [self sortChatEntriesArray];
+            //[self sortChatEntriesArray];
             [self.tableView reloadData];
             [self showLatestMessage];
         }
@@ -1262,7 +1262,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.localTextBuffer removeLast];
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+                //[self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
@@ -1272,7 +1272,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 /* Called when text is inserted */
 - (void)insertText:(NSString *)theText {
-    
     // Send a character.
     bool enter_pressed=false;
     unichar c = [theText characterAtIndex:0];
@@ -1281,12 +1280,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         c = 0x2028;
         enter_pressed=true;
     }
-    
-    NSLog(@"theText %@",theText);
-    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-          linphone_core_get_version());
-    NSLog(@"insertText %@",self.localTextBuffer.msgString);
+// Remove verbose logging
+//    NSLog(@"theText %@",theText);
+//    NSLog(@"Add characters. %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+//          linphone_core_get_version());
+//    NSLog(@"insertText %@",self.localTextBuffer.msgString);
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call) return;
+    if(linphone_call_get_state(call) != LinphoneCallStreamsRunning) return;
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     
@@ -1296,7 +1298,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     if(TEXT_MODE==RTT){
         linphone_chat_message_put_char(msg, c);
     }else if(TEXT_MODE==SIP_SIMPLE){
-        NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
+        //NSLog(@"self.localTextBuffer.msgString %@",self.localTextBuffer.msgString);
         if(enter_pressed){
             NSLog(@"enter_pressed");
             for (int j = 0; j != self.localTextBuffer.msgString.length; j++){
@@ -1310,7 +1312,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
     }
     [self insertTextIntoBuffer:theText];
-    
 }
 
 /* Called when backspace is inserted */
@@ -1321,6 +1322,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
           linphone_core_get_version());
     
     LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(!call) return;
+    if(linphone_call_get_state(call) != LinphoneCallStreamsRunning) return;
+    
     LinphoneChatRoom* room = linphone_call_get_chat_room(call);
     LinphoneChatMessage* msg = linphone_chat_room_create_message(room, "");
     linphone_chat_message_put_char(msg, (char)8);
@@ -1441,7 +1445,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [self.chatEntries addObject:self.remoteTextBuffer];
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-    [self sortChatEntriesArray];
+    //[self sortChatEntriesArray];
     [self.tableView reloadData];
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
@@ -1453,14 +1457,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     if (asciiCode == 0) {
         return;
     }
-    int index;
-    if ((int)self.chatEntries.count == 0) {
-        index = 0;
-    } else if (self.localTextBufferIndex < 0) { // no local message
-        index = (int)self.chatEntries.count - 1;
-    } else {
-        index = (int)self.chatEntries.count - 2;
-    }
+    int index = self.remoteTextBufferIndex;
+//    if ((int)self.chatEntries.count == 0) {
+//        index = 0;
+//    } else if (self.localTextBufferIndex < 0) { // no local message
+//        index = (int)self.chatEntries.count - 1;
+//    } else {
+//        index = (int)self.chatEntries.count - 2;
+//    }
     
     if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
         
@@ -1503,7 +1507,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
         
-        [self sortChatEntriesArray];
+        //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self insertTextIntoMinimizedTextBuffer:text];
         [self showLatestMessage];
@@ -1521,7 +1525,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.remoteTextBuffer removeLast];
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             if(self.isChatMode){
-                [self sortChatEntriesArray];
+                //[self sortChatEntriesArray];
                 [self.tableView reloadData];
                 [self showLatestMessage];
             }
