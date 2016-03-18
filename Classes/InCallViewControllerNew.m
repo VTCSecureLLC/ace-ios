@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 
 @interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource, UITextInput>
+@property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ringingLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
@@ -78,6 +80,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
 @property (weak, nonatomic) IBOutlet StatusBar *statusBar;
 @property (weak, nonatomic) IBOutlet CallInfoView *callInfoView;
+@property (strong)  NSTimer *ringIncrementTimer ;
 
 @end
 
@@ -237,31 +240,37 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if (!self.isRTTLocallyEnabled) {
                 [[LinphoneManager instance] changeRTTStateForCall:call avtive:NO];
             }
-            
             //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingProgress: {
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
+            [self stopRingCount];
+            self.ringIncrementTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
+                                                                       target:self
+                                                                     selector:@selector(displayIncrementedRingCount)
+                                                                     userInfo:nil
+                                                                      repeats:YES];
+            [self.ringIncrementTimer fire];
+
             break;
         }
         case LinphoneCallOutgoingRinging: {
-            
             //            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingEarlyMedia: {
-            
+             [self stopRingCount];
             NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallConnected: {
-            
+            [self stopRingCount];
             //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
             break;
         }
         case LinphoneCallStreamsRunning: {
-            
+             [self stopRingCount];
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
@@ -290,33 +299,34 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallPausing: {
-            
+             [self stopRingCount];
             //            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
             break;
         }
         case LinphoneCallPaused: {
-            
+            [self stopRingCount];
             //            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
             break;
         }
         case LinphoneCallResuming: {
-            
+             [self stopRingCount];
             //            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
             break;
         }
         case LinphoneCallRefered: {
-            
+             [self stopRingCount];
             NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
             break;
         }
         case LinphoneCallError: {
-            
+            [self stopRingCount];
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             [self.callInfoView stopDataUpdating];
             [self hideQualityIndicator];
             break;
         }
         case LinphoneCallEnd: {
+            [self stopRingCount];
             
             [self.inCallOnHoldView hideWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
             [self.callInfoView stopDataUpdating];
@@ -348,27 +358,27 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallIncomingEarlyMedia: {
-            
+             [self stopRingCount];
             NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallUpdating: {
-            
+             [self stopRingCount];
             //            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
             break;
         }
         case LinphoneCallReleased: {
-            
+            [self stopRingCount];
             [self hideSecondIncomingCallUI];
             break;
         }
         case LinphoneCallEarlyUpdatedByRemote: {
-            
+             [self stopRingCount];
             NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallEarlyUpdating: {
-            
+             [self stopRingCount];
             NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
             break;
         }
@@ -474,6 +484,28 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)incomingReceivedWithCall:(LinphoneCall *)call {
     
     [self showSecondIncomingCallUIWithCall:(LinphoneCall *)call];
+}
+
+- (void)displayIncrementedRingCount {
+    self.ringCountLabel.hidden = NO;
+    self.ringingLabel.hidden = NO;
+    [UIView transitionWithView: self.ringCountLabel
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                    }
+                    completion:^(BOOL finished) {
+                        self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
+                    }];
+}
+- (void)stopRingCount {
+    self.ringCountLabel.hidden = YES;
+    self.ringingLabel.hidden = YES;
+    self.ringCountLabel.text = @"1";
+    if(self.ringIncrementTimer){
+        [self.ringIncrementTimer invalidate];
+        self.ringIncrementTimer = nil;
+    }
 }
 
 - (void)setupCallBarView {
