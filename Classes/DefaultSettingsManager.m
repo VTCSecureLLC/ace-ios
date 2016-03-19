@@ -7,7 +7,7 @@
 //
 
 #import "DefaultSettingsManager.h"
-
+#import "FXKeychain.h"
 #import <UIKit/UIKit.h>
 #import "SRVResolver.h"
 
@@ -100,8 +100,9 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"version"] forKey:@"version"];
     
     [[NSUserDefaults standardUserDefaults] setInteger:[[dict objectForKey:@"expiration_time"] integerValue] forKey:@"expiration_time" ];
+    [FXKeychain defaultKeychain][@"configuration_auth_password"] = ([dict objectForKey:@"configuration_auth_password"] != [NSNull null])?[dict objectForKey:@"configuration_auth_password"]:@"";
     
-    [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"configuration_auth_password"] != [NSNull null])?[dict objectForKey:@"configuration_auth_password"]:@"" forKey:@"configuration_auth_password"];
+//    [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"configuration_auth_password"] != [NSNull null])?[dict objectForKey:@"configuration_auth_password"]:@"" forKey:@"configuration_auth_password"];
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"configuration_auth_expiration"] != [NSNull null])?[dict objectForKey:@"configuration_auth_expiration"]:@"" forKey:@"configuration_auth_expiration"];
     
@@ -111,7 +112,9 @@ static DefaultSettingsManager *sharedInstance = nil;
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_auth_username"] != [NSNull null])?[dict objectForKey:@"sip_auth_username"]:@"" forKey:@"sip_auth_username"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_auth_password"] != [NSNull null])?[dict objectForKey:@"sip_auth_password"]:@"" forKey:@"sip_auth_password"];
+    [FXKeychain defaultKeychain][@"sip_auth_password"] = ([dict objectForKey:@"sip_auth_password"] != [NSNull null])?[dict objectForKey:@"sip_auth_password"]:@"";
+    
+    //[[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_auth_password"] != [NSNull null])?[dict objectForKey:@"sip_auth_password"]:@"" forKey:@"sip_auth_password"];
     
     [[NSUserDefaults standardUserDefaults] setObject:([dict objectForKey:@"sip_register_domain"] != [NSNull null])?[dict objectForKey:@"sip_register_domain"]:@"" forKey:@"sip_register_domain"];
     
@@ -164,8 +167,10 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (void)setSipAuthPassword:(NSString *)sipAuthPassword {
-    [[NSUserDefaults standardUserDefaults] setObject:sipAuthPassword forKey:@"sip_auth_password"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+   // [[NSUserDefaults standardUserDefaults] setObject:sipAuthPassword forKey:@"sip_auth_password"];
+   // [[NSUserDefaults standardUserDefaults] synchronize];
+    [FXKeychain defaultKeychain][@"sip_auth_password"] = sipAuthPassword;
+    
 }
 
 - (void)setSipRegisterDomain:(NSString *)sipRegisterDomain {
@@ -200,7 +205,9 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (NSString*)configAuthPassword {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"configuration_auth_password"];
+    NSLog(@"%@", [FXKeychain defaultKeychain][@"configuration_auth_password"]);
+    return   [FXKeychain defaultKeychain][@"configuration_auth_password"];
+    //[[NSUserDefaults standardUserDefaults] objectForKey:@"configuration_auth_password"];
 }
 
 - (int)exparitionTime {
@@ -228,7 +235,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 }
 
 - (NSString*)sipAuthPassword {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"sip_auth_password"];
+    return   [FXKeychain defaultKeychain][@"sip_auth_password"];  //[[NSUserDefaults standardUserDefaults] stringForKey:@"sip_auth_password"];
 }
 
 - (NSString*)sipRegisterDomain {
