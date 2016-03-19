@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
                                           self.tableView.frame.size.width,
                                           self.tableView.frame.size.height - chat_delta);
-        [self showLatestMessage];
+        //[self showLatestMessage];
         CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
         [self.videoView setCenter:remote_video_center];
         
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         self.isChatMode = YES;
         [self.tableView setHidden:NO];
-//        [self hideControls];
+        //[self hideControls];
        // [self sortChatEntriesArray];
         [self.tableView reloadData];
     }
@@ -596,6 +596,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
         if (self.isRTTEnabled) {
+            [self hideRTTContainer];
             self.isChatMode = YES;
             self.tableView.hidden = NO;
             [self.tableView reloadData];
@@ -829,6 +830,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.remoteTextBuffer = nil;
     self.minimizedTextBuffer = nil;
     
+    UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
+    singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
+    singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
+    [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
+    [self.incomingTextView addGestureRecognizer:singleFingerTappedIncomingChat];
+    
+    
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
@@ -838,7 +846,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTLocallyEnabled = YES;
     }
 }
-
+-(void) openChatMessage: (UITapGestureRecognizer *)sender{
+    if (self.isRTTEnabled) {
+        [self hideRTTContainer];
+        self.isChatMode = YES;
+        self.tableView.hidden = NO;
+        [self.tableView reloadData];
+        [self becomeFirstResponder];
+    }
+}
 - (void)setupCallInfoView {
     
     [self.callInfoView hideWithAnimation:NO completion:nil];
