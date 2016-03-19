@@ -243,6 +243,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
+        case LinphoneCallOutgoingRinging:
         case LinphoneCallOutgoingProgress: {
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
             [self stopRingCount];
@@ -255,10 +256,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
             break;
         }
-        case LinphoneCallOutgoingRinging: {
-            //            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
-            break;
-        }
+            
         case LinphoneCallOutgoingEarlyMedia: {
              [self stopRingCount];
             NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
