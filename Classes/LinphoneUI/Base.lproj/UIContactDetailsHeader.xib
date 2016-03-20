@@ -60,10 +60,11 @@
                             <color key="textColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eGn-4N-wJ0">
-                            <rect key="frame" x="8" y="-1" width="65" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eGn-4N-wJ0">
+                            <rect key="frame" x="5" y="5" width="40" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Not Fav"/>
+                            <state key="normal" image="unselected_star.png"/>
+                            <state key="selected" image="selected_star.png"/>
                             <connections>
                                 <action selector="toggleFavorite:" destination="-1" eventType="touchUpInside" id="mbg-cs-kRx"/>
                             </connections>
@@ -99,5 +100,7 @@
     <resources>
         <image name="avatar_shadow_small.png" width="262" height="214"/>
         <image name="avatar_unknown_small.png" width="131" height="131"/>
+        <image name="selected_star.png" width="128" height="128"/>
+        <image name="unselected_star.png" width="128" height="128"/>
     </resources>
 </document>
