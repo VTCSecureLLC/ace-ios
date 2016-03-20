@@ -14,7 +14,7 @@
 #import "PhoneMainView.h"
 #import "LinphoneAppDelegate.h"
 
-@interface HelpViewController ()
+@interface HelpViewController ()<MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
     
-    tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Videomail", nil];
+    tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Videomail", @"Export Contacts", nil];
     tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
 }
 
@@ -91,6 +91,10 @@
             [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
         }
     }
+    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Export Contacts"]){
+        [self exportAllContacts];
+    }
+
 }
 
 - (NSString*)logFilePath {
@@ -174,6 +178,95 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                            portraitMode:true];
     }
     return compositeDescription;
+}
+
+- (void)exportAllContacts {
+    
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:@"Export all contacts?"
+                                message:@""
+                                preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Yes"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             NSString *exportedContactsFilePath = [[VSContactsManager sharedInstance] exportAllContacts];
+                             
+                             if ([exportedContactsFilePath isEqualToString:@""]) {
+                                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                 message:@"The contact has invalid sip address"
+                                                                                delegate:self
+                                                                       cancelButtonTitle:@"OK"
+                                                                       otherButtonTitles:nil];
+                                 [alert show];
+                                 return;
+                             }
+                             NSData *vcard = [[NSFileManager defaultManager] contentsAtPath:exportedContactsFilePath];
+                             
+                             if (vcard) {
+                                 
+                                 if ([MFMailComposeViewController canSendMail]) {
+                                     MFMailComposeViewController *composeMail =
+                                     [[MFMailComposeViewController alloc] init];
+                                     composeMail.mailComposeDelegate = self;
+                                     [composeMail addAttachmentData:vcard mimeType:@"text/vcard" fileName:@"ACE_contact.vcard"];
+                                     [self presentViewController:composeMail animated:NO completion:^{
+                                     }];
+                                     
+                                 } else {
+                                     UIAlertController *alert = [UIAlertController
+                                                                 alertControllerWithTitle:@"WARNING!"
+                                                                 message:@"There is no default email\n Do you want to go to settings?"
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                                     
+                                     UIAlertAction* ok = [UIAlertAction
+                                                          actionWithTitle:@"Go to Settings"
+                                                          style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+                                                          }];
+                                     
+                                     UIAlertAction* cancel = [UIAlertAction
+                                                              actionWithTitle:@"No Thanks"
+                                                              style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action)
+                                                              {
+                                                                  [alert dismissViewControllerAnimated:YES completion:nil];
+                                                                  
+                                                              }];
+                                     [alert addAction:ok];
+                                     [alert addAction:cancel];
+                                     
+                                     [self presentViewController:alert animated:YES completion:nil];
+                                     
+                                 }
+                             }
+                             [alert dismissViewControllerAnimated:NO completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"No"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate Functions
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    self.tableView.contentInset = UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
+    [controller dismissViewControllerAnimated:NO completion:nil];
 }
 
 /*
