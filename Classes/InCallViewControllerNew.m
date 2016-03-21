@@ -268,11 +268,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallStreamsRunning: {
-             [self stopRingCount];
+            [self stopRingCount];
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
-           
             [self checkHoldCall];
             [self showQualityIndicator];
             // check video
@@ -294,6 +293,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 }
             }
             [self checkRTT];
+            
+            self.inCallOnHoldView.userInteractionEnabled = YES;
             break;
         }
         case LinphoneCallPausing: {
@@ -399,7 +400,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.inCallOnHoldView fillWithCallModel:holdCall];
             [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
         }
+        else {
+            
+        }
     }
+    
 }
 
 - (void)checkRTT {
@@ -751,9 +756,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft completion:nil];
     
+    __weak InCallViewControllerNew *weakSelf = self;
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
-        
-        [self.inCallOnHoldView fillWithCallModel:[[LinphoneManager instance] currentCall]];
+        weakSelf.inCallOnHoldView.userInteractionEnabled = NO;
+        [weakSelf.inCallOnHoldView fillWithCallModel:[[LinphoneManager instance] currentCall]];
         [[LinphoneManager instance] resumeCall:call];
     };
 }
