@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y,
                                           self.tableView.frame.size.width,
                                           self.tableView.frame.size.height - chat_delta);
-        [self showLatestMessage];
+        //[self showLatestMessage];
         CGPoint remote_video_center = CGPointMake(self.videoView.center.x, self.videoView.center.y - remote_video_delta);
         [self.videoView setCenter:remote_video_center];
         
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         self.isChatMode = YES;
         [self.tableView setHidden:NO];
-//        [self hideControls];
+        //[self hideControls];
        // [self sortChatEntriesArray];
         [self.tableView reloadData];
     }
@@ -243,6 +243,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
+        case LinphoneCallOutgoingRinging:
         case LinphoneCallOutgoingProgress: {
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
             [self stopRingCount];
@@ -255,10 +256,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
             break;
         }
-        case LinphoneCallOutgoingRinging: {
-            //            NSAssert(0, @"LinphoneCallOutgoingRinging: Just need to check this state");
-            break;
-        }
+            
         case LinphoneCallOutgoingEarlyMedia: {
              [self stopRingCount];
             NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
@@ -596,6 +594,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
         if (self.isRTTEnabled) {
+            [self hideRTTContainer];
             self.isChatMode = YES;
             self.tableView.hidden = NO;
             [self.tableView reloadData];
@@ -762,52 +761,66 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)setupInCallDialpadView {
     
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
+
+    const int dtmf_length = 250;
     
     self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '1', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '1');
     };
     
     self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '2', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '2');
     };
     
     self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '3', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '3');
     };
     
     self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '4', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '4');
     };
     
     self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '5', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '5');
     };
     
     self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '6', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '6');
     };
     
     self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '7', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '7');
     };
 
     self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '8', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '8');
     };
     
     self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '9', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '9');
     };
     
     self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '*', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '*');
     };
     
     self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '0', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '0');
     };
     
     self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '#', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '#');
     };
 }
@@ -829,6 +842,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.remoteTextBuffer = nil;
     self.minimizedTextBuffer = nil;
     
+    UITapGestureRecognizer *singleFingerTappedIncomingChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openChatMessage:)];
+    singleFingerTappedIncomingChat.numberOfTouchesRequired = 1;
+    singleFingerTappedIncomingChat.numberOfTapsRequired = 1;
+    [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
+    [self.incomingTextView addGestureRecognizer:singleFingerTappedIncomingChat];
+    
+    
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
         self.isRTTLocallyEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_rtt"];
@@ -838,7 +858,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTLocallyEnabled = YES;
     }
 }
-
+-(void) openChatMessage: (UITapGestureRecognizer *)sender{
+    if (self.isRTTEnabled) {
+        [self hideRTTContainer];
+        self.isChatMode = YES;
+        self.tableView.hidden = NO;
+        [self.tableView reloadData];
+        [self becomeFirstResponder];
+    }
+}
 - (void)setupCallInfoView {
     
     [self.callInfoView hideWithAnimation:NO completion:nil];

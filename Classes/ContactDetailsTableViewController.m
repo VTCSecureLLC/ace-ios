@@ -609,17 +609,17 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
         [cell.providerPicker setBackgroundColor:[UIColor darkGrayColor]];
         
         NSString *currentDomain = [self getDomainFromSip:value];
-        NSString *currentSipAddress = [self getAddressFromSip:value];
+       // NSString *currentSipAddress = [self getAddressFromSip:value];
         
         if(![self.tableView isEditing]){
             [cell.providerPicker setHidden:YES];
             [cell.providerPicker setEnabled:NO];
-            cell.detailTextLabel.text = currentSipAddress;
+            cell.detailTextLabel.text = value;
         }
         else{
             [cell.providerPicker setHidden:NO];
             [cell.providerPicker setEnabled:YES];
-            cell.detailTextField.text = currentSipAddress;
+            cell.detailTextField.text = value;
         }
         
         if (currentDomain.length > 0) {
@@ -1134,8 +1134,11 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
             address = sip;
         }
     }
+    else{
+        address = sip;
+    }
     
-    return address;
+    return [address stringByReplacingOccurrencesOfString:@"sip:" withString:@""];
 }
 
 - (NSString *)getDomainFromSip:(NSString *)sip {
@@ -1171,22 +1174,28 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
     if (self.domains) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:customPicker.tag inSection:ContactSections_Sip];
         UIEditableTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-        NSString *selectedDomain = [self.domains objectAtIndex:row];
-        NSString *sipAddress = [self getAddressFromSip:cell.detailTextLabel.text];
+        
+        NSString *selectedDomain = [DefaultSettingsManager sharedInstance].sipRegisterDomain;
+        
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)row]]){
+           selectedDomain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)row]];
+        }
+        
+        NSString *sipAddress = [[self getAddressFromSip:cell.detailTextLabel.text] stringByReplacingOccurrencesOfString:@"sip:" withString:@""];
         NSString *newSipAddress = [NSString stringWithFormat:@"%@@%@", sipAddress, selectedDomain];
         
         NSIndexPath *cellPath = [self.tableView indexPathForCell:cell];
         NSMutableArray *sectionDict = [self getSectionData:cellPath.section];
         Entry *entry = [sectionDict objectAtIndex:cellPath.row];
-        [self setSipContactEntry:entry withValue:newSipAddress];
         
-        if(![self.tableView isEditing]){
+        if([self.tableView isEditing]){
             cell.detailTextField.text = newSipAddress;
         }
         else{
             cell.detailTextLabel.text = newSipAddress;
         }
         
+        [self setSipContactEntry:entry withValue:newSipAddress];
         
         UIImage *image = [self fetchProviderImageWithDomain:selectedDomain];
         [cell.providerPicker setBackgroundColor:[UIColor clearColor]];
