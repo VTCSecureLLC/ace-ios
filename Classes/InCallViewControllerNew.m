@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     LinphoneCall *linphoneCall = [[notification.userInfo objectForKey:@"call"] pointerValue];
     LinphoneCallState linphoneCallState = [[notification.userInfo objectForKey:@"state"] intValue];
-    [self callUpdate:linphoneCall state:linphoneCallState animated:TRUE];
+    [self callUpdate:linphoneCall state:linphoneCallState animated:TRUE notification:notification];
 }
 
 - (void)videoModeUpdate:(NSNotification *)notification {
@@ -210,7 +210,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 
 #pragma mark - Private Methods
-- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
+- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated notification:(NSNotification *)notification {
     
 //    LinphoneCore *lc = [LinphoneManager getLc];
 //    if (hiddenVolume) {
@@ -317,8 +317,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallError: {
+            NSString *message = [notification.userInfo objectForKey:@"message"];
+            [self displayCallError:call message:message];
             [self stopRingCount];
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             [self.callInfoView stopDataUpdating];
             [self hideQualityIndicator];
             break;
@@ -388,6 +389,53 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 //    [self setupMicriphoneButtonState];
 //    [self setupSpeakerButtonState];
     [self checkRTT];
+}
+
+- (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
+    
+    const char *lUserNameChars = linphone_address_get_username(linphone_call_get_remote_address(call));
+    NSString *lUserName =
+    lUserNameChars ? [[NSString alloc] initWithUTF8String:lUserNameChars] : NSLocalizedString(@"Unknown", nil);
+    NSString *lMessage;
+    NSString *lTitle;
+    
+    // get default proxy
+    LinphoneProxyConfig *proxyCfg;
+    linphone_core_get_default_proxy([LinphoneManager getLc], &proxyCfg);
+    if (proxyCfg == nil) {
+        lMessage = NSLocalizedString(@"Please make sure your device is connected to the internet and double check your "
+                                     @"SIP account configuration in the settings.",
+                                     nil);
+    } else {
+        lMessage = [NSString stringWithFormat:NSLocalizedString(@"Cannot call %@.", nil), lUserName];
+    }
+    
+    switch (linphone_call_get_reason(call)) {
+        case LinphoneReasonNotFound:
+            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is not registered.", nil), lUserName];
+            break;
+        case LinphoneReasonBusy:
+            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
+            break;
+        case LinphoneReasonDeclined:
+            lMessage = NSLocalizedString(@"The user is not available", nil);
+            break;
+        default:
+            if (message != nil) {
+                lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];
+            }
+            break;
+    }
+    
+    [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+    
+    lTitle = NSLocalizedString(@"Call failed", nil);
+    UIAlertView *error = [[UIAlertView alloc] initWithTitle:lTitle
+                                                    message:lMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                          otherButtonTitles:nil];
+    [error show];
 }
 
 - (void)checkHoldCall {
@@ -496,6 +544,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                         self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
                     }];
 }
+
 - (void)stopRingCount {
     self.ringCountLabel.hidden = YES;
     self.ringingLabel.hidden = YES;
@@ -858,6 +907,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTLocallyEnabled = YES;
     }
 }
+
 -(void) openChatMessage: (UITapGestureRecognizer *)sender{
     if (self.isRTTEnabled) {
         [self hideRTTContainer];
@@ -867,6 +917,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self becomeFirstResponder];
     }
 }
+
 - (void)setupCallInfoView {
     
     [self.callInfoView hideWithAnimation:NO completion:nil];
@@ -1713,8 +1764,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     return [[UITextRange alloc] init];
 }
 
-#pragma mark - UITextViewDelegate
 
+#pragma mark - UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     
     self.isChatMode = YES;
