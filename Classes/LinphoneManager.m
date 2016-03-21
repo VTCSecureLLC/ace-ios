@@ -1557,8 +1557,8 @@ void configH264HardwareAcell(bool encode, bool decode){
     theLinphoneCore =
     linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
 	LOGI(@"Create linphonecore %p", theLinphoneCore);
-	if ([@"toto" containsString:@"o"])
-		LOGE(@"lol");
+//	if ([@"toto" containsString:@"o"])
+//		LOGE(@"lol");
 
     // Load plugins if available in the linphone SDK - otherwise these calls will do nothing
 	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
