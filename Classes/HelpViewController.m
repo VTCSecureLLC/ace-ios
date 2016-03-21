@@ -84,7 +84,7 @@
         [self showViewController:resourcesController sender:self];
 //        [self presentViewController:resourcesController animated:YES completion:nil];
     }
-    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Videomail"]){
+    else if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
         NSString *address = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_mail_uri_preference"];
         if(address){
             [[LinphoneManager instance] call:address displayName:@"Videomail" transfer:FALSE];
