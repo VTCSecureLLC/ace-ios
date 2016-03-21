@@ -67,6 +67,7 @@
 @property (weak, nonatomic) IBOutlet UIView *viewPasswordBG;
 @property (weak, nonatomic) IBOutlet UITextField *transportTextField;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
 @property (nonatomic, strong) IBOutlet UIView *waitView;

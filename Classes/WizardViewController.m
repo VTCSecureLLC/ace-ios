@@ -70,7 +70,7 @@ typedef enum _ViewElement {
 @synthesize provisionedDomain, provisionedPassword, provisionedUsername;
 @synthesize choiceViewLogoImageView;
 @synthesize viewTapGestureRecognizer;
-
+@synthesize scrollView;
 
 static NSMutableArray *cdnResources;
 #pragma mark - Lifecycle Functions
@@ -140,6 +140,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     //Set delegate to self in order to retreive result
     self.asyncProviderLookupOperation.delegate = self;
     [self.asyncProviderLookupOperation reloadProviderDomains];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + self.buttonLogin.frame.size.height * 2)];
 }
 
 - (void)loadProviderDomainsFromCache {
