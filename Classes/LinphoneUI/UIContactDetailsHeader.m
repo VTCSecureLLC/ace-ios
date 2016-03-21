@@ -122,11 +122,11 @@
     NSArray *favorites = [ContactFavoritesManager getFavorites];
     if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
        
-        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
+        [toggleFavoriteButton setSelected:YES];
     }
     else{
        
-        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
+        [toggleFavoriteButton setSelected:NO];
     }
 
     
@@ -387,11 +387,11 @@
     NSArray *favorites = [ContactFavoritesManager getFavorites];
     if([favorites containsObject:[NSNumber numberWithInt:ABRecordGetRecordID(contact)]]){
         [ContactFavoritesManager removeFavorite:ABRecordGetRecordID(contact)];
-        [toggleFavoriteButton setTitle:@"Not Fav" forState:UIControlStateNormal];
+        [toggleFavoriteButton setSelected:NO];
     }
     else{
         [ContactFavoritesManager addFavorite:ABRecordGetRecordID(contact)];
-        [toggleFavoriteButton setTitle:@"Fav" forState:UIControlStateNormal];
+       [toggleFavoriteButton setSelected:YES];
     }
 }
 
