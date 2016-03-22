@@ -91,10 +91,18 @@
             [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
         }
     }
-    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Export Contacts"]){
-        [self exportAllContacts];
+    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Export Contacts"]) {
+        if ([[VSContactsManager sharedInstance] addressBookContactsCount] <= 0) {
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:nil
+                                                             message:@"You have no contacts to export"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+        } else {
+            [self exportAllContacts];
+        }
     }
-
 }
 
 - (NSString*)logFilePath {
@@ -195,7 +203,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                              
                              if ([exportedContactsFilePath isEqualToString:@""]) {
                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                                 message:@"The contact has invalid sip address"
+                                                                                 message:@"There is no any contact that has sip uri or a phone number"
                                                                                 delegate:self
                                                                        cancelButtonTitle:@"OK"
                                                                        otherButtonTitles:nil];

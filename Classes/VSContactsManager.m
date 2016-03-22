@@ -23,6 +23,7 @@
 
 - (NSString*)exportContact:(ABRecordRef)abRecord {
     
+    [self resetDefaultFrinedList];
     LinphoneFriend *friend = [self createFriendFromContactBySipURI:abRecord];
     if (friend == NULL) {
         return @"";
@@ -40,21 +41,17 @@
 
     ABAddressBookRef addressBook = ABAddressBookCreate( );
     CFArrayRef allContacts = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    if (nPeople <= 0) {
+    
+    [self resetDefaultFrinedList];
+    [self createFriendListWithAllContacts:allContacts];
+
+    LinphoneFriendList *friendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
+    const MSList* friends = linphone_friend_list_get_friends(friendList);
+    if (ms_list_size(friends) <= 0) {
         return @"";
     }
     
-    LinphoneFriendList *oldFriendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
-    linphone_core_remove_friend_list ([LinphoneManager getLc], oldFriendList);
-    
-    LinphoneFriendList *friendListNew = linphone_core_create_friend_list([LinphoneManager getLc]);
-    linphone_core_add_friend_list([LinphoneManager getLc], friendListNew);
-    
-    [self createFriendListWithAllContacts:allContacts];
-    
     NSString *exportedContactsFilePath = [[self documentsDirectoryPath] stringByAppendingString:[NSString stringWithFormat:@"/%@%@.vcard", @"ACE_", @"Contacts"]];
-    
     LinphoneFriendList *defaultFriendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
     linphone_friend_list_export_friends_as_vcard4_file(defaultFriendList, [exportedContactsFilePath UTF8String]);
     
@@ -82,7 +79,9 @@
     LinphoneFriend *linphoneFriend = NULL;
     NSString *contactNameSurnameOrganization = [self contactNameSurnameOrganizationFrom:abRecord];
     NSString *contactPhoneNumber = [self contactPhoneNumberFrom:abRecord];
-    linphoneFriend = [self createFriendFromName:contactNameSurnameOrganization andSipURI:[self phoneNumberWithDefaultSipDomain:contactPhoneNumber]];
+    if (![contactPhoneNumber isEqualToString:@""]) {
+        linphoneFriend = [self createFriendFromName:contactNameSurnameOrganization andSipURI:[self phoneNumberWithDefaultSipDomain:contactPhoneNumber]];
+    }
     
     return linphoneFriend;
 }
@@ -168,9 +167,12 @@
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
     for ( int i = 0; i < nPeople; i++ ) {
         ABRecordRef ref = CFArrayGetValueAtIndex(allContacts, i);
-        LinphoneFriend *friend = [self createFriendFromContactByPhoneNumber:ref];
-        #pragma unused(friend)
-        //LinphoneFriend *friend = [self createFriendFromContactBySipURI:ref];
+        #pragma unused(ref)
+        LinphoneFriend *friendByPhoneNumber = [self createFriendFromContactByPhoneNumber:ref];
+        if (friendByPhoneNumber == NULL) {
+            LinphoneFriend *friendBySipURI = [self createFriendFromContactBySipURI:ref];
+            #pragma unused(friendBySipURI)
+        }
     }
 }
 
@@ -179,6 +181,21 @@
     const char *domain = linphone_proxy_config_get_domain(proxyConfig);
     NSString *phoneNumberWithDefaultDomain = [NSString stringWithFormat:@"sip:%@@%s", phoneNumber, domain];
     return phoneNumberWithDefaultDomain;
+}
+
+- (void)resetDefaultFrinedList {
+    LinphoneFriendList *oldFriendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
+    linphone_core_remove_friend_list ([LinphoneManager getLc], oldFriendList);
+    LinphoneFriendList *friendListNew = linphone_core_create_friend_list([LinphoneManager getLc]);
+    linphone_core_add_friend_list([LinphoneManager getLc], friendListNew);
+}
+
+- (int)addressBookContactsCount {
+    int count = 0;
+    ABAddressBookRef addressBook = ABAddressBookCreate( );
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    count = (int)nPeople;
+    return count;
 }
 
 @end
