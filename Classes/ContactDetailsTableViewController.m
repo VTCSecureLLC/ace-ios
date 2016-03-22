@@ -1086,36 +1086,69 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
     NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
     NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    if (!image) {
-        NSString *localImageName = nil;
-        if ([lowercaseName containsString:@"sorenson"]) {
-            localImageName = @"provider0.png";
+    if (sysVer >= 8.0) {
+        if (!image) {
+            NSString *localImageName = nil;
+            if ([lowercaseName containsString:@"sorenson"]) {
+                localImageName = @"provider0.png";
+            }
+            else if ([lowercaseName containsString:@"zvrs"]) {
+                localImageName = @"provider1.png";
+            }
+            else if ([lowercaseName containsString:@"star"]) {
+                localImageName = @"provider2.png";
+            }
+            else if ([lowercaseName containsString:@"convo"]) {
+                localImageName = @"provider5.png";
+            }
+            else if ([lowercaseName containsString:@"global"]) {
+                localImageName = @"provider4.png";
+            }
+            else if ([lowercaseName containsString:@"purple"]) {
+                localImageName = @"provider3.png";
+            }
+            else if ([lowercaseName containsString:@"ace"]) {
+                localImageName = @"ace_icon2x.png";
+            }
+            else {
+                localImageName = @"ace_icon2x.png";
+            }
+            image = [UIImage imageNamed:localImageName];
         }
-        else if ([lowercaseName containsString:@"zvrs"]) {
-            localImageName = @"provider1.png";
+        
+    } else {
+        if (!image) {
+            NSString *localImageName = nil;
+            if ([lowercaseName rangeOfString:@"sorenson"].location != NSNotFound) {
+                localImageName = @"provider0.png";
+            }
+            else if ([lowercaseName rangeOfString:@"zvrs"].location != NSNotFound) {
+                localImageName = @"provider1.png";
+            }
+            else if ([lowercaseName rangeOfString:@"star"].location != NSNotFound) {
+                localImageName = @"provider2.png";
+            }
+            else if ([lowercaseName rangeOfString:@"convo"].location != NSNotFound) {
+                localImageName = @"provider5.png";
+            }
+            else if ([lowercaseName rangeOfString:@"global"].location != NSNotFound) {
+                localImageName = @"provider4.png";
+            }
+            else if ([lowercaseName rangeOfString:@"purple"].location != NSNotFound) {
+                localImageName = @"provider3.png";
+            }
+            else if ([lowercaseName rangeOfString:@"ace"].location != NSNotFound) {
+                localImageName = @"ace_icon2x.png";
+            }
+            else {
+                localImageName = @"ace_icon2x.png";
+            }
+            image = [UIImage imageNamed:localImageName];
         }
-        else if ([lowercaseName containsString:@"star"]) {
-            localImageName = @"provider2.png";
-        }
-        else if ([lowercaseName containsString:@"convo"]) {
-            localImageName = @"provider5.png";
-        }
-        else if ([lowercaseName containsString:@"global"]) {
-            localImageName = @"provider4.png";
-        }
-        else if ([lowercaseName containsString:@"purple"]) {
-            localImageName = @"provider3.png";
-        }
-        else if ([lowercaseName containsString:@"ace"]) {
-            localImageName = @"ace_icon2x.png";
-        }
-        else {
-            localImageName = @"ace_icon2x.png";
-        }
-        image = [UIImage imageNamed:localImageName];
+        // prior iOS versions
     }
-    
     return image;
 }
 
@@ -1123,38 +1156,78 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
 - (NSString *)getAddressFromSip:(NSString *)sip {
     
     NSString *address = @"";
+    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    if ([sip containsString:@"@"]) {
-        
-        NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
-        if (separatedSip.count > 0) {
-            address = [separatedSip firstObject];
+    if (sysVer >= 8.0) {
+
+        if ([sip containsString:@"@"]) {
+            
+            NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
+            if (separatedSip.count > 0) {
+                address = [separatedSip firstObject];
+            }
+            else {
+                address = sip;
+            }
         }
-        else {
+        else{
             address = sip;
         }
     }
     else{
-        address = sip;
+        if ([sip rangeOfString:@"@"].location != NSNotFound) {
+            
+            NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
+            if (separatedSip.count > 0) {
+                address = [separatedSip firstObject];
+            }
+            else {
+                address = sip;
+            }
+        }
+        else{
+            address = sip;
+        }
     }
     
     return [address stringByReplacingOccurrencesOfString:@"sip:" withString:@""];
 }
 
 - (NSString *)getDomainFromSip:(NSString *)sip {
+    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    if ([sip containsString:@"@"]) {
-        
-        NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
-        if (separatedSip.count > 0) {
-            return [separatedSip lastObject];
+    if (sysVer >= 8.0) {
+
+        if ([sip containsString:@"@"]) {
+            
+            NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
+            if (separatedSip.count > 0) {
+                return [separatedSip lastObject];
+            }
+            else {
+                return @"";
+            }
         }
         else {
             return @"";
         }
     }
-    else {
-        return @"";
+    else{
+        
+        if ([sip rangeOfString:@"@"].location != NSNotFound) {
+            
+            NSArray *separatedSip = [sip componentsSeparatedByString:@"@"];
+            if (separatedSip.count > 0) {
+                return [separatedSip lastObject];
+            }
+            else {
+                return @"";
+            }
+        }
+        else {
+            return @"";
+        }
+
     }
 }
 
