@@ -113,11 +113,11 @@
 
 
 #pragma mark - Private Methods
-
 - (void)displayIncrementedRingCount {
+    
     self.ringCountLabel.hidden = NO;
     [UIView transitionWithView: self.ringCountLabel
-                      duration:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
+                      duration:[[LinphoneManager instance] lpConfigFloatForKey:@"incoming_vibrate_frequency" forSection:@"vtcsecure"]
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                     }
@@ -271,7 +271,8 @@
     }
 }
 
-- (void) vibrate {
+- (void)vibrate {
+    
     [self displayIncrementedRingCount];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
@@ -284,6 +285,7 @@
     self.vibratorTimer = nil;
     self.cameraLedFlasherTimer = nil;
 }
+
 
 #pragma mark - Actions Methods
 - (IBAction)messageAnswerViewButtonAction:(UIButton *)sender {

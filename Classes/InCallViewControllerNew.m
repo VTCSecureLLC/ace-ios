@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     LinphoneCall *linphoneCall = [[notification.userInfo objectForKey:@"call"] pointerValue];
     LinphoneCallState linphoneCallState = [[notification.userInfo objectForKey:@"state"] intValue];
-    [self callUpdate:linphoneCall state:linphoneCallState animated:TRUE];
+    [self callUpdate:linphoneCall state:linphoneCallState animated:TRUE notification:notification];
 }
 
 - (void)videoModeUpdate:(NSNotification *)notification {
@@ -210,7 +210,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 
 #pragma mark - Private Methods
-- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated {
+- (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated notification:(NSNotification *)notification {
     
 //    LinphoneCore *lc = [LinphoneManager getLc];
 //    if (hiddenVolume) {
@@ -268,11 +268,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallStreamsRunning: {
-             [self stopRingCount];
+            [self stopRingCount];
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
-           
             [self checkHoldCall];
             [self showQualityIndicator];
             // check video
@@ -294,6 +293,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 }
             }
             [self checkRTT];
+            
+            self.inCallOnHoldView.userInteractionEnabled = YES;
             break;
         }
         case LinphoneCallPausing: {
@@ -317,8 +318,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallError: {
+            NSString *message = [notification.userInfo objectForKey:@"message"];
+            [self displayCallError:call message:message];
             [self stopRingCount];
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
             [self.callInfoView stopDataUpdating];
             [self hideQualityIndicator];
             break;
@@ -390,6 +392,53 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self checkRTT];
 }
 
+- (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
+    
+    const char *lUserNameChars = linphone_address_get_username(linphone_call_get_remote_address(call));
+    NSString *lUserName =
+    lUserNameChars ? [[NSString alloc] initWithUTF8String:lUserNameChars] : NSLocalizedString(@"Unknown", nil);
+    NSString *lMessage;
+    NSString *lTitle;
+    
+    // get default proxy
+    LinphoneProxyConfig *proxyCfg;
+    linphone_core_get_default_proxy([LinphoneManager getLc], &proxyCfg);
+    if (proxyCfg == nil) {
+        lMessage = NSLocalizedString(@"Please make sure your device is connected to the internet and double check your "
+                                     @"SIP account configuration in the settings.",
+                                     nil);
+    } else {
+        lMessage = [NSString stringWithFormat:NSLocalizedString(@"Cannot call %@.", nil), lUserName];
+    }
+    
+    switch (linphone_call_get_reason(call)) {
+        case LinphoneReasonNotFound:
+            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is not registered.", nil), lUserName];
+            break;
+        case LinphoneReasonBusy:
+            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
+            break;
+        case LinphoneReasonDeclined:
+            lMessage = NSLocalizedString(@"The user is not available", nil);
+            break;
+        default:
+            if (message != nil) {
+                lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];
+            }
+            break;
+    }
+    
+    [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+    
+    lTitle = NSLocalizedString(@"Call failed", nil);
+    UIAlertView *error = [[UIAlertView alloc] initWithTitle:lTitle
+                                                    message:lMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                          otherButtonTitles:nil];
+    [error show];
+}
+
 - (void)checkHoldCall {
     
     LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
@@ -399,7 +448,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.inCallOnHoldView fillWithCallModel:holdCall];
             [self.inCallOnHoldView showWithAnimation:YES direction:AnimationDirectionLeft completion:nil];
         }
+        else {
+            
+        }
     }
+    
 }
 
 - (void)checkRTT {
@@ -496,6 +549,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                         self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
                     }];
 }
+
 - (void)stopRingCount {
     self.ringCountLabel.hidden = YES;
     self.ringingLabel.hidden = YES;
@@ -751,9 +805,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [self.inCallOnHoldView hideWithAnimation:NO direction:AnimationDirectionLeft completion:nil];
     
+    __weak InCallViewControllerNew *weakSelf = self;
     self.inCallOnHoldView.holdViewActionBlock = ^(LinphoneCall *call) {
-        
-        [self.inCallOnHoldView fillWithCallModel:[[LinphoneManager instance] currentCall]];
+        weakSelf.inCallOnHoldView.userInteractionEnabled = NO;
+        [weakSelf.inCallOnHoldView fillWithCallModel:[[LinphoneManager instance] currentCall]];
         [[LinphoneManager instance] resumeCall:call];
     };
 }
@@ -761,52 +816,66 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)setupInCallDialpadView {
     
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
+
+    const int dtmf_length = 250;
     
     self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '1', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '1');
     };
     
     self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '2', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '2');
     };
     
     self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '3', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '3');
     };
     
     self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '4', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '4');
     };
     
     self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '5', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '5');
     };
     
     self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '6', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '6');
     };
     
     self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '7', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '7');
     };
 
     self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '8', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '8');
     };
     
     self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '9', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '9');
     };
     
     self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '*', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '*');
     };
     
     self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '0', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '0');
     };
     
     self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
+        linphone_core_play_dtmf([LinphoneManager getLc], '#', dtmf_length);
         linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '#');
     };
 }
@@ -844,6 +913,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.isRTTLocallyEnabled = YES;
     }
 }
+
 -(void) openChatMessage: (UITapGestureRecognizer *)sender{
     if (self.isRTTEnabled) {
         [self hideRTTContainer];
@@ -853,6 +923,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self becomeFirstResponder];
     }
 }
+
 - (void)setupCallInfoView {
     
     [self.callInfoView hideWithAnimation:NO completion:nil];
@@ -1699,8 +1770,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     return [[UITextRange alloc] init];
 }
 
-#pragma mark - UITextViewDelegate
 
+#pragma mark - UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     
     self.isChatMode = YES;
