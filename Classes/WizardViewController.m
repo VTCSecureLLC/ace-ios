@@ -238,6 +238,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - DefaultSettingsManager delegate method
 - (void)didFinishLoadingConfigData {
     [self initLoginSettingsFields];
+    [self apiSignIn];
 }
 
 - (void)didFinishWithError {
@@ -1557,119 +1558,12 @@ UIAlertView *transportAlert;
 }
 
 - (void)apiSignIn {
-//    NSDictionary *userDict = @{ @"user" : @{
-//                                        @"email" : self.textFieldUsername.text,
-//                                        @"password" : self.textFieldPassword.text
-//                                        }
-//                                };
-//    
-//    NSError *jsonSerializationError = nil;
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDict
-//                                                       options:NSJSONWritingPrettyPrinted error:&jsonSerializationError];
-//    
-//    if(jsonSerializationError) {
-//        NSLog(@"JSON Encoding Failed: %@", [jsonSerializationError localizedDescription]);
-//    }
-//    else
-//    {
-//        NSLog(@"JSON Request: %@", [[NSString alloc] initWithData:jsonData
-//                                                         encoding:NSUTF8StringEncoding]);
-//        
-//    }
-//    
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/users/sign_in", @"https://crm.videoremoteassistance.com"]];
-//    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    NSArray *cookies = [cookieStorage cookiesForURL:url];
-//    for (NSHTTPCookie *cookie in cookies) {
-//        [cookieStorage deleteCookie:cookie];
-//    }
-//    
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
-//    [request setHTTPBody: jsonData];
-//    
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse *response,
-//                                               NSData *data, NSError *connectionError)
-//     {
-//         NSInteger response_code = -1;
-//         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-//             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-//             response_code = [httpResponse statusCode];
-//         }
-//         if (connectionError.code == kCFURLErrorUserCancelledAuthentication) response_code = 401;
-//         
-//         NSLog(@"VisualAccessHomeViewController apiSignIn response_code = %ld",(long)response_code);
-//         
-//         if (connectionError)
-//         {
-//             NSLog(@"%@",[connectionError localizedDescription]);
-//             if(response_code && (response_code == 401 || response_code == 403)) {
-//                 [self showAlert:@"Login or password is incorrect"];
-//             } else {
-//                 [self showAlert:[connectionError localizedDescription]];
-//             }
-//         }
-//         else
-//         {
-//             if (data.length > 0 && connectionError == nil)
-//             {
-//                 NSError* jsonDeSerializationError = nil;
-//                 NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data
-//                                                                          options:kNilOptions
-//                                                                            error:&jsonDeSerializationError];
-//                 if(jsonDeSerializationError) {
-//                     NSLog(@"JSON Decoding Failed: %@", [jsonDeSerializationError localizedDescription]);
-//                     [self showAlert:@"The server responded with bad data"];
-//                 } else {
-//                     NSLog(@"Successfully logged in");
-//                     
-//                     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:response
-//                                                                        options:NSJSONWritingPrettyPrinted error:nil];
-//                     NSLog(@"JSON Response: %@", [[NSString alloc] initWithData:jsonData
-//                                                                       encoding:NSUTF8StringEncoding]);
-//                     
-//                     NSString *password = [response objectForKey:@"auth_token"];
-//                     NSString *username = [response objectForKey:@"pbx_extension"];
-//                     
-//                     [[LinphoneManager instance] lpConfigSetString:password forKey:@"password_preference"];
-//                     [[LinphoneManager instance] lpConfigSetString:username forKey:@"username_preference"];
-//                     
-//                     NSString *full_name =
-//                     [NSString stringWithFormat:@"%@ %@",
-//                      [response objectForKey:@"first_name"],
-//                      [response objectForKey:@"last_name"]];
-//                     
-//                     LinphoneCore *lc = [LinphoneManager getLc];
-//                     LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
-//                     
-//                     
-//                     linphone_address_set_display_name(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-//                     linphone_address_set_username(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-//
-//                     [self verificationSignInWithUsername:username
-//                                                 password:password
-//                                                   domain:@"pbx.videoremoteassistance.com"
-//                                            withTransport:@"UDP"];
-//                 }
-//             }
-//         }
-//     }];
     
-    NSString *port_string = self.textFieldPort.text;
-    int port_value = [port_string intValue];
-    
-    int port = port_value;
-
+    int port = [self.textFieldPort.text intValue];
     NSString *transport = [self.transportTextField.text uppercaseString];
     if(![transport isEqualToString:@"TCP"] && ![transport isEqualToString:@"TLS"]){
         transport = @"TCP";
     }
-    
     [self verificationSignInWithUsername:self.textFieldUsername.text
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text
