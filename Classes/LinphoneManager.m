@@ -1557,8 +1557,8 @@ void configH264HardwareAcell(bool encode, bool decode){
     theLinphoneCore =
     linphone_core_new_with_config(&linphonec_vtable, configDb, (__bridge void *)(self) /* user_data */);
 	LOGI(@"Create linphonecore %p", theLinphoneCore);
-	if ([@"toto" containsString:@"o"])
-		LOGE(@"lol");
+//	if ([@"toto" containsString:@"o"])
+//		LOGE(@"lol");
 
     // Load plugins if available in the linphone SDK - otherwise these calls will do nothing
 	MSFactory *f = linphone_core_get_ms_factory(theLinphoneCore);
@@ -2271,17 +2271,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 
 - (BOOL)isMicrophoneEnabled {
     
-    return linphone_core_mic_enabled(theLinphoneCore);
+    return linphone_core_mic_enabled([LinphoneManager getLc]);
 }
 
 - (void)enableMicrophone {
-    
-    linphone_core_enable_mic(theLinphoneCore, true);
+    LinphoneCall *currentCall = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(currentCall){
+        if(linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning){
+             linphone_core_enable_mic([LinphoneManager getLc], true);
+        }
+    }
+   
 }
 
 - (void)disableMicrophone {
-    
-    linphone_core_enable_mic(theLinphoneCore, false);
+    LinphoneCall *currentCall = linphone_core_get_current_call([LinphoneManager getLc]);
+    if(currentCall){
+        if(linphone_call_get_state(currentCall)  == LinphoneCallStreamsRunning){
+             linphone_core_enable_mic([LinphoneManager getLc], false);
+        }
+    }
 }
 
 - (BOOL)isSpeakerEnabled {

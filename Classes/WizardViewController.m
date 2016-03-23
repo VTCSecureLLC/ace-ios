@@ -70,7 +70,7 @@ typedef enum _ViewElement {
 @synthesize provisionedDomain, provisionedPassword, provisionedUsername;
 @synthesize choiceViewLogoImageView;
 @synthesize viewTapGestureRecognizer;
-
+@synthesize scrollView;
 
 static NSMutableArray *cdnResources;
 #pragma mark - Lifecycle Functions
@@ -140,6 +140,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     //Set delegate to self in order to retreive result
     self.asyncProviderLookupOperation.delegate = self;
     [self.asyncProviderLookupOperation reloadProviderDomains];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + self.buttonLogin.frame.size.height * 2)];
 }
 
 - (void)loadProviderDomainsFromCache {
@@ -236,6 +238,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - DefaultSettingsManager delegate method
 - (void)didFinishLoadingConfigData {
     [self initLoginSettingsFields];
+    [self apiSignIn];
 }
 
 - (void)didFinishWithError {
@@ -489,8 +492,10 @@ static UICompositeViewDescription *compositeDescription = nil;
                 domain:(NSString*)domain
          withTransport:(NSString*)transport
                   port:(int)port {
+    [self setConfigurationSettingsInitialValues];
     transport = [transport lowercaseString];
     LinphoneCore* lc = [LinphoneManager getLc];
+    
     LinphoneProxyConfig* proxyCfg = linphone_core_create_proxy_config(lc);
     NSString* server_address = domain;
     
@@ -611,11 +616,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     
     LpConfig *config = linphone_core_get_config(lc);
     LinphoneVideoPolicy policy;
-    policy.automatically_accept = YES;//[self boolForKey:@"accept_video_preference"];
-    policy.automatically_initiate = YES;//[self boolForKey:@"start_video_preference"];
+    policy.automatically_accept = [[DefaultSettingsManager sharedInstance] enableVideo];
+    policy.automatically_initiate = [[DefaultSettingsManager sharedInstance] enableVideo];
     linphone_core_set_video_policy(lc, &policy);
-    linphone_core_enable_self_view(lc, YES); // [self boolForKey:@"self_video_preference"]
-    BOOL preview_preference = YES;//[self boolForKey:@"preview_preference"];
+    linphone_core_enable_self_view(lc, [[DefaultSettingsManager sharedInstance] enableVideo]); // [self boolForKey:@"self_video_preference"]
+    BOOL preview_preference = [[DefaultSettingsManager sharedInstance] enableVideo];//[self boolForKey:@"preview_preference"];
     lp_config_set_int(config, [LINPHONERC_APPLICATION_KEY UTF8String], "preview_preference", preview_preference);
     
     NSString *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"ACE_FIRST_OPEN"];
@@ -626,8 +631,8 @@ static UICompositeViewDescription *compositeDescription = nil;
         MSVideoSize vsize;
         MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         linphone_core_set_preferred_video_size([LinphoneManager getLc], vsize);
-        linphone_core_set_download_bandwidth([LinphoneManager getLc], 1500);
-        linphone_core_set_upload_bandwidth([LinphoneManager getLc], 1500);
+        linphone_core_set_download_bandwidth([LinphoneManager getLc], [[DefaultSettingsManager sharedInstance] downloadBandwidth]);
+        linphone_core_set_upload_bandwidth([LinphoneManager getLc],[ [DefaultSettingsManager sharedInstance] uploadBandwidth]);
         
         [[NSUserDefaults standardUserDefaults] setObject:@"Explicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -635,7 +640,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     // video_resolution_maximum
     if (!first) {
         MSVideoSize vsize;
-        NSString *videoPreferredSize = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_preferred_size_preference"]; //[DefaultSettingsManager sharedInstance].videoResolutionMaximum;
+        NSString *videoPreferredSize = [DefaultSettingsManager sharedInstance].videoResolutionMaximum;
         
         if ([videoPreferredSize isEqualToString:@"cif"]) {
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
@@ -655,8 +660,11 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    [self setConfigurationSettingsInitialValues];
-    
+   // [self setConfigurationSettingsInitialValues];
+    LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
+    [settingsStore transformLinphoneCoreToKeys];
+    [settingsStore synchronize];
+
     return TRUE;
 }
 
@@ -729,34 +737,68 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
     NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    if (!image) {
-        NSString *localImageName = nil;
-        if ([lowercaseName containsString:@"sorenson"]) {
-            localImageName = @"provider0.png";
+    if (sysVer >= 8.0) {
+        if (!image) {
+            NSString *localImageName = nil;
+            if ([lowercaseName containsString:@"sorenson"]) {
+                localImageName = @"provider0.png";
+            }
+            else if ([lowercaseName containsString:@"zvrs"]) {
+                localImageName = @"provider1.png";
+            }
+            else if ([lowercaseName containsString:@"star"]) {
+                localImageName = @"provider2.png";
+            }
+            else if ([lowercaseName containsString:@"convo"]) {
+                localImageName = @"provider5.png";
+            }
+            else if ([lowercaseName containsString:@"global"]) {
+                localImageName = @"provider4.png";
+            }
+            else if ([lowercaseName containsString:@"purple"]) {
+                localImageName = @"provider3.png";
+            }
+            else if ([lowercaseName containsString:@"ace"]) {
+                localImageName = @"ace_icon2x.png";
+            }
+            else {
+                localImageName = @"ace_icon2x.png";
+            }
+            image = [UIImage imageNamed:localImageName];
         }
-        else if ([lowercaseName containsString:@"zvrs"]) {
-            localImageName = @"provider1.png";
+
+    } else {
+        if (!image) {
+            NSString *localImageName = nil;
+            if ([lowercaseName rangeOfString:@"sorenson"].location != NSNotFound) {
+                localImageName = @"provider0.png";
+            }
+            else if ([lowercaseName rangeOfString:@"zvrs"].location != NSNotFound) {
+                localImageName = @"provider1.png";
+            }
+            else if ([lowercaseName rangeOfString:@"star"].location != NSNotFound) {
+                localImageName = @"provider2.png";
+            }
+            else if ([lowercaseName rangeOfString:@"convo"].location != NSNotFound) {
+                localImageName = @"provider5.png";
+            }
+            else if ([lowercaseName rangeOfString:@"global"].location != NSNotFound) {
+                localImageName = @"provider4.png";
+            }
+            else if ([lowercaseName rangeOfString:@"purple"].location != NSNotFound) {
+                localImageName = @"provider3.png";
+            }
+            else if ([lowercaseName rangeOfString:@"ace"].location != NSNotFound) {
+                localImageName = @"ace_icon2x.png";
+            }
+            else {
+                localImageName = @"ace_icon2x.png";
+            }
+            image = [UIImage imageNamed:localImageName];
         }
-        else if ([lowercaseName containsString:@"star"]) {
-            localImageName = @"provider2.png";
-        }
-        else if ([lowercaseName containsString:@"convo"]) {
-            localImageName = @"provider5.png";
-        }
-        else if ([lowercaseName containsString:@"global"]) {
-            localImageName = @"provider4.png";
-        }
-        else if ([lowercaseName containsString:@"purple"]) {
-            localImageName = @"provider3.png";
-        }
-        else if ([lowercaseName containsString:@"ace"]) {
-            localImageName = @"ace_icon2x.png";
-        }
-        else {
-            localImageName = @"ace_icon2x.png";
-        }
-        image = [UIImage imageNamed:localImageName];
+        // prior iOS versions
     }
     
     return image;
@@ -1521,119 +1563,12 @@ UIAlertView *transportAlert;
 }
 
 - (void)apiSignIn {
-//    NSDictionary *userDict = @{ @"user" : @{
-//                                        @"email" : self.textFieldUsername.text,
-//                                        @"password" : self.textFieldPassword.text
-//                                        }
-//                                };
-//    
-//    NSError *jsonSerializationError = nil;
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDict
-//                                                       options:NSJSONWritingPrettyPrinted error:&jsonSerializationError];
-//    
-//    if(jsonSerializationError) {
-//        NSLog(@"JSON Encoding Failed: %@", [jsonSerializationError localizedDescription]);
-//    }
-//    else
-//    {
-//        NSLog(@"JSON Request: %@", [[NSString alloc] initWithData:jsonData
-//                                                         encoding:NSUTF8StringEncoding]);
-//        
-//    }
-//    
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/users/sign_in", @"https://crm.videoremoteassistance.com"]];
-//    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    NSArray *cookies = [cookieStorage cookiesForURL:url];
-//    for (NSHTTPCookie *cookie in cookies) {
-//        [cookieStorage deleteCookie:cookie];
-//    }
-//    
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
-//    [request setHTTPBody: jsonData];
-//    
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse *response,
-//                                               NSData *data, NSError *connectionError)
-//     {
-//         NSInteger response_code = -1;
-//         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-//             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-//             response_code = [httpResponse statusCode];
-//         }
-//         if (connectionError.code == kCFURLErrorUserCancelledAuthentication) response_code = 401;
-//         
-//         NSLog(@"VisualAccessHomeViewController apiSignIn response_code = %ld",(long)response_code);
-//         
-//         if (connectionError)
-//         {
-//             NSLog(@"%@",[connectionError localizedDescription]);
-//             if(response_code && (response_code == 401 || response_code == 403)) {
-//                 [self showAlert:@"Login or password is incorrect"];
-//             } else {
-//                 [self showAlert:[connectionError localizedDescription]];
-//             }
-//         }
-//         else
-//         {
-//             if (data.length > 0 && connectionError == nil)
-//             {
-//                 NSError* jsonDeSerializationError = nil;
-//                 NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data
-//                                                                          options:kNilOptions
-//                                                                            error:&jsonDeSerializationError];
-//                 if(jsonDeSerializationError) {
-//                     NSLog(@"JSON Decoding Failed: %@", [jsonDeSerializationError localizedDescription]);
-//                     [self showAlert:@"The server responded with bad data"];
-//                 } else {
-//                     NSLog(@"Successfully logged in");
-//                     
-//                     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:response
-//                                                                        options:NSJSONWritingPrettyPrinted error:nil];
-//                     NSLog(@"JSON Response: %@", [[NSString alloc] initWithData:jsonData
-//                                                                       encoding:NSUTF8StringEncoding]);
-//                     
-//                     NSString *password = [response objectForKey:@"auth_token"];
-//                     NSString *username = [response objectForKey:@"pbx_extension"];
-//                     
-//                     [[LinphoneManager instance] lpConfigSetString:password forKey:@"password_preference"];
-//                     [[LinphoneManager instance] lpConfigSetString:username forKey:@"username_preference"];
-//                     
-//                     NSString *full_name =
-//                     [NSString stringWithFormat:@"%@ %@",
-//                      [response objectForKey:@"first_name"],
-//                      [response objectForKey:@"last_name"]];
-//                     
-//                     LinphoneCore *lc = [LinphoneManager getLc];
-//                     LinphoneAddress *parsed = linphone_core_get_primary_contact_parsed(lc);
-//                     
-//                     
-//                     linphone_address_set_display_name(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-//                     linphone_address_set_username(parsed,[full_name cStringUsingEncoding:[NSString defaultCStringEncoding]]);
-//
-//                     [self verificationSignInWithUsername:username
-//                                                 password:password
-//                                                   domain:@"pbx.videoremoteassistance.com"
-//                                            withTransport:@"UDP"];
-//                 }
-//             }
-//         }
-//     }];
     
-    NSString *port_string = self.textFieldPort.text;
-    int port_value = [port_string intValue];
-    
-    int port = port_value;
-
+    int port = [self.textFieldPort.text intValue];
     NSString *transport = [self.transportTextField.text uppercaseString];
     if(![transport isEqualToString:@"TCP"] && ![transport isEqualToString:@"TLS"]){
         transport = @"TCP";
     }
-    
     [self verificationSignInWithUsername:self.textFieldUsername.text
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text
@@ -1728,8 +1663,8 @@ UIAlertView *transportAlert;
     // sip_videomail_uri - ?
     
     // video_resolution_maximum - set
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
 - (void)enableAppropriateCodecs:(const MSList *)codecs {
     LinphoneCore *lc = [LinphoneManager getLc];
     PayloadType *pt;
