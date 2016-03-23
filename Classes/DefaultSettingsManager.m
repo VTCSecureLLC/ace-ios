@@ -11,8 +11,6 @@
 #import <UIKit/UIKit.h>
 #import "SRVResolver.h"
 
-#define CONFIG_SETTINGS_URL @"http://cdn.vatrp.net/numbers.json"
-
 @interface DefaultSettingsManager () <SRVResolverDelegate, NSURLConnectionDelegate>
 {
     UIActivityIndicatorView *aiv;
