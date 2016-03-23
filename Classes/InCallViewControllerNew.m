@@ -279,16 +279,21 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 const LinphoneCallParams *params = linphone_call_get_current_params(call);
                 if(params != NULL){
                     //If H.263, rotate video sideways when in portrait to work around codec limitations
-                    if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
-                        if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
-                           linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
-                            
-                            linphone_core_set_device_rotation([LinphoneManager getLc], 270);
-                            linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                    @try {
+                        if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
+                            if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
+                               linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
+                                
+                                linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                                linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                            }
+                        }
+                        else{
+                            [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
                         }
                     }
-                    else{
-                        [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
+                    @catch (NSException *exception) {
+                        
                     }
                 }
             }
@@ -304,6 +309,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallPaused: {
             [self stopRingCount];
+            [self updateCallStateWithButtonsState];
             //            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
             break;
         }
@@ -579,7 +585,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.videoButtonActionHandler = ^(UIButton *sender) {
         
-        
         LinphoneCore *lc = [LinphoneManager getLc];
         LinphoneCall *currentCall = linphone_core_get_current_call(lc);
         
@@ -663,6 +668,19 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
         }
     };
+}
+
+- (void)updateCallStateWithButtonsState {
+
+    //Speaker
+    if (self.callBarView.isSoundButtonSelected && [[LinphoneManager instance] isSpeakerEnabled]) {
+        [[LinphoneManager instance] disableSpeaker];
+    }
+    
+    //Microphone
+    if (self.callBarView.isVoiceButtonSelected && [[LinphoneManager instance] isMicrophoneEnabled]) {
+        [[LinphoneManager instance] disableMicrophone];
+    }
 }
 
 - (void)showSecondIncomingCallUIWithCall:(LinphoneCall *)call {
@@ -787,7 +805,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.secondIncomingCallBarView.acceptButtonBlock = ^(LinphoneCall *linphoneCall) {
         
         [[LinphoneManager instance] acceptCall:linphoneCall];
-        
         [self hideSecondIncomingCallUI];
     };
 }
