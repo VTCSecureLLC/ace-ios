@@ -17,6 +17,8 @@
 + (VSContactsManager *)sharedInstance;
 
 - (NSString*)exportContact:(ABRecordRef)abRecord;
-- (LinphoneFriend*)createFriendFromContact:(ABRecordRef)abRecord;
+- (LinphoneFriend*)createFriendFromContactBySipURI:(ABRecordRef)abRecord;
+- (NSString*)exportAllContacts;
+- (int)addressBookContactsCount;
 
 @end

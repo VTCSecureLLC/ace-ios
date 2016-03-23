@@ -2271,28 +2271,26 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 
 - (BOOL)isMicrophoneEnabled {
     
-    return linphone_core_mic_enabled(theLinphoneCore);
+    return linphone_core_mic_enabled([LinphoneManager getLc]);
 }
 
 - (void)enableMicrophone {
-    LinphoneCall *currentCall = linphone_core_get_current_call(theLinphoneCore);
+    LinphoneCall *currentCall = linphone_core_get_current_call([LinphoneManager getLc]);
     if(currentCall){
         if(linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning){
-             linphone_core_enable_mic(theLinphoneCore, true);
+             linphone_core_enable_mic([LinphoneManager getLc], true);
         }
     }
    
 }
 
 - (void)disableMicrophone {
-    LinphoneCall *currentCall = linphone_core_get_current_call(theLinphoneCore);
+    LinphoneCall *currentCall = linphone_core_get_current_call([LinphoneManager getLc]);
     if(currentCall){
         if(linphone_call_get_state(currentCall)  == LinphoneCallStreamsRunning){
-             linphone_core_enable_mic(theLinphoneCore, false);
+             linphone_core_enable_mic([LinphoneManager getLc], false);
         }
     }
-    
-  
 }
 
 - (BOOL)isSpeakerEnabled {
