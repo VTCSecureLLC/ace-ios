@@ -2006,10 +2006,13 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	}
     // Add text to accept all incoming text but only if we have text enabled.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-        linphone_call_params_enable_realtime_text(lcallParams, linphone_call_params_realtime_text_enabled(lcallParams));
-    }
-    else {
-        linphone_call_params_enable_realtime_text(lcallParams, NO);
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, YES);
+        }
+    } else {
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, NO);
+        }
     }
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
@@ -2065,7 +2068,9 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     LinphoneCallParams* lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
     // Adding text to all placed calls.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-        linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, YES);
+        }
     }
     
 	LinphoneAddress *addr = NULL;
@@ -2089,7 +2094,9 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		//LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
         // Adding text to call.
         if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-            linphone_call_params_enable_realtime_text(lcallParams, true);
+            if (lcallParams) {
+                linphone_call_params_enable_realtime_text(lcallParams, YES);
+            }
         }
         
         if ([self lpConfigBoolForKey:@"edge_opt_preference"] && (self.network == network_2g)) {
