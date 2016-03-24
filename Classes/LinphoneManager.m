@@ -2249,16 +2249,19 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (void)enableCameraForCurrentCall {
     
     LinphoneCore *lc = [LinphoneManager getLc];
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneCall *call = linphone_core_get_current_call(lc);
     
     if (call) {
         LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
-        callAppData->videoRequested =
-        TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
-        linphone_call_enable_camera(call, TRUE);
-        LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
-        linphone_call_send_info_message(call, linphoneInfoMessage);
+        if (NULL != callAppData) {
+            callAppData->videoRequested = TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
+            linphone_call_enable_camera(call, TRUE);
+            LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
+            if (NULL != linphoneInfoMessage) {
+                linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
+                linphone_call_send_info_message(call, linphoneInfoMessage);
+            }
+        }
     } else {
         LOGW(@"Cannot toggle video button, because no current call");
     }
@@ -2267,13 +2270,15 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (void)disableCameraForCurrentCall {
     
     LinphoneCore *lc = [LinphoneManager getLc];
-
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneCall *call = linphone_core_get_current_call(lc);
+    
     if (call) {
         linphone_call_enable_camera(call, FALSE);
         LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
-        linphone_call_send_info_message(call, linphoneInfoMessage);
+        if (NULL != linphoneInfoMessage) {
+            linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
+            linphone_call_send_info_message(call, linphoneInfoMessage);
+        }
     } else {
         LOGW(@"Cannot toggle video button, because no current call");
     }
