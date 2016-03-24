@@ -641,6 +641,14 @@ CGRect IASKCGRectSwap(CGRect rect);
     }  else {
         cell.backgroundColor = [UIColor whiteColor];
     }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"] && specifier &&
+        ([specifier.key isEqualToString:@"background_color_preference"] || [specifier.key isEqualToString:@"foreground_color_preference"])) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else 	if (![specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    
     return cell;
 }
 
