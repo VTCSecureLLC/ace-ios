@@ -72,6 +72,12 @@ mime=MP4V-ES
 rate=90000
 enabled=0
 
+
+[video_codec_5]
+mime=H263-1998
+rate=90000
+enabled=0
+
 [sound]
 playback_dev_id=AU: Audio Unit Receiver
 capture_dev_id=AU: Audio Unit Receiver
