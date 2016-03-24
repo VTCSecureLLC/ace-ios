@@ -31,7 +31,8 @@
 <UITextFieldDelegate,
 UICompositeViewDelegate,
 MFMailComposeViewControllerDelegate,
-AsyncProviderLookupDelegate> {
+AsyncProviderLookupDelegate,
+UIAlertViewDelegate> {
 }
 
 - (void)setAddress:(NSString*)address;
