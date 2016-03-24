@@ -2006,10 +2006,13 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	}
     // Add text to accept all incoming text but only if we have text enabled.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-        linphone_call_params_enable_realtime_text(lcallParams, linphone_call_params_realtime_text_enabled(lcallParams));
-    }
-    else {
-        linphone_call_params_enable_realtime_text(lcallParams, NO);
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, YES);
+        }
+    } else {
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, NO);
+        }
     }
 	linphone_core_accept_call_with_params(theLinphoneCore, call, lcallParams);
 }
@@ -2065,7 +2068,9 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     LinphoneCallParams* lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
     // Adding text to all placed calls.
     if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-        linphone_call_params_enable_realtime_text(lcallParams, linphone_core_realtime_text_enabled(theLinphoneCore));
+        if (lcallParams) {
+            linphone_call_params_enable_realtime_text(lcallParams, YES);
+        }
     }
     
 	LinphoneAddress *addr = NULL;
@@ -2089,7 +2094,9 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 		//LinphoneCallParams *lcallParams = linphone_core_create_call_params(theLinphoneCore, NULL);
         // Adding text to call.
         if ([[LinphoneManager instance] lpConfigBoolForKey:@"rtt"]) {
-            linphone_call_params_enable_realtime_text(lcallParams, true);
+            if (lcallParams) {
+                linphone_call_params_enable_realtime_text(lcallParams, YES);
+            }
         }
         
         if ([self lpConfigBoolForKey:@"edge_opt_preference"] && (self.network == network_2g)) {
@@ -2155,7 +2162,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         const MSList *calls = linphone_core_get_calls(lc);
         if (ms_list_size(calls) == 1) { // Only one call
             
-            linphone_core_terminate_call(lc, (LinphoneCall *)(calls->data));
+            currentcall = (LinphoneCall *)(calls->data);
+            if (NULL != currentcall) {
+                linphone_core_terminate_call(lc, currentcall);
+            }
         }
     }
 }
@@ -2239,16 +2249,19 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (void)enableCameraForCurrentCall {
     
     LinphoneCore *lc = [LinphoneManager getLc];
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneCall *call = linphone_core_get_current_call(lc);
     
     if (call) {
         LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
-        callAppData->videoRequested =
-        TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
-        linphone_call_enable_camera(call, TRUE);
-        LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
-        linphone_call_send_info_message(call, linphoneInfoMessage);
+        if (NULL != callAppData) {
+            callAppData->videoRequested = TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
+            linphone_call_enable_camera(call, TRUE);
+            LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
+            if (NULL != linphoneInfoMessage) {
+                linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
+                linphone_call_send_info_message(call, linphoneInfoMessage);
+            }
+        }
     } else {
         LOGW(@"Cannot toggle video button, because no current call");
     }
@@ -2257,13 +2270,15 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (void)disableCameraForCurrentCall {
     
     LinphoneCore *lc = [LinphoneManager getLc];
-
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+    LinphoneCall *call = linphone_core_get_current_call(lc);
+    
     if (call) {
         linphone_call_enable_camera(call, FALSE);
         LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-        linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
-        linphone_call_send_info_message(call, linphoneInfoMessage);
+        if (NULL != linphoneInfoMessage) {
+            linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
+            linphone_call_send_info_message(call, linphoneInfoMessage);
+        }
     } else {
         LOGW(@"Cannot toggle video button, because no current call");
     }
