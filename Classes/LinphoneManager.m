@@ -2155,7 +2155,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
         const MSList *calls = linphone_core_get_calls(lc);
         if (ms_list_size(calls) == 1) { // Only one call
             
-            linphone_core_terminate_call(lc, (LinphoneCall *)(calls->data));
+            currentcall = (LinphoneCall *)(calls->data);
+            if (NULL != currentcall) {
+                linphone_core_terminate_call(lc, currentcall);
+            }
         }
     }
 }
