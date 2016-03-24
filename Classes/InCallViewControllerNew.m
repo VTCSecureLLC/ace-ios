@@ -1234,9 +1234,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     if ([msg.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
         cell.authorType = BubbleTableViewCellTypeSelf;
         cell.bubbleColor = BubbleColorBlue;
+        cell.bubbleView.tintColor = [UIColor colorWithRed:5.0/255.0 green:8.0/255.0 blue:47.0/255.0 alpha:0.8];
     } else {
         cell.authorType = BubbleTableViewCellTypeOther;
         cell.bubbleColor = BubbleColorGray;
+        cell.bubbleView.tintColor = [UIColor colorWithRed:225.0/255.0 green:225.0/255.0 blue:225.0/255.0 alpha:0.8];
     }
     
     if (msg.msgString.length > 1) {
@@ -1250,6 +1252,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
     } else {
         cell.textLabel.text = msg.msgString;
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+        if (cell.authorType == BubbleTableViewCellTypeSelf) {
+            cell.textLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:167.0/255.0 blue:176.0/255.0 alpha:0.8];
+        } else {
+            cell.textLabel.textColor = [UIColor blackColor];
+        }
     }
     
     return cell;
