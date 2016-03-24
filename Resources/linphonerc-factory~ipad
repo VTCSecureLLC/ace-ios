@@ -48,6 +48,12 @@ mime=MP4V-ES
 rate=90000
 enabled=0
 
+
+[video_codec_5]
+mime=H263-1998
+rate=90000
+enabled=0
+
 [app]
 #contact_display_username_only=1
 #contact_filter_on_default_domain=1
