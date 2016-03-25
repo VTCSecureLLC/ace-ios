@@ -78,8 +78,9 @@ static UIFont *CELL_FONT = nil;
 		messageCoords.size.width -= 5;
 		[messageText setFrame:messageCoords];
 		messageText.allowSelectAll = TRUE;
+        
 	}
-
+    self->chat = NULL;
 	return self;
 }
 
@@ -97,11 +98,6 @@ static UIFont *CELL_FONT = nil;
 
 - (void)setChatMessage:(LinphoneChatMessage *)message {
 	if (message != self->chat) {
-		if (self->chat) {
-			linphone_chat_message_unref(self->chat);
-			linphone_chat_message_set_user_data(self->chat, NULL);
-			linphone_chat_message_cbs_set_msg_state_changed(linphone_chat_message_get_callbacks(self->chat), NULL);
-		}
 		self->chat = message;
 		messageImageView.image = nil;
 		[self disconnectFromFileDelegate];
@@ -278,6 +274,8 @@ static UIFont *CELL_FONT = nil;
 }
 
 + (CGSize)viewSize:(LinphoneChatMessage *)chat width:(int)width {
+    if(!chat) return CGSizeZero;
+    
 	CGSize messageSize;
 	const char *url = linphone_chat_message_get_external_body_url(chat);
 	const char *text = linphone_chat_message_get_text(chat);
