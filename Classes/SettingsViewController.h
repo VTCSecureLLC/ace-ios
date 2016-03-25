@@ -32,4 +32,6 @@
 @property (nonatomic, strong) IBOutlet IASKAppSettingsViewController *settingsController;
 
 +(void) unlockAdvancedSettings;
+- (LinphoneCoreSettingsStore*)getLinphoneCoreSettingsStore;
+
 @end

@@ -81,8 +81,14 @@
     
     else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Deaf / Hard of Hearing Resources"]){
         resourcesController = [[ResourcesViewController alloc] init];
-        [self showViewController:resourcesController sender:self];
-//        [self presentViewController:resourcesController animated:YES completion:nil];
+        float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
+        
+        if (sysVer >= 8.0) {
+            [self showViewController:resourcesController sender:self];
+        }
+        else{
+            [self presentViewController:resourcesController animated:YES completion:nil];
+        }
     }
     else if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
         NSString *address = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_mail_uri_preference"];

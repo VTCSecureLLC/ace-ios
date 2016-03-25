@@ -53,6 +53,9 @@
 
 - (void)setImageForBubbleColor:(BubbleColor)color {
     self.bubbleView.image = [[UIImage imageNamed:[NSString stringWithFormat:@"Bubble-%lu.png", (long)color]] resizableImageWithCapInsets:UIEdgeInsetsMake(12.0f, 15.0f, 16.0f, 18.0f)];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+        self.bubbleView.image = [self.bubbleView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
 }
 
 - (void)layoutSubviews {
