@@ -1256,7 +1256,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
         if (cell.authorType == BubbleTableViewCellTypeSelf) {
-            cell.textLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:167.0/255.0 blue:176.0/255.0 alpha:0.8];
+            cell.bubbleView.tintColor = [UIColor blackColor];
+            cell.textLabel.textColor = [UIColor whiteColor];
         } else {
             cell.textLabel.textColor = [UIColor blackColor];
         }
