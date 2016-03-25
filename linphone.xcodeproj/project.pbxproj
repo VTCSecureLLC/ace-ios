@@ -475,6 +475,7 @@
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
 		A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */; };
 		A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */; };
+		C627CEFB1CA5530400E1E16E /* chat_bubble_outgoing_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */; };
 		C63AF3C81C96F5C100685FAD /* StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C63AF3C71C96F5C100685FAD /* StatusBar.m */; };
 		C63AF3CA1C96F5CC00685FAD /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63AF3C91C96F5CC00685FAD /* StatusBar.xib */; };
 		C656335E1C88565E00EF8EDA /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656335D1C88565E00EF8EDA /* BaseView.m */; };
@@ -1833,6 +1834,7 @@
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_outgoing_black.png; sourceTree = "<group>"; };
 		C63AF3C61C96F5C100685FAD /* StatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBar.h; sourceTree = "<group>"; };
 		C63AF3C71C96F5C100685FAD /* StatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBar.m; sourceTree = "<group>"; };
 		C63AF3C91C96F5CC00685FAD /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
@@ -3734,6 +3736,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */,
 				5E34FA941C9F191700ABA721 /* selected_star.png */,
 				5E34FA951C9F191700ABA721 /* unselected_star.png */,
 				CD6EDC8F1C56DCEA003CB599 /* logo_about_frg.png */,
@@ -5316,6 +5319,7 @@
 				50B008431BA09C79002C5723 /* video_off_disabled_landscape.png in Resources */,
 				D38187AD15FE340100C3EDCA /* ChatRoomViewController.xib in Resources */,
 				D3F795DD15A5831C0077328B /* chat_back_default.png in Resources */,
+				C627CEFB1CA5530400E1E16E /* chat_bubble_outgoing_black.png in Resources */,
 				64487C321C85C6A200D45393 /* InCall.storyboard in Resources */,
 				50B007D31BA09C79002C5723 /* route_bluetooth_off_over.png in Resources */,
 				D3F795DF15A5831C0077328B /* chat_back_over.png in Resources */,

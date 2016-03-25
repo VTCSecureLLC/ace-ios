@@ -347,7 +347,19 @@ static UIFont *CELL_FONT = nil;
 			[backgroundImage setImage:image];
 			messageFrame.origin.y += 5;
 		} else {
-			UIImage *image = [UIImage imageNamed:@"chat_bubble_outgoing"];
+            
+            UIImage *image;
+             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+                 self.messageText.textColor = [UIColor whiteColor];
+                 self.dateLabel.textColor = [UIColor whiteColor];
+                 image = [UIImage imageNamed:@"chat_bubble_outgoing_black"];
+             }
+             else {
+                 self.messageText.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
+                 self.dateLabel.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
+                 image = [UIImage imageNamed:@"chat_bubble_outgoing"];
+             }
+            
 			image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(14, 15, 25, 40)];
 			[backgroundImage setImage:image];
 			messageFrame.origin.y -= 5;
