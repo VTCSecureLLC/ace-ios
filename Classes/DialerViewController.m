@@ -604,7 +604,7 @@ message:@"Select the SIP provider of the person you wish to call."
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
     [self fillProviderImageWithDomain:[self.domains objectAtIndex:buttonIndex]];
-    NSString *domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", buttonIndex]];
+    NSString *domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)buttonIndex]];
     if(!domain) { domain = @""; }
     self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
     self.addressField.sipDomain = domain;
