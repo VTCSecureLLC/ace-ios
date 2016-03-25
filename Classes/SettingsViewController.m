@@ -480,6 +480,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 											   object:nil];
 }
 
+- (LinphoneCoreSettingsStore*)getLinphoneCoreSettingsStore {
+    return settingsStore;
+}
+
 #pragma mark - Event Functions
 
 - (void)appSettingChanged:(NSNotification *)notif {
@@ -861,10 +865,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     [settingsController.tableView reloadData];
 }
 
-- (void) changeColor: (NSString*) pref
-    {
+- (void) changeColor: (NSString*) pref {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
         InfColorPickerController* picker = [ InfColorPickerController colorPickerViewController ];
-    
+        
         NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:pref];
         UIColor *color;
         NSString *title = ([pref isEqualToString:@"foreground_color_preference"]) ? @"Foreground Color" : @"Background Color";
@@ -875,12 +879,13 @@ static UICompositeViewDescription *compositeDescription = nil;
             color = [UIColor blueColor];
         }
         picker.sourceColor = color;
-
+        
         [picker setTitle: title];
         picker.delegate = self;
         
         [ picker presentModallyOverViewController: self ];
     }
+}
 
 - (UIColor *)darkerColorForColor:(UIColor *)c
 {

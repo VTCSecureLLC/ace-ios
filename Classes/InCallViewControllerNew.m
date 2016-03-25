@@ -278,22 +278,23 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
                 const LinphoneCallParams *params = linphone_call_get_current_params(call);
                 if(params != NULL){
-                    //If H.263, rotate video sideways when in portrait to work around codec limitations
-                    @try {
-                        if(strcmp(linphone_call_params_get_used_video_codec(params)->mime_type, "H263") == 0){
-                            if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
-                               linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
-                                
-                                linphone_core_set_device_rotation([LinphoneManager getLc], 270);
-                                linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                    LinphonePayloadType *payloadType = (LinphonePayloadType *)linphone_call_params_get_used_video_codec(params);
+                    if (payloadType != NULL) {
+                        const char *mimeType = payloadType->mime_type;
+                        if (mimeType != NULL && strlen(mimeType)) {
+                            //If H.263, rotate video sideways when in portrait to work around codec limitations
+                            if(strcmp(mimeType, "H263") == 0) {
+                                if(linphone_core_get_device_rotation([LinphoneManager getLc]) != 90 &&
+                                   linphone_core_get_device_rotation([LinphoneManager getLc]) != 270){
+                                    
+                                    linphone_core_set_device_rotation([LinphoneManager getLc], 270);
+                                    linphone_core_update_call([LinphoneManager getLc], call, NULL);
+                                }
+                            }
+                            else{
+                                [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
                             }
                         }
-                        else{
-                            [[PhoneMainView instance] orientationUpdate:self.interfaceOrientation];
-                        }
-                    }
-                    @catch (NSException *exception) {
-                        
                     }
                 }
             }
@@ -1233,9 +1234,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     if ([msg.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
         cell.authorType = BubbleTableViewCellTypeSelf;
         cell.bubbleColor = BubbleColorBlue;
+        cell.bubbleView.tintColor = [UIColor colorWithRed:5.0/255.0 green:8.0/255.0 blue:47.0/255.0 alpha:0.8];
     } else {
         cell.authorType = BubbleTableViewCellTypeOther;
         cell.bubbleColor = BubbleColorGray;
+        cell.bubbleView.tintColor = [UIColor colorWithRed:225.0/255.0 green:225.0/255.0 blue:225.0/255.0 alpha:0.8];
     }
     
     if (msg.msgString.length > 1) {
@@ -1249,6 +1252,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
     } else {
         cell.textLabel.text = msg.msgString;
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+        if (cell.authorType == BubbleTableViewCellTypeSelf) {
+            cell.textLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:167.0/255.0 blue:176.0/255.0 alpha:0.8];
+        } else {
+            cell.textLabel.textColor = [UIColor blackColor];
+        }
     }
     
     return cell;
