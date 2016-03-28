@@ -34,6 +34,7 @@
 #import "InfColorPicker/InfColorPickerController.h"
 #import "DTAlertView.h"
 #import <HockeySDK/HockeySDK.h>
+
 #ifdef DEBUG
 @interface UIDevice (debug)
 
@@ -42,6 +43,8 @@
 
 @end
 #endif
+
+#define DATEPICKER_HEIGHT 230
 
 @interface SettingsViewController (private)
 
@@ -397,6 +400,12 @@
 	}
 	[super setViewControllers:viewControllers animated:animated];
 }
+
+@end
+
+@interface SettingsViewController ()
+
+@property (nonatomic, strong) UICustomPicker *fontPicker;
 
 @end
 
@@ -1211,6 +1220,10 @@ static BOOL isAdvancedSettings = FALSE;
     else if([key isEqualToString:@"background_color_preference"]){
         [self changeColor: @"background_color_preference"];
     }
+    else if ([key isEqualToString:@"text_font_button"]) {
+        
+        [self showFontPicker];
+    }
     else if ([key isEqual:@"send_logs_button"]) {
 		NSString *message;
 
@@ -1250,6 +1263,32 @@ static BOOL isAdvancedSettings = FALSE;
                                                                         }];
         [alert show];
     }
+}
+
+- (void)showFontPicker {
+    
+    if (!_fontPicker) {
+        
+        NSArray *familyNames = [UIFont familyNames];
+        CGFloat topMargin = CGRectGetHeight(self.view.frame) - DATEPICKER_HEIGHT;
+        
+        _fontPicker = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, topMargin, CGRectGetWidth(self.view.frame), DATEPICKER_HEIGHT)
+                                                 SourceList:familyNames];
+        self.fontPicker.delegate = self;
+    }
+    
+    [self.view addSubview:self.fontPicker];
+    
+}
+
+#pragma mark - UICustomPickerDelegate
+
+- (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item {
+    
+    if (item.length > 0) {
+        [DefaultSettingsManager sharedInstance].fontFamilyName = item;
+    }
+    
 }
 
 -(void) resetMediaSettings{

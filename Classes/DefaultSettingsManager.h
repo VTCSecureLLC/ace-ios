@@ -42,6 +42,7 @@
 @property (setter=setSipMwUri:, nonatomic) NSString *sipMwiUri;
 @property (setter=setSipVideomailUri:, nonatomic) NSString *sipVideomailUri;
 @property (readonly) NSString *videoResolutionMaximum;
+@property (nonatomic, strong) NSString *fontFamilyName;
 
 @property(nonatomic, weak) id<DefaultSettingsManagerDelegate> delegate;
 
