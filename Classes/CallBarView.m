@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIButton *endCallButton;
 @property (weak, nonatomic) IBOutlet UIButton *switchCameraButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchSpeakerButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeVideoLayoutButton;
 
 // Automatic hiding
@@ -241,6 +242,12 @@
     
     if (self.switchCameraButtonActionHandler) {
         self.switchCameraButtonActionHandler(sender);
+    }
+}
+
+- (IBAction)switchSpeakerButtonAction:(id)sender {
+    if (self.switchSpeakerButtonActionHandler) {
+        self.switchSpeakerButtonActionHandler(sender);
     }
 }
 
