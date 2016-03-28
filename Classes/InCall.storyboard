@@ -49,10 +49,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
-                                <rect key="frame" x="0.0" y="424" width="375" height="203"/>
+                                <rect key="frame" x="0.0" y="374" width="375" height="253"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="203" id="y1L-DJ-MMn"/>
+                                    <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
@@ -83,7 +83,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
-                                <rect key="frame" x="47" y="140" width="281" height="334"/>
+                                <rect key="frame" x="47" y="90" width="281" height="334"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="334" id="hHZ-FX-rCg"/>
