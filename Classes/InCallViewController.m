@@ -1447,17 +1447,17 @@ BOOL didChatResize = NO;
 }
 
 - (void) createCallQuality {
-    if (!callQualityImageView) {
-        UIImage *image = [UIImage imageNamed:@"RTPquality_medium.png"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 30) resizingMode:UIImageResizingModeStretch];
-        callQualityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-        [callQualityImageView setImage:image];
-        [callQualityImageView setBackgroundColor:[UIColor clearColor]];
-        callQualityImageView.hidden = YES;
-        
-        PhoneMainView *phoneMainView = [PhoneMainView instance];
-        [phoneMainView.view addSubview:callQualityImageView];
-    }
+   // if (!callQualityImageView) {
+    //    UIImage *image = [UIImage imageNamed:@"RTPquality_medium.png"];
+   //     image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 30) resizingMode:UIImageResizingModeStretch];
+   //     callQualityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+   //     [callQualityImageView setImage:image];
+    //    [callQualityImageView setBackgroundColor:[UIColor clearColor]];
+   //     callQualityImageView.hidden = YES;
+   //
+   //     PhoneMainView *phoneMainView = [PhoneMainView instance];
+    //    [phoneMainView.view addSubview:callQualityImageView];
+   // }
 }
 
 - (void) hideCallQualityView {
@@ -1465,45 +1465,45 @@ BOOL didChatResize = NO;
 }
 
 - (void) callQualityTimerBody {
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
-
-    if (!callQualityImageView || !call)
-        return;
-
-    float quality = linphone_call_get_current_quality(call);
-    CallQualityStatus tmpCallQualityStatus;
-    if (quality < 2) {
-        tmpCallQualityStatus = CallQualityStatusBad;
-    } else if (quality < 3) {
-        tmpCallQualityStatus = CallQualityStatusMedium;
-    } else {
-        tmpCallQualityStatus = CallQualityStatusGood;
-    }
-
-    if (callQualityStatus != tmpCallQualityStatus) {
-        callQualityStatus = tmpCallQualityStatus;
-        UIImage *image = nil;
-
-        switch (callQualityStatus) {
-            case CallQualityStatusBad: {
-                image = [UIImage imageNamed:@"RTPquality_bad.png"];
-            }
-                break;
-            case CallQualityStatusMedium: {
-                image = [UIImage imageNamed:@"RTPquality_medium.png"];
-            }
-                break;
-            default:
-                break;
-        }
-
-        if (!image) {
-            [callQualityImageView setImage:image];
-        } else {
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch];
-            [callQualityImageView setImage:image];
-        }
-    }
+//    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+//
+//    if (!callQualityImageView || !call)
+//        return;
+//
+//    float quality = linphone_call_get_current_quality(call);
+//    CallQualityStatus tmpCallQualityStatus;
+//    if (quality < 2) {
+//        tmpCallQualityStatus = CallQualityStatusBad;
+//    } else if (quality < 3) {
+//        tmpCallQualityStatus = CallQualityStatusMedium;
+//    } else {
+//        tmpCallQualityStatus = CallQualityStatusGood;
+//    }
+//
+//    if (callQualityStatus != tmpCallQualityStatus) {
+//        callQualityStatus = tmpCallQualityStatus;
+//        UIImage *image = nil;
+//
+//        switch (callQualityStatus) {
+//            case CallQualityStatusBad: {
+//                image = [UIImage imageNamed:@"RTPquality_bad.png"];
+//            }
+//                break;
+//            case CallQualityStatusMedium: {
+//                image = [UIImage imageNamed:@"RTPquality_medium.png"];
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        if (!image) {
+//            [callQualityImageView setImage:image];
+//        } else {
+//            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch];
+//            [callQualityImageView setImage:image];
+//        }
+//    }
 }
 
 - (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction

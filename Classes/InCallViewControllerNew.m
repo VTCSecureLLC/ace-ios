@@ -1111,23 +1111,23 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)callQualityTimerBody {
     
-    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
-    if (call) {
-        CallQualityStatus quality = linphone_call_get_current_quality(call);
-        UIImage *image = nil;
-        if (quality <= CallQualityStatusBad) {
-            
-            image = [UIImage imageNamed:@"RTPquality_bad.png"];
-        } else if (quality == CallQualityStatusMedium) {
-            
-            image = [UIImage imageNamed:@"RTPquality_medium.png"];
-        } else if (quality < CallQualityStatusMedium) {
-            
-            image = nil;
-        }
-        
-        [_qualityImageView setImage:image];
-    }
+//    LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+//    if (call) {
+//        CallQualityStatus quality = linphone_call_get_current_quality(call);
+//        UIImage *image = nil;
+//        if (quality <= CallQualityStatusBad) {
+//            
+//            image = [UIImage imageNamed:@"RTPquality_bad.png"];
+//        } else if (quality == CallQualityStatusMedium) {
+//            
+//            image = [UIImage imageNamed:@"RTPquality_medium.png"];
+//        } else if (quality < CallQualityStatusMedium) {
+//            
+//            image = nil;
+//        }
+//        
+//        [_qualityImageView setImage:image];
+//    }
 }
 
 
