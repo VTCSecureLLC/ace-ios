@@ -926,6 +926,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [singleFingerTappedIncomingChat setCancelsTouchesInView:NO];
     [self.incomingTextView addGestureRecognizer:singleFingerTappedIncomingChat];
     
+    UIFont *rttFont = [self fontNameForFontFamily:[[DefaultSettingsManager sharedInstance] fontFamilyName]
+                                         withSize:16];
+    if (rttFont) {
+        self.incomingTextView.font = rttFont;
+    }
+    
     
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
@@ -1211,6 +1217,22 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
+- (UIFont *)fontNameForFontFamily:(NSString *)fontFamilyName withSize:(CGFloat)fontSize{
+    
+    NSArray *fontNames = [UIFont fontNamesForFamilyName:fontFamilyName];
+    NSPredicate *mediumFontPredicate = [NSPredicate predicateWithFormat:@"self CONTAINS[cd] 'medium'"];
+    
+    NSArray *filteredFontNames = [fontNames filteredArrayUsingPredicate:mediumFontPredicate];
+    UIFont *font;
+    if(filteredFontNames.count > 0) {
+        font = [UIFont fontWithName:[filteredFontNames firstObject] size:fontSize];
+    }
+    else {
+        font = [UIFont fontWithName:[fontNames firstObject] size:fontSize];
+    }
+    
+    return font;
+}
 
 #pragma mark - UITableViewDataSource Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -1232,6 +1254,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         cell.backgroundColor = self.tableView.backgroundColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataSource = self;
+        
+        NSString *fontFamilyName = [[DefaultSettingsManager sharedInstance] fontFamilyName];
+        UIFont *cellFont = [self fontNameForFontFamily:fontFamilyName withSize:16];
+        if (cellFont) {
+            cell.textLabel.font = cellFont;
+        }
     }
     
     RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
