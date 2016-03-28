@@ -95,6 +95,7 @@
 	bool camera_enabled = false;
 	LinphoneCore *lc = [LinphoneManager getLc];
 	LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+    if(!currentCall){ return false; }
     if(linphone_call_get_state(currentCall) == LinphoneCallOutgoingRinging){
         camera_enabled = TRUE;
     }
