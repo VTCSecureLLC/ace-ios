@@ -78,6 +78,7 @@ static UIFont *CELL_FONT = nil;
 		messageCoords.size.width -= 5;
 		[messageText setFrame:messageCoords];
 		messageText.allowSelectAll = TRUE;
+        [messageText setTextColor:[UIColor whiteColor]];
         
 	}
     self->chat = NULL;
@@ -201,7 +202,7 @@ static UIFont *CELL_FONT = nil;
 				[[NSAttributedString alloc] initWithString:nstext
 												attributes:@{
 													NSFontAttributeName : [UIFont systemFontOfSize:17.0],
-													NSForegroundColorAttributeName : [UIColor darkGrayColor]
+													NSForegroundColorAttributeName : [UIColor whiteColor]
 												}];
 			messageText.attributedText = attr_text;
 
@@ -353,7 +354,7 @@ static UIFont *CELL_FONT = nil;
                  image = [UIImage imageNamed:@"chat_bubble_outgoing_black"];
              }
              else {
-                 self.messageText.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
+                 self.messageText.textColor = [UIColor whiteColor];
                  self.dateLabel.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
                  image = [UIImage imageNamed:@"chat_bubble_outgoing"];
              }
