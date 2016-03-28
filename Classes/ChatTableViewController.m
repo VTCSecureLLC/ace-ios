@@ -53,6 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	self.tableView.accessibilityIdentifier = @"Chat list";
+    self->data = nil;
 	[self loadData];
 }
 

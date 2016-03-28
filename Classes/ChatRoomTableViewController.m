@@ -40,6 +40,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[TUNinePatchCache flushCache]; // Clear cache
+    [self clearMessageList];
 }
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];

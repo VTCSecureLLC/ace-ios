@@ -78,8 +78,9 @@ static UIFont *CELL_FONT = nil;
 		messageCoords.size.width -= 5;
 		[messageText setFrame:messageCoords];
 		messageText.allowSelectAll = TRUE;
+        
 	}
-
+    self->chat = NULL;
 	return self;
 }
 
@@ -97,11 +98,6 @@ static UIFont *CELL_FONT = nil;
 
 - (void)setChatMessage:(LinphoneChatMessage *)message {
 	if (message != self->chat) {
-		if (self->chat) {
-			linphone_chat_message_unref(self->chat);
-			linphone_chat_message_set_user_data(self->chat, NULL);
-			linphone_chat_message_cbs_set_msg_state_changed(linphone_chat_message_get_callbacks(self->chat), NULL);
-		}
 		self->chat = message;
 		messageImageView.image = nil;
 		[self disconnectFromFileDelegate];
@@ -278,6 +274,8 @@ static UIFont *CELL_FONT = nil;
 }
 
 + (CGSize)viewSize:(LinphoneChatMessage *)chat width:(int)width {
+    if(!chat) return CGSizeZero;
+    
 	CGSize messageSize;
 	const char *url = linphone_chat_message_get_external_body_url(chat);
 	const char *text = linphone_chat_message_get_text(chat);
@@ -347,7 +345,19 @@ static UIFont *CELL_FONT = nil;
 			[backgroundImage setImage:image];
 			messageFrame.origin.y += 5;
 		} else {
-			UIImage *image = [UIImage imageNamed:@"chat_bubble_outgoing"];
+            
+            UIImage *image;
+             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+                 self.messageText.textColor = [UIColor whiteColor];
+                 self.dateLabel.textColor = [UIColor whiteColor];
+                 image = [UIImage imageNamed:@"chat_bubble_outgoing_black"];
+             }
+             else {
+                 self.messageText.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
+                 self.dateLabel.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
+                 image = [UIImage imageNamed:@"chat_bubble_outgoing"];
+             }
+            
 			image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(14, 15, 25, 40)];
 			[backgroundImage setImage:image];
 			messageFrame.origin.y -= 5;
