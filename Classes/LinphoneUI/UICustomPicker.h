@@ -12,16 +12,20 @@
 
 @interface UICustomPicker : UIView
 
-- (id) initWithFrame:(CGRect)frame SourceList:(NSArray*)sourceList;
--(void) setDataSource:(NSArray*)_dataSource;
-@property (nonatomic, assign) id<UICustomPickerDelegate> delegate;
+@property (nonatomic, assign) id <UICustomPickerDelegate> delegate;
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
-@property (nonatomic, assign)  NSInteger selectedRow;
+@property (nonatomic, assign) NSInteger selectedRow;
+
+- (id)initWithFrame:(CGRect)frame SourceList:(NSArray*)sourceList;
+- (void)setDataSource:(NSArray*)_dataSource;
+
 @end
 
 @protocol UICustomPickerDelegate <NSObject>
 
 @optional
+
+- (UIFont *)fontForRow:(NSInteger)row forComponent:(NSInteger)component;
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker selectedItem:(NSString*)item;
 - (void) didSelectUICustomPicker:(UICustomPicker*)customPicker didSelectRow:(NSInteger)row;
 - (void) didCancelUICustomPicker:(UICustomPicker*)customPicker;
