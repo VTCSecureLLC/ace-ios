@@ -109,6 +109,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	messageField.contentInset = UIEdgeInsetsMake(0, -5, -2, -5);
 	messageField.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 10);
 	messageField.backgroundColor = [UIColor clearColor];
+    messageField.textColor = [UIColor whiteColor];
 	[sendButton setEnabled:FALSE];
 
 	[tableController.tableView addGestureRecognizer:listTapGestureRecognizer];

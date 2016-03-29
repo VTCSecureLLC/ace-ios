@@ -184,6 +184,7 @@
 	LinphoneChatMessage *chat = ms_list_nth_data(self->messageList, (int)[indexPath row]);
 	[cell setChatMessage:chat];
 	[cell setChatRoomDelegate:chatRoomDelegate];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
 	return cell;
 }
 
