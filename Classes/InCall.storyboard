@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -49,10 +49,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
-                                <rect key="frame" x="0.0" y="424" width="375" height="203"/>
+                                <rect key="frame" x="0.0" y="374" width="375" height="253"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="203" id="y1L-DJ-MMn"/>
+                                    <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
@@ -82,12 +82,8 @@
                                     <constraint firstAttribute="width" secondItem="opN-Qd-xDg" secondAttribute="height" multiplier="4:1" id="pYC-Vp-iuj"/>
                                 </constraints>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RTPquality_bad.png" translatesAutoresizingMaskIntoConstraints="NO" id="cga-Yh-tX1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
-                                <rect key="frame" x="47" y="140" width="281" height="334"/>
+                                <rect key="frame" x="47" y="90" width="281" height="334"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="334" id="hHZ-FX-rCg"/>
@@ -145,13 +141,13 @@
                                 <rect key="frame" x="18" y="113" width="338" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
                                 <rect key="frame" x="0.0" y="150" width="375" height="70"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="64"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Ringing..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ringing..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
                                 <rect key="frame" x="1" y="50" width="375" height="70"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="64"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -172,25 +168,19 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="160" id="M6j-lE-fXg"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="MLf-cV-I1W"/>
                             <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="NBS-cS-hLU"/>
-                            <constraint firstAttribute="trailing" secondItem="cga-Yh-tX1" secondAttribute="trailing" id="Nz6-bD-xIl"/>
                             <constraint firstItem="cto-wd-TgW" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.8" id="S1V-A9-JC6"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
-                            <constraint firstItem="cga-Yh-tX1" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="TAY-qR-uV5"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="KQf-7a-Dtr" secondAttribute="bottom" id="Tu1-NH-IVI"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="V9t-fN-cCV"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cto-wd-TgW" secondAttribute="bottom" id="VLA-Wq-kPT"/>
-                            <constraint firstItem="cga-Yh-tX1" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="top" id="YBs-9A-qJe"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="zyC-b4-pSa" secondAttribute="bottom" id="YrC-VC-PnZ"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.9" id="Z8c-33-fvD"/>
                             <constraint firstAttribute="trailing" secondItem="KQf-7a-Dtr" secondAttribute="trailing" id="ZEs-nw-0p1"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
                             <constraint firstAttribute="trailing" secondItem="opN-Qd-xDg" secondAttribute="trailing" constant="87" id="cR5-wT-mos"/>
-                            <constraint firstItem="9ev-fs-CZO" firstAttribute="centerX" secondItem="cga-Yh-tX1" secondAttribute="centerX" id="cuF-Tm-7cQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cga-Yh-tX1" secondAttribute="bottom" id="eCm-Aa-LCH"/>
-                            <constraint firstItem="j6x-3s-y50" firstAttribute="centerX" secondItem="cga-Yh-tX1" secondAttribute="centerX" id="ebY-Iy-L9A"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="centerY" secondItem="dGF-2k-5Y3" secondAttribute="centerY" multiplier="0.7" id="jjw-ZQ-PoY"/>
                             <constraint firstItem="opN-Qd-xDg" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="88" id="mNq-Id-jBo"/>
@@ -227,7 +217,6 @@
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="incomingTextView" destination="1tL-0O-5mt" id="Sof-Xm-lBb"/>
-                        <outlet property="qualityImageView" destination="cga-Yh-tX1" id="9bs-mN-3lZ"/>
                         <outlet property="ringCountLabel" destination="j6x-3s-y50" id="ndA-rQ-0bO"/>
                         <outlet property="ringingLabel" destination="9ev-fs-CZO" id="3uN-VT-Wj5"/>
                         <outlet property="rttMessageContainerView" destination="zyC-b4-pSa" id="33L-RA-tBK"/>
@@ -255,7 +244,6 @@
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
-        <image name="RTPquality_bad.png" width="75" height="75"/>
         <image name="camera_mute.png" width="313" height="313"/>
     </resources>
 </document>

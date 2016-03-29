@@ -196,6 +196,11 @@ static DefaultSettingsManager *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)setFontFamilyName:(NSString *)fontFamilyName {
+    [[NSUserDefaults standardUserDefaults] setObject:fontFamilyName forKey:@"text_font_family"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - get fields functions
 
 - (NSNumber*)version {
@@ -312,6 +317,10 @@ static DefaultSettingsManager *sharedInstance = nil;
 
 - (NSString*)videoResolutionMaximum {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"video_preferred_size_preference"];
+}
+
+- (NSString *)fontFamilyName {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"text_font_family"];
 }
 
 #pragma mark - helper functions
