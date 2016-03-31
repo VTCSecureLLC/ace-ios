@@ -80,8 +80,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (strong, nonatomic) NSMutableString *minimizedTextBuffer;
 @property (weak, nonatomic) IBOutlet StatusBar *statusBar;
 @property (weak, nonatomic) IBOutlet CallInfoView *callInfoView;
-@property (strong)  NSTimer *ringIncrementTimer ;
-
+@property (strong) NSTimer *ringIncrementTimer;
 @end
 
 
@@ -645,6 +644,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.callBarView.switchCameraButtonActionHandler = ^(UIButton *sender) {
         
         [[LinphoneManager instance] switchCamera];
+        [sender setEnabled:NO];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            sleep(3);
+            [sender setEnabled:YES];
+        });
+       
     };
 
     self.callBarView.switchSpeakerButtonActionHandler = ^(UIButton *sender) {
