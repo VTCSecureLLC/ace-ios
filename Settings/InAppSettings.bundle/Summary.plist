@@ -28,16 +28,6 @@
 			<key>DefaultValue</key>
 			<string></string>
 			<key>Key</key>
-			<string>show_advanced_preference</string>
-			<key>Title</key>
-			<string>Show Advanced</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>Key</key>
 			<string>show_debug_preference</string>
 			<key>Title</key>
 			<string>Show Debug</string>
