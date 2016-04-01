@@ -10,7 +10,7 @@
 #import "FXKeychain.h"
 #import <UIKit/UIKit.h>
 #import "SRVResolver.h"
-
+#import "Utils.h"
 @interface DefaultSettingsManager () <SRVResolverDelegate, NSURLConnectionDelegate>
 {
     UIActivityIndicatorView *aiv;
@@ -60,6 +60,7 @@ static DefaultSettingsManager *sharedInstance = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+     jsonDict = [LinphoneUtils normalizeServerDictionary:jsonDict];
     [self storeToUserDefaults:jsonDict];
     [aiv stopAnimating];
     if ([self.delegate respondsToSelector:@selector(didFinishLoadingConfigData)]) {
@@ -71,6 +72,7 @@ static DefaultSettingsManager *sharedInstance = nil;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"config_defaults" ofType:@"json"];
     NSData *content = [[NSData alloc] initWithContentsOfFile:filePath];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:content options:kNilOptions error:nil];
+    jsonDict = [LinphoneUtils normalizeServerDictionary:jsonDict];
     [self storeToUserDefaults:jsonDict];
 }
 
