@@ -204,7 +204,7 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
     [self.textFieldUserId.layer setCornerRadius:5];
-    [self.textFieldDomain setEnabled:NO];
+    
     [viewTapGestureRecognizer setCancelsTouchesInView:FALSE];
     [viewTapGestureRecognizer setDelegate:self];
     [contentView addGestureRecognizer:viewTapGestureRecognizer];
