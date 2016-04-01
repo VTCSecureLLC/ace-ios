@@ -10,6 +10,8 @@
 #import "UIDigitButton.h"
 
 #define kAnimationDuration 0.5f
+#define kPortraitFontSize 23.0
+#define kLandscapeFontSize 14.0
 
 
 @interface InCallDialpadView ()
@@ -36,7 +38,7 @@
 @implementation InCallDialpadView
 
 #pragma mark - Override methods
-- (void)viewDidLoad {
+- (void)awakeFromNib {
     
     [self setupButtons];
 }
@@ -69,6 +71,50 @@
     [_starButton setDtmf:true];
     [_sharpButton setDigit:'#'];
     [_sharpButton setDtmf:true];
+}
+
+- (void)adjustButtonTitleWithFontSize:(CGFloat)fontSize button:(UIButton *)button {
+    
+    UIFont *systemFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize];
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
+                                  NSFontAttributeName : systemFont};
+    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:button.titleLabel.text attributes:attributes];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    [attributedTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedTitle.length)];
+    [button setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+}
+
+- (void)layoutSubviews {
+
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_zeroButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_oneButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_twoButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_threeButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fourButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fiveButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sixButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sevenButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_eightButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_nineButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_starButton];
+        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sharpButton];
+    }
+    else {
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_zeroButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_oneButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_twoButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_threeButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fourButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fiveButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sixButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sevenButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_eightButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_nineButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_starButton];
+        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sharpButton];
+    }
 }
 
 
