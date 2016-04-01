@@ -400,7 +400,7 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
             [newDictionary setValue:object forKey:key];
         }
     }
-    return newDictionary;
+    return [newDictionary copy];
 }
 
 + (NSArray*)normalizeServerArray:(NSArray*)arrayOfObjects
@@ -426,7 +426,7 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
             [newArray addObject:object];
         }
     }
-    return newArray;
+    return [newArray copy];
     
 }
 
