@@ -375,6 +375,81 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     
     return NO;
 }
++ (NSDictionary*)normalizeServerDictionary:(NSDictionary*)jsonDictionary
+{
+    NSMutableDictionary* newDictionary = [[NSMutableDictionary alloc] init];
+    for (id key in jsonDictionary)
+    {
+        //        NSLog(@"key=%@ value=%@", key, [myDict objectForKey:key]);
+        NSObject* object = [jsonDictionary objectForKey:key];
+        if ([object isKindOfClass:[NSString class]])
+        {
+            NSString* value = [self normalizeServerString:[[NSMutableString alloc] initWithString:(NSString*)object]];
+            [newDictionary setValue:value forKey:key];
+        }
+        else if ([object isKindOfClass:[NSArray class]])
+        {
+            [newDictionary setValue:[self normalizeServerArray:(NSArray*)object] forKey:key];
+        }
+        else if ([object isKindOfClass:[NSDictionary class]])
+        {
+            [newDictionary setValue:[self normalizeServerDictionary:(NSDictionary*)object] forKey:key];
+        }
+        else
+        {
+            [newDictionary setValue:object forKey:key];
+        }
+    }
+    return [newDictionary copy];
+}
+
++ (NSArray*)normalizeServerArray:(NSArray*)arrayOfObjects
+{
+    NSMutableArray* newArray = [[NSMutableArray alloc] init];
+    for (NSObject* object in arrayOfObjects)
+    {
+        //        NSLog(@"key=%@ value=%@", key, [myDict objectForKey:key]);
+        if ([object isKindOfClass:[NSString class]])
+        {
+            [newArray addObject:[self normalizeServerString:[[NSMutableString alloc] initWithString:(NSString*)object]]];
+        }
+        else if ([object isKindOfClass:[NSArray class]])
+        {
+            [newArray addObject:[self normalizeServerArray:(NSArray*)object]];
+        }
+        else if ([object isKindOfClass:[NSDictionary class]])
+        {
+            [newArray addObject:[self normalizeServerDictionary:(NSDictionary*)object]];
+        }
+        else
+        {
+            [newArray addObject:object];
+        }
+    }
+    return [newArray copy];
+    
+}
+
+// if null or empty (including single of double quotes only) return empty string.
+// if starts and ends with quotes, remove them.
++(NSString*) normalizeServerString:(NSString*)value
+{
+    if ((value == nil) || ([value length] == 0) || [value isEqualToString:@"\""] || [value isEqualToString:@"\"\""])
+    {
+        return @"";
+    }
+    
+    NSMutableString* valueOut = [[NSMutableString alloc] initWithString:value];
+    if ([value hasPrefix:@"\""])
+    {
+        valueOut = [[NSMutableString alloc] initWithString:[valueOut substringFromIndex:1]];
+    }
+    if ([valueOut hasSuffix:@"\""])
+    {
+        valueOut = [[NSMutableString alloc] initWithString:[valueOut substringToIndex:([valueOut length] - 1)]];
+    }
+    return valueOut;
+}
 
 @end
 

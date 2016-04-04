@@ -49,6 +49,9 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
 + (NSString *)deviceName;
 + (NSString*)phoneNumberFromURI:(NSString*)sipURI;
 + (BOOL)isInternationalPhoneNumber:(NSString*)phoneNumber;
++ (NSDictionary*)normalizeServerDictionary:(NSDictionary*)jsonDictionary;
++ (NSArray*)normalizeServerArray:(NSArray*)arrayOfObjects;
++ (NSString*) normalizeServerString:(NSString*)value;
 
 @end
 
