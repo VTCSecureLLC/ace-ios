@@ -23,11 +23,12 @@
 @interface UIMainBar : TPMultiLayoutViewController {
 }
 
-@property (nonatomic, strong) IBOutlet UIButton* historyButton;
-@property (nonatomic, strong) IBOutlet UIButton* contactsButton;
-@property (nonatomic, strong) IBOutlet UIButton* dialerButton;
-@property (nonatomic, strong) IBOutlet UIButton* settingsButton;
-@property (nonatomic, strong) IBOutlet UIButton* chatButton;
+@property (nonatomic, strong) IBOutlet UIButton *historyButton;
+@property (nonatomic, strong) IBOutlet UIButton *contactsButton;
+@property (nonatomic, strong) IBOutlet UIButton *dialpadButton;
+@property (nonatomic, strong) IBOutlet UIButton *settingsButton;
+@property (nonatomic, strong) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (nonatomic, strong) IBOutlet UIView *historyNotificationView;
 @property (nonatomic, strong) IBOutlet UILabel *historyNotificationLabel;
 @property (nonatomic, strong) IBOutlet UIView *chatNotificationView;

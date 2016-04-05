@@ -438,7 +438,6 @@
 		64487C3B1C85CAA200D45393 /* IncomingCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */; };
 		64487C3E1C85CC9400D45393 /* IncomingCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */; };
 		64A34D331C85DA9D00055CA9 /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A34D321C85DA9D00055CA9 /* UIManager.m */; };
-		64A34D3E1C85ECB800055CA9 /* IncallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A34D3D1C85ECB800055CA9 /* IncallButton.m */; };
 		69EE9C131C6500A50010EBB3 /* RTPquality_bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */; };
 		69EE9C141C6500A50010EBB3 /* RTPquality_medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */; };
 		70571E1A13FABCB000CDD3C2 /* rootca.pem in Resources */ = {isa = PBXBuildFile; fileRef = 70571E1913FABCB000CDD3C2 /* rootca.pem */; };
@@ -487,6 +486,9 @@
 		C6B2F8C11C900984006A2B0C /* InCallDialpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B2F8C01C900984006A2B0C /* InCallDialpadView.xib */; };
 		C6BC554C1C897094006B24DE /* CallBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BC554B1C897094006B24DE /* CallBarView.m */; };
 		C6BC554E1C89709E006B24DE /* CallBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6BC554D1C89709E006B24DE /* CallBarView.xib */; };
+		C6CD097D1CB3D2E70028B405 /* MainMenuBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CD097C1CB3D2E70028B405 /* MainMenuBarView.m */; };
+		C6CD097F1CB3D2FE0028B405 /* MainMenuBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CD097E1CB3D2FE0028B405 /* MainMenuBarView.xib */; };
+		C6CD09831CB3FDD40028B405 /* CustomBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CD09821CB3FDD40028B405 /* CustomBarButton.m */; };
 		C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */; };
 		C6F3E7D41C888663002C06E1 /* InCallOnHoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F3E7D31C888663002C06E1 /* InCallOnHoldView.m */; };
 		C6F3E7D61C888670002C06E1 /* InCallOnHoldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F3E7D51C888670002C06E1 /* InCallOnHoldView.xib */; };
@@ -1801,8 +1803,6 @@
 		64487C3D1C85CC9400D45393 /* IncomingCallViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewControllerNew.m; sourceTree = "<group>"; };
 		64A34D311C85DA9D00055CA9 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
 		64A34D321C85DA9D00055CA9 /* UIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIManager.m; sourceTree = "<group>"; };
-		64A34D3C1C85ECB800055CA9 /* IncallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncallButton.h; sourceTree = "<group>"; };
-		64A34D3D1C85ECB800055CA9 /* IncallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncallButton.m; sourceTree = "<group>"; };
 		69EE9C111C6500A50010EBB3 /* RTPquality_bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_bad@2x.png"; sourceTree = "<group>"; };
 		69EE9C121C6500A50010EBB3 /* RTPquality_medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RTPquality_medium@2x.png"; sourceTree = "<group>"; };
 		70571E1913FABCB000CDD3C2 /* rootca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rootca.pem; path = "liblinphone-sdk/apple-darwin/share/linphone/rootca.pem"; sourceTree = "<group>"; };
@@ -1853,6 +1853,11 @@
 		C6BC554A1C897094006B24DE /* CallBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallBarView.h; sourceTree = "<group>"; };
 		C6BC554B1C897094006B24DE /* CallBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallBarView.m; sourceTree = "<group>"; };
 		C6BC554D1C89709E006B24DE /* CallBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallBarView.xib; sourceTree = "<group>"; };
+		C6CD097B1CB3D2E70028B405 /* MainMenuBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuBarView.h; sourceTree = "<group>"; };
+		C6CD097C1CB3D2E70028B405 /* MainMenuBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuBarView.m; sourceTree = "<group>"; };
+		C6CD097E1CB3D2FE0028B405 /* MainMenuBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuBarView.xib; sourceTree = "<group>"; };
+		C6CD09811CB3FDD40028B405 /* CustomBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButton.h; sourceTree = "<group>"; };
+		C6CD09821CB3FDD40028B405 /* CustomBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButton.m; sourceTree = "<group>"; };
 		C6E529961C862C400029D3BB /* IncomingCallMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallMessageTableViewController.h; sourceTree = "<group>"; };
 		C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallMessageTableViewController.m; sourceTree = "<group>"; };
 		C6F3E7D21C888663002C06E1 /* InCallOnHoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallOnHoldView.h; sourceTree = "<group>"; };
@@ -3432,11 +3437,12 @@
 		64A34D371C85EC6C00055CA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C6CD09781CB3D28B0028B405 /* Main */,
 				C656335C1C88565E00EF8EDA /* BaseView.h */,
 				C656335D1C88565E00EF8EDA /* BaseView.m */,
+				C6CD09811CB3FDD40028B405 /* CustomBarButton.h */,
+				C6CD09821CB3FDD40028B405 /* CustomBarButton.m */,
 				C63B18241C89B4E100969395 /* In Call View Controller */,
-				64A34D3C1C85ECB800055CA9 /* IncallButton.h */,
-				64A34D3D1C85ECB800055CA9 /* IncallButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3504,6 +3510,16 @@
 				C6BC554D1C89709E006B24DE /* CallBarView.xib */,
 			);
 			name = "Call Bar View";
+			sourceTree = "<group>";
+		};
+		C6CD09781CB3D28B0028B405 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C6CD097B1CB3D2E70028B405 /* MainMenuBarView.h */,
+				C6CD097C1CB3D2E70028B405 /* MainMenuBarView.m */,
+				C6CD097E1CB3D2FE0028B405 /* MainMenuBarView.xib */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 		C6E529911C862BE90029D3BB /* Incoming Call Message */ = {
@@ -4868,7 +4884,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = N35DF75MHS;
+						DevelopmentTeam = SJGPQWR594;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -5426,6 +5442,7 @@
 				D3C31A6615BD8DED008ED271 /* pause_on_default_landscape.png in Resources */,
 				D3C31A6815BD8DED008ED271 /* pause_on_over_landscape.png in Resources */,
 				D3C31A6A15BD8DED008ED271 /* speaker_off_default_landscape.png in Resources */,
+				C6CD097F1CB3D2FE0028B405 /* MainMenuBarView.xib in Resources */,
 				D3C31A6C15BD8DED008ED271 /* speaker_off_disabled_landscape.png in Resources */,
 				D3C31A7015BD8DED008ED271 /* speaker_on_default_landscape.png in Resources */,
 				5ED491611C48251B00906A17 /* Hold.png in Resources */,
@@ -5731,6 +5748,7 @@
 				630CF5571AF7CE1500539F7A /* UITextField+DoneButton.m in Sources */,
 				5E63479B1C1111C900042AB4 /* InfColorSquarePicker.m in Sources */,
 				2214EBF312F86360002A5394 /* UIMicroButton.m in Sources */,
+				C6CD097D1CB3D2E70028B405 /* MainMenuBarView.m in Sources */,
 				22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */,
 				CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */,
 				CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */,
@@ -5749,6 +5767,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
+				C6CD09831CB3FDD40028B405 /* CustomBarButton.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
 				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
@@ -5851,7 +5870,6 @@
 				5E34FA891C9C6B3E00ABA721 /* FXKeychain.m in Sources */,
 				22405F001601C19200B92522 /* ImageViewController.m in Sources */,
 				D3ED40191602172200BF332B /* HPGrowingTextView.m in Sources */,
-				64A34D3E1C85ECB800055CA9 /* IncallButton.m in Sources */,
 				D3ED401B1602172200BF332B /* HPTextViewInternal.m in Sources */,
 				D37EE162160377D7003608A6 /* DTActionSheet.m in Sources */,
 				D35E91F4160CA10B0023116B /* UILinphoneTextField.m in Sources */,
@@ -6358,8 +6376,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
@@ -6454,8 +6472,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
@@ -6545,8 +6563,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
@@ -6638,8 +6656,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
@@ -6736,8 +6754,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -6787,8 +6805,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6832,8 +6850,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6877,8 +6895,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6923,8 +6941,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -6975,8 +6993,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -7021,8 +7039,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -7067,8 +7085,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -7110,8 +7128,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -7163,8 +7181,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -7210,8 +7228,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -7257,8 +7275,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gagik Martirosyan (9546538G66)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gagik Martirosyan (9546538G66)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;

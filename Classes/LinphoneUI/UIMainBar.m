@@ -22,6 +22,14 @@
 #import "CAAnimation+Blocks.h"
 #import "LinphoneCoreSettingsStore.h"
 
+#define kAnimationDuration 0.5f
+
+@interface UIMainBar ()
+
+@property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
+
+@end
+
 @implementation UIMainBar
 
 static NSString *const kBounceAnimation = @"bounce";
@@ -30,7 +38,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 @synthesize historyButton;
 @synthesize contactsButton;
-@synthesize dialerButton;
+@synthesize dialpadButton;
 @synthesize settingsButton;
 @synthesize chatButton;
 @synthesize historyNotificationView;
@@ -143,16 +151,16 @@ static NSString *const kDisappearAnimation = @"disappear";
 		[LinphoneUtils buttonFixStatesForTabs:contactsButtonLandscape];
 	}
 	{
-		UIButton *dialerButtonLandscape = (UIButton *)[landscapeView viewWithTag:[dialerButton tag]];
+		UIButton *dialerButtonLandscape = (UIButton *)[landscapeView viewWithTag:[dialpadButton tag]];
 		// Set selected+over background: IB lack !
-		[dialerButton setBackgroundImage:[UIImage imageNamed:@"dialer_selected_new.png"]
+		[dialpadButton setBackgroundImage:[UIImage imageNamed:@"dialer_selected_new.png"]
 								forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
 		// Set selected+over background: IB lack !
 		[dialerButtonLandscape setBackgroundImage:[UIImage imageNamed:@"dialer_selected_landscape.png"]
 										 forState:(UIControlStateHighlighted | UIControlStateSelected)];
 
-		[LinphoneUtils buttonFixStatesForTabs:dialerButton];
+		[LinphoneUtils buttonFixStatesForTabs:dialpadButton];
 		[LinphoneUtils buttonFixStatesForTabs:dialerButtonLandscape];
 	}
 	{
@@ -185,7 +193,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 	if ([LinphoneManager langageDirectionIsRTL]) {
 		[self flipImageForButton:historyButton];
 		[self flipImageForButton:settingsButton];
-		[self flipImageForButton:dialerButton];
+		[self flipImageForButton:dialpadButton];
 		[self flipImageForButton:chatButton];
 		[self flipImageForButton:contactsButton];
 	}
@@ -494,9 +502,9 @@ static NSString *const kDisappearAnimation = @"disappear";
 		contactsButton.selected = FALSE;
 	}
 	if ([view equal:[DialerViewController compositeViewDescription]]) {
-		dialerButton.selected = TRUE;
+		dialpadButton.selected = TRUE;
 	} else {
-		dialerButton.selected = FALSE;
+		dialpadButton.selected = FALSE;
 	}
 	if ([view equal:[SettingsViewController compositeViewDescription]]) {
 		settingsButton.selected = TRUE;
@@ -538,6 +546,19 @@ static NSString *const kDisappearAnimation = @"disappear";
 
     //[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
 }
+
+- (IBAction)onMoreClick:(UIButton *)sender {
+    
+    if (self.moreMenuContainer.tag == 0) {
+        
+        [self showMoreMenu];
+    }
+    else {
+        
+        [self hideMoreMenu];
+    }
+}
+
 
 #pragma mark - TPMultiLayoutViewController Functions
 
@@ -585,7 +606,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 - (void) setBackgroundColor:(UIColor*)color {
     [self.historyButton setBackgroundColor:color];
     [self.contactsButton setBackgroundColor:color];
-    [self.dialerButton setBackgroundColor:color];
+    [self.dialpadButton setBackgroundColor:color];
     [self.chatButton setBackgroundColor:color];
     [self.settingsButton setBackgroundColor:color];
 }
@@ -602,9 +623,9 @@ static NSString *const kDisappearAnimation = @"disappear";
     [self.contactsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
     
     imageNormal = [[UIImage imageNamed:@"dialer_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.dialerButton setTitleColor:color forState:UIControlStateNormal];
-    self.dialerButton.tintColor = color;
-    [self.dialerButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+    [self.dialpadButton setTitleColor:color forState:UIControlStateNormal];
+    self.dialpadButton.tintColor = color;
+    [self.dialpadButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
     
     imageNormal = [[UIImage imageNamed:@"resources_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.chatButton setTitleColor:color forState:UIControlStateNormal];
@@ -616,5 +637,32 @@ static NSString *const kDisappearAnimation = @"disappear";
     self.settingsButton.tintColor = color;
     [self.settingsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
 }
+
+#pragma mark - Animation
+
+- (void)showMoreMenu {
+    
+    self.moreMenuContainer.hidden = NO;
+    self.moreMenuContainer.tag = 1;
+    // Automatic hiding
+    [UIView animateWithDuration:kAnimationDuration
+                     animations:^{
+                         self.moreMenuContainer.alpha = 1;
+                         [self.moreButton setSelected:YES];
+                         [self.moreMenuContainer.superview bringSubviewToFront:self.moreMenuContainer];
+                     }];
+}
+
+- (void)hideMoreMenu {
+    
+    self.moreMenuContainer.tag = 0;
+    
+    [UIView animateWithDuration:kAnimationDuration
+                     animations:^{
+                         self.moreMenuContainer.alpha = 0;
+                         [self.moreButton setSelected:NO];
+                     }];
+}
+
 
 @end
