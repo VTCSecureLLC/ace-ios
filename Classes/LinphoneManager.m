@@ -1040,13 +1040,19 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
                 [[UIApplication sharedApplication] presentLocalNotificationNow:notif];
             }
         }
-        
+        const char* simpleMessage = linphone_chat_message_get_text(msg);
+        const char* userName = linphone_address_get_username(remoteAddress);
+        const LinphoneAddress *lAddress = linphone_chat_message_get_from_address(msg);
+        char *contactURI = linphone_address_as_string_uri_only(lAddress);
         // Post event
         NSDictionary *dict = @{
                                @"room" : [NSValue valueWithPointer:room],
                                @"from_address" : [NSValue valueWithPointer:linphone_chat_message_get_from_address(msg)],
                                @"message" : [NSValue valueWithPointer:msg],
-                               @"call-id" : callID
+                               @"call-id" : callID,
+                               @"userName" : [NSString stringWithUTF8String:userName],
+                               @"simpleMessage" : [NSString stringWithUTF8String:simpleMessage],
+                               @"contactURI" : [NSString stringWithUTF8String:contactURI]
                                };
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self userInfo:dict];
