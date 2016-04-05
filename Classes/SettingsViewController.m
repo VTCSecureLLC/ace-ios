@@ -1270,7 +1270,6 @@ static BOOL isAdvancedSettings = FALSE;
     }
     
     [self.view addSubview:self.fontPicker];
-    
 }
 
 #pragma mark - UICustomPickerDelegate
@@ -1280,8 +1279,33 @@ static BOOL isAdvancedSettings = FALSE;
     if (item.length > 0) {
         [DefaultSettingsManager sharedInstance].fontFamilyName = item;
     }
-    
 }
+
+- (UIFont *)fontForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    NSArray *familyNames = [UIFont familyNames];
+    UIFont *font = [self fontNameForFontFamily:familyNames[row] withSize:16];
+    
+    return font;
+}
+
+- (UIFont *)fontNameForFontFamily:(NSString *)fontFamilyName withSize:(CGFloat)fontSize{
+    
+    NSArray *fontNames = [UIFont fontNamesForFamilyName:fontFamilyName];
+    NSPredicate *mediumFontPredicate = [NSPredicate predicateWithFormat:@"self CONTAINS[cd] 'medium'"];
+    
+    NSArray *filteredFontNames = [fontNames filteredArrayUsingPredicate:mediumFontPredicate];
+    UIFont *font;
+    if(filteredFontNames.count > 0) {
+        font = [UIFont fontWithName:[filteredFontNames firstObject] size:fontSize];
+    }
+    else {
+        font = [UIFont fontWithName:[fontNames firstObject] size:fontSize];
+    }
+    
+    return font;
+}
+
 
 -(void) resetMediaSettings{
     if([LinphoneManager getLc]){
