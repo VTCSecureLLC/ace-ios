@@ -508,10 +508,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         [[LinphoneManager instance] lpConfigSetBool:enableRtt forKey:@"rtt"];
         
     }
-    else if ([@"random_port_preference" compare:notif.object] == NSOrderedSame) {
-		removeFromHiddenKeys = ![[notif.userInfo objectForKey:@"random_port_preference"] boolValue];
-		[keys addObject:@"port_preference"];
-	} else if ([@"backgroundmode_preference" compare:notif.object] == NSOrderedSame) {
+    else if ([@"backgroundmode_preference" compare:notif.object] == NSOrderedSame) {
 		removeFromHiddenKeys = [[notif.userInfo objectForKey:@"backgroundmode_preference"] boolValue];
 		[keys addObject:@"start_at_boot_preference"];
 	} else if ([@"stun_preference" compare:notif.object] == NSOrderedSame) {
@@ -1051,11 +1048,6 @@ static BOOL isAdvancedSettings = FALSE;
 	}
 
 	[hiddenKeys addObjectsFromArray:[[SDPNegotiationService unsupportedCodecs] allObjects]];
-
-	BOOL random_port = [lm lpConfigBoolForKey:@"random_port_preference"];
-	if (random_port) {
-		[hiddenKeys addObject:@"port_preference"];
-	}
 
 	if (linphone_core_get_stun_server([LinphoneManager getLc]) == NULL) {
 		[hiddenKeys addObject:@"ice_preference"];

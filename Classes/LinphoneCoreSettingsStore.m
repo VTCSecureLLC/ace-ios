@@ -287,7 +287,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         }
 		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
-        
+        vsize.width = 0;
+        vsize.height = 0;
         linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
@@ -346,8 +347,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		[self setBool:[lm lpConfigBoolForKey:@"wifi_only_preference" withDefault:NO] forKey:@"wifi_only_preference"];
 		[self setCString:linphone_core_get_stun_server(lc) forKey:@"stun_preference"];
 		[self setBool:linphone_core_get_firewall_policy(lc) == LinphonePolicyUseIce forKey:@"ice_preference"];
-		int random_port_preference = [lm lpConfigIntForKey:@"random_port_preference" withDefault:1];
-		[self setInteger:random_port_preference forKey:@"random_port_preference"];
 		int port = [lm lpConfigIntForKey:@"port_preference" withDefault:5060];
 		[self setInteger:port forKey:@"port_preference"];
 		{
@@ -503,12 +502,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 	NSString *error = nil;
 
 	int port_preference = [self integerForKey:@"port_preference"];
-
-	BOOL random_port_preference = [self boolForKey:@"random_port_preference"];
-	[lm lpConfigSetInt:random_port_preference forKey:@"random_port_preference"];
-	if (random_port_preference) {
-		port_preference = -1;
-	}
 
 	LCSipTransports transportValue = {port_preference, port_preference, -1, -1};
 
@@ -711,7 +704,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			[self valueChangedForKey:@"domain_preference"] || [self valueChangedForKey:@"expire_preference"] ||
 			[self valueChangedForKey:@"proxy_preference"] || [self valueChangedForKey:@"outbound_proxy_preference"] ||
 			[self valueChangedForKey:@"transport_preference"] || [self valueChangedForKey:@"port_preference"] ||
-			[self valueChangedForKey:@"random_port_preference"] || [self valueChangedForKey:@"prefix_preference"] ||
 			[self valueChangedForKey:@"substitute_+_by_00_preference"] || [self valueChangedForKey:@"use_ipv6"] ||
 			[self valueChangedForKey:@"avpf_preference"] || [self valueChangedForKey:@"pushnotification_preference"];
 		if (account_changed)
@@ -772,6 +764,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         }
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		MSVideoSize vsize;
+        vsize.width = 0;
+        vsize.height = 0;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //[self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){

@@ -1,6 +1,9 @@
 
 [sip]
-sip_random_port=0
+sip_random_port=1
+sip_port=-1
+sip_tcp_port=-1
+sip_tls_port=-1
 
 [sound]
 ringer_dev_id=AQ: Audio Queue Device
