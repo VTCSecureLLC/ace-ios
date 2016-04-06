@@ -547,7 +547,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     //[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
 }
 
-- (IBAction)onMoreClick:(UIButton *)sender {
+- (IBAction)moreButtonAction:(UIButton *)sender {
     
     if (self.moreMenuContainer.tag == 0) {
         
@@ -557,6 +557,22 @@ static NSString *const kDisappearAnimation = @"disappear";
         
         [self hideMoreMenu];
     }
+}
+
+- (IBAction)selfPreviewButtonAction:(UIButton *)sender {
+    
+}
+
+- (IBAction)videomailButtonAction:(UIButton *)sender {
+    
+}
+
+- (IBAction)resourcesButtonAction:(UIButton *)sender {
+    
+}
+
+- (IBAction)settingsButtonAction:(UIButton *)sender {
+    
 }
 
 
@@ -649,7 +665,6 @@ static NSString *const kDisappearAnimation = @"disappear";
                      animations:^{
                          self.moreMenuContainer.alpha = 1;
                          [self.moreButton setSelected:YES];
-                         [self.moreMenuContainer.superview bringSubviewToFront:self.moreMenuContainer];
                      }];
 }
 

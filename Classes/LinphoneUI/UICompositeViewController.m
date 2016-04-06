@@ -20,6 +20,7 @@
 #import "UICompositeViewController.h"
 
 #import "LinphoneAppDelegate.h"
+#import "UIMainBar.h"
 
 @implementation UICompositeViewDescription
 
@@ -332,6 +333,9 @@
 + (void)addSubView:(UIViewController *)controller view:(UIView *)view {
 	if (controller != nil) {
 		[view addSubview:controller.view];
+        if ([controller isKindOfClass:[UIMainBar class]]) {
+            [view bringSubviewToFront:controller.view];
+        }
 	}
 }
 
@@ -538,17 +542,17 @@
 		// tabFrame.size.width = self.tabBarViewController.view.frame.size.width;
 		tabFrame.origin.y -= tabFrame.size.height;
 		tabFrame.origin.x -= tabFrame.size.width;
-		contentFrame.size.height = tabFrame.origin.y - contentFrame.origin.y;
+        contentFrame.size.height = viewFrame.size.height - contentFrame.origin.y - 70;
 
 		// for some views, we need the content to overlap, in which case
 		// we insert in the tab XIB a mask with tag -1 and with y = the amount of
 		// points that the content should overlap.
-		for (UIView *view in self.tabBarViewController.view.subviews) {
-			if (view.tag == -1) {
-				contentFrame.size.height += view.frame.origin.y;
-				break;
-			}
-		}
+//		for (UIView *view in self.tabBarViewController.view.subviews) {
+//			if (view.tag == -1) {
+//				contentFrame.size.height += view.frame.origin.y;
+//				break;
+//			}
+//		}
 	} else {
 		contentFrame.size.height = viewFrame.size.height - contentFrame.origin.y;
 		tabFrame.origin.y = viewFrame.size.height;

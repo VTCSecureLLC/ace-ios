@@ -489,6 +489,7 @@
 		C6CD097D1CB3D2E70028B405 /* MainMenuBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CD097C1CB3D2E70028B405 /* MainMenuBarView.m */; };
 		C6CD097F1CB3D2FE0028B405 /* MainMenuBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CD097E1CB3D2FE0028B405 /* MainMenuBarView.xib */; };
 		C6CD09831CB3FDD40028B405 /* CustomBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CD09821CB3FDD40028B405 /* CustomBarButton.m */; };
+		C6CD09871CB4F8010028B405 /* MainBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CD09861CB4F8010028B405 /* MainBarView.m */; };
 		C6E529981C862C400029D3BB /* IncomingCallMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */; };
 		C6F3E7D41C888663002C06E1 /* InCallOnHoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F3E7D31C888663002C06E1 /* InCallOnHoldView.m */; };
 		C6F3E7D61C888670002C06E1 /* InCallOnHoldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F3E7D51C888670002C06E1 /* InCallOnHoldView.xib */; };
@@ -1858,6 +1859,8 @@
 		C6CD097E1CB3D2FE0028B405 /* MainMenuBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenuBarView.xib; sourceTree = "<group>"; };
 		C6CD09811CB3FDD40028B405 /* CustomBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButton.h; sourceTree = "<group>"; };
 		C6CD09821CB3FDD40028B405 /* CustomBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButton.m; sourceTree = "<group>"; };
+		C6CD09851CB4F8010028B405 /* MainBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainBarView.h; sourceTree = "<group>"; };
+		C6CD09861CB4F8010028B405 /* MainBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainBarView.m; sourceTree = "<group>"; };
 		C6E529961C862C400029D3BB /* IncomingCallMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallMessageTableViewController.h; sourceTree = "<group>"; };
 		C6E529971C862C400029D3BB /* IncomingCallMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallMessageTableViewController.m; sourceTree = "<group>"; };
 		C6F3E7D21C888663002C06E1 /* InCallOnHoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallOnHoldView.h; sourceTree = "<group>"; };
@@ -3468,6 +3471,8 @@
 				C6F3E7D11C888530002C06E1 /* In Call On Hold View */,
 				C65633631C88566F00EF8EDA /* Second Incoming Call Bar View */,
 				C656336C1C886EFD00EF8EDA /* Second Incoming Call View */,
+				C6CD09851CB4F8010028B405 /* MainBarView.h */,
+				C6CD09861CB4F8010028B405 /* MainBarView.m */,
 			);
 			name = "In Call View Controller";
 			sourceTree = "<group>";
@@ -5749,6 +5754,7 @@
 				5E63479B1C1111C900042AB4 /* InfColorSquarePicker.m in Sources */,
 				2214EBF312F86360002A5394 /* UIMicroButton.m in Sources */,
 				C6CD097D1CB3D2E70028B405 /* MainMenuBarView.m in Sources */,
+				C6CD09871CB4F8010028B405 /* MainBarView.m in Sources */,
 				22968A5F12F875C600588287 /* UISpeakerButton.m in Sources */,
 				CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */,
 				CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */,
