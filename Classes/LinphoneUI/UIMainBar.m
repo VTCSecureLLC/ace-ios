@@ -369,6 +369,10 @@ static NSString *const kDisappearAnimation = @"disappear";
                               kCRToastTimeIntervalKey : @(3),
                               kCRToastUnderStatusBarKey : @(0)} mutableCopy];
     
+    
+    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+    options[kCRToastImageAlignmentKey] = @(0);
+
     options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
                                                                                                   automaticallyDismiss:YES
                                                                                                                  block:^(CRToastInteractionType interactionType) {
