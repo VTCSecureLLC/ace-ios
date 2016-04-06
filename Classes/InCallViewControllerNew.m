@@ -229,14 +229,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                                       kCRToastNotificationTypeKey : @(1),
                                       kCRToastTimeIntervalKey : @(3),
                                       kCRToastUnderStatusBarKey : @(0)} mutableCopy];
-    
+    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+    options[kCRToastImageAlignmentKey] = @(0);
     options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
                                                                                                   automaticallyDismiss:YES
                                                                                                                  block:^(CRToastInteractionType interactionType){}]];
-    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
-    options[kCRToastImageAlignmentKey] = @(0);
-    
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        [CRToastManager dismissNotification:YES];
         [CRToastManager showNotificationWithOptions:options
                                     completionBlock:^{}];
     }

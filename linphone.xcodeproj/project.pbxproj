@@ -1065,7 +1065,7 @@
 		04D7C3C91CB3AF1000F2441C /* CRToastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastViewController.m; sourceTree = "<group>"; };
 		04D7C3CA1CB3AF1000F2441C /* CRToastWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastWindow.h; sourceTree = "<group>"; };
 		04D7C3CB1CB3AF1000F2441C /* CRToastWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastWindow.m; sourceTree = "<group>"; };
-		04D7C3CC1CB3AF1000F2441C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04D7C3CC1CB3AF1000F2441C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CRToast/Info.plist; sourceTree = "<group>"; };
 		0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		152F22351B15E889008C0621 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		1560821E18EEF26100765332 /* libmsopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmsopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmsopenh264.a"; sourceTree = "<group>"; };
@@ -2884,9 +2884,9 @@
 				04D7C3C91CB3AF1000F2441C /* CRToastViewController.m */,
 				04D7C3CA1CB3AF1000F2441C /* CRToastWindow.h */,
 				04D7C3CB1CB3AF1000F2441C /* CRToastWindow.m */,
-				04D7C3CC1CB3AF1000F2441C /* Info.plist */,
 			);
-			path = CRToast;
+			name = CRToast;
+			path = ../CRToast;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -3142,9 +3142,9 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				04D7C3BF1CB3AF1000F2441C /* CRToast */,
 				32CA4F630368D1EE00C91783 /* linphone_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				04D7C3CC1CB3AF1000F2441C /* Info.plist */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -3592,6 +3592,7 @@
 		D326483415887D4400930C67 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				04D7C3BF1CB3AF1000F2441C /* CRToast */,
 				CE036A661C46847900987594 /* SRVResolver */,
 				F4CE02FF1BCF9B5D00157254 /* RealTimeText */,
 				D37E3ECA1619C27A0087659A /* CAAnimationBlocks */,

@@ -121,6 +121,15 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         self.subtitleLabel = subtitleLabel;
         
         self.isAccessibilityElement = YES;
+        
+        int lineWith = 40;
+        int lineHeight = 5;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake((CRGetStatusBarWidth() - lineWith) / 2, self.bounds.size.height - lineHeight - 5, lineWith, lineHeight)];
+        view.layer.cornerRadius = 2;
+        view.layer.masksToBounds = YES;
+        view.backgroundColor = [UIColor whiteColor];
+        [self addSubview:view];
+        
     }
     return self;
 }
@@ -234,6 +243,10 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
                                               CGRectGetMinY(self.subtitleLabel.frame),
                                               CGRectGetWidth(self.subtitleLabel.frame),
                                               subTitleLabelHeight);
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 30, 100, 30)];
+        view.backgroundColor = [UIColor yellowColor];
+        [self addSubview:view];
         
         // Get the smallest X value so our image/activity indicator doesn't cover any thing
         CGFloat smallestXView = MIN(CGRectGetMinX(self.label.frame), CGRectGetMinX(self.subtitleLabel.frame));

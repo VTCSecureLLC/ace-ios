@@ -368,11 +368,8 @@ static NSString *const kDisappearAnimation = @"disappear";
                               kCRToastNotificationTypeKey : @(1),
                               kCRToastTimeIntervalKey : @(3),
                               kCRToastUnderStatusBarKey : @(0)} mutableCopy];
-    
-    
     options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
     options[kCRToastImageAlignmentKey] = @(0);
-
     options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
                                                                                                   automaticallyDismiss:YES
                                                                                                                  block:^(CRToastInteractionType interactionType) {
@@ -390,7 +387,7 @@ static NSString *const kDisappearAnimation = @"disappear";
                                                                                                                      }
                                                                                                                  }]];
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-        
+        [CRToastManager dismissNotification:YES];
         [CRToastManager showNotificationWithOptions:options
                                     completionBlock:^{
                                     }];
