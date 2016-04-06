@@ -200,7 +200,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.transportTextField.layer setBorderWidth:1.0];
     [self.transportTextField.layer setCornerRadius:5];
     self.transportTextField.text = @"TCP";
-    [self.transportTextField setDelegate:self];
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
     [self.textFieldUserId.layer setCornerRadius:5];
@@ -929,17 +928,6 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 	linphone_core_set_provisioning_uri([LinphoneManager getLc], [fullPath UTF8String]);
 	[[LinphoneManager instance] lpConfigSetInt:1 forKey:@"transient_provisioning" forSection:@"misc"];
 	[[LinphoneManager instance] resetLinphoneCore];
-}
-
-
-#pragma mark - UITextFieldDelegate Functions
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
-	return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	activeTextField = textField;
 }
 
 - (BOOL)textField:(UITextField *)textField
@@ -1778,6 +1766,11 @@ static BOOL isAdvancedShown = NO;
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+}
+
+- (IBAction)transportSelectionButtonTapped:(id)sender {
+    transportAlert = [[UIAlertView alloc] initWithTitle:@"Select Transport" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"TCP", @"TLS", nil];
+    [transportAlert show];
 }
 
 @end
