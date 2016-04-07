@@ -22,6 +22,7 @@
 #import "UICallCellDataNew.h"
 #import "CallInfoView.h"
 #import "PhoneMainView.h"
+#import "CRToast.h"
 
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
@@ -207,6 +208,39 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.isChatMode = NO;
 }
 
+
+- (void)textReceived:(NSNotification *)notif {
+    
+    NSDictionary *messageInfo = notif.userInfo;
+    NSString *userName = [messageInfo objectForKey:@"userName"];
+    NSString *message = [messageInfo objectForKey:@"simpleMessage"];
+    NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
+    NSMutableDictionary *options = [@{
+                                      kCRToastTextKey : messageFullText,
+                                      kCRToastTextAlignmentKey : @(0),
+                                      kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
+                                      kCRToastAnimationInTypeKey : @(0),
+                                      kCRToastAnimationOutTypeKey : @(0),
+                                      kCRToastAnimationInDirectionKey : @(0),
+                                      kCRToastAnimationOutDirectionKey : @(0),
+                                      kCRToastImageAlignmentKey : @(0),
+                                      kCRToastNotificationPreferredPaddingKey : @(0),
+                                      kCRToastNotificationPresentationTypeKey : @(0),
+                                      kCRToastNotificationTypeKey : @(1),
+                                      kCRToastTimeIntervalKey : @(3),
+                                      kCRToastUnderStatusBarKey : @(0)} mutableCopy];
+    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+    options[kCRToastImageAlignmentKey] = @(0);
+    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
+                                                                                                  automaticallyDismiss:YES
+                                                                                                                 block:^(CRToastInteractionType interactionType){}]];
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        [CRToastManager dismissNotification:YES];
+        [CRToastManager showNotificationWithOptions:options
+                                    completionBlock:^{}];
+    }
+    
+}
 
 #pragma mark - Private Methods
 - (void)callUpdate:(LinphoneCall *)call state:(LinphoneCallState)state animated:(BOOL)animated notification:(NSNotification *)notification {
@@ -515,6 +549,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textReceived:)
+                                                 name:kLinphoneTextReceived
+                                               object:nil];
 }
 
 - (void)removeNotifications {
@@ -524,6 +563,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextComposeEvent object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextReceived object:nil];
 }
 
 - (void)setupVideo {

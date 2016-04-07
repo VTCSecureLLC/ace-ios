@@ -21,6 +21,7 @@
 #import "PhoneMainView.h"
 #import "CAAnimation+Blocks.h"
 #import "LinphoneCoreSettingsStore.h"
+#import "CRToast.h"
 
 @implementation UIMainBar
 
@@ -61,12 +62,10 @@ static NSString *const kDisappearAnimation = @"disappear";
 											 selector:@selector(callUpdate:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
-    //Remove Unread Messages Count on iPhone
-
-//	[[NSNotificationCenter defaultCenter] addObserver:self
-//											 selector:@selector(textReceived:)
-//												 name:kLinphoneTextReceived
-//											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(textReceived:)
+												 name:kLinphoneTextReceived
+											   object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(settingsUpdate:)
 												 name:kLinphoneSettingsUpdate
@@ -86,12 +85,11 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneMainViewChange object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextReceived object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneSettingsUpdate object:nil];
+    [super viewWillDisappear:animated];
 }
 
 - (void)flipImageForButton:(UIButton *)button {
@@ -350,11 +348,52 @@ static NSString *const kDisappearAnimation = @"disappear";
     }
 }
 
-//Remove Unread Messages Count on iPhone
+- (void)textReceived:(NSNotification *)notif {
+    
+    NSDictionary *messageInfo = notif.userInfo;
+    NSString *userName = [messageInfo objectForKey:@"userName"];
+    NSString *message = [messageInfo objectForKey:@"simpleMessage"];
+    NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
+    NSMutableDictionary *options = [@{
+                              kCRToastTextKey : messageFullText,
+                              kCRToastTextAlignmentKey : @(0),
+                              kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
+                              kCRToastAnimationInTypeKey : @(0),
+                              kCRToastAnimationOutTypeKey : @(0),
+                              kCRToastAnimationInDirectionKey : @(0),
+                              kCRToastAnimationOutDirectionKey : @(0),
+                              kCRToastImageAlignmentKey : @(0),
+                              kCRToastNotificationPreferredPaddingKey : @(0),
+                              kCRToastNotificationPresentationTypeKey : @(0),
+                              kCRToastNotificationTypeKey : @(1),
+                              kCRToastTimeIntervalKey : @(3),
+                              kCRToastUnderStatusBarKey : @(0)} mutableCopy];
+    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+    options[kCRToastImageAlignmentKey] = @(0);
+    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
+                                                                                                  automaticallyDismiss:YES
+                                                                                                                 block:^(CRToastInteractionType interactionType) {
+                                                                                                                     if (interactionType == CRToastInteractionTypeTapOnce) {
+                                                                                                                         NSString *remoteContact = (NSString *)[notif.userInfo objectForKey:@"contactURI"];
+                                                                                                                         // Go to ChatRoom view
+                                                                                                                         [[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
+                                                                                                                         LinphoneChatRoom *room = [self findChatRoomForContact:remoteContact];
+                                                                                                                         ChatRoomViewController *controller = DYNAMIC_CAST(
+                                                                                                                                                                           [[PhoneMainView instance] changeCurrentView:[ChatRoomViewController compositeViewDescription] push:TRUE],
+                                                                                                                                                                           ChatRoomViewController);
+                                                                                                                         if (controller != nil && room != nil) {
+                                                                                                                             [controller setChatRoom:room];
+                                                                                                                         }
+                                                                                                                     }
+                                                                                                                 }]];
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        [CRToastManager dismissNotification:YES];
+        [CRToastManager showNotificationWithOptions:options
+                                    completionBlock:^{
+                                    }];
+    }
 
-//- (void)textReceived:(NSNotification *)notif {
-//	[self updateUnreadMessage:TRUE];
-//}
+}
 
 #pragma mark -
 
@@ -616,5 +655,49 @@ static NSString *const kDisappearAnimation = @"disappear";
     self.settingsButton.tintColor = color;
     [self.settingsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
 }
+
+- (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
+    const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+    const char *from = [contact UTF8String];
+    while (rooms) {
+        const LinphoneAddress *room_from_address = linphone_chat_room_get_peer_address((LinphoneChatRoom *)rooms->data);
+        char *room_from = linphone_address_as_string_uri_only(room_from_address);
+        if (room_from && strcmp(from, room_from) == 0) {
+            return rooms->data;
+        }
+        rooms = rooms->next;
+    }
+    return NULL;
+}
+
+//- (NSDictionary*)options {
+//    
+//    
+//    NSDictionary *options = @{
+//                              kCRToastTextKey : @"Hello World!",
+//                              kCRToastTextAlignmentKey : @(0),
+//                              kCRToastBackgroundColorKey : [UIColor redColor],
+//                              kCRToastAnimationInTypeKey : @(0),
+//                              kCRToastAnimationOutTypeKey : @(0),
+//                              kCRToastAnimationInDirectionKey : @(0),
+//                              kCRToastAnimationOutDirectionKey : @(0),
+//                              kCRToastImageAlignmentKey : @(0),
+//                              kCRToastNotificationPreferredPaddingKey : @(0),
+//                              kCRToastNotificationPresentationTypeKey : @(0),
+//                              kCRToastNotificationTypeKey : @(1),
+//                              kCRToastTimeIntervalKey : @(1),
+//                              kCRToastUnderStatusBarKey : @(0)
+//                              };
+//    
+//    // if (_dismissibleWithTapSwitch.on) {
+//    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeTap
+//                                                                                                  automaticallyDismiss:YES
+//                                                                                                                 block:^(CRToastInteractionType interactionType){
+//                                                                                                                     NSLog(@"Dismissed with %@ interaction", NSStringFromCRToastInteractionType(interactionType));
+//                                                                                                                 }]];
+//    //  }
+//    
+//    return [NSDictionary dictionaryWithDictionary:options];
+//}
 
 @end
