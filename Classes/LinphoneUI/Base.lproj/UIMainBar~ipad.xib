@@ -12,6 +12,7 @@
                 <outlet property="contactsButton" destination="haQ-lc-5md" id="vev-xu-Dox"/>
                 <outlet property="dialpadButton" destination="aD6-iy-CIE" id="WuC-v4-PkI"/>
                 <outlet property="historyButton" destination="jJe-Yy-FtF" id="4eV-bM-iIq"/>
+                <outlet property="messageIndicatorView" destination="hlM-Mb-VuG" id="ZaY-TU-sPq"/>
                 <outlet property="moreButton" destination="83Z-76-2Sn" id="bC8-ZA-L7x"/>
                 <outlet property="moreMenuContainer" destination="335-YK-MHF" id="1st-ly-MAZ"/>
                 <outlet property="settingsButton" destination="KXw-r2-Xiq" id="3pn-d7-aCq"/>
@@ -169,6 +170,22 @@
                                         <constraint firstAttribute="width" secondItem="tRa-KC-OZK" secondAttribute="height" multiplier="1:1" id="Hfi-VW-J5w"/>
                                     </constraints>
                                 </imageView>
+                                <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlM-Mb-VuG" userLabel="Message Indicator View">
+                                    <rect key="frame" x="44" y="4" width="20" height="20"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="message_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="9No-8J-rF5" userLabel="Message Indicator Image View">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="9No-8J-rF5" firstAttribute="leading" secondItem="hlM-Mb-VuG" secondAttribute="leading" id="6Yr-RM-f4y"/>
+                                        <constraint firstItem="9No-8J-rF5" firstAttribute="top" secondItem="hlM-Mb-VuG" secondAttribute="top" id="8aT-v0-oZi"/>
+                                        <constraint firstAttribute="bottom" secondItem="9No-8J-rF5" secondAttribute="bottom" id="Hxo-1F-stY"/>
+                                        <constraint firstAttribute="trailing" secondItem="9No-8J-rF5" secondAttribute="trailing" id="UfB-ru-0jq"/>
+                                        <constraint firstAttribute="width" constant="20" id="cEy-Cs-Dek"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -176,11 +193,16 @@
                                 <constraint firstItem="3Y3-Ko-kgK" firstAttribute="top" secondItem="qNr-jY-IYr" secondAttribute="top" id="5E8-ho-8DU"/>
                                 <constraint firstItem="dxw-Y8-waj" firstAttribute="leading" secondItem="qNr-jY-IYr" secondAttribute="leading" id="Dua-t7-cL5"/>
                                 <constraint firstItem="dxw-Y8-waj" firstAttribute="top" secondItem="tRa-KC-OZK" secondAttribute="bottom" constant="4" id="HPO-BT-fKt"/>
+                                <constraint firstItem="hlM-Mb-VuG" firstAttribute="trailing" secondItem="tRa-KC-OZK" secondAttribute="trailing" constant="10" id="IYO-Lo-0Kb"/>
                                 <constraint firstItem="3Y3-Ko-kgK" firstAttribute="leading" secondItem="qNr-jY-IYr" secondAttribute="leading" id="OS8-2A-sLp"/>
                                 <constraint firstAttribute="trailing" secondItem="3Y3-Ko-kgK" secondAttribute="trailing" id="PkF-ye-mUU"/>
+                                <constraint firstItem="hlM-Mb-VuG" firstAttribute="top" secondItem="tRa-KC-OZK" secondAttribute="top" constant="-4" id="d5f-5r-vXS"/>
                                 <constraint firstItem="tRa-KC-OZK" firstAttribute="centerX" secondItem="qNr-jY-IYr" secondAttribute="centerX" id="hHi-1S-xaX"/>
+                                <constraint firstItem="hlM-Mb-VuG" firstAttribute="width" secondItem="hlM-Mb-VuG" secondAttribute="height" multiplier="1:1" id="lOC-g4-3dL"/>
                                 <constraint firstAttribute="trailing" secondItem="dxw-Y8-waj" secondAttribute="trailing" id="oYH-lH-jEj"/>
                                 <constraint firstAttribute="bottom" secondItem="3Y3-Ko-kgK" secondAttribute="bottom" id="rSP-dp-ePu"/>
+                                <constraint firstItem="hlM-Mb-VuG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qNr-jY-IYr" secondAttribute="top" constant="4" id="whx-60-dik"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hlM-Mb-VuG" secondAttribute="trailing" constant="4" id="ykG-BN-tQH"/>
                                 <constraint firstItem="tRa-KC-OZK" firstAttribute="top" secondItem="qNr-jY-IYr" secondAttribute="top" constant="8" id="ytx-VV-vEZ"/>
                             </constraints>
                         </view>
@@ -219,10 +241,8 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="4sp-ng-cvm" secondAttribute="bottom" id="UM8-M6-GfP"/>
                                         <constraint firstAttribute="trailing" secondItem="4sp-ng-cvm" secondAttribute="trailing" id="V84-9N-WnQ"/>
-                                        <constraint firstAttribute="centerX" secondItem="4sp-ng-cvm" secondAttribute="centerX" id="c6n-R8-cjj"/>
                                         <constraint firstAttribute="width" constant="20" id="dp1-xY-RZZ"/>
                                         <constraint firstItem="4sp-ng-cvm" firstAttribute="leading" secondItem="G6x-gQ-1ki" secondAttribute="leading" id="hKv-9m-CYA"/>
-                                        <constraint firstAttribute="centerY" secondItem="4sp-ng-cvm" secondAttribute="centerY" id="onn-7u-ChA"/>
                                         <constraint firstItem="4sp-ng-cvm" firstAttribute="top" secondItem="G6x-gQ-1ki" secondAttribute="top" id="t6I-cC-Sc7"/>
                                         <constraint firstAttribute="width" secondItem="G6x-gQ-1ki" secondAttribute="height" multiplier="1:1" id="wNx-ae-9XU"/>
                                     </constraints>
@@ -455,6 +475,7 @@
         <image name="history" width="32" height="30"/>
         <image name="in_call_keypad_icon" width="26" height="35"/>
         <image name="in_call_more_icon" width="56" height="17"/>
+        <image name="message_indicator" width="20" height="20"/>
         <image name="resources" width="32" height="32"/>
         <image name="self_preview" width="32" height="32"/>
         <image name="settings" width="32" height="28"/>

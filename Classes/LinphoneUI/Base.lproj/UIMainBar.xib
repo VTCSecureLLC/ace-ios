@@ -12,6 +12,7 @@
                 <outlet property="contactsButton" destination="99G-wl-sZU" id="cEz-G6-ijr"/>
                 <outlet property="dialpadButton" destination="4Dq-cE-lhK" id="G0H-jQ-RdH"/>
                 <outlet property="historyButton" destination="5Ti-Jx-O9F" id="9WJ-Gk-FMs"/>
+                <outlet property="messageIndicatorView" destination="BPT-hO-dec" id="Zc3-SR-lkg"/>
                 <outlet property="moreButton" destination="t74-gE-Vmp" id="aqp-d5-EC6"/>
                 <outlet property="moreMenuContainer" destination="pAm-wm-qFc" id="YeH-cs-wiy"/>
                 <outlet property="settingsButton" destination="2pZ-9q-lIe" id="uk3-2v-Dmt"/>
@@ -31,6 +32,12 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ff3-H7-f6L" userLabel="History Container">
                             <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ti-Jx-O9F" customClass="CustomBarButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
+                                    <connections>
+                                        <action selector="onHistoryClick:" destination="-1" eventType="touchUpInside" id="maL-YV-EZq"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esy-cf-VAc">
                                     <rect key="frame" x="0.0" y="44" width="75" height="21"/>
                                     <constraints>
@@ -46,12 +53,6 @@
                                         <constraint firstAttribute="width" secondItem="0oR-cX-LBi" secondAttribute="height" multiplier="1:1" id="cTV-F2-cm6"/>
                                     </constraints>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ti-Jx-O9F" customClass="CustomBarButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
-                                    <connections>
-                                        <action selector="onHistoryClick:" destination="-1" eventType="touchUpInside" id="maL-YV-EZq"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -169,6 +170,22 @@
                                         <constraint firstAttribute="width" secondItem="aSJ-lg-3Yg" secondAttribute="height" multiplier="1:1" id="ecf-Er-JCl"/>
                                     </constraints>
                                 </imageView>
+                                <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPT-hO-dec" userLabel="Message Indicator View">
+                                    <rect key="frame" x="44" y="4" width="20" height="20"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="message_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="N2f-dk-4sF" userLabel="Message Indicator Image View">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="2B4-si-bxE"/>
+                                        <constraint firstItem="N2f-dk-4sF" firstAttribute="leading" secondItem="BPT-hO-dec" secondAttribute="leading" id="2rv-5y-4Yl"/>
+                                        <constraint firstAttribute="trailing" secondItem="N2f-dk-4sF" secondAttribute="trailing" id="X7e-GE-6Q1"/>
+                                        <constraint firstAttribute="bottom" secondItem="N2f-dk-4sF" secondAttribute="bottom" id="nXn-Qv-XKB"/>
+                                        <constraint firstItem="N2f-dk-4sF" firstAttribute="top" secondItem="BPT-hO-dec" secondAttribute="top" id="u5o-3A-GzY"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -177,11 +194,16 @@
                                 <constraint firstAttribute="bottom" secondItem="BFu-mm-fjO" secondAttribute="bottom" constant="5" id="Bd4-CF-0ee"/>
                                 <constraint firstAttribute="bottom" secondItem="4Wx-Du-STj" secondAttribute="bottom" id="OHg-8y-au5"/>
                                 <constraint firstItem="aSJ-lg-3Yg" firstAttribute="top" secondItem="hKZ-9q-UnC" secondAttribute="top" constant="8" id="Wox-46-EC2"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BPT-hO-dec" secondAttribute="trailing" constant="4" id="aF2-0E-RtW"/>
                                 <constraint firstItem="BFu-mm-fjO" firstAttribute="top" secondItem="aSJ-lg-3Yg" secondAttribute="bottom" constant="4" id="anx-Ne-gle"/>
                                 <constraint firstItem="4Wx-Du-STj" firstAttribute="top" secondItem="hKZ-9q-UnC" secondAttribute="top" id="ciW-HI-nAH"/>
+                                <constraint firstItem="BPT-hO-dec" firstAttribute="top" secondItem="aSJ-lg-3Yg" secondAttribute="top" constant="-4" id="hO7-Nu-4tI"/>
                                 <constraint firstAttribute="trailing" secondItem="BFu-mm-fjO" secondAttribute="trailing" id="jpX-B6-2DV"/>
+                                <constraint firstItem="BPT-hO-dec" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hKZ-9q-UnC" secondAttribute="top" constant="4" id="lMq-df-ECl"/>
+                                <constraint firstItem="BPT-hO-dec" firstAttribute="trailing" secondItem="aSJ-lg-3Yg" secondAttribute="trailing" constant="10" id="m5I-tU-7tw"/>
                                 <constraint firstItem="4Wx-Du-STj" firstAttribute="leading" secondItem="hKZ-9q-UnC" secondAttribute="leading" id="tTn-75-hZx"/>
                                 <constraint firstItem="aSJ-lg-3Yg" firstAttribute="centerX" secondItem="hKZ-9q-UnC" secondAttribute="centerX" id="v33-y4-Ad4"/>
+                                <constraint firstItem="BPT-hO-dec" firstAttribute="width" secondItem="BPT-hO-dec" secondAttribute="height" multiplier="1:1" id="yOd-R9-Sjn"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czo-xy-wBd" userLabel="More Container">
@@ -218,13 +240,11 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="tQd-o7-kwF" secondAttribute="bottom" id="32m-Wk-5YZ"/>
-                                        <constraint firstAttribute="centerX" secondItem="tQd-o7-kwF" secondAttribute="centerX" id="G9W-4B-gg4"/>
                                         <constraint firstAttribute="width" constant="20" id="Kij-mK-gA2"/>
                                         <constraint firstItem="tQd-o7-kwF" firstAttribute="leading" secondItem="5v6-VS-Ncc" secondAttribute="leading" id="KzM-Zd-VPk"/>
                                         <constraint firstAttribute="width" secondItem="5v6-VS-Ncc" secondAttribute="height" multiplier="1:1" id="SFy-UT-Fz2"/>
                                         <constraint firstAttribute="trailing" secondItem="tQd-o7-kwF" secondAttribute="trailing" id="VWR-IK-q8T"/>
                                         <constraint firstItem="tQd-o7-kwF" firstAttribute="top" secondItem="5v6-VS-Ncc" secondAttribute="top" id="bzb-mq-uFU"/>
-                                        <constraint firstAttribute="centerY" secondItem="tQd-o7-kwF" secondAttribute="centerY" id="xAU-lW-OnZ"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -455,6 +475,7 @@
         <image name="history" width="32" height="30"/>
         <image name="in_call_keypad_icon" width="26" height="35"/>
         <image name="in_call_more_icon" width="56" height="17"/>
+        <image name="message_indicator" width="20" height="20"/>
         <image name="resources" width="32" height="32"/>
         <image name="self_preview" width="32" height="32"/>
         <image name="settings" width="32" height="28"/>

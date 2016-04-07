@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
 @property (weak, nonatomic) IBOutlet UILabel *videomailCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *videomailIndicatorView;
+@property (weak, nonatomic) IBOutlet UIView *messageIndicatorView;
 
 @end
 
