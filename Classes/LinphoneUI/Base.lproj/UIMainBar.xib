@@ -30,12 +30,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ff3-H7-f6L" userLabel="History Container">
                             <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ti-Jx-O9F" customClass="CustomBarButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
-                                    <connections>
-                                        <action selector="onHistoryClick:" destination="-1" eventType="touchUpInside" id="maL-YV-EZq"/>
-                                    </connections>
-                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esy-cf-VAc">
                                     <rect key="frame" x="0.0" y="44" width="75" height="21"/>
                                     <constraints>
@@ -51,6 +45,12 @@
                                         <constraint firstAttribute="width" secondItem="0oR-cX-LBi" secondAttribute="height" multiplier="1:1" id="cTV-F2-cm6"/>
                                     </constraints>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ti-Jx-O9F" customClass="CustomBarButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
+                                    <connections>
+                                        <action selector="onHistoryClick:" destination="-1" eventType="touchUpInside" id="maL-YV-EZq"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -251,13 +251,13 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAm-wm-qFc" userLabel="More Menu Container">
-                    <rect key="frame" x="205" y="0.0" width="170" height="208"/>
+                    <rect key="frame" x="175" y="0.0" width="200" height="208"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33V-oI-653" userLabel="Second Button Container">
-                            <rect key="frame" x="0.0" y="157" width="170" height="51"/>
+                            <rect key="frame" x="0.0" y="157" width="200" height="51"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n58-qL-kuP">
-                                    <rect key="frame" x="10" y="0.0" width="160" height="51"/>
+                                    <rect key="frame" x="10" y="0.0" width="190" height="51"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Self-Preview" image="self_preview">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -276,17 +276,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAa-GI-jIK" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="156" width="170" height="1"/>
+                            <rect key="frame" x="0.0" y="156" width="200" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="46k-Sa-cQz"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPp-24-jd0" userLabel="Second Button Container">
-                            <rect key="frame" x="0.0" y="105" width="170" height="51"/>
+                            <rect key="frame" x="0.0" y="105" width="200" height="51"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adF-1p-aUO">
-                                    <rect key="frame" x="130" y="13" width="25" height="25"/>
+                                    <rect key="frame" x="160" y="13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="K51-3P-Mgf"/>
                                         <constraint firstAttribute="width" secondItem="adF-1p-aUO" secondAttribute="height" multiplier="1:1" id="TbU-fL-2DO"/>
@@ -296,7 +296,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P36-J0-fbL">
-                                    <rect key="frame" x="10" y="0.0" width="115" height="51"/>
+                                    <rect key="frame" x="10" y="0.0" width="145" height="51"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Videomail" image="videomail">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -317,17 +317,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUd-SO-Qf6" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="104" width="170" height="1"/>
+                            <rect key="frame" x="0.0" y="104" width="200" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="YXd-JJ-JqP"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7o-1l-hwf" userLabel="Second Button Container">
-                            <rect key="frame" x="0.0" y="52" width="170" height="52"/>
+                            <rect key="frame" x="0.0" y="52" width="200" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0e1-yM-Crb">
-                                    <rect key="frame" x="10" y="0.0" width="160" height="52"/>
+                                    <rect key="frame" x="10" y="0.0" width="190" height="52"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -346,17 +346,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ba-SR-mAN" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="51" width="170" height="1"/>
+                            <rect key="frame" x="0.0" y="51" width="200" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="uid-fD-QCH"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAT-bv-4tA" userLabel="Second Button Container">
-                            <rect key="frame" x="0.0" y="0.0" width="170" height="51"/>
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="51"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pZ-9q-lIe">
-                                    <rect key="frame" x="10" y="0.0" width="160" height="51"/>
+                                    <rect key="frame" x="10" y="0.0" width="190" height="51"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Settings" image="settings">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -386,7 +386,7 @@
                         <constraint firstItem="GUd-SO-Qf6" firstAttribute="top" secondItem="S7o-1l-hwf" secondAttribute="bottom" id="IY4-Fr-epi"/>
                         <constraint firstItem="cAa-GI-jIK" firstAttribute="top" secondItem="wPp-24-jd0" secondAttribute="bottom" id="LT8-vq-7se"/>
                         <constraint firstAttribute="trailing" secondItem="33V-oI-653" secondAttribute="trailing" id="OAA-U9-5Oj"/>
-                        <constraint firstAttribute="width" constant="170" id="OWT-u7-4KX"/>
+                        <constraint firstAttribute="width" constant="200" id="OWT-u7-4KX"/>
                         <constraint firstItem="S7o-1l-hwf" firstAttribute="height" secondItem="TAT-bv-4tA" secondAttribute="height" id="QZN-Qf-Hd2"/>
                         <constraint firstAttribute="trailing" secondItem="S7o-1l-hwf" secondAttribute="trailing" id="Qny-PX-NTi"/>
                         <constraint firstAttribute="bottom" secondItem="33V-oI-653" secondAttribute="bottom" id="Raf-Lw-7lA"/>
@@ -426,14 +426,14 @@
         </view>
     </objects>
     <resources>
-        <image name="chat" width="40" height="40"/>
-        <image name="contacts" width="40" height="40"/>
-        <image name="history" width="40" height="40"/>
+        <image name="chat" width="32" height="29"/>
+        <image name="contacts" width="32" height="32"/>
+        <image name="history" width="32" height="30"/>
         <image name="in_call_keypad_icon" width="26" height="35"/>
         <image name="in_call_more_icon" width="56" height="17"/>
-        <image name="resources" width="32" height="33"/>
-        <image name="self_preview" width="32" height="33"/>
-        <image name="settings" width="32" height="22"/>
+        <image name="resources" width="32" height="32"/>
+        <image name="self_preview" width="32" height="32"/>
+        <image name="settings" width="32" height="28"/>
         <image name="videomail" width="32" height="22"/>
     </resources>
 </document>
