@@ -16,6 +16,7 @@
                 <outlet property="moreMenuContainer" destination="335-YK-MHF" id="1st-ly-MAZ"/>
                 <outlet property="settingsButton" destination="KXw-r2-Xiq" id="3pn-d7-aCq"/>
                 <outlet property="videomailCountLabel" destination="5a1-7c-xFa" id="2TR-Pi-3lo"/>
+                <outlet property="videomailIndicatorView" destination="G6x-gQ-1ki" id="bEa-n0-0oR"/>
                 <outlet property="view" destination="EJ9-kX-i9k" id="abZ-ik-cGa"/>
             </connections>
         </placeholder>
@@ -207,6 +208,25 @@
                                         <constraint firstAttribute="width" secondItem="N05-YJ-dSU" secondAttribute="height" multiplier="10:7" id="r2r-rk-Xcj"/>
                                     </constraints>
                                 </imageView>
+                                <view hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6x-gQ-1ki" userLabel="Videomail Indicator View">
+                                    <rect key="frame" x="51" y="4" width="20" height="20"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="videomail_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="4sp-ng-cvm" userLabel="Videomail Indicator Image View">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="4sp-ng-cvm" secondAttribute="bottom" id="UM8-M6-GfP"/>
+                                        <constraint firstAttribute="trailing" secondItem="4sp-ng-cvm" secondAttribute="trailing" id="V84-9N-WnQ"/>
+                                        <constraint firstAttribute="centerX" secondItem="4sp-ng-cvm" secondAttribute="centerX" id="c6n-R8-cjj"/>
+                                        <constraint firstAttribute="width" constant="20" id="dp1-xY-RZZ"/>
+                                        <constraint firstItem="4sp-ng-cvm" firstAttribute="leading" secondItem="G6x-gQ-1ki" secondAttribute="leading" id="hKv-9m-CYA"/>
+                                        <constraint firstAttribute="centerY" secondItem="4sp-ng-cvm" secondAttribute="centerY" id="onn-7u-ChA"/>
+                                        <constraint firstItem="4sp-ng-cvm" firstAttribute="top" secondItem="G6x-gQ-1ki" secondAttribute="top" id="t6I-cC-Sc7"/>
+                                        <constraint firstAttribute="width" secondItem="G6x-gQ-1ki" secondAttribute="height" multiplier="1:1" id="wNx-ae-9XU"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -216,11 +236,15 @@
                                 <constraint firstAttribute="trailing" secondItem="83Z-76-2Sn" secondAttribute="trailing" id="Dns-QV-di2"/>
                                 <constraint firstItem="N05-YJ-dSU" firstAttribute="centerX" secondItem="vAX-2T-PSo" secondAttribute="centerX" id="IBh-Ou-q1Y"/>
                                 <constraint firstAttribute="bottom" secondItem="PGn-0X-U7Z" secondAttribute="bottom" constant="5" id="Oux-zY-NXd"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G6x-gQ-1ki" secondAttribute="trailing" constant="4" id="PfS-Fv-JrV"/>
                                 <constraint firstAttribute="trailing" secondItem="PGn-0X-U7Z" secondAttribute="trailing" id="S9f-xf-hnV"/>
                                 <constraint firstItem="N05-YJ-dSU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vAX-2T-PSo" secondAttribute="leading" constant="2" id="Tfw-Qv-Z9L"/>
                                 <constraint firstItem="83Z-76-2Sn" firstAttribute="leading" secondItem="vAX-2T-PSo" secondAttribute="leading" id="UzA-8D-NLz"/>
+                                <constraint firstItem="G6x-gQ-1ki" firstAttribute="top" secondItem="N05-YJ-dSU" secondAttribute="top" constant="-4" id="W0s-pR-RwE"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="N05-YJ-dSU" secondAttribute="trailing" constant="2" id="WnL-8O-AFP"/>
+                                <constraint firstItem="G6x-gQ-1ki" firstAttribute="trailing" secondItem="N05-YJ-dSU" secondAttribute="trailing" constant="10" id="YhH-Pi-u5z"/>
                                 <constraint firstAttribute="bottom" secondItem="83Z-76-2Sn" secondAttribute="bottom" id="kxW-vB-dPI"/>
+                                <constraint firstItem="G6x-gQ-1ki" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vAX-2T-PSo" secondAttribute="top" constant="4" id="lYa-pf-H8m"/>
                                 <constraint firstItem="83Z-76-2Sn" firstAttribute="top" secondItem="vAX-2T-PSo" secondAttribute="top" id="qeG-pO-Mpl"/>
                             </constraints>
                         </view>
@@ -426,14 +450,15 @@
         </view>
     </objects>
     <resources>
-        <image name="chat" width="40" height="40"/>
-        <image name="contacts" width="40" height="40"/>
-        <image name="history" width="40" height="40"/>
+        <image name="chat" width="32" height="29"/>
+        <image name="contacts" width="32" height="32"/>
+        <image name="history" width="32" height="30"/>
         <image name="in_call_keypad_icon" width="26" height="35"/>
         <image name="in_call_more_icon" width="56" height="17"/>
-        <image name="resources" width="32" height="33"/>
-        <image name="self_preview" width="32" height="33"/>
-        <image name="settings" width="32" height="22"/>
+        <image name="resources" width="32" height="32"/>
+        <image name="self_preview" width="32" height="32"/>
+        <image name="settings" width="32" height="28"/>
         <image name="videomail" width="32" height="22"/>
+        <image name="videomail_indicator" width="20" height="20"/>
     </resources>
 </document>

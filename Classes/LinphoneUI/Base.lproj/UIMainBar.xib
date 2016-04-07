@@ -15,7 +15,8 @@
                 <outlet property="moreButton" destination="t74-gE-Vmp" id="aqp-d5-EC6"/>
                 <outlet property="moreMenuContainer" destination="pAm-wm-qFc" id="YeH-cs-wiy"/>
                 <outlet property="settingsButton" destination="2pZ-9q-lIe" id="uk3-2v-Dmt"/>
-                <outlet property="videomailCountLabel" destination="adF-1p-aUO" id="1D6-LQ-fU0"/>
+                <outlet property="videomailCountLabel" destination="adF-1p-aUO" id="d7x-YQ-mpe"/>
+                <outlet property="videomailIndicatorView" destination="5v6-VS-Ncc" id="rCQ-nP-fK4"/>
                 <outlet property="view" destination="S1S-KT-3Er" id="Xoq-Co-N18"/>
             </connections>
         </placeholder>
@@ -207,6 +208,25 @@
                                         <constraint firstAttribute="width" secondItem="kSq-8x-FNE" secondAttribute="height" multiplier="10:7" id="bVW-oD-Uzf"/>
                                     </constraints>
                                 </imageView>
+                                <view hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5v6-VS-Ncc" userLabel="Videomail Indicator View">
+                                    <rect key="frame" x="51" y="4" width="20" height="20"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="videomail_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="tQd-o7-kwF" userLabel="Videomail Indicator Image View">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="tQd-o7-kwF" secondAttribute="bottom" id="32m-Wk-5YZ"/>
+                                        <constraint firstAttribute="centerX" secondItem="tQd-o7-kwF" secondAttribute="centerX" id="G9W-4B-gg4"/>
+                                        <constraint firstAttribute="width" constant="20" id="Kij-mK-gA2"/>
+                                        <constraint firstItem="tQd-o7-kwF" firstAttribute="leading" secondItem="5v6-VS-Ncc" secondAttribute="leading" id="KzM-Zd-VPk"/>
+                                        <constraint firstAttribute="width" secondItem="5v6-VS-Ncc" secondAttribute="height" multiplier="1:1" id="SFy-UT-Fz2"/>
+                                        <constraint firstAttribute="trailing" secondItem="tQd-o7-kwF" secondAttribute="trailing" id="VWR-IK-q8T"/>
+                                        <constraint firstItem="tQd-o7-kwF" firstAttribute="top" secondItem="5v6-VS-Ncc" secondAttribute="top" id="bzb-mq-uFU"/>
+                                        <constraint firstAttribute="centerY" secondItem="tQd-o7-kwF" secondAttribute="centerY" id="xAU-lW-OnZ"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -214,11 +234,15 @@
                                 <constraint firstAttribute="trailing" secondItem="t74-gE-Vmp" secondAttribute="trailing" id="3Kx-vc-7TI"/>
                                 <constraint firstItem="kSq-8x-FNE" firstAttribute="centerX" secondItem="czo-xy-wBd" secondAttribute="centerX" id="3Z3-MM-LKZ"/>
                                 <constraint firstItem="wcZ-Jw-TH4" firstAttribute="leading" secondItem="czo-xy-wBd" secondAttribute="leading" id="9dI-ZF-zu7"/>
+                                <constraint firstItem="5v6-VS-Ncc" firstAttribute="top" secondItem="kSq-8x-FNE" secondAttribute="top" constant="-4" id="B5G-vL-Pc2"/>
+                                <constraint firstItem="5v6-VS-Ncc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="czo-xy-wBd" secondAttribute="top" constant="4" id="COS-8p-h8e"/>
                                 <constraint firstAttribute="trailing" secondItem="wcZ-Jw-TH4" secondAttribute="trailing" id="GQy-9E-lEz"/>
                                 <constraint firstItem="t74-gE-Vmp" firstAttribute="top" secondItem="czo-xy-wBd" secondAttribute="top" id="IGP-Kz-aqd"/>
+                                <constraint firstItem="5v6-VS-Ncc" firstAttribute="trailing" secondItem="kSq-8x-FNE" secondAttribute="trailing" constant="10" id="QCn-dS-QzP"/>
                                 <constraint firstAttribute="bottom" secondItem="wcZ-Jw-TH4" secondAttribute="bottom" constant="5" id="X0S-sc-14W"/>
                                 <constraint firstItem="kSq-8x-FNE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="czo-xy-wBd" secondAttribute="leading" constant="2" id="gQG-He-x2K"/>
                                 <constraint firstAttribute="bottom" secondItem="t74-gE-Vmp" secondAttribute="bottom" id="hOs-fa-bFu"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5v6-VS-Ncc" secondAttribute="trailing" constant="4" id="hZU-yM-mY7"/>
                                 <constraint firstItem="kSq-8x-FNE" firstAttribute="top" secondItem="czo-xy-wBd" secondAttribute="top" constant="8" id="nso-e0-kCx"/>
                                 <constraint firstItem="wcZ-Jw-TH4" firstAttribute="top" secondItem="kSq-8x-FNE" secondAttribute="bottom" constant="4" id="pJt-38-Fda"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kSq-8x-FNE" secondAttribute="trailing" constant="2" id="qa5-NT-VN2"/>
@@ -285,7 +309,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPp-24-jd0" userLabel="Second Button Container">
                             <rect key="frame" x="0.0" y="105" width="200" height="51"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adF-1p-aUO">
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adF-1p-aUO">
                                     <rect key="frame" x="160" y="13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="K51-3P-Mgf"/>
@@ -435,5 +459,6 @@
         <image name="self_preview" width="32" height="32"/>
         <image name="settings" width="32" height="28"/>
         <image name="videomail" width="32" height="22"/>
+        <image name="videomail_indicator" width="20" height="20"/>
     </resources>
 </document>

@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
 @property (weak, nonatomic) IBOutlet UILabel *videomailCountLabel;
+@property (weak, nonatomic) IBOutlet UIView *videomailIndicatorView;
 
 @end
 
@@ -76,6 +77,11 @@ static NSString *const kDisappearAnimation = @"disappear";
 											 selector:@selector(callUpdate:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
+    
+    [self updateVidoemailState];
+    [self checkVideomailIndicator];
+    
+    
     //Remove Unread Messages Count on iPhone
 
 //	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -533,8 +539,8 @@ static NSString *const kDisappearAnimation = @"disappear";
 	}
 }
 
-#pragma mark - Action Functions
 
+#pragma mark - Action Methods
 - (IBAction)onHistoryClick:(id)event {
 	[[PhoneMainView instance] changeCurrentView:[HistoryViewController compositeViewDescription]];
 }
@@ -567,6 +573,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     if (self.moreMenuContainer.tag == 0) {
         
         [self showMoreMenu];
+        [self resetVideomailState];
     }
     else {
         
@@ -674,7 +681,6 @@ static NSString *const kDisappearAnimation = @"disappear";
 //}
 
 #pragma mark - Animation
-
 - (void)showMoreMenu {
     
     self.moreMenuContainer.hidden = NO;
@@ -698,6 +704,51 @@ static NSString *const kDisappearAnimation = @"disappear";
                              [self.moreButton setSelected:NO];
                          }];
     }
+}
+
+#pragma mark - Videomail Indicator
+- (void)updateVidoemailState{
+    
+    NSDictionary *dict = @{@"viewed" : @0,
+                           @"count" : @3};
+    
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)checkVideomailIndicator {
+    
+    NSDictionary *videomailDict = [[NSUserDefaults standardUserDefaults] valueForKey:@"videomail_notification"];
+    
+    if (videomailDict) {
+        
+        BOOL viewed = [videomailDict[@"viewed"] boolValue];
+        NSInteger count = [videomailDict[@"count"] integerValue];
+        
+        self.videomailIndicatorView.hidden = viewed;
+        
+        if (count > 0) {
+            self.videomailCountLabel.hidden = NO;
+            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", count];
+        }
+    }
+    else {
+        
+        self.videomailCountLabel.hidden = YES;
+        self.videomailIndicatorView.hidden = YES;
+        [self updateVidoemailState];
+    }
+}
+
+- (void)resetVideomailState {
+    
+    NSDictionary *dict = @{@"viewed" : @1,
+                           @"count" : @3};
+    
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self checkVideomailIndicator];
 }
 
 
