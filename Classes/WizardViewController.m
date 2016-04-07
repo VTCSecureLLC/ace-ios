@@ -1318,20 +1318,19 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 
 
 #pragma mark - UIAlertViewDelegate
+
 UIAlertView *transportAlert;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if([alertView isEqual:transportAlert]){
-        if(buttonIndex == 1){
+        if (buttonIndex == 1) {
             [self.transportTextField setText:@"TCP"];
             [self.textFieldPort setText:@"25060"];
-        }
-        else{
+        } else if (buttonIndex == 2) {
             [self.transportTextField setText:@"TLS"];
             [self.textFieldPort setText:@"25061"];
         }
-        
-        [self.transportTextField resignFirstResponder];
+        [self.transportTextField becomeFirstResponder];
     }
     else{
         if (buttonIndex == 1) { /* fetch */
