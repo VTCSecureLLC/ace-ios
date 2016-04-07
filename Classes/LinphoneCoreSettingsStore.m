@@ -287,7 +287,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         }
 		[self setCString:preset ? preset : "high-fps" forKey:@"video_preset_preference"];
         MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         
         linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -773,7 +772,6 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         }
 		linphone_core_set_video_preset(lc, [videoPreset UTF8String]);
 		MSVideoSize vsize;
-        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //[self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
