@@ -3,6 +3,8 @@ set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
+cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep 0.1 && read line; do git submodule update --init --recursive $line & done
+
 which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 #pushd /usr/local/Library/Homebrew/; git branch --set-upstream-to=origin/master master ; git pull ; popd
@@ -12,6 +14,5 @@ wget --no-check-certificate https://raw.githubusercontent.com/FFmpeg/gas-preproc
 chmod +x gas-preprocessor.pl
 sudo mv -f gas-preprocessor.pl /usr/local/bin
 [ -x /usr/local/bin/libtoolize ] || sudo ln -sf /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
-cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep 0.1 && read line; do git submodule update --init --recursive $line & done
 
 #bundle install
