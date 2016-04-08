@@ -17,4 +17,4 @@ chmod +x gas-preprocessor.pl
 sudo mv -f gas-preprocessor.pl /usr/local/bin
 [ -x /usr/local/bin/libtoolize ] || sudo ln -sf /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
 
-#bundle install
+bundle install
