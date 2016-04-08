@@ -3,9 +3,8 @@ set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
-cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep 0.1 && read line; do git submodule update --init --recursive $line & done
+cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep .2 && read line; do git submodule update --init --recursive $line & done
 
-cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep 0.1 && read line; do git submodule update --init --recursive $line & done
 
 which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
