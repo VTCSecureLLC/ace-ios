@@ -18,7 +18,6 @@ NEW_MODS=$(git submodule)
 if [ "$CACHED_MODS" = "$NEW_MODS" ]; then
 	echo "same submods"
 	echo "dont build, but extract stuff"
-	if [ -d "$SUB_MODS_ARCHIVE" ]; then
 		rm -rf submodules
 		zip -s 0 submods-hash/submodules.zip --out unsplit-submodules.zip
 		unzip unsplit-submodules.zip 
