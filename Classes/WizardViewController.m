@@ -200,7 +200,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.transportTextField.layer setBorderWidth:1.0];
     [self.transportTextField.layer setCornerRadius:5];
     self.transportTextField.text = @"TCP";
-    [self.transportTextField setDelegate:self];
     [self.textFieldUserId.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldUserId.layer setBorderWidth:1.0];
     [self.textFieldUserId.layer setCornerRadius:5];
@@ -931,17 +930,6 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 	[[LinphoneManager instance] resetLinphoneCore];
 }
 
-
-#pragma mark - UITextFieldDelegate Functions
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
-	return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	activeTextField = textField;
-}
-
 - (BOOL)textField:(UITextField *)textField
 	shouldChangeCharactersInRange:(NSRange)range
 				replacementString:(NSString *)string {
@@ -1330,20 +1318,19 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 
 
 #pragma mark - UIAlertViewDelegate
+
 UIAlertView *transportAlert;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if([alertView isEqual:transportAlert]){
-        if(buttonIndex == 1){
+        if (buttonIndex == 1) {
             [self.transportTextField setText:@"TCP"];
             [self.textFieldPort setText:@"25060"];
-        }
-        else{
+        } else if (buttonIndex == 2) {
             [self.transportTextField setText:@"TLS"];
             [self.textFieldPort setText:@"25061"];
         }
-        
-        [self.transportTextField resignFirstResponder];
+        [self.transportTextField becomeFirstResponder];
     }
     else{
         if (buttonIndex == 1) { /* fetch */
@@ -1778,6 +1765,11 @@ static BOOL isAdvancedShown = NO;
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+}
+
+- (IBAction)transportSelectionButtonTapped:(id)sender {
+    transportAlert = [[UIAlertView alloc] initWithTitle:@"Select Transport" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"TCP", @"TLS", nil];
+    [transportAlert show];
 }
 
 @end
