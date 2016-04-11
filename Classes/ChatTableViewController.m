@@ -138,7 +138,12 @@ static void chatTable_free_chatrooms(void *data) {
 	return cell;
 }
 
+
 #pragma mark - UITableViewDelegate Functions
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 60;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:NO];

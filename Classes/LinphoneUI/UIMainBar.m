@@ -21,17 +21,18 @@
 #import "PhoneMainView.h"
 #import "CAAnimation+Blocks.h"
 #import "LinphoneCoreSettingsStore.h"
+#import "CustomBarButton.h"
 
 #define kAnimationDuration 0.5f
 
 @interface UIMainBar ()
 
-@property (nonatomic, strong) IBOutlet UIButton *historyButton;
-@property (nonatomic, strong) IBOutlet UIButton *contactsButton;
-@property (nonatomic, strong) IBOutlet UIButton *dialpadButton;
-@property (nonatomic, strong) IBOutlet UIButton *settingsButton;
-@property (nonatomic, strong) IBOutlet UIButton *chatButton;
-@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *historyButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *contactsButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *dialpadButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *settingsButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *chatButton;
+@property (weak, nonatomic) IBOutlet CustomBarButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
 @property (weak, nonatomic) IBOutlet UILabel *videomailCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *videomailIndicatorView;
@@ -532,11 +533,16 @@ static NSString *const kDisappearAnimation = @"disappear";
 	} else {
 		settingsButton.selected = FALSE;
 	}
-	if ([view equal:[HelpViewController compositeViewDescription]]) {
-		chatButton.selected = TRUE;
-	} else {
-		chatButton.selected = FALSE;
-	}
+    if ([view equal:[ChatViewController compositeViewDescription]]) {
+        chatButton.selected = TRUE;
+    } else {
+        chatButton.selected = FALSE;
+    }
+//	if ([view equal:[HelpViewController compositeViewDescription]]) {
+//		chatButton.selected = TRUE;
+//	} else {
+//		chatButton.selected = FALSE;
+//	}
 }
 
 
@@ -563,9 +569,8 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)onChatClick:(id)event {
-    [[PhoneMainView instance] changeCurrentView:[HelpViewController compositeViewDescription]];
 
-    //[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
+    [[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
 }
 
 - (IBAction)moreButtonAction:(UIButton *)sender {
