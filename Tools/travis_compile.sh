@@ -5,6 +5,7 @@ cd $DIR/..
 
 mkdir -p sdkcache/
 git submodule | cut -d'(' -f1 | sort > sdkcache/current.txt
+which md5sum || brew install md5sha1sum
 SUBMODULE_HASH=$(md5sum sdkcache/current.txt | awk '{print $1}')
 mv sdkcache/current.txt liblinphone-sdk_$(SUBMODULE_HASH)_submodules.txt
 which aws || brew install awscli
