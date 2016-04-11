@@ -1,7 +1,5 @@
 #!/bin/bash
 set -xe
-
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 CURRENT_DIR=$(pwd)
@@ -51,5 +49,3 @@ echo exit $MAKE_RESULT
 exit $MAKE_RESULT
 
 fi
-
-
