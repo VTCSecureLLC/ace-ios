@@ -9,8 +9,15 @@
 /* Begin PBXBuildFile section */
 		025BD0B01C87105500384158 /* IncomingCallNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */; };
 		041B220D1C89849A00B8A616 /* VSContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B220C1C89849A00B8A616 /* VSContactsManager.m */; };
+		0430717B1CB4FB0100725623 /* app_icon_29.png in Resources */ = {isa = PBXBuildFile; fileRef = 0430717A1CB4FB0100725623 /* app_icon_29.png */; };
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		046FFD141C6B639100781FF6 /* camera_mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 046FFD131C6B639100781FF6 /* camera_mute.png */; };
+		04D7C3CD1CB3AF1000F2441C /* CRToastConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C21CB3AF1000F2441C /* CRToastConfig.m */; };
+		04D7C3CE1CB3AF1000F2441C /* CRToastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C51CB3AF1000F2441C /* CRToastManager.m */; };
+		04D7C3CF1CB3AF1000F2441C /* CRToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C71CB3AF1000F2441C /* CRToastView.m */; };
+		04D7C3D01CB3AF1000F2441C /* CRToastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C91CB3AF1000F2441C /* CRToastViewController.m */; };
+		04D7C3D11CB3AF1000F2441C /* CRToastWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3CB1CB3AF1000F2441C /* CRToastWindow.m */; };
+		04D7C3D21CB3AF1000F2441C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D7C3CC1CB3AF1000F2441C /* Info.plist */; };
 		0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */; };
 		152F22361B15E889008C0621 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 152F22351B15E889008C0621 /* libxml2.dylib */; };
 		1560821F18EEF26100765332 /* libmsopenh264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1560821E18EEF26100765332 /* libmsopenh264.a */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1043,8 +1050,22 @@
 		025BD0AF1C87105500384158 /* IncomingCallNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallNavigationController.m; sourceTree = "<group>"; };
 		041B220B1C89849A00B8A616 /* VSContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSContactsManager.h; sourceTree = "<group>"; };
 		041B220C1C89849A00B8A616 /* VSContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSContactsManager.m; sourceTree = "<group>"; };
+		0430717A1CB4FB0100725623 /* app_icon_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon_29.png; path = Resources/Images.xcassets/AppIcon.appiconset/app_icon_29.png; sourceTree = "<group>"; };
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
 		046FFD131C6B639100781FF6 /* camera_mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_mute.png; sourceTree = "<group>"; };
+		04D7C3C01CB3AF1000F2441C /* CRToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToast.h; sourceTree = "<group>"; };
+		04D7C3C11CB3AF1000F2441C /* CRToastConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastConfig.h; sourceTree = "<group>"; };
+		04D7C3C21CB3AF1000F2441C /* CRToastConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastConfig.m; sourceTree = "<group>"; };
+		04D7C3C31CB3AF1000F2441C /* CRToastLayoutHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastLayoutHelpers.h; sourceTree = "<group>"; };
+		04D7C3C41CB3AF1000F2441C /* CRToastManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastManager.h; sourceTree = "<group>"; };
+		04D7C3C51CB3AF1000F2441C /* CRToastManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastManager.m; sourceTree = "<group>"; };
+		04D7C3C61CB3AF1000F2441C /* CRToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastView.h; sourceTree = "<group>"; };
+		04D7C3C71CB3AF1000F2441C /* CRToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastView.m; sourceTree = "<group>"; };
+		04D7C3C81CB3AF1000F2441C /* CRToastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastViewController.h; sourceTree = "<group>"; };
+		04D7C3C91CB3AF1000F2441C /* CRToastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastViewController.m; sourceTree = "<group>"; };
+		04D7C3CA1CB3AF1000F2441C /* CRToastWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastWindow.h; sourceTree = "<group>"; };
+		04D7C3CB1CB3AF1000F2441C /* CRToastWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastWindow.m; sourceTree = "<group>"; };
+		04D7C3CC1CB3AF1000F2441C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CRToast/Info.plist; sourceTree = "<group>"; };
 		0FA159CC1BF0AB0D00997345 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		152F22351B15E889008C0621 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		1560821E18EEF26100765332 /* libmsopenh264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmsopenh264.a; path = "liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins/libmsopenh264.a"; sourceTree = "<group>"; };
@@ -2848,6 +2869,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04D7C3BF1CB3AF1000F2441C /* CRToast */ = {
+			isa = PBXGroup;
+			children = (
+				04D7C3C01CB3AF1000F2441C /* CRToast.h */,
+				04D7C3C11CB3AF1000F2441C /* CRToastConfig.h */,
+				04D7C3C21CB3AF1000F2441C /* CRToastConfig.m */,
+				04D7C3C31CB3AF1000F2441C /* CRToastLayoutHelpers.h */,
+				04D7C3C41CB3AF1000F2441C /* CRToastManager.h */,
+				04D7C3C51CB3AF1000F2441C /* CRToastManager.m */,
+				04D7C3C61CB3AF1000F2441C /* CRToastView.h */,
+				04D7C3C71CB3AF1000F2441C /* CRToastView.m */,
+				04D7C3C81CB3AF1000F2441C /* CRToastViewController.h */,
+				04D7C3C91CB3AF1000F2441C /* CRToastViewController.m */,
+				04D7C3CA1CB3AF1000F2441C /* CRToastWindow.h */,
+				04D7C3CB1CB3AF1000F2441C /* CRToastWindow.m */,
+			);
+			name = CRToast;
+			path = ../CRToast;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -3103,6 +3144,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* linphone_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				04D7C3CC1CB3AF1000F2441C /* Info.plist */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -3550,6 +3592,7 @@
 		D326483415887D4400930C67 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				04D7C3BF1CB3AF1000F2441C /* CRToast */,
 				CE036A661C46847900987594 /* SRVResolver */,
 				F4CE02FF1BCF9B5D00157254 /* RealTimeText */,
 				D37E3ECA1619C27A0087659A /* CAAnimationBlocks */,
@@ -3736,6 +3779,7 @@
 		F0B89C2318DC90850050B60E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0430717A1CB4FB0100725623 /* app_icon_29.png */,
 				C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */,
 				5E34FA941C9F191700ABA721 /* selected_star.png */,
 				5E34FA951C9F191700ABA721 /* unselected_star.png */,
@@ -5119,6 +5163,7 @@
 				D3F83F7A1582253100336684 /* accept_over.png in Resources */,
 				50B006E81BA09C79002C5723 /* conference_default.png in Resources */,
 				50B006A61BA09C79002C5723 /* call_disabled.png in Resources */,
+				04D7C3D21CB3AF1000F2441C /* Info.plist in Resources */,
 				50B006B21BA09C79002C5723 /* call_state_pause_over.png in Resources */,
 				50B007581BA09C79002C5723 /* incall_padding_right_landscape.png in Resources */,
 				D3F83F7C1582253100336684 /* decline_default.png in Resources */,
@@ -5288,6 +5333,7 @@
 				D3C2815215A2D64A0098AA42 /* numpad_star_over.png in Resources */,
 				50B006E61BA09C79002C5723 /* conference_default_landscape.png in Resources */,
 				50B0072F1BA09C79002C5723 /* field_background.png in Resources */,
+				0430717B1CB4FB0100725623 /* app_icon_29.png in Resources */,
 				D365AA7B15A2DE7500CAFE3F /* speaker_off_disabled.png in Resources */,
 				50B007E41BA09C79002C5723 /* route_speaker_on_default_landscape.png in Resources */,
 				50B006BD1BA09C79002C5723 /* cell_call_first_highlight.png in Resources */,
@@ -5749,6 +5795,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
+				04D7C3D11CB3AF1000F2441C /* CRToastWindow.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
 				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,
 				D35498211587716B000081D8 /* UIStateBar.m in Sources */,
@@ -5757,6 +5804,7 @@
 				D326483815887D5200930C67 /* OrderedDictionary.m in Sources */,
 				C6B2F8BF1C900979006A2B0C /* InCallDialpadView.m in Sources */,
 				D326483E1588950F00930C67 /* UICallBar.m in Sources */,
+				04D7C3CE1CB3AF1000F2441C /* CRToastManager.m in Sources */,
 				D32648441588F6FC00930C67 /* UIToggleButton.m in Sources */,
 				D36FB2D51589EF7C0036F6F2 /* UIChatButton.m in Sources */,
 				D31C9C98158A1CDF00756B45 /* UIHistoryCell.m in Sources */,
@@ -5799,10 +5847,13 @@
 				D37C639515AADDAF009D0BAC /* UIContactDetailsHeader.m in Sources */,
 				D37C639B15AADEF6009D0BAC /* ContactDetailsTableViewController.m in Sources */,
 				636316DE1A1DEF2F0009B839 /* UIButtonShrinkable.m in Sources */,
+				04D7C3CF1CB3AF1000F2441C /* CRToastView.m in Sources */,
 				5EEC29011BFFAA6F00BA43FB /* UILabel+Clipboard.m in Sources */,
 				63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */,
+				04D7C3D01CB3AF1000F2441C /* CRToastViewController.m in Sources */,
 				D3C6526715AC1A8F0092A874 /* UIEditableTableViewCell.m in Sources */,
 				5E63479D1C1111C900042AB4 /* InfSourceColorView.m in Sources */,
+				04D7C3CD1CB3AF1000F2441C /* CRToastConfig.m in Sources */,
 				D378906515AC373B00BD776C /* ContactDetailsLabelViewController.m in Sources */,
 				D3E8F68615ADE05B0065A226 /* UIContactDetailsFooter.m in Sources */,
 				C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */,
@@ -6367,7 +6418,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6463,7 +6514,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6554,7 +6605,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6647,7 +6698,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
