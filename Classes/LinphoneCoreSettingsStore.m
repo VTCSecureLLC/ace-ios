@@ -294,10 +294,10 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
         }
-        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
-        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
        
@@ -773,10 +773,10 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, VGA);
         }
-        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"cif"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
         }
-        else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
+        if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
 		linphone_core_set_preferred_video_size(lc, vsize);
