@@ -1,31 +1,25 @@
 #!/bin/bash
 set -xe
 
-CURRENT_DIR=$(pwd)
-
-SUB_MODS_HASH_DIR="$CURRENT_DIR/submods-hash"
-SUB_MODS_HASH_FILE="$SUB_MODS_HASH_DIR/hash.txt"
-SUB_MODS_ARCHIVE="$SUB_MODS_HASH_DIR/submodules.zip" 
-if [ ! -d "$SUB_MODS_HASH_DIR" ]; then
-	echo "Creating path and submod hash."
-	mkdir $SUB_MODS_HASH_DIR
-	git submodule > $SUB_MODS_HASH_FILE	
-fi
-
-CACHED_MODS=$(cat $SUB_MODS_HASH_FILE)
-NEW_MODS=$(git submodule)
-
-if [ "$CACHED_MODS" = "$NEW_MODS" ]; then
-	echo "same submods"
-	echo "dont build, but extract stuff"
-		rm -rf submodules
-		zip -s 0 submods-hash/submodules.zip --out unsplit-submodules.zip
-		unzip unsplit-submodules.zip 
-else
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
+CURRENT_DIR=$(pwd)
 
+SUB_MODS_HASH_DIR="$CURRENT_DIR/sdkcache"
+SUB_MODS_HASH_FILE="$SUB_MODS_HASH_DIR/hash.txt"
+SUB_MODS_ARCHIVE="$SUB_MODS_HASH_DIR/LiblinphoneSDK.zip"
+
+CACHED_MODS=$(cat $SUB_MODS_HASH_FILE |md5)
+NEW_MODS=$(git submodule status --recursive | md5 )
+
+if [ $CACHED_MODS = $NEW_MODS ]; then
+	echo "dont build, but extract stuff"
+    unzip $SUB_MODS_ARCHIVE
+    exit 0
+else
+
+echo "warning SDK need to be updated!!!"
 LOGFILE=/tmp/build_script.out
 
 echo "Building"
