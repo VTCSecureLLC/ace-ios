@@ -1064,7 +1064,9 @@ static void linphone_iphone_message_received(LinphoneCore *lc, LinphoneChatRoom 
 	// Post event
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	[dict setObject:[NSValue valueWithPointer:lev] forKey:@"event"];
-	[dict setObject:[NSString stringWithUTF8String:notified_event] forKey:@"notified_event"];
+    if(notified_event){
+        [dict setObject:[NSString stringWithUTF8String:notified_event] forKey:@"notified_event"];
+    }
 	if (body != NULL) {
 		[dict setObject:[NSValue valueWithPointer:body] forKey:@"content"];
 	}
@@ -1088,6 +1090,9 @@ static void linphone_info_received (LinphoneCore *lc, LinphoneCall *call, const 
     LinphoneCall* currentCall = linphone_core_get_current_call(theLinphoneCore);
     if (call == currentCall) {
         const char* videoModeStatus = linphone_info_message_get_header(msg, "action");
+        if(!videoModeStatus){
+            return;
+        }
         NSDictionary *dict = @{@"videoModeStatus": [NSString stringWithUTF8String:videoModeStatus]
                                };
         [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneVideModeUpdate object:self userInfo:dict];
