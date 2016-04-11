@@ -11,6 +11,7 @@ SUB_MODS_HASH_FILE="$SUB_MODS_HASH_DIR/hash.txt"
 SUB_MODS_ARCHIVE="$SUB_MODS_HASH_DIR/LiblinphoneSDK.zip"
 
 CACHED_MODS=$(cat $SUB_MODS_HASH_FILE |md5)
+git submodule foreach --recursive 'git fetch --tags'
 NEW_MODS=$(git submodule status --recursive | md5 )
 
 if [ $CACHED_MODS = $NEW_MODS ]; then
