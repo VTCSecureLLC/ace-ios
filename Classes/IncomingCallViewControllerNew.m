@@ -88,20 +88,29 @@
         IncomingCallMessageTableViewController *incomingCallMessageTableViewController = [segue destinationViewController];
         incomingCallMessageTableViewController.messageDidSelectedCallback = ^(NSUInteger index) {
             
+            NSString *message = nil;
             switch (index) {
                 case 0:
                     //Can't talk now. Call me later?
+                    message = [CALL_DECLINE_PREFIX stringByAppendingString:@"Can't talk now. Call me later?"];
                     break;
                     
                 case 1:
                     //Can't talk now. What's up?
+                    message = [CALL_DECLINE_PREFIX stringByAppendingString:@"Can't talk now. What's up?"];
                     break;
                     
                 case 2:
                     //I'm in a meeting.
+                    message = [CALL_DECLINE_PREFIX stringByAppendingString:@"I'm in a meeting."];
                     break;
             }
             
+            LinphoneChatRoom *room = linphone_call_get_chat_room([[LinphoneManager instance] currentCall]);
+            LinphoneChatMessage *msg = linphone_chat_room_create_message(room, [message UTF8String]);
+            linphone_chat_room_send_message2(room, msg, nil, nil);
+
+            [[LinphoneManager instance] declineCall:[[LinphoneManager instance] currentCall]];
         };
     }
 }
