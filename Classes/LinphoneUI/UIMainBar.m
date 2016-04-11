@@ -21,6 +21,7 @@
 #import "PhoneMainView.h"
 #import "CAAnimation+Blocks.h"
 #import "LinphoneCoreSettingsStore.h"
+#import "CRToast.h"
 #import "CustomBarButton.h"
 
 #define kAnimationDuration 0.5f
@@ -85,10 +86,10 @@ static NSString *const kDisappearAnimation = @"disappear";
     
     //Remove Unread Messages Count on iPhone
 
-//	[[NSNotificationCenter defaultCenter] addObserver:self
-//											 selector:@selector(textReceived:)
-//												 name:kLinphoneTextReceived
-//											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(textReceived:)
+												 name:kLinphoneTextReceived
+											   object:nil];
     
     
     
@@ -106,7 +107,7 @@ static NSString *const kDisappearAnimation = @"disappear";
                                              selector:@selector(notifyReceived:)
                                                  name:kLinphoneNotifyReceived
                                                object:nil];
-	[self update:FALSE];
+//	[self update:FALSE];
 //    [self changeForegroundColor];
 }
 
@@ -317,7 +318,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 //	[chatNotificationView.layer setTransform:CATransform3DIdentity];
 	//[chatNotificationView setHidden:TRUE];
 //	[historyNotificationView setHidden:TRUE];
-	[self update:FALSE];
+//	[self update:FALSE];
 }
 
 - (void)callUpdate:(NSNotification *)notif {
@@ -379,6 +380,28 @@ static NSString *const kDisappearAnimation = @"disappear";
 //    }
 //}
 
+- (void)kAppSettingChanged:(NSNotification *)notif {
+    NSString *nobj = notif.object;
+    
+    if (nobj && [nobj isEqualToString:@"force_508_preference"]) {
+        UICompositeViewDescription *c = [SettingsViewController compositeViewDescription];
+        SettingsViewController *settingsViewController = (SettingsViewController*)[[PhoneMainView instance].mainViewController getCachedController:c.content];
+        LinphoneCoreSettingsStore *settingsStore;
+        
+        if (settingsViewController) {
+            settingsStore = [settingsViewController getLinphoneCoreSettingsStore];
+        }
+
+//        if ([settingsStore boolForKey:@"force_508_preference"]) {
+//            [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
+//            [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
+//        } else {
+//            [self changeBackgroundColor];
+//            [self changeForegroundColor];
+//        }
+    }
+}
+
 - (void)textReceived:(NSNotification *)notif {
     
     NSDictionary *messageInfo = notif.userInfo;
@@ -423,7 +446,6 @@ static NSString *const kDisappearAnimation = @"disappear";
                                     completionBlock:^{
                                     }];
     }
-
 }
 
 #pragma mark -
@@ -509,7 +531,6 @@ static NSString *const kDisappearAnimation = @"disappear";
 //		}
 //	}
 //}
-
 - (void)appearAnimation:(NSString *)animationID target:(UIView *)target completion:(void (^)(BOOL finished))completion {
 	CABasicAnimation *appear = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
 	appear.duration = 0.4;
@@ -796,5 +817,48 @@ static NSString *const kDisappearAnimation = @"disappear";
     [self checkVideomailIndicator];
 }
 
+- (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
+    const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+    const char *from = [contact UTF8String];
+    while (rooms) {
+        const LinphoneAddress *room_from_address = linphone_chat_room_get_peer_address((LinphoneChatRoom *)rooms->data);
+        char *room_from = linphone_address_as_string_uri_only(room_from_address);
+        if (room_from && strcmp(from, room_from) == 0) {
+            return rooms->data;
+        }
+        rooms = rooms->next;
+    }
+    return NULL;
+}
+
+//- (NSDictionary*)options {
+//    
+//    
+//    NSDictionary *options = @{
+//                              kCRToastTextKey : @"Hello World!",
+//                              kCRToastTextAlignmentKey : @(0),
+//                              kCRToastBackgroundColorKey : [UIColor redColor],
+//                              kCRToastAnimationInTypeKey : @(0),
+//                              kCRToastAnimationOutTypeKey : @(0),
+//                              kCRToastAnimationInDirectionKey : @(0),
+//                              kCRToastAnimationOutDirectionKey : @(0),
+//                              kCRToastImageAlignmentKey : @(0),
+//                              kCRToastNotificationPreferredPaddingKey : @(0),
+//                              kCRToastNotificationPresentationTypeKey : @(0),
+//                              kCRToastNotificationTypeKey : @(1),
+//                              kCRToastTimeIntervalKey : @(1),
+//                              kCRToastUnderStatusBarKey : @(0)
+//                              };
+//    
+//    // if (_dismissibleWithTapSwitch.on) {
+//    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeTap
+//                                                                                                  automaticallyDismiss:YES
+//                                                                                                                 block:^(CRToastInteractionType interactionType){
+//                                                                                                                     NSLog(@"Dismissed with %@ interaction", NSStringFromCRToastInteractionType(interactionType));
+//                                                                                                                 }]];
+//    //  }
+//    
+//    return [NSDictionary dictionaryWithDictionary:options];
+//}
 
 @end
