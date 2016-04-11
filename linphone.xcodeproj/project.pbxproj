@@ -5819,6 +5819,7 @@
 				D3ED3EB81587392C006C0DE4 /* HistoryViewController.m in Sources */,
 				5E63479C1C1111C900042AB4 /* InfHSBSupport.m in Sources */,
 				D35497FE15875372000081D8 /* ContactsViewController.m in Sources */,
+				04D7C3D11CB3AF1000F2441C /* CRToastWindow.m in Sources */,
 				C6CD09831CB3FDD40028B405 /* CustomBarButton.m in Sources */,
 				D3549816158761D0000081D8 /* ContactsTableViewController.m in Sources */,
 				73400CBE1BAF8CAA002C358D /* HelpViewController.m in Sources */,

@@ -112,6 +112,10 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneMainViewChange object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextReceived object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneSettingsUpdate object:nil];
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneMainViewChange object:nil];
@@ -384,6 +388,9 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 - (void)textReceived:(NSNotification *)notif {
     
+    [self updateUnreadMessagesIndicatorState:YES];
+    [self updateUnreadMessagesIndicator];
+    
     NSDictionary *messageInfo = notif.userInfo;
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
@@ -427,10 +434,6 @@ static NSString *const kDisappearAnimation = @"disappear";
                                     }];
     }
 
-- (void)textReceived:(NSNotification *)notif {
-    //	[self updateUnreadMessage:TRUE];
-    [self updateUnreadMessagesIndicatorState:YES];
-    [self updateUnreadMessagesIndicator];
 }
 
 #pragma mark -
@@ -786,6 +789,20 @@ static NSString *const kDisappearAnimation = @"disappear";
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self checkVideomailIndicator];
+}
+
+- (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
+    const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+    const char *from = [contact UTF8String];
+    while (rooms) {
+        const LinphoneAddress *room_from_address = linphone_chat_room_get_peer_address((LinphoneChatRoom *)rooms->data);
+        char *room_from = linphone_address_as_string_uri_only(room_from_address);
+        if (room_from && strcmp(from, room_from) == 0) {
+            return rooms->data;
+        }
+        rooms = rooms->next;
+    }
+    return NULL;
 }
 
 - (void)updateUnreadMessagesIndicatorState:(BOOL)state {
