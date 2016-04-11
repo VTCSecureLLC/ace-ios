@@ -122,6 +122,10 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 }
 
 -(void) setRtcpFbMode: (BOOL)overwrite{
+     lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_xr_enabled", 0);
+     lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_xr_voip_metrics_enabled", 0);
+     lp_config_set_int([[LinphoneManager instance] configDb],  "rtp", "rtcp_xr_stat_summary_enabled", 0);
+    
     NSString *rtcpFeedbackMode = [[NSUserDefaults standardUserDefaults] objectForKey:@"rtcp_feedback_pref"];
     if(overwrite){
         [self setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
