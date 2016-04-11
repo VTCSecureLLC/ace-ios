@@ -13,11 +13,11 @@ bundle install &
 cat .gitmodules | grep -o '".*"' | cut -d '"' -f 2 | while sleep 2 && read line; do git submodule update --init --recursive $line & done
 # make sure everything is fetched
 
-git submodule update --init --recursive &
+
 brew update 1>/dev/null && brew install doxygen nasm yasm optipng imagemagick intltool ninja antlr cmake 
 
 [ -x /usr/local/bin/libtoolize ] || sudo ln -sf /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
-
+git submodule update --init --recursive 
 #pushd /usr/local/Library/Homebrew/; git branch --set-upstream-to=origin/master master ; git pull ; popd
 
 

@@ -3,7 +3,7 @@
  2a4cf67dc6e7284a2fe10cca177de286116c5da8 submodules/bctoolbox (0.0.2-8-g2a4cf67)
  8ae3f927d011e00e839024ed8c24cb4faea4ab0e submodules/belcard (8ae3f92)
  e57cf673373fc611852289691c46fd56e78ae041 submodules/belle-sip (1.4.2-94-ge57cf67)
- 51a312152384e14e4ee44c2424a34df006b931e5 submodules/belr (heads/master-4-g51a3121)
+ 51a312152384e14e4ee44c2424a34df006b931e5 submodules/belr (51a3121)
  916a3bc8773c4230de5813bbb844413864823b8b submodules/bzrtp (1.0.3-14-g916a3bc)
  96b15de85777af96327cff9e02fb5d46ed3007fd submodules/cmake-builder (desktop-3.9.0-169-g96b15de)
  0a0a9c60f5a1b899ae26b705fa5224ef25377982 submodules/cunit (remotes/origin/linphone)
