@@ -12,7 +12,7 @@ which aws || brew install awscli
 BUCKET=${BUCKET:-vtcsecurellc-travis}
 CACHE=${BUCKET}-cache
 if ! aws s3 sync s3://$CACHE/ace-ios/sdkcache/ sdkcache/ ; then
-  echo "Could not sync s3://$CACHE/ace-ios/sdkcache/ to sdkcache/
+  echo "Could not sync s3://$CACHE/ace-ios/sdkcache/ to sdkcache/"
 fi
 
 if [ -f sdkcache/liblinphone-sdk_${SUBMODULE_HASH}.zip ] ; then
