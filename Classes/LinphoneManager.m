@@ -2351,6 +2351,25 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     }
 }
 
+- (NSUInteger)unreadMessagesCount {
+    
+    const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
+    const MSList *item = rooms;
+    NSUInteger unreadMessagesCount = 0;
+    
+    while (item) {
+        
+        LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
+        if (room) {
+            unreadMessagesCount += linphone_chat_room_get_unread_messages_count(room);
+        }
+        item = item->next;
+    }
+    
+    return unreadMessagesCount;
+}
+
+
 - (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion {
     
     __block UIImage *image = [UIImage imageNamed:@"avatar_unknown.png"];
@@ -2507,24 +2526,6 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 	}
 	return cachePath;
 }
-
-
-//Remove Unread Messages Count on iPhone
-
-//+ (int)unreadMessageCount {
-//	int count = 0;
-//	const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
-//	const MSList *item = rooms;
-//	while (item) {
-//		LinphoneChatRoom *room = (LinphoneChatRoom *)item->data;
-//		if (room) {
-//			count += linphone_chat_room_get_unread_messages_count(room);
-//		}
-//		item = item->next;
-//	}
-//
-//	return count;
-//}
 
 + (BOOL)copyFile:(NSString *)src destination:(NSString *)dst override:(BOOL)override {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
