@@ -141,7 +141,7 @@
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
    // cell.imageView.image = [tableImages objectAtIndex:indexPath.row];
     
-    if(indexPath.row == tableData.count-1){
+    if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
         NSInteger mwiCount;
         if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
             mwiCount = 0;

@@ -289,6 +289,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         MSVideoSize vsize;
         vsize.width = 0;
         vsize.height = 0;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+        
         linphone_core_set_adaptive_rate_algorithm(lc, "Stateful");
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"video_preferred_size_preference"]){
@@ -766,6 +768,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		MSVideoSize vsize;
         vsize.width = 0;
         vsize.height = 0;
+        MS_VIDEO_SIZE_ASSIGN(vsize, CIF);
+
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //[self setObject:[defaults objectForKey:@"video_preferred_size_preference"] forKey:@"video_preferred_size_preference"];
         if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"vga"]){
@@ -777,6 +781,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
         else if([[defaults objectForKey:@"video_preferred_size_preference"] isEqualToString:@"qvga"]){
             MS_VIDEO_SIZE_ASSIGN(vsize, QVGA);
         }
+        
 		linphone_core_set_preferred_video_size(lc, vsize);
 		if (![videoPreset isEqualToString:@"custom"]) {
 			[self setInteger:30 forKey:@"video_preferred_fps_preference"];
