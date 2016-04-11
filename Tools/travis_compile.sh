@@ -2,22 +2,27 @@
 set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
-CURRENT_DIR=$(pwd)
 
-SUB_MODS_HASH_DIR="$CURRENT_DIR/sdkcache"
-SUB_MODS_HASH_FILE="$SUB_MODS_HASH_DIR/hash.txt"
-SUB_MODS_ARCHIVE="$SUB_MODS_HASH_DIR/LiblinphoneSDK.zip"
+mkdir -p sdkcache/
+git submodule | cut -d'(' -f1 | sort > sdkcache/current.txt
+SUBMODULE_HASH=$(md5sum sdkcache/current.txt | awk '{print $1}')
+mv sdkcache/current.txt liblinphone-sdk_$(SUBMODULE_HASH)_submodules.txt
+which aws || brew install awscli
+BUCKET=${BUCKET:-vtcsecurellc-travis}
+CACHE=${BUCKET}-cache
+if ! aws s3 sync s3://$CACHE/ace-ios/sdkcache/ sdkcache/ ; then
+  echo "Could not sync s3://$CACHE/ace-ios/sdkcache/ to sdkcache/
+fi
 
-CACHED_MODS=$(cat $SUB_MODS_HASH_FILE |md5)
-NEW_MODS=$(git submodule foreach --recursive 'git log --pretty=format:'%H' -n 1'  | md5 )
-
-if [ $CACHED_MODS = $NEW_MODS ]; then
-	echo "dont build, but extract stuff"
-    unzip $SUB_MODS_ARCHIVE
-    exit 0
+if [ -f sdkcache/liblinphone-sdk_$(SUBMODULE_HASH).zip ] ; then
+  unzip sdkcache/liblinphone-sdk_$(SUBMODULE_HASH).zip
+  exit 0
 else
+  echo "There is no existing cached SDK build for this set of submodules."
+fi
 
-echo "warning SDK need to be updated!!!"
+echo "REBUILDING SDK FOR ${SUBMODULE_HASH}"
+
 LOGFILE=/tmp/build_script.out
 
 echo "Building"
@@ -38,14 +43,19 @@ touch $LOGFILE
 MUTED_PID=$!
 
 echo "Running make for dependencies"
-$DIR/compile.sh >> $LOGFILE 2>&1
-
-MAKE_RESULT=$?
+if $DIR/compile.sh >> $LOGFILE 2>&1
+then
+  MAKE_RESULT=$?
+  zip -r sdkcache/liblinphone-sdk_$(SUBMODULE_HASH).zip liblinphone-sdk
+  if ! aws s3 sync sdkcache/ s3://$CACHE/ace-ios/sdkcache/ ; then
+    echo "Error $?: Encountered a problem syncing sdkcache/ folder to s3://$CACHE/ace-ios/sdkcache/"
+  fi
+else
+  MAKE_RESULT=$?
+fi
 
 tail -1000 $LOGFILE
 kill $MUTED_PID
 
 echo exit $MAKE_RESULT
 exit $MAKE_RESULT
-
-fi
