@@ -1,5 +1,8 @@
 language: objective-c
 osx_image: xcode7
+branches:
+  except:
+  - /^v[0-9]/
 env:
   global:
   - KIF_SCREENSHOTS=$PWD/Screens
