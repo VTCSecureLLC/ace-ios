@@ -11,6 +11,7 @@ mv sdkcache/current.txt liblinphone-sdk_$(SUBMODULE_HASH)_submodules.txt
 which aws || brew install awscli
 BUCKET=${BUCKET:-vtcsecurellc-travis}
 CACHE=${BUCKET}-cache
+aws iam get-user
 if ! aws s3 sync s3://$CACHE/ace-ios/sdkcache/ sdkcache/ ; then
   echo "Could not sync s3://$CACHE/ace-ios/sdkcache/ to sdkcache/
 fi
