@@ -49,7 +49,7 @@ then
   MAKE_RESULT=$?
   zip -r sdkcache/liblinphone-sdk_${SUBMODULE_HASH}.zip liblinphone-sdk
   if ! aws s3 sync sdkcache/ s3://$CACHE/ace-ios/sdkcache/ ; then
-    echo "Error $?: Encountered a problem syncing sdkcache/ folder to s3://$CACHE/ace-ios/sdkcache/"
+    echo "Encountered a problem syncing sdkcache/ folder to s3://$CACHE/ace-ios/sdkcache/"
   fi
 else
   MAKE_RESULT=$?
