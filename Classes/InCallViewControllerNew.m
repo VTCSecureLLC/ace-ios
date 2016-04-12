@@ -41,9 +41,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 };
 
 
-@interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource, UITextInput>
+@interface InCallViewControllerNew () <UITableViewDelegate, UITableViewDataSource, BubbleTableViewCellDataSource, UITextInput> {
+    NSString *declinedMessage;
+}
+
 @property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ringingLabel;
+@property (weak, nonatomic) IBOutlet UIView *viewCallDeclinedWithMessage;
+@property (weak, nonatomic) IBOutlet UILabel *callDeclineMessageLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
@@ -105,6 +110,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    
+    declinedMessage = nil;
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
@@ -214,32 +221,60 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSDictionary *messageInfo = notif.userInfo;
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
-    NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
-    NSMutableDictionary *options = [@{
-                                      kCRToastTextKey : messageFullText,
-                                      kCRToastTextAlignmentKey : @(0),
-                                      kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
-                                      kCRToastAnimationInTypeKey : @(0),
-                                      kCRToastAnimationOutTypeKey : @(0),
-                                      kCRToastAnimationInDirectionKey : @(0),
-                                      kCRToastAnimationOutDirectionKey : @(0),
-                                      kCRToastImageAlignmentKey : @(0),
-                                      kCRToastNotificationPreferredPaddingKey : @(0),
-                                      kCRToastNotificationPresentationTypeKey : @(0),
-                                      kCRToastNotificationTypeKey : @(1),
-                                      kCRToastTimeIntervalKey : @(3),
-                                      kCRToastUnderStatusBarKey : @(0)} mutableCopy];
-    options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
-    options[kCRToastImageAlignmentKey] = @(0);
-    options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
-                                                                                                  automaticallyDismiss:YES
-                                                                                                                 block:^(CRToastInteractionType interactionType){}]];
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-        [CRToastManager dismissNotification:YES];
-        [CRToastManager showNotificationWithOptions:options
-                                    completionBlock:^{}];
-    }
     
+    if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+        [self stopRingCount];
+        self.ringCountLabel.hidden = NO;
+        self.ringCountLabel.text = @"Declined";
+        [self.ringCountLabel setFont:[UIFont systemFontOfSize:30]];
+        declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+        
+        UIFont *smallFont = [UIFont systemFontOfSize:18];
+        NSDictionary *smallDict = [NSDictionary dictionaryWithObject:smallFont forKey:NSFontAttributeName];
+        NSMutableAttributedString *aAttrString = [[NSMutableAttributedString alloc] initWithString:@"Call declined with message \n" attributes:smallDict];
+        NSDictionary *textColor = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor lightGrayColor], NSForegroundColorAttributeName, nil];
+        [aAttrString addAttributes:textColor range:NSMakeRange(0, @"Call declined with message \n".length)];
+        
+        UIFont *bigFont = [UIFont systemFontOfSize:37];
+        NSDictionary *verdanaDict = [NSDictionary dictionaryWithObject:bigFont forKey:NSFontAttributeName];
+        NSMutableAttributedString *vAttrString = [[NSMutableAttributedString alloc] initWithString:declinedMessage attributes:verdanaDict];
+        
+        [aAttrString appendAttributedString:vAttrString];
+        
+        self.viewCallDeclinedWithMessage.hidden = NO;
+        self.callDeclineMessageLabel.hidden = NO;
+        self.callDeclineMessageLabel.attributedText = aAttrString;
+        
+        [UIView animateKeyframesWithDuration:1.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
+            self.viewCallDeclinedWithMessage.alpha = 0;
+        } completion:nil];
+    } else {
+        NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
+        NSMutableDictionary *options = [@{
+                                          kCRToastTextKey : messageFullText,
+                                          kCRToastTextAlignmentKey : @(0),
+                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
+                                          kCRToastAnimationInTypeKey : @(0),
+                                          kCRToastAnimationOutTypeKey : @(0),
+                                          kCRToastAnimationInDirectionKey : @(0),
+                                          kCRToastAnimationOutDirectionKey : @(0),
+                                          kCRToastImageAlignmentKey : @(0),
+                                          kCRToastNotificationPreferredPaddingKey : @(0),
+                                          kCRToastNotificationPresentationTypeKey : @(0),
+                                          kCRToastNotificationTypeKey : @(1),
+                                          kCRToastTimeIntervalKey : @(3),
+                                          kCRToastUnderStatusBarKey : @(0)} mutableCopy];
+        options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+        options[kCRToastImageAlignmentKey] = @(0);
+        options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
+                                                                                                      automaticallyDismiss:YES
+                                                                                                                     block:^(CRToastInteractionType interactionType){}]];
+        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+            [CRToastManager dismissNotification:YES];
+            [CRToastManager showNotificationWithOptions:options
+                                        completionBlock:^{}];
+        }
+    }
 }
 
 #pragma mark - Private Methods
@@ -384,7 +419,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
                 [self hideQualityIndicator];
-                [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"fromEvents", nil];
+                [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:1.0];
             }
             else if (callsCount == 1) {
                 LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
@@ -441,6 +477,31 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 //    [self setupMicriphoneButtonState];
 //    [self setupSpeakerButtonState];
     [self checkRTT];
+}
+
+- (void) closeCallWindow:(NSDictionary*)dict {
+    LinphoneCore *lc = [LinphoneManager getLc];
+    BOOL fromEvents = [[dict objectForKey:@"fromEvents"] boolValue];
+    
+    if (!linphone_core_get_calls(lc)) {
+        if (!fromEvents) {
+            [self close];
+        } else {
+            if (declinedMessage) {
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"fromEvents", nil];
+                [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:3.0];
+            } else {
+                [self close];
+            }
+        }
+    }
+}
+
+- (void) close {
+    [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+    self.callDeclineMessageLabel.hidden = YES;
+    self.viewCallDeclinedWithMessage.hidden = YES;
+    [self.ringCountLabel setFont:[UIFont systemFontOfSize:64]];
 }
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
