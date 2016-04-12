@@ -8,7 +8,6 @@
 
 #import "InCallViewControllerNew.h"
 #import "LinphoneManager.h"
-#import "IncallButton.h"
 #import "UIManager.h"
 #import "SecondIncomingCallBarView.h"
 #import "IncomingCallViewControllerNew.h"

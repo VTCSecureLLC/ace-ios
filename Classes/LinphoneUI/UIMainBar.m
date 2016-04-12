@@ -22,6 +22,23 @@
 #import "CAAnimation+Blocks.h"
 #import "LinphoneCoreSettingsStore.h"
 #import "CRToast.h"
+#import "CustomBarButton.h"
+
+#define kAnimationDuration 0.5f
+
+@interface UIMainBar ()
+
+@property (nonatomic, weak) IBOutlet CustomBarButton *historyButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *contactsButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *dialpadButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *settingsButton;
+@property (nonatomic, weak) IBOutlet CustomBarButton *chatButton;
+@property (weak, nonatomic) IBOutlet CustomBarButton *moreButton;
+@property (weak, nonatomic) IBOutlet UIView *moreMenuContainer;
+@property (weak, nonatomic) IBOutlet UILabel *videomailCountLabel;
+@property (weak, nonatomic) IBOutlet UIView *videomailIndicatorView;
+
+@end
 
 @implementation UIMainBar
 
@@ -31,13 +48,13 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 @synthesize historyButton;
 @synthesize contactsButton;
-@synthesize dialerButton;
+@synthesize dialpadButton;
 @synthesize settingsButton;
 @synthesize chatButton;
-@synthesize historyNotificationView;
-@synthesize historyNotificationLabel;
-@synthesize chatNotificationView;
-@synthesize chatNotificationLabel;
+//@synthesize historyNotificationView;
+//@synthesize historyNotificationLabel;
+//@synthesize chatNotificationView;
+//@synthesize chatNotificationLabel;
 
 #pragma mark - Lifecycle Functions
 
@@ -62,26 +79,36 @@ static NSString *const kDisappearAnimation = @"disappear";
 											 selector:@selector(callUpdate:)
 												 name:kLinphoneCallUpdate
 											   object:nil];
+    
+    [self updateVidoemailState];
+    [self checkVideomailIndicator];
+    
+    
+    //Remove Unread Messages Count on iPhone
+
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(textReceived:)
 												 name:kLinphoneTextReceived
 											   object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(settingsUpdate:)
-												 name:kLinphoneSettingsUpdate
-											   object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(kAppSettingChanged:)
-                                                 name:kIASKAppSettingChanged
-                                               object:nil];
+    
+    
+//	[[NSNotificationCenter defaultCenter] addObserver:self
+//											 selector:@selector(settingsUpdate:)
+//												 name:kLinphoneSettingsUpdate
+//											   object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(kAppSettingChanged:)
+//                                                 name:kIASKAppSettingChanged
+//                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notifyReceived:)
                                                  name:kLinphoneNotifyReceived
                                                object:nil];
-	[self update:FALSE];
-    [self changeForegroundColor];
+//	[self update:FALSE];
+//    [self changeForegroundColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,106 +118,111 @@ static NSString *const kDisappearAnimation = @"disappear";
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneSettingsUpdate object:nil];
     [super viewWillDisappear:animated];
 }
-
-- (void)flipImageForButton:(UIButton *)button {
-	UIControlState states[] = {UIControlStateNormal, UIControlStateDisabled, UIControlStateSelected,
-							   UIControlStateHighlighted, -1};
-	UIControlState *state = states;
-
-	while (*state != -1) {
-		UIImage *bgImage = [button backgroundImageForState:*state];
-
-		UIImage *flippedImage =
-			[UIImage imageWithCGImage:bgImage.CGImage scale:bgImage.scale orientation:UIImageOrientationUpMirrored];
-		[button setBackgroundImage:flippedImage forState:*state];
-		state++;
-	}
-}
+//
+//- (void)flipImageForButton:(UIButton *)button {
+//	UIControlState states[] = {UIControlStateNormal, UIControlStateDisabled, UIControlStateSelected,
+//							   UIControlStateHighlighted, -1};
+//	UIControlState *state = states;
+//
+//	while (*state != -1) {
+//		UIImage *bgImage = [button backgroundImageForState:*state];
+//
+//		UIImage *flippedImage =
+//			[UIImage imageWithCGImage:bgImage.CGImage scale:bgImage.scale orientation:UIImageOrientationUpMirrored];
+//		[button setBackgroundImage:flippedImage forState:*state];
+//		state++;
+//	}
+//}
 
 - (void)viewDidLoad {
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(applicationWillEnterForeground:)
 												 name:UIApplicationWillEnterForegroundNotification
 											   object:nil];
+    
+    
+    self.videomailCountLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.videomailCountLabel.layer.borderWidth = 1.f;
+    self.videomailCountLabel.layer.cornerRadius = CGRectGetHeight(self.videomailCountLabel.frame)/2;
 
-	{
-		UIButton *historyButtonLandscape = (UIButton *)[landscapeView viewWithTag:[historyButton tag]];
-		// Set selected+over background: IB lack !
-		[historyButton setBackgroundImage:[UIImage imageNamed:@"history_selected_new.png"]
-								 forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		// Set selected+over background: IB lack !
-		[historyButtonLandscape setBackgroundImage:[UIImage imageNamed:@"history_selected_landscape.png"]
-										  forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		[LinphoneUtils buttonFixStatesForTabs:historyButton];
-		[LinphoneUtils buttonFixStatesForTabs:historyButtonLandscape];
-	}
-
-	{
-		UIButton *contactsButtonLandscape = (UIButton *)[landscapeView viewWithTag:[contactsButton tag]];
-		// Set selected+over background: IB lack !
-		[contactsButton setBackgroundImage:[UIImage imageNamed:@"contacts_selected_new.png"]
-								  forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		// Set selected+over background: IB lack !
-		[contactsButtonLandscape setBackgroundImage:[UIImage imageNamed:@"contacts_selected_landscape.png"]
-										   forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		[LinphoneUtils buttonFixStatesForTabs:contactsButton];
-		[LinphoneUtils buttonFixStatesForTabs:contactsButtonLandscape];
-	}
-	{
-		UIButton *dialerButtonLandscape = (UIButton *)[landscapeView viewWithTag:[dialerButton tag]];
-		// Set selected+over background: IB lack !
-		[dialerButton setBackgroundImage:[UIImage imageNamed:@"dialer_selected_new.png"]
-								forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		// Set selected+over background: IB lack !
-		[dialerButtonLandscape setBackgroundImage:[UIImage imageNamed:@"dialer_selected_landscape.png"]
-										 forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		[LinphoneUtils buttonFixStatesForTabs:dialerButton];
-		[LinphoneUtils buttonFixStatesForTabs:dialerButtonLandscape];
-	}
-	{
-		UIButton *settingsButtonLandscape = (UIButton *)[landscapeView viewWithTag:[settingsButton tag]];
-		// Set selected+over background: IB lack !
-		[settingsButton setBackgroundImage:[UIImage imageNamed:@"settings_selected_new.png"]
-								  forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		// Set selected+over background: IB lack !
-		[settingsButtonLandscape setBackgroundImage:[UIImage imageNamed:@"settings_selected_landscape.png"]
-										   forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		[LinphoneUtils buttonFixStatesForTabs:settingsButton];
-		[LinphoneUtils buttonFixStatesForTabs:settingsButtonLandscape];
-	}
-
-	{
-		UIButton *chatButtonLandscape = (UIButton *)[landscapeView viewWithTag:[chatButton tag]];
-		// Set selected+over background: IB lack !
-		[chatButton setBackgroundImage:[UIImage imageNamed:@"resources_selected_new.png"]
-							  forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		// Set selected+over background: IB lack !
-		[chatButtonLandscape setBackgroundImage:[UIImage imageNamed:@"resources_selected~ipad.png"]
-									   forState:(UIControlStateHighlighted | UIControlStateSelected)];
-
-		[LinphoneUtils buttonFixStatesForTabs:chatButton];
-		[LinphoneUtils buttonFixStatesForTabs:chatButtonLandscape];
-	}
-	if ([LinphoneManager langageDirectionIsRTL]) {
-		[self flipImageForButton:historyButton];
-		[self flipImageForButton:settingsButton];
-		[self flipImageForButton:dialerButton];
-		[self flipImageForButton:chatButton];
-		[self flipImageForButton:contactsButton];
-	}
+//	{
+//		UIButton *historyButtonLandscape = (UIButton *)[landscapeView viewWithTag:[historyButton tag]];
+//		// Set selected+over background: IB lack !
+//		[historyButton setBackgroundImage:[UIImage imageNamed:@"history_selected_new.png"]
+//								 forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		// Set selected+over background: IB lack !
+//		[historyButtonLandscape setBackgroundImage:[UIImage imageNamed:@"history_selected_landscape.png"]
+//										  forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		[LinphoneUtils buttonFixStatesForTabs:historyButton];
+//		[LinphoneUtils buttonFixStatesForTabs:historyButtonLandscape];
+//	}
+//
+//	{
+//		UIButton *contactsButtonLandscape = (UIButton *)[landscapeView viewWithTag:[contactsButton tag]];
+//		// Set selected+over background: IB lack !
+//		[contactsButton setBackgroundImage:[UIImage imageNamed:@"contacts_selected_new.png"]
+//								  forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		// Set selected+over background: IB lack !
+//		[contactsButtonLandscape setBackgroundImage:[UIImage imageNamed:@"contacts_selected_landscape.png"]
+//										   forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		[LinphoneUtils buttonFixStatesForTabs:contactsButton];
+//		[LinphoneUtils buttonFixStatesForTabs:contactsButtonLandscape];
+//	}
+//	{
+//		UIButton *dialerButtonLandscape = (UIButton *)[landscapeView viewWithTag:[dialpadButton tag]];
+//		// Set selected+over background: IB lack !
+//		[dialpadButton setBackgroundImage:[UIImage imageNamed:@"dialer_selected_new.png"]
+//								forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		// Set selected+over background: IB lack !
+//		[dialerButtonLandscape setBackgroundImage:[UIImage imageNamed:@"dialer_selected_landscape.png"]
+//										 forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		[LinphoneUtils buttonFixStatesForTabs:dialpadButton];
+//		[LinphoneUtils buttonFixStatesForTabs:dialerButtonLandscape];
+//	}
+//	{
+//		UIButton *settingsButtonLandscape = (UIButton *)[landscapeView viewWithTag:[settingsButton tag]];
+//		// Set selected+over background: IB lack !
+//		[settingsButton setBackgroundImage:[UIImage imageNamed:@"settings_selected_new.png"]
+//								  forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		// Set selected+over background: IB lack !
+//		[settingsButtonLandscape setBackgroundImage:[UIImage imageNamed:@"settings_selected_landscape.png"]
+//										   forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		[LinphoneUtils buttonFixStatesForTabs:settingsButton];
+//		[LinphoneUtils buttonFixStatesForTabs:settingsButtonLandscape];
+//	}
+//
+//	{
+//		UIButton *chatButtonLandscape = (UIButton *)[landscapeView viewWithTag:[chatButton tag]];
+//		// Set selected+over background: IB lack !
+//		[chatButton setBackgroundImage:[UIImage imageNamed:@"resources_selected_new.png"]
+//							  forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		// Set selected+over background: IB lack !
+//		[chatButtonLandscape setBackgroundImage:[UIImage imageNamed:@"resources_selected~ipad.png"]
+//									   forState:(UIControlStateHighlighted | UIControlStateSelected)];
+//
+//		[LinphoneUtils buttonFixStatesForTabs:chatButton];
+//		[LinphoneUtils buttonFixStatesForTabs:chatButtonLandscape];
+//	}
+//	if ([LinphoneManager langageDirectionIsRTL]) {
+//		[self flipImageForButton:historyButton];
+//		[self flipImageForButton:settingsButton];
+//		[self flipImageForButton:dialpadButton];
+//		[self flipImageForButton:chatButton];
+//		[self flipImageForButton:contactsButton];
+//	}
 
 	[super viewDidLoad]; // Have to be after due to TPMultiLayoutViewController
-    [self setColorChnageObservers];
-    [self changeBackgroundColor];
+//    [self setColorChnageObservers];
+//    [self changeBackgroundColor];
     
     if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_uri_preference"]){
         @try{
@@ -203,28 +235,28 @@ static NSString *const kDisappearAnimation = @"disappear";
         }
     }
 
-    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
-        [self.chatNotificationView setHidden:YES];
-    }
-    else{
-        NSInteger mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
-        if(mwiCount > 0){
-            [self.chatNotificationView setHidden:NO];
-            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
-        }
-    }
+//    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
+//        [self.chatNotificationView setHidden:YES];
+//    }
+//    else{
+//        NSInteger mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
+//        if(mwiCount > 0){
+//            [self.chatNotificationView setHidden:NO];
+//            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
+//        }
+//    }
 }
-
-- (void)setColorChnageObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(changeBackgroundColor)
-                                                 name:@"backgroundColorChanged"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(changeForegroundColor)
-                                                 name:@"foregroundColorChanged"
-                                               object:nil];
-}
+//
+//- (void)setColorChnageObservers {
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(changeBackgroundColor)
+//                                                 name:@"backgroundColorChanged"
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(changeForegroundColor)
+//                                                 name:@"foregroundColorChanged"
+//                                               object:nil];
+//}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -252,8 +284,8 @@ static NSString *const kDisappearAnimation = @"disappear";
     }
     mwiCount++;
     [[NSUserDefaults standardUserDefaults] setInteger:mwiCount forKey:@"mwi_count"];
-    [self.chatNotificationView setHidden:NO];
-    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
+//    [self.chatNotificationView setHidden:NO];
+//    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
     
     const char *body = linphone_content_get_buffer(content);
     if ((body = strstr(body, "voice-message: ")) == NULL) {
@@ -263,36 +295,36 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-								duration:(NSTimeInterval)duration {
-	// Force the animations
-	[[self.view layer] removeAllAnimations];
-	[historyNotificationView.layer setTransform:CATransform3DIdentity];
-	[chatNotificationView.layer setTransform:CATransform3DIdentity];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	//[chatNotificationView setHidden:TRUE];
-	[historyNotificationView setHidden:TRUE];
-	[self update:FALSE];
-}
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+//								duration:(NSTimeInterval)duration {
+//	// Force the animations
+//	[[self.view layer] removeAllAnimations];
+//	[historyNotificationView.layer setTransform:CATransform3DIdentity];
+//	[chatNotificationView.layer setTransform:CATransform3DIdentity];
+//}
+//
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//	//[chatNotificationView setHidden:TRUE];
+//	[historyNotificationView setHidden:TRUE];
+//	[self update:FALSE];
+//}
 
 #pragma mark - Event Functions
 
 - (void)applicationWillEnterForeground:(NSNotification *)notif {
 	// Force the animations
 	[[self.view layer] removeAllAnimations];
-	[historyNotificationView.layer setTransform:CATransform3DIdentity];
-	[chatNotificationView.layer setTransform:CATransform3DIdentity];
+//	[historyNotificationView.layer setTransform:CATransform3DIdentity];
+//	[chatNotificationView.layer setTransform:CATransform3DIdentity];
 	//[chatNotificationView setHidden:TRUE];
-	[historyNotificationView setHidden:TRUE];
-	[self update:FALSE];
+//	[historyNotificationView setHidden:TRUE];
+//	[self update:FALSE];
 }
 
 - (void)callUpdate:(NSNotification *)notif {
 	// LinphoneCall *call = [[notif.userInfo objectForKey: @"call"] pointerValue];
 	// LinphoneCallState state = [[notif.userInfo objectForKey: @"state"] intValue];
-	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:TRUE];
+//	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:TRUE];
 }
 
 - (void)changeViewEvent:(NSNotification *)notif {
@@ -300,31 +332,53 @@ static NSString *const kDisappearAnimation = @"disappear";
 	// if(view != nil)
 	[self updateView:[[PhoneMainView instance] firstView]];
 }
+//
+//- (void)settingsUpdate:(NSNotification *)notif {
+//	if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == false) {
+//		[self stopBounceAnimation:kBounceAnimation target:chatNotificationView];
+//		chatNotificationView.layer.transform = CATransform3DIdentity;
+//		[self stopBounceAnimation:kBounceAnimation target:historyNotificationView];
+//		historyNotificationView.layer.transform = CATransform3DIdentity;
+//	} else {
+//		if (![chatNotificationView isHidden] && [chatNotificationView.layer animationForKey:kBounceAnimation] == nil) {
+//			[self startBounceAnimation:kBounceAnimation target:chatNotificationView];
+//		}
+//		if (![historyNotificationView isHidden] &&
+//			[historyNotificationView.layer animationForKey:kBounceAnimation] == nil) {
+//			[self startBounceAnimation:kBounceAnimation target:historyNotificationView];
+//		}
+//	}
+//    
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
+//        [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
+//        [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
+//    } else {
+//        [self changeBackgroundColor];
+//        [self changeForegroundColor];
+//    }
+//}
 
-- (void)settingsUpdate:(NSNotification *)notif {
-	if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == false) {
-		[self stopBounceAnimation:kBounceAnimation target:chatNotificationView];
-		chatNotificationView.layer.transform = CATransform3DIdentity;
-		[self stopBounceAnimation:kBounceAnimation target:historyNotificationView];
-		historyNotificationView.layer.transform = CATransform3DIdentity;
-	} else {
-		if (![chatNotificationView isHidden] && [chatNotificationView.layer animationForKey:kBounceAnimation] == nil) {
-			[self startBounceAnimation:kBounceAnimation target:chatNotificationView];
-		}
-		if (![historyNotificationView isHidden] &&
-			[historyNotificationView.layer animationForKey:kBounceAnimation] == nil) {
-			[self startBounceAnimation:kBounceAnimation target:historyNotificationView];
-		}
-	}
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
-        [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
-        [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
-    } else {
-        [self changeBackgroundColor];
-        [self changeForegroundColor];
-    }
-}
+//- (void)kAppSettingChanged:(NSNotification *)notif {
+//    NSString *nobj = notif.object;
+//    
+//    if (nobj && [nobj isEqualToString:@"force_508_preference"]) {
+//        UICompositeViewDescription *c = [SettingsViewController compositeViewDescription];
+//        SettingsViewController *settingsViewController = (SettingsViewController*)[[PhoneMainView instance].mainViewController getCachedController:c.content];
+//        LinphoneCoreSettingsStore *settingsStore;
+//        
+//        if (settingsViewController) {
+//            settingsStore = [settingsViewController getLinphoneCoreSettingsStore];
+//        }
+//
+//        if ([settingsStore boolForKey:@"force_508_preference"]) {
+//            [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
+//            [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
+//        } else {
+//            [self changeBackgroundColor];
+//            [self changeForegroundColor];
+//        }
+//    }
+//}
 
 - (void)kAppSettingChanged:(NSNotification *)notif {
     NSString *nobj = notif.object;
@@ -338,13 +392,13 @@ static NSString *const kDisappearAnimation = @"disappear";
             settingsStore = [settingsViewController getLinphoneCoreSettingsStore];
         }
 
-        if ([settingsStore boolForKey:@"force_508_preference"]) {
-            [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
-            [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
-        } else {
-            [self changeBackgroundColor];
-            [self changeForegroundColor];
-        }
+//        if ([settingsStore boolForKey:@"force_508_preference"]) {
+//            [self setBackgroundColor:[UIColor colorWithRed:0.0 green:32.0/255.0 blue:42.0/255.0 alpha:1.0]];
+//            [self setForegroundColor:[UIColor colorWithRed:0.0 green:181.0/255.0 blue:241.0/255.0 alpha:1.0]];
+//        } else {
+//            [self changeBackgroundColor];
+//            [self changeForegroundColor];
+//        }
     }
 }
 
@@ -401,7 +455,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 - (void)update:(BOOL)appear {
 	[self updateView:[[PhoneMainView instance] firstView]];
-	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:appear];
+//	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:appear];
     
     //Remove Unread Messages Count on iPhone
 
@@ -446,41 +500,40 @@ static NSString *const kDisappearAnimation = @"disappear";
 //	}
 //}
 
-- (void)updateMissedCall:(int)missedCall appear:(BOOL)appear {
-	if (missedCall > 0) {
-		if ([historyNotificationView isHidden]) {
-			[historyNotificationView setHidden:FALSE];
-			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
-				if (appear) {
-					[self appearAnimation:kAppearAnimation
-								   target:historyNotificationView
-							   completion:^(BOOL finished) {
-								 [self startBounceAnimation:kBounceAnimation target:historyNotificationView];
-								 [historyNotificationView.layer removeAnimationForKey:kAppearAnimation];
-							   }];
-				} else {
-					[self startBounceAnimation:kBounceAnimation target:historyNotificationView];
-				}
-			}
-		}
-		[historyNotificationLabel setText:[NSString stringWithFormat:@"%i", missedCall]];
-	} else {
-		if (![historyNotificationView isHidden]) {
-			[self stopBounceAnimation:kBounceAnimation target:historyNotificationView];
-			if (appear) {
-				[self disappearAnimation:kDisappearAnimation
-								  target:historyNotificationView
-							  completion:^(BOOL finished) {
-								[historyNotificationView setHidden:TRUE];
-								[historyNotificationView.layer removeAnimationForKey:kDisappearAnimation];
-							  }];
-			} else {
-				[historyNotificationView setHidden:TRUE];
-			}
-		}
-	}
-}
-
+//- (void)updateMissedCall:(int)missedCall appear:(BOOL)appear {
+//	if (missedCall > 0) {
+//		if ([historyNotificationView isHidden]) {
+//			[historyNotificationView setHidden:FALSE];
+//			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+//				if (appear) {
+//					[self appearAnimation:kAppearAnimation
+//								   target:historyNotificationView
+//							   completion:^(BOOL finished) {
+//								 [self startBounceAnimation:kBounceAnimation target:historyNotificationView];
+//								 [historyNotificationView.layer removeAnimationForKey:kAppearAnimation];
+//							   }];
+//				} else {
+//					[self startBounceAnimation:kBounceAnimation target:historyNotificationView];
+//				}
+//			}
+//		}
+//		[historyNotificationLabel setText:[NSString stringWithFormat:@"%i", missedCall]];
+//	} else {
+//		if (![historyNotificationView isHidden]) {
+//			[self stopBounceAnimation:kBounceAnimation target:historyNotificationView];
+//			if (appear) {
+//				[self disappearAnimation:kDisappearAnimation
+//								  target:historyNotificationView
+//							  completion:^(BOOL finished) {
+//								[historyNotificationView setHidden:TRUE];
+//								[historyNotificationView.layer removeAnimationForKey:kDisappearAnimation];
+//							  }];
+//			} else {
+//				[historyNotificationView setHidden:TRUE];
+//			}
+//		}
+//	}
+//}
 - (void)appearAnimation:(NSString *)animationID target:(UIView *)target completion:(void (^)(BOOL finished))completion {
 	CABasicAnimation *appear = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
 	appear.duration = 0.4;
@@ -535,24 +588,29 @@ static NSString *const kDisappearAnimation = @"disappear";
 		contactsButton.selected = FALSE;
 	}
 	if ([view equal:[DialerViewController compositeViewDescription]]) {
-		dialerButton.selected = TRUE;
+		dialpadButton.selected = TRUE;
 	} else {
-		dialerButton.selected = FALSE;
+		dialpadButton.selected = FALSE;
 	}
 	if ([view equal:[SettingsViewController compositeViewDescription]]) {
 		settingsButton.selected = TRUE;
 	} else {
 		settingsButton.selected = FALSE;
 	}
-	if ([view equal:[HelpViewController compositeViewDescription]]) {
-		chatButton.selected = TRUE;
-	} else {
-		chatButton.selected = FALSE;
-	}
+    if ([view equal:[ChatViewController compositeViewDescription]]) {
+        chatButton.selected = TRUE;
+    } else {
+        chatButton.selected = FALSE;
+    }
+//	if ([view equal:[HelpViewController compositeViewDescription]]) {
+//		chatButton.selected = TRUE;
+//	} else {
+//		chatButton.selected = FALSE;
+//	}
 }
 
-#pragma mark - Action Functions
 
+#pragma mark - Action Methods
 - (IBAction)onHistoryClick:(id)event {
 	[[PhoneMainView instance] changeCurrentView:[HistoryViewController compositeViewDescription]];
 }
@@ -575,10 +633,43 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)onChatClick:(id)event {
-    [[PhoneMainView instance] changeCurrentView:[HelpViewController compositeViewDescription]];
 
-    //[[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
+    [[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
 }
+
+- (IBAction)moreButtonAction:(UIButton *)sender {
+    
+    if (self.moreMenuContainer.tag == 0) {
+        
+        [self showMoreMenu];
+        [self resetVideomailState];
+    }
+    else {
+        
+        [self hideMoreMenu];
+    }
+}
+
+- (IBAction)selfPreviewButtonAction:(UIButton *)sender {
+    
+    [self hideMoreMenu];
+}
+
+- (IBAction)videomailButtonAction:(UIButton *)sender {
+    
+    [self hideMoreMenu];
+}
+
+- (IBAction)resourcesButtonAction:(UIButton *)sender {
+    
+    [self hideMoreMenu];
+}
+
+- (IBAction)settingsButtonAction:(UIButton *)sender {
+    
+    [self hideMoreMenu];
+}
+
 
 #pragma mark - TPMultiLayoutViewController Functions
 
@@ -589,7 +680,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 	[attributes setObject:[NSValue valueWithCGRect:view.bounds] forKey:@"bounds"];
 	if ([view isKindOfClass:[UIButton class]]) {
 		UIButton *button = (UIButton *)view;
-		[LinphoneUtils buttonMultiViewAddAttributes:attributes button:button];
+        [LinphoneUtils buttonMultiViewAddAttributes:attributes button:button];
 	}
 	[attributes setObject:[NSNumber numberWithInteger:view.autoresizingMask] forKey:@"autoresizingMask"];
 
@@ -606,56 +697,127 @@ static NSString *const kDisappearAnimation = @"disappear";
 	view.autoresizingMask = [[attributes objectForKey:@"autoresizingMask"] integerValue];
 }
 
-- (void)changeBackgroundColor {
-    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"main_bar_background_color_preference"];
-    if(colorData){
-        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
-        [self setBackgroundColor:color];
+//- (void)changeBackgroundColor {
+//    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"main_bar_background_color_preference"];
+//    if(colorData){
+//        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+//        [self setBackgroundColor:color];
+//    }
+//}
+//
+//- (void)changeForegroundColor {    
+//    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"foreground_color_preference"];
+//
+//    if(colorData){
+//        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+//        [self setForegroundColor:color];
+//    }
+//}
+
+//- (void) setBackgroundColor:(UIColor*)color {
+//    [self.historyButton setBackgroundColor:color];
+//    [self.contactsButton setBackgroundColor:color];
+//    [self.dialpadButton setBackgroundColor:color];
+//    [self.chatButton setBackgroundColor:color];
+//    [self.settingsButton setBackgroundColor:color];
+//}
+//
+//- (void) setForegroundColor:(UIColor*)color {
+//    UIImage *imageNormal = [[UIImage imageNamed:@"history_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.historyButton setTitleColor:color forState:UIControlStateNormal];
+//    self.historyButton.tintColor = color;
+//    [self.historyButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+//    
+//    imageNormal = [[UIImage imageNamed:@"contacts_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.contactsButton setTitleColor:color forState:UIControlStateNormal];
+//    self.contactsButton.tintColor = color;
+//    [self.contactsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+//    
+//    imageNormal = [[UIImage imageNamed:@"dialer_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.dialpadButton setTitleColor:color forState:UIControlStateNormal];
+//    self.dialpadButton.tintColor = color;
+//    [self.dialpadButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+//    
+//    imageNormal = [[UIImage imageNamed:@"resources_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.chatButton setTitleColor:color forState:UIControlStateNormal];
+//    self.chatButton.tintColor = color;
+//    [self.chatButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+//    
+//    imageNormal = [[UIImage imageNamed:@"settings_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.settingsButton setTitleColor:color forState:UIControlStateNormal];
+//    self.settingsButton.tintColor = color;
+//    [self.settingsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+//}
+
+#pragma mark - Animation
+- (void)showMoreMenu {
+    
+    self.moreMenuContainer.hidden = NO;
+    self.moreMenuContainer.tag = 1;
+    // Automatic hiding
+    [UIView animateWithDuration:kAnimationDuration
+                     animations:^{
+                         self.moreMenuContainer.alpha = 1;
+                         [self.moreButton setSelected:YES];
+                     }];
+}
+
+- (void)hideMoreMenu {
+    
+    if (self.moreMenuContainer.tag != 0) {
+        self.moreMenuContainer.tag = 0;
+        
+        [UIView animateWithDuration:kAnimationDuration
+                         animations:^{
+                             self.moreMenuContainer.alpha = 0;
+                             [self.moreButton setSelected:NO];
+                         }];
     }
 }
 
-- (void)changeForegroundColor {    
-    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"foreground_color_preference"];
+#pragma mark - Videomail Indicator
+- (void)updateVidoemailState{
+    
+    NSDictionary *dict = @{@"viewed" : @0,
+                           @"count" : @3};
+    
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
-    if(colorData){
-        UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
-        [self setForegroundColor:color];
+- (void)checkVideomailIndicator {
+    
+    NSDictionary *videomailDict = [[NSUserDefaults standardUserDefaults] valueForKey:@"videomail_notification"];
+    
+    if (videomailDict) {
+        
+        BOOL viewed = [videomailDict[@"viewed"] boolValue];
+        NSInteger count = [videomailDict[@"count"] integerValue];
+        
+        self.videomailIndicatorView.hidden = viewed;
+        
+        if (count > 0) {
+            self.videomailCountLabel.hidden = NO;
+            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", (long)count];
+        }
+    }
+    else {
+        
+        self.videomailCountLabel.hidden = YES;
+        self.videomailIndicatorView.hidden = YES;
+        [self updateVidoemailState];
     }
 }
 
-- (void) setBackgroundColor:(UIColor*)color {
-    [self.historyButton setBackgroundColor:color];
-    [self.contactsButton setBackgroundColor:color];
-    [self.dialerButton setBackgroundColor:color];
-    [self.chatButton setBackgroundColor:color];
-    [self.settingsButton setBackgroundColor:color];
-}
-
-- (void) setForegroundColor:(UIColor*)color {
-    UIImage *imageNormal = [[UIImage imageNamed:@"history_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.historyButton setTitleColor:color forState:UIControlStateNormal];
-    self.historyButton.tintColor = color;
-    [self.historyButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+- (void)resetVideomailState {
     
-    imageNormal = [[UIImage imageNamed:@"contacts_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.contactsButton setTitleColor:color forState:UIControlStateNormal];
-    self.contactsButton.tintColor = color;
-    [self.contactsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+    NSDictionary *dict = @{@"viewed" : @1,
+                           @"count" : @3};
     
-    imageNormal = [[UIImage imageNamed:@"dialer_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.dialerButton setTitleColor:color forState:UIControlStateNormal];
-    self.dialerButton.tintColor = color;
-    [self.dialerButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    imageNormal = [[UIImage imageNamed:@"resources_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.chatButton setTitleColor:color forState:UIControlStateNormal];
-    self.chatButton.tintColor = color;
-    [self.chatButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
-    
-    imageNormal = [[UIImage imageNamed:@"settings_new.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.settingsButton setTitleColor:color forState:UIControlStateNormal];
-    self.settingsButton.tintColor = color;
-    [self.settingsButton setBackgroundImage:imageNormal forState:UIControlStateNormal];
+    [self checkVideomailIndicator];
 }
 
 - (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
