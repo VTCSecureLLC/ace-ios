@@ -795,7 +795,7 @@ static NSString *const kDisappearAnimation = @"disappear";
         
         if (count > 0) {
             self.videomailCountLabel.hidden = NO;
-            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", count];
+            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", (long)count];
         }
     }
     else {

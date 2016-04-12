@@ -489,6 +489,8 @@
 		C65633681C8856FB00EF8EDA /* SecondIncomingCallBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633671C8856FB00EF8EDA /* SecondIncomingCallBarView.xib */; };
 		C656336F1C886F3900EF8EDA /* SecondIncomingCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */; };
 		C65633711C886F3F00EF8EDA /* SecondIncomingCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */; };
+		C693490F1CBD22E50083BC71 /* ChatThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C693490D1CBD22E50083BC71 /* ChatThreadTableViewCell.m */; };
+		C69349101CBD22E50083BC71 /* ChatThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C693490E1CBD22E50083BC71 /* ChatThreadTableViewCell.xib */; };
 		C6B2F8BF1C900979006A2B0C /* InCallDialpadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B2F8BE1C900979006A2B0C /* InCallDialpadView.m */; };
 		C6B2F8C11C900984006A2B0C /* InCallDialpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B2F8C01C900984006A2B0C /* InCallDialpadView.xib */; };
 		C6BC554C1C897094006B24DE /* CallBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BC554B1C897094006B24DE /* CallBarView.m */; };
@@ -1867,6 +1869,9 @@
 		C656336D1C886F3900EF8EDA /* SecondIncomingCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondIncomingCallView.h; sourceTree = "<group>"; };
 		C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondIncomingCallView.m; sourceTree = "<group>"; };
 		C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondIncomingCallView.xib; sourceTree = "<group>"; };
+		C693490C1CBD22E50083BC71 /* ChatThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatThreadTableViewCell.h; sourceTree = "<group>"; };
+		C693490D1CBD22E50083BC71 /* ChatThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatThreadTableViewCell.m; sourceTree = "<group>"; };
+		C693490E1CBD22E50083BC71 /* ChatThreadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatThreadTableViewCell.xib; sourceTree = "<group>"; };
 		C6B2F8BD1C900979006A2B0C /* InCallDialpadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallDialpadView.h; sourceTree = "<group>"; };
 		C6B2F8BE1C900979006A2B0C /* InCallDialpadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallDialpadView.m; sourceTree = "<group>"; };
 		C6B2F8C01C900984006A2B0C /* InCallDialpadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InCallDialpadView.xib; sourceTree = "<group>"; };
@@ -2915,11 +2920,7 @@
 				D3F795D315A582800077328B /* ChatRoomViewController.h */,
 				D3F795D415A582800077328B /* ChatRoomViewController.m */,
 				D38187B015FE340100C3EDCA /* ChatRoomViewController.xib */,
-				D3EA540B1598528B0037DC6B /* ChatTableViewController.h */,
-				D3EA540C1598528B0037DC6B /* ChatTableViewController.m */,
-				D35E7594159460560066B1C1 /* ChatViewController.h */,
-				D35E7595159460560066B1C1 /* ChatViewController.m */,
-				D38187B415FE340500C3EDCA /* ChatViewController.xib */,
+				C69349061CBD22C30083BC71 /* Chat */,
 				D30BBD1215D3EFEB000F93DD /* ContactDetailsDelegate.h */,
 				D378906215AC373B00BD776C /* ContactDetailsLabelViewController.h */,
 				D378906315AC373B00BD776C /* ContactDetailsLabelViewController.m */,
@@ -3531,6 +3532,29 @@
 				C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */,
 			);
 			name = "Second Incoming Call View";
+			sourceTree = "<group>";
+		};
+		C69349061CBD22C30083BC71 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C693490B1CBD22D50083BC71 /* Cell */,
+				D3EA540B1598528B0037DC6B /* ChatTableViewController.h */,
+				D3EA540C1598528B0037DC6B /* ChatTableViewController.m */,
+				D35E7594159460560066B1C1 /* ChatViewController.h */,
+				D35E7595159460560066B1C1 /* ChatViewController.m */,
+				D38187B415FE340500C3EDCA /* ChatViewController.xib */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		C693490B1CBD22D50083BC71 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C693490C1CBD22E50083BC71 /* ChatThreadTableViewCell.h */,
+				C693490D1CBD22E50083BC71 /* ChatThreadTableViewCell.m */,
+				C693490E1CBD22E50083BC71 /* ChatThreadTableViewCell.xib */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		C6B2F8B81C9008D3006A2B0C /* In Call Dialpad View */ = {
@@ -5037,6 +5061,7 @@
 				2242E313125235120061DDCE /* ring.caf in Resources */,
 				D38187C915FE346400C3EDCA /* FirstLoginViewController.xib in Resources */,
 				50B0072B1BA09C79002C5723 /* dialer_padding_right.png in Resources */,
+				C69349101CBD22E50083BC71 /* ChatThreadTableViewCell.xib in Resources */,
 				C65633681C8856FB00EF8EDA /* SecondIncomingCallBarView.xib in Resources */,
 				2214783D1386A2030020F8B8 /* Localizable.strings in Resources */,
 				50B007D41BA09C79002C5723 /* route_bluetooth_on_default_landscape.png in Resources */,
@@ -5787,6 +5812,7 @@
 				CE624A891C22D981001BC0BA /* DefaultSettingsManager.m in Sources */,
 				CE3C6D381C2AD239002AC233 /* BubbleTableViewCell.m in Sources */,
 				2218A92512FBE1340088A667 /* FirstLoginViewController.m in Sources */,
+				C693490F1CBD22E50083BC71 /* ChatThreadTableViewCell.m in Sources */,
 				22C755601317E59C007BC101 /* UIBluetoothButton.m in Sources */,
 				22BB1A69132FF16A005CD7AA /* UIEraseButton.m in Sources */,
 				22AA8B0113D83F6300B30535 /* UICamSwitch.m in Sources */,
