@@ -301,7 +301,8 @@
                             <rect key="frame" x="0.0" y="181" width="220" height="59"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2MW-Jb-J8e">
-                                    <rect key="frame" x="10" y="0.0" width="210" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Self-Preview" image="self_preview">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -315,7 +316,7 @@
                             <constraints>
                                 <constraint firstItem="2MW-Jb-J8e" firstAttribute="top" secondItem="R7F-52-85G" secondAttribute="top" id="5L5-iy-tdt"/>
                                 <constraint firstAttribute="trailing" secondItem="2MW-Jb-J8e" secondAttribute="trailing" id="8Ac-kT-PdJ"/>
-                                <constraint firstItem="2MW-Jb-J8e" firstAttribute="leading" secondItem="R7F-52-85G" secondAttribute="leading" constant="10" id="eoV-wE-L6z"/>
+                                <constraint firstItem="2MW-Jb-J8e" firstAttribute="leading" secondItem="R7F-52-85G" secondAttribute="leading" id="eoV-wE-L6z"/>
                                 <constraint firstAttribute="bottom" secondItem="2MW-Jb-J8e" secondAttribute="bottom" id="sAG-M2-hWN"/>
                             </constraints>
                         </view>
@@ -330,7 +331,8 @@
                             <rect key="frame" x="0.0" y="121" width="220" height="59"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3s-NN-Z4K">
-                                    <rect key="frame" x="10" y="0.0" width="165" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="175" height="59"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Videomail" image="videomail">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -357,7 +359,7 @@
                                 <constraint firstAttribute="trailing" secondItem="5a1-7c-xFa" secondAttribute="trailing" constant="15" id="f2g-qa-KZI"/>
                                 <constraint firstItem="5a1-7c-xFa" firstAttribute="leading" secondItem="T3s-NN-Z4K" secondAttribute="trailing" constant="5" id="tCb-im-5vb"/>
                                 <constraint firstItem="5a1-7c-xFa" firstAttribute="centerY" secondItem="CNi-f4-eEW" secondAttribute="centerY" id="yVe-pL-SC7"/>
-                                <constraint firstItem="T3s-NN-Z4K" firstAttribute="leading" secondItem="CNi-f4-eEW" secondAttribute="leading" constant="10" id="yYk-zP-jat"/>
+                                <constraint firstItem="T3s-NN-Z4K" firstAttribute="leading" secondItem="CNi-f4-eEW" secondAttribute="leading" id="yYk-zP-jat"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuR-QR-ARW" userLabel="White Line">
@@ -371,7 +373,8 @@
                             <rect key="frame" x="0.0" y="60" width="220" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxy-eg-ki3">
-                                    <rect key="frame" x="10" y="0.0" width="210" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -383,7 +386,7 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="qxy-eg-ki3" firstAttribute="leading" secondItem="H62-Ao-hNn" secondAttribute="leading" constant="10" id="0ja-mO-86a"/>
+                                <constraint firstItem="qxy-eg-ki3" firstAttribute="leading" secondItem="H62-Ao-hNn" secondAttribute="leading" id="0ja-mO-86a"/>
                                 <constraint firstAttribute="bottom" secondItem="qxy-eg-ki3" secondAttribute="bottom" id="SmJ-qe-A23"/>
                                 <constraint firstItem="qxy-eg-ki3" firstAttribute="top" secondItem="H62-Ao-hNn" secondAttribute="top" id="ebr-iN-4f1"/>
                                 <constraint firstAttribute="trailing" secondItem="qxy-eg-ki3" secondAttribute="trailing" id="qBL-ic-ZO2"/>
@@ -399,8 +402,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJl-fo-LTi" userLabel="Settings Button Container">
                             <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXw-r2-Xiq">
-                                    <rect key="frame" x="10" y="0.0" width="210" height="59"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXw-r2-Xiq" customClass="CustomBarButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Settings" image="settings">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -415,7 +419,7 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="KXw-r2-Xiq" secondAttribute="trailing" id="6qJ-kk-BWB"/>
                                 <constraint firstAttribute="bottom" secondItem="KXw-r2-Xiq" secondAttribute="bottom" id="8tm-M4-Fms"/>
-                                <constraint firstItem="KXw-r2-Xiq" firstAttribute="leading" secondItem="bJl-fo-LTi" secondAttribute="leading" constant="10" id="CLD-fe-Wbi"/>
+                                <constraint firstItem="KXw-r2-Xiq" firstAttribute="leading" secondItem="bJl-fo-LTi" secondAttribute="leading" id="CLD-fe-Wbi"/>
                                 <constraint firstItem="KXw-r2-Xiq" firstAttribute="top" secondItem="bJl-fo-LTi" secondAttribute="top" id="p6q-t1-nJA"/>
                             </constraints>
                         </view>

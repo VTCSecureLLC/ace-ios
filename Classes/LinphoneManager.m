@@ -1051,7 +1051,7 @@ static void linphone_iphone_popup_password_request(LinphoneCore *lc, const char 
                                @"message" : [NSValue valueWithPointer:msg],
                                @"call-id" : callID,
                                @"userName" : [NSString stringWithUTF8String:userName],
-                               @"simpleMessage" : [NSString stringWithUTF8String:simpleMessage],
+                               @"simpleMessage" : simpleMessage ? [NSString stringWithUTF8String:simpleMessage] : @"",
                                @"contactURI" : [NSString stringWithUTF8String:contactURI]
                                };
         

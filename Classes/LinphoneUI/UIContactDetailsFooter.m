@@ -56,9 +56,21 @@
 #pragma mark - Action Functions
 
 - (IBAction)onRemoveClick:(id)event {
-	if (contactDetailsDelegate != nil) {
-		[contactDetailsDelegate onRemove:event];
-	}
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                        message:@"Are you sure you want to delete the contact?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"OK", nil];
+    
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (contactDetailsDelegate != nil && buttonIndex == 1) {
+        [contactDetailsDelegate onRemove:nil];
+    }
 }
 
 #pragma mark -

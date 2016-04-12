@@ -78,9 +78,8 @@ static UIFont *CELL_FONT = nil;
 		messageCoords.size.width -= 5;
 		[messageText setFrame:messageCoords];
 		messageText.allowSelectAll = TRUE;
-        [messageText setTextColor:[UIColor whiteColor]];
-        
 	}
+    
     self->chat = NULL;
 	return self;
 }
@@ -135,6 +134,12 @@ static UIFont *CELL_FONT = nil;
 			decoded = @"(invalid string)";
 		}
 	}
+    
+//    if ([decoded hasPrefix:CALL_DECLINE_PREFIX]) {
+//        decoded = [decoded substringFromIndex:CALL_DECLINE_PREFIX.length];
+//        decoded = [@"Call declined with message \n" stringByAppendingString:decoded];
+//    }
+
 	return decoded;
 }
 
@@ -145,6 +150,7 @@ static UIFont *CELL_FONT = nil;
 	}
 	const char *url = linphone_chat_message_get_external_body_url(chat);
 	const char *text = linphone_chat_message_get_text(chat);
+    
 	BOOL is_external =
 		(url && (strstr(url, "http") == url)) || linphone_chat_message_get_file_transfer_information(chat);
 	NSString *localImage = [LinphoneManager getMessageAppDataForKey:@"localimage" inMessage:chat];
@@ -195,17 +201,42 @@ static UIFont *CELL_FONT = nil;
 		if (text) {
 			NSString *nstext = [UIChatRoomCell decodeTextMessage:text];
 
+            
 			/* We need to use an attributed string here so that data detector don't mess
 			* with the text style. See http://stackoverflow.com/a/20669356 */
+            
+            
+            
+            if ([nstext hasPrefix:CALL_DECLINE_PREFIX]) {
+                nstext = [nstext substringFromIndex:CALL_DECLINE_PREFIX.length];
 
-			NSAttributedString *attr_text =
-				[[NSAttributedString alloc] initWithString:nstext
-												attributes:@{
-													NSFontAttributeName : [UIFont systemFontOfSize:17.0],
-													NSForegroundColorAttributeName : [UIColor whiteColor]
-												}];
-			messageText.attributedText = attr_text;
+                UIFont *smallFont = [UIFont systemFontOfSize:13.0];
+                NSDictionary *smallDict = [NSDictionary dictionaryWithObject: smallFont forKey:NSFontAttributeName];
+                NSMutableAttributedString *aAttrString = [[NSMutableAttributedString alloc] initWithString:@"Call declined with message \n" attributes:smallDict];
+                
+                [aAttrString addAttribute:NSForegroundColorAttributeName
+                                    value:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0]
+                                    range:NSMakeRange(0, @"Call declined with message".length)];
 
+
+                UIFont *bigFont = [UIFont systemFontOfSize:17.0];
+                NSDictionary *bigDict = [NSDictionary dictionaryWithObject:bigFont forKey:NSFontAttributeName];
+                NSMutableAttributedString *vAttrString = [[NSMutableAttributedString alloc]initWithString:nstext attributes:bigDict];
+                [vAttrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, nstext.length)];
+
+                [aAttrString appendAttributedString:vAttrString];
+                
+                
+                messageText.attributedText = aAttrString;
+            } else {
+                NSAttributedString *attr_text =
+                [[NSAttributedString alloc] initWithString:nstext
+                                                attributes:@{
+                                                             NSFontAttributeName : [UIFont systemFontOfSize:17.0],
+                                                             NSForegroundColorAttributeName : [UIColor whiteColor]
+                                                             }];
+                messageText.attributedText = attr_text;
+            }
 		} else {
 			messageText.text = @"";
 		}
@@ -349,12 +380,10 @@ static UIFont *CELL_FONT = nil;
             
             UIImage *image;
              if ([[NSUserDefaults standardUserDefaults] boolForKey:@"force508"]) {
-                 self.messageText.textColor = [UIColor whiteColor];
                  self.dateLabel.textColor = [UIColor whiteColor];
                  image = [UIImage imageNamed:@"chat_bubble_outgoing_black"];
              }
              else {
-                 self.messageText.textColor = [UIColor whiteColor];
                  self.dateLabel.textColor = [UIColor colorWithRed:0.4824 green:0.7412 blue:0.8745 alpha:1.0];
                  image = [UIImage imageNamed:@"chat_bubble_outgoing"];
              }

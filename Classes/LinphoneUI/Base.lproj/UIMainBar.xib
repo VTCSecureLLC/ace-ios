@@ -226,9 +226,6 @@
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in_call_more_icon" translatesAutoresizingMaskIntoConstraints="NO" id="kSq-8x-FNE">
                                     <rect key="frame" x="15" y="8" width="46" height="32"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="kSq-8x-FNE" secondAttribute="height" multiplier="10:7" id="bVW-oD-Uzf"/>
-                                    </constraints>
                                 </imageView>
                                 <view hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5v6-VS-Ncc" userLabel="Videomail Indicator View">
                                     <rect key="frame" x="51" y="4" width="20" height="20"/>
@@ -301,7 +298,8 @@
                             <rect key="frame" x="0.0" y="157" width="200" height="51"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n58-qL-kuP">
-                                    <rect key="frame" x="10" y="0.0" width="190" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="51"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Self-Preview" image="self_preview">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -316,7 +314,7 @@
                                 <constraint firstAttribute="trailing" secondItem="n58-qL-kuP" secondAttribute="trailing" id="83b-9t-0Ot"/>
                                 <constraint firstAttribute="bottom" secondItem="n58-qL-kuP" secondAttribute="bottom" id="Dr0-T4-JtP"/>
                                 <constraint firstItem="n58-qL-kuP" firstAttribute="top" secondItem="33V-oI-653" secondAttribute="top" id="FMA-fS-f8y"/>
-                                <constraint firstItem="n58-qL-kuP" firstAttribute="leading" secondItem="33V-oI-653" secondAttribute="leading" constant="10" id="OXj-v8-emT"/>
+                                <constraint firstItem="n58-qL-kuP" firstAttribute="leading" secondItem="33V-oI-653" secondAttribute="leading" id="OXj-v8-emT"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAa-GI-jIK" userLabel="White Line">
@@ -340,7 +338,8 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P36-J0-fbL">
-                                    <rect key="frame" x="10" y="0.0" width="145" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="155" height="51"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Videomail" image="videomail">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -357,7 +356,7 @@
                                 <constraint firstItem="adF-1p-aUO" firstAttribute="leading" secondItem="P36-J0-fbL" secondAttribute="trailing" constant="5" id="Xm0-NA-tF0"/>
                                 <constraint firstAttribute="bottom" secondItem="P36-J0-fbL" secondAttribute="bottom" id="k0Q-Gw-Mhv"/>
                                 <constraint firstItem="adF-1p-aUO" firstAttribute="centerY" secondItem="wPp-24-jd0" secondAttribute="centerY" id="kyX-uv-tSK"/>
-                                <constraint firstItem="P36-J0-fbL" firstAttribute="leading" secondItem="wPp-24-jd0" secondAttribute="leading" constant="10" id="zZa-lH-FIU"/>
+                                <constraint firstItem="P36-J0-fbL" firstAttribute="leading" secondItem="wPp-24-jd0" secondAttribute="leading" id="zZa-lH-FIU"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUd-SO-Qf6" userLabel="White Line">
@@ -371,7 +370,8 @@
                             <rect key="frame" x="0.0" y="52" width="200" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0e1-yM-Crb">
-                                    <rect key="frame" x="10" y="0.0" width="190" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="52"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -383,7 +383,7 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="0e1-yM-Crb" firstAttribute="leading" secondItem="S7o-1l-hwf" secondAttribute="leading" constant="10" id="C8p-af-8S1"/>
+                                <constraint firstItem="0e1-yM-Crb" firstAttribute="leading" secondItem="S7o-1l-hwf" secondAttribute="leading" id="C8p-af-8S1"/>
                                 <constraint firstAttribute="trailing" secondItem="0e1-yM-Crb" secondAttribute="trailing" id="CFr-2W-oVb"/>
                                 <constraint firstItem="0e1-yM-Crb" firstAttribute="top" secondItem="S7o-1l-hwf" secondAttribute="top" id="SxG-mz-dUG"/>
                                 <constraint firstAttribute="bottom" secondItem="0e1-yM-Crb" secondAttribute="bottom" id="pd0-hC-uho"/>
@@ -399,8 +399,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAT-bv-4tA" userLabel="Second Button Container">
                             <rect key="frame" x="0.0" y="0.0" width="200" height="51"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pZ-9q-lIe">
-                                    <rect key="frame" x="10" y="0.0" width="190" height="51"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pZ-9q-lIe" customClass="CustomBarButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="51"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Settings" image="settings">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -415,7 +416,7 @@
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="2pZ-9q-lIe" secondAttribute="bottom" id="NM1-aU-vbu"/>
                                 <constraint firstAttribute="trailing" secondItem="2pZ-9q-lIe" secondAttribute="trailing" id="Ncz-xq-Ve4"/>
-                                <constraint firstItem="2pZ-9q-lIe" firstAttribute="leading" secondItem="TAT-bv-4tA" secondAttribute="leading" constant="10" id="Prr-nS-GaL"/>
+                                <constraint firstItem="2pZ-9q-lIe" firstAttribute="leading" secondItem="TAT-bv-4tA" secondAttribute="leading" id="Prr-nS-GaL"/>
                                 <constraint firstItem="2pZ-9q-lIe" firstAttribute="top" secondItem="TAT-bv-4tA" secondAttribute="top" id="Qdq-HP-oIA"/>
                             </constraints>
                         </view>
