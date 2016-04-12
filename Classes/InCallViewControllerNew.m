@@ -286,7 +286,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                                                                      userInfo:nil
                                                                       repeats:YES];
             [self.ringIncrementTimer fire];
-
+            
             break;
         }
             
@@ -307,6 +307,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             
             [self checkHoldCall];
             [self showQualityIndicator];
+
             // check video
             if (linphone_call_params_video_enabled(linphone_call_get_current_params(call))) {
                 const LinphoneCallParams *params = linphone_call_get_current_params(call);
@@ -334,6 +335,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self checkRTT];
             
             self.inCallOnHoldView.userInteractionEnabled = YES;
+            
+            
+                        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(call);
+            
+                        if(strcmp(linphone_address_get_username(remoteAddr), "911") == 0){
+                            [[LinphoneManager instance] enableMicrophone];
+                            [[LinphoneManager instance] enableCameraForCurrentCall];
+                            [self setupMicriphoneButtonState];
+                            [self setupVideoButtonState];
+                        }
             break;
         }
         case LinphoneCallPausing: {
@@ -627,7 +638,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         LinphoneCore *lc = [LinphoneManager getLc];
         LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(currentCall);
         
+        if(strcmp(linphone_address_get_username(remoteAddr), "911") == 0){
+            [[LinphoneManager instance] enableCameraForCurrentCall];
+            [self setupVideoButtonState];
+            return;
+        }
    
         if (linphone_call_get_state(currentCall) != LinphoneCallStreamsRunning) {
             return;
@@ -644,6 +661,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     };
     
     self.callBarView.voiceButtonActionHandler = ^(UIButton *sender) {
+        LinphoneCore *lc = [LinphoneManager getLc];
+        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(currentCall);
+        
+        if(strcmp(linphone_address_get_username(remoteAddr), "911") == 0){
+            [[LinphoneManager instance] enableMicrophone];
+            [self setupMicriphoneButtonState];
+            return;
+        }
         
         if ([[LinphoneManager instance] isMicrophoneEnabled]) {
             [[LinphoneManager instance] disableMicrophone];
