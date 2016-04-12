@@ -86,7 +86,7 @@
 }
 
 - (void)layoutSubviews {
-
+    [super layoutSubviews];
     if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
         [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_zeroButton];
         [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_oneButton];
