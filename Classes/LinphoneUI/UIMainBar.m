@@ -656,7 +656,11 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)videomailButtonAction:(UIButton *)sender {
-    
+    NSString *address = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_mail_uri_preference"];
+    if(address){
+        [[LinphoneManager instance] call:address displayName:@"Videomail" transfer:FALSE];
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
+    }
     [self hideMoreMenu];
 }
 
