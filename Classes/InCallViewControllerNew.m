@@ -22,7 +22,7 @@
 #import "CallInfoView.h"
 #import "PhoneMainView.h"
 #import "CRToast.h"
-
+#include <math.h>
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
 #define RTT_MAX_PARAGRAPH_CHAR              250
@@ -1434,7 +1434,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 #pragma mark - UITableViewDelegate methods
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 20;
+    return 30;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -1453,12 +1453,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     RTTMessageModel *msg = [self.chatEntries objectAtIndex:indexPath.section];
     
     if ([msg.msgString isEqualToString:@"\n"] || [msg.msgString isEqualToString:@""]) {
-        return 17;
+        return 16;
     } else {
         
         size = [cell.textLabel.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - [self minInsetForCell:nil atIndexPath:indexPath] - 30.0f, CGFLOAT_MAX)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
                                                  context:nil].size;
     }
     
@@ -1482,7 +1482,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [self showLatestMessage];
     }
 }
-
+CGSize tempLocalCellSize;
 - (void)insertTextIntoBuffer:(NSString *)text {
     
     int asciiCode = [text characterAtIndex:0];
@@ -1550,14 +1550,19 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 return;
             }
         }
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.localTextBufferIndex];
+        BubbleTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        
         [self.localTextBuffer.msgString appendString: text];
         [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
         
-        if(self.isChatMode){
-            //[self sortChatEntriesArray];
+        cell.textLabel.text = self.localTextBuffer.msgString;
+        const int reloadThreshold = 100;
+        if(self.localTextBuffer.msgString.length > reloadThreshold){
             [self.tableView reloadData];
-            [self showLatestMessage];
         }
+        [self showLatestMessage];
+        
     }
 }
 
@@ -1573,7 +1578,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:self.localTextBufferIndex];
             if(self.isChatMode){
                 //[self sortChatEntriesArray];
-                [self.tableView reloadData];
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:self.localTextBufferIndex]];
+                cell.textLabel.text = self.localTextBuffer.msgString;
                 [self showLatestMessage];
             }
         }
@@ -1760,7 +1766,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self showLatestMessage];
     [self insertTextIntoMinimizedTextBuffer:text];
 }
-
+CGSize tempRemoteCellSize;
 - (void)insertTextIntoRemoteBuffer:(NSString *)text {
     
     int asciiCode = [text characterAtIndex:0];
@@ -1813,12 +1819,22 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
         }
         // [self.remoteTextBuffer.msgString appendString:text];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.remoteTextBufferIndex];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+
         self.remoteTextBuffer.msgString = [[self.remoteTextBuffer.msgString stringByAppendingString:text] mutableCopy];
         
         [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:index];
         
         //[self sortChatEntriesArray];
-        [self.tableView reloadData];
+      
+        cell.textLabel.text = self.remoteTextBuffer.msgString;
+        
+        const int reloadThreshold = 100;
+        if(self.remoteTextBuffer.msgString.length > reloadThreshold){
+            [self.tableView reloadData];
+        }
+        
         [self insertTextIntoMinimizedTextBuffer:text];
         [self showLatestMessage];
     }
@@ -1836,7 +1852,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.chatEntries setObject:self.remoteTextBuffer atIndexedSubscript:self.remoteTextBufferIndex];
             if(self.isChatMode){
                 //[self sortChatEntriesArray];
-                [self.tableView reloadData];
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:self.remoteTextBufferIndex]];
+                
+                cell.textLabel.text = self.remoteTextBuffer.msgString;
                 [self showLatestMessage];
             }
             else if(!self.isChatMode && self.msgBuffer){
