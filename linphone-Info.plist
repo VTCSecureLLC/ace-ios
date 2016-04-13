@@ -93,6 +93,8 @@
 		<string>wifi</string>
 		<string>microphone</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>UIStatusBarHidden</key>
