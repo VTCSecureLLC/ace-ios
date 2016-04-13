@@ -592,6 +592,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
     
     [self.callBarView changeChatButtonVisibility:!self.isRTTEnabled];
+    if(self.chatEntries && self.chatEntries.count > 0){
+        [self setupRTT];
+    }
     
 }
 
@@ -1063,6 +1066,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.incomingTextView.font = rttFont;
     }
     
+    [self.tableView setContentInset:UIEdgeInsetsMake(80, 0, 100, 0)];
     
     self.isChatMode = NO;
     if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"enable_rtt"]) {
@@ -1343,7 +1347,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         NSUInteger indexArr[] = {self.chatEntries.count-1, 0};
         NSIndexPath *index = [[NSIndexPath alloc] initWithIndexes:indexArr length:2];
         if (index.section >= 0 && index.section < (int)self.chatEntries.count) {
-            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
         }
     }
 }
@@ -1476,7 +1480,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     self.localTextBufferIndex = (int)self.chatEntries.count;
     [self.chatEntries addObject:self.localTextBuffer];
     if(self.isChatMode){
-        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+        [self.tableView setContentInset:UIEdgeInsetsMake(80, 0, 100, 0)];
         //[self sortChatEntriesArray];
         [self.tableView reloadData];
         [self showLatestMessage];
@@ -1561,6 +1565,9 @@ CGSize tempLocalCellSize;
         if(self.localTextBuffer.msgString.length > reloadThreshold){
             [self.tableView reloadData];
         }
+      //  NSIndexSet *set = [NSIndexSet indexSetWithIndex:self.remoteTextBufferIndex];
+        //[self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+       
         [self showLatestMessage];
         
     }
@@ -1760,7 +1767,7 @@ CGSize tempLocalCellSize;
     self.remoteTextBufferIndex = (int)self.chatEntries.count;
     
     [self.chatEntries addObject:self.remoteTextBuffer];
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(80, 0, 100, 0)];
     //[self sortChatEntriesArray];
     [self.tableView reloadData];
     [self showLatestMessage];
@@ -1830,11 +1837,11 @@ CGSize tempRemoteCellSize;
       
         cell.textLabel.text = self.remoteTextBuffer.msgString;
         
-        const int reloadThreshold = 100;
+        const int reloadThreshold = 50;
         if(self.remoteTextBuffer.msgString.length > reloadThreshold){
             [self.tableView reloadData];
         }
-        
+        [self.tableView setContentInset:UIEdgeInsetsMake(80, 0, 100, 0)];
         [self insertTextIntoMinimizedTextBuffer:text];
         [self showLatestMessage];
     }
