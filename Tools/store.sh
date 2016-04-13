@@ -29,7 +29,11 @@ xcodebuild -exportArchive \
            -exportPath $EXPORT_PATH \
            -exportProvisioningProfile 'com.vtcsecure.ace.ios distribution'
 
+if [ ! -h /usr/local/itms ]; then
+  ln -nsf /Applications/Xcode.app/Contents/Applications/Application\ Loader.app/Contents/itms /usr/local/itms
+fi
+
 if [ -n "$ITUNESCONNECT_USERNAME" ]; then
-  /Applications/Xcode.app/Contents/Applications/Application\ Loader.app/Contents/Frameworks/ITunesSoftwareService.framework/Support/altool --upload-app -f $EXPORT_PATH -t ios -u @env:ITUNESCONNECT_USERNAME -p @env:ITUNESCONNECT_PASSWORD
+  /Applications/Xcode.app/Contents/Applications/Application\ Loader.app/Contents/Frameworks/ITunesSoftwareService.framework/Support/altool --upload-app -f $EXPORT_PATH -t ios -u $ITUNESCONNECT_USERNAME -p $ITUNESCONNECT_PASSWORD
 fi
 
