@@ -633,6 +633,16 @@ static UICompositeViewDescription *compositeDescription = nil;
         BOOL enabled = ([[notif.userInfo objectForKey:@"wifi_only_preference"] boolValue]) ? YES : NO;
         [[LinphoneManager instance] lpConfigSetBool:enabled forKey:@"wifi_only_preference"];
     }
+    else if([@"media_encryption_preference" compare:notif.object] == NSOrderedSame){
+        NSString *encryption = [notif.userInfo objectForKey:@"media_encryption_preference"];
+        if ([encryption isEqualToString:@"SRTP"] && linphone_core_media_encryption_supported([LinphoneManager getLc], LinphoneMediaEncryptionSRTP)){
+            linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionSRTP);
+        }
+        else{
+            linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionNone);
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:encryption forKey:@"media_encryption_preference"];
+    }
     /***** VIDEO CODEC PREFS *****/
     else if([@"h264_preference" compare:notif.object] == NSOrderedSame){
         BOOL enabled = ([[notif.userInfo objectForKey:@"h264_preference"] boolValue]) ? YES : NO;
