@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="ChatThreadCell" id="TXc-xW-jqZ" customClass="ChatThreadTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TXc-xW-jqZ" id="Sp0-Gl-BzK">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOX-fk-FeM" userLabel="Image and Initials Container">
+                        <rect key="frame" x="10" y="12" width="55" height="55"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlB-p3-Lom">
+                                <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wlB-p3-Lom" secondAttribute="height" multiplier="1:1" id="4Sr-EE-4uq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xs1-jr-Ift">
+                                <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wlB-p3-Lom" firstAttribute="top" secondItem="LOX-fk-FeM" secondAttribute="top" id="Fbc-Rs-3sd"/>
+                            <constraint firstItem="wlB-p3-Lom" firstAttribute="leading" secondItem="LOX-fk-FeM" secondAttribute="leading" id="IIh-OF-Vfs"/>
+                            <constraint firstAttribute="trailing" secondItem="xs1-jr-Ift" secondAttribute="trailing" id="Nd8-cN-IsX"/>
+                            <constraint firstItem="xs1-jr-Ift" firstAttribute="leading" secondItem="LOX-fk-FeM" secondAttribute="leading" id="Ona-Sg-oxB"/>
+                            <constraint firstItem="xs1-jr-Ift" firstAttribute="top" secondItem="LOX-fk-FeM" secondAttribute="top" id="PqI-qI-Rxe"/>
+                            <constraint firstAttribute="bottom" secondItem="wlB-p3-Lom" secondAttribute="bottom" id="UPN-lq-XKN"/>
+                            <constraint firstAttribute="bottom" secondItem="xs1-jr-Ift" secondAttribute="bottom" id="hww-iD-Pro"/>
+                            <constraint firstAttribute="trailing" secondItem="wlB-p3-Lom" secondAttribute="trailing" id="io1-bZ-Zwa"/>
+                            <constraint firstAttribute="width" secondItem="LOX-fk-FeM" secondAttribute="height" multiplier="1:1" id="lQ2-Iu-1m3"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JO0-gh-wVg">
+                        <rect key="frame" x="75" y="45" width="235" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="0.40595595060013412" blue="0.080693889317999257" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H14-Ir-SbR">
+                        <rect key="frame" x="75" y="16" width="165" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHm-gJ-4Y3">
+                        <rect key="frame" x="250" y="20" width="60" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="sH9-lA-kI2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.10196078431372549" green="0.10980392156862745" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="JO0-gh-wVg" firstAttribute="bottom" secondItem="wlB-p3-Lom" secondAttribute="bottom" constant="-5" id="Afw-zg-OKx"/>
+                    <constraint firstItem="LOX-fk-FeM" firstAttribute="top" secondItem="Sp0-Gl-BzK" secondAttribute="top" constant="12" id="CKD-A9-hJK"/>
+                    <constraint firstItem="H14-Ir-SbR" firstAttribute="leading" secondItem="wlB-p3-Lom" secondAttribute="trailing" constant="10" id="DKH-Fx-mat"/>
+                    <constraint firstItem="H14-Ir-SbR" firstAttribute="top" secondItem="wlB-p3-Lom" secondAttribute="top" constant="4" id="GkW-m7-WhJ"/>
+                    <constraint firstItem="JO0-gh-wVg" firstAttribute="leading" secondItem="wlB-p3-Lom" secondAttribute="trailing" constant="10" id="YeX-YB-pxF"/>
+                    <constraint firstItem="PHm-gJ-4Y3" firstAttribute="centerY" secondItem="H14-Ir-SbR" secondAttribute="centerY" id="hYg-cq-Bpw"/>
+                    <constraint firstItem="LOX-fk-FeM" firstAttribute="leading" secondItem="Sp0-Gl-BzK" secondAttribute="leading" constant="10" id="lxZ-Cg-0hn"/>
+                    <constraint firstAttribute="trailing" secondItem="PHm-gJ-4Y3" secondAttribute="trailing" constant="10" id="ntC-aN-pwh"/>
+                    <constraint firstItem="PHm-gJ-4Y3" firstAttribute="leading" secondItem="H14-Ir-SbR" secondAttribute="trailing" constant="10" id="nv5-wA-bVC"/>
+                    <constraint firstAttribute="bottom" secondItem="LOX-fk-FeM" secondAttribute="bottom" constant="12" id="qJj-VQ-KZB"/>
+                    <constraint firstAttribute="trailing" secondItem="JO0-gh-wVg" secondAttribute="trailing" constant="10" id="wdz-SF-5TR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="initialsLabel" destination="xs1-jr-Ift" id="5Zl-Tg-xcb"/>
+                <outlet property="lastMessageLabel" destination="JO0-gh-wVg" id="Pft-T1-iWS"/>
+                <outlet property="messageDateLabel" destination="PHm-gJ-4Y3" id="eEx-6T-qT0"/>
+                <outlet property="nameLabel" destination="H14-Ir-SbR" id="uuf-Ld-n0i"/>
+                <outlet property="profileImageView" destination="wlB-p3-Lom" id="4gI-v1-1qt"/>
+            </connections>
+            <point key="canvasLocation" x="292" y="146"/>
+        </tableViewCell>
+    </objects>
+</document>

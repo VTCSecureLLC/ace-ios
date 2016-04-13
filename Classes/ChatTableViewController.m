@@ -19,46 +19,60 @@
 
 #import "ChatTableViewController.h"
 #import "UIChatCell.h"
-
 #import "FileTransferDelegate.h"
-
 #import "linphone/linphonecore.h"
 #import "PhoneMainView.h"
 #import "UACellBackgroundView.h"
 #import "UILinphone.h"
 #import "Utils.h"
+#import "ChatThreadTableViewCell.h"
 
-@implementation ChatTableViewController {
-	MSList *data;
-}
+static NSString * const chatThreadCellIdentifier = @"ChatThreadCell";
+
+@interface ChatTableViewController ()
+
+@property (nonatomic, assign) MSList *data;
+@property (nonatomic, assign) MSList *filteredData;
+
+@end
+
+@implementation ChatTableViewController
 
 #pragma mark - Lifecycle Functions
-
 - (instancetype)init {
 	self = super.init;
 	if (self) {
-		self->data = nil;
+		self.data = nil;
 	}
 	return self;
 }
 
 - (void)dealloc {
-	if (data != nil) {
-		ms_list_free_with_data(data, chatTable_free_chatrooms);
+	if (self.data != nil) {
+		ms_list_free_with_data(self.data, chatTable_free_chatrooms);
 	}
 }
 
+
 #pragma mark - ViewController Functions
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setupController];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
+    
 	[super viewWillAppear:animated];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
 	self.tableView.accessibilityIdentifier = @"Chat list";
-    self->data = nil;
+    self.data = nil;
 	[self loadData];
 }
 
-#pragma mark -
 
+#pragma mark - Private Methods
 static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRoom *elem) {
 	LinphoneChatMessage *last_new_message = linphone_chat_room_get_user_data(to_insert);
 	LinphoneChatMessage *last_elem_message = linphone_chat_room_get_user_data(elem);
@@ -95,6 +109,45 @@ static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRo
 	return sorted;
 }
 
+- (MSList *)filterChatRoomsWithSearchText:(NSString *)searchText {
+    
+    MSList *filtered = nil;
+    const MSList *current = self.data;
+    const MSList *iter = current;
+    
+    while (iter) {
+        // store last message in user data
+        LinphoneChatRoom *chat_room = iter->data;
+        const LinphoneAddress *linphoneAddress = linphone_chat_room_get_peer_address(chat_room);
+        
+        if (linphoneAddress != NULL) {
+            char *tmp = linphone_address_as_string_uri_only(linphoneAddress);
+            NSString *normalizedSipAddress = [NSString stringWithUTF8String:tmp];
+            ms_free(tmp);
+            
+            NSString *displayName = nil;
+            ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+            if (contact != nil) {
+                displayName = [FastAddressBook getContactDisplayName:contact];
+            }
+            
+            if (displayName == nil) {
+                const char *username = linphone_address_get_username(linphoneAddress);
+                char *address = linphone_address_as_string(linphoneAddress);
+                displayName = [NSString stringWithUTF8String:username ?: address];
+                ms_free(address);
+            }
+            
+            if ([[displayName lowercaseString] hasPrefix:[searchText lowercaseString]]) {
+                filtered = ms_list_insert(filtered, filtered, chat_room);
+            }
+        }
+        
+        iter = iter->next;
+    }
+    return filtered;
+}
+
 static void chatTable_free_chatrooms(void *data) {
 	LinphoneChatMessage *lastMsg = linphone_chat_room_get_user_data(data);
 	if (lastMsg) {
@@ -104,11 +157,27 @@ static void chatTable_free_chatrooms(void *data) {
 }
 
 - (void)loadData {
-	if (data != NULL) {
-		ms_list_free_with_data(data, chatTable_free_chatrooms);
+	if (self.data != NULL) {
+		ms_list_free_with_data(self.data, chatTable_free_chatrooms);
 	}
-	data = [self sortChatRooms];
+	self.data = [self sortChatRooms];
 	[[self tableView] reloadData];
+}
+
+- (void)setupController {
+    
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ChatThreadTableViewCell class]) bundle:nil]
+         forCellReuseIdentifier:chatThreadCellIdentifier];
+    
+    [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0]];
+    [self.searchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor blackColor]];
 }
 
 #pragma mark - UITableViewDataSource Functions
@@ -118,31 +187,53 @@ static void chatTable_free_chatrooms(void *data) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return ms_list_size(data);
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return ms_list_size(self.filteredData);
+    }
+    else {
+        return ms_list_size(self.data);
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *kCellId = @"UIChatCell";
-	UIChatCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
-	if (cell == nil) {
-		cell = [[UIChatCell alloc] initWithIdentifier:kCellId];
-
-		// Background View
-		UACellBackgroundView *selectedBackgroundView = [[UACellBackgroundView alloc] initWithFrame:CGRectZero];
-		cell.selectedBackgroundView = selectedBackgroundView;
-		[selectedBackgroundView setBackgroundColor:LINPHONE_TABLE_CELL_BACKGROUND_COLOR];
-	}
-
-	[cell setChatRoom:(LinphoneChatRoom *)ms_list_nth_data(data, (int)[indexPath row])];
+    
+    ChatThreadTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:chatThreadCellIdentifier];
+    LinphoneChatRoom *chatRoom;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.filteredData, (int)[indexPath row]);
+        [cell fillWithChatRoom:chatRoom];
+    }
+    else {
+        
+        chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.data, (int)[indexPath row]);
+        [cell fillWithChatRoom:chatRoom];
+    }
 
 	return cell;
 }
 
+
 #pragma mark - UITableViewDelegate Functions
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 80;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
-	LinphoneChatRoom *chatRoom = (LinphoneChatRoom *)ms_list_nth_data(data, (int)[indexPath row]);
+	[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    LinphoneChatRoom *chatRoom;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.filteredData, (int)[indexPath row]);
+    }
+    else {
+        
+        chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.data, (int)[indexPath row]);
+    }
 
 	// Go to ChatRoom view
 	ChatRoomViewController *controller = DYNAMIC_CAST(
@@ -162,13 +253,21 @@ static void chatTable_free_chatrooms(void *data) {
 	return UITableViewCellEditingStyleNone;
 }
 
-- (void)tableView:(UITableView *)tableView
-	commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-	 forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[tableView beginUpdates];
+		[self.tableView beginUpdates];
 
-		LinphoneChatRoom *chatRoom = (LinphoneChatRoom *)ms_list_nth_data(data, (int)[indexPath row]);
+        LinphoneChatRoom *chatRoom;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            
+            chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.filteredData, (int)[indexPath row]);
+        }
+        else {
+            
+            chatRoom = (LinphoneChatRoom *)ms_list_nth_data(self.data, (int)[indexPath row]);
+        }
+
+        
 		LinphoneChatMessage *last_msg = linphone_chat_room_get_user_data(chatRoom);
 		if (last_msg) {
 			linphone_chat_message_unref(last_msg);
@@ -182,18 +281,38 @@ static void chatTable_free_chatrooms(void *data) {
 				break;
 			}
 		}
-		[ftdToDelete cancel];
-
-		linphone_core_delete_chat_room(linphone_chat_room_get_lc(chatRoom), chatRoom);
-		data = ms_list_remove(data, chatRoom);
-
-		// will force a call to [self loadData]
-		[[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self];
-
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-						 withRowAnimation:UITableViewRowAnimationFade];
-		[tableView endUpdates];
-	}
+        [ftdToDelete cancel];
+        
+        linphone_core_delete_chat_room(linphone_chat_room_get_lc(chatRoom), chatRoom);
+        self.data = ms_list_remove(self.data, chatRoom);
+        
+        // will force a call to [self loadData]
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLinphoneTextReceived object:self];
+        
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                              withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
 }
 
+
+#pragma mark - 
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
+
+#pragma mark - Search
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    
+    self.filteredData = [self filterChatRoomsWithSearchText:searchText];
+}
 @end

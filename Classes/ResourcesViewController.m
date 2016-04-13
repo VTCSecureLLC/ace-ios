@@ -69,6 +69,7 @@ const NSString *cdnDatabase = @"http://cdn.vatrp.net/numbers.json";
         NSString *sip_uri =[[NSString alloc] initWithUTF8String: linphone_address_as_string_uri_only(addr)];
         sip_uri = [NSString stringWithFormat:@"%@;user=phone", sip_uri];
         [[LinphoneManager instance] call:sip_uri displayName:resourceName transfer:0];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
