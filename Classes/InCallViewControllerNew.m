@@ -676,7 +676,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         self.ringIncrementTimer = nil;
     }
 }
-
+static BOOL didSwitchCamera = NO;
 - (void)setupCallBarView {
     
     // Automatic hiding
@@ -766,14 +766,17 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         [weakSelf setupSpeakerButtonState];
     };
-    
+
     self.callBarView.switchCameraButtonActionHandler = ^(UIButton *sender) {
         
-        [[LinphoneManager instance] switchCamera];
-        [sender setEnabled:NO];
+        if(!didSwitchCamera){
+            [[LinphoneManager instance] switchCamera];
+            didSwitchCamera = YES;
+            return;
+        }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             sleep(3);
-            [sender setEnabled:YES];
+            didSwitchCamera = NO;
         });
        
     };
