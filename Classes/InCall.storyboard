@@ -48,13 +48,6 @@
                                     <outlet property="delegate" destination="i7c-Y5-iNb" id="hzb-1E-ura"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
-                                <rect key="frame" x="0.0" y="374" width="375" height="253"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
-                                </constraints>
-                            </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
                                 <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -170,6 +163,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
+                                <rect key="frame" x="0.0" y="374" width="375" height="253"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
