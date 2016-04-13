@@ -230,6 +230,14 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 				[self setCString:linphone_proxy_config_get_dial_prefix(cfg) forKey:@"prefix_preference"];
 				// actually in Call section but proxy config dependent
 				[self setBool:linphone_proxy_config_get_dial_escape_plus(cfg) forKey:@"substitute_+_by_00_preference"];
+                
+                NSString *media_encryption = [[NSUserDefaults standardUserDefaults] objectForKey:@"media_encryption_preference"];
+                if([media_encryption isEqualToString:@"SRTP"]){
+                    linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionSRTP);
+                }
+                else{
+                    linphone_core_set_media_encryption([LinphoneManager getLc], LinphoneMediaEncryptionNone);
+                }
 			}
 		} else {
 			[self setObject:@"" forKey:@"username_preference"];
