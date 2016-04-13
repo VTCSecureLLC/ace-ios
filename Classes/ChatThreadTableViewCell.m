@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastMessageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *initialsLabel;
+@property (weak, nonatomic) IBOutlet UIView *imageAndInitialsContainerView;
+@property (weak, nonatomic) IBOutlet UIView *unreadMessagesCountIndicatorView;
+@property (weak, nonatomic) IBOutlet UILabel *unreadMessagesCountLabel;
 
 @property (assign, nonatomic) LinphoneChatRoom *chatRoom;
 
@@ -43,9 +46,9 @@
 #pragma mark - Private Methods
 - (void)setupCell {
     
-    self.profileImageView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
-    self.profileImageView.layer.borderColor = [UIColor grayColor].CGColor;
-    self.profileImageView.layer.borderWidth = 1.f;
+    self.imageAndInitialsContainerView.layer.cornerRadius = CGRectGetHeight(self.profileImageView.frame)/2;
+    self.imageAndInitialsContainerView.layer.borderColor = [UIColor grayColor].CGColor;
+    self.imageAndInitialsContainerView.layer.borderWidth = 1.5f;
 }
 
 
@@ -156,11 +159,14 @@
         
         if (unreadMessagesCount > 0) {
             
-            self.lastMessageLabel.textColor = [UIColor colorWithRed:1.0 green:0.406 blue:0.0807 alpha:1.0];
+            self.lastMessageLabel.textColor = [UIColor colorWithRed:0.854 green:0.2743 blue:0.0719 alpha:1.0];
+            self.unreadMessagesCountIndicatorView.hidden = NO;
+            self.unreadMessagesCountLabel.text = [NSString stringWithFormat:@"%lu", unreadMessagesCount];
         }
         else {
             
             self.lastMessageLabel.textColor = [UIColor lightGrayColor];
+            self.unreadMessagesCountIndicatorView.hidden = YES;
         }
         
         self.lastMessageLabel.text = lastMessage;
