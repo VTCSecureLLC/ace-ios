@@ -20,6 +20,13 @@
 #import "ChatViewController.h"
 #import "PhoneMainView.h"
 
+@interface ChatViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
+@end
+
 @implementation ChatViewController
 
 @synthesize tableController;
@@ -39,6 +46,7 @@
 #pragma mark - ViewController Functions
 
 - (void)viewDidLoad {
+    
 	[super viewDidLoad];
 
 	// Set selected+over background: IB lack !
@@ -141,4 +149,5 @@ static UICompositeViewDescription *compositeDescription = nil;
 		[self startChatRoom];
 	return YES;
 }
+
 @end
