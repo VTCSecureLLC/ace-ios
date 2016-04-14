@@ -136,9 +136,6 @@ typedef struct _LinphoneManagerSounds {
 + (BOOL)isCodecSupported: (const char*)codecName;
 + (NSString *)getUserAgent;
 
-//Remove Unread Messages Count on iPhone
-//+ (int)unreadMessageCount;
-
 - (void)playMessageSound;
 - (void)resetLinphoneCore;
 - (void)startLinphoneCore;
@@ -318,6 +315,13 @@ typedef struct _LinphoneManagerSounds {
 - (void)disableSpeaker;
 
 - (void)switchCamera;
+
+/**
+ *  @brief Calculates unread messages count
+ *
+ *  @return Unread messages count
+ */
+- (NSUInteger)unreadMessagesCount;
 
 - (void)fetchProfileImageWithCall:(LinphoneCall *)linphoneCall withCompletion:(void (^)(UIImage *image))completion;
 - (NSString *)fetchAddressWithCall:(LinphoneCall *)linphoneCall;
