@@ -6482,8 +6482,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
-					"$(SRCROOT)/GoogleTagManager/Library",
-					"$(SRCROOT)/GoogleAnalytics/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6577,8 +6577,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
-					"$(SRCROOT)/GoogleTagManager/Library",
-					"$(SRCROOT)/GoogleAnalytics/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6672,8 +6672,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
-					"$(SRCROOT)/GoogleTagManager/Library",
-					"$(SRCROOT)/GoogleAnalytics/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6767,8 +6767,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
-					"$(SRCROOT)/GoogleTagManager/Library",
-					"$(SRCROOT)/GoogleAnalytics/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalyticsServicesiOS_3.15/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
