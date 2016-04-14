@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -26,7 +26,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="led_disconnected.png" translatesAutoresizingMaskIntoConstraints="NO" id="xRF-98-NpH">
-                            <rect key="frame" x="6" y="6" width="11" height="11"/>
+                            <rect key="frame" x="32" y="6" width="11" height="11"/>
                             <accessibility key="accessibilityConfiguration" label="Registration state">
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
@@ -35,28 +35,28 @@
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnU-UV-P3n" userLabel="Call Quality Image View">
-                            <rect key="frame" x="306" y="3" width="27" height="17"/>
+                            <rect key="frame" x="338" y="3" width="27" height="17"/>
                             <accessibility key="accessibilityConfiguration" label="Call quality"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="HnU-UV-P3n" secondAttribute="height" multiplier="27:17" id="Npw-1H-LTw"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="bbG-Xq-Sp3" userLabel="Call Security Image View">
-                            <rect key="frame" x="338" y="3" width="27" height="17"/>
+                            <rect key="frame" x="0.0" y="3" width="27" height="17"/>
                             <accessibility key="accessibilityConfiguration" label="Security state"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="bbG-Xq-Sp3" secondAttribute="height" multiplier="27:17" id="Bb7-Ei-TK0"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="CARAMBA" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KC1-66-d5I" userLabel="Registration Status Label">
-                            <rect key="frame" x="23" y="0.0" width="221" height="23"/>
+                            <rect key="frame" x="49" y="0.0" width="274" height="23"/>
                             <accessibility key="accessibilityConfiguration" label="Registration state"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="highlightedColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-wK-yLm" userLabel="Call Security Button">
-                            <rect key="frame" x="337" y="0.0" width="30" height="23"/>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-wK-yLm" userLabel="Call Security Button">
+                            <rect key="frame" x="0.0" y="0.0" width="27" height="23"/>
                             <accessibility key="accessibilityConfiguration">
                                 <bool key="isElement" value="NO"/>
                             </accessibility>
@@ -73,7 +73,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Utq-ZL-yWy">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
+                            <rect key="frame" x="32" y="0.0" width="343" height="23"/>
                             <connections>
                                 <action selector="statusBarAction:" destination="-1" eventType="touchUpInside" id="me1-2b-Qrd"/>
                             </connections>
@@ -81,25 +81,26 @@
                     </subviews>
                     <color key="backgroundColor" red="0.1843137255" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="gT4-wK-yLm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3ki-LY-6J8"/>
                         <constraint firstAttribute="bottom" secondItem="KC1-66-d5I" secondAttribute="bottom" id="7en-Tp-J8f"/>
-                        <constraint firstAttribute="bottom" secondItem="gT4-wK-yLm" secondAttribute="bottom" id="8UR-CT-5yL"/>
-                        <constraint firstItem="bbG-Xq-Sp3" firstAttribute="leading" secondItem="HnU-UV-P3n" secondAttribute="trailing" constant="5" id="Dzp-Ah-L8c"/>
+                        <constraint firstItem="bbG-Xq-Sp3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bue-l7-rRI"/>
                         <constraint firstItem="xRF-98-NpH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="GMS-SK-YF8"/>
+                        <constraint firstAttribute="trailing" secondItem="HnU-UV-P3n" secondAttribute="trailing" constant="10" id="Gtd-4e-av3"/>
+                        <constraint firstItem="xRF-98-NpH" firstAttribute="leading" secondItem="bbG-Xq-Sp3" secondAttribute="trailing" constant="5" id="JAK-tf-c52"/>
                         <constraint firstItem="KC1-66-d5I" firstAttribute="leading" secondItem="xRF-98-NpH" secondAttribute="trailing" constant="6" id="MJ9-KV-ZWG"/>
                         <constraint firstAttribute="bottom" secondItem="Utq-ZL-yWy" secondAttribute="bottom" id="NOt-xX-kxJ"/>
                         <constraint firstItem="HnU-UV-P3n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="PX2-ep-iGK"/>
+                        <constraint firstItem="gT4-wK-yLm" firstAttribute="trailing" secondItem="bbG-Xq-Sp3" secondAttribute="trailing" id="Rv7-6g-Jjb"/>
                         <constraint firstItem="bbG-Xq-Sp3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="RvS-4W-zOf"/>
+                        <constraint firstItem="gT4-wK-yLm" firstAttribute="leading" secondItem="bbG-Xq-Sp3" secondAttribute="leading" id="Taw-DD-asM"/>
+                        <constraint firstAttribute="bottom" secondItem="gT4-wK-yLm" secondAttribute="bottom" id="U36-ug-Fcz"/>
                         <constraint firstItem="KC1-66-d5I" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ULe-Fi-hZT"/>
                         <constraint firstAttribute="bottom" secondItem="xRF-98-NpH" secondAttribute="bottom" constant="6" id="WOg-4e-Rsw"/>
                         <constraint firstItem="Utq-ZL-yWy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XWG-xK-oxX"/>
-                        <constraint firstItem="HnU-UV-P3n" firstAttribute="leading" secondItem="KC1-66-d5I" secondAttribute="trailing" constant="62" id="btV-MR-tw8"/>
-                        <constraint firstItem="gT4-wK-yLm" firstAttribute="centerX" secondItem="bbG-Xq-Sp3" secondAttribute="centerX" id="dMs-dP-J1G"/>
+                        <constraint firstItem="HnU-UV-P3n" firstAttribute="leading" secondItem="KC1-66-d5I" secondAttribute="trailing" constant="15" id="btV-MR-tw8"/>
+                        <constraint firstItem="Utq-ZL-yWy" firstAttribute="leading" secondItem="xRF-98-NpH" secondAttribute="leading" id="dvu-Fa-7Lj"/>
                         <constraint firstAttribute="bottom" secondItem="HnU-UV-P3n" secondAttribute="bottom" constant="3" id="fQP-qR-1Uz"/>
-                        <constraint firstAttribute="trailing" secondItem="bbG-Xq-Sp3" secondAttribute="trailing" constant="10" id="ibc-nm-V90"/>
-                        <constraint firstItem="xRF-98-NpH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="kl2-1C-VWw"/>
+                        <constraint firstItem="gT4-wK-yLm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="i08-SN-M6x"/>
                         <constraint firstAttribute="bottom" secondItem="bbG-Xq-Sp3" secondAttribute="bottom" constant="3" id="mdS-gT-Tp1"/>
-                        <constraint firstItem="Utq-ZL-yWy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pAs-zM-ZK7"/>
                         <constraint firstAttribute="trailing" secondItem="Utq-ZL-yWy" secondAttribute="trailing" id="yjH-U4-7A4"/>
                     </constraints>
                 </view>
@@ -113,7 +114,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="278" y="-41"/>
+            <point key="canvasLocation" x="277.5" y="-41.5"/>
         </view>
     </objects>
     <resources>
