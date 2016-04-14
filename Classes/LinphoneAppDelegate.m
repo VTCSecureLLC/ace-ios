@@ -31,6 +31,10 @@
 #include "linphone/linphonecore.h"
 
 #import <HockeySDK/HockeySDK.h>
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
+#import "GAILogger.h"
 
 @implementation LinphoneAppDelegate
 
@@ -184,6 +188,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-76139509-1"];
+    
+    // Optional: configure GAI options.
+    GAI *gai = [GAI sharedInstance];
+    gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
+    gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
+    
     #ifdef DEBUG
     NSLog(@"Debug: No crashes will be reported, %@ Core %s", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
           linphone_core_get_version());
