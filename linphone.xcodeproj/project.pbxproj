@@ -452,6 +452,8 @@
 		70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F213E147E3002BA2C0 /* OpenGLES.framework */; };
 		70E542F513E147EB002BA2C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E542F413E147EB002BA2C0 /* QuartzCore.framework */; };
 		730B7EEF1BACB57100C948B9 /* UICustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 730B7EEE1BACB57100C948B9 /* UICustomPicker.m */; };
+		730DCCA11CBFDB1A000197EA /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 730DCC9F1CBFDB1A000197EA /* libAdIdAccess.a */; };
+		730DCCA21CBFDB1A000197EA /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 730DCCA01CBFDB1A000197EA /* libGoogleAnalyticsServices.a */; };
 		73400CB11BAF8628002C358D /* Global1.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAA1BAF8628002C358D /* Global1.png */; };
 		73400CB21BAF8628002C358D /* resources_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAB1BAF8628002C358D /* resources_default.png */; };
 		73400CB31BAF8628002C358D /* resources_default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 73400CAC1BAF8628002C358D /* resources_default~ipad.png */; };
@@ -1833,6 +1835,8 @@
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		730B7EED1BACB57100C948B9 /* UICustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomPicker.h; sourceTree = "<group>"; };
 		730B7EEE1BACB57100C948B9 /* UICustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomPicker.m; sourceTree = "<group>"; };
+		730DCC9F1CBFDB1A000197EA /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = GoogleAnalyticsServicesiOS_3.15/libAdIdAccess.a; sourceTree = "<group>"; };
+		730DCCA01CBFDB1A000197EA /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = GoogleAnalyticsServicesiOS_3.15/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		73400CAA1BAF8628002C358D /* Global1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Global1.png; path = Resources/Global1.png; sourceTree = "<group>"; };
 		73400CAB1BAF8628002C358D /* resources_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources_default.png; path = Resources/resources_default.png; sourceTree = "<group>"; };
 		73400CAC1BAF8628002C358D /* resources_default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "resources_default~ipad.png"; path = "Resources/resources_default~ipad.png"; sourceTree = "<group>"; };
@@ -2699,6 +2703,8 @@
 				0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */,
 				737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */,
 				739F82E61C4D3B29002EB5A7 /* libbellesip.a in Frameworks */,
+				730DCCA11CBFDB1A000197EA /* libAdIdAccess.a in Frameworks */,
+				730DCCA21CBFDB1A000197EA /* libGoogleAnalyticsServices.a in Frameworks */,
 				739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */,
 				739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */,
 				3192D9271BB5C8F60099B552 /* QuickLook.framework in Frameworks */,
@@ -3186,6 +3192,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				730DCC9F1CBFDB1A000197EA /* libAdIdAccess.a */,
+				730DCCA01CBFDB1A000197EA /* libGoogleAnalyticsServices.a */,
 				739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */,
 				737A0A151C65359400D7D0DB /* libebml2.a */,
 				737A0A131C65355600D7D0DB /* libcorec.a */,
@@ -6466,6 +6474,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
+					"$(SRCROOT)/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6475,6 +6485,7 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
+					"$(PROJECT_DIR)/GoogleAnalyticsServicesiOS_3.15",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
@@ -6558,6 +6569,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
+					"$(SRCROOT)/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6567,6 +6580,7 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
+					"$(PROJECT_DIR)/GoogleAnalyticsServicesiOS_3.15",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
@@ -6650,6 +6664,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
+					"$(SRCROOT)/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6659,6 +6675,7 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
+					"$(PROJECT_DIR)/GoogleAnalyticsServicesiOS_3.15",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
@@ -6742,6 +6759,8 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/include",
 					"$(SRCROOT)/Classes/Utils/NinePatch/",
 					"$(SRCROOT)/Classes/Utils/XMLRPC/",
+					"$(SRCROOT)/GoogleTagManager/Library",
+					"$(SRCROOT)/GoogleAnalytics/Library",
 				);
 				INFOPLIST_FILE = "linphone-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -6751,6 +6770,7 @@
 					"$(SRCROOT)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib",
 					"$(PROJECT_DIR)/liblinphone-sdk/apple-darwin/lib/mediastreamer/plugins",
+					"$(PROJECT_DIR)/GoogleAnalyticsServicesiOS_3.15",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ORDER_FILE = "";
