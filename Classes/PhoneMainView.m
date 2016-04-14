@@ -178,9 +178,6 @@ static RootViewManager *rootViewManagerInstance = nil;
 	[super viewWillAppear:animated];
     
     //Update controller's orientation
-    NSNumber *currentOrientation = [NSNumber numberWithInt:[[UIApplication sharedApplication] statusBarOrientation]];
-    [[UIDevice currentDevice] setValue:currentOrientation forKey:@"orientation"];
-    
 
 	// Set observers
 	[[NSNotificationCenter defaultCenter] addObserver:self
