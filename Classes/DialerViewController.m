@@ -30,6 +30,11 @@
 #include "linphone/linphonecore.h"
 
 
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
+#import "GAILogger.h"
+
 @interface DialerViewController()
 
 @property (nonatomic, weak) IBOutlet UIImageView *providerImageView;
@@ -105,6 +110,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 #pragma mark - ViewController Functions
 - (void)viewWillAppear:(BOOL)animated {
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Dialer Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
 	[super viewWillAppear:animated];
 
