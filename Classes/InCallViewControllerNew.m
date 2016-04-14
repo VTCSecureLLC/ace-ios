@@ -1600,7 +1600,8 @@ CGSize tempLocalCellSize;
         [self.chatEntries setObject:self.localTextBuffer atIndexedSubscript:indx];
         
         cell.textLabel.text = self.localTextBuffer.msgString;
-        const int reloadThreshold = 100;
+        const CGFloat fontSize = cell.textLabel.font.pointSize;
+        const int reloadThreshold = cell.frame.size.width / (float)fontSize;
         if(self.localTextBuffer.msgString.length % reloadThreshold == 0){
             [self.tableView reloadData];
         }
@@ -1875,7 +1876,9 @@ CGSize tempRemoteCellSize;
       
         cell.textLabel.text = self.remoteTextBuffer.msgString;
         
-        const int reloadThreshold = 100;
+        const CGFloat fontSize = cell.textLabel.font.pointSize;
+        const int reloadThreshold = cell.frame.size.width / (float)fontSize;
+      
         if(self.remoteTextBuffer.msgString.length % reloadThreshold == 0){
             [self.tableView reloadData];
         }
