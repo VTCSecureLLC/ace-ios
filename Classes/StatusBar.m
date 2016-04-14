@@ -165,9 +165,12 @@
     
     if (security) {
         if (pending) {
-            [self.callSecurityImageView setImage:[UIImage imageNamed:@"security_pending.png"]];
+            [self.callSecurityImageView setImage:[UIImage imageNamed:@"security_pending"]];
         } else {
-            [self.callSecurityImageView setImage:[UIImage imageNamed:@"security_ok.png"]];
+            
+            UIImage *image = [UIImage imageNamed:@"security_ok"];
+            self.callSecurityImageView.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [self.callSecurityImageView setTintColor:[UIColor colorWithRed:0.3614 green:0.8557 blue:0.1629 alpha:1.0]];
         }
     } else {
         [self.callSecurityImageView setImage:[UIImage imageNamed:@"security_ko.png"]];
