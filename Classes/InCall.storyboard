@@ -40,14 +40,6 @@
                                     <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
                                 </constraints>
                             </view>
-                            <tableView hidden="YES" clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cto-wd-TgW">
-                                <rect key="frame" x="39" y="81" width="299" height="439"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="i7c-Y5-iNb" id="okt-A1-XbH"/>
-                                    <outlet property="delegate" destination="i7c-Y5-iNb" id="hzb-1E-ura"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
                                 <rect key="frame" x="0.0" y="374" width="375" height="253"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -170,6 +162,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cto-wd-TgW">
+                                <rect key="frame" x="39" y="81" width="299" height="439"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="i7c-Y5-iNb" id="okt-A1-XbH"/>
+                                    <outlet property="delegate" destination="i7c-Y5-iNb" id="hzb-1E-ura"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
