@@ -468,6 +468,8 @@
 		737A0A161C65359400D7D0DB /* libebml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A0A151C65359400D7D0DB /* libebml2.a */; };
 		737AE6D11B9A6D2200AAFC40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CD1B9A6D2200AAFC40 /* Security.framework */; };
 		737AE6D21B9A6D2200AAFC40 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */; };
+		737C77D21CBFE04600729A35 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737C77D11CBFE04600729A35 /* AdSupport.framework */; };
+		737C77D81CBFE05000729A35 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737C77D71CBFE05000729A35 /* CoreData.framework */; };
 		739D5AB01C754DDC00DD0EA7 /* libbctoolbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */; };
 		739F82E01C4D3ABE002EB5A7 /* libbelcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */; };
 		739F82E11C4D3ABE002EB5A7 /* libbelr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F82DF1C4D3ABE002EB5A7 /* libbelr.a */; };
@@ -1852,6 +1854,8 @@
 		737A0A151C65359400D7D0DB /* libebml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libebml2.a; path = "liblinphone-sdk/apple-darwin/lib/libebml2.a"; sourceTree = "<group>"; };
 		737AE6CD1B9A6D2200AAFC40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		737AE6CE1B9A6D2200AAFC40 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		737C77D11CBFE04600729A35 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		737C77D71CBFE05000729A35 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbctoolbox.a; path = "liblinphone-sdk/apple-darwin/lib/libbctoolbox.a"; sourceTree = "<group>"; };
 		739F82DE1C4D3ABE002EB5A7 /* libbelcard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelcard.a; path = "liblinphone-sdk/apple-darwin/lib/libbelcard.a"; sourceTree = "<group>"; };
 		739F82DF1C4D3ABE002EB5A7 /* libbelr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbelr.a; path = "liblinphone-sdk/apple-darwin/lib/libbelr.a"; sourceTree = "<group>"; };
@@ -2699,6 +2703,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */,
+				737C77D81CBFE05000729A35 /* CoreData.framework in Frameworks */,
+				737C77D21CBFE04600729A35 /* AdSupport.framework in Frameworks */,
 				739D5AB01C754DDC00DD0EA7 /* libbctoolbox.a in Frameworks */,
 				0FA159CD1BF0AB0D00997345 /* VideoToolbox.framework in Frameworks */,
 				737A0A0E1C65323E00D7D0DB /* libmatroska2.a in Frameworks */,
@@ -2785,7 +2792,6 @@
 				F0B89C2218DC89E30050B60E /* MediaPlayer.framework in Frameworks */,
 				D37DC7181594AF3400B2A5EB /* MessageUI.framework in Frameworks */,
 				70E542F313E147E3002BA2C0 /* OpenGLES.framework in Frameworks */,
-				2264B6D211200342002C2C53 /* SystemConfiguration.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				344ABDF114850AE9007420B6 /* libc++.1.dylib in Frameworks */,
 				D32B6E2F15A5C0AC0033019F /* libsqlite3.dylib in Frameworks */,
@@ -3192,6 +3198,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				737C77D71CBFE05000729A35 /* CoreData.framework */,
+				737C77D11CBFE04600729A35 /* AdSupport.framework */,
 				730DCC9F1CBFDB1A000197EA /* libAdIdAccess.a */,
 				730DCCA01CBFDB1A000197EA /* libGoogleAnalyticsServices.a */,
 				739D5AAF1C754DDC00DD0EA7 /* libbctoolbox.a */,
