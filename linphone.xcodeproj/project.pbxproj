@@ -485,6 +485,9 @@
 		73FC502F1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc in Resources */ = {isa = PBXBuildFile; fileRef = 73FC502E1BA8C4D900A02E21 /* wizard_vtcsecure_existing.rc */; };
 		A43BA92C1C3198B3000A3CE1 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */; };
 		A459864B1C31BCDA00564285 /* chat_off_default_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */; };
+		C6049B1E1CC0D7A90021D7E4 /* ReasonErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C6049B1D1CC0D7A90021D7E4 /* ReasonErrorHandler.m */; };
+		C6049B201CC0D7F90021D7E4 /* ResasonErrors.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6049B1F1CC0D7F90021D7E4 /* ResasonErrors.plist */; };
+		C6049B231CC0E3E20021D7E4 /* ReasonError.m in Sources */ = {isa = PBXBuildFile; fileRef = C6049B221CC0E3E20021D7E4 /* ReasonError.m */; };
 		C627CEFB1CA5530400E1E16E /* chat_bubble_outgoing_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */; };
 		C63AF3C81C96F5C100685FAD /* StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C63AF3C71C96F5C100685FAD /* StatusBar.m */; };
 		C63AF3CA1C96F5CC00685FAD /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63AF3C91C96F5CC00685FAD /* StatusBar.xib */; };
@@ -1866,6 +1869,11 @@
 		8D1107310486CEB800E47090 /* linphone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "linphone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A43BA92B1C3198B3000A3CE1 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
 		A459864A1C31BCDA00564285 /* chat_off_default_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_off_default_landscape.png; path = Resources/chat_off_default_landscape.png; sourceTree = "<group>"; };
+		C6049B1C1CC0D7A90021D7E4 /* ReasonErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReasonErrorHandler.h; sourceTree = "<group>"; };
+		C6049B1D1CC0D7A90021D7E4 /* ReasonErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReasonErrorHandler.m; sourceTree = "<group>"; };
+		C6049B1F1CC0D7F90021D7E4 /* ResasonErrors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResasonErrors.plist; sourceTree = "<group>"; };
+		C6049B211CC0E3E20021D7E4 /* ReasonError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReasonError.h; sourceTree = "<group>"; };
+		C6049B221CC0E3E20021D7E4 /* ReasonError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReasonError.m; sourceTree = "<group>"; };
 		C627CEFA1CA5530400E1E16E /* chat_bubble_outgoing_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_outgoing_black.png; sourceTree = "<group>"; };
 		C63AF3C61C96F5C100685FAD /* StatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBar.h; sourceTree = "<group>"; };
 		C63AF3C71C96F5C100685FAD /* StatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBar.m; sourceTree = "<group>"; };
@@ -2917,6 +2925,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C6049B171CC0D7480021D7E4 /* Reason Error Handler */,
 				5E6345D61C1111C900042AB4 /* InfColorPicker */,
 				5EE6CDAD1BFE1FDF005CA879 /* RTT */,
 				5E3CA6441BF10A9500D9913F /* SDPNegotiationService.h */,
@@ -3506,6 +3515,26 @@
 				C63B18241C89B4E100969395 /* In Call View Controller */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		C6049B171CC0D7480021D7E4 /* Reason Error Handler */ = {
+			isa = PBXGroup;
+			children = (
+				C6049B241CC0E3E40021D7E4 /* Reason Error Model */,
+				C6049B1C1CC0D7A90021D7E4 /* ReasonErrorHandler.h */,
+				C6049B1D1CC0D7A90021D7E4 /* ReasonErrorHandler.m */,
+				C6049B1F1CC0D7F90021D7E4 /* ResasonErrors.plist */,
+			);
+			name = "Reason Error Handler";
+			sourceTree = "<group>";
+		};
+		C6049B241CC0E3E40021D7E4 /* Reason Error Model */ = {
+			isa = PBXGroup;
+			children = (
+				C6049B211CC0E3E20021D7E4 /* ReasonError.h */,
+				C6049B221CC0E3E20021D7E4 /* ReasonError.m */,
+			);
+			name = "Reason Error Model";
 			sourceTree = "<group>";
 		};
 		C63AF3C51C96F5A200685FAD /* Status Bar */ = {
@@ -5348,6 +5377,7 @@
 				D34F6F9E1594D3FB0095705B /* InAppSettings.bundle in Resources */,
 				50B006DC1BA09C79002C5723 /* chat_photo_default.png in Resources */,
 				F0C1F9161A28781F009402C9 /* strech-top.png in Resources */,
+				C6049B201CC0D7F90021D7E4 /* ResasonErrors.plist in Resources */,
 				50B007A71BA09C79002C5723 /* options_disabled_landscape~ipad.png in Resources */,
 				D3EA5405159852080037DC6B /* chat_edit_over.png in Resources */,
 				50B007211BA09C79002C5723 /* dialer_alt_disabled_landscape~ipad.png in Resources */,
@@ -5924,6 +5954,7 @@
 				D3E8F68615ADE05B0065A226 /* UIContactDetailsFooter.m in Sources */,
 				C90FAA7915AF54E6002091CB /* HistoryDetailsViewController.m in Sources */,
 				63FB30351A680E73008CA393 /* UIRoundedImageView.m in Sources */,
+				C6049B231CC0E3E20021D7E4 /* ReasonError.m in Sources */,
 				F066515517F9A02E0064280C /* UITransparentTVCell.m in Sources */,
 				D3F9A9EE15AF277E0045320F /* UACellBackgroundView.m in Sources */,
 				D35860D615B549B500513429 /* Utils.m in Sources */,
@@ -5949,6 +5980,7 @@
 				D3807FF415C2894A005BE9BC /* IASKSettingsStoreUserDefaults.m in Sources */,
 				C66110CE1CC11B1A00180CFC /* NewChatHeaderView.m in Sources */,
 				5E6347981C1111C900042AB4 /* InfColorPickerController.m in Sources */,
+				C6049B1E1CC0D7A90021D7E4 /* ReasonErrorHandler.m in Sources */,
 				D3807FF615C2894A005BE9BC /* IASKSpecifier.m in Sources */,
 				D3807FF815C2894A005BE9BC /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				D3807FFA15C2894A005BE9BC /* IASKPSTextFieldSpecifierViewCell.m in Sources */,

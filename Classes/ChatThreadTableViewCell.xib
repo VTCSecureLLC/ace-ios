@@ -15,10 +15,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOX-fk-FeM" userLabel="Image and Initials Container">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOX-fk-FeM" userLabel="Image and Initials Container">
                         <rect key="frame" x="10" y="12" width="55" height="55"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlB-p3-Lom">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlB-p3-Lom">
                                 <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wlB-p3-Lom" secondAttribute="height" multiplier="1:1" id="4Sr-EE-4uq"/>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wlB-p3-Lom" firstAttribute="top" secondItem="LOX-fk-FeM" secondAttribute="top" id="Fbc-Rs-3sd"/>
                             <constraint firstItem="wlB-p3-Lom" firstAttribute="leading" secondItem="LOX-fk-FeM" secondAttribute="leading" id="IIh-OF-Vfs"/>
@@ -42,6 +42,33 @@
                             <constraint firstAttribute="bottom" secondItem="xs1-jr-Ift" secondAttribute="bottom" id="hww-iD-Pro"/>
                             <constraint firstAttribute="trailing" secondItem="wlB-p3-Lom" secondAttribute="trailing" id="io1-bZ-Zwa"/>
                             <constraint firstAttribute="width" secondItem="LOX-fk-FeM" secondAttribute="height" multiplier="1:1" id="lQ2-Iu-1m3"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GsB-b7-NM1">
+                        <rect key="frame" x="42" y="12" width="23" height="23"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="ATm-aI-hI4">
+                                <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tp-2N-1XE">
+                                <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ATm-aI-hI4" firstAttribute="top" secondItem="GsB-b7-NM1" secondAttribute="top" id="26V-Kw-pJv"/>
+                            <constraint firstAttribute="width" constant="23" id="De8-Ri-ORR"/>
+                            <constraint firstItem="ATm-aI-hI4" firstAttribute="leading" secondItem="GsB-b7-NM1" secondAttribute="leading" id="Ggj-vK-LNl"/>
+                            <constraint firstItem="4tp-2N-1XE" firstAttribute="top" secondItem="GsB-b7-NM1" secondAttribute="top" id="H5X-d5-M1P"/>
+                            <constraint firstAttribute="bottom" secondItem="ATm-aI-hI4" secondAttribute="bottom" id="SqY-Ra-Ak6"/>
+                            <constraint firstAttribute="bottom" secondItem="4tp-2N-1XE" secondAttribute="bottom" id="akr-bC-c9O"/>
+                            <constraint firstItem="4tp-2N-1XE" firstAttribute="leading" secondItem="GsB-b7-NM1" secondAttribute="leading" id="gWM-AA-2u5"/>
+                            <constraint firstAttribute="trailing" secondItem="4tp-2N-1XE" secondAttribute="trailing" id="hmC-UE-5Id"/>
+                            <constraint firstAttribute="trailing" secondItem="ATm-aI-hI4" secondAttribute="trailing" id="uJn-zL-HBp"/>
+                            <constraint firstAttribute="height" constant="23" id="zYS-6z-mXN"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JO0-gh-wVg">
@@ -73,6 +100,8 @@
                     <constraint firstItem="H14-Ir-SbR" firstAttribute="leading" secondItem="wlB-p3-Lom" secondAttribute="trailing" constant="10" id="DKH-Fx-mat"/>
                     <constraint firstItem="H14-Ir-SbR" firstAttribute="top" secondItem="wlB-p3-Lom" secondAttribute="top" constant="4" id="GkW-m7-WhJ"/>
                     <constraint firstItem="JO0-gh-wVg" firstAttribute="leading" secondItem="wlB-p3-Lom" secondAttribute="trailing" constant="10" id="YeX-YB-pxF"/>
+                    <constraint firstItem="GsB-b7-NM1" firstAttribute="top" secondItem="LOX-fk-FeM" secondAttribute="top" id="b7j-y6-2VC"/>
+                    <constraint firstItem="GsB-b7-NM1" firstAttribute="trailing" secondItem="LOX-fk-FeM" secondAttribute="trailing" id="dzr-zI-i7Y"/>
                     <constraint firstItem="PHm-gJ-4Y3" firstAttribute="centerY" secondItem="H14-Ir-SbR" secondAttribute="centerY" id="hYg-cq-Bpw"/>
                     <constraint firstItem="LOX-fk-FeM" firstAttribute="leading" secondItem="Sp0-Gl-BzK" secondAttribute="leading" constant="10" id="lxZ-Cg-0hn"/>
                     <constraint firstAttribute="trailing" secondItem="PHm-gJ-4Y3" secondAttribute="trailing" constant="10" id="ntC-aN-pwh"/>
@@ -82,13 +111,19 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imageAndInitialsContainerView" destination="LOX-fk-FeM" id="KB3-EI-iax"/>
                 <outlet property="initialsLabel" destination="xs1-jr-Ift" id="5Zl-Tg-xcb"/>
                 <outlet property="lastMessageLabel" destination="JO0-gh-wVg" id="Pft-T1-iWS"/>
                 <outlet property="messageDateLabel" destination="PHm-gJ-4Y3" id="eEx-6T-qT0"/>
                 <outlet property="nameLabel" destination="H14-Ir-SbR" id="uuf-Ld-n0i"/>
                 <outlet property="profileImageView" destination="wlB-p3-Lom" id="4gI-v1-1qt"/>
+                <outlet property="unreadMessagesCountIndicatorView" destination="GsB-b7-NM1" id="HJh-JX-yFm"/>
+                <outlet property="unreadMessagesCountLabel" destination="4tp-2N-1XE" id="4mB-aJ-yy1"/>
             </connections>
             <point key="canvasLocation" x="292" y="146"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="empty_indicator" width="23" height="23"/>
+    </resources>
 </document>
