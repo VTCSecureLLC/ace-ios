@@ -171,13 +171,40 @@ static void chatTable_free_chatrooms(void *data) {
     
     [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0]];
     [self.searchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self changeSearchBarDesign];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor blackColor]];
+//
+}
+
+#pragma mark - Private Methods
+- (void)changeSearchBarDesign {
+    
+    UISearchBar *searchBar = self.searchDisplayController.searchBar;
+    [searchBar setImage:[UIImage imageNamed:@"search_icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
+    NSArray *subviews;
+    if (searchBar.subviews.count > 1) {
+        subviews = searchBar.subviews;
+    }
+    else if (searchBar.subviews.count == 1){
+        subviews = [searchBar.subviews firstObject].subviews;
+    }
+    
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[UITextField class]]) {
+            UITextField *searchField = (UITextField *)subview;
+            searchField.backgroundColor = [UIColor colorWithRed:0.4157 green:0.4196 blue:0.4196 alpha:1.0];
+            searchField.textColor = [UIColor colorWithRed:0.102 green:0.1098 blue:0.1137 alpha:1.0];
+            [(UILabel *)[searchField valueForKey:@"_placeholderLabel"] setTextColor:[UIColor colorWithRed:0.102 green:0.1098 blue:0.1137 alpha:1.0]];
+            searchField.borderStyle = UITextBorderStyleNone;
+            searchField.layer.cornerRadius = 4.f;
+            break;
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource Functions
