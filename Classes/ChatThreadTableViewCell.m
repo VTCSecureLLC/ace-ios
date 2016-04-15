@@ -161,7 +161,7 @@
             
             self.lastMessageLabel.textColor = [UIColor colorWithRed:0.854 green:0.2743 blue:0.0719 alpha:1.0];
             self.unreadMessagesCountIndicatorView.hidden = NO;
-            self.unreadMessagesCountLabel.text = [NSString stringWithFormat:@"%lu", unreadMessagesCount];
+            self.unreadMessagesCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)unreadMessagesCount];
         }
         else {
             
