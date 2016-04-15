@@ -493,6 +493,8 @@
 		C65633681C8856FB00EF8EDA /* SecondIncomingCallBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633671C8856FB00EF8EDA /* SecondIncomingCallBarView.xib */; };
 		C656336F1C886F3900EF8EDA /* SecondIncomingCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */; };
 		C65633711C886F3F00EF8EDA /* SecondIncomingCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */; };
+		C66110CE1CC11B1A00180CFC /* NewChatHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C66110CD1CC11B1A00180CFC /* NewChatHeaderView.m */; };
+		C66110D01CC11B6F00180CFC /* NewChatHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C66110CF1CC11B6F00180CFC /* NewChatHeaderView.xib */; };
 		C693490F1CBD22E50083BC71 /* ChatThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C693490D1CBD22E50083BC71 /* ChatThreadTableViewCell.m */; };
 		C69349101CBD22E50083BC71 /* ChatThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C693490E1CBD22E50083BC71 /* ChatThreadTableViewCell.xib */; };
 		C6B2F8BF1C900979006A2B0C /* InCallDialpadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B2F8BE1C900979006A2B0C /* InCallDialpadView.m */; };
@@ -1877,6 +1879,9 @@
 		C656336D1C886F3900EF8EDA /* SecondIncomingCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondIncomingCallView.h; sourceTree = "<group>"; };
 		C656336E1C886F3900EF8EDA /* SecondIncomingCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondIncomingCallView.m; sourceTree = "<group>"; };
 		C65633701C886F3F00EF8EDA /* SecondIncomingCallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondIncomingCallView.xib; sourceTree = "<group>"; };
+		C66110CC1CC11B1A00180CFC /* NewChatHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewChatHeaderView.h; sourceTree = "<group>"; };
+		C66110CD1CC11B1A00180CFC /* NewChatHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewChatHeaderView.m; sourceTree = "<group>"; };
+		C66110CF1CC11B6F00180CFC /* NewChatHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatHeaderView.xib; sourceTree = "<group>"; };
 		C693490C1CBD22E50083BC71 /* ChatThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatThreadTableViewCell.h; sourceTree = "<group>"; };
 		C693490D1CBD22E50083BC71 /* ChatThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatThreadTableViewCell.m; sourceTree = "<group>"; };
 		C693490E1CBD22E50083BC71 /* ChatThreadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatThreadTableViewCell.xib; sourceTree = "<group>"; };
@@ -3550,9 +3555,20 @@
 			name = "Second Incoming Call View";
 			sourceTree = "<group>";
 		};
+		C66110C71CC11AFE00180CFC /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				C66110CC1CC11B1A00180CFC /* NewChatHeaderView.h */,
+				C66110CD1CC11B1A00180CFC /* NewChatHeaderView.m */,
+				C66110CF1CC11B6F00180CFC /* NewChatHeaderView.xib */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
 		C69349061CBD22C30083BC71 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				C66110C71CC11AFE00180CFC /* Header */,
 				C693490B1CBD22D50083BC71 /* Cell */,
 				D3EA540B1598528B0037DC6B /* ChatTableViewController.h */,
 				D3EA540C1598528B0037DC6B /* ChatTableViewController.m */,
@@ -5453,6 +5469,7 @@
 				50B008351BA09C79002C5723 /* test_failed.png in Resources */,
 				D38187F415FE354700C3EDCA /* UIContactDetailsFooter.xib in Resources */,
 				D32D5AA715ADE5D9008593F3 /* button_alert_background_default.png in Resources */,
+				C66110D01CC11B6F00180CFC /* NewChatHeaderView.xib in Resources */,
 				D32D5AA915ADE5D9008593F3 /* button_alert_background_over.png in Resources */,
 				50B007161BA09C79002C5723 /* dialer_alt_back_default~ipad.png in Resources */,
 				50B0082A1BA09C79002C5723 /* speaker_on_disabled~ipad.png in Resources */,
@@ -5930,6 +5947,7 @@
 				D3807FF015C2894A005BE9BC /* IASKSettingsStore.m in Sources */,
 				D3807FF215C2894A005BE9BC /* IASKSettingsStoreFile.m in Sources */,
 				D3807FF415C2894A005BE9BC /* IASKSettingsStoreUserDefaults.m in Sources */,
+				C66110CE1CC11B1A00180CFC /* NewChatHeaderView.m in Sources */,
 				5E6347981C1111C900042AB4 /* InfColorPickerController.m in Sources */,
 				D3807FF615C2894A005BE9BC /* IASKSpecifier.m in Sources */,
 				D3807FF815C2894A005BE9BC /* IASKPSSliderSpecifierViewCell.m in Sources */,
