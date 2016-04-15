@@ -26,10 +26,8 @@
 }
 
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if ([self.visibleViewController isKindOfClass:[InCallViewControllerNew class]]) {
-        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
-    }
-    return UIInterfaceOrientationMaskPortrait;
+
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end
