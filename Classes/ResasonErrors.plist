@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LinphoneReasonNone</key>
+	<dict>
+		<key>message</key>
+		<string></string>
+		<key>code</key>
+		<integer>200</integer>
+	</dict>
+	<key>LinphoneReasonNoResponse</key>
+	<dict>
+		<key>message</key>
+		<string>The called terminal was not reachable because of technical reasons.</string>
+		<key>code</key>
+		<integer>408</integer>
+	</dict>
+	<key>LinphoneReasonForbidden</key>
+	<dict>
+		<key>message</key>
+		<string>The call did not go through because  of access rights failure.</string>
+		<key>code</key>
+		<integer>0</integer>
+	</dict>
+	<key>LinphoneReasonDeclined</key>
+	<dict>
+		<key>message</key>
+		<string>The call has been declined.</string>
+		<key>code</key>
+		<integer>603</integer>
+	</dict>
+	<key>LinphoneReasonNotFound</key>
+	<dict>
+		<key>message</key>
+		<string>The number or address could not be found.</string>
+		<key>code</key>
+		<integer>404</integer>
+	</dict>
+	<key>LinphoneReasonNotAnswered</key>
+	<dict>
+		<key>message</key>
+		<string>No answer.</string>
+		<key>code</key>
+		<integer>0</integer>
+	</dict>
+	<key>LinphoneReasonBusy</key>
+	<dict>
+		<key>message</key>
+		<string>The number or address you are trying to reach is busy.</string>
+		<key>code</key>
+		<integer>486</integer>
+	</dict>
+	<key>LinphoneReasonUnsupportedContent</key>
+	<dict>
+		<key>message</key>
+		<string>The called terminal has no media in common with yours.</string>
+		<key>code</key>
+		<integer>488</integer>
+	</dict>
+	<key>LinphoneReasonIOError</key>
+	<dict>
+		<key>message</key>
+		<string>Communication error: Bad network connection.</string>
+		<key>code</key>
+		<integer>0</integer>
+	</dict>
+	<key>LinphoneReasonDoNotDisturb</key>
+	<dict>
+		<key>message</key>
+		<string>The call failed becuse of communication problems.</string>
+		<key>code</key>
+		<integer>0</integer>
+	</dict>
+	<key>LinphoneReasonUnauthorized</key>
+	<dict>
+		<key>message</key>
+		<string>The call failed because it requires authorization.</string>
+		<key>code</key>
+		<integer>494</integer>
+	</dict>
+	<key>LinphoneReasonNotAcceptable</key>
+	<dict>
+		<key>message</key>
+		<string>The call was not accepted of technical reasons by the called terminal.</string>
+		<key>code</key>
+		<integer>406</integer>
+	</dict>
+	<key>LinphoneReasonNoMatch</key>
+	<dict>
+		<key>message</key>
+		<string>Call failed because called terminal detected and error.</string>
+		<key>code</key>
+		<integer>400</integer>
+	</dict>
+	<key>LinphoneReasonMovedPermanently</key>
+	<dict>
+		<key>message</key>
+		<string>The called person or organization has changed their number or call address.</string>
+		<key>code</key>
+		<integer>301</integer>
+	</dict>
+	<key>LinphoneReasonGone</key>
+	<dict>
+		<key>message</key>
+		<string>The number/address you are trying to reach is no longer available.</string>
+		<key>code</key>
+		<integer>604</integer>
+	</dict>
+	<key>LinphoneReasonTemporarilyUnavailable</key>
+	<dict>
+		<key>message</key>
+		<string>The person or organization you are trying to reach is not available at this time.  Check the number or address or try again later.</string>
+		<key>code</key>
+		<integer>480</integer>
+	</dict>
+	<key>LinphoneReasonAddressIncomplete</key>
+	<dict>
+		<key>message</key>
+		<string>The address was incomplete. Please try again.</string>
+		<key>code</key>
+		<integer>484</integer>
+	</dict>
+	<key>LinphoneReasonNotImplemented</key>
+	<dict>
+		<key>message</key>
+		<string>The call failed because of a service error.</string>
+		<key>code</key>
+		<integer>501</integer>
+	</dict>
+	<key>LinphoneReasonBadGateway</key>
+	<dict>
+		<key>message</key>
+		<string>Call failed because of error in the communication service.</string>
+		<key>code</key>
+		<integer>502</integer>
+	</dict>
+	<key>LinphoneReasonServerTimeout</key>
+	<dict>
+		<key>message</key>
+		<string>The call failed because of a service timeout error.</string>
+		<key>code</key>
+		<integer>504</integer>
+	</dict>
+	<key>LinphoneReasonUnknown</key>
+	<dict>
+		<key>message</key>
+		<string>The call failed of an unknown error.</string>
+		<key>code</key>
+		<integer>0</integer>
+	</dict>
+</dict>
+</plist>

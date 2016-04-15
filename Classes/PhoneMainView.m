@@ -26,6 +26,7 @@
 #import "DTActionSheet.h"
 #import "UIManager.h"
 #import "IncomingCallViewControllerNew.h"
+#import "ReasonErrorHandler.h"
 
 
 
@@ -721,23 +722,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 		lMessage = [NSString stringWithFormat:NSLocalizedString(@"Cannot call %@.", nil), lUserName];
 	}
 
-	switch (linphone_call_get_reason(call)) {
-		case LinphoneReasonNotFound:
-			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is not registered.", nil), lUserName];
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
-			break;
-		case LinphoneReasonBusy:
-			lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
-			break;
-        case LinphoneReasonDeclined:
-            lMessage = NSLocalizedString(@"The user is not available", nil);
-            break;
-		default:
-			if (message != nil) {
-				lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];
-			}
-			break;
-	}
+    [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
 
 	lTitle = NSLocalizedString(@"Call failed", nil);
 	UIAlertView *error = [[UIAlertView alloc] initWithTitle:lTitle
