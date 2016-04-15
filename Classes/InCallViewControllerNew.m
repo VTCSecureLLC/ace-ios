@@ -23,6 +23,8 @@
 #import "PhoneMainView.h"
 #import "CRToast.h"
 #include <math.h>
+#import "ReasonErrorHandler.h"
+
 #define kBottomButtonsAnimationDuration     0.3f
 #define kRTTContainerAnimationDuration      0.3f
 #define RTT_MAX_PARAGRAPH_CHAR              250
@@ -546,22 +548,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         lMessage = [NSString stringWithFormat:NSLocalizedString(@"Cannot call %@.", nil), lUserName];
     }
     
-    switch (linphone_call_get_reason(call)) {
-        case LinphoneReasonNotFound:
-            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is not registered.", nil), lUserName];
-            break;
-        case LinphoneReasonBusy:
-            lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is busy.", nil), lUserName];
-            break;
-        case LinphoneReasonDeclined:
-            lMessage = NSLocalizedString(@"The user is not available", nil);
-            break;
-        default:
-            if (message != nil) {
-                lMessage = [NSString stringWithFormat:NSLocalizedString(@"%@\nReason was: %@", nil), lMessage, message];
-            }
-            break;
-    }
+    [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
     
     [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     
