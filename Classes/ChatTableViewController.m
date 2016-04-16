@@ -26,8 +26,11 @@
 #import "UILinphone.h"
 #import "Utils.h"
 #import "ChatThreadTableViewCell.h"
+#import "NewChatHeaderView.h"
 
-static NSString * const chatThreadCellIdentifier = @"ChatThreadCell";
+static NSString * const chatThreadCellIdentifier    = @"ChatThreadCell";
+static NSString * const newChatHeaderViewIdentifier = @"NewChatHeaderView";
+
 
 @interface ChatTableViewController ()
 
@@ -71,8 +74,15 @@ static NSString * const chatThreadCellIdentifier = @"ChatThreadCell";
 	[self loadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor blackColor]];
+}
 
-#pragma mark - Private Methods
+
+
+#pragma mark - Instance Methods
 static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRoom *elem) {
 	LinphoneChatMessage *last_new_message = linphone_chat_room_get_user_data(to_insert);
 	LinphoneChatMessage *last_elem_message = linphone_chat_room_get_user_data(elem);
@@ -110,6 +120,10 @@ static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRo
 }
 
 - (MSList *)filterChatRoomsWithSearchText:(NSString *)searchText {
+    
+    if (!searchText) {
+        return nil;
+    }
     
     MSList *filtered = nil;
     const MSList *current = self.data;
@@ -168,16 +182,31 @@ static void chatTable_free_chatrooms(void *data) {
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ChatThreadTableViewCell class]) bundle:nil]
          forCellReuseIdentifier:chatThreadCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([NewChatHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:newChatHeaderViewIdentifier];
     
     [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithRed:0.1843 green:0.1961 blue:0.1961 alpha:1.0]];
     [self.searchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self changeSearchBarDesign];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)startChatRoomWithAddress:(NSString *)address {
     
-//
+    LinphoneChatRoom *room = linphone_core_get_chat_room_from_uri([LinphoneManager getLc], [address UTF8String]);
+    if (room != nil) {
+        ChatRoomViewController *controller = DYNAMIC_CAST(
+                                                          [[PhoneMainView instance] changeCurrentView:[ChatRoomViewController compositeViewDescription] push:TRUE],
+                                                          ChatRoomViewController);
+        if (controller != nil) {
+            [controller setChatRoom:room];
+        }
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid address", nil)
+                                                        message:@"Please specify the entire SIP address for the chat"
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - Private Methods
@@ -206,11 +235,11 @@ static void chatTable_free_chatrooms(void *data) {
         }
     }
 }
-
 #pragma mark - UITableViewDataSource Functions
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+    
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -244,6 +273,39 @@ static void chatTable_free_chatrooms(void *data) {
 
 
 #pragma mark - UITableViewDelegate Functions
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView && ms_list_size(self.filteredData) == 0) {
+        
+        NewChatHeaderView *headerView = (NewChatHeaderView *)[self.tableView dequeueReusableHeaderFooterViewWithIdentifier:newChatHeaderViewIdentifier];
+        UISearchBar *searchBar = self.searchDisplayController.searchBar;
+        [headerView setNewChatName:searchBar.text];
+        
+        __weak ChatTableViewController *weakSelf = self;
+        headerView.headerActionBlock = ^{
+            
+            [weakSelf startChatRoomWithAddress:searchBar.text];
+            self.searchDisplayController.active = NO;
+            [weakSelf.tableView reloadData];
+        };
+        
+        return headerView;
+    }
+    else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView && ms_list_size(self.filteredData) == 0) {
+        return 44;
+    }
+    else {
+        return 0;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 80;
