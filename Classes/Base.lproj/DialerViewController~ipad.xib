@@ -512,6 +512,7 @@ EFR3byBCdXR0b24
                             <rect key="frame" x="2" y="2" width="126" height="85"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Provider Dropdown"/>
                             <state key="normal" backgroundImage="atbutton_new.png">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -521,7 +522,7 @@ EFR3byBCdXR0b24
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="21" userLabel="callButton" customClass="UICallButton">
-                            <rect key="frame" x="130.99999988421058" y="2" width="244" height="85"/>
+                            <rect key="frame" x="130.99999976656855" y="2" width="244" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.08235294118" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="Call"/>
