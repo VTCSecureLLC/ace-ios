@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AcceptanceVC">
@@ -20,6 +20,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXX-Wj-SQL">
                     <rect key="frame" x="186" y="549" width="70" height="35"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" label="Accept Button"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="8Ul-ig-QhQ"/>
                         <constraint firstAttribute="height" constant="35" id="Bbb-1p-XHH"/>
@@ -35,7 +36,7 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qPl-qs-pPw">
                     <rect key="frame" x="14" y="30" width="572" height="507"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <mutableString key="text" base64-UTF8="YES">
+                    <string key="text" base64-UTF8="YES">
 CgkxMi8yOS8yMDE1IERSQUZUCkVOR0xJU0gKCklNUE9SVEFOVDogQlkgVVNJTkcgVEhFIEFDRSBBUFAg
 WU9VIEFSRSBBR1JFRUlORyBUTyBCRSBCT1VORCBCWSBUSEUgVEVSTVMKQU5EIENPTkRJVElPTlMgT0Yg
 VEhJUyBTT0ZUV0FSRSBMSUNFTlNFIEFHUkVFTUVOVC4KCgoKClZUQ1NFQ1VSRSwgTExDClNPRlRXQVJF
@@ -355,7 +356,7 @@ IHJlbWVkeSBvciBhbnkgb3RoZXIgcmlnaHQgb3IgcmVtZWR5LiBBIHdhaXZlciBvbiBvbmUgb2NjYXNp
 b24gd2lsbCBub3QgYmUgY29uc3RydWVkIGFzIGEgd2FpdmVyIG9mIGFueSByaWdodCBvciByZW1lZHkg
 b24gYW55IGZ1dHVyZSBvY2Nhc2lvbi4KX19fXyBJIEFDQ0VQVCBUSEUgRk9SRUdPSU5HIExJQ0VOU0Ug
 VEVSTVMgQU5EIENPTkRJVElPTlMuCg
-</mutableString>
+</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <connections>
@@ -376,6 +377,7 @@ VEVSTVMgQU5EIENPTkRJVElPTlMuCg
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vA-k4-yg5">
                     <rect key="frame" x="344" y="549" width="70" height="35"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" label="Decline Button"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="GBY-Fa-VrT"/>
                         <constraint firstAttribute="width" constant="70" id="WOy-JE-PVp"/>
