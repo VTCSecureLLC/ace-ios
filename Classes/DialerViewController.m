@@ -166,7 +166,14 @@ static UICompositeViewDescription *compositeDescription = nil;
 	
 
 	[addressField setText:@""];
-
+    
+    /**VATRP-3624: Ensure video capture / display is always on. Going forward all init 
+        logic should be moved to a helper class when we refactor after GoLive.**/
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"accept_video_preference"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"start_video_preference"];
+    linphone_core_enable_video_capture([LinphoneManager getLc], TRUE);
+    linphone_core_enable_video_display([LinphoneManager getLc], TRUE);
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
 //	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
