@@ -157,6 +157,10 @@
     
     if (lastMessage) {
         
+        if ([lastMessage hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+            lastMessage = [lastMessage substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+        }
+        
         if (unreadMessagesCount > 0) {
             
             self.lastMessageLabel.textColor = [UIColor colorWithRed:0.854 green:0.2743 blue:0.0719 alpha:1.0];
