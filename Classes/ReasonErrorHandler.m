@@ -12,7 +12,7 @@
 #define kReasonErrorFile   @"ResasonErrors"
 #define kAlertDismissDelay 5.f
 
-@interface ReasonErrorHandler ()
+@interface ReasonErrorHandler () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIAlertView *errorAlertView;
 
@@ -96,18 +96,24 @@
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:nil, nil];
+    self.errorAlertView.delegate = self;
     [self.errorAlertView show];
     [self performSelector:@selector(dismissAlertWithError:) withObject:reasonError afterDelay:kAlertDismissDelay];
 }
 
 - (void)dismissAlertWithError:(ReasonError *)error {
     
-    if (self.alertViewWillDismissComplitionBlock) {
-        self.alertViewWillDismissComplitionBlock(error);
-    }
-    
     [self.errorAlertView dismissWithClickedButtonIndex:0 animated:YES];
     self.errorAlertView = nil;
+}
+
+#pragma mark - 
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if (self.alertViewWillDismissComplitionBlock) {
+        self.alertViewWillDismissComplitionBlock(nil);
+    }
 }
 
 @end

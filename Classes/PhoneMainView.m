@@ -705,32 +705,11 @@ static RootViewManager *rootViewManagerInstance = nil;
 }
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
-	const char *lUserNameChars = linphone_address_get_username(linphone_call_get_remote_address(call));
-	NSString *lUserName =
-		lUserNameChars ? [[NSString alloc] initWithUTF8String:lUserNameChars] : NSLocalizedString(@"Unknown", nil);
-	NSString *lMessage;
-	NSString *lTitle;
-
-	// get default proxy
-	LinphoneProxyConfig *proxyCfg;
-	linphone_core_get_default_proxy([LinphoneManager getLc], &proxyCfg);
-	if (proxyCfg == nil) {
-		lMessage = NSLocalizedString(@"Please make sure your device is connected to the internet and double check your "
-									 @"SIP account configuration in the settings.",
-									 nil);
-	} else {
-		lMessage = [NSString stringWithFormat:NSLocalizedString(@"Cannot call %@.", nil), lUserName];
-	}
-
+    
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
-
-	lTitle = NSLocalizedString(@"Call failed", nil);
-	UIAlertView *error = [[UIAlertView alloc] initWithTitle:lTitle
-													message:lMessage
-												   delegate:nil
-										  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-										  otherButtonTitles:nil];
-	[error show];
+    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
+        [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+    };
 }
 
 - (void)addInhibitedEvent:(id)event {
