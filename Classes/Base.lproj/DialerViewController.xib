@@ -58,23 +58,10 @@
                             <nil key="highlightedColor"/>
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
-                        <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dial Number" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="15" id="4" userLabel="addressField" customClass="UIAddressTextField">
-                            <rect key="frame" x="45" y="18" width="277" height="39"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <accessibility key="accessibilityConfiguration" label="Enter an address"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
-                            <connections>
-                                <action selector="onAddressChange:" destination="-1" eventType="editingChanged" id="208"/>
-                                <outlet property="delegate" destination="-1" id="190"/>
-                            </connections>
-                        </textField>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="mQY-cH-kOP" userLabel="addContactButton">
                             <rect key="frame" x="13" y="21" width="32" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="Add to contact"/>
+                            <accessibility key="accessibilityConfiguration" label="Add Contact Button"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="add_contact_circle.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,7 +75,7 @@
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="185" userLabel="backspaceButton" customClass="UIEraseButton">
                             <rect key="frame" x="324" y="25" width="39" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="Backspace"/>
+                            <accessibility key="accessibilityConfiguration" label="Backspace Button"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" image="backspace_new.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,6 +86,19 @@
                                 <outlet property="addressField" destination="4" id="252"/>
                             </connections>
                         </button>
+                        <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dial Number" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="15" id="4" userLabel="addressField" customClass="UIAddressTextField">
+                            <rect key="frame" x="47" y="17" width="277" height="39"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Address Field"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
+                            <connections>
+                                <action selector="onAddressChange:" destination="-1" eventType="editingChanged" id="208"/>
+                                <outlet property="delegate" destination="-1" id="190"/>
+                            </connections>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -110,7 +110,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="126" height="111"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <accessibility key="accessibilityConfiguration" label="1"/>
+                            <accessibility key="accessibilityConfiguration" label="One Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -131,7 +131,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="37" userLabel="2" customClass="UIDigitButton" colorLabel="IBBuiltInLabel-Red">
                             <rect key="frame" x="126" y="0.0" width="125" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="2"/>
+                            <accessibility key="accessibilityConfiguration" label="Two Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -160,7 +160,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="29" userLabel="3" customClass="UIDigitButton">
                             <rect key="frame" x="251" y="0.0" width="124" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="3"/>
+                            <accessibility key="accessibilityConfiguration" label="Three Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -189,7 +189,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="30" userLabel="4" customClass="UIDigitButton">
                             <rect key="frame" x="0.0" y="111" width="126" height="111"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="4"/>
+                            <accessibility key="accessibilityConfiguration" label="Four Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -218,7 +218,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="31" userLabel="5" customClass="UIDigitButton">
                             <rect key="frame" x="126" y="111" width="125" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="5"/>
+                            <accessibility key="accessibilityConfiguration" label="Five Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -247,7 +247,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="33" userLabel="6" customClass="UIDigitButton">
                             <rect key="frame" x="251" y="111" width="124" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="6"/>
+                            <accessibility key="accessibilityConfiguration" label="Six Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -276,7 +276,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="34" userLabel="7" customClass="UIDigitButton">
                             <rect key="frame" x="0.0" y="222" width="126" height="111"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="7"/>
+                            <accessibility key="accessibilityConfiguration" label="Seven Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -305,7 +305,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="35" userLabel="8" customClass="UIDigitButton">
                             <rect key="frame" x="126" y="222" width="125" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="8"/>
+                            <accessibility key="accessibilityConfiguration" label="Eight Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -334,7 +334,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="36" userLabel="9" customClass="UIDigitButton">
                             <rect key="frame" x="251" y="222" width="124" height="111"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="9"/>
+                            <accessibility key="accessibilityConfiguration" label="Nine Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -363,7 +363,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="40" userLabel="0" customClass="UIDigitButtonLongPlus">
                             <rect key="frame" x="126" y="335" width="125" height="108"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="0"/>
+                            <accessibility key="accessibilityConfiguration" label="Zero Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment>
@@ -392,7 +392,7 @@
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="39" userLabel="*" customClass="UIDigitButton">
                             <rect key="frame" x="0.0" y="335" width="126" height="108"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            <accessibility key="accessibilityConfiguration" label="Star"/>
+                            <accessibility key="accessibilityConfiguration" label="Asterisk Button"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="0.0"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
@@ -414,7 +414,7 @@
                             <rect key="frame" x="251" y="335" width="124" height="108"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <accessibility key="accessibilityConfiguration" label="Sharp"/>
+                            <accessibility key="accessibilityConfiguration" label="Hash Button"/>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
                                     <fragment content="#">
@@ -453,7 +453,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="184" userLabel="addCallButton" customClass="UICallButton">
-                            <rect key="frame" x="124.00000008940702" y="3" width="248" height="120"/>
+                            <rect key="frame" x="123.99999990842409" y="3" width="248" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Add call"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -484,6 +484,7 @@
                             <rect key="frame" x="2" y="3" width="121" height="117"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Provider Dropdown"/>
                             <state key="normal" backgroundImage="atbutton_new.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -492,10 +493,10 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="224" userLabel="callButton" customClass="UICallButton">
-                            <rect key="frame" x="127" y="3" width="245.00000008832549" height="117"/>
+                            <rect key="frame" x="127" y="3" width="244.99999990953182" height="117"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.08235294118" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="Call"/>
+                            <accessibility key="accessibilityConfiguration" label="Call Button"/>
                             <inset key="contentEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" backgroundImage="call_new.png">
                                 <attributedString key="attributedTitle">

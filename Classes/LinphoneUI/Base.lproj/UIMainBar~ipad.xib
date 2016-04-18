@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -55,6 +55,9 @@
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="History Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="jJe-Yy-FtF" secondAttribute="trailing" id="0bz-2u-Frp"/>
                                 <constraint firstAttribute="bottom" secondItem="jJe-Yy-FtF" secondAttribute="bottom" id="Amc-eo-Eko"/>
@@ -94,6 +97,9 @@
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Contacts Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="haQ-lc-5md" firstAttribute="leading" secondItem="Atr-Hc-W0m" secondAttribute="leading" id="3g0-Gp-wX0"/>
                                 <constraint firstAttribute="trailing" secondItem="H3M-Yz-bcL" secondAttribute="trailing" id="9dg-mw-WDG"/>
@@ -133,6 +139,9 @@
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Dialpad Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="aD6-iy-CIE" secondAttribute="trailing" id="5ZN-pG-gLG"/>
                                 <constraint firstItem="aD6-iy-CIE" firstAttribute="top" secondItem="O0K-n6-awA" secondAttribute="top" id="6dh-Dr-VzS"/>
@@ -188,6 +197,9 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Chat Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="dxw-Y8-waj" secondAttribute="bottom" constant="5" id="4kt-Jf-dpe"/>
                                 <constraint firstItem="3Y3-Ko-kgK" firstAttribute="top" secondItem="qNr-jY-IYr" secondAttribute="top" id="5E8-ho-8DU"/>
@@ -249,6 +261,9 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="More Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="PGn-0X-U7Z" firstAttribute="leading" secondItem="vAX-2T-PSo" secondAttribute="leading" id="4Ij-ZG-g0X"/>
                                 <constraint firstItem="N05-YJ-dSU" firstAttribute="top" secondItem="vAX-2T-PSo" secondAttribute="top" constant="8" id="5Oy-ro-o9b"/>
@@ -313,6 +328,9 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Self Preview Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="2MW-Jb-J8e" firstAttribute="top" secondItem="R7F-52-85G" secondAttribute="top" id="5L5-iy-tdt"/>
                                 <constraint firstAttribute="trailing" secondItem="2MW-Jb-J8e" secondAttribute="trailing" id="8Ac-kT-PdJ"/>
@@ -353,6 +371,9 @@
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Videomail Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="T3s-NN-Z4K" firstAttribute="top" secondItem="CNi-f4-eEW" secondAttribute="top" id="UjK-AM-6P2"/>
                                 <constraint firstAttribute="bottom" secondItem="T3s-NN-Z4K" secondAttribute="bottom" id="bwE-Gd-kAE"/>
@@ -385,6 +406,9 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Resources Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="qxy-eg-ki3" firstAttribute="leading" secondItem="H62-Ao-hNn" secondAttribute="leading" id="0ja-mO-86a"/>
                                 <constraint firstAttribute="bottom" secondItem="qxy-eg-ki3" secondAttribute="bottom" id="SmJ-qe-A23"/>
@@ -416,6 +440,9 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Settings Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="KXw-r2-Xiq" secondAttribute="trailing" id="6qJ-kk-BWB"/>
                                 <constraint firstAttribute="bottom" secondItem="KXw-r2-Xiq" secondAttribute="bottom" id="8tm-M4-Fms"/>
