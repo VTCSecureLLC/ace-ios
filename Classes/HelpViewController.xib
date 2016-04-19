@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpViewController">
@@ -17,18 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GcR-KA-frx">
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GcR-KA-frx">
                     <rect key="frame" x="0.0" y="278" width="600" height="44"/>
                     <items>
                         <navigationItem title="Title" id="7Xw-kj-Qzc"/>
                     </items>
                 </navigationBar>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t32-yb-Sag">
-                    <rect key="frame" x="-13" y="0.0" width="613" height="600"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t32-yb-Sag">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="t32-yb-Sag" secondAttribute="height" multiplier="613:600" id="LVJ-1u-dSo"/>
-                    </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="JE4-h3-hT0"/>
                         <outlet property="delegate" destination="-1" id="6XH-yF-yds"/>
@@ -36,6 +32,15 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="t32-yb-Sag" secondAttribute="trailing" id="48j-JD-YAb"/>
+                <constraint firstItem="GcR-KA-frx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5xv-rN-fNi"/>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="trailing" secondItem="GcR-KA-frx" secondAttribute="trailing" id="9on-i5-TWx"/>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="AtM-1l-ovc"/>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="centerY" secondItem="GcR-KA-frx" secondAttribute="centerY" id="oDX-SV-L52"/>
+                <constraint firstAttribute="bottom" secondItem="t32-yb-Sag" secondAttribute="bottom" id="pbB-1P-bNL"/>
+                <constraint firstItem="t32-yb-Sag" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="v0Q-67-S7Z"/>
+            </constraints>
         </view>
     </objects>
 </document>
