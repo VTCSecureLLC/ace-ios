@@ -670,15 +670,16 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)resourcesButtonAction:(UIButton *)sender {
-    ResourcesViewController *resourcesController = [[ResourcesViewController alloc] init];
-    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-    
-    if (sysVer >= 8.0) {
-        [self showViewController:resourcesController sender:self];
-    }
-    else{
-        [self presentViewController:resourcesController animated:YES completion:nil];
-    }
+//    ResourcesViewController *resourcesController = [[ResourcesViewController alloc] init];
+//    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
+//    
+//    if (sysVer >= 8.0) {
+//        [self showViewController:resourcesController sender:self];
+//    }
+//    else{
+//        [self presentViewController:resourcesController animated:YES completion:nil];
+//    }
+    [[PhoneMainView instance] changeCurrentView:[HelpViewController compositeViewDescription]];
     [self hideMoreMenu];
 }
 
