@@ -17,7 +17,7 @@ env:
 before_install:
 - "./Tools/dependencies.sh"
 install:
-- "./Tools/travis_depends.sh”
+- "./Tools/travis_depends.sh"
 - "./Tools/travis_compile.sh"
 script:
 - "./Tools/archive_script.sh"
