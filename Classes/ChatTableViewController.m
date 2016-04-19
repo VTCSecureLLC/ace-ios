@@ -141,18 +141,20 @@ static int sorted_history_comparison(LinphoneChatRoom *to_insert, LinphoneChatRo
             
             NSString *displayName = nil;
             ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+            char *address = linphone_address_as_string(linphoneAddress);
+            NSString *trimmerdAddress = [[NSString stringWithUTF8String:address] substringFromIndex:@"sip:".length];
+            ms_free(address);
+            
             if (contact != nil) {
-                displayName = [FastAddressBook getContactDisplayName:contact];
+                displayName = [NSString stringWithFormat:@"%@ %@", [FastAddressBook getContactDisplayName:contact], trimmerdAddress];
             }
             
             if (displayName == nil) {
                 const char *username = linphone_address_get_username(linphoneAddress);
-                char *address = linphone_address_as_string(linphoneAddress);
-                displayName = [NSString stringWithUTF8String:username ?: address];
-                ms_free(address);
+                displayName = [NSString stringWithFormat:@"%s %@", username, trimmerdAddress];
             }
             
-            if ([[displayName lowercaseString] hasPrefix:[searchText lowercaseString]]) {
+            if ([[displayName lowercaseString] rangeOfString:[searchText lowercaseString]].location != NSNotFound) {
                 filtered = ms_list_insert(filtered, filtered, chat_room);
             }
         }
