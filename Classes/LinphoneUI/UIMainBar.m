@@ -38,6 +38,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *videomailCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *videomailIndicatorView;
 @property (weak, nonatomic) IBOutlet UIView *messageIndicatorView;
+@property (weak, nonatomic) IBOutlet UIView *missedCallIndicatorView;
+@property (weak, nonatomic) IBOutlet UILabel *missedCallCountLabel;
 
 @end
 
@@ -81,30 +83,15 @@ static NSString *const kDisappearAnimation = @"disappear";
                                                  name:kLinphoneCallUpdate
                                                object:nil];
 
-    [self updateVidoemailState];
-    [self checkVideomailIndicator];
+//    [self updateVidoemailState];
+//    [self checkVideomailIndicator];
     
     
     //Remove Unread Messages Count on iPhone
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textReceived:)
                                                  name:kLinphoneTextReceived
                                                object:nil];
-    
-    
-    
-    //	[[NSNotificationCenter defaultCenter] addObserver:self
-    //											 selector:@selector(settingsUpdate:)
-    //												 name:kLinphoneSettingsUpdate
-    //											   object:nil];
-    //
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(kAppSettingChanged:)
-    //                                                 name:kIASKAppSettingChanged
-    //                                               object:nil];
-
-    
     
     
 //	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -160,6 +147,14 @@ static NSString *const kDisappearAnimation = @"disappear";
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
+    __weak UIMainBar *weakSelf = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      [weakSelf updateUnreadMessagesIndicator];
+                                                      [weakSelf updateMissedCallIndicatorStateWithAnimationAppear:YES];
+                                                  }];
     
     self.videomailCountLabel.layer.borderColor = [UIColor whiteColor].CGColor;
     self.videomailCountLabel.layer.borderWidth = 1.f;
@@ -254,18 +249,14 @@ static NSString *const kDisappearAnimation = @"disappear";
             NSLog(@"%@", [e description]);
         }
     }
-    
-    //    if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
-    //        [self.chatNotificationView setHidden:YES];
-    //    }
-    //    else{
-    //        NSInteger mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
-    //        if(mwiCount > 0){
-    //            [self.chatNotificationView setHidden:NO];
-    //            [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
-    //        }
-    //    }
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self updateUnreadMessagesIndicator];
+}
+
 //
 //- (void)setColorChnageObservers {
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -279,6 +270,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 //}
 
 - (void)viewDidUnload {
+    
     [super viewDidUnload];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -334,17 +326,16 @@ static NSString *const kDisappearAnimation = @"disappear";
 - (void)applicationWillEnterForeground:(NSNotification *)notif {
     // Force the animations
     [[self.view layer] removeAllAnimations];
-    //	[historyNotificationView.layer setTransform:CATransform3DIdentity];
-    //	[chatNotificationView.layer setTransform:CATransform3DIdentity];
-    //[chatNotificationView setHidden:TRUE];
-    //	[historyNotificationView setHidden:TRUE];
+    [self.missedCallIndicatorView.layer setTransform:CATransform3DIdentity];
+    [self.messageIndicatorView.layer setTransform:CATransform3DIdentity];
+    [self.missedCallIndicatorView setHidden:TRUE];
+    [self.missedCallIndicatorView setHidden:TRUE];
     [self update:FALSE];
 }
 
 - (void)callUpdate:(NSNotification *)notif {
-    // LinphoneCall *call = [[notif.userInfo objectForKey: @"call"] pointerValue];
-    // LinphoneCallState state = [[notif.userInfo objectForKey: @"state"] intValue];
-    //	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:TRUE];
+    
+    [self updateMissedCallIndicatorStateWithAnimationAppear:YES];
 }
 
 - (void)changeViewEvent:(NSNotification *)notif {
@@ -478,8 +469,9 @@ static NSString *const kDisappearAnimation = @"disappear";
 #pragma mark -
 
 - (void)update:(BOOL)appear {
+    
     [self updateView:[[PhoneMainView instance] firstView]];
-    //	[self updateMissedCall:linphone_core_get_missed_calls_count([LinphoneManager getLc]) appear:appear];
+    [self updateMissedCallIndicatorStateWithAnimationAppear:YES];
     
     //Remove Unread Messages Count on iPhone
     
@@ -491,13 +483,17 @@ static NSString *const kDisappearAnimation = @"disappear";
     
     if ([self unreadMessagesIndicatorState]) {
         
-        self.messageIndicatorView.hidden = ![self unreadMessagesIndicatorState];
-        [self appearAnimation:kAppearAnimation target:self.messageIndicatorView
-         							   completion:^(BOOL finished) {
-                                           [self startBounceAnimation:kBounceAnimation target:self.messageIndicatorView];
-                                       }];
+        if (self.messageIndicatorView.hidden) {
+            self.messageIndicatorView.hidden = ![self unreadMessagesIndicatorState];
+            if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+                [self appearAnimation:kAppearAnimation target:self.messageIndicatorView
+                           completion:^(BOOL finished) {
+                               [self startBounceAnimation:kBounceAnimation target:self.messageIndicatorView];
+                           }];
+            }
+        }
     }
-    else {
+    else if(!self.messageIndicatorView.hidden) {
         
         [self stopBounceAnimation:kBounceAnimation target:self.messageIndicatorView];
         [self disappearAnimation:kDisappearAnimation target:self.messageIndicatorView
@@ -507,40 +503,42 @@ static NSString *const kDisappearAnimation = @"disappear";
     }
 }
 
-//- (void)updateMissedCall:(int)missedCall appear:(BOOL)appear {
-//	if (missedCall > 0) {
-//		if ([historyNotificationView isHidden]) {
-//			[historyNotificationView setHidden:FALSE];
-//			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
-//				if (appear) {
-//					[self appearAnimation:kAppearAnimation
-//								   target:historyNotificationView
-//							   completion:^(BOOL finished) {
-//								 [self startBounceAnimation:kBounceAnimation target:historyNotificationView];
-//								 [historyNotificationView.layer removeAnimationForKey:kAppearAnimation];
-//							   }];
-//				} else {
-//					[self startBounceAnimation:kBounceAnimation target:historyNotificationView];
-//				}
-//			}
-//		}
-//		[historyNotificationLabel setText:[NSString stringWithFormat:@"%i", missedCall]];
-//	} else {
-//		if (![historyNotificationView isHidden]) {
-//			[self stopBounceAnimation:kBounceAnimation target:historyNotificationView];
-//			if (appear) {
-//				[self disappearAnimation:kDisappearAnimation
-//								  target:historyNotificationView
-//							  completion:^(BOOL finished) {
-//								[historyNotificationView setHidden:TRUE];
-//								[historyNotificationView.layer removeAnimationForKey:kDisappearAnimation];
-//							  }];
-//			} else {
-//				[historyNotificationView setHidden:TRUE];
-//			}
-//		}
-//	}
-//}
+- (void)updateMissedCallIndicatorStateWithAnimationAppear:(BOOL)appear {
+    int missedCall = linphone_core_get_missed_calls_count([LinphoneManager getLc]);
+	if (missedCall > 0) {
+		if ([self.missedCallIndicatorView isHidden]) {
+			[self.missedCallIndicatorView setHidden:FALSE];
+			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+				if (appear) {
+					[self appearAnimation:kAppearAnimation
+								   target:self.missedCallIndicatorView
+							   completion:^(BOOL finished) {
+								 [self startBounceAnimation:kBounceAnimation target:self.missedCallIndicatorView];
+								 [self.missedCallIndicatorView.layer removeAnimationForKey:kAppearAnimation];
+							   }];
+				} else {
+					[self startBounceAnimation:kBounceAnimation target:self.missedCallIndicatorView];
+				}
+			}
+		}
+		[self.missedCallCountLabel setText:[NSString stringWithFormat:@"%i", missedCall]];
+	} else {
+		if (![self.missedCallIndicatorView isHidden]) {
+			[self stopBounceAnimation:kBounceAnimation target:self.missedCallIndicatorView];
+			if (appear) {
+				[self disappearAnimation:kDisappearAnimation
+								  target:self.missedCallIndicatorView
+							  completion:^(BOOL finished) {
+								[self.missedCallIndicatorView setHidden:TRUE];
+								[self.missedCallIndicatorView.layer removeAnimationForKey:kDisappearAnimation];
+							  }];
+			} else {
+				[self.missedCallIndicatorView setHidden:TRUE];
+			}
+		}
+	}
+}
+
 - (void)appearAnimation:(NSString *)animationID target:(UIView *)target completion:(void (^)(BOOL finished))completion {
     
     CABasicAnimation *appear = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -647,7 +645,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     if (self.moreMenuContainer.tag == 0) {
         
         [self showMoreMenu];
-        [self resetVideomailState];
+//        [self resetVideomailState];
     }
     else {
         
@@ -795,49 +793,49 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 
 #pragma mark - Indicators State
-- (void)updateVidoemailState{
-    
-    NSDictionary *dict = @{@"viewed" : @0,
-                           @"count" : @3};
-    
-    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)checkVideomailIndicator {
-    
-    NSDictionary *videomailDict = [[NSUserDefaults standardUserDefaults] valueForKey:@"videomail_notification"];
-    
-    if (videomailDict) {
-        
-        BOOL viewed = [videomailDict[@"viewed"] boolValue];
-        NSInteger count = [videomailDict[@"count"] integerValue];
-        
-        self.videomailIndicatorView.hidden = viewed;
-        
-        if (count > 0) {
-            self.videomailCountLabel.hidden = NO;
-            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", (long)count];
-        }
-    }
-    else {
-        
-        self.videomailCountLabel.hidden = YES;
-        self.videomailIndicatorView.hidden = YES;
-        [self updateVidoemailState];
-    }
-}
-
-- (void)resetVideomailState {
-    
-    NSDictionary *dict = @{@"viewed" : @1,
-                           @"count" : @3};
-    
-    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self checkVideomailIndicator];
-}
+//- (void)updateVidoemailState{
+//    
+//    NSDictionary *dict = @{@"viewed" : @0,
+//                           @"count" : @3};
+//    
+//    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+//
+//- (void)checkVideomailIndicator {
+//    
+//    NSDictionary *videomailDict = [[NSUserDefaults standardUserDefaults] valueForKey:@"videomail_notification"];
+//    
+//    if (videomailDict) {
+//        
+//        BOOL viewed = [videomailDict[@"viewed"] boolValue];
+//        NSInteger count = [videomailDict[@"count"] integerValue];
+//        
+//        self.videomailIndicatorView.hidden = viewed;
+//        
+//        if (count > 0) {
+//            self.videomailCountLabel.hidden = NO;
+//            self.videomailCountLabel.text = [NSString stringWithFormat:@"%li", (long)count];
+//        }
+//    }
+//    else {
+//        
+//        self.videomailCountLabel.hidden = YES;
+//        self.videomailIndicatorView.hidden = YES;
+//        [self updateVidoemailState];
+//    }
+//}
+//
+//- (void)resetVideomailState {
+//    
+//    NSDictionary *dict = @{@"viewed" : @1,
+//                           @"count" : @3};
+//    
+//    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    [self checkVideomailIndicator];
+//}
 
 - (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
     const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
@@ -862,9 +860,19 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 - (BOOL)unreadMessagesIndicatorState {
     
-    BOOL state = [[NSUserDefaults standardUserDefaults] boolForKey:@"unread_message_indicator_state"] && [[LinphoneManager instance] unreadMessagesCount];
+    NSUInteger unreadMessagesCount = [[LinphoneManager instance] unreadMessagesCount];
     
-    return state;
+    if (unreadMessagesCount > 0) {
+        
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"unread_message_indicator_state"]) {
+            BOOL state = [[NSUserDefaults standardUserDefaults] boolForKey:@"unread_message_indicator_state"];
+            return state;
+        }
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 //- (NSDictionary*)options {
