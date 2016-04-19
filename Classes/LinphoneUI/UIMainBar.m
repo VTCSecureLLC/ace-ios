@@ -124,6 +124,9 @@ static NSString *const kDisappearAnimation = @"disappear";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneTextReceived object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneSettingsUpdate object:nil];
+    
+    self.messageIndicatorView.hidden = YES;
+    self.missedCallIndicatorView.hidden = YES;
 }
 //
 //- (void)flipImageForButton:(UIButton *)button {
@@ -255,6 +258,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     [super viewDidAppear:animated];
     
     [self updateUnreadMessagesIndicator];
+    [self updateMissedCallIndicatorStateWithAnimationAppear:YES];
 }
 
 //
@@ -486,6 +490,7 @@ static NSString *const kDisappearAnimation = @"disappear";
         if (self.messageIndicatorView.hidden) {
             self.messageIndicatorView.hidden = ![self unreadMessagesIndicatorState];
             if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+                [self.messageIndicatorView.layer removeAllAnimations];
                 [self appearAnimation:kAppearAnimation target:self.messageIndicatorView
                            completion:^(BOOL finished) {
                                [self startBounceAnimation:kBounceAnimation target:self.messageIndicatorView];
@@ -499,6 +504,7 @@ static NSString *const kDisappearAnimation = @"disappear";
         [self disappearAnimation:kDisappearAnimation target:self.messageIndicatorView
                       completion:^(BOOL finished) {
                           self.messageIndicatorView.hidden = ![self unreadMessagesIndicatorState];
+                          [self.messageIndicatorView.layer removeAllAnimations];
                       }];
     }
 }
@@ -509,6 +515,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 		if ([self.missedCallIndicatorView isHidden]) {
 			[self.missedCallIndicatorView setHidden:FALSE];
 			if ([[LinphoneManager instance] lpConfigBoolForKey:@"animations_preference"] == true) {
+                [self.missedCallIndicatorView.layer removeAllAnimations];
 				if (appear) {
 					[self appearAnimation:kAppearAnimation
 								   target:self.missedCallIndicatorView
