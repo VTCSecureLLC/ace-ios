@@ -533,6 +533,7 @@
 		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
+		CDAB58AA1CC678010079E28D /* nowebcamCIF.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */; };
 		CE036A6D1C4684A800987594 /* SRVResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = CE036A6C1C4684A800987594 /* SRVResolver.m */; };
 		CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */; };
 		CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */; };
@@ -1938,6 +1939,7 @@
 		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
+		CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nowebcamCIF.jpg; sourceTree = "<group>"; };
 		CE036A6B1C4684A800987594 /* SRVResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRVResolver.h; sourceTree = "<group>"; };
 		CE036A6C1C4684A800987594 /* SRVResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRVResolver.m; sourceTree = "<group>"; };
 		CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceVC.h; sourceTree = "<group>"; };
@@ -3322,6 +3324,7 @@
 		4A2BAB9F1BC50EAE00640476 /* VATRP Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */,
 				046FFD131C6B639100781FF6 /* camera_mute.png */,
 				4A2BABA01BC50EAE00640476 /* 2x */,
 			);
@@ -5602,6 +5605,7 @@
 				D3A74EE215C69392001500B9 /* contacts_default_landscape~ipad.png in Resources */,
 				D3A74EE615C69392001500B9 /* contacts_over_landscape~ipad.png in Resources */,
 				D3A74EE815C69392001500B9 /* contacts_over~ipad.png in Resources */,
+				CDAB58AA1CC678010079E28D /* nowebcamCIF.jpg in Resources */,
 				50B007E71BA09C79002C5723 /* routes_default.png in Resources */,
 				D3A74EEC15C69392001500B9 /* contacts_selected~ipad.png in Resources */,
 				CEFB66A01BFF4710001797B3 /* provider1@2x.png in Resources */,
