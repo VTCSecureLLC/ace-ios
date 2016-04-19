@@ -3,7 +3,7 @@ set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
-SUBMODULE_HASH=$(md5sum sdkcache/current.txt | awk '{print $1}')
+SUBMODULE_HASH=$(md5sum current.txt | awk '{print $1}')
 
 if [  -e liblinphone-sdk ] ; then
   echo "Skipping building"

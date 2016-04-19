@@ -4,10 +4,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
 mkdir -p sdkcache/
-git submodule | cut -d'(' -f1 | awk '{print substr($0, 2, length($0))}'  | sort > sdkcache/current.txt
+git submodule | cut -d'(' -f1 | awk '{print substr($0, 2, length($0))}'  | sort > current.txt
 which md5sum || brew install md5sha1sum
-SUBMODULE_HASH=$(md5sum sdkcache/current.txt | awk '{print $1}')
-mv sdkcache/current.txt liblinphone-sdk_${SUBMODULE_HASH}_submodules.txt
+SUBMODULE_HASH=$(md5sum current.txt | awk '{print $1}')
+cp current.txt liblinphone-sdk_${SUBMODULE_HASH}_submodules.txt
 which aws || brew install awscli
 BUCKET=${BUCKET:-vtcsecurellc-travis}
 CACHE=${BUCKET}-cache
