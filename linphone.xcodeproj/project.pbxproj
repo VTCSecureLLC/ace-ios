@@ -11,7 +11,6 @@
 		041B220D1C89849A00B8A616 /* VSContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B220C1C89849A00B8A616 /* VSContactsManager.m */; };
 		0430717B1CB4FB0100725623 /* app_icon_29.png in Resources */ = {isa = PBXBuildFile; fileRef = 0430717A1CB4FB0100725623 /* app_icon_29.png */; };
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
-		046FFD141C6B639100781FF6 /* camera_mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 046FFD131C6B639100781FF6 /* camera_mute.png */; };
 		04D7C3CD1CB3AF1000F2441C /* CRToastConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C21CB3AF1000F2441C /* CRToastConfig.m */; };
 		04D7C3CE1CB3AF1000F2441C /* CRToastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C51CB3AF1000F2441C /* CRToastManager.m */; };
 		04D7C3CF1CB3AF1000F2441C /* CRToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7C3C71CB3AF1000F2441C /* CRToastView.m */; };
@@ -533,7 +532,7 @@
 		CD9FA5121C20DB3D003D3D29 /* call_new.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9FA5111C20DB3D003D3D29 /* call_new.png */; };
 		CDA2C3321C1E394A00A6B0B9 /* dial_pad_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */; };
 		CDA2C3331C1E394A00A6B0B9 /* dial_pad_button_unpressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */; };
-		CDAB58AA1CC678010079E28D /* nowebcamCIF.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */; };
+		CDAB58B21CC690800079E28D /* camera_disabled.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDAB58B11CC690800079E28D /* camera_disabled.jpg */; };
 		CE036A6D1C4684A800987594 /* SRVResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = CE036A6C1C4684A800987594 /* SRVResolver.m */; };
 		CE04C1761C32E3F20076CD35 /* AcceptanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04C1741C32E3F20076CD35 /* AcceptanceVC.m */; };
 		CE04C1771C32E3F20076CD35 /* AcceptanceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE04C1751C32E3F20076CD35 /* AcceptanceVC.xib */; };
@@ -1065,7 +1064,6 @@
 		041B220C1C89849A00B8A616 /* VSContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSContactsManager.m; sourceTree = "<group>"; };
 		0430717A1CB4FB0100725623 /* app_icon_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon_29.png; path = Resources/Images.xcassets/AppIcon.appiconset/app_icon_29.png; sourceTree = "<group>"; };
 		045B5CB218D72E9A0088350C /* libbzrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzrtp.a; path = "liblinphone-sdk/apple-darwin/lib/libbzrtp.a"; sourceTree = "<group>"; };
-		046FFD131C6B639100781FF6 /* camera_mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_mute.png; sourceTree = "<group>"; };
 		04D7C3C01CB3AF1000F2441C /* CRToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToast.h; sourceTree = "<group>"; };
 		04D7C3C11CB3AF1000F2441C /* CRToastConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToastConfig.h; sourceTree = "<group>"; };
 		04D7C3C21CB3AF1000F2441C /* CRToastConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToastConfig.m; sourceTree = "<group>"; };
@@ -1939,7 +1937,7 @@
 		CD9FA5111C20DB3D003D3D29 /* call_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = call_new.png; path = Resources/call_new.png; sourceTree = "<group>"; };
 		CDA2C3301C1E394A00A6B0B9 /* dial_pad_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_pressed.png; path = Resources/dial_pad_button_pressed.png; sourceTree = "<group>"; };
 		CDA2C3311C1E394A00A6B0B9 /* dial_pad_button_unpressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dial_pad_button_unpressed.png; path = Resources/dial_pad_button_unpressed.png; sourceTree = "<group>"; };
-		CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nowebcamCIF.jpg; sourceTree = "<group>"; };
+		CDAB58B11CC690800079E28D /* camera_disabled.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera_disabled.jpg; sourceTree = "<group>"; };
 		CE036A6B1C4684A800987594 /* SRVResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRVResolver.h; sourceTree = "<group>"; };
 		CE036A6C1C4684A800987594 /* SRVResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRVResolver.m; sourceTree = "<group>"; };
 		CE04C1731C32E3F20076CD35 /* AcceptanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptanceVC.h; sourceTree = "<group>"; };
@@ -3324,8 +3322,7 @@
 		4A2BAB9F1BC50EAE00640476 /* VATRP Images */ = {
 			isa = PBXGroup;
 			children = (
-				CDAB58A91CC678010079E28D /* nowebcamCIF.jpg */,
-				046FFD131C6B639100781FF6 /* camera_mute.png */,
+				CDAB58B11CC690800079E28D /* camera_disabled.jpg */,
 				4A2BABA01BC50EAE00640476 /* 2x */,
 			);
 			name = "VATRP Images";
@@ -5154,7 +5151,6 @@
 				50B0077A1BA09C79002C5723 /* micro_on_over.png in Resources */,
 				50B007151BA09C79002C5723 /* dialer_alt_back_default.png in Resources */,
 				50B007B21BA09C79002C5723 /* options_transfer_default_landscape.png in Resources */,
-				046FFD141C6B639100781FF6 /* camera_mute.png in Resources */,
 				D38327F51580FE3A00FA0D23 /* dialer_default.png in Resources */,
 				5E34FA961C9F191800ABA721 /* selected_star.png in Resources */,
 				50B007FD1BA09C79002C5723 /* setup_back_disabled_landscape~ipad.png in Resources */,
@@ -5286,6 +5282,7 @@
 				D3ED3E9815872EF1006C0DE4 /* history_all_selected.png in Resources */,
 				D3ED3E9A15872EF1006C0DE4 /* history_all_default.png in Resources */,
 				D3ED3E9C15872EF1006C0DE4 /* history_edit_default.png in Resources */,
+				CDAB58B21CC690800079E28D /* camera_disabled.jpg in Resources */,
 				D3ED3E9E15872EF1006C0DE4 /* history_edit_over.png in Resources */,
 				50B006DB1BA09C79002C5723 /* chat_over~ipad.png in Resources */,
 				D3ED3EA015872EF1006C0DE4 /* history_missed_selected.png in Resources */,
@@ -5605,7 +5602,6 @@
 				D3A74EE215C69392001500B9 /* contacts_default_landscape~ipad.png in Resources */,
 				D3A74EE615C69392001500B9 /* contacts_over_landscape~ipad.png in Resources */,
 				D3A74EE815C69392001500B9 /* contacts_over~ipad.png in Resources */,
-				CDAB58AA1CC678010079E28D /* nowebcamCIF.jpg in Resources */,
 				50B007E71BA09C79002C5723 /* routes_default.png in Resources */,
 				D3A74EEC15C69392001500B9 /* contacts_selected~ipad.png in Resources */,
 				CEFB66A01BFF4710001797B3 /* provider1@2x.png in Resources */,

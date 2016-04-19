@@ -1454,7 +1454,7 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 
 	[self setupNetworkReachabilityCallback];
 
-	NSString *path = [LinphoneManager bundleFile:@"nowebcamCIF.jpg"];
+	NSString *path = [LinphoneManager bundleFile:@"camera_disabled.jpg"];
 	if (path) {
 		const char *imagePath = [path UTF8String];
 		LOGI(@"Using '%s' as source image for no webcam", imagePath);
