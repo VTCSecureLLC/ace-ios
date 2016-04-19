@@ -3,9 +3,11 @@ set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
+SUBMODULE_HASH=$(md5sum sdkcache/current.txt | awk '{print $1}')
 
-if [!  -e liblinphone-sdk ] ; then
+if [  -e liblinphone-sdk ] ; then
   echo "Skipping building"
+    exit 0
 fi
 
 echo "REBUILDING SDK FOR ${SUBMODULE_HASH}"
