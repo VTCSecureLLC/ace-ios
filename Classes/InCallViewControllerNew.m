@@ -443,9 +443,25 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.callInfoView stopDataUpdating];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
-                [self hideQualityIndicator];
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"fromEvents", nil];
-                [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:1.0];
+                
+                void (^endCall)(void) = ^(void) {
+                    [self hideQualityIndicator];
+                    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"fromEvents", nil];
+                    [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:1.0];
+                };
+                
+                
+                LinphoneReason callReason = linphone_call_get_reason(call);
+                if (callReason == LinphoneReasonDeclined) {
+                    
+                    [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:callReason];
+                    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
+                        endCall();
+                    };
+                }
+                else {
+                    endCall();
+                }
             }
             else if (callsCount == 1) {
                 LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
