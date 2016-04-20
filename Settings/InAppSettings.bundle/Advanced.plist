@@ -46,16 +46,6 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>animations_preference</string>
-			<key>Title</key>
-			<string>Animations</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
 			<string>backgroundmode_preference</string>
 			<key>Title</key>
 			<string>Background mode</string>
@@ -76,7 +66,7 @@
 			<key>Key</key>
 			<string>expire_preference</string>
 			<key>Title</key>
-			<string>Expire</string>
+			<string>Registration Renew</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>AutocapitalizationType</key>
@@ -157,76 +147,6 @@
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
 			<integer>38</integer>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentRight</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Primary account</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>primary_displayname_preference</string>
-			<key>New item</key>
-			<string></string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Display name</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentRight</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>primary_username_preference</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Username</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentRight</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>File sharing</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>KeyboardType</key>
-			<string>URL</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Server URL</string>
-			<key>Key</key>
-			<string>file_transfer_server_url_preference</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
 		</dict>

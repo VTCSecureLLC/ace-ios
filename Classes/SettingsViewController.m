@@ -1108,7 +1108,15 @@ static BOOL isAdvancedSettings = FALSE;
         [hiddenKeys addObject:@"tunnel_menu"];
         [hiddenKeys addObject:@"advanced_menu"];
     }
-	return hiddenKeys;
+    
+    [hiddenKeys addObject:@"foreground_color_preference"];
+    [hiddenKeys addObject:@"background_color_preference"];
+    [hiddenKeys addObject:@"pref_text_settings_send_mode_key"];
+    [hiddenKeys addObject:@"show_debug_preference"];
+    [hiddenKeys addObject:@"clear_proxy_button"];
+    [hiddenKeys addObject:@"edge_opt_preference"];
+    
+    return hiddenKeys;
 }
 
 - (void)goToWizard {
