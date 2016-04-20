@@ -11,26 +11,6 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>mute_microphone_preference</string>
-			<key>Title</key>
-			<string>Mute Microphone</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>mute_speaker_preference</string>
-			<key>Title</key>
-			<string>Mute Speaker</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Title</key>
 			<string>Codecs</string>
 			<key>Type</key>
