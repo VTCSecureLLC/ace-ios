@@ -248,7 +248,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			[self setBool:FALSE forKey:@"outbound_proxy_preference"];
 			[self setBool:FALSE forKey:@"avpf_preference"];
 			// actually in Advanced section but proxy config dependent
-			[self setInteger:[lm lpConfigIntForKey:@"reg_expires" forSection:@"default_values" withDefault:600]
+			[self setInteger:[lm lpConfigIntForKey:@"reg_expires" forSection:@"default_values" withDefault:280]
 					  forKey:@"expire_preference"];
 		}
 
