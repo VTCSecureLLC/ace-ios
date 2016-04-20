@@ -696,10 +696,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             return;
         }
 
-        if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
+        const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+        
+        if (strcmp(currentCamId, "StaticImage: Static picture") != 0) {
             [[LinphoneManager instance] disableCameraForCurrentCall];
-        }
-        else {
+        }else {
             [[LinphoneManager instance] enableCameraForCurrentCall];
         }
         
