@@ -2,7 +2,7 @@
 set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
-
+git submodule update --init Classes/KIF &
 mkdir -p sdkcache/
 git submodule | cut -d'(' -f1 | awk '{print substr($0, 2, length($0))}'  | sort > current.txt
 which md5sum || brew install md5sha1sum
