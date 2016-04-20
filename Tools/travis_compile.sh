@@ -5,6 +5,8 @@ cd $DIR/..
 
 SUBMODULE_HASH=$(md5sum current.txt | awk '{print $1}')
 
+BUCKET=${BUCKET:-vtcsecurellc-travis}
+CACHE=${BUCKET}-cache
 if [  -e liblinphone-sdk ] ; then
   echo "Skipping building"
     exit 0
