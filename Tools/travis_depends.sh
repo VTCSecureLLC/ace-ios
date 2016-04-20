@@ -2,9 +2,10 @@
 set -xe
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
+
 function spawn_fork {
 local run_this=$1 wait_for=${2:-1000}
-bash -c “$run_this” &
+bash -c "$run_this" &
 local dat_pid=$!
 ( sleep $wait_for ; if kill -0 $dat_pid ; then kill $dat_pid ; fi ) &
 }
