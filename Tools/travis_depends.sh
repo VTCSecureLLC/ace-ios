@@ -8,6 +8,7 @@ git submodule | cut -d'(' -f1 | awk '{print substr($0, 2, length($0))}'  | sort 
 which md5sum || brew install md5sha1sum
 SUBMODULE_HASH=$(md5sum current.txt | awk '{print $1}')
 cp current.txt liblinphone-sdk_${SUBMODULE_HASH}_submodules.txt
+bundle install &
 which aws || brew install awscli
 BUCKET=${BUCKET:-vtcsecurellc-travis}
 CACHE=${BUCKET}-cache
