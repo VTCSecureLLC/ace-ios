@@ -230,6 +230,24 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
     if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
+        LinphoneCall *call = [[LinphoneManager instance] currentCall];
+        
+        if (!call) {
+            return;
+        }
+        
+        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(call);
+
+        if (!remoteAddr) {
+            return;
+        }
+        
+        NSString *caller_username = [NSString stringWithUTF8String:linphone_address_get_username(remoteAddr)];
+
+        if (![caller_username isEqualToString:userName]) {
+            return;
+        }
+        
         [self stopRingCount];
 
         declinedMessage = [message substringFromIndex:CALL_DECLINE_PREFIX.length];
