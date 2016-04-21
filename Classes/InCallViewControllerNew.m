@@ -231,9 +231,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
         [self stopRingCount];
-        self.ringCountLabel.hidden = NO;
-        self.ringCountLabel.text = @"Declined";
-        [self.ringCountLabel setFont:[UIFont systemFontOfSize:30]];
         declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
         
         UIFont *smallFont = [UIFont systemFontOfSize:18];
@@ -542,7 +539,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     self.callDeclineMessageLabel.hidden = YES;
     self.viewCallDeclinedWithMessage.hidden = YES;
-    [self.ringCountLabel setFont:[UIFont systemFontOfSize:64]];
 }
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {

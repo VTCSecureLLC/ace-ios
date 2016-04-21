@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -155,7 +155,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cto-wd-TgW">
+                            <tableView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cto-wd-TgW">
                                 <rect key="frame" x="39" y="81" width="299" height="439"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -163,6 +163,29 @@
                                     <outlet property="delegate" destination="i7c-Y5-iNb" id="hzb-1E-ura"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyW-qp-rbg">
+                                <rect key="frame" x="0.0" y="25" width="375" height="140"/>
+                                <color key="backgroundColor" red="0.81568627449999997" green="0.0078431372550000003" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="4Dj-2N-3kM"/>
+                                </constraints>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Call declined with message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cik-39-glU">
+                                <rect key="frame" x="0.0" y="25" width="375" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="5ou-dp-50X"/>
+                                    <constraint firstAttribute="height" constant="140" id="Yke-ir-bRS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5ou-dp-50X"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
                                 <rect key="frame" x="0.0" y="374" width="375" height="253"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -174,12 +197,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cto-wd-TgW" secondAttribute="bottom" constant="150" id="2Ok-fA-IiK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cik-39-glU" secondAttribute="trailing" constant="-20" id="1Nb-XX-IIv"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cto-wd-TgW" secondAttribute="bottom" constant="147" id="2Ok-fA-IiK"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
-                            <constraint firstItem="cto-wd-TgW" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="A9c-UV-KDB"/>
+                            <constraint firstItem="cto-wd-TgW" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" constant="1" id="A9c-UV-KDB"/>
                             <constraint firstItem="lNU-6W-eeL" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="top" id="BWN-L8-wlD"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="DXD-IV-wAt"/>
                             <constraint firstItem="KQf-7a-Dtr" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="topMargin" id="FLT-vk-UUP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oyW-qp-rbg" secondAttribute="trailing" constant="-20" id="Fdh-q3-FY6"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="RGY-s2-faC" secondAttribute="bottom" id="Gx2-wC-xzN"/>
                             <constraint firstAttribute="trailing" secondItem="RGY-s2-faC" secondAttribute="trailing" id="LK0-d0-3B3"/>
                             <constraint firstItem="9ev-fs-CZO" firstAttribute="top" secondItem="KQf-7a-Dtr" secondAttribute="bottom" constant="27" id="LRm-9i-vxX"/>
@@ -187,7 +212,8 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="5T0-dS-AZx" secondAttribute="bottom" id="LoX-Pv-GJ2"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="HJr-Bj-pWa" secondAttribute="bottom" constant="160" id="M6j-lE-fXg"/>
                             <constraint firstAttribute="trailing" secondItem="5T0-dS-AZx" secondAttribute="trailing" id="MLf-cV-I1W"/>
-                            <constraint firstItem="cto-wd-TgW" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.8" id="S1V-A9-JC6"/>
+                            <constraint firstItem="oyW-qp-rbg" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="topMargin" constant="25" id="Qfl-W2-Fej"/>
+                            <constraint firstItem="cto-wd-TgW" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.8" constant="-1" id="S1V-A9-JC6"/>
                             <constraint firstItem="8w2-q5-8wx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="SGv-4Y-naO"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YgE-gZ-e8E" secondAttribute="bottom" constant="30" id="SoE-AR-bz0"/>
                             <constraint firstAttribute="trailing" secondItem="Flh-2b-FH0" secondAttribute="trailing" id="TNR-3b-VJS"/>
@@ -203,7 +229,9 @@
                             <constraint firstItem="j6x-3s-y50" firstAttribute="top" secondItem="opN-Qd-xDg" secondAttribute="bottom" constant="9" id="c3Y-EH-EDb"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
                             <constraint firstAttribute="trailing" secondItem="opN-Qd-xDg" secondAttribute="trailing" constant="87" id="cR5-wT-mos"/>
-                            <constraint firstItem="cto-wd-TgW" firstAttribute="top" secondItem="Flh-2b-FH0" secondAttribute="top" id="cUr-cR-Ret"/>
+                            <constraint firstItem="cto-wd-TgW" firstAttribute="top" secondItem="Flh-2b-FH0" secondAttribute="top" constant="58" id="cUr-cR-Ret"/>
+                            <constraint firstItem="cik-39-glU" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leadingMargin" constant="-20" id="cYM-lC-Bkr"/>
+                            <constraint firstItem="oyW-qp-rbg" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leadingMargin" constant="-20" id="chp-X1-IAH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HJr-Bj-pWa" secondAttribute="trailing" constant="20" id="d23-vm-O6v"/>
                             <constraint firstAttribute="trailing" secondItem="0Fx-gY-047" secondAttribute="trailing" id="dCE-BQ-z79"/>
                             <constraint firstItem="9ev-fs-CZO" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="1" id="eye-N5-qoi"/>
@@ -217,6 +245,7 @@
                             <constraint firstAttribute="trailing" secondItem="8w2-q5-8wx" secondAttribute="trailing" id="ncm-q6-dTx"/>
                             <constraint firstItem="RGY-s2-faC" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="oFn-pQ-fC1"/>
                             <constraint firstItem="zyC-b4-pSa" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.9" id="obd-1d-bsL"/>
+                            <constraint firstItem="cik-39-glU" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="topMargin" constant="25" id="q2N-OR-LX0"/>
                             <constraint firstItem="KQf-7a-Dtr" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="qzK-xp-Wo1"/>
                             <constraint firstItem="cto-wd-TgW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YgE-gZ-e8E" secondAttribute="bottom" constant="70" id="vG6-i3-YNy"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="KQf-7a-Dtr" secondAttribute="bottom" id="vS9-gS-3dN"/>
@@ -243,6 +272,7 @@
                     <connections>
                         <outlet property="callBarView" destination="8w2-q5-8wx" id="nFw-Ou-ZkY"/>
                         <outlet property="callBarViewBottomConstraint" destination="5o4-IW-zgJ" id="NT1-CH-Tvi"/>
+                        <outlet property="callDeclineMessageLabel" destination="cik-39-glU" id="wgq-oM-HOP"/>
                         <outlet property="callInfoView" destination="KnW-eL-D0c" id="ZmV-Ag-S7x"/>
                         <outlet property="cameraImageView" destination="RGY-s2-faC" id="q2v-pu-UHW"/>
                         <outlet property="closeChatButton" destination="BGd-We-07U" id="Z1G-Il-X49"/>
@@ -264,6 +294,7 @@
                         <outlet property="videoPreviewViewBottomConstraint" destination="M6j-lE-fXg" id="i6Q-W1-Ril"/>
                         <outlet property="videoPreviewWidthConstraint" destination="X3X-WX-q0U" id="Q8q-Ef-osM"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
+                        <outlet property="viewCallDeclinedWithMessage" destination="oyW-qp-rbg" id="aWO-tj-Kx7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,7 +304,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="254.5" y="-112.5"/>
+            <point key="canvasLocation" x="12.5" y="-116.5"/>
         </scene>
     </scenes>
     <resources>
