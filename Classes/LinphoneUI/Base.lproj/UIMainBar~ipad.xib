@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -13,6 +13,8 @@
                 <outlet property="dialpadButton" destination="aD6-iy-CIE" id="WuC-v4-PkI"/>
                 <outlet property="historyButton" destination="jJe-Yy-FtF" id="4eV-bM-iIq"/>
                 <outlet property="messageIndicatorView" destination="hlM-Mb-VuG" id="ZaY-TU-sPq"/>
+                <outlet property="missedCallCountLabel" destination="GhV-wq-W4Y" id="Vlp-MO-2an"/>
+                <outlet property="missedCallIndicatorView" destination="kR8-sM-bNB" id="G4i-PL-l9c"/>
                 <outlet property="moreButton" destination="83Z-76-2Sn" id="bC8-ZA-L7x"/>
                 <outlet property="moreMenuContainer" destination="335-YK-MHF" id="1st-ly-MAZ"/>
                 <outlet property="settingsButton" destination="KXw-r2-Xiq" id="3pn-d7-aCq"/>
@@ -23,11 +25,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="EJ9-kX-i9k" customClass="MainBarView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="310"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q7e-vB-9qL">
-                    <rect key="frame" x="0.0" y="240" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="181" width="375" height="70"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phb-Qp-ETy" userLabel="History Container">
                             <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
@@ -53,6 +55,33 @@
                                         <constraint firstAttribute="width" secondItem="WPG-od-LH8" secondAttribute="height" multiplier="1:1" id="GgH-k2-4bQ"/>
                                     </constraints>
                                 </imageView>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kR8-sM-bNB" userLabel="Missed Call Indicator View">
+                                    <rect key="frame" x="44" y="4" width="20" height="20"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="2VG-IV-NO4">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhV-wq-W4Y">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="2VG-IV-NO4" secondAttribute="bottom" id="6GB-m9-thy"/>
+                                        <constraint firstItem="2VG-IV-NO4" firstAttribute="leading" secondItem="kR8-sM-bNB" secondAttribute="leading" id="Hbj-uQ-nXi"/>
+                                        <constraint firstItem="GhV-wq-W4Y" firstAttribute="leading" secondItem="kR8-sM-bNB" secondAttribute="leading" id="LXs-sx-zi1"/>
+                                        <constraint firstAttribute="trailing" secondItem="2VG-IV-NO4" secondAttribute="trailing" id="MxI-4Y-FBQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="GhV-wq-W4Y" secondAttribute="trailing" id="Sqo-ct-EIU"/>
+                                        <constraint firstItem="GhV-wq-W4Y" firstAttribute="top" secondItem="kR8-sM-bNB" secondAttribute="top" id="UIz-wt-XNr"/>
+                                        <constraint firstItem="2VG-IV-NO4" firstAttribute="top" secondItem="kR8-sM-bNB" secondAttribute="top" id="cfT-u5-ksh"/>
+                                        <constraint firstAttribute="bottom" secondItem="GhV-wq-W4Y" secondAttribute="bottom" id="cj8-HK-yXH"/>
+                                        <constraint firstAttribute="width" constant="20" id="fl5-U8-TgQ"/>
+                                        <constraint firstAttribute="height" constant="20" id="rv5-UX-tUN"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" label="History Button">
@@ -62,11 +91,15 @@
                                 <constraint firstAttribute="trailing" secondItem="jJe-Yy-FtF" secondAttribute="trailing" id="0bz-2u-Frp"/>
                                 <constraint firstAttribute="bottom" secondItem="jJe-Yy-FtF" secondAttribute="bottom" id="Amc-eo-Eko"/>
                                 <constraint firstAttribute="bottom" secondItem="eqn-Je-p6d" secondAttribute="bottom" constant="5" id="ICf-wD-BU2"/>
+                                <constraint firstItem="kR8-sM-bNB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="phb-Qp-ETy" secondAttribute="top" constant="4" id="M7o-3t-NcK"/>
+                                <constraint firstItem="kR8-sM-bNB" firstAttribute="top" secondItem="WPG-od-LH8" secondAttribute="top" constant="-4" id="OO4-sx-nUV"/>
                                 <constraint firstItem="WPG-od-LH8" firstAttribute="centerX" secondItem="phb-Qp-ETy" secondAttribute="centerX" id="TAd-4w-0Ja"/>
                                 <constraint firstItem="WPG-od-LH8" firstAttribute="top" secondItem="phb-Qp-ETy" secondAttribute="top" constant="8" id="Xnd-mA-XJ5"/>
                                 <constraint firstAttribute="trailing" secondItem="eqn-Je-p6d" secondAttribute="trailing" id="YtE-cS-Nxi"/>
                                 <constraint firstItem="eqn-Je-p6d" firstAttribute="top" secondItem="WPG-od-LH8" secondAttribute="bottom" constant="4" id="geP-1N-jws"/>
                                 <constraint firstItem="jJe-Yy-FtF" firstAttribute="top" secondItem="phb-Qp-ETy" secondAttribute="top" id="h5x-pk-koE"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kR8-sM-bNB" secondAttribute="trailing" constant="4" id="jvW-5p-g6r"/>
+                                <constraint firstItem="kR8-sM-bNB" firstAttribute="trailing" secondItem="WPG-od-LH8" secondAttribute="trailing" constant="10" id="mim-4X-jeA"/>
                                 <constraint firstItem="eqn-Je-p6d" firstAttribute="leading" secondItem="phb-Qp-ETy" secondAttribute="leading" id="oWl-Mz-RvH"/>
                                 <constraint firstItem="jJe-Yy-FtF" firstAttribute="leading" secondItem="phb-Qp-ETy" secondAttribute="leading" id="r1e-0y-JbE"/>
                             </constraints>
@@ -179,7 +212,7 @@
                                         <constraint firstAttribute="width" secondItem="tRa-KC-OZK" secondAttribute="height" multiplier="1:1" id="Hfi-VW-J5w"/>
                                     </constraints>
                                 </imageView>
-                                <view autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlM-Mb-VuG" userLabel="Message Indicator View">
+                                <view hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlM-Mb-VuG" userLabel="Message Indicator View">
                                     <rect key="frame" x="44" y="4" width="20" height="20"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="message_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="9No-8J-rF5" userLabel="Message Indicator Image View">
@@ -310,13 +343,13 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="335-YK-MHF" userLabel="More Menu Container">
-                    <rect key="frame" x="155" y="0.0" width="220" height="240"/>
+                    <rect key="frame" x="155" y="0.0" width="220" height="181"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7F-52-85G" userLabel="Self-Preview Button Container">
-                            <rect key="frame" x="0.0" y="181" width="220" height="59"/>
+                            <rect key="frame" x="0.0" y="121" width="220" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2MW-Jb-J8e">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Self-Preview" image="self_preview">
@@ -339,17 +372,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcs-Gg-8mG" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="180" width="220" height="1"/>
+                            <rect key="frame" x="0.0" y="121" width="220" height="0.0"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="KKs-Xe-O5v"/>
+                                <constraint firstAttribute="height" id="KKs-Xe-O5v"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNi-f4-eEW" userLabel="Videomail Button Container">
-                            <rect key="frame" x="0.0" y="121" width="220" height="59"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNi-f4-eEW" userLabel="Videomail Button Container">
+                            <rect key="frame" x="0.0" y="121" width="220" height="0.0"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3s-NN-Z4K">
-                                    <rect key="frame" x="0.0" y="0.0" width="175" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="175" height="0.0"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Videomail" image="videomail">
@@ -360,7 +393,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5a1-7c-xFa">
-                                    <rect key="frame" x="180" y="17" width="25" height="25"/>
+                                    <rect key="frame" x="180" y="-13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="mrC-jA-bHX"/>
                                         <constraint firstAttribute="width" secondItem="5a1-7c-xFa" secondAttribute="height" multiplier="1:1" id="nZ2-iE-vEi"/>
@@ -375,6 +408,7 @@
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                             <constraints>
+                                <constraint firstAttribute="height" id="4EQ-ZO-JZz"/>
                                 <constraint firstItem="T3s-NN-Z4K" firstAttribute="top" secondItem="CNi-f4-eEW" secondAttribute="top" id="UjK-AM-6P2"/>
                                 <constraint firstAttribute="bottom" secondItem="T3s-NN-Z4K" secondAttribute="bottom" id="bwE-Gd-kAE"/>
                                 <constraint firstAttribute="trailing" secondItem="5a1-7c-xFa" secondAttribute="trailing" constant="15" id="f2g-qa-KZI"/>
@@ -391,10 +425,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H62-Ao-hNn" userLabel="Resources Button Container">
-                            <rect key="frame" x="0.0" y="60" width="220" height="60"/>
+                            <rect key="frame" x="0.0" y="61" width="220" height="59"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxy-eg-ki3">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
@@ -417,17 +451,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-t8-fh2" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="59" width="220" height="1"/>
+                            <rect key="frame" x="0.0" y="60" width="220" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="JcB-Vq-Lef"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJl-fo-LTi" userLabel="Settings Button Container">
-                            <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXw-r2-Xiq" customClass="CustomBarButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Settings" image="settings">
@@ -461,12 +495,11 @@
                         <constraint firstItem="PAf-t8-fh2" firstAttribute="top" secondItem="bJl-fo-LTi" secondAttribute="bottom" id="E4A-yY-CWe"/>
                         <constraint firstAttribute="trailing" secondItem="bJl-fo-LTi" secondAttribute="trailing" id="GpE-28-amC"/>
                         <constraint firstItem="PAf-t8-fh2" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="H1i-rA-Sjz"/>
-                        <constraint firstItem="CNi-f4-eEW" firstAttribute="height" secondItem="bJl-fo-LTi" secondAttribute="height" id="IFy-kb-4GZ"/>
                         <constraint firstItem="H62-Ao-hNn" firstAttribute="top" secondItem="PAf-t8-fh2" secondAttribute="bottom" id="LGH-oi-EAY"/>
                         <constraint firstItem="R7F-52-85G" firstAttribute="height" secondItem="bJl-fo-LTi" secondAttribute="height" id="Ohj-Lt-9lX"/>
                         <constraint firstAttribute="trailing" secondItem="CNi-f4-eEW" secondAttribute="trailing" id="SwZ-lC-5Lo"/>
                         <constraint firstAttribute="trailing" secondItem="Qcs-Gg-8mG" secondAttribute="trailing" id="TcL-9N-hZM"/>
-                        <constraint firstAttribute="height" constant="240" id="VHG-yk-hq3"/>
+                        <constraint firstAttribute="height" constant="181" id="VHG-yk-hq3"/>
                         <constraint firstAttribute="trailing" secondItem="QuR-QR-ARW" secondAttribute="trailing" id="WIz-gR-nIN"/>
                         <constraint firstItem="QuR-QR-ARW" firstAttribute="bottom" secondItem="CNi-f4-eEW" secondAttribute="top" id="Xk7-7M-LKd"/>
                         <constraint firstAttribute="bottom" secondItem="R7F-52-85G" secondAttribute="bottom" id="Z9v-WO-P6o"/>
@@ -497,12 +530,13 @@
                 <outlet property="barView" destination="q7e-vB-9qL" id="ofm-aJ-Zel"/>
                 <outlet property="moreContainerView" destination="335-YK-MHF" id="Bb3-xA-P8u"/>
             </connections>
-            <point key="canvasLocation" x="117.5" y="623"/>
+            <point key="canvasLocation" x="117.5" y="652.5"/>
         </view>
     </objects>
     <resources>
         <image name="chat" width="32" height="29"/>
         <image name="contacts" width="32" height="32"/>
+        <image name="empty_indicator" width="23" height="23"/>
         <image name="history" width="32" height="30"/>
         <image name="in_call_keypad_icon" width="26" height="35"/>
         <image name="in_call_more_icon" width="56" height="17"/>
