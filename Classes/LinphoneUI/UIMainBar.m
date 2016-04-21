@@ -656,7 +656,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)selfPreviewButtonAction:(UIButton *)sender {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"preview_pref_toggle" object:nil];
     [self hideMoreMenu];
 }
 

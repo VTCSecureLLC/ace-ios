@@ -130,6 +130,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 											 selector:@selector(coreUpdateEvent:)
 												 name:kLinphoneCoreUpdate
 											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(togglePreview) name:@"preview_pref_toggle" object:nil];
 
 	// technically not needed, but older versions of linphone had this button
 	// disabled by default. In this case, updating by pushing a new version with
@@ -218,8 +220,9 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 	// Remove observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCallUpdate object:nil];
-
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLinphoneCoreUpdate object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"preview_pref_toggle" object:nil];
 }
 
 - (void)viewDidLoad {
@@ -257,6 +260,30 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
+}
+
+-(void)togglePreview{
+    LinphoneCore *lc = [LinphoneManager getLc];
+    LinphoneManager *mgr = [LinphoneManager instance];
+    BOOL videoEnabled = linphone_core_video_enabled(lc);
+    BOOL previewPref = ![mgr lpConfigBoolForKey:@"preview_preference"];
+    [mgr lpConfigSetBool:previewPref forKey:@"preview_preference"];
+    
+    if (videoEnabled && previewPref) {
+        linphone_core_set_native_preview_window_id(lc, (__bridge void *)(videoPreview));
+        
+        if (!linphone_core_video_preview_enabled(lc)) {
+            linphone_core_enable_video_preview(lc, TRUE);
+        }
+        
+        [backgroundView setHidden:FALSE];
+        [videoCameraSwitch setHidden:FALSE];
+    } else {
+        linphone_core_set_native_preview_window_id(lc, NULL);
+        linphone_core_enable_video_preview(lc, FALSE);
+        [backgroundView setHidden:TRUE];
+        [videoCameraSwitch setHidden:TRUE];
+    }
 }
 
 - (void)loadProviderDomainsFromCache {
