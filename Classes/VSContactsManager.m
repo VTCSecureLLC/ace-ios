@@ -58,6 +58,27 @@
     return exportedContactsFilePath;
 }
 
+- (void)addAllContactsToFriendList {
+    
+    ABAddressBookRef addressBook = ABAddressBookCreate( );
+    CFArrayRef allContacts = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    
+    [self deleteFriendsFromList];
+    
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    for ( int i = 0; i < nPeople; i++ ) {
+        ABRecordRef abContact = CFArrayGetValueAtIndex(allContacts, i);
+        
+        NSString *contactNameSurnameOrganization = [self contactNameSurnameOrganizationFrom:abContact];
+        NSMutableArray *sipURIs = [self contactSipURIsFrom:abContact];
+        if (sipURIs.count > 0) {
+            NSMutableArray *phoneNumbers = [self contactPhoneNumbersFrom:abContact];
+            ABRecordID recordID = ABRecordGetRecordID(abContact);
+            [self addFriendToListWithName:contactNameSurnameOrganization withPhoneNumbers:phoneNumbers andSipURIs:sipURIs andRefKey:recordID];
+        }
+    }
+}
+
 - (NSString*)documentsDirectoryPath {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
 }
@@ -196,6 +217,177 @@
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
     count = (int)nPeople;
     return count;
+}
+
+- (void)addFriendToListWithName:(NSString*)name withPhoneNumbers:(NSMutableArray*)phoneNumbers andSipURIs:(NSMutableArray*)sipURIs andRefKey:(ABRecordID)refKey {
+    NSString *refKeyString = [NSString stringWithFormat:@"%d", refKey];
+    //#pragma unused(refKeyString)
+    
+    //LinphoneFriend *newFriend = linphone_core_create_friend_with_address([LinphoneManager getLc], "sip:example@example.com");
+    
+    LinphoneFriend *newFriend = linphone_friend_new();
+    
+    for (int i = 0; i < sipURIs.count; ++i) {
+        NSString *sipURIString = [sipURIs objectAtIndex:i];
+        const char *address = [sipURIString UTF8String];
+        
+        const LinphoneAddress *lAddr = linphone_address_new(address);
+        
+        linphone_friend_set_address(newFriend, lAddr);
+        
+        linphone_friend_add_address(newFriend, lAddr);
+    }
+    
+    for (int i = 0; i < phoneNumbers.count; ++i) {
+        linphone_friend_add_phone_number(newFriend, [phoneNumbers[i] UTF8String]);
+    }
+    
+    linphone_friend_set_name(newFriend, [name UTF8String]);
+    linphone_friend_set_ref_key(newFriend, [refKeyString UTF8String]);
+
+    LinphoneFriendList *friendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
+    linphone_friend_list_add_friend(friendList, newFriend);
+    
+}
+
+- (NSMutableArray*)contactSipURIsFrom:(ABRecordRef)abRecord {
+    NSString *contactSipURI = @"";
+    NSMutableArray *sipURIs = [NSMutableArray new];
+    
+    ABMultiValueRef instantMessageProperties = ABRecordCopyValue(abRecord, kABPersonInstantMessageProperty);
+    for (CFIndex i = 0; i < ABMultiValueGetCount(instantMessageProperties); ++i) {
+        CFDictionaryRef emailRef = ABMultiValueCopyValueAtIndex(instantMessageProperties, i);
+        NSDictionary *emailDict = (__bridge NSDictionary*)emailRef;
+        CFRelease(emailRef);
+        if ([emailDict objectForKey:@"service"] && [[emailDict objectForKey:@"service"] isEqualToString:@"SIP"]) {
+            contactSipURI = [emailDict objectForKey:@"username"];
+            [sipURIs addObject:[@"sip:" stringByAppendingString:contactSipURI]];
+        }
+    }
+    
+    return sipURIs;
+}
+
+- (NSMutableArray*)contactPhoneNumbersFrom:(ABRecordRef)abRecord {
+    NSMutableArray *phoneNumbers = [NSMutableArray new];
+    
+    ABMultiValueRef multiPhones = ABRecordCopyValue(abRecord, kABPersonPhoneProperty);
+    for (CFIndex i = 0; i < ABMultiValueGetCount(multiPhones); ++i) {
+        CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, i);
+        CFRelease(multiPhones);
+        NSString *abPhoneNumber = (__bridge NSString *) phoneNumberRef;
+        CFRelease(phoneNumberRef);
+        if (abPhoneNumber) {
+            [phoneNumbers addObject:abPhoneNumber];
+        }
+    }
+    
+    return phoneNumbers;
+}
+
+- (ABRecordRef)createAddressBookContactFromLinphoneFriend:(LinphoneFriend*)lFriend {
+    ABRecordRef abContact = ABPersonCreate();
+    
+    const char *name = linphone_friend_get_name(lFriend);
+    NSString *friendName = [NSString stringWithUTF8String:name];
+    
+    NSMutableArray *sipURIs = [self contactSipURIsFromLinphoneFriend:lFriend];
+    
+    NSMutableArray *phoneNumbers = [self contactPhoneNumbersFromLinphoneFriend:lFriend];
+    
+    CFErrorRef  anError = NULL;
+    ABRecordSetValue(abContact, kABPersonFirstNameProperty, (__bridge CFTypeRef)friendName, nil);
+    
+    CFStringRef ref = (__bridge_retained CFStringRef)@"ACE";
+
+    ABMutableMultiValueRef phoneNumberMultiValue = ABMultiValueCreateMutable(kABPersonPhoneProperty);
+    
+    if (phoneNumbers.count > 0) {
+        for (int i = 0; i < phoneNumbers.count; ++i) {
+            ABMultiValueAddValueAndLabel(phoneNumberMultiValue ,(__bridge CFTypeRef)(phoneNumbers[i]), ref, NULL);
+        }
+        ABRecordSetValue(abContact, kABPersonPhoneProperty, phoneNumberMultiValue, &anError);
+        if (anError != NULL) {
+            NSLog(@"Error adding phone numbers");
+        }
+        CFRelease(phoneNumberMultiValue);
+    }
+    
+     ABMutableMultiValueRef values =  ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
+    
+    if (sipURIs.count > 0) {
+        for (int i = 0; i < sipURIs.count; ++i) {
+            NSDictionary *lDict = @{
+                                    (NSString *)kABPersonInstantMessageUsernameKey : sipURIs[i],
+                                    (NSString *)kABPersonInstantMessageServiceKey : @"SIP"
+                                    };
+            ABMultiValueAddValueAndLabel(values, (__bridge CFTypeRef)(lDict), NULL, NULL);
+        }
+        ABRecordSetValue(abContact, kABPersonInstantMessageProperty, values, &anError);
+        if (anError != NULL) {
+            NSLog(@"Error adding sip URIs");
+        }
+         CFRelease(values);
+    }
+    
+    return abContact;
+}
+
+- (NSMutableArray*)contactSipURIsFromLinphoneFriend:(LinphoneFriend*)lFriend {
+    
+    NSMutableArray *sipURIs = [NSMutableArray new];
+    
+    MSList* addresses = linphone_friend_get_addresses(lFriend);
+    while (addresses != NULL) {
+        LinphoneAddress* lAddress = (LinphoneAddress*)addresses->data;
+        char *sipURI = linphone_address_as_string_uri_only(lAddress);
+        if (sipURI) {
+            NSString *sipAddress = [NSString stringWithUTF8String:sipURI];
+            NSString *sip_ =[sipAddress substringToIndex:4];
+            if ([sip_ isEqualToString:@"sip:"]) {
+                sipAddress = [sipAddress substringFromIndex:4];
+            }
+            [sipURIs addObject:sipAddress];
+        }
+        addresses = ms_list_next(addresses);
+    }
+
+    return sipURIs;
+}
+
+- (NSMutableArray*)contactPhoneNumbersFromLinphoneFriend:(LinphoneFriend*)lFriend {
+    
+    NSMutableArray *phoneNumbers = [NSMutableArray new];
+    MSList* phone_numbers = linphone_friend_get_phone_numbers(lFriend);
+    
+    while (phone_numbers != NULL) {
+        const char *phone = (const char *)phone_numbers->data;
+        if (phone) {
+            NSString *phoneString = [NSString stringWithUTF8String:phone];
+            if ([phoneString length] > 4) {
+                NSString *sip_ =[phoneString substringToIndex:4];
+                if (![sip_ isEqualToString:@"sip:"]) {
+                    [phoneNumbers addObject:[NSString stringWithUTF8String:phone]];
+                }
+            } else {
+                [phoneNumbers addObject:[NSString stringWithUTF8String:phone]];
+            }
+        }
+        phone_numbers = ms_list_next(phone_numbers);
+    }
+    
+    return phoneNumbers;
+}
+
+- (void)deleteFriendsFromList {
+    const LinphoneFriendList *friendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
+    const MSList *friends = linphone_friend_list_get_friends(friendList);
+    while (friends != NULL) {
+        LinphoneFriend* friend = (LinphoneFriend*)friends->data;
+        friends = ms_list_next(friends);
+        linphone_core_remove_friend([LinphoneManager getLc], friend);
+    }
+    
 }
 
 @end
