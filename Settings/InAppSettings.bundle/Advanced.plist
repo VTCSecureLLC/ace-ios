@@ -46,16 +46,6 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>animations_preference</string>
-			<key>Title</key>
-			<string>Animations</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
 			<string>backgroundmode_preference</string>
 			<key>Title</key>
 			<string>Background mode</string>
@@ -76,7 +66,7 @@
 			<key>Key</key>
 			<string>expire_preference</string>
 			<key>Title</key>
-			<string>Expire</string>
+			<string>Registration Renew</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>AutocapitalizationType</key>
@@ -86,147 +76,77 @@
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
-			<integer>600</integer>
+			<integer>280</integer>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
-        <dict>
-            <key>Title</key>
-            <string>QoS (DSCP)</string>
-            <key>Type</key>
-            <string>PSGroupSpecifier</string>
-        </dict>
+		<dict>
+			<key>Title</key>
+			<string>QoS (DSCP)</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
 		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-            <string>QoS</string>
-            <key>Title</key>
-            <string>Packet Tagging</string>
-            <key>Type</key>
-            <string>PSToggleSwitchSpecifier</string>
-        </dict>
-        <dict>
-            <key>Key</key>
-            <string>signaling_preference</string>
-            <key>Title</key>
-            <string>Signaling</string>
-            <key>Type</key>
-            <string>PSTextFieldSpecifier</string>
-            <key>AutocapitalizationType</key>
-            <string>None</string>
-            <key>AutocorrectionType</key>
-            <string>No</string>
-            <key>KeyboardType</key>
-            <string>NumberPad</string>
-            <key>DefaultValue</key>
-            <integer>28</integer>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentRight</string>
-        </dict>
-        <dict>
-            <key>Key</key>
-            <string>audio_preference</string>
-            <key>Title</key>
-            <string>Audio</string>
-            <key>Type</key>
-            <string>PSTextFieldSpecifier</string>
-            <key>AutocapitalizationType</key>
-            <string>None</string>
-            <key>AutocorrectionType</key>
-            <string>No</string>
-            <key>KeyboardType</key>
-            <string>NumberPad</string>
-            <key>DefaultValue</key>
-            <integer>38</integer>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentRight</string>
-        </dict>
-        <dict>
-            <key>Key</key>
-            <string>video_preference</string>
-            <key>Title</key>
-            <string>Video</string>
-            <key>Type</key>
-            <string>PSTextFieldSpecifier</string>
-            <key>AutocapitalizationType</key>
-            <string>None</string>
-            <key>AutocorrectionType</key>
-            <string>No</string>
-            <key>KeyboardType</key>
-            <string>NumberPad</string>
-            <key>DefaultValue</key>
-            <integer>38</integer>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentRight</string>
-        </dict>
-		<dict>
+			<string>QoS</string>
 			<key>Title</key>
-			<string>Primary account</string>
+			<string>Packet Tagging</string>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>signaling_preference</string>
+			<key>Title</key>
+			<string>Signaling</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>primary_displayname_preference</string>
-			<key>New item</key>
-			<string></string>
 			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Display name</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>28</integer>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>audio_preference</string>
+			<key>Title</key>
+			<string>Audio</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>primary_username_preference</string>
 			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>Title</key>
-			<string>Username</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>38</integer>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<key>Key</key>
+			<string>video_preference</string>
 			<key>Title</key>
-			<string>File sharing</string>
-		</dict>
-		<dict>
+			<string>Video</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>KeyboardType</key>
-			<string>URL</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Server URL</string>
-			<key>Key</key>
-			<string>file_transfer_server_url_preference</string>
+			<string>NumberPad</string>
+			<key>DefaultValue</key>
+			<integer>38</integer>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
