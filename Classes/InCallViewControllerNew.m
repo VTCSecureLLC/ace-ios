@@ -229,12 +229,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
-    if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+    if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
         [self stopRingCount];
         self.ringCountLabel.hidden = NO;
         self.ringCountLabel.text = @"Declined";
         [self.ringCountLabel setFont:[UIFont systemFontOfSize:30]];
-        declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+        declinedMessage = [message substringFromIndex:CALL_DECLINE_PREFIX.length];
         
         UIFont *smallFont = [UIFont systemFontOfSize:18];
         NSDictionary *smallDict = [NSDictionary dictionaryWithObject:smallFont forKey:NSFontAttributeName];
