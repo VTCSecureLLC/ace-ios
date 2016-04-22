@@ -219,6 +219,13 @@ typedef struct _LinphoneManagerSounds {
  */
 - (LinphoneCall *)currentCall;
 
+/**
+ *  Returns last call from number
+ *
+ *  @return NSString
+ */
+
+- (NSString*) getLastCalledUsername;
 
 /**
  *  @brief Checks if chat enabled for exact call

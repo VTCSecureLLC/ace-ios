@@ -230,21 +230,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
     if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
-        LinphoneCall *call = [[LinphoneManager instance] currentCall];
-        
-        if (!call) {
-            return;
-        }
-        
-        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(call);
+        NSString *caller_username = [[LinphoneManager instance] getLastCalledUsername];
 
-        if (!remoteAddr) {
-            return;
-        }
-        
-        NSString *caller_username = [NSString stringWithUTF8String:linphone_address_get_username(remoteAddr)];
-
-        if (![caller_username isEqualToString:userName]) {
+        if (caller_username && ![caller_username isEqualToString:userName]) {
             return;
         }
         
@@ -1224,6 +1212,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
+    self.callDeclineMessageLabel.hidden = YES;
+    self.viewCallDeclinedWithMessage.hidden = YES;
+    
+    if (![[LinphoneManager instance] currentCall]) {
+        [self close];
+    }
     
     if (self.isChatMode) {
         [self closeRTTChat];
