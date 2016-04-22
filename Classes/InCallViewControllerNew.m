@@ -229,7 +229,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
-    if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+    if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
         LinphoneCall *call = [[LinphoneManager instance] currentCall];
         
         if (!call) {
@@ -249,7 +249,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         
         [self stopRingCount];
-        declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+
+        declinedMessage = [message substringFromIndex:CALL_DECLINE_PREFIX.length];
         
         UIFont *smallFont = [UIFont systemFontOfSize:18];
         NSDictionary *smallDict = [NSDictionary dictionaryWithObject:smallFont forKey:NSFontAttributeName];
