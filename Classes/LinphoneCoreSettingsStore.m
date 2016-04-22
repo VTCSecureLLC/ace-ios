@@ -439,6 +439,24 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		linphone_address_destroy(parsed);
 		[self setCString:linphone_core_get_file_transfer_server(lc) forKey:@"file_transfer_server_url_preference"];
 	}
+    
+    // CardDav Config section
+    {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"]) {
+            const char *str = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] UTF8String];
+            [self setCString:str forKey:@"carddav_path_preference"];
+        } else {
+            [self setCString:"" forKey:@"carddav_path_preference"];
+        }
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"]) {
+            const char *str = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"] UTF8String];
+            [self setCString:str forKey:@"carddav_realm_preference"];
+        } else {
+            [self setCString:"" forKey:@"carddav_realm_preference"];
+        }
+        
+    }
 
 	changedDict = [[NSMutableDictionary alloc] init];
 
