@@ -661,6 +661,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)selfPreviewButtonAction:(UIButton *)sender {
+    [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"preview_pref_toggle" object:nil];
     [self hideMoreMenu];
 }
