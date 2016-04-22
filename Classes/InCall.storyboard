@@ -137,21 +137,21 @@
                                     <constraint firstAttribute="width" secondItem="KnW-eL-D0c" secondAttribute="height" multiplier="38:31" id="OrV-fD-OC1"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
+                                <rect key="frame" x="1" y="50" width="373" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="EoO-gd-Sqb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
                                 <rect key="frame" x="0.0" y="150" width="375" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="1XT-sk-ehj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="64"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ringing..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
-                                <rect key="frame" x="1" y="50" width="373" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="EoO-gd-Sqb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -274,6 +274,7 @@
                         <outlet property="callBarViewBottomConstraint" destination="5o4-IW-zgJ" id="NT1-CH-Tvi"/>
                         <outlet property="callDeclineMessageLabel" destination="cik-39-glU" id="wgq-oM-HOP"/>
                         <outlet property="callInfoView" destination="KnW-eL-D0c" id="ZmV-Ag-S7x"/>
+                        <outlet property="callStateLabel" destination="9ev-fs-CZO" id="6Z2-Tz-rjB"/>
                         <outlet property="cameraImageView" destination="RGY-s2-faC" id="q2v-pu-UHW"/>
                         <outlet property="closeChatButton" destination="BGd-We-07U" id="Z1G-Il-X49"/>
                         <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
@@ -282,7 +283,6 @@
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="incomingTextView" destination="1tL-0O-5mt" id="Sof-Xm-lBb"/>
                         <outlet property="ringCountLabel" destination="j6x-3s-y50" id="ndA-rQ-0bO"/>
-                        <outlet property="ringingLabel" destination="9ev-fs-CZO" id="3uN-VT-Wj5"/>
                         <outlet property="rttMessageContainerView" destination="zyC-b4-pSa" id="33L-RA-tBK"/>
                         <outlet property="rttMessageContainerViewBottomConstraint" destination="YrC-VC-PnZ" id="REW-1m-7qn"/>
                         <outlet property="secondIncomingCallBarView" destination="0Fx-gY-047" id="VcJ-ds-GtW"/>
