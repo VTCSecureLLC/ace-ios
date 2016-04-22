@@ -337,14 +337,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         case LinphoneCallOutgoingRinging:
         case LinphoneCallOutgoingProgress: {
             //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
-            [self stopRingCount];
-            self.ringIncrementTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
-                                                                       target:self
-                                                                     selector:@selector(displayIncrementedRingCount)
-                                                                     userInfo:nil
-                                                                      repeats:YES];
-            [self.ringIncrementTimer fire];
             
+            if(!self.ringIncrementTimer){
+                [self stopRingCount];
+                self.ringIncrementTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
+                                                                           target:self
+                                                                         selector:@selector(displayIncrementedRingCount)
+                                                                         userInfo:nil
+                                                                          repeats:YES];
+                [self.ringIncrementTimer fire];
+            }
             break;
         }
             
@@ -674,13 +676,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)displayIncrementedRingCount {
     self.ringCountLabel.hidden = NO;
     self.ringingLabel.hidden = NO;
-    [UIView transitionWithView: self.ringCountLabel
-                      duration:0.5f
+    int duration =[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"];
+    [UIView transitionWithView:self.ringCountLabel
+                      duration:duration
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
+                       
                     }
                     completion:^(BOOL finished) {
-                        self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
+                          self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
                     }];
 }
 
