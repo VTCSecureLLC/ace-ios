@@ -451,6 +451,25 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     return valueOut;
 }
 
++ (NSString*)cardDAVRealmName {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"];
+}
+
++ (NSString*)cardDAVServerPath {
+    
+    NSString *serverPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"];
+    if ([serverPath length] <= 7) {
+        return @"";
+    } else {
+        NSString *withoutHTTP = [serverPath substringFromIndex:7];
+        NSArray* separatedStrings = [withoutHTTP componentsSeparatedByString:@"/"];
+        NSString *serverName = [separatedStrings objectAtIndex:0];
+        return serverName;
+    }
+    
+    return serverPath;
+}
+
 @end
 
 @implementation NSNumber (HumanReadableSize)
