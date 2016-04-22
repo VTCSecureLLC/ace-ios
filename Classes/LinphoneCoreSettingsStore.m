@@ -183,6 +183,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
     BOOL rtt = [lm lpConfigBoolForKey:@"rtt" withDefault:YES];
     [self setBool:rtt forKey:@"enable_rtt"];
     
+    linphone_core_set_inc_timeout(lc, 300);
+
 	// root section
 	{
 		LinphoneProxyConfig *cfg = NULL;
