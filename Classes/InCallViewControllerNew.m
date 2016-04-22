@@ -229,12 +229,28 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
-    if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+    if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
+        LinphoneCall *call = [[LinphoneManager instance] currentCall];
+        
+        if (!call) {
+            return;
+        }
+        
+        const LinphoneAddress *remoteAddr = linphone_call_get_remote_address(call);
+
+        if (!remoteAddr) {
+            return;
+        }
+        
+        NSString *caller_username = [NSString stringWithUTF8String:linphone_address_get_username(remoteAddr)];
+
+        if (![caller_username isEqualToString:userName]) {
+            return;
+        }
+        
         [self stopRingCount];
-        self.ringCountLabel.hidden = NO;
-        self.ringCountLabel.text = @"Declined";
-        [self.ringCountLabel setFont:[UIFont systemFontOfSize:30]];
-        declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+
+        declinedMessage = [message substringFromIndex:CALL_DECLINE_PREFIX.length];
         
         UIFont *smallFont = [UIFont systemFontOfSize:18];
         NSDictionary *smallDict = [NSDictionary dictionaryWithObject:smallFont forKey:NSFontAttributeName];
@@ -542,7 +558,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     self.callDeclineMessageLabel.hidden = YES;
     self.viewCallDeclinedWithMessage.hidden = YES;
-    [self.ringCountLabel setFont:[UIFont systemFontOfSize:64]];
 }
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
