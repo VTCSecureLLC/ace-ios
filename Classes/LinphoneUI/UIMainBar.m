@@ -427,7 +427,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
-    if (![message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+    if (![message hasPrefix:CALL_DECLINE_PREFIX]) {
         NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
         NSMutableDictionary *options = [@{
                                   kCRToastTextKey : messageFullText,
