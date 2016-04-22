@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ringingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *callStateLabel;
 @property (weak, nonatomic) IBOutlet UIView *viewCallDeclinedWithMessage;
 @property (weak, nonatomic) IBOutlet UILabel *callDeclineMessageLabel;
 
@@ -335,8 +335,9 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallOutgoingRinging:
-        case LinphoneCallOutgoingProgress: {
-            //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
+        {
+            self.callStateLabel.text = @"Ringing...";
+            self.callStateLabel.hidden = NO;
             
             if(!self.ringIncrementTimer){
                 [self stopRingCount];
@@ -349,6 +350,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             }
             break;
         }
+        case LinphoneCallOutgoingProgress: {
+
+            self.callStateLabel.text = @"Connecting...";
+            self.callStateLabel.hidden = NO;
+            
+            break;
+        }
             
         case LinphoneCallOutgoingEarlyMedia: {
              [self stopRingCount];
@@ -357,11 +365,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallConnected: {
             [self stopRingCount];
+            
             //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
             break;
         }
         case LinphoneCallStreamsRunning: {
-            [self stopRingCount];
+//            [self stopRingCount];
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
@@ -675,7 +684,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)displayIncrementedRingCount {
     self.ringCountLabel.hidden = NO;
-    self.ringingLabel.hidden = NO;
+
+    self.callStateLabel.hidden = NO;
     int duration =[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"];
     [UIView transitionWithView:self.ringCountLabel
                       duration:duration
@@ -690,7 +700,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)stopRingCount {
     self.ringCountLabel.hidden = YES;
-    self.ringingLabel.hidden = YES;
+    self.callStateLabel.hidden = YES;
     self.ringCountLabel.text = @"1";
     if(self.ringIncrementTimer){
         [self.ringIncrementTimer invalidate];
