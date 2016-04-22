@@ -90,6 +90,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldDomain;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldOutboundProxy;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPort;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUserId;
 
