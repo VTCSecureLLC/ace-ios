@@ -516,7 +516,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 - (void)set508ForceInitialValue {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"force508"]) {
         // First time
-        [self setBool:YES forKey:@"force_508_preference"];
+        [self setBool:NO forKey:@"force_508_preference"];
     } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] integerValue] == 1) {
         [self setBool:YES forKey:@"force_508_preference"];
     } else {
