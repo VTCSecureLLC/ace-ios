@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>YES</string>
+			<string>NO</string>
 			<key>Key</key>
 			<string>force_508_preference</string>
 			<key>Title</key>
