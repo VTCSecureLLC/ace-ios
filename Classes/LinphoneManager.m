@@ -109,7 +109,10 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 @end
 
-@interface LinphoneManager ()
+@interface LinphoneManager () {
+    NSString *lastCalledUsername;
+}
+
 @property(strong, nonatomic) AVAudioPlayer *messagePlayer;
 @end
 
@@ -225,6 +228,7 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 - (id)init {
 	if ((self = [super init])) {
+        lastCalledUsername = nil;
         kLinphoneInternalRCFilename = @"linphonerc";
         [self setLinphoneCoreInitialValues];
 	}
@@ -839,6 +843,13 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
         [self setupGSMInteraction];
     }
     // Post event
+    
+    if (call) {
+        const LinphoneAddress* call_addr = linphone_call_get_remote_address(call);
+        const char *call_username = linphone_address_get_username(call_addr);
+        lastCalledUsername = [NSString stringWithUTF8String:call_username];
+    }
+    
     NSDictionary *dict = @{
                            @"call" : [NSValue valueWithPointer:call],
                            @"state" : [NSNumber numberWithInt:state],
@@ -2207,6 +2218,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
 - (LinphoneCall *)currentCall {
     
     return linphone_core_get_current_call(theLinphoneCore);
+}
+
+- (NSString*) getLastCalledUsername {
+    return lastCalledUsername;
 }
 
 - (BOOL)isChatEnabledForCall:(LinphoneCall *)call {

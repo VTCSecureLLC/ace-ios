@@ -624,6 +624,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 #pragma mark - Action Methods
 - (IBAction)onHistoryClick:(id)event {
     [[PhoneMainView instance] changeCurrentView:[HistoryViewController compositeViewDescription]];
+    [self hideMoreMenu];
 }
 
 - (IBAction)onContactsClick:(id)event {
@@ -633,18 +634,22 @@ static NSString *const kDisappearAnimation = @"disappear";
     [ContactSelection enableEmailFilter:FALSE];
     [ContactSelection setNameOrEmailFilter:nil];
     [[PhoneMainView instance] changeCurrentView:[ContactsViewController compositeViewDescription]];
+    [self hideMoreMenu];
 }
 
 - (IBAction)onDialerClick:(id)event {
     [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
+    [self hideMoreMenu];
 }
 
 - (IBAction)onSettingsClick:(id)event {
     [[PhoneMainView instance] changeCurrentView:[SettingsViewController compositeViewDescription]];
+    [self hideMoreMenu];
 }
 
 - (IBAction)onChatClick:(id)event {
     [[PhoneMainView instance] changeCurrentView:[ChatViewController compositeViewDescription]];
+    [self hideMoreMenu];
 }
 
 - (IBAction)moreButtonAction:(UIButton *)sender {
@@ -661,6 +666,7 @@ static NSString *const kDisappearAnimation = @"disappear";
 }
 
 - (IBAction)selfPreviewButtonAction:(UIButton *)sender {
+    [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"preview_pref_toggle" object:nil];
     [self hideMoreMenu];
 }
