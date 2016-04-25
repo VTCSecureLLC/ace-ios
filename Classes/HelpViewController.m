@@ -112,8 +112,15 @@ typedef struct _LinphoneCardDAVStats {
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
             [alert show];
-        } else {
+        } else if ([[VSContactsManager sharedInstance] checkContactSipURIExistance]) {
             [self exportAllContacts];
+        } else {
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:nil
+                                                             message:@"No contact has valid sip URI"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
         }
     }
     else if([[tableData objectAtIndex:indexPath.row] containsString:@"Sync Contacts"]) {

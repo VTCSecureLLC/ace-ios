@@ -23,5 +23,6 @@
 - (NSString*)exportAllContacts;
 - (int)addressBookContactsCount;
 - (void)addAllContactsToFriendList;
+- (BOOL)checkContactSipURIExistance;
 
 @end
