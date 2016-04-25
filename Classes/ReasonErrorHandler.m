@@ -94,7 +94,7 @@
     self.errorAlertView = [[UIAlertView alloc] initWithTitle:nil
                                                     message:reasonErrorMessage
                                                    delegate:self
-                                          cancelButtonTitle:nil
+                                          cancelButtonTitle:@"Dismiss"
                                           otherButtonTitles:nil, nil];
     self.errorAlertView.delegate = self;
     [self.errorAlertView show];
