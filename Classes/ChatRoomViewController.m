@@ -555,6 +555,48 @@ static void message_status(LinphoneChatMessage *msg, LinphoneChatMessageState st
 	[sheet showInView:[PhoneMainView instance].view];
 }
 
+- (IBAction)callButtonAction:(UIButton *)sender {
+    
+    NSString *displayName = nil;
+    UIImage *image = nil;
+    const LinphoneAddress *linphoneAddress = linphone_chat_room_get_peer_address(chatRoom);
+    if (linphoneAddress == NULL) {
+        UIAlertView *error = [[UIAlertView alloc]
+                              initWithTitle:NSLocalizedString(@"Invalid SIP address", nil)
+                              message:NSLocalizedString(@"Either configure a SIP proxy server from settings prior to send a "
+                                                        @"message or use a valid SIP address (I.E sip:john@example.net)",
+                                                        nil)
+                              delegate:nil
+                              cancelButtonTitle:NSLocalizedString(@"Continue", nil)
+                              otherButtonTitles:nil];
+        [error show];
+        return;
+    }
+    
+    char *tmp = linphone_address_as_string_uri_only(linphoneAddress);
+    NSString *normalizedSipAddress = [NSString stringWithUTF8String:tmp];
+    ms_free(tmp);
+    
+    ABRecordRef acontact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
+    if (acontact != nil) {
+        displayName = [FastAddressBook getContactDisplayName:acontact];
+        image = [FastAddressBook getContactImage:acontact thumbnail:true];
+    }
+    
+    // Display name
+    if (displayName == nil) {
+        const char *username = linphone_address_get_username(linphoneAddress);
+        char *address = linphone_address_as_string(linphoneAddress);
+        displayName = [NSString stringWithUTF8String:username ?: address];
+        ms_free(address);
+    }
+    
+    DialerViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
+    if (controller != nil) {
+        [controller call:normalizedSipAddress displayName:displayName];
+    }
+}
+
 #pragma mark ChatRoomDelegate
 
 - (BOOL)chatRoomStartImageUpload:(UIImage *)image url:(NSURL *)url {
