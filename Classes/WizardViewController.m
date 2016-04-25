@@ -664,7 +664,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         linphone_core_set_download_bandwidth([LinphoneManager getLc], [[DefaultSettingsManager sharedInstance] downloadBandwidth]);
         linphone_core_set_upload_bandwidth([LinphoneManager getLc],[ [DefaultSettingsManager sharedInstance] uploadBandwidth]);
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"Explicit" forKey:@"rtcp_feedback_pref"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Implicit" forKey:@"rtcp_feedback_pref"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // video_resolution_maximum

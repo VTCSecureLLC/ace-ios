@@ -327,7 +327,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 
         if(![[[defaults dictionaryRepresentation] allKeys] containsObject:@"rtcp_feedback_pref"]){
             
-            rtcpFeedbackMode = @"Explicit";
+            rtcpFeedbackMode = @"Implicit";
             [[NSUserDefaults standardUserDefaults] setObject:rtcpFeedbackMode forKey:@"rtcp_feedback_pref"];
         }
         
