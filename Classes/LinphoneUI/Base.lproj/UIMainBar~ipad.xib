@@ -372,14 +372,14 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcs-Gg-8mG" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="121" width="220" height="0.0"/>
+                            <rect key="frame" x="0.0" y="180" width="220" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" id="KKs-Xe-O5v"/>
+                                <constraint firstAttribute="height" constant="1" id="KKs-Xe-O5v"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNi-f4-eEW" userLabel="Videomail Button Container">
-                            <rect key="frame" x="0.0" y="181" width="220" height="60"/>
+                            <rect key="frame" x="0.0" y="180" width="220" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3s-NN-Z4K">
                                     <rect key="frame" x="0.0" y="0.0" width="175" height="60"/>
@@ -418,17 +418,17 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuR-QR-ARW" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="120" width="220" height="1"/>
+                            <rect key="frame" x="0.0" y="119" width="220" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="bJ0-97-fZ8"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H62-Ao-hNn" userLabel="Resources Button Container">
-                            <rect key="frame" x="0.0" y="61" width="220" height="59"/>
+                            <rect key="frame" x="0.0" y="61" width="220" height="58"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxy-eg-ki3">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="58"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
@@ -490,7 +490,7 @@
                         <constraint firstItem="Qcs-Gg-8mG" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="4tD-oQ-msd"/>
                         <constraint firstItem="bJl-fo-LTi" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="6Q9-0w-YLO"/>
                         <constraint firstItem="CNi-f4-eEW" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="8dr-RV-7iK"/>
-                        <constraint firstItem="Qcs-Gg-8mG" firstAttribute="top" secondItem="CNi-f4-eEW" secondAttribute="bottom" constant="-120" id="8tp-ol-02v"/>
+                        <constraint firstItem="Qcs-Gg-8mG" firstAttribute="top" secondItem="CNi-f4-eEW" secondAttribute="bottom" constant="-60" id="8tp-ol-02v"/>
                         <constraint firstItem="QuR-QR-ARW" firstAttribute="top" secondItem="H62-Ao-hNn" secondAttribute="bottom" id="Csk-Sn-1Dr"/>
                         <constraint firstItem="PAf-t8-fh2" firstAttribute="top" secondItem="bJl-fo-LTi" secondAttribute="bottom" id="E4A-yY-CWe"/>
                         <constraint firstAttribute="trailing" secondItem="bJl-fo-LTi" secondAttribute="trailing" id="GpE-28-amC"/>
@@ -510,7 +510,7 @@
                         <constraint firstAttribute="trailing" secondItem="R7F-52-85G" secondAttribute="trailing" id="prq-lb-E9l"/>
                         <constraint firstItem="QuR-QR-ARW" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="qlq-tb-VMh"/>
                         <constraint firstItem="bJl-fo-LTi" firstAttribute="top" secondItem="335-YK-MHF" secondAttribute="top" id="rWo-Aw-STM"/>
-                        <constraint firstItem="R7F-52-85G" firstAttribute="top" secondItem="Qcs-Gg-8mG" secondAttribute="bottom" id="tVr-Qi-fgs"/>
+                        <constraint firstItem="R7F-52-85G" firstAttribute="top" secondItem="Qcs-Gg-8mG" secondAttribute="bottom" constant="-60" id="tVr-Qi-fgs"/>
                         <constraint firstItem="R7F-52-85G" firstAttribute="leading" secondItem="335-YK-MHF" secondAttribute="leading" id="ueE-W9-3Ar"/>
                         <constraint firstAttribute="width" constant="220" id="z7B-Pc-JVP"/>
                     </constraints>
