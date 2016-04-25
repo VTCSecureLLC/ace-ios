@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatRoomViewController">
@@ -44,7 +44,7 @@
                                     <rect key="frame" x="20" y="6" width="65" height="65"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <accessibility key="accessibilityConfiguration" label="Contact avatar">
-                                        <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
+                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         <bool key="isElement" value="YES"/>
                                     </accessibility>
                                 </imageView>
@@ -78,8 +78,8 @@
                             <rect key="frame" x="0.0" y="337" width="320" height="22"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%@ is composing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fpY-Fv-ht2" userLabel="composeLabel">
-                                    <rect key="frame" x="0.0" y="1" width="320" height="22"/>
+                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%@ is composing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fpY-Fv-ht2" userLabel="composeLabel">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                                     <accessibility key="accessibilityConfiguration" label=""/>
@@ -117,7 +117,7 @@
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" id="63" userLabel="messageField" customClass="HPGrowingTextView">
-                                    <rect key="frame" x="39" y="12" width="218" height="33"/>
+                                    <rect key="frame" x="39" y="12" width="215" height="33"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.050980392159999999" green="0.3411764706" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <accessibility key="accessibilityConfiguration" label="Message field">
@@ -159,7 +159,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="9" userLabel="backButton">
-                            <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
+                            <rect key="frame" x="-19" y="0.0" width="160" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <accessibility key="accessibilityConfiguration" label="Back"/>
@@ -177,7 +177,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="10" userLabel="editButton" customClass="UIToggleButton">
-                            <rect key="frame" x="160" y="0.0" width="160" height="44"/>
+                            <rect key="frame" x="124" y="0.0" width="160" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.35686274509999999" green="0.39607843139999999" blue="0.43529411759999997" alpha="1" colorSpace="deviceRGB"/>
                             <accessibility key="accessibilityConfiguration" label="Edit"/>
@@ -197,13 +197,46 @@
                                 <action selector="onEditClick:" destination="-1" eventType="touchUpInside" id="13"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" id="5AF-iY-PX5">
+                            <rect key="frame" x="260" y="0.0" width="60" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_call_icon" id="O4W-JP-HwP">
+                                    <rect key="frame" x="16" y="7" width="30" height="15"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K5W-j6-I7U">
+                                    <rect key="frame" x="8" y="21" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="57G-5q-yhZ" customClass="UIToggleButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <inset key="titleEdgeInsets" minX="0.0" minY="18" maxX="17" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="-13" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="callButtonAction:" destination="-1" eventType="touchUpInside" id="lZ5-XK-lOP"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.019607843137254902" green="0.058823529411764705" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="299" y="468"/>
         </view>
         <tableViewController autoresizesArchivedViewToFullSize="NO" id="29" userLabel="tableController" customClass="ChatRoomTableViewController">
             <extendedEdge key="edgesForExtendedLayout"/>
@@ -217,6 +250,7 @@
         <image name="avatar_unknown_small.png" width="131" height="131"/>
         <image name="chat_back_default.png" width="320" height="88"/>
         <image name="chat_back_over.png" width="320" height="88"/>
+        <image name="chat_call_icon" width="40" height="20"/>
         <image name="chat_edit_default.png" width="320" height="88"/>
         <image name="chat_edit_over.png" width="320" height="88"/>
         <image name="chat_ok_default.png" width="320" height="88"/>
@@ -228,9 +262,4 @@
         <image name="chat_send_over.png" width="117" height="115"/>
         <image name="toolsbar_background.png" width="5" height="88"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
