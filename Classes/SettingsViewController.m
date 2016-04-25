@@ -864,6 +864,22 @@ static UICompositeViewDescription *compositeDescription = nil;
         settingsController.hiddenKeys = [self findHiddenKeys];
         [settingsController.tableView reloadData];
     }
+     else if ([@"carddav_path_preference" compare:notif.object] == NSOrderedSame) {
+         
+         NSString *cardDavPath = [notif.userInfo objectForKey:@"carddav_path_preference"];
+
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         [defaults setObject:cardDavPath forKey:@"carddav_path"];
+         [defaults synchronize];
+     }
+     else if ([@"carddav_realm_preference" compare:notif.object] == NSOrderedSame) {
+         
+         NSString *cardDavRealm = [notif.userInfo objectForKey:@"carddav_realm_preference"];
+         
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         [defaults setObject:cardDavRealm forKey:@"carddav_realm"];
+         [defaults synchronize];
+     }
 
 	for (NSString *key in keys) {
 		if (removeFromHiddenKeys)
@@ -1108,7 +1124,15 @@ static BOOL isAdvancedSettings = FALSE;
         [hiddenKeys addObject:@"tunnel_menu"];
         [hiddenKeys addObject:@"advanced_menu"];
     }
-	return hiddenKeys;
+    
+    [hiddenKeys addObject:@"foreground_color_preference"];
+    [hiddenKeys addObject:@"background_color_preference"];
+    [hiddenKeys addObject:@"pref_text_settings_send_mode_key"];
+    [hiddenKeys addObject:@"show_debug_preference"];
+    [hiddenKeys addObject:@"clear_proxy_button"];
+    [hiddenKeys addObject:@"edge_opt_preference"];
+    
+    return hiddenKeys;
 }
 
 - (void)goToWizard {

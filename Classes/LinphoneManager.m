@@ -109,7 +109,10 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 @end
 
-@interface LinphoneManager ()
+@interface LinphoneManager () {
+    NSString *lastCalledUsername;
+}
+
 @property(strong, nonatomic) AVAudioPlayer *messagePlayer;
 @end
 
@@ -225,6 +228,7 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 - (id)init {
 	if ((self = [super init])) {
+        lastCalledUsername = nil;
         kLinphoneInternalRCFilename = @"linphonerc";
         [self setLinphoneCoreInitialValues];
 	}
@@ -839,6 +843,13 @@ static void linphone_iphone_display_status(struct _LinphoneCore *lc, const char 
         [self setupGSMInteraction];
     }
     // Post event
+    
+    if (call) {
+        const LinphoneAddress* call_addr = linphone_call_get_remote_address(call);
+        const char *call_username = linphone_address_get_username(call_addr);
+        lastCalledUsername = [NSString stringWithUTF8String:call_username];
+    }
+    
     NSDictionary *dict = @{
                            @"call" : [NSValue valueWithPointer:call],
                            @"state" : [NSNumber numberWithInt:state],
@@ -1454,7 +1465,7 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 
 	[self setupNetworkReachabilityCallback];
 
-	NSString *path = [LinphoneManager bundleFile:@"nowebcamCIF.jpg"];
+	NSString *path = [LinphoneManager bundleFile:@"camera_disabled.jpg"];
 	if (path) {
 		const char *imagePath = [path UTF8String];
 		LOGI(@"Using '%s' as source image for no webcam", imagePath);
@@ -2209,6 +2220,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     return linphone_core_get_current_call(theLinphoneCore);
 }
 
+- (NSString*) getLastCalledUsername {
+    return lastCalledUsername;
+}
+
 - (BOOL)isChatEnabledForCall:(LinphoneCall *)call {
 
     BOOL isChatEnabled = NO;
@@ -2254,8 +2269,10 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
             camera_enabled = YES;
         }
     }
+    
     return camera_enabled;
 }
+
 
 - (void)enableCameraForCurrentCall {
     
@@ -2263,14 +2280,20 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     LinphoneCall *call = linphone_core_get_current_call(lc);
     
     if (call) {
-        LinphoneCallAppData *callAppData = (__bridge LinphoneCallAppData *)linphone_call_get_user_pointer(call);
-        if (NULL != callAppData) {
-            callAppData->videoRequested = TRUE; /* will be used later to notify user if video was not activated because of the linphone core*/
-            linphone_call_enable_camera(call, TRUE);
-            LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-            if (NULL != linphoneInfoMessage) {
-                linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_on");
-                linphone_call_send_info_message(call, linphoneInfoMessage);
+        const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+        const char **cameras = linphone_core_get_video_devices([LinphoneManager getLc]);
+        const char *newCamId = NULL;
+        
+        newCamId=cameras[1];//Todo this should be set to whatever the last camera was before mute, write now its hardcoded to front facing camera
+        
+        
+        if (newCamId) {
+            LOGI(@"Switching from [%s] to [%s]", currentCamId, newCamId);
+            linphone_core_set_video_device([LinphoneManager getLc], newCamId);
+            LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+            if (call != NULL) {
+                // Liz E. - OK - this is currently the way to update for a device change.
+                linphone_core_update_call([LinphoneManager getLc], call, NULL);
             }
         }
     } else {
@@ -2284,15 +2307,19 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     LinphoneCall *call = linphone_core_get_current_call(lc);
     
     if (call) {
-        linphone_call_enable_camera(call, FALSE);
-        LinphoneInfoMessage *linphoneInfoMessage = linphone_core_create_info_message(lc);
-        if (NULL != linphoneInfoMessage) {
-            linphone_info_message_add_header(linphoneInfoMessage, "action", "camera_mute_off");
-            linphone_call_send_info_message(call, linphoneInfoMessage);
+        const char *newCamId = NULL;
+        newCamId="StaticImage: Static picture";
+        linphone_core_set_video_device([LinphoneManager getLc], newCamId);
+        LinphoneCall *call = linphone_core_get_current_call([LinphoneManager getLc]);
+        if (call != NULL) {
+            // Liz E. - OK - this is currently the way to update for a device change.
+            linphone_core_update_call([LinphoneManager getLc], call, NULL);
         }
+
     } else {
         LOGW(@"Cannot toggle video button, because no current call");
     }
+   
 }
 
 - (BOOL)isMicrophoneEnabled {

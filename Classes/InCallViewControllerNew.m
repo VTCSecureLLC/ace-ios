@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *ringCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ringingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *callStateLabel;
 @property (weak, nonatomic) IBOutlet UIView *viewCallDeclinedWithMessage;
 @property (weak, nonatomic) IBOutlet UILabel *callDeclineMessageLabel;
 
@@ -229,12 +229,16 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     NSString *userName = [messageInfo objectForKey:@"userName"];
     NSString *message = [messageInfo objectForKey:@"simpleMessage"];
     
-    if ([message hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
+    if ([message hasPrefix:CALL_DECLINE_PREFIX]) {
+        NSString *caller_username = [[LinphoneManager instance] getLastCalledUsername];
+
+        if (caller_username && ![caller_username isEqualToString:userName]) {
+            return;
+        }
+        
         [self stopRingCount];
-        self.ringCountLabel.hidden = NO;
-        self.ringCountLabel.text = @"Declined";
-        [self.ringCountLabel setFont:[UIFont systemFontOfSize:30]];
-        declinedMessage = [message substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+
+        declinedMessage = [message substringFromIndex:CALL_DECLINE_PREFIX.length];
         
         UIFont *smallFont = [UIFont systemFontOfSize:18];
         NSDictionary *smallDict = [NSDictionary dictionaryWithObject:smallFont forKey:NSFontAttributeName];
@@ -319,15 +323,25 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             break;
         }
         case LinphoneCallOutgoingRinging:
+        {
+            self.callStateLabel.text = @"Ringing...";
+            self.callStateLabel.hidden = NO;
+            
+            if(!self.ringIncrementTimer){
+                [self stopRingCount];
+                self.ringIncrementTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
+                                                                           target:self
+                                                                         selector:@selector(displayIncrementedRingCount)
+                                                                         userInfo:nil
+                                                                          repeats:YES];
+                [self.ringIncrementTimer fire];
+            }
+            break;
+        }
         case LinphoneCallOutgoingProgress: {
-            //            NSAssert(0, @"LinphoneCallOutgoingProgress: Just need to check this state");
-            [self stopRingCount];
-            self.ringIncrementTimer = [NSTimer scheduledTimerWithTimeInterval:[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"]
-                                                                       target:self
-                                                                     selector:@selector(displayIncrementedRingCount)
-                                                                     userInfo:nil
-                                                                      repeats:YES];
-            [self.ringIncrementTimer fire];
+
+            self.callStateLabel.text = @"Connecting...";
+            self.callStateLabel.hidden = NO;
             
             break;
         }
@@ -339,11 +353,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallConnected: {
             [self stopRingCount];
+            
             //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
             break;
         }
         case LinphoneCallStreamsRunning: {
-            [self stopRingCount];
+//            [self stopRingCount];
             _holdByRemoteImageView.hidden = YES;
             // Show first call in hold view
             
@@ -443,9 +458,25 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.callInfoView stopDataUpdating];
             NSUInteger callsCount = [[LinphoneManager instance] callsCountForLinphoneCore:[LinphoneManager getLc]];
             if (callsCount == 0) {
-                [self hideQualityIndicator];
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"fromEvents", nil];
-                [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:1.0];
+                
+                void (^endCall)(void) = ^(void) {
+                    [self hideQualityIndicator];
+                    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"fromEvents", nil];
+                    [self performSelector:@selector(closeCallWindow:) withObject:dict afterDelay:1.0];
+                };
+                
+                
+                LinphoneReason callReason = linphone_call_get_reason(call);
+                if (callReason == LinphoneReasonDeclined) {
+                    
+                    [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:callReason];
+                    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
+                        endCall();
+                    };
+                }
+                else {
+                    endCall();
+                }
             }
             else if (callsCount == 1) {
                 LinphoneCall *holdCall = [[LinphoneManager instance] holdCall];
@@ -526,7 +557,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     self.callDeclineMessageLabel.hidden = YES;
     self.viewCallDeclinedWithMessage.hidden = YES;
-    [self.ringCountLabel setFont:[UIFont systemFontOfSize:64]];
 }
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
@@ -642,20 +672,23 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)displayIncrementedRingCount {
     self.ringCountLabel.hidden = NO;
-    self.ringingLabel.hidden = NO;
-    [UIView transitionWithView: self.ringCountLabel
-                      duration:0.5f
+
+    self.callStateLabel.hidden = NO;
+    int duration =[[LinphoneManager instance] lpConfigFloatForKey:@"outgoing_ring_duration" forSection:@"vtcsecure"];
+    [UIView transitionWithView:self.ringCountLabel
+                      duration:duration
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
+                       
                     }
                     completion:^(BOOL finished) {
-                        self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
+                          self.ringCountLabel.text = [@(self.ringCountLabel.text.intValue + 1) stringValue];
                     }];
 }
 
 - (void)stopRingCount {
     self.ringCountLabel.hidden = YES;
-    self.ringingLabel.hidden = YES;
+    self.callStateLabel.hidden = YES;
     self.ringCountLabel.text = @"1";
     if(self.ringIncrementTimer){
         [self.ringIncrementTimer invalidate];
@@ -696,10 +729,11 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             return;
         }
 
-        if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
+        const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+        
+        if (strcmp(currentCamId, "StaticImage: Static picture") != 0) {
             [[LinphoneManager instance] disableCameraForCurrentCall];
-        }
-        else {
+        }else {
             [[LinphoneManager instance] enableCameraForCurrentCall];
         }
         
@@ -1182,6 +1216,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
+    self.callDeclineMessageLabel.hidden = YES;
+    self.viewCallDeclinedWithMessage.hidden = YES;
+    
+    if (![[LinphoneManager instance] currentCall]) {
+        [self close];
+    }
     
     if (self.isChatMode) {
         [self closeRTTChat];

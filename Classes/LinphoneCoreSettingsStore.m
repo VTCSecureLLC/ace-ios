@@ -183,6 +183,8 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
     BOOL rtt = [lm lpConfigBoolForKey:@"rtt" withDefault:YES];
     [self setBool:rtt forKey:@"enable_rtt"];
     
+    linphone_core_set_inc_timeout(lc, 300);
+
 	// root section
 	{
 		LinphoneProxyConfig *cfg = NULL;
@@ -248,7 +250,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			[self setBool:FALSE forKey:@"outbound_proxy_preference"];
 			[self setBool:FALSE forKey:@"avpf_preference"];
 			// actually in Advanced section but proxy config dependent
-			[self setInteger:[lm lpConfigIntForKey:@"reg_expires" forSection:@"default_values" withDefault:600]
+			[self setInteger:[lm lpConfigIntForKey:@"reg_expires" forSection:@"default_values" withDefault:280]
 					  forKey:@"expire_preference"];
 		}
 
@@ -439,6 +441,24 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 		linphone_address_destroy(parsed);
 		[self setCString:linphone_core_get_file_transfer_server(lc) forKey:@"file_transfer_server_url_preference"];
 	}
+    
+    // CardDav Config section
+    {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"]) {
+            const char *str = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] UTF8String];
+            [self setCString:str forKey:@"carddav_path_preference"];
+        } else {
+            [self setCString:"" forKey:@"carddav_path_preference"];
+        }
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"]) {
+            const char *str = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"] UTF8String];
+            [self setCString:str forKey:@"carddav_realm_preference"];
+        } else {
+            [self setCString:"" forKey:@"carddav_realm_preference"];
+        }
+        
+    }
 
 	changedDict = [[NSMutableDictionary alloc] init];
 
@@ -496,7 +516,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 - (void)set508ForceInitialValue {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"force508"]) {
         // First time
-        [self setBool:YES forKey:@"force_508_preference"];
+        [self setBool:NO forKey:@"force_508_preference"];
     } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"force508"] integerValue] == 1) {
         [self setBool:YES forKey:@"force_508_preference"];
     } else {

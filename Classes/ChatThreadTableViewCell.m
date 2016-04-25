@@ -157,8 +157,8 @@
     
     if (lastMessage) {
         
-        if ([lastMessage hasPrefix:@"!@$%#CALL_DECLINE_MESSAGE#"]) {
-            lastMessage = [lastMessage substringFromIndex:@"!@$%#CALL_DECLINE_MESSAGE#".length];
+        if ([lastMessage hasPrefix:CALL_DECLINE_PREFIX]) {
+            lastMessage = [lastMessage substringFromIndex:CALL_DECLINE_PREFIX.length];
         }
         
         if (unreadMessagesCount > 0) {

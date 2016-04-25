@@ -26,11 +26,11 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>YES</string>
+			<string>NO</string>
 			<key>Key</key>
 			<string>force_508_preference</string>
 			<key>Title</key>
-			<string>Force 508</string>
+			<string>High Contrast</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

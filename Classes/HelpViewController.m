@@ -21,16 +21,12 @@
 
 @implementation HelpViewController{
     NSArray *tableData;
-    NSArray *tableImages;
     ResourcesViewController *resourcesController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
-    
     tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Videomail", @"Export Contacts", nil];
-    tableImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"resources_default.png"], [UIImage imageNamed:@"Global1.png"], nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,8 +101,15 @@
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
             [alert show];
-        } else {
+        } else if ([[VSContactsManager sharedInstance] checkContactSipURIExistance]) {
             [self exportAllContacts];
+        } else {
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:nil
+                                                             message:@"No contact has valid sip URI"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
         }
     }
 }
@@ -139,7 +142,6 @@
     }
     
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
-   // cell.imageView.image = [tableImages objectAtIndex:indexPath.row];
     
     if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
         NSInteger mwiCount;

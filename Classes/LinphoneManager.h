@@ -37,7 +37,7 @@
 #include "linphone/linphone_tunnel.h"
 
 #define kREAL_TIME_TEXT_ENABLED @"kREAL_TIME_TEXT_ENABLED"
-#define CALL_DECLINE_PREFIX @"!@$%#CALL_DECLINE_MESSAGE#"
+#define CALL_DECLINE_PREFIX @"@@info@@ "
 
 extern NSString *const LINPHONERC_APPLICATION_KEY;
 
@@ -219,6 +219,13 @@ typedef struct _LinphoneManagerSounds {
  */
 - (LinphoneCall *)currentCall;
 
+/**
+ *  Returns last call from number
+ *
+ *  @return NSString
+ */
+
+- (NSString*) getLastCalledUsername;
 
 /**
  *  @brief Checks if chat enabled for exact call

@@ -27,22 +27,6 @@
 			<string>PSMultiValueSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Show self view</string>
-			<key>Key</key>
-			<string>self_video_preference</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Show preview</string>
-			<key>Key</key>
-			<string>preview_preference</string>
-		</dict>
-		<dict>
 			<key>Key</key>
 			<string>video_preset_preference</string>
 			<key>Title</key>
