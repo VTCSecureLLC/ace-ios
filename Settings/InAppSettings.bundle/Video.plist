@@ -12,7 +12,7 @@
 				<string>Off</string>
 			</array>
 			<key>DefaultValue</key>
-			<string>Explicit</string>
+			<string>Implicit</string>
 			<key>Values</key>
 			<array>
 				<string>Implicit</string>
