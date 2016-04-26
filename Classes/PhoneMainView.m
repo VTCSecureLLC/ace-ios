@@ -707,7 +707,7 @@ static RootViewManager *rootViewManagerInstance = nil;
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
     
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
-    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
+    [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error){
         [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     };
 }
