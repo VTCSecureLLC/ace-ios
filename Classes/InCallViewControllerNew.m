@@ -129,6 +129,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    [self orientationUpdate:self.interfaceOrientation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
