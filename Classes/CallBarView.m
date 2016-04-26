@@ -173,6 +173,11 @@
                      }];
 }
 
+- (void)disableCallOptions {
+    
+    self.bottomButtonsContainer.userInteractionEnabled = NO;
+}
+
 
 #pragma mark - Action methods
 - (IBAction)videoButtonAction:(UIButton *)sender {
