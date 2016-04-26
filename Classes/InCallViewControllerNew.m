@@ -886,7 +886,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)setupVideoButtonState {
-    
+    if(linphone_core_get_current_call([LinphoneManager getLc])){
+        if(linphone_call_get_state(linphone_core_get_current_call([LinphoneManager getLc])) != LinphoneCallStreamsRunning){
+            self.callBarView.videoButtonSelected = NO;
+            return;
+        }
+    }
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         
         self.callBarView.videoButtonSelected = NO;
