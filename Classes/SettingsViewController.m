@@ -1131,6 +1131,7 @@ static BOOL isAdvancedSettings = FALSE;
     [hiddenKeys addObject:@"show_debug_preference"];
     [hiddenKeys addObject:@"clear_proxy_button"];
     [hiddenKeys addObject:@"edge_opt_preference"];
+    [hiddenKeys addObject:@"pushnotification_preference"];
     
     return hiddenKeys;
 }
