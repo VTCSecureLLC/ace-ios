@@ -201,10 +201,17 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 				[self setCString:linphone_address_get_domain(addr) forKey:@"domain_preference"];
                 
                 const char *rout = linphone_proxy_config_get_route(cfg);
-                NSString *routString = [NSString stringWithFormat:@"%s", rout];
-                NSString *trimmedSipRout = [routString substringFromIndex:@"sip:".length];
-                routString = [trimmedSipRout substringToIndex:[trimmedSipRout rangeOfString:@";"].location];
-                [self setCString:[routString UTF8String] forKey:@"proxy_preference"];
+                if (rout != NULL) {
+                    NSString *routString = [NSString stringWithFormat:@"%s", rout];
+                    NSString *trimmedSipRout = [routString substringFromIndex:@"sip:".length];
+                    if (trimmedSipRout.length > 0) {
+                        NSRange transportRange = [trimmedSipRout rangeOfString:@";"];
+                        if (transportRange.location != NSNotFound) {
+                            routString = [trimmedSipRout substringToIndex:transportRange.location];
+                            [self setCString:[routString UTF8String] forKey:@"proxy_preference"];
+                        }
+                    }
+                }
 //				if (strcmp(linphone_address_get_domain(addr), linphone_address_get_domain(proxy_addr)) != 0 ||
 //					port > 0) {
 //					char tmp[256] = {0};
