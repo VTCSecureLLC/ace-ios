@@ -26,6 +26,7 @@
 	NSTimer *callQualityTimer;
 	NSTimer *callSecurityTimer;
 	int messagesUnreadCount;
+    __weak IBOutlet UILabel *userNameLabel;
 }
 
 @synthesize registrationStateImage;
@@ -187,6 +188,7 @@
 	}
 
 	registrationStateLabel.hidden = NO;
+    [userNameLabel setText:@""];
 	switch (state) {
 	case LinphoneRegistrationFailed:
 		registrationStateImage.hidden = NO;
@@ -204,6 +206,11 @@
 	case LinphoneRegistrationOk:
 		registrationStateImage.hidden = NO;
 		image = [UIImage imageNamed:@"led_connected.png"];
+        const LinphoneAddress *addr = linphone_proxy_config_get_identity_address(config);
+        if(addr){
+            NSString *addrText = [[NSString alloc] initWithUTF8String:linphone_address_as_string(addr)];
+            if(addrText) [userNameLabel setText:addrText];
+        }
 		break;
 	}
 	[registrationStateLabel setText:message];
