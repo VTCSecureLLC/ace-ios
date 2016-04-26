@@ -32,16 +32,6 @@
 		</dict>
 		<dict>
 			<key>Key</key>
-			<string>theme_menu</string>
-			<key>File</key>
-			<string>Theme</string>
-			<key>Title</key>
-			<string>Theme</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
 			<string>text_menu</string>
 			<key>File</key>
 			<string>Text</string>
@@ -154,16 +144,16 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 		</dict>
-        <dict>
-            <key>Key</key>
-            <string>carddav_configs_menu</string>
-            <key>File</key>
-            <string>CardDavConfigs</string>
-            <key>Title</key>
-            <string>CardDav Configs</string>
-            <key>Type</key>
-            <string>PSChildPaneSpecifier</string>
-        </dict>
+		<dict>
+			<key>Key</key>
+			<string>carddav_configs_menu</string>
+			<key>File</key>
+			<string>CardDavConfigs</string>
+			<key>Title</key>
+			<string>CardDav Configs</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
 		<dict>
 			<key>AutocapitalizationType</key>
 			<string>None</string>

@@ -34,6 +34,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>force_508_preference</string>
+			<key>Title</key>
+			<string>High Contrast</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>
