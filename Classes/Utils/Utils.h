@@ -53,7 +53,7 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
 + (NSArray*)normalizeServerArray:(NSArray*)arrayOfObjects;
 + (NSString*) normalizeServerString:(NSString*)value;
 + (NSString*)cardDAVRealmName;
-+ (NSString*)cardDAVServerPath;
++ (NSString*)cardDAVServerDomain;
 
 @end
 

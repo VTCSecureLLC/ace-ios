@@ -14,6 +14,7 @@
 #import "PhoneMainView.h"
 #import "LinphoneAppDelegate.h"
 #import "VSContactsManager.h"
+#import "Utils.h"
 
 typedef struct _LinphoneCardDAVStats {
     int sync_done_count;
@@ -124,11 +125,28 @@ typedef struct _LinphoneCardDAVStats {
         }
     }
     else if([[tableData objectAtIndex:indexPath.row] containsString:@"Sync Contacts"]) {
-        [[VSContactsManager sharedInstance] addAllContactsToFriendList];
-        //[self delAllContacts];
-        [self syncContacts];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"]) {
+            if (!([[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] isEqualToString:@""]) && (![[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"] isEqualToString:@""])) {
+                [[VSContactsManager sharedInstance] addAllContactsToFriendList];
+                //[self delAllContacts];
+                [self syncContacts];
+                
+            } else {
+                [self showCardDavSyncAlert];
+            }
+        } else {
+            [self showCardDavSyncAlert];
+        }
     }
+}
 
+- (void)showCardDavSyncAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:@"Please configure CardDav URI and Realm first"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (NSString*)logFilePath {
@@ -303,32 +321,19 @@ static UICompositeViewDescription *compositeDescription = nil;
 
 - (void)syncContacts {
     
-    const char *cardDavUser = "vtcsecure";
-    const char *cardDavPass = "top-secret";
-    const char *cardDavRealm = "BaikalDAV";
-    const char *cardDavServer = "http://dav.linphone.org/card.php/addressbooks/vtcsecure/default";
-    const char *cardDavDomain = "dav.linphone.org";
-    
-    
-    //LinphoneFriend *newFriend = linphone_core_create_friend_with_address([LinphoneManager getLc], "sip:example@example.com");
-    
-//    LinphoneFriend *newFriend = linphone_friend_new();
-//    
-//    const LinphoneAddress *lAddr = linphone_address_new("sip:example@example.com");
-//    
-//    linphone_friend_set_address(newFriend, lAddr);
-//    linphone_friend_add_address(newFriend, lAddr);
-//    
-//    linphone_friend_set_name(newFriend, "John");
-//    linphone_friend_set_ref_key(newFriend, "123456");
-//    
-//    LinphoneFriendList *friendList = linphone_core_get_default_friend_list([LinphoneManager getLc]);
-//    linphone_friend_list_add_friend(friendList, newFriend);
-//    
-    LinphoneFriendList * cardDAVFriends = linphone_core_get_default_friend_list([LinphoneManager getLc]);
+    const char *cardDavUser = "";
+    const char *cardDavPass = "";
+    const char *cardDavRealm = "";
+    const char *cardDavServer = "";
+    const char *cardDavDomain = "";
 
-    const MSList* proxies = linphone_friend_list_get_friends(cardDAVFriends);    
-    NSLog(@"contacts_Count = %d", ms_list_size(proxies));
+    cardDavUser = [[[LinphoneManager instance] lpConfigStringForKey:@"wizard_username"] UTF8String];
+    cardDavPass = [[[LinphoneManager instance] lpConfigStringForKey:@"wizard_password"] UTF8String];
+    cardDavRealm = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"] UTF8String];
+    cardDavServer = [[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] UTF8String];
+    cardDavDomain = [[LinphoneUtils cardDAVServerDomain] UTF8String];
+    
+    LinphoneFriendList * cardDAVFriends = linphone_core_get_default_friend_list([LinphoneManager getLc]);
     
     const LinphoneAuthInfo * carddavAuth = linphone_auth_info_new(cardDavUser, nil, cardDavPass, nil, cardDavRealm, cardDavDomain);
     linphone_core_add_auth_info([LinphoneManager getLc], carddavAuth);

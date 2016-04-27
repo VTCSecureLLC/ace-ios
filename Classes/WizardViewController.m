@@ -1078,6 +1078,8 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
     [[DefaultSettingsManager sharedInstance] setSipRegisterTransport:self.transportTextField.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
+    [[LinphoneManager instance] lpConfigSetString:[username objectAtIndex:0] forKey:@"wizard_username"];
+    [[LinphoneManager instance] lpConfigSetString:self.textFieldPassword.text forKey:@"wizard_password"];
 }
 
 - (BOOL)checkLoginCredentials {
