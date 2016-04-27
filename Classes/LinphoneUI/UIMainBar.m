@@ -673,10 +673,17 @@ static NSString *const kDisappearAnimation = @"disappear";
 
 - (IBAction)videomailButtonAction:(UIButton *)sender {
     NSString *address = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_mail_uri_preference"];
-    if(address){
-        [[LinphoneManager instance] call:address displayName:@"Videomail" transfer:FALSE];
-        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
+    if(!address){
+        LinphoneProxyConfig *cfg = linphone_core_get_default_proxy_config([LinphoneManager getLc]);
+        if(!cfg) return;
+        const LinphoneAddress *addr = linphone_proxy_config_get_identity_address(cfg);
+        if(!addr)return;
+        address = [[NSString alloc] initWithUTF8String:linphone_address_as_string_uri_only(addr)];
     }
+
+    [[LinphoneManager instance] call:address displayName:@"Videomail" transfer:FALSE];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
+    
     [self hideMoreMenu];
 }
 
