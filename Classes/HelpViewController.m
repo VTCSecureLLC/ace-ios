@@ -105,7 +105,7 @@ typedef struct _LinphoneCardDAVStats {
             [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
         }
     }
-    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Export Contacts"]) {
+    else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Export Contacts"]) {
         if ([[VSContactsManager sharedInstance] addressBookContactsCount] <= 0) {
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:nil
                                                              message:@"You have no contacts to export"
@@ -124,7 +124,7 @@ typedef struct _LinphoneCardDAVStats {
             [alert show];
         }
     }
-    else if([[tableData objectAtIndex:indexPath.row] containsString:@"Sync Contacts"]) {
+    else if([[tableData objectAtIndex:indexPath.row] isEqualToString:@"Sync Contacts"]) {
         if ([[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"]) {
             if (!([[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"] isEqualToString:@""]) && (![[[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"] isEqualToString:@""])) {
                 [[VSContactsManager sharedInstance] addAllContactsToFriendList];
