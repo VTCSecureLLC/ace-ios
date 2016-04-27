@@ -38,7 +38,6 @@ typedef enum _ViewElement {
 	ViewElement_Password2 = 102,
 	ViewElement_Email = 103,
 	ViewElement_Domain = 104,
-    ViewElement_Outbound_Proxy = 105,
 	ViewElement_Label = 200,
 	ViewElement_Error = 201,
 	ViewElement_Username_Error = 404
@@ -193,9 +192,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.textFieldDomain.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldDomain.layer setBorderWidth:1.0];
     [self.textFieldDomain.layer setCornerRadius:5];
-    [self.textFieldOutboundProxy.layer setBorderColor:[UIColor whiteColor].CGColor ];
-    [self.textFieldOutboundProxy.layer setBorderWidth:1.0];
-    [self.textFieldOutboundProxy.layer setCornerRadius:5];
     [self.textFieldPort.layer setBorderColor:[UIColor whiteColor].CGColor ];
     [self.textFieldPort.layer setBorderWidth:1.0];
     [self.textFieldPort.layer setCornerRadius:5];
@@ -494,9 +490,7 @@ static UICompositeViewDescription *compositeDescription = nil;
               password:(NSString*)password
                 domain:(NSString*)domain
          withTransport:(NSString*)transport
-                  port:(int)port
-         outboundProxy:(NSString *)outboundProxy {
-    
+                  port:(int)port {
     [self setConfigurationSettingsInitialValues];
     transport = [transport lowercaseString];
     LinphoneCore* lc = [LinphoneManager getLc];
@@ -597,34 +591,9 @@ static UICompositeViewDescription *compositeDescription = nil;
     NSString *serverAddress = [NSString stringWithFormat:@"sip:%@:%d;transport=%@", domain, port, transport];
     linphone_proxy_config_enable_register(proxyCfg, true);
     linphone_proxy_config_set_server_addr(proxyCfg, [serverAddress UTF8String]);
-//    linphone_proxy_config_set
     linphone_core_add_auth_info(lc, info);
     linphone_core_add_proxy_config(lc, proxyCfg);
     linphone_core_set_default_proxy_config(lc, proxyCfg);
-    
-    NSString *fixedProxy = outboundProxy;
-    if (fixedProxy.length > 0) {
-        
-        outboundProxy = [outboundProxy stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
-        NSArray *proxyComponents = [outboundProxy componentsSeparatedByString:@":"];
-        if (proxyComponents.count > 1) {
-            
-            NSString *portPart = [proxyComponents lastObject];
-            if (portPart.length == 0) {
-                fixedProxy = [NSString stringWithFormat:@"%@:%i", outboundProxy, port];
-            }
-        }
-        else {
-            fixedProxy = [NSString stringWithFormat:@"%@:%i", outboundProxy, port];
-        }
-        
-        fixedProxy = [NSString stringWithFormat:@"%@;transport=%@", fixedProxy, [transport lowercaseString]];
-    }
-    else {
-        fixedProxy = [NSString stringWithFormat:@"%@:%d;transport=%@", domain, port, transport];
-    }
-    
-    linphone_proxy_config_set_route(proxyCfg, [fixedProxy UTF8String]);
     
     // expiration_time
     linphone_proxy_config_set_expires(proxyCfg, ([DefaultSettingsManager sharedInstance].exparitionTime)?[DefaultSettingsManager sharedInstance].exparitionTime:280);
@@ -843,13 +812,13 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
     NSInteger cachedSelection = [[NSUserDefaults standardUserDefaults] integerForKey:(NSString*)LOGIN_INDEX_KEY];
     if(cdnResources.count > 0) {
         if(cachedSelection >= cdnResources.count) { cachedSelection = 0; }
+        
         [providerPickerView setDataSource:cdnResources];
         NSString *domain;
         if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)cachedSelection]]){
-            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)cachedSelection]];
-            self.textFieldDomain.text = (domain != nil)?domain:@"";
-            self.textFieldOutboundProxy.text = domain;
-            [self.selectProviderButton setTitle:[cdnResources objectAtIndex:cachedSelection] forState:UIControlStateNormal];
+                domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)cachedSelection]];
+                 self.textFieldDomain.text = (domain != nil)?domain:@"";
+                [self.selectProviderButton setTitle:[cdnResources objectAtIndex:cachedSelection] forState:UIControlStateNormal];
             
             UIImage *image = [self fetchProviderImageWithDomain:[cdnResources objectAtIndex:cachedSelection]];
             if(image){
@@ -1200,9 +1169,7 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 							  password:(NSString *)password
 								domain:(NSString *)domain
 						 withTransport:(NSString *)transport
-                                  port:(int)port
-                         outboundProxy:(NSString *)outboundProxy {
-    
+                                  port:(int)port {
 	if ([self verificationWithUsername:username password:password domain:domain withTransport:transport]) {
 		[waitView setHidden:false];
 		if ([LinphoneManager instance].connectivity == none) {
@@ -1218,13 +1185,13 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 				addButtonWithTitle:NSLocalizedString(@"Continue", nil)
 							 block:^{
 							   [waitView setHidden:true];
-							   [self addProxyConfig:username password:password domain:domain withTransport:transport port:port outboundProxy:outboundProxy];
+							   [self addProxyConfig:username password:password domain:domain withTransport:transport port:port];
 							   [[PhoneMainView instance]
 								   changeCurrentView:[DialerViewController compositeViewDescription]];
 							 }];
 			[alert show];
 		} else {
-			BOOL success = [self addProxyConfig:username password:password domain:domain withTransport:transport port:port outboundProxy:outboundProxy];
+			BOOL success = [self addProxyConfig:username password:password domain:domain withTransport:transport port:port];
 			if (!success) {
 				waitView.hidden = true;
 			}
@@ -1237,14 +1204,13 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 	NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 	NSString *domain = [WizardViewController findTextField:ViewElement_Domain view:contentView].text;
 	NSString *transport = [self.transportChooser titleForSegmentAtIndex:self.transportChooser.selectedSegmentIndex];
-    NSString *outboundProxy = [WizardViewController findTextField:ViewElement_Outbound_Proxy view:contentView].text;
     
     NSString *port_string = self.textFieldPort.text;
     int port_value = [port_string intValue];
     
     int port = port_value;
     
-    [self verificationSignInWithUsername:username password:password domain:domain withTransport:transport port:port outboundProxy:outboundProxy];
+    [self verificationSignInWithUsername:username password:password domain:domain withTransport:transport port:port];
 }
 
 - (IBAction)onSignInClick:(id)sender {
@@ -1252,14 +1218,13 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 	NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
 
 	// domain and server will be configured from the default proxy values
-    [self verificationSignInWithUsername:username password:password domain:nil withTransport:nil port:-1 outboundProxy:nil];
+    [self verificationSignInWithUsername:username password:password domain:nil withTransport:nil port:-1];
 }
 
 - (BOOL)verificationRegisterWithUsername:(NSString *)username
 								password:(NSString *)password
 							   password2:(NSString *)password2
 								   email:(NSString *)email {
-    
 	NSMutableString *errors = [NSMutableString string];
 	NSInteger username_length = [[LinphoneManager instance] lpConfigIntForKey:@"username_length" forSection:@"wizard"];
 	NSInteger password_length = [[LinphoneManager instance] lpConfigIntForKey:@"password_length" forSection:@"wizard"];
@@ -1477,7 +1442,7 @@ UIAlertView *transportAlert;
 			if ([response.object isEqualToNumber:[NSNumber numberWithInt:1]]) {
 				NSString *username = [WizardViewController findTextField:ViewElement_Username view:contentView].text;
 				NSString *password = [WizardViewController findTextField:ViewElement_Password view:contentView].text;
-                [self addProxyConfig:username password:password domain:nil withTransport:nil port:-1 outboundProxy:nil];
+                [self addProxyConfig:username password:password domain:nil withTransport:nil port:-1];
 			} else {
 				UIAlertView *errorView =
 					[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account validation issue", nil)
@@ -1567,7 +1532,6 @@ UIAlertView *transportAlert;
     
     if(domain == nil){domain = @"";}
     self.textFieldDomain.text = domain;
-    self.textFieldOutboundProxy.text = domain;
     
     [self setRecursiveUserInteractionEnabled:true];
 }
@@ -1596,8 +1560,7 @@ UIAlertView *transportAlert;
                                 password:self.textFieldPassword.text
                                   domain:self.textFieldDomain.text
                            withTransport:transport
-                                    port:port
-                           outboundProxy:self.textFieldOutboundProxy.text];
+                                    port:port];
 }
 
 - (void)setConfigurationSettingsInitialValues {
