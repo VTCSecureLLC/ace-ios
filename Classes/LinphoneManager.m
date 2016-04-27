@@ -2264,8 +2264,12 @@ static void audioRouteChangeListenerCallback(void *inUserData,					  // 1
     LinphoneCall *currentCall = linphone_core_get_current_call(lc);
     
     if (linphone_core_video_supported(lc)) {
-        if (linphone_core_video_enabled(lc) && currentCall && linphone_call_camera_enabled(currentCall) &&
-            linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning) {
+        const char *currentCamId = (char *)linphone_core_get_video_device([LinphoneManager getLc]);
+
+        if (linphone_core_video_enabled(lc) && currentCall &&
+            linphone_call_get_state(currentCall) == LinphoneCallStreamsRunning && strcmp(currentCamId, "StaticImage: Static picture") != 0) {
+            
+
             camera_enabled = YES;
         }
     }

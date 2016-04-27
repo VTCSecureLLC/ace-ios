@@ -40,7 +40,7 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>audio_port_preference</string>
 			<key>Title</key>
@@ -106,7 +106,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Key</key>
