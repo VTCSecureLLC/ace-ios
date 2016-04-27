@@ -57,12 +57,8 @@ typedef void (^CallBarWillStartAnimateWithDurationCallback)(NSTimeInterval durat
  */
 - (void)hideWithAnimation:(BOOL)animation completion:(Completion)completion;
 
-/**
- *  @brief Resets timer which hides the view with animation
- */
-// Automatic hiding
-//- (void)resetHideTimer;
-
 - (void)changeChatButtonVisibility:(BOOL)hidden;
+
+- (void)disableCallOptions;
 
 @end

@@ -129,6 +129,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    [self orientationUpdate:self.interfaceOrientation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -138,6 +139,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     [self removeNotifications];
     [self resetVideoViews];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [[ReasonErrorHandler sharedInstance] closeErrorView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -470,7 +472,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
                 if (callReason == LinphoneReasonDeclined) {
                     
                     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:callReason];
-                    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
+                    [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error){
                         endCall();
                     };
                 }
@@ -553,7 +555,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     }
 }
 
-- (void) close {
+- (void)close {
+    
     [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
     self.callDeclineMessageLabel.hidden = YES;
     self.viewCallDeclinedWithMessage.hidden = YES;
@@ -561,9 +564,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
     
+    [self.callBarView disableCallOptions];
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
-    [ReasonErrorHandler sharedInstance].alertViewWillDismissComplitionBlock = ^(ReasonError *error){
-        [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+    [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error) {
+        [self close];
     };
 }
 
@@ -822,7 +826,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         [[LinphoneManager instance] terminateCurrentCall];
         if(linphone_core_get_calls_nb([LinphoneManager getLc]) == 0){
-            [[UIManager sharedManager] hideInCallViewControllerAnimated:YES];
+            [self close];
         }
     };
 }
@@ -882,7 +886,12 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (void)setupVideoButtonState {
-    
+    if(linphone_core_get_current_call([LinphoneManager getLc])){
+        if(linphone_call_get_state(linphone_core_get_current_call([LinphoneManager getLc])) != LinphoneCallStreamsRunning){
+            self.callBarView.videoButtonSelected = NO;
+            return;
+        }
+    }
     if ([[LinphoneManager instance] isCameraEnabledForCurrentCall]) {
         
         self.callBarView.videoButtonSelected = NO;
@@ -1216,12 +1225,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 }
 
 - (IBAction)singleTapped:(UITapGestureRecognizer *)sender {
+    
     self.callDeclineMessageLabel.hidden = YES;
     self.viewCallDeclinedWithMessage.hidden = YES;
     
-    if (![[LinphoneManager instance] currentCall]) {
-        [self close];
-    }
+//    if (![[LinphoneManager instance] currentCall]) {
+//        [self close];
+//    }
     
     if (self.isChatMode) {
         [self closeRTTChat];

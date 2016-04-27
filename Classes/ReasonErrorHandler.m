@@ -8,13 +8,14 @@
 
 #import "ReasonErrorHandler.h"
 #import "ReasonError.h"
+#import "ErrorHandlerPopUpView.h"
 
 #define kReasonErrorFile   @"ResasonErrors"
-#define kAlertDismissDelay 5.f
+#define kPopUpDismissDelay 5.f
 
-@interface ReasonErrorHandler () <UIAlertViewDelegate>
+@interface ReasonErrorHandler ()
 
-@property (nonatomic, strong) UIAlertView *errorAlertView;
+@property (nonatomic, strong) ErrorHandlerPopUpView *popUpView;
 
 @end
 
@@ -84,36 +85,29 @@
     NSString *filePath = [[NSBundle mainBundle] pathForResource:kReasonErrorFile ofType:@"plist"];
     NSDictionary *reasonData = [NSDictionary dictionaryWithContentsOfFile:filePath];
     
-    return  reasonData;
+    return reasonData;
 }
 
 - (void)showReasonWithError:(ReasonError *)reasonError {
     
     NSString *reasonErrorMessage = [NSString stringWithFormat:@"%@", reasonError];
     
-    self.errorAlertView = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:reasonErrorMessage
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:nil, nil];
-    self.errorAlertView.delegate = self;
-    [self.errorAlertView show];
-    [self performSelector:@selector(dismissAlertWithError:) withObject:reasonError afterDelay:kAlertDismissDelay];
-}
-
-- (void)dismissAlertWithError:(ReasonError *)error {
+    self.popUpView = [ErrorHandlerPopUpView popUpView];
+    [self.popUpView fillWithMessage:reasonErrorMessage];
     
-    [self.errorAlertView dismissWithClickedButtonIndex:0 animated:YES];
-    self.errorAlertView = nil;
+    __weak ReasonErrorHandler *weakSelf = self;
+    [self.popUpView showWithCompletion:^{
+        [weakSelf.popUpView hideAfterDelay:kPopUpDismissDelay withCompletion:^{
+            weakSelf.popUpViewWillDismissComplitionBlock();
+        }];
+    }];
 }
 
-#pragma mark - 
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)closeErrorView {
     
-    if (self.alertViewWillDismissComplitionBlock) {
-        self.alertViewWillDismissComplitionBlock(nil);
-    }
+    __weak ReasonErrorHandler *weakSelf = self;
+    [self.popUpView hideAfterDelay:0 withCompletion:^{
+        weakSelf.popUpViewWillDismissComplitionBlock();
+    }];
 }
-
 @end

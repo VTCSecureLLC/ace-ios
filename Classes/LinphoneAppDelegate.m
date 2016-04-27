@@ -332,7 +332,7 @@
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
 		// iOS7 fix for notification sound not stopping.
 		// see http://stackoverflow.com/questions/19124882/stopping-ios-7-remote-notification-sound
-		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
+//		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
 		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	}
 }
