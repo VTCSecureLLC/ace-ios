@@ -10,16 +10,18 @@
 #import "LinphoneManager.h"
 #import "ReasonError.h"
 
-typedef void(^AlertViewWillDismissComplitionHandler)(ReasonError *error);
+typedef void(^PopUpWillDismissComplitionHandler)();
 
 @interface ReasonErrorHandler : NSObject
 
-@property (nonatomic, copy) AlertViewWillDismissComplitionHandler alertViewWillDismissComplitionBlock;
+@property (nonatomic, copy) PopUpWillDismissComplitionHandler popUpViewWillDismissComplitionBlock;
 
 #pragma mark - Lifecycle Methods
 + (instancetype)sharedInstance;
 
 #pragma mark - Instance Methods
 - (void)showErrorForLinphoneReason:(LinphoneReason)reason;
+
+- (void)closeErrorView;
 
 @end
