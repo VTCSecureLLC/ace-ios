@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -130,16 +130,16 @@
                                     <constraint firstAttribute="width" secondItem="KnW-eL-D0c" secondAttribute="height" multiplier="38:31" id="OrV-fD-OC1"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
                                 <rect key="frame" x="1" y="50" width="373" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="EoO-gd-Sqb"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="EoO-gd-Sqb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
                                 <rect key="frame" x="0.0" y="150" width="375" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="1XT-sk-ehj"/>
@@ -203,6 +203,7 @@
                             <constraint firstItem="cto-wd-TgW" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" constant="1" id="A9c-UV-KDB"/>
                             <constraint firstItem="lNU-6W-eeL" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="top" id="BWN-L8-wlD"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="DXD-IV-wAt"/>
+                            <constraint firstItem="j6x-3s-y50" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ev-fs-CZO" secondAttribute="bottom" constant="30" id="Dby-9q-RgO"/>
                             <constraint firstItem="KQf-7a-Dtr" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="topMargin" id="FLT-vk-UUP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oyW-qp-rbg" secondAttribute="trailing" constant="-20" id="Fdh-q3-FY6"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="RGY-s2-faC" secondAttribute="bottom" id="Gx2-wC-xzN"/>
@@ -226,7 +227,7 @@
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.9" id="Z8c-33-fvD"/>
                             <constraint firstAttribute="trailing" secondItem="KQf-7a-Dtr" secondAttribute="trailing" id="ZEs-nw-0p1"/>
                             <constraint firstAttribute="trailing" secondItem="lNU-6W-eeL" secondAttribute="trailing" id="ZKY-3r-chu"/>
-                            <constraint firstItem="j6x-3s-y50" firstAttribute="top" secondItem="opN-Qd-xDg" secondAttribute="bottom" constant="9" id="c3Y-EH-EDb"/>
+                            <constraint firstItem="j6x-3s-y50" firstAttribute="top" relation="greaterThanOrEqual" secondItem="opN-Qd-xDg" secondAttribute="bottom" constant="9" id="c3Y-EH-EDb"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0Fx-gY-047" secondAttribute="bottom" id="c9J-BN-mNr"/>
                             <constraint firstAttribute="trailing" secondItem="opN-Qd-xDg" secondAttribute="trailing" constant="87" id="cR5-wT-mos"/>
                             <constraint firstItem="cto-wd-TgW" firstAttribute="top" secondItem="Flh-2b-FH0" secondAttribute="top" constant="58" id="cUr-cR-Ret"/>
