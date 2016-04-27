@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -377,10 +377,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7o-1l-hwf" userLabel="Resources Button Container">
-                            <rect key="frame" x="0.0" y="53" width="200" height="51"/>
+                            <rect key="frame" x="0.0" y="53" width="200" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0e1-yM-Crb">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="52"/>
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Resources" image="resources">
@@ -402,61 +402,15 @@
                                 <constraint firstAttribute="bottom" secondItem="0e1-yM-Crb" secondAttribute="bottom" id="pd0-hC-uho"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUd-SO-Qf6" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="104" width="200" height="1"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAa-GI-jIK" userLabel="White Line">
+                            <rect key="frame" x="0.0" y="105" width="200" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="YXd-JJ-JqP"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPp-24-jd0" userLabel="Videomail Button Container">
-                            <rect key="frame" x="0.0" y="159" width="200" height="52"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adF-1p-aUO">
-                                    <rect key="frame" x="163" y="4" width="25" height="25"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="K51-3P-Mgf"/>
-                                        <constraint firstAttribute="width" secondItem="adF-1p-aUO" secondAttribute="height" multiplier="1:1" id="TbU-fL-2DO"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P36-J0-fbL">
-                                    <rect key="frame" x="0.0" y="-8" width="155" height="52"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Videomail" image="videomail">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="videomailButtonAction:" destination="-1" eventType="touchUpInside" id="ZNP-IK-dCs"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <accessibility key="accessibilityConfiguration" label="Videomail Button">
-                                <bool key="isElement" value="YES"/>
-                            </accessibility>
-                            <constraints>
-                                <constraint firstItem="P36-J0-fbL" firstAttribute="top" secondItem="wPp-24-jd0" secondAttribute="top" constant="-8" id="0PB-jD-dmu"/>
-                                <constraint firstAttribute="trailing" secondItem="adF-1p-aUO" secondAttribute="trailing" constant="12" id="Qyj-bX-jz4"/>
-                                <constraint firstAttribute="height" constant="52" id="S5B-QX-Y6I"/>
-                                <constraint firstItem="adF-1p-aUO" firstAttribute="leading" secondItem="P36-J0-fbL" secondAttribute="trailing" constant="8" id="Xm0-NA-tF0"/>
-                                <constraint firstAttribute="bottom" secondItem="P36-J0-fbL" secondAttribute="bottom" constant="8" id="k0Q-Gw-Mhv"/>
-                                <constraint firstItem="adF-1p-aUO" firstAttribute="centerY" secondItem="wPp-24-jd0" secondAttribute="centerY" constant="-9.5" id="kyX-uv-tSK"/>
-                                <constraint firstItem="P36-J0-fbL" firstAttribute="leading" secondItem="wPp-24-jd0" secondAttribute="leading" id="zZa-lH-FIU"/>
-                            </constraints>
-                        </view>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAa-GI-jIK" userLabel="White Line">
-                            <rect key="frame" x="0.0" y="105" width="200" height="0.0"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" id="46k-Sa-cQz"/>
+                                <constraint firstAttribute="height" constant="1" id="46k-Sa-cQz"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33V-oI-653" userLabel="Self-Preview Button Container">
-                            <rect key="frame" x="0.0" y="105" width="200" height="52"/>
+                            <rect key="frame" x="0.0" y="106" width="200" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n58-qL-kuP">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="52"/>
@@ -481,35 +435,81 @@
                                 <constraint firstItem="n58-qL-kuP" firstAttribute="leading" secondItem="33V-oI-653" secondAttribute="leading" id="OXj-v8-emT"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUd-SO-Qf6" userLabel="White Line">
+                            <rect key="frame" x="0.0" y="158" width="200" height="1"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="YXd-JJ-JqP"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPp-24-jd0" userLabel="Videomail Button Container">
+                            <rect key="frame" x="0.0" y="159" width="200" height="52"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adF-1p-aUO">
+                                    <rect key="frame" x="163" y="13" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="K51-3P-Mgf"/>
+                                        <constraint firstAttribute="width" secondItem="adF-1p-aUO" secondAttribute="height" multiplier="1:1" id="TbU-fL-2DO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P36-J0-fbL">
+                                    <rect key="frame" x="0.0" y="0.0" width="155" height="52"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Videomail" image="videomail">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="videomailButtonAction:" destination="-1" eventType="touchUpInside" id="ZNP-IK-dCs"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="Videomail Button">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint firstItem="P36-J0-fbL" firstAttribute="top" secondItem="wPp-24-jd0" secondAttribute="top" id="0PB-jD-dmu"/>
+                                <constraint firstAttribute="trailing" secondItem="adF-1p-aUO" secondAttribute="trailing" constant="12" id="Qyj-bX-jz4"/>
+                                <constraint firstItem="adF-1p-aUO" firstAttribute="leading" secondItem="P36-J0-fbL" secondAttribute="trailing" constant="8" id="Xm0-NA-tF0"/>
+                                <constraint firstAttribute="bottom" secondItem="P36-J0-fbL" secondAttribute="bottom" id="k0Q-Gw-Mhv"/>
+                                <constraint firstItem="adF-1p-aUO" firstAttribute="centerY" secondItem="wPp-24-jd0" secondAttribute="centerY" id="kyX-uv-tSK"/>
+                                <constraint firstItem="P36-J0-fbL" firstAttribute="leading" secondItem="wPp-24-jd0" secondAttribute="leading" id="zZa-lH-FIU"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="wPp-24-jd0" firstAttribute="height" secondItem="33V-oI-653" secondAttribute="height" id="0qX-UQ-b13"/>
                         <constraint firstItem="33V-oI-653" firstAttribute="height" secondItem="TAT-bv-4tA" secondAttribute="height" id="1Hf-Xl-U7y"/>
                         <constraint firstAttribute="trailing" secondItem="0ba-SR-mAN" secondAttribute="trailing" id="4mv-dy-oo9"/>
                         <constraint firstItem="TAT-bv-4tA" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="9JC-0h-Bim"/>
                         <constraint firstAttribute="trailing" secondItem="wPp-24-jd0" secondAttribute="trailing" id="C7D-yg-Bh3"/>
                         <constraint firstItem="cAa-GI-jIK" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="HCD-Qs-XDc"/>
-                        <constraint firstItem="GUd-SO-Qf6" firstAttribute="top" secondItem="S7o-1l-hwf" secondAttribute="bottom" id="IY4-Fr-epi"/>
-                        <constraint firstItem="cAa-GI-jIK" firstAttribute="top" secondItem="wPp-24-jd0" secondAttribute="bottom" constant="-106" id="LT8-vq-7se"/>
                         <constraint firstAttribute="trailing" secondItem="33V-oI-653" secondAttribute="trailing" id="OAA-U9-5Oj"/>
                         <constraint firstAttribute="width" constant="200" id="OWT-u7-4KX"/>
                         <constraint firstItem="S7o-1l-hwf" firstAttribute="height" secondItem="TAT-bv-4tA" secondAttribute="height" constant="-1" id="QZN-Qf-Hd2"/>
                         <constraint firstAttribute="trailing" secondItem="S7o-1l-hwf" secondAttribute="trailing" id="Qny-PX-NTi"/>
-                        <constraint firstAttribute="bottom" secondItem="33V-oI-653" secondAttribute="bottom" constant="52" id="Raf-Lw-7lA"/>
                         <constraint firstAttribute="trailing" secondItem="cAa-GI-jIK" secondAttribute="trailing" id="RfY-dA-NgX"/>
                         <constraint firstItem="0ba-SR-mAN" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="Run-me-rDd"/>
-                        <constraint firstItem="GUd-SO-Qf6" firstAttribute="bottom" secondItem="wPp-24-jd0" secondAttribute="top" constant="-54" id="UXo-s4-zcR"/>
+                        <constraint firstAttribute="bottom" secondItem="wPp-24-jd0" secondAttribute="bottom" constant="-2" id="VIU-dA-CXN"/>
                         <constraint firstItem="GUd-SO-Qf6" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="X5e-b9-lfN"/>
+                        <constraint firstItem="GUd-SO-Qf6" firstAttribute="top" secondItem="33V-oI-653" secondAttribute="bottom" id="aQ7-mw-vjx"/>
                         <constraint firstAttribute="trailing" secondItem="TAT-bv-4tA" secondAttribute="trailing" id="aa6-l8-X9s"/>
                         <constraint firstItem="TAT-bv-4tA" firstAttribute="top" secondItem="pAm-wm-qFc" secondAttribute="top" id="biT-Ad-u3u"/>
                         <constraint firstItem="wPp-24-jd0" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="e62-JE-vlh"/>
                         <constraint firstItem="S7o-1l-hwf" firstAttribute="top" secondItem="0ba-SR-mAN" secondAttribute="bottom" id="gZo-ez-Qde"/>
                         <constraint firstAttribute="trailing" secondItem="GUd-SO-Qf6" secondAttribute="trailing" id="kaQ-I9-erB"/>
                         <constraint firstItem="33V-oI-653" firstAttribute="top" secondItem="cAa-GI-jIK" secondAttribute="bottom" id="mIA-aA-GcP"/>
+                        <constraint firstItem="wPp-24-jd0" firstAttribute="top" secondItem="GUd-SO-Qf6" secondAttribute="bottom" id="n46-c9-QRb"/>
                         <constraint firstAttribute="height" constant="209" id="o4b-qD-0QC"/>
                         <constraint firstItem="0ba-SR-mAN" firstAttribute="top" secondItem="TAT-bv-4tA" secondAttribute="bottom" id="oeB-fQ-DBT"/>
                         <constraint firstItem="33V-oI-653" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="sGv-97-BAm"/>
                         <constraint firstItem="S7o-1l-hwf" firstAttribute="leading" secondItem="pAm-wm-qFc" secondAttribute="leading" id="stJ-9w-oKB"/>
+                        <constraint firstItem="cAa-GI-jIK" firstAttribute="top" secondItem="S7o-1l-hwf" secondAttribute="bottom" id="vJr-Jb-OF5"/>
                     </constraints>
                 </view>
             </subviews>

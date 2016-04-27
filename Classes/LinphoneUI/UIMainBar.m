@@ -159,6 +159,14 @@ static NSString *const kDisappearAnimation = @"disappear";
                                                       [weakSelf updateMissedCallIndicatorStateWithAnimationAppear:YES];
                                                   }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      
+                                                      [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
+                                                  }];
+    
     self.videomailCountLabel.layer.borderColor = [UIColor whiteColor].CGColor;
     self.videomailCountLabel.layer.borderWidth = 1.f;
     self.videomailCountLabel.layer.cornerRadius = CGRectGetHeight(self.videomailCountLabel.frame)/2;
@@ -300,8 +308,9 @@ static NSString *const kDisappearAnimation = @"disappear";
     }
     mwiCount++;
     [[NSUserDefaults standardUserDefaults] setInteger:mwiCount forKey:@"mwi_count"];
-    //    [self.chatNotificationView setHidden:NO];
-    //    [self.chatNotificationLabel setText: [NSString stringWithFormat:@"%ld", (long)mwiCount]];
+    
+    self.videomailIndicatorView.hidden = NO;
+    self.videomailCountLabel.text = [NSString stringWithFormat:@"%ld", (long)mwiCount];
     
     const char *body = linphone_content_get_buffer(content);
     if ((body = strstr(body, "voice-message: ")) == NULL) {
@@ -657,7 +666,7 @@ static NSString *const kDisappearAnimation = @"disappear";
     if (self.moreMenuContainer.tag == 0) {
         
         [self showMoreMenu];
-//        [self resetVideomailState];
+        [self resetVideomailState];
     }
     else {
         
@@ -840,16 +849,10 @@ static NSString *const kDisappearAnimation = @"disappear";
 //    }
 //}
 //
-//- (void)resetVideomailState {
-//    
-//    NSDictionary *dict = @{@"viewed" : @1,
-//                           @"count" : @3};
-//    
-//    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"videomail_notification"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
-//    [self checkVideomailIndicator];
-//}
+- (void)resetVideomailState {
+    
+    self.videomailIndicatorView.hidden = YES;
+}
 
 - (LinphoneChatRoom *)findChatRoomForContact:(NSString *)contact {
     const MSList *rooms = linphone_core_get_chat_rooms([LinphoneManager getLc]);
