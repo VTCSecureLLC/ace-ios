@@ -1550,36 +1550,29 @@ CGSize tempLocalCellSize;
 //    }
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.localTextBufferIndex];
     BubbleTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    
+    RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
+//    NSString *currentCharacter = currentRttModel.msgString;
+    
+    
+    BOOL enter_pressed=[text containsString:@"\n"] ||[text containsString:@"0x2028"];
 
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
+              // if the last one is not mine and it's not a first my messages
+        if(enter_pressed){
+            self.localTextBuffer = nil;
+            return;
+        }
         
-        RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
-        NSString *currentCharacter = currentRttModel.msgString;
-        
-        
-        BOOL enter_pressed=[currentCharacter isEqualToString:@"\n"];
-        // if the last one is not mine and it's not a first my messages
         if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && enter_pressed) {
             return;
         }
         
-        if (!enter_pressed) { // do not add row if previous mine is empty
-            if (indx == 0) { // if it's the first message
-                [self createNewLocalChatBuffer:text];
-                return;
-            } else {
-                self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
-            }
-            
+        if (!enter_pressed) {
             // If the previous is my message
             if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
                 self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
             }
-            
-            [self createNewLocalChatBuffer:text];
-            return;
-        }
-        else{
             [self createNewLocalChatBuffer:text];
             return;
         }
@@ -1837,28 +1830,28 @@ CGSize tempRemoteCellSize;
 
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.remoteTextBufferIndex];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    BOOL enter_pressed=[text containsString:@"\n"] ||[text containsString:@"0x2028"];
     
-
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
-        
-        if (![self.remoteTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
-            
-            if (index == 0 && ((int)self.chatEntries.count == 0)) {
-                [self createNewRemoteChatBuffer:text];
-                return;
-            }
-            
-            if (index >= 0) {
-                self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
-                self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
-            }
-            
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
+        // if the last one is not mine and it's not a first my messages
+        if (index == 0 && ((int)self.chatEntries.count == 0)) {
             [self createNewRemoteChatBuffer:text];
-            
+            return;
         }
-        return;
+
+        if(enter_pressed){
+            self.remoteTextBuffer = nil;
+            return;
+        }
+        
+        if (!enter_pressed) {
+            [self createNewRemoteChatBuffer:text];
+            self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
+            return;
+        }
     }
-    
+
+
     self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
     
     if(self.remoteTextBuffer){
