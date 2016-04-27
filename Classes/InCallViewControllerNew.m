@@ -254,8 +254,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         [aAttrString appendAttributedString:vAttrString];
         
-        self.viewCallDeclinedWithMessage.hidden = NO;
-        self.callDeclineMessageLabel.hidden = NO;
+        self.viewCallDeclinedWithMessage.hidden = YES;
+        self.callDeclineMessageLabel.hidden = YES;
         self.callDeclineMessageLabel.attributedText = aAttrString;
         
         [UIView animateKeyframesWithDuration:1.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
