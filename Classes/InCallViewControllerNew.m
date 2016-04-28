@@ -50,9 +50,15 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UILabel *callStateLabel;
 @property (weak, nonatomic) IBOutlet UIView *viewCallDeclinedWithMessage;
 @property (weak, nonatomic) IBOutlet UILabel *callDeclineMessageLabel;
-
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
+@property (weak, nonatomic) IBOutlet UIView *dailViewContainer;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailWithConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailCenterConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailLeadingConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailTrailingConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dailTopConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewWidthConstraint;
@@ -1171,10 +1177,37 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     if (toInterfaceOrientation == UIDeviceOrientationLandscapeRight || toInterfaceOrientation == UIDeviceOrientationLandscapeLeft) {
         self.callBarViewBottomConstraint.constant = 5;
+        [self.inCallDialpadView removeConstraint:_dailWithConstraint];
+        [self.inCallDialpadView removeConstraint:_dailHeightConstraint];
+        [self.dailViewContainer removeConstraint:_dailCenterConstraint];
+        
+        _dailLeadingConstraint.active = YES;
+        _dailTopConstraint.active = YES;
+        _dailTrailingConstraint.active = YES;
+        [self.dailViewContainer addConstraint:_dailLeadingConstraint];
+        [self.dailViewContainer addConstraint:_dailTrailingConstraint];
+        [self.dailViewContainer addConstraint:_dailTopConstraint];
+        
+//        [self adjustWithActiveLayouts:_landscapeLayoutConstraint inactiveLayouts:_portraitLayoutConstraint];
+        
     }
     else {
         self.callBarViewBottomConstraint.constant = 40;
+        [self.inCallDialpadView addConstraint:_dailWithConstraint];
+        [self.inCallDialpadView addConstraint:_dailHeightConstraint];
+        [self.dailViewContainer addConstraint:_dailCenterConstraint];
+        _dailWithConstraint.active = YES;
+        _dailHeightConstraint.active = YES;
+        _dailCenterConstraint.active = YES;
+        
+        [self.dailViewContainer removeConstraint:_dailLeadingConstraint];
+        [self.dailViewContainer removeConstraint:_dailTrailingConstraint];
+        [self.dailViewContainer removeConstraint:_dailTopConstraint];
+        
+//        [self adjustWithActiveLayouts:_portraitLayoutConstraint inactiveLayouts:_landscapeLayoutConstraint];
     }
+    [self.inCallDialpadView updateConstraintsIfNeeded];
+    [self.dailViewContainer updateConstraintsIfNeeded];
 }
 
 - (void)updateVideoPreviewFrameWithOrientation:(UIInterfaceOrientation)orientation {
