@@ -158,8 +158,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	[messageBackgroundImage setImage:[TUNinePatchCache imageOfSize:[messageBackgroundImage bounds].size
 												 forNinePatchNamed:@"chat_message_background"]];
 
-	BOOL fileSharingEnabled = linphone_core_get_file_transfer_server([LinphoneManager getLc]) != NULL;
-	[pictureButton setEnabled:fileSharingEnabled];
+//	BOOL fileSharingEnabled = linphone_core_get_file_transfer_server([LinphoneManager getLc]) != NULL;
+//	[pictureButton setEnabled:fileSharingEnabled];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
