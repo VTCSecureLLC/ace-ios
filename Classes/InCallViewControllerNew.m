@@ -261,32 +261,32 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         [UIView animateKeyframesWithDuration:1.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
             self.viewCallDeclinedWithMessage.alpha = 0;
         } completion:nil];
-    } else {
-        NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
-        NSMutableDictionary *options = [@{
-                                          kCRToastTextKey : messageFullText,
-                                          kCRToastTextAlignmentKey : @(0),
-                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
-                                          kCRToastAnimationInTypeKey : @(0),
-                                          kCRToastAnimationOutTypeKey : @(0),
-                                          kCRToastAnimationInDirectionKey : @(0),
-                                          kCRToastAnimationOutDirectionKey : @(0),
-                                          kCRToastImageAlignmentKey : @(0),
-                                          kCRToastNotificationPreferredPaddingKey : @(0),
-                                          kCRToastNotificationPresentationTypeKey : @(0),
-                                          kCRToastNotificationTypeKey : @(1),
-                                          kCRToastTimeIntervalKey : @(3),
-                                          kCRToastUnderStatusBarKey : @(0)} mutableCopy];
-        options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
-        options[kCRToastImageAlignmentKey] = @(0);
-        options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
-                                                                                                      automaticallyDismiss:YES
-                                                                                                                     block:^(CRToastInteractionType interactionType){}]];
-        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-            [CRToastManager dismissNotification:YES];
-            [CRToastManager showNotificationWithOptions:options
-                                        completionBlock:^{}];
-        }
+//    } else {
+//        NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
+//        NSMutableDictionary *options = [@{
+//                                          kCRToastTextKey : messageFullText,
+//                                          kCRToastTextAlignmentKey : @(0),
+//                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
+//                                          kCRToastAnimationInTypeKey : @(0),
+//                                          kCRToastAnimationOutTypeKey : @(0),
+//                                          kCRToastAnimationInDirectionKey : @(0),
+//                                          kCRToastAnimationOutDirectionKey : @(0),
+//                                          kCRToastImageAlignmentKey : @(0),
+//                                          kCRToastNotificationPreferredPaddingKey : @(0),
+//                                          kCRToastNotificationPresentationTypeKey : @(0),
+//                                          kCRToastNotificationTypeKey : @(1),
+//                                          kCRToastTimeIntervalKey : @(3),
+//                                          kCRToastUnderStatusBarKey : @(0)} mutableCopy];
+//        options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+//        options[kCRToastImageAlignmentKey] = @(0);
+//        options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
+//                                                                                                      automaticallyDismiss:YES
+//                                                                                                                     block:^(CRToastInteractionType interactionType){}]];
+//        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+//            [CRToastManager dismissNotification:YES];
+//            [CRToastManager showNotificationWithOptions:options
+//                                        completionBlock:^{}];
+//        }
     }
 }
 
