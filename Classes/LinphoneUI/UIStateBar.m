@@ -208,8 +208,12 @@
 		image = [UIImage imageNamed:@"led_connected.png"];
         const LinphoneAddress *addr = linphone_proxy_config_get_identity_address(config);
         if(addr){
-            NSString *addrText = [[NSString alloc] initWithUTF8String:linphone_address_as_string(addr)];
-            if(addrText) [userNameLabel setText:addrText];
+            NSString *userNameText = [[NSString alloc] initWithUTF8String:linphone_address_get_username(addr)];
+            if(!userNameText) break;
+            
+            userNameText = [userNameText stringByReplacingOccurrencesOfString:@"sip:" withString:@""];
+            userNameText = [userNameText componentsSeparatedByString:@"@"][0];
+            [userNameLabel setText:userNameText];
         }
 		break;
 	}
