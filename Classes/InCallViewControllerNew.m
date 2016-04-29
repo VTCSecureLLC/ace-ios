@@ -50,7 +50,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UILabel *callStateLabel;
 @property (weak, nonatomic) IBOutlet UIView *viewCallDeclinedWithMessage;
 @property (weak, nonatomic) IBOutlet UILabel *callDeclineMessageLabel;
-
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
