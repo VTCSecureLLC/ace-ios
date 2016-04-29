@@ -258,6 +258,11 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.asyncProviderLookupOperation reloadProviderDomains];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    NSString *domain = [[NSUserDefaults standardUserDefaults] objectForKey:@"selected_provider"];
+    [self fillProviderImageWithDomain:domain];
+}
 - (void)viewDidUnload {
 	[super viewDidUnload];
 }
@@ -331,6 +336,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)fillProviderImageWithDomain:(NSString *)domain {
+    if(!domain) return;
     
     NSString *name = [[domain lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     NSString *cachePath = [self pathForImageCache];
