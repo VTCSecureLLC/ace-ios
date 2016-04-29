@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -73,17 +73,36 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
-                                        <rect key="frame" x="10" y="30" width="355" height="484"/>
+                                        <rect key="frame" x="52.5" y="194" width="270" height="320"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="270" id="G2C-Oe-UBR"/>
+                                            <constraint firstAttribute="height" constant="320" id="gA3-fr-g51"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="Fxf-u6-WjL"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="P3f-9O-B7X"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="WKa-KK-WAF"/>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="D3r-OV-Qdv"/>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="lNU-6W-eeL" secondAttribute="centerX" id="I5m-nS-lpg"/>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="KyA-Gx-Dr3"/>
+                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="h8O-Dw-TeG"/>
                                     <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="D3r-OV-Qdv"/>
+                                        <exclude reference="KyA-Gx-Dr3"/>
+                                        <exclude reference="h8O-Dw-TeG"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="D3r-OV-Qdv"/>
+                                        <include reference="KyA-Gx-Dr3"/>
+                                        <include reference="h8O-Dw-TeG"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyC-b4-pSa">
                                 <rect key="frame" x="19" y="500" width="338" height="167"/>
@@ -304,7 +323,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="12.5" y="-116.5"/>
+            <point key="canvasLocation" x="-74.5" y="-319.5"/>
         </scene>
     </scenes>
     <resources>
