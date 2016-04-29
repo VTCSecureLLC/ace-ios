@@ -85,8 +85,8 @@
                                 <constraints>
                                     <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="D3r-OV-Qdv"/>
                                     <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="lNU-6W-eeL" secondAttribute="centerX" id="I5m-nS-lpg"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="KyA-Gx-Dr3"/>
-                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="h8O-Dw-TeG"/>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="80" id="KyA-Gx-Dr3"/>
+                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="80" id="h8O-Dw-TeG"/>
                                     <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh"/>
                                 </constraints>
                                 <variation key="default">

@@ -8,28 +8,31 @@
 
 #import "InCallDialpadView.h"
 #import "UIDigitButton.h"
+#import "DialUnitView.h"
 
 #define kAnimationDuration 0.5f
-#define kPortraitFontSize 23.0
-#define kLandscapeFontSize 14.0
+#define kPortraitNumericFontSize 44.0
+#define kPortraitAlphabetFontSize 12.0
+#define kLandscapeNumericFontSize 24.0
+#define kLandscapeAlphabetFontSize 8.0
 
 
 @interface InCallDialpadView ()
 
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
-@property (nonatomic, strong) IBOutlet UIDigitButton * oneButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * twoButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * threeButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * fourButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * fiveButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * sixButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * sevenButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * eightButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * nineButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * starButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * zeroButton;
-@property (nonatomic, strong) IBOutlet UIDigitButton * sharpButton;
+@property (nonatomic, strong) IBOutlet DialUnitView * oneButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * twoButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * threeButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * fourButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * fiveButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * sixButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * sevenButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * eightButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * nineButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * starButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * zeroButtonView;
+@property (nonatomic, strong) IBOutlet DialUnitView * sharpButtonView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundViewBottomConstraint;
 
@@ -45,76 +48,199 @@
 
 
 #pragma mark - Instance methods
-- (void)setupButtons {
+
+- (void)adjustButtons {
     
-    [_zeroButton setDigit:'0'];
-    [_zeroButton setDtmf:true];
-    [_oneButton setDigit:'1'];
-    [_oneButton setDtmf:true];
-    [_twoButton setDigit:'2'];
-    [_twoButton setDtmf:true];
-    [_threeButton setDigit:'3'];
-    [_threeButton setDtmf:true];
-    [_fourButton setDigit:'4'];
-    [_fourButton setDtmf:true];
-    [_fiveButton setDigit:'5'];
-    [_fiveButton setDtmf:true];
-    [_sixButton setDigit:'6'];
-    [_sixButton setDtmf:true];
-    [_sevenButton setDigit:'7'];
-    [_sevenButton setDtmf:true];
-    [_eightButton setDigit:'8'];
-    [_eightButton setDtmf:true];
-    [_nineButton setDigit:'9'];
-    [_nineButton setDtmf:true];
-    [_starButton setDigit:'*'];
-    [_starButton setDtmf:true];
-    [_sharpButton setDigit:'#'];
-    [_sharpButton setDtmf:true];
+    UIFont *numberFont = nil;
+    UIFont *alphabetFont = nil;
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
+        numberFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kPortraitNumericFontSize];
+        alphabetFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kPortraitAlphabetFontSize];
+    }
+    else {
+        numberFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kLandscapeNumericFontSize];
+        alphabetFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kLandscapeAlphabetFontSize];
+    }
+    
+    _oneButtonView.numericFont = numberFont;
+    _oneButtonView.alphabetFont = alphabetFont;
+    
+    _twoButtonView.numericFont = numberFont;
+    _twoButtonView.alphabetFont = alphabetFont;
+    
+    _threeButtonView.numericFont = numberFont;
+    _threeButtonView.alphabetFont = alphabetFont;
+    
+    _fourButtonView.numericFont = numberFont;
+    _fourButtonView.alphabetFont = alphabetFont;
+    
+    _fiveButtonView.numericFont = numberFont;
+    _fiveButtonView.alphabetFont = alphabetFont;
+    
+    _sixButtonView.numericFont = numberFont;
+    _sixButtonView.alphabetFont = alphabetFont;
+    
+    _sevenButtonView.numericFont = numberFont;
+    _sevenButtonView.alphabetFont = alphabetFont;
+    
+    _eightButtonView.numericFont = numberFont;
+    _eightButtonView.alphabetFont = alphabetFont;
+    
+    _nineButtonView.numericFont = numberFont;
+    _nineButtonView.alphabetFont = alphabetFont;
+    
+    _starButtonView.numericFont = numberFont;
+    _starButtonView.alphabetFont = alphabetFont;
+    
+    _zeroButtonView.numericFont = numberFont;
+    _zeroButtonView.alphabetFont = alphabetFont;
+    
+    _sharpButtonView.numericFont = numberFont;
+    _sharpButtonView.alphabetFont = alphabetFont;
 }
 
-- (void)adjustButtonTitleWithFontSize:(CGFloat)fontSize button:(UIButton *)button {
+- (void)setupButtons {
     
-    UIFont *systemFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize];
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
-                                  NSFontAttributeName : systemFont};
-    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:button.titleLabel.text attributes:attributes];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setAlignment:NSTextAlignmentCenter];
-    [attributedTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedTitle.length)];
-    [button setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+    UIFont *numberFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kPortraitAlphabetFontSize];
+    UIFont *alphabetFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kPortraitAlphabetFontSize];
+    
+    __weak InCallDialpadView *weakSelf = self;
+    _oneButtonView.numericFont = numberFont;
+    _oneButtonView.alphabetFont = alphabetFont;
+    _oneButtonView.numericText = @"1";
+    _oneButtonView.alphabetText = @"";
+    _oneButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.oneButtonHandler) {
+            weakSelf.oneButtonHandler(sender);
+        }
+    };
+    
+    _twoButtonView.numericFont = numberFont;
+    _twoButtonView.alphabetFont = alphabetFont;
+    _twoButtonView.numericText = @"2";
+    _twoButtonView.alphabetText = @"ABC";
+    _twoButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.twoButtonHandler) {
+            weakSelf.twoButtonHandler(sender);
+        }
+    };
+    
+    _threeButtonView.numericFont = numberFont;
+    _threeButtonView.alphabetFont = alphabetFont;
+    _threeButtonView.numericText = @"3";
+    _threeButtonView.alphabetText = @"DEF";
+    _threeButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.threeButtonHandler) {
+            weakSelf.threeButtonHandler(sender);
+        }
+    };
+    
+    _fourButtonView.numericFont = numberFont;
+    _fourButtonView.alphabetFont = alphabetFont;
+    _fourButtonView.numericText = @"4";
+    _fourButtonView.alphabetText = @"GHI";
+    _fourButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.fourButtonHandler) {
+            weakSelf.fourButtonHandler(sender);
+        }
+    };
+    
+    _fiveButtonView.numericFont = numberFont;
+    _fiveButtonView.alphabetFont = alphabetFont;
+    _fiveButtonView.numericText = @"5";
+    _fiveButtonView.alphabetText = @"JKL";
+    _fiveButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.fiveButtonHandler) {
+            weakSelf.fiveButtonHandler(sender);
+        }
+    };
+    
+    _sixButtonView.numericFont = numberFont;
+    _sixButtonView.alphabetFont = alphabetFont;
+    _sixButtonView.numericText = @"6";
+    _sixButtonView.alphabetText = @"MNO";
+    _sixButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.sixButtonHandler) {
+            weakSelf.sixButtonHandler(sender);
+        }
+    };
+    _sevenButtonView.numericFont = numberFont;
+    _sevenButtonView.alphabetFont = alphabetFont;
+    _sevenButtonView.numericText = @"7";
+    _sevenButtonView.alphabetText = @"PQRS";
+    _sevenButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.sevenButtonHandler) {
+            weakSelf.sevenButtonHandler(sender);
+        }
+    };
+    
+    _eightButtonView.numericFont = numberFont;
+    _eightButtonView.alphabetFont = alphabetFont;
+    _eightButtonView.numericText = @"8";
+    _eightButtonView.alphabetText = @"TUV";
+    _eightButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.eightButtonHandler) {
+            weakSelf.eightButtonHandler(sender);
+        }
+    };
+    
+    _nineButtonView.numericFont = numberFont;
+    _nineButtonView.alphabetFont = alphabetFont;
+    _nineButtonView.numericText = @"9";
+    _nineButtonView.alphabetText = @"WXYZ";
+    _nineButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.nineButtonHandler) {
+            weakSelf.nineButtonHandler(sender);
+        }
+    };
+    
+    _starButtonView.numericFont = numberFont;
+    _starButtonView.alphabetFont = alphabetFont;
+    _starButtonView.numericText = @"*";
+    _starButtonView.alphabetText = @"";
+    _starButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.starButtonHandler) {
+            weakSelf.starButtonHandler(sender);
+        }
+    };
+    
+    _zeroButtonView.numericFont = numberFont;
+    _zeroButtonView.alphabetFont = alphabetFont;
+    _zeroButtonView.numericText = @"0";
+    _zeroButtonView.alphabetText = @"+";
+    _zeroButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.zeroButtonHandler) {
+            weakSelf.zeroButtonHandler(sender);
+        }
+    };
+    
+    _sharpButtonView.numericFont = numberFont;
+    _sharpButtonView.alphabetFont = alphabetFont;
+    _sharpButtonView.numericText = @"#";
+    _sharpButtonView.alphabetText = @"";
+    _sharpButtonView.dialUnitViewCallback = ^(UIButton *sender) {
+        
+        if (weakSelf.sharpButtonHandler) {
+            weakSelf.sharpButtonHandler(sender);
+        }
+    };
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_zeroButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_oneButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_twoButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_threeButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fourButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fiveButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sixButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sevenButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_eightButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_nineButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_starButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sharpButton];
-    }
-    else {
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_zeroButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_oneButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_twoButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_threeButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fourButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fiveButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sixButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sevenButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_eightButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_nineButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_starButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sharpButton];
-    }
+    
+    [self adjustButtons];
 }
 
 
@@ -256,6 +382,5 @@
         self.sharpButtonHandler(weakSender);
     }
 }
-
 
 @end

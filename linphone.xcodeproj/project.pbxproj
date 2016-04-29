@@ -439,6 +439,8 @@
 		63D7216D1B73975900D70E65 /* libmsx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AA8AFC13D7125500B30535 /* libmsx264.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63E59A3F1ADE70D900646FB3 /* InAppProductsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E59A3E1ADE70D900646FB3 /* InAppProductsManager.m */; };
 		63FB30351A680E73008CA393 /* UIRoundedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB30341A680E73008CA393 /* UIRoundedImageView.m */; };
+		640D70EA1CD3A0E500781332 /* DialUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 640D70E91CD3A0E500781332 /* DialUnitView.m */; };
+		640D70EC1CD3A0FA00781332 /* DialUnitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 640D70EB1CD3A0FA00781332 /* DialUnitView.xib */; };
 		64487C321C85C6A200D45393 /* InCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C311C85C6A200D45393 /* InCall.storyboard */; };
 		64487C351C85CA0F00D45393 /* InCallViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */; };
 		64487C3B1C85CAA200D45393 /* IncomingCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64487C3A1C85CAA200D45393 /* IncomingCall.storyboard */; };
@@ -1828,6 +1830,9 @@
 		63EF7FDC1A24B5810017A416 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AboutViewController.strings; sourceTree = "<group>"; };
 		63FB30331A680E73008CA393 /* UIRoundedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRoundedImageView.h; sourceTree = "<group>"; };
 		63FB30341A680E73008CA393 /* UIRoundedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRoundedImageView.m; sourceTree = "<group>"; };
+		640D70E81CD3A0E500781332 /* DialUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialUnitView.h; sourceTree = "<group>"; };
+		640D70E91CD3A0E500781332 /* DialUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialUnitView.m; sourceTree = "<group>"; };
+		640D70EB1CD3A0FA00781332 /* DialUnitView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DialUnitView.xib; sourceTree = "<group>"; };
 		64487C311C85C6A200D45393 /* InCall.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InCall.storyboard; sourceTree = "<group>"; };
 		64487C331C85CA0F00D45393 /* InCallViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallViewControllerNew.h; sourceTree = "<group>"; };
 		64487C341C85CA0F00D45393 /* InCallViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallViewControllerNew.m; sourceTree = "<group>"; };
@@ -3650,6 +3655,9 @@
 		C6B2F8B81C9008D3006A2B0C /* In Call Dialpad View */ = {
 			isa = PBXGroup;
 			children = (
+				640D70E81CD3A0E500781332 /* DialUnitView.h */,
+				640D70E91CD3A0E500781332 /* DialUnitView.m */,
+				640D70EB1CD3A0FA00781332 /* DialUnitView.xib */,
 				C6B2F8BD1C900979006A2B0C /* InCallDialpadView.h */,
 				C6B2F8BE1C900979006A2B0C /* InCallDialpadView.m */,
 				C6B2F8C01C900984006A2B0C /* InCallDialpadView.xib */,
@@ -5433,6 +5441,7 @@
 				D3D6A3AD159B0EFE005F692C /* security_pending.png in Resources */,
 				D3D6A3AF159B0EFE005F692C /* security_ok.png in Resources */,
 				50B008111BA09C79002C5723 /* setup_start_disabled~ipad.png in Resources */,
+				640D70EC1CD3A0FA00781332 /* DialUnitView.xib in Resources */,
 				50B006871BA09C79002C5723 /* atbutton@2x.png in Resources */,
 				D3D6A3B3159B0EFE005F692C /* options_disabled.png in Resources */,
 				50B007401BA09C79002C5723 /* history_default~ipad.png in Resources */,
@@ -5952,6 +5961,7 @@
 				D37DC6C11594AE1800B2A5EB /* LinphoneCoreSettingsStore.m in Sources */,
 				5E34FA4B1C9854CD00ABA721 /* ContactFavoritesManager.m in Sources */,
 				63CD4B4F1A5AAC8C00B84282 /* DTAlertView.m in Sources */,
+				640D70EA1CD3A0E500781332 /* DialUnitView.m in Sources */,
 				D3EA53FD159850E80037DC6B /* LinphoneManager.m in Sources */,
 				63B81A0E1B57DA33009604A6 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				D3EA540D1598528B0037DC6B /* ChatTableViewController.m in Sources */,
