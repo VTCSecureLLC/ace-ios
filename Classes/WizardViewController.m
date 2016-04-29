@@ -1027,6 +1027,7 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 }
 
 - (IBAction)onLoginClick:(id)sender {
+    
     NSString *rueConfigFormatURL = @"_rueconfig._tls.%domain%";
 
     NSString *configURL = [rueConfigFormatURL stringByReplacingOccurrencesOfString:@"%domain%" withString:self.textFieldDomain.text];
@@ -1047,6 +1048,9 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
     [[DefaultSettingsManager sharedInstance] setSipRegisterTransport:self.transportTextField.text];
     [[DefaultSettingsManager sharedInstance] setSipRegisterPort:self.textFieldPort.text.intValue];
     [[DefaultSettingsManager sharedInstance] parseDefaultConfigSettings:configURL];
+    
+    //Reset video mail count
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
 }
 
 - (BOOL)checkLoginCredentials {
