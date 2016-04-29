@@ -14,6 +14,7 @@
                 <outlet property="portraitView" destination="4" id="25"/>
                 <outlet property="registrationStateImage" destination="5" id="14"/>
                 <outlet property="registrationStateLabel" destination="6" id="15"/>
+                <outlet property="userNameLabel" destination="HQR-QQ-jfh" id="STE-lO-mDS"/>
                 <outlet property="view" destination="4" id="11"/>
                 <outlet property="voicemailCount" destination="jEB-96-YxX" id="hV2-9Z-i8b"/>
             </connections>
@@ -79,6 +80,13 @@
                     <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="highlightedColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HQR-QQ-jfh">
+                    <rect key="frame" x="135" y="1" width="185" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -132,6 +140,13 @@
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VOICEMAIL MSGS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P9M-sM-t2B" userLabel="voicemailCount">
                     <rect key="frame" x="244" y="1" width="165" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mo1-1S-YZa">
+                    <rect key="frame" x="219" y="1" width="190" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
