@@ -888,8 +888,14 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 - (void)registrationUpdate:(LinphoneRegistrationState)state message:(NSString *)message {
 	switch (state) {
 	case LinphoneRegistrationOk: {
-		[waitView setHidden:true];
-		[[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
+        if(self.selectProviderButton){
+            if(self.selectProviderButton.titleLabel){
+                [[NSUserDefaults standardUserDefaults] setObject:self.selectProviderButton.titleLabel.text forKey:@"selected_provider"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+        [waitView setHidden:true];
+        [[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]];
 		break;
 	}
 	case LinphoneRegistrationNone:
