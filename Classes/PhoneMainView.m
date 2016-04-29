@@ -27,7 +27,7 @@
 #import "UIManager.h"
 #import "IncomingCallViewControllerNew.h"
 #import "ReasonErrorHandler.h"
-
+#import "InCallViewControllerNew.h"
 
 
 static RootViewManager *rootViewManagerInstance = nil;
@@ -256,11 +256,34 @@ static RootViewManager *rootViewManagerInstance = nil;
 - (NSUInteger)supportedInterfaceOrientations
 #endif
 {
-	if ([LinphoneManager runningOnIpad] || [mainViewController currentViewSupportsLandscape])
-		return UIInterfaceOrientationMaskAll;
-	else {
-		return UIInterfaceOrientationMaskPortrait;
-	}
+    if ([[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController isKindOfClass:[InCallViewControllerNew class]]) {
+        switch ([UIApplication sharedApplication].delegate.window.rootViewController.interfaceOrientation) {
+            case UIInterfaceOrientationPortrait:
+            return UIInterfaceOrientationMaskPortrait;
+            break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+            return UIInterfaceOrientationMaskPortraitUpsideDown;
+            break;
+            case UIInterfaceOrientationLandscapeLeft:
+            return UIInterfaceOrientationMaskLandscapeLeft;
+            break;
+            case UIInterfaceOrientationLandscapeRight:
+            return UIInterfaceOrientationMaskLandscapeRight;
+            break;
+            default:
+            break;
+        }
+        
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    
+    if ([LinphoneManager runningOnIpad] || [mainViewController currentViewSupportsLandscape]) {
+        return UIInterfaceOrientationMaskAll;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
