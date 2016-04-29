@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -70,10 +70,10 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNU-6W-eeL" userLabel="Dialpad View Container">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
-                                        <rect key="frame" x="10" y="30" width="355" height="484"/>
+                                        <rect key="frame" x="10" y="30" width="355" height="463"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -180,10 +180,10 @@
                                 </variation>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w2-q5-8wx" customClass="CallBarView">
-                                <rect key="frame" x="0.0" y="374" width="375" height="253"/>
+                                <rect key="frame" x="0.0" y="522" width="375" height="102"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
+                                    <constraint firstAttribute="height" constant="102" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3N-QA-id6" customClass="InCallOnHoldView">
@@ -199,7 +199,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cik-39-glU" secondAttribute="trailing" constant="-20" id="1Nb-XX-IIv"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="cto-wd-TgW" secondAttribute="bottom" constant="147" id="2Ok-fA-IiK"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="40" id="5o4-IW-zgJ"/>
+                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="8w2-q5-8wx" secondAttribute="bottom" constant="43" id="5o4-IW-zgJ"/>
                             <constraint firstItem="cto-wd-TgW" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" constant="1" id="A9c-UV-KDB"/>
                             <constraint firstItem="lNU-6W-eeL" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="top" id="BWN-L8-wlD"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="DXD-IV-wAt"/>
@@ -238,7 +238,7 @@
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="imc-8z-HeR"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="centerY" secondItem="dGF-2k-5Y3" secondAttribute="centerY" multiplier="0.9" id="jjw-ZQ-PoY"/>
                             <constraint firstAttribute="trailing" secondItem="j6x-3s-y50" secondAttribute="trailing" id="jrs-Bg-D0i"/>
-                            <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="bottom" constant="-150" id="ko5-0t-8YE"/>
+                            <constraint firstItem="8w2-q5-8wx" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="bottom" constant="19" id="ko5-0t-8YE"/>
                             <constraint firstItem="opN-Qd-xDg" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" constant="88" id="mNq-Id-jBo"/>
                             <constraint firstItem="0Fx-gY-047" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="mef-gd-shX"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="mlb-M6-qkE"/>
@@ -309,6 +309,6 @@
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
-        <image name="camera_mute.png" width="313" height="313"/>
+        <image name="camera_mute.png" width="209" height="136"/>
     </resources>
 </document>
