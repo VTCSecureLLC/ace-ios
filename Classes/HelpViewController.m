@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Videomail", @"Export Contacts", nil];
+    tableData = [NSArray arrayWithObjects: @"Deaf / Hard of Hearing Resources", @"Instant Feedback", @"Technical Support", @"Export Contacts", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,13 +86,6 @@
             [self presentViewController:resourcesController animated:YES completion:nil];
         }
     }
-    else if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
-        NSString *address = [[NSUserDefaults standardUserDefaults] objectForKey:@"video_mail_uri_preference"];
-        if(address){
-            [[LinphoneManager instance] call:address displayName:@"Videomail" transfer:FALSE];
-            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"mwi_count"];
-        }
-    }
     else if([[tableData objectAtIndex:indexPath.row] containsString:@"Export Contacts"]) {
         if ([[VSContactsManager sharedInstance] addressBookContactsCount] <= 0) {
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:nil
@@ -143,21 +136,6 @@
     
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
     
-    if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
-        NSInteger mwiCount;
-        if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){
-            mwiCount = 0;
-        }
-        else{
-            mwiCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"mwi_count"];
-        }
-        
-        if(mwiCount > 0){
-            cell.textLabel.text = [NSString stringWithFormat:@"Videomail(%ld)", (long)mwiCount];
-        }
-    }
-
-
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"background_color_preference"];
     if(colorData){
         UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
