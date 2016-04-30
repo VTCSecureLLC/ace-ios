@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -75,15 +75,63 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
                                         <rect key="frame" x="10" y="30" width="355" height="484"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="175" id="DER-XL-G8g">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                            </constraint>
+                                            <constraint firstAttribute="width" constant="175" id="yVv-Qf-geJ">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="359"/>
+                                            </constraint>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="DER-XL-G8g"/>
+                                                <exclude reference="yVv-Qf-geJ"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="DER-XL-G8g"/>
+                                                <include reference="yVv-Qf-geJ"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="Fxf-u6-WjL"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="P3f-9O-B7X"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="WKa-KK-WAF"/>
-                                    <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh"/>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="lNU-6W-eeL" secondAttribute="centerX" id="8f1-V2-bXH">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="Fxf-u6-WjL">
+                                        <variation key="widthClass=regular" constant="100"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="70"/>
+                                    </constraint>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="P3f-9O-B7X">
+                                        <variation key="widthClass=regular" constant="100"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="70"/>
+                                    </constraint>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="WKa-KK-WAF">
+                                        <variation key="widthClass=regular" constant="300"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh">
+                                        <variation key="widthClass=regular" constant="49"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="24"/>
+                                    </constraint>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8f1-V2-bXH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="8f1-V2-bXH"/>
+                                        <exclude reference="Fxf-u6-WjL"/>
+                                        <exclude reference="P3f-9O-B7X"/>
+                                        <exclude reference="WKa-KK-WAF"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyC-b4-pSa">
                                 <rect key="frame" x="19" y="500" width="338" height="167"/>
@@ -304,11 +352,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="12.5" y="-116.5"/>
+            <point key="canvasLocation" x="12.375" y="-116.625"/>
         </scene>
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
-        <image name="camera_mute.png" width="313" height="313"/>
+        <image name="camera_mute.png" width="209" height="136"/>
     </resources>
 </document>
