@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet InCallDialpadView *inCallDialpadView;
+@property (weak, nonatomic) IBOutlet UIView *inCallDialpadViewContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
@@ -769,12 +770,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         if (self.inCallDialpadView.viewState == VS_Closed) {
             
+            self.inCallDialpadViewContainer.hidden = NO;
             sender.selected = YES;
             [weakSelf.inCallDialpadView showWithAnimation:YES completion:nil];
         }
         else if (self.inCallDialpadView.viewState == VS_Opened) {
             
             sender.selected = NO;
+            self.inCallDialpadViewContainer.hidden = YES;
             [weakSelf.inCallDialpadView hideWithAnimation:YES completion:nil];
         }
     };
@@ -998,6 +1001,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)setupInCallDialpadView {
     
+    self.inCallDialpadViewContainer.hidden = YES;
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
 
     const int dtmf_length = 250;
@@ -1250,6 +1254,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             
             if (self.inCallDialpadView.viewState == VS_Opened) {
                 self.callBarView.keypadButtonSelected = NO;
+                self.inCallDialpadViewContainer.hidden = YES;
                 [self.inCallDialpadView hideWithAnimation:YES completion:nil];
             }
             
