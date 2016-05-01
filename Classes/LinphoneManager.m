@@ -180,7 +180,7 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 		[NSString stringWithFormat:@"%@ (Linphone/%s; Apple iOS %@/%@)",
 			   [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],
 			   linphone_core_get_version(),
-			   UIDevice currentDevice].systemName,
+			   [UIDevice currentDevice].systemName,
 			   [UIDevice currentDevice].systemVersion];
 }
 
