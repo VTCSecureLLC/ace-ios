@@ -171,12 +171,17 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 	return result;
 }
 
-+ (NSString *)getUserAgent {
++ (NSString *)getUserAgentName {
+	return @"ACE-APP";
+}
+
++ (NSString *)getUserAgentVersion {
 	return
-		[NSString stringWithFormat:@"ACE-APP/%@ (Linphone/%s; Apple iOS %@/%@)",
-								   [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],
-								   linphone_core_get_version(), [UIDevice currentDevice].systemName,
-								   [UIDevice currentDevice].systemVersion];
+		[NSString stringWithFormat:@"%@ (Linphone/%s; Apple iOS %@/%@)",
+			   [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],
+			   linphone_core_get_version(),
+			   UIDevice currentDevice].systemName,
+			   [UIDevice currentDevice].systemVersion];
 }
 
 + (LinphoneManager *)instance {
@@ -1437,11 +1442,9 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 	NSString *chatDBFileName = [LinphoneManager documentFile:kLinphoneInternalChatDBFilename];
 	const char *lRootCa = [[LinphoneManager bundleFile:@"rootca.pem"] UTF8String];
 
-	NSString *device = [NSString
-		stringWithFormat:@"%@_%@_iOS%@", [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-						 [LinphoneUtils deviceName], UIDevice.currentDevice.systemVersion];
-    NSString *ua = [NSString stringWithFormat:@"%@, (liblinphone/%s),", (NSString*)@LINPHONE_IOS_VERSION, linphone_core_get_version()];
-	linphone_core_set_user_agent(theLinphoneCore, device.UTF8String, [ua cStringUsingEncoding:NSUTF8StringEncoding]);
+	linphone_core_set_user_agent(theLinphoneCore,
+		[LinphoneManager getUserAgentName].UTF8String,
+		[[LinphoneManager getUserAgentVersion] cStringUsingEncoding:NSUTF8StringEncoding]);
 
 	_contactSipField = [self lpConfigStringForKey:@"contact_im_type_value" withDefault:@"SIP"];
 
