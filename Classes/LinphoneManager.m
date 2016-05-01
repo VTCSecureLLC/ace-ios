@@ -173,7 +173,7 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 
 + (NSString *)getUserAgent {
 	return
-		[NSString stringWithFormat:@"LinphoneIphone/%@ (Linphone/%s; Apple %@/%@)",
+		[NSString stringWithFormat:@"ACE-APP/%@ (Linphone/%s; Apple iOS %@/%@)",
 								   [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],
 								   linphone_core_get_version(), [UIDevice currentDevice].systemName,
 								   [UIDevice currentDevice].systemVersion];
