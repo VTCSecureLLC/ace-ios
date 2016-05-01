@@ -1444,7 +1444,7 @@ static LinphoneCoreVTable linphonec_vtable = {.show = NULL,
 
 	linphone_core_set_user_agent(theLinphoneCore,
 		[LinphoneManager getUserAgentName].UTF8String,
-		[[LinphoneManager getUserAgentVersion] cStringUsingEncoding:NSUTF8StringEncoding]);
+		[LinphoneManager getUserAgentVersion].UTF8String);
 
 	_contactSipField = [self lpConfigStringForKey:@"contact_im_type_value" withDefault:@"SIP"];
 
