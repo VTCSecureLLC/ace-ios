@@ -171,6 +171,13 @@ NSString *kLinphoneInternalRCFilename = @"linphonerc";
 	return result;
 }
 
++ (NSString *)getUserAgent {
+	return
+		[NSString stringWithFormat:@"%@/%@",
+			[LinphoneManager getUserAgentName],
+			[LinphoneManager getUserAgentVersion]];
+}
+
 + (NSString *)getUserAgentName {
 	return @"ACE-APP";
 }
