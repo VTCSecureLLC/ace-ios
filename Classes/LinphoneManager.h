@@ -135,6 +135,8 @@ typedef struct _LinphoneManagerSounds {
 + (BOOL)isNotIphone3G;
 + (BOOL)isCodecSupported: (const char*)codecName;
 + (NSString *)getUserAgent;
++ (NSString *)getUserAgentName;
++ (NSString *)getUserAgentVersion;
 
 - (void)playMessageSound;
 - (void)resetLinphoneCore;
