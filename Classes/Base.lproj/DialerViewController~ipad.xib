@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DialerViewController">
@@ -41,14 +41,6 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="900"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" image="background_alt.png" id="73" userLabel="background">
-                    <rect key="frame" x="224" y="310" width="320" height="280"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo_linphone_trame_background.png" id="78" userLabel="backgroundImage">
-                    <rect key="frame" x="127" y="200" width="510" height="460"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <view contentMode="scaleToFill" id="76" userLabel="backgroundView">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="900"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +180,7 @@ EFR3byBCdXR0b24
                             </connections>
                         </button>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="17" userLabel="3" customClass="UIDigitButton">
-                            <rect key="frame" x="220.99999991978441" y="2" width="107" height="72"/>
+                            <rect key="frame" x="221" y="2" width="107" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Three Button"/>
                             <state key="normal" backgroundImage="dial_pad_button_unpressed.png">
@@ -522,7 +514,7 @@ EFR3byBCdXR0b24
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="21" userLabel="callButton" customClass="UICallButton">
-                            <rect key="frame" x="130.99999976656855" y="2" width="244" height="85"/>
+                            <rect key="frame" x="131" y="2" width="244" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.08235294118" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <accessibility key="accessibilityConfiguration" label="Call"/>
@@ -553,7 +545,7 @@ EFR3byBCdXR0b24
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
@@ -566,12 +558,10 @@ EFR3byBCdXR0b24
         <image name="back_default.png" width="251" height="170"/>
         <image name="back_disabled.png" width="251" height="170"/>
         <image name="back_over.png" width="251" height="170"/>
-        <image name="background_alt.png" width="640" height="561"/>
         <image name="backspace_new.png" width="81" height="43"/>
         <image name="call_new.png" width="320" height="108"/>
         <image name="dial_pad_button_pressed.png" width="210" height="113"/>
         <image name="dial_pad_button_unpressed.png" width="210" height="113"/>
-        <image name="logo_linphone_trame_background.png" width="1019" height="920"/>
         <image name="switch_camera_default.png" width="151" height="51"/>
         <image name="switch_camera_over.png" width="151" height="51"/>
         <image name="transfer_call_default.png" width="371" height="170"/>
