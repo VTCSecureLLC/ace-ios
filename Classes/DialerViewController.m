@@ -328,6 +328,19 @@ static UICompositeViewDescription *compositeDescription = nil;
 		break;
 	}
 	[videoPreview setFrame:frame];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && _providerPickerView) {
+        _providerPickerView.hidden = YES;
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && _providerPickerView) {
+        _providerPickerView.hidden = NO;
+        CGRect frame = CGRectMake(self.view.frame.size.width - self.toolbarView.frame.size.width + 3, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height + 18, self.toolbarView.frame.size.width, DATEPICKER_HEIGHT - 20);
+        _providerPickerView.frame = frame;
+    }
 }
 
 #pragma mark - Private Functions
@@ -610,7 +623,13 @@ static UICompositeViewDescription *compositeDescription = nil;
 // VTCSecure - select a domain
 - (void)showProviderPickerView {
     
-    CGRect frame = CGRectMake(0, (self.view.frame.size.height - DATEPICKER_HEIGHT)/2, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    CGRect frame = CGRectZero;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        frame = CGRectMake(self.view.frame.size.width - self.toolbarView.frame.size.width + 3, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height + 18, self.toolbarView.frame.size.width, DATEPICKER_HEIGHT - 20);
+    } else {
+        frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height - 6, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    }
+    
     _providerPickerView = [[UICustomPicker alloc] initWithFrame:frame SourceList:self.domains];
     _providerPickerView.delegate = self;
     _providerPickerView.userInteractionEnabled = true;
