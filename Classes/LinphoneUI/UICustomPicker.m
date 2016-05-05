@@ -204,7 +204,7 @@
     
     UILabel *providerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 150, 60)];
     providerLabel.text = [arraySource objectAtIndex:row];
-    providerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
+    providerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
     
     if ([self.delegate respondsToSelector:@selector(fontForRow:forComponent:)]) {
         UIFont *textFont = [self.delegate fontForRow:row forComponent:component];

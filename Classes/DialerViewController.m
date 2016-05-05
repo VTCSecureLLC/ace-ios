@@ -645,76 +645,10 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (IBAction)domainSelectorClicked:(id)sender {
-//    if([[[UIDevice currentDevice]systemVersion] floatValue] >= 8.0){
-//        [self showDomainPopoveriOS8:sender];
-//    }
-//    else{
-//        [self showDomainPopoveriOS7:sender];
-//    }
     
     [self setRecursiveUserInteractionEnabled:NO];
     [self showProviderPickerView];
 }
-
-/*
--(void) showDomainPopoveriOS7:(id)sender{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Available in General Release",nil)
-message:@"Select the SIP provider of the person you wish to call."
-                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-    
-    if (self.domains) {
-        for (NSString *domain in self.domains) {
-            [alert addButtonWithTitle:domain];
-        }
-    }
-    [alert show];
-}
-
--(void) showDomainPopoveriOS8:(id)sender{
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
-                                                                   message:@"Select the SIP provider of the person you wish to call."
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    // alert.view.tintColor = LINPHONE_MAIN_COLOR;
-    
-    if (self.domains) {
-        for (NSString *domain in self.domains) {
-            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:domain
-                                                                     style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       NSString *domain = @"";
-                                                                       for (int i = 0; i < self.domains.count; i++) {
-                                                                           if ([action.title isEqualToString:[self.domains objectAtIndex:i]]) {
-                                                                               [self fillProviderImageWithDomain:[self.domains objectAtIndex:i]];
-                                                                               domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
-                                                                           }
-                                                                       }
-                                                                       if(!domain) { domain = @""; }
-                                                                       self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
-                                                                       self.addressField.sipDomain = domain;
-                                                                   }];
-            [providerAction setEnabled:YES];
-            [alert addAction:providerAction];
-            [alert.view setBackgroundColor:[UIColor blackColor]];
-            [alert setModalPresentationStyle:UIModalPresentationPopover];
-            
-            UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
-            UIButton *button = (UIButton*)sender;
-            popPresenter.sourceView = button;
-            popPresenter.sourceRect = button.bounds;
-            
-        }
-    }
-    UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
-                                                   style:UIAlertActionStyleDefault
-                                                 handler:^(UIAlertAction * action) {
-                                                     self.sipDomainLabel.text = @"";
-                                                     self.addressField.sipDomain = nil;
-                                                     self.providerImageView.image = nil;
-                                                 }];
-    [alert addAction:none];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-*/
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
