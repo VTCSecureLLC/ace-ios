@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Roboto-Bold.ttf">
@@ -81,7 +81,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="178" y="295"/>
+            <point key="canvasLocation" x="-358" y="-480"/>
         </view>
         <view contentMode="scaleToFill" id="qd1-rV-ItA" userLabel="welcomeView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -150,7 +150,7 @@
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.21960784310000001" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="550" y="1520"/>
+            <point key="canvasLocation" x="5" y="-480"/>
         </view>
         <view contentMode="scaleToFill" id="pP8-hG-5oW" userLabel="welcomeView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -345,7 +345,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="927" y="1520"/>
+            <point key="canvasLocation" x="371" y="-480"/>
         </view>
         <view tag="171" contentMode="scaleToFill" id="33" userLabel="choiceView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -715,7 +715,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These parameters were retrieved from a remote provisioning profile." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RHE-hi-dfB" userLabel="remoteParamsLabel">
-                    <rect key="frame" x="34" y="414.00000272146076" width="254" height="82"/>
+                    <rect key="frame" x="34" y="414" width="254" height="82"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" red="0.4823529412" green="0.74117647060000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
