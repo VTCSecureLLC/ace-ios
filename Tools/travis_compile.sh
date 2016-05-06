@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
@@ -38,7 +38,7 @@ if $DIR/compile.sh >> $LOGFILE 2>&1
 then
   MAKE_RESULT=$?
   zip -r sdkcache/liblinphone-sdk_${SUBMODULE_HASH}.zip liblinphone-sdk
-  if ! aws s3 sync sdkcache/ s3://$CACHE/ace-ios/sdkcache/ ; then
+  if ! aws s3 sync --quiet sdkcache/ s3://$CACHE/ace-ios/sdkcache/ ; then
     echo "Encountered a problem syncing sdkcache/ folder to s3://$CACHE/ace-ios/sdkcache/"
   fi
 else

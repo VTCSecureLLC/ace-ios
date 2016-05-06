@@ -1,5 +1,7 @@
 #!/bin/bash
-set -x
+set -e
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/..
 LOGFILE=/tmp/archive_script.out
 
 echo "Archiving"
@@ -18,6 +20,8 @@ touch $LOGFILE
   echo "Timing out after 30 minutes."
 ) &
 MUTED_PID=$!
+
+xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration Debug clean >> $LOGFILE 2>&1
 
 xcodebuild -project linphone.xcodeproj -scheme linphone -sdk iphoneos -configuration \
   Debug build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGN_ENTITLEMENTS="" \
