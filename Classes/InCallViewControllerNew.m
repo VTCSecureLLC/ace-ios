@@ -300,12 +300,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 //        hiddenVolume = FALSE;
 //    }
     
-    NSAssert(call, @"Call cannot be NULL");
-    
     switch (state) {
         case LinphoneCallIdle: {
-            
-            NSAssert(0, @"LinphoneCallIdle: Just need to check this state");
             break;
         }
         case LinphoneCallIncomingReceived: {
@@ -322,7 +318,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if (!self.isRTTLocallyEnabled) {
                 [[LinphoneManager instance] changeRTTStateForCall:call avtive:NO];
             }
-            //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingRinging:
@@ -351,13 +346,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             
         case LinphoneCallOutgoingEarlyMedia: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallConnected: {
             [self stopRingCount];
-            
-            //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
             break;
         }
         case LinphoneCallStreamsRunning: {
@@ -427,23 +419,19 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallPausing: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
             break;
         }
         case LinphoneCallPaused: {
             [self stopRingCount];
             [self updateCallStateWithButtonsState];
-            //            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
             break;
         }
         case LinphoneCallResuming: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
             break;
         }
         case LinphoneCallRefered: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
             break;
         }
         case LinphoneCallError: {
@@ -500,17 +488,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallUpdatedByRemote: {
             
-            //            NSAssert(0, @"LinphoneCallUpdatedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallIncomingEarlyMedia: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallUpdating: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
             break;
         }
         case LinphoneCallReleased: {
@@ -520,12 +505,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallEarlyUpdatedByRemote: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallEarlyUpdating: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
             break;
         }
         default:
@@ -566,6 +549,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
     
     [self.callBarView disableCallOptions];
+    [self.statusBar setUserInteractionEnabled:NO];
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
     [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error) {
         [self close];
