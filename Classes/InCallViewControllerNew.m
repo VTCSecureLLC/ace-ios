@@ -566,6 +566,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
     
     [self.callBarView disableCallOptions];
+    [self.statusBar setUserInteractionEnabled:NO];
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
     [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error) {
         [self close];
