@@ -28,16 +28,21 @@
 #import "Utils.h"
 #import "UILinphone.h"
 #include "linphone/linphonecore.h"
-
+#import "UICustomPicker.h"
 
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
 #import "GAILogger.h"
 
-@interface DialerViewController()
+
+#define DATEPICKER_HEIGHT 230
+
+
+@interface DialerViewController() <UICustomPickerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *providerImageView;
+@property (nonatomic, strong) UICustomPicker *providerPickerView;
 @property NSMutableArray *domains;
 
 @end
@@ -323,6 +328,19 @@ static UICompositeViewDescription *compositeDescription = nil;
 		break;
 	}
 	[videoPreview setFrame:frame];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && _providerPickerView) {
+        _providerPickerView.hidden = YES;
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && _providerPickerView) {
+        _providerPickerView.hidden = NO;
+        CGRect frame = CGRectMake(self.view.frame.size.width - self.toolbarView.frame.size.width + 3, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height + 18, self.toolbarView.frame.size.width, DATEPICKER_HEIGHT - 20);
+        _providerPickerView.frame = frame;
+    }
 }
 
 #pragma mark - Private Functions
@@ -546,6 +564,28 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 
+#pragma mark - UICustomPickerDelegate
+- (void)didCancelUICustomPicker:(UICustomPicker*)customPicker {
+    
+    [self setRecursiveUserInteractionEnabled:YES];
+}
+
+- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker selectedItem:(NSString*)item {
+    
+    NSString *domain = @"";
+    for (int i = 0; i < self.domains.count; ++i) {
+        if ([item isEqualToString:[self.domains objectAtIndex:i]]) {
+            [self fillProviderImageWithDomain:item];
+            domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
+        }
+    }
+    if(!domain) { domain = @""; }
+    self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
+    self.addressField.sipDomain = domain;
+    [self setRecursiveUserInteractionEnabled:YES];
+}
+
+
 #pragma mark - Action Functions
 - (IBAction)onAddContactClick: (id) event {
     [ContactSelection setSelectionMode:ContactSelectionModeEdit];
@@ -581,73 +621,33 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 // VTCSecure - select a domain
+- (void)showProviderPickerView {
+    
+    CGRect frame = CGRectZero;
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        frame = CGRectMake(self.view.frame.size.width - self.toolbarView.frame.size.width + 3, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height + 18, self.toolbarView.frame.size.width, DATEPICKER_HEIGHT - 20);
+    } else {
+        frame = CGRectMake(0, self.view.frame.size.height - DATEPICKER_HEIGHT - self.callButton.frame.size.height - 6, self.view.frame.size.width, DATEPICKER_HEIGHT);
+    }
+    
+    _providerPickerView = [[UICustomPicker alloc] initWithFrame:frame SourceList:self.domains];
+    _providerPickerView.delegate = self;
+    _providerPickerView.userInteractionEnabled = true;
+    [_providerPickerView setAlpha:1.0f];
+    [self.view addSubview:_providerPickerView];
+}
+
+- (void)setRecursiveUserInteractionEnabled:(BOOL)value {
+    
+    for (UIView *view in self.view.subviews) {
+        view.userInteractionEnabled = value;
+    }
+}
 
 - (IBAction)domainSelectorClicked:(id)sender {
-    if([[[UIDevice currentDevice]systemVersion] floatValue] >= 8.0){
-        [self showDomainPopoveriOS8:sender];
-    }
-    else{
-        [self showDomainPopoveriOS7:sender];
-    }
     
-}
-
--(void) showDomainPopoveriOS7:(id)sender{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Available in General Release",nil)
-message:@"Select the SIP provider of the person you wish to call."
-                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-    
-    if (self.domains) {
-        for (NSString *domain in self.domains) {
-            [alert addButtonWithTitle:domain];
-        }
-    }
-    [alert show];
-}
-
--(void) showDomainPopoveriOS8:(id)sender{
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Available in General Release",nil)
-                                                                   message:@"Select the SIP provider of the person you wish to call."
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    // alert.view.tintColor = LINPHONE_MAIN_COLOR;
-    
-    if (self.domains) {
-        for (NSString *domain in self.domains) {
-            UIAlertAction* providerAction = [UIAlertAction actionWithTitle:domain
-                                                                     style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       NSString *domain = @"";
-                                                                       for (int i = 0; i < self.domains.count; i++) {
-                                                                           if ([action.title isEqualToString:[self.domains objectAtIndex:i]]) {
-                                                                               [self fillProviderImageWithDomain:[self.domains objectAtIndex:i]];
-                                                                               domain = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d_domain", i]];
-                                                                           }
-                                                                       }
-                                                                       if(!domain) { domain = @""; }
-                                                                       self.sipDomainLabel.text = [@"@" stringByAppendingString:domain];
-                                                                       self.addressField.sipDomain = domain;
-                                                                   }];
-            [providerAction setEnabled:YES];
-            [alert addAction:providerAction];
-            [alert.view setBackgroundColor:[UIColor blackColor]];
-            [alert setModalPresentationStyle:UIModalPresentationPopover];
-            
-            UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
-            UIButton *button = (UIButton*)sender;
-            popPresenter.sourceView = button;
-            popPresenter.sourceRect = button.bounds;
-            
-        }
-    }
-    UIAlertAction* none = [UIAlertAction actionWithTitle:NSLocalizedString(@"Leave empty", nil)
-                                                   style:UIAlertActionStyleDefault
-                                                 handler:^(UIAlertAction * action) {
-                                                     self.sipDomainLabel.text = @"";
-                                                     self.addressField.sipDomain = nil;
-                                                     self.providerImageView.image = nil;
-                                                 }];
-    [alert addAction:none];
-    [self presentViewController:alert animated:YES completion:nil];
+    [self setRecursiveUserInteractionEnabled:NO];
+    [self showProviderPickerView];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
