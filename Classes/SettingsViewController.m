@@ -1177,10 +1177,10 @@ static BOOL isAdvancedSettings = FALSE;
 			return;
 		}
 		DTAlertView *alert = [[DTAlertView alloc]
-                    initWithTitle:NSLocalizedString(@"Warning", nil)
-					  message:NSLocalizedString(@"Launching the Wizard will delete any existing proxy config.\nAre you sure to want to logout?",nil)];
-        [alert addCancelButtonWithTitle:NSLocalizedString(@"Cancel", nil) block:nil];
-        [alert addButtonWithTitle:NSLocalizedString(@"Launch Wizard", nil)
+                    initWithTitle:NSLocalizedString(@"Logout?", nil)
+					  message:@""];
+        [alert addCancelButtonWithTitle:NSLocalizedString(@"No", nil) block:nil];
+        [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)
                             block:^{
                                 linphone_core_clear_proxy_config(lc);
                                 linphone_core_clear_all_auth_info(lc);
