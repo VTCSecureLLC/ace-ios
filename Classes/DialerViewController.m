@@ -589,7 +589,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     else{
         [self showDomainPopoveriOS7:sender];
     }
-    
 }
 
 -(void) showDomainPopoveriOS7:(id)sender{
@@ -628,6 +627,14 @@ message:@"Select the SIP provider of the person you wish to call."
                                                                        self.addressField.sipDomain = domain;
                                                                    }];
             [providerAction setEnabled:YES];
+            
+            NSString *name = [[domain lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            NSString *cachePath = [self pathForImageCache];
+            NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+            NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            
+            [providerAction setValue:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
             [alert addAction:providerAction];
             [alert.view setBackgroundColor:[UIColor blackColor]];
             [alert setModalPresentationStyle:UIModalPresentationPopover];
