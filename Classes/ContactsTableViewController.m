@@ -260,7 +260,7 @@ static int ms_strcmpfuz(const char *fuzzy_word, const char *sentence) {
 			if ([ContactSelection getSipFilter] || [ContactSelection emailFilterEnabled]) {
 				add = false;
 			}
-			if ([ContactSelection getSipFilter] && [self contactHasValidSipDomain:person]) {
+			if ([ContactSelection getSipFilter] && [ContactFavoritesManager isContactFavorite:ABRecordGetRecordID(person)]) {
 				add = true;
 			}
 			if (!add && [ContactSelection emailFilterEnabled]) {
