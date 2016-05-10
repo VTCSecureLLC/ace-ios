@@ -77,7 +77,6 @@ UILongPressGestureRecognizer *lpgr;
     NSString *key = [[subDic allKeys] objectAtIndex:[indexPath row]];
     ABRecordRef contact = (__bridge ABRecordRef)([subDic objectForKey:key]);
     
-    [ContactFavoritesManager addFavorite:ABRecordGetRecordID(contact)];
     if (![self contactHasValidSipDomain:contact]) {
         
         UIAlertController *alert = [UIAlertController
