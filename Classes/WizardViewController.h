@@ -34,7 +34,6 @@
     UIGestureRecognizerDelegate,
     UIAlertViewDelegate,
     UITextFieldDelegate,
-    UICustomPickerDelegate,
     AcceptanceVCDelegate,
     DefaultSettingsManagerDelegate,
     AsyncProviderLookupDelegate
@@ -44,7 +43,6 @@
     UIView *currentView;
     UIView *nextView;
     NSMutableArray *historyViews;
-    UICustomPicker *providerPickerView;
 }
 
 @property(nonatomic, strong) IBOutlet TPKeyboardAvoidingScrollView *contentView;

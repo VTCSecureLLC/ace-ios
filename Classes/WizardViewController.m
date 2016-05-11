@@ -144,6 +144,29 @@ static UICompositeViewDescription *compositeDescription = nil;
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + self.buttonLogin.frame.size.height * 2)];
 }
 
+-(void)setProviderImageAndDomainByProviderAtIndex:(int)index{
+    if(cdnResources && cdnResources.count > 0 && cdnResources.count > index) {
+        NSString *domain;
+        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%d_domain", index]]){
+            domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%d_domain", index]];
+            self.textFieldDomain.text = (domain != nil)?domain:@"";
+            [self.selectProviderButton setTitle:[cdnResources objectAtIndex:index] forState:UIControlStateNormal];
+            
+            UIImage *image = [self fetchProviderImageWithDomain:[cdnResources objectAtIndex:index]];
+            if(image){
+                [providerButtonLeftImageView removeFromSuperview];
+                providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
+                [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
+                [providerButtonLeftImageView setImage:image];
+                providerButtonLeftImageView.contentMode = UIViewContentModeScaleAspectFit;
+                [self.selectProviderButton addSubview:providerButtonLeftImageView];
+            }
+            [[NSUserDefaults standardUserDefaults] setInteger:index forKey:(NSString*)LOGIN_INDEX_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
 - (void)loadProviderDomainsFromCache {
     NSString *name;
     if(!cdnResources){
@@ -154,7 +177,12 @@ static UICompositeViewDescription *compositeDescription = nil;
             name = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"provider%d", i]];
         }
     }
-    [self setupProviderPickerView];
+    
+    NSInteger cachedSelection = [[NSUserDefaults standardUserDefaults] integerForKey:(NSString*)LOGIN_INDEX_KEY];
+    if(cdnResources.count > 0) {
+        if(cachedSelection >= cdnResources.count) { cachedSelection = 0; }
+        [self setProviderImageAndDomainByProviderAtIndex:[NSNumber numberWithInteger:cachedSelection].intValue];
+    }
 }
 
 + (NSMutableArray *)getProvidersFromCDN {
@@ -803,40 +831,6 @@ static UICompositeViewDescription *compositeDescription = nil;
     return image;
 }
 const NSString *LOGIN_INDEX_KEY = @"login_index";
-- (void)setupProviderPickerView {
-    if(!providerPickerView){
-        providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:[[NSArray alloc] init]];
-        [providerPickerView setAlpha:1.0f];
-        providerPickerView.delegate = self;
-    }
-    NSInteger cachedSelection = [[NSUserDefaults standardUserDefaults] integerForKey:(NSString*)LOGIN_INDEX_KEY];
-    if(cdnResources.count > 0) {
-        if(cachedSelection >= cdnResources.count) { cachedSelection = 0; }
-        
-        [providerPickerView setDataSource:cdnResources];
-        NSString *domain;
-        if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)cachedSelection]]){
-                domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain", (long)cachedSelection]];
-                 self.textFieldDomain.text = (domain != nil)?domain:@"";
-                [self.selectProviderButton setTitle:[cdnResources objectAtIndex:cachedSelection] forState:UIControlStateNormal];
-            
-            UIImage *image = [self fetchProviderImageWithDomain:[cdnResources objectAtIndex:cachedSelection]];
-            if(image){
-                [providerButtonLeftImageView removeFromSuperview];
-                providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
-                [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
-                [providerButtonLeftImageView setImage:image];
-                providerButtonLeftImageView.contentMode = UIViewContentModeScaleAspectFit;
-                [self.selectProviderButton addSubview:providerButtonLeftImageView];
-                [self.selectProviderButton layoutSubviews];
-                
-            }
-            
-             [providerPickerView setSelectedRow:cachedSelection];
-             [providerPickerView layoutSubviews];
-        }
-    }
-}
 
 
 #pragma mark - Linphone XMLRPC
@@ -1008,20 +1002,89 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 - (IBAction)onIPCTSClick:(id)sender {
     [self changeView:loginView back:FALSE animation:TRUE];
 }
+-(NSString*) getProviderSelectTitle{
+    return NSLocalizedString(@"Select provider.",nil);
+}
+-(void) showDomainPopoveriOS7:(id)sender{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[self getProviderSelectTitle]
+                                                    message:@""
+                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    
+    if (cdnResources) {
+        for (NSString *domain in cdnResources) {
+            [alert addButtonWithTitle:domain];
+        }
+    }
+    [alert show];
+}
+
+-(void) showDomainPopoveriOS8:(id)sender{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:[self getProviderSelectTitle]
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    // alert.view.tintColor = LINPHONE_MAIN_COLOR;
+    
+    if (cdnResources) {
+        for (NSString *domain in cdnResources) {
+            UIAlertAction* providerAction =
+            
+            [UIAlertAction actionWithTitle:domain
+                 style:UIAlertActionStyleDefault
+               handler:^(UIAlertAction * action) {
+                   for (int i = 0; i < cdnResources.count; i++) {
+                       if ([action.title isEqualToString:[cdnResources objectAtIndex:i]]) {
+                           [self setProviderImageAndDomainByProviderAtIndex:i];
+                       }
+                   }
+               }];
+            
+            [providerAction setEnabled:YES];
+            
+            NSString *name = [[domain lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            NSString *cachePath = [self pathForImageCache];
+            NSString *imageName = [NSString stringWithFormat:@"provider_%@.png", name];
+            NSString *imagePath = [cachePath stringByAppendingPathComponent:imageName];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            
+            [providerAction setValue:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+            [alert addAction:providerAction];
+            [alert.view setBackgroundColor:[UIColor blackColor]];
+            [alert setModalPresentationStyle:UIModalPresentationPopover];
+            
+            UIPopoverPresentationController *popPresenter = [alert popoverPresentationController];
+            UIButton *button = (UIButton*)sender;
+            popPresenter.sourceView = button;
+            popPresenter.sourceRect = button.bounds;
+            
+        }
+    }
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 
 - (IBAction)onSelectProviderClick:(id)sender {
     if(!cdnResources || cdnResources.count == 0){
         cdnResources = [[NSMutableArray alloc] initWithArray:@[@"Sorenson VRS", @"ZVRS", @"CAAG", @"Purple VRS", @"Global VRS", @"Convo Relay"]];
     }
-    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
     
-    [providerPickerView setAlpha:1.0f];
-    providerPickerView.delegate = self;
-    
-    // Liz E - disable touch in other subviews while the picker is open. Re-enable once the picker is closed.
-    [self setRecursiveUserInteractionEnabled:false];
-    providerPickerView.userInteractionEnabled = true;
-    [self.view addSubview:providerPickerView];
+    if([[[UIDevice currentDevice]systemVersion] floatValue] >= 8.0){
+        [self showDomainPopoveriOS8:sender];
+    }
+    else{
+        [self showDomainPopoveriOS7:sender];
+    }
+
+//    providerPickerView = [[UICustomPicker alloc] initWithFrame:CGRectMake(0, providerButtonLeftImageView.frame.origin.y + DATEPICKER_HEIGHT / 2, self.view.frame.size.width, DATEPICKER_HEIGHT) SourceList:cdnResources];
+//    
+//    [providerPickerView setAlpha:1.0f];
+//    providerPickerView.delegate = self;
+//    
+//    // Liz E - disable touch in other subviews while the picker is open. Re-enable once the picker is closed.
+//    [self setRecursiveUserInteractionEnabled:false];
+//    providerPickerView.userInteractionEnabled = true;
+//    [self.view addSubview:providerPickerView];
 }
 
 - (void)setRecursiveUserInteractionEnabled:(BOOL)value {
@@ -1331,8 +1394,13 @@ const NSString *LOGIN_INDEX_KEY = @"login_index";
 
 UIAlertView *transportAlert;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if([alertView isEqual:transportAlert]){
+  
+    if([alertView.title isEqualToString:[self getProviderSelectTitle]]){
+        if(cdnResources.count > buttonIndex){
+            [self setProviderImageAndDomainByProviderAtIndex:[NSNumber numberWithInteger:buttonIndex].intValue];
+        }
+    }
+    else if([alertView isEqual:transportAlert]){
         if (buttonIndex == 1) {
             [self.transportTextField setText:@"TCP"];
             [self.textFieldPort setText:@"25060"];
@@ -1524,40 +1592,6 @@ UIAlertView *transportAlert;
 	return YES;
 }
 
-
-#pragma mark - UICustomPicker Delegate
-- (void)didCancelUICustomPicker:(UICustomPicker *)customPicker {
-    [self setRecursiveUserInteractionEnabled:true];
-}
-
-- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker selectedItem:(NSString*)item {
-    [self.selectProviderButton setTitle:item forState:UIControlStateNormal];
- 
-    NSString *domain;
-    if([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:[NSString stringWithFormat:@"provider%ld_domain", (long)providerPickerView.selectedRow]]){
-        domain = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"provider%ld_domain",(long)providerPickerView.selectedRow]];
-        [[NSUserDefaults standardUserDefaults] setInteger:providerPickerView.selectedRow forKey:(NSString*)LOGIN_INDEX_KEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    if(domain == nil){domain = @"";}
-    self.textFieldDomain.text = domain;
-    
-    [self setRecursiveUserInteractionEnabled:true];
-}
-
-- (void)didSelectUICustomPicker:(UICustomPicker *)customPicker didSelectRow:(NSInteger)row {
-    
-    UIImage *image = [self fetchProviderImageWithDomain:[cdnResources objectAtIndex:row]];
-    [providerButtonLeftImageView removeFromSuperview];
-    providerButtonLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 9, 25, 25)];
-    [providerButtonLeftImageView setContentMode:UIViewContentModeCenter];
-    [providerButtonLeftImageView setImage:image];
-    providerButtonLeftImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.selectProviderButton addSubview:providerButtonLeftImageView];
-    
-    [self setRecursiveUserInteractionEnabled:true];
-}
 
 - (void)apiSignIn {
     
@@ -1764,7 +1798,6 @@ static BOOL isAdvancedShown = NO;
     //If cached providers is same, don't refresh custom picker
     if(![cdnResources isEqualToArray:domains]){
         cdnResources = domains;
-        [self setupProviderPickerView];
     }
 }
 
