@@ -195,32 +195,20 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			if (addr) {
 				const char *proxy = linphone_proxy_config_get_addr(cfg);
 				LinphoneAddress *proxy_addr = linphone_address_new(proxy);
-//				int port = linphone_address_get_port(proxy_addr);
-                
+				int port = linphone_address_get_port(proxy_addr);
+
 				[self setCString:linphone_address_get_username(addr) forKey:@"username_preference"];
 				[self setCString:linphone_address_get_domain(addr) forKey:@"domain_preference"];
-                
-                const char *rout = linphone_proxy_config_get_route(cfg);
-                if (rout != NULL) {
-                    NSString *routString = [NSString stringWithFormat:@"%s", rout];
-                    NSString *trimmedSipRout = [routString substringFromIndex:@"sip:".length];
-                    if (trimmedSipRout.length > 0) {
-                        NSRange transportRange = [trimmedSipRout rangeOfString:@";"];
-                        if (transportRange.location != NSNotFound) {
-                            routString = [trimmedSipRout substringToIndex:transportRange.location];
-                            [self setCString:[routString UTF8String] forKey:@"proxy_preference"];
-                        }
-                    }
-                }
-//				if (strcmp(linphone_address_get_domain(addr), linphone_address_get_domain(proxy_addr)) != 0 ||
-//					port > 0) {
-//					char tmp[256] = {0};
-//					if (port > 0) {
-//						snprintf(tmp, sizeof(tmp) - 1, "%s:%i", linphone_address_get_domain(proxy_addr), port);
-//					} else
-//						snprintf(tmp, sizeof(tmp) - 1, "%s", linphone_address_get_domain(proxy_addr));
-//					[self setCString:tmp forKey:@"proxy_preference"];
-//				}
+
+				if (strcmp(linphone_address_get_domain(addr), linphone_address_get_domain(proxy_addr)) != 0 ||
+					port > 0) {
+					char tmp[256] = {0};
+					if (port > 0) {
+						snprintf(tmp, sizeof(tmp) - 1, "%s:%i", linphone_address_get_domain(proxy_addr), port);
+					} else
+						snprintf(tmp, sizeof(tmp) - 1, "%s", linphone_address_get_domain(proxy_addr));
+					[self setCString:tmp forKey:@"proxy_preference"];
+				}
 				const char *tname = "tcp";
 				switch (linphone_address_get_transport(proxy_addr)) {
 				case LinphoneTransportTls:
@@ -258,7 +246,7 @@ extern void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, co
 			[self setObject:@"" forKey:@"username_preference"];
 			[self setObject:@"" forKey:@"password_preference"];
 			[self setObject:@"" forKey:@"domain_preference"];
-            [self setObject:@"" forKey:@"proxy_preference"];
+			[self setObject:@"" forKey:@"proxy_preference"];
 			[self setCString:"tcp" forKey:@"transport_preference"];
 			[self setBool:FALSE forKey:@"outbound_proxy_preference"];
 			[self setBool:FALSE forKey:@"avpf_preference"];

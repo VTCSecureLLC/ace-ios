@@ -64,6 +64,7 @@
 #pragma mark - Actions Functions
 
 - (void)touchDown:(id)sender {
+    /** Handles DTMF, handler not required in InCallViewControllerNew **/
 	if (addressField && (!dtmf || !linphone_core_in_call([LinphoneManager getLc]))) {
 		NSString *newAddress = [NSString stringWithFormat:@"%@%c", addressField.text, digit];
 		[addressField setText:newAddress];

@@ -34,7 +34,6 @@
     UIGestureRecognizerDelegate,
     UIAlertViewDelegate,
     UITextFieldDelegate,
-    UICustomPickerDelegate,
     AcceptanceVCDelegate,
     DefaultSettingsManagerDelegate,
     AsyncProviderLookupDelegate
@@ -44,7 +43,6 @@
     UIView *currentView;
     UIView *nextView;
     NSMutableArray *historyViews;
-    UICustomPicker *providerPickerView;
 }
 
 @property(nonatomic, strong) IBOutlet TPKeyboardAvoidingScrollView *contentView;
@@ -90,7 +88,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldDomain;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldOutboundProxy;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPort;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUserId;
 

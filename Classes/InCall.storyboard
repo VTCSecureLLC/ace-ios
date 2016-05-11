@@ -29,6 +29,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
+                                <rect key="frame" x="1" y="50" width="373" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="EoO-gd-Sqb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
                                 <rect key="frame" x="243" y="379" width="96" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -60,22 +69,6 @@
                                     <constraint firstAttribute="width" secondItem="opN-Qd-xDg" secondAttribute="height" multiplier="4:1" id="pYC-Vp-iuj"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNU-6W-eeL" userLabel="Dialpad View Container">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
-                                        <rect key="frame" x="10" y="30" width="355" height="484"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="Fxf-u6-WjL"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="P3f-9O-B7X"/>
-                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="WKa-KK-WAF"/>
-                                    <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyC-b4-pSa">
                                 <rect key="frame" x="19" y="500" width="338" height="167"/>
                                 <subviews>
@@ -130,15 +123,6 @@
                                     <constraint firstAttribute="width" secondItem="KnW-eL-D0c" secondAttribute="height" multiplier="38:31" id="OrV-fD-OC1"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ev-fs-CZO">
-                                <rect key="frame" x="1" y="50" width="373" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="EoO-gd-Sqb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-3s-y50">
                                 <rect key="frame" x="0.0" y="150" width="375" height="70"/>
                                 <constraints>
@@ -186,12 +170,76 @@
                                     <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3N-QA-id6" customClass="InCallOnHoldView">
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3N-QA-id6" customClass="InCallOnHoldView">
                                 <rect key="frame" x="0.0" y="23" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Dru-Ec-489"/>
                                 </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNU-6W-eeL" userLabel="Dialpad View Container">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-Bp-9qL" customClass="InCallDialpadView">
+                                        <rect key="frame" x="10" y="30" width="355" height="484"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="175" id="DER-XL-G8g">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                            </constraint>
+                                            <constraint firstAttribute="width" constant="175" id="yVv-Qf-geJ">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="359"/>
+                                            </constraint>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="DER-XL-G8g"/>
+                                                <exclude reference="yVv-Qf-geJ"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="DER-XL-G8g"/>
+                                                <include reference="yVv-Qf-geJ"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="centerX" secondItem="lNU-6W-eeL" secondAttribute="centerX" id="8f1-V2-bXH">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="2HI-Bp-9qL" secondAttribute="trailing" constant="10" id="Fxf-u6-WjL">
+                                        <variation key="widthClass=regular" constant="100"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="70"/>
+                                    </constraint>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="leading" secondItem="lNU-6W-eeL" secondAttribute="leading" constant="10" id="P3f-9O-B7X">
+                                        <variation key="widthClass=regular" constant="100"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="70"/>
+                                    </constraint>
+                                    <constraint firstItem="2HI-Bp-9qL" firstAttribute="top" secondItem="lNU-6W-eeL" secondAttribute="top" constant="30" id="WKa-KK-WAF">
+                                        <variation key="widthClass=regular" constant="300"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="2HI-Bp-9qL" secondAttribute="bottom" constant="10" id="xLQ-bE-qmh">
+                                        <variation key="widthClass=regular" constant="49"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="24"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8f1-V2-bXH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="8f1-V2-bXH"/>
+                                        <exclude reference="Fxf-u6-WjL"/>
+                                        <exclude reference="P3f-9O-B7X"/>
+                                        <exclude reference="WKa-KK-WAF"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -279,6 +327,7 @@
                         <outlet property="closeChatButton" destination="BGd-We-07U" id="Z1G-Il-X49"/>
                         <outlet property="holdByRemoteImageView" destination="opN-Qd-xDg" id="udr-gJ-LLf"/>
                         <outlet property="inCallDialpadView" destination="2HI-Bp-9qL" id="WFP-pQ-SkL"/>
+                        <outlet property="inCallDialpadViewContainer" destination="lNU-6W-eeL" id="exf-sF-77u"/>
                         <outlet property="inCallNewCallViewBottomConstraint" destination="c9J-BN-mNr" id="UEu-EX-mRS"/>
                         <outlet property="inCallOnHoldView" destination="R3N-QA-id6" id="3Db-aR-gD5"/>
                         <outlet property="incomingTextView" destination="1tL-0O-5mt" id="Sof-Xm-lBb"/>
@@ -304,11 +353,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="12.5" y="-116.5"/>
+            <point key="canvasLocation" x="12.375" y="-116.625"/>
         </scene>
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
-        <image name="camera_mute.png" width="313" height="313"/>
+        <image name="camera_mute.png" width="209" height="136"/>
     </resources>
 </document>

@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet SecondIncomingCallView *secondIncomingCallView;
 @property (weak, nonatomic) IBOutlet InCallOnHoldView *inCallOnHoldView;
 @property (weak, nonatomic) IBOutlet InCallDialpadView *inCallDialpadView;
+@property (weak, nonatomic) IBOutlet UIView *inCallDialpadViewContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inCallNewCallViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *holdByRemoteImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
@@ -254,39 +255,39 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         [aAttrString appendAttributedString:vAttrString];
         
-        self.viewCallDeclinedWithMessage.hidden = NO;
-        self.callDeclineMessageLabel.hidden = NO;
+        self.viewCallDeclinedWithMessage.hidden = YES;
+        self.callDeclineMessageLabel.hidden = YES;
         self.callDeclineMessageLabel.attributedText = aAttrString;
         
         [UIView animateKeyframesWithDuration:1.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
             self.viewCallDeclinedWithMessage.alpha = 0;
         } completion:nil];
-    } else {
-        NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
-        NSMutableDictionary *options = [@{
-                                          kCRToastTextKey : messageFullText,
-                                          kCRToastTextAlignmentKey : @(0),
-                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
-                                          kCRToastAnimationInTypeKey : @(0),
-                                          kCRToastAnimationOutTypeKey : @(0),
-                                          kCRToastAnimationInDirectionKey : @(0),
-                                          kCRToastAnimationOutDirectionKey : @(0),
-                                          kCRToastImageAlignmentKey : @(0),
-                                          kCRToastNotificationPreferredPaddingKey : @(0),
-                                          kCRToastNotificationPresentationTypeKey : @(0),
-                                          kCRToastNotificationTypeKey : @(1),
-                                          kCRToastTimeIntervalKey : @(3),
-                                          kCRToastUnderStatusBarKey : @(0)} mutableCopy];
-        options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
-        options[kCRToastImageAlignmentKey] = @(0);
-        options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
-                                                                                                      automaticallyDismiss:YES
-                                                                                                                     block:^(CRToastInteractionType interactionType){}]];
-        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-            [CRToastManager dismissNotification:YES];
-            [CRToastManager showNotificationWithOptions:options
-                                        completionBlock:^{}];
-        }
+//    } else {
+//        NSString *messageFullText = [[userName stringByAppendingString:@": "] stringByAppendingString:message];
+//        NSMutableDictionary *options = [@{
+//                                          kCRToastTextKey : messageFullText,
+//                                          kCRToastTextAlignmentKey : @(0),
+//                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:228.0/255.0 green:92.0/255.0 blue:50.0/255.0 alpha:1.0],
+//                                          kCRToastAnimationInTypeKey : @(0),
+//                                          kCRToastAnimationOutTypeKey : @(0),
+//                                          kCRToastAnimationInDirectionKey : @(0),
+//                                          kCRToastAnimationOutDirectionKey : @(0),
+//                                          kCRToastImageAlignmentKey : @(0),
+//                                          kCRToastNotificationPreferredPaddingKey : @(0),
+//                                          kCRToastNotificationPresentationTypeKey : @(0),
+//                                          kCRToastNotificationTypeKey : @(1),
+//                                          kCRToastTimeIntervalKey : @(3),
+//                                          kCRToastUnderStatusBarKey : @(0)} mutableCopy];
+//        options[kCRToastImageKey] = [UIImage imageNamed:@"app_icon_29.png"];
+//        options[kCRToastImageAlignmentKey] = @(0);
+//        options[kCRToastInteractionRespondersKey] = @[[CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeAll
+//                                                                                                      automaticallyDismiss:YES
+//                                                                                                                     block:^(CRToastInteractionType interactionType){}]];
+//        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+//            [CRToastManager dismissNotification:YES];
+//            [CRToastManager showNotificationWithOptions:options
+//                                        completionBlock:^{}];
+//        }
     }
 }
 
@@ -299,12 +300,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 //        hiddenVolume = FALSE;
 //    }
     
-    NSAssert(call, @"Call cannot be NULL");
-    
     switch (state) {
         case LinphoneCallIdle: {
-            
-            NSAssert(0, @"LinphoneCallIdle: Just need to check this state");
             break;
         }
         case LinphoneCallIncomingReceived: {
@@ -321,7 +318,6 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             if (!self.isRTTLocallyEnabled) {
                 [[LinphoneManager instance] changeRTTStateForCall:call avtive:NO];
             }
-            //            NSAssert(0, @"LinphoneCallOutgoingInit: Just need to check this state");
             break;
         }
         case LinphoneCallOutgoingRinging:
@@ -350,13 +346,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             
         case LinphoneCallOutgoingEarlyMedia: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallOutgoingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallConnected: {
             [self stopRingCount];
-            
-            //            NSAssert(0, @"LinphoneCallConnected: Just need to check this state");
             break;
         }
         case LinphoneCallStreamsRunning: {
@@ -426,23 +419,19 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallPausing: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallPausing: Just need to check this state");
             break;
         }
         case LinphoneCallPaused: {
             [self stopRingCount];
             [self updateCallStateWithButtonsState];
-            //            NSAssert(0, @"LinphoneCallPaused: Just need to check this state");
             break;
         }
         case LinphoneCallResuming: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallResuming: Just need to check this state");
             break;
         }
         case LinphoneCallRefered: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallRefered: Just need to check this state");
             break;
         }
         case LinphoneCallError: {
@@ -499,17 +488,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallUpdatedByRemote: {
             
-            //            NSAssert(0, @"LinphoneCallUpdatedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallIncomingEarlyMedia: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallIncomingEarlyMedia: Just need to check this state");
             break;
         }
         case LinphoneCallUpdating: {
              [self stopRingCount];
-            //            NSAssert(0, @"LinphoneCallUpdating: Just need to check this state");
             break;
         }
         case LinphoneCallReleased: {
@@ -519,12 +505,10 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallEarlyUpdatedByRemote: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallEarlyUpdatedByRemote: Just need to check this state");
             break;
         }
         case LinphoneCallEarlyUpdating: {
              [self stopRingCount];
-            NSAssert(0, @"LinphoneCallEarlyUpdating: Just need to check this state");
             break;
         }
         default:
@@ -565,6 +549,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 - (void)displayCallError:(LinphoneCall *)call message:(NSString *)message {
     
     [self.callBarView disableCallOptions];
+    [self.statusBar setUserInteractionEnabled:NO];
     [[ReasonErrorHandler sharedInstance] showErrorForLinphoneReason:linphone_call_get_reason(call)];
     [ReasonErrorHandler sharedInstance].popUpViewWillDismissComplitionBlock = ^(ReasonError *error) {
         [self close];
@@ -769,12 +754,14 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         if (self.inCallDialpadView.viewState == VS_Closed) {
             
+            self.inCallDialpadViewContainer.hidden = NO;
             sender.selected = YES;
             [weakSelf.inCallDialpadView showWithAnimation:YES completion:nil];
         }
         else if (self.inCallDialpadView.viewState == VS_Opened) {
             
             sender.selected = NO;
+            self.inCallDialpadViewContainer.hidden = YES;
             [weakSelf.inCallDialpadView hideWithAnimation:YES completion:nil];
         }
     };
@@ -998,69 +985,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 
 - (void)setupInCallDialpadView {
     
+    self.inCallDialpadViewContainer.hidden = YES;
     [self.inCallDialpadView hideWithAnimation:NO completion:nil];
-
-    const int dtmf_length = 250;
-    
-    self.inCallDialpadView.oneButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '1', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '1');
-    };
-    
-    self.inCallDialpadView.twoButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '2', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '2');
-    };
-    
-    self.inCallDialpadView.threeButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '3', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '3');
-    };
-    
-    self.inCallDialpadView.fourButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '4', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '4');
-    };
-    
-    self.inCallDialpadView.fiveButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '5', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '5');
-    };
-    
-    self.inCallDialpadView.sixButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '6', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '6');
-    };
-    
-    self.inCallDialpadView.sevenButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '7', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '7');
-    };
-
-    self.inCallDialpadView.eightButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '8', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '8');
-    };
-    
-    self.inCallDialpadView.nineButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '9', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '9');
-    };
-    
-    self.inCallDialpadView.starButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '*', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '*');
-    };
-    
-    self.inCallDialpadView.zeroButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '0', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '0');
-    };
-    
-    self.inCallDialpadView.sharpButtonHandler = ^(UIButton *sender) {
-        linphone_core_play_dtmf([LinphoneManager getLc], '#', dtmf_length);
-        linphone_call_send_dtmf([[LinphoneManager instance] currentCall], '#');
-    };
 }
 
 - (void)setupRTT {
@@ -1250,6 +1176,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             
             if (self.inCallDialpadView.viewState == VS_Opened) {
                 self.callBarView.keypadButtonSelected = NO;
+                self.inCallDialpadViewContainer.hidden = YES;
                 [self.inCallDialpadView hideWithAnimation:YES completion:nil];
             }
             
@@ -1550,36 +1477,29 @@ CGSize tempLocalCellSize;
 //    }
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.localTextBufferIndex];
     BubbleTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    
+    RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
+//    NSString *currentCharacter = currentRttModel.msgString;
+    
+    
+    BOOL enter_pressed=[text containsString:@"\n"] ||[text containsString:@"0x2028"];
 
     if(!self.localTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
+              // if the last one is not mine and it's not a first my messages
+        if(enter_pressed){
+            self.localTextBuffer = nil;
+            return;
+        }
         
-        RTTMessageModel *currentRttModel = [self.chatEntries lastObject];
-        NSString *currentCharacter = currentRttModel.msgString;
-        
-        
-        BOOL enter_pressed=[currentCharacter isEqualToString:@"\n"];
-        // if the last one is not mine and it's not a first my messages
         if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]] && (indx != 0) && enter_pressed) {
             return;
         }
         
-        if (!enter_pressed) { // do not add row if previous mine is empty
-            if (indx == 0) { // if it's the first message
-                [self createNewLocalChatBuffer:text];
-                return;
-            } else {
-                self.localTextBuffer = [self.chatEntries objectAtIndex:indx];
-            }
-            
+        if (!enter_pressed) {
             // If the previous is my message
             if ([currentRttModel.color isEqual:[UIColor colorWithRed:0 green:0.55 blue:0.6 alpha:0.8]]) {
                 self.localTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
             }
-            
-            [self createNewLocalChatBuffer:text];
-            return;
-        }
-        else{
             [self createNewLocalChatBuffer:text];
             return;
         }
@@ -1837,28 +1757,28 @@ CGSize tempRemoteCellSize;
 
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:self.remoteTextBufferIndex];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    BOOL enter_pressed=[text containsString:@"\n"] ||[text containsString:@"0x2028"];
     
-
-    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] || [text isEqualToString:@"0x2028"]) {
-        
-        if (![self.remoteTextBuffer.msgString isEqualToString:@"\n"]) { // do not add row if previous is empty
-            
-            if (index == 0 && ((int)self.chatEntries.count == 0)) {
-                [self createNewRemoteChatBuffer:text];
-                return;
-            }
-            
-            if (index >= 0) {
-                self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
-                self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
-            }
-            
+    if(!self.remoteTextBuffer|| [text isEqualToString:@"\n"] ||[text isEqualToString:@"0x2028"]){
+        // if the last one is not mine and it's not a first my messages
+        if (index == 0 && ((int)self.chatEntries.count == 0)) {
             [self createNewRemoteChatBuffer:text];
-            
+            return;
         }
-        return;
+
+        if(enter_pressed){
+            self.remoteTextBuffer = nil;
+            return;
+        }
+        
+        if (!enter_pressed) {
+            [self createNewRemoteChatBuffer:text];
+            self.remoteTextBuffer.modifiedTimeInterval = [[NSDate new] timeIntervalSince1970];
+            return;
+        }
     }
-    
+
+
     self.remoteTextBuffer = [self.chatEntries objectAtIndex:index];
     
     if(self.remoteTextBuffer){

@@ -13,6 +13,8 @@
 #define kPortraitFontSize 23.0
 #define kLandscapeFontSize 14.0
 
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
 
 @interface InCallDialpadView ()
 
@@ -82,38 +84,42 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setAlignment:NSTextAlignmentCenter];
     [attributedTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedTitle.length)];
+    [attributedTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize + 8.0f] range:NSMakeRange(0, 1)];
     [button setAttributedTitle:attributedTitle forState:UIControlStateNormal];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_zeroButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_oneButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_twoButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_threeButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fourButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fiveButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sixButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sevenButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_eightButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_nineButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_starButton];
-        [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sharpButton];
-    }
-    else {
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_zeroButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_oneButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_twoButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_threeButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fourButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fiveButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sixButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sevenButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_eightButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_nineButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_starButton];
-        [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sharpButton];
+    
+    if (IDIOM != IPAD) {
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_zeroButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_oneButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_twoButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_threeButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fourButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_fiveButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sixButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sevenButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_eightButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_nineButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_starButton];
+            [self adjustButtonTitleWithFontSize:kPortraitFontSize button:_sharpButton];
+        }
+        else {
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_zeroButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_oneButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_twoButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_threeButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fourButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_fiveButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sixButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sevenButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_eightButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_nineButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_starButton];
+            [self adjustButtonTitleWithFontSize:kLandscapeFontSize button:_sharpButton];
+        }
     }
 }
 

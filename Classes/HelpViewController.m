@@ -177,7 +177,7 @@ typedef struct _LinphoneCardDAVStats {
     }
     
     cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
-    
+
     if([[tableData objectAtIndex:indexPath.row] rangeOfString:@"Videomail"].location != NSNotFound){
         NSInteger mwiCount;
         if(![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"mwi_count"]){

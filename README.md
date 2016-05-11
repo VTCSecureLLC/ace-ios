@@ -1,6 +1,6 @@
 # ace-ios
 
-## Accessible Communications for Everyone
+## Accessible Communications for Everyone 
 
 This is source tree for the ACE App for iOS.
 
