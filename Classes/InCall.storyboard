@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i7c-Y5-iNb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -38,17 +38,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
-                                <rect key="frame" x="243" y="379" width="96" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
-                                    <bool key="isElement" value="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
-                                    <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
-                                </constraints>
-                            </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-gY-047" customClass="SecondIncomingCallBarView">
                                 <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -170,6 +159,21 @@
                                     <constraint firstAttribute="height" constant="253" id="y1L-DJ-MMn"/>
                                 </constraints>
                             </view>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-Bj-pWa" userLabel="View - Preview">
+                                <rect key="frame" x="243" y="379" width="96" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" identifier="previewView" label="View - Preview">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="X3X-WX-q0U"/>
+                                    <constraint firstAttribute="height" constant="128" id="v5A-Rj-kxk"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="AIl-a1-pYw" appends="YES" id="5K4-aU-OIy"/>
+                                </connections>
+                            </view>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3N-QA-id6" customClass="InCallOnHoldView">
                                 <rect key="frame" x="0.0" y="23" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -268,7 +272,6 @@
                             <constraint firstAttribute="trailing" secondItem="9ev-fs-CZO" secondAttribute="trailing" constant="1" id="TNY-hQ-eUW"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="top" secondItem="KQf-7a-Dtr" secondAttribute="bottom" id="Tu1-NH-IVI"/>
                             <constraint firstItem="5T0-dS-AZx" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="V9t-fN-cCV"/>
-                            <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cto-wd-TgW" secondAttribute="bottom" constant="120" id="VLA-Wq-kPT"/>
                             <constraint firstItem="lNU-6W-eeL" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="YdS-A7-bKu"/>
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" secondItem="zyC-b4-pSa" secondAttribute="bottom" id="YrC-VC-PnZ"/>
                             <constraint firstItem="KnW-eL-D0c" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.9" id="Z8c-33-fvD"/>
@@ -295,7 +298,6 @@
                             <constraint firstItem="zyC-b4-pSa" firstAttribute="width" secondItem="dGF-2k-5Y3" secondAttribute="width" multiplier="0.9" id="obd-1d-bsL"/>
                             <constraint firstItem="cik-39-glU" firstAttribute="top" secondItem="dGF-2k-5Y3" secondAttribute="topMargin" constant="25" id="q2N-OR-LX0"/>
                             <constraint firstItem="KQf-7a-Dtr" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="qzK-xp-Wo1"/>
-                            <constraint firstItem="cto-wd-TgW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YgE-gZ-e8E" secondAttribute="bottom" constant="70" id="vG6-i3-YNy"/>
                             <constraint firstItem="Flh-2b-FH0" firstAttribute="top" secondItem="KQf-7a-Dtr" secondAttribute="bottom" id="vS9-gS-3dN"/>
                             <constraint firstItem="RGY-s2-faC" firstAttribute="top" secondItem="YgE-gZ-e8E" secondAttribute="bottom" id="wWm-8q-5PN"/>
                             <constraint firstItem="zyC-b4-pSa" firstAttribute="centerX" secondItem="dGF-2k-5Y3" secondAttribute="centerX" id="xD0-MW-WtB"/>
@@ -304,12 +306,6 @@
                             <constraint firstItem="qgE-uq-Pbv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KnW-eL-D0c" secondAttribute="bottom" constant="5" id="zCH-3W-1Cx"/>
                             <constraint firstItem="R3N-QA-id6" firstAttribute="leading" secondItem="dGF-2k-5Y3" secondAttribute="leading" id="zmh-rH-O6k"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="vG6-i3-YNy"/>
-                                <exclude reference="VLA-Wq-kPT"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="roq-mU-HSX" appends="YES" id="8Sf-M2-cwv"/>
                         </connections>
@@ -341,12 +337,18 @@
                         <outlet property="videoPreviewHeightConstraint" destination="v5A-Rj-kxk" id="YD8-DJ-q5m"/>
                         <outlet property="videoPreviewView" destination="HJr-Bj-pWa" id="cjI-2X-uJk"/>
                         <outlet property="videoPreviewViewBottomConstraint" destination="M6j-lE-fXg" id="i6Q-W1-Ril"/>
+                        <outlet property="videoPreviewViewTrailingConstraint" destination="d23-vm-O6v" id="4ZN-92-rIq"/>
                         <outlet property="videoPreviewWidthConstraint" destination="X3X-WX-q0U" id="Q8q-Ef-osM"/>
                         <outlet property="videoView" destination="5T0-dS-AZx" id="gzW-X8-EHG"/>
                         <outlet property="viewCallDeclinedWithMessage" destination="oyW-qp-rbg" id="aWO-tj-Kx7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHw-Fm-20Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="AIl-a1-pYw">
+                    <connections>
+                        <action selector="videoPreviewPanGestureHandler:" destination="i7c-Y5-iNb" id="yLN-Qc-5v2"/>
+                    </connections>
+                </panGestureRecognizer>
                 <tapGestureRecognizer id="roq-mU-HSX">
                     <connections>
                         <action selector="singleTapped:" destination="i7c-Y5-iNb" id="kDC-sK-70W"/>
@@ -358,6 +360,6 @@
     </scenes>
     <resources>
         <image name="Hold.png" width="400" height="100"/>
-        <image name="camera_mute.png" width="209" height="136"/>
+        <image name="camera_mute.png" width="151" height="51"/>
     </resources>
 </document>

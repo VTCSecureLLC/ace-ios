@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewViewTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoPreviewWidthConstraint;
 @property (weak, nonatomic) IBOutlet CallBarView *callBarView;
@@ -710,7 +711,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         if(strcmp(linphone_address_get_username(remoteAddr), "911") == 0){
             [[LinphoneManager instance] enableCameraForCurrentCall];
-            [self setupVideoButtonState];
+            [weakSelf setupVideoButtonState];
             return;
         }
    
@@ -736,7 +737,7 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         
         if(strcmp(linphone_address_get_username(remoteAddr), "911") == 0){
             [[LinphoneManager instance] enableMicrophone];
-            [self setupMicriphoneButtonState];
+            [weakSelf setupMicriphoneButtonState];
             return;
         }
         
@@ -752,16 +753,17 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.keypadButtonActionHandler = ^(UIButton *sender) {
         
-        if (self.inCallDialpadView.viewState == VS_Closed) {
+        if (weakSelf.inCallDialpadView.viewState == VS_Closed) {
             
-            self.inCallDialpadViewContainer.hidden = NO;
+            [weakSelf.view bringSubviewToFront:weakSelf.inCallDialpadViewContainer];
+            weakSelf.inCallDialpadViewContainer.hidden = NO;
             sender.selected = YES;
             [weakSelf.inCallDialpadView showWithAnimation:YES completion:nil];
         }
-        else if (self.inCallDialpadView.viewState == VS_Opened) {
+        else if (weakSelf.inCallDialpadView.viewState == VS_Opened) {
             
             sender.selected = NO;
-            self.inCallDialpadViewContainer.hidden = YES;
+            weakSelf.inCallDialpadViewContainer.hidden = YES;
             [weakSelf.inCallDialpadView hideWithAnimation:YES completion:nil];
         }
     };
@@ -800,21 +802,34 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     
     self.callBarView.chatButtonActionHandler = ^(UIButton *sender) {
         
-        if (self.isRTTEnabled) {
-            [self hideRTTContainer];
-            self.isChatMode = YES;
-            self.tableView.hidden = NO;
-            [self.tableView reloadData];
-            [self becomeFirstResponder];
+        if (weakSelf.isRTTEnabled) {
+            [weakSelf hideRTTContainer];
+            weakSelf.isChatMode = YES;
+            weakSelf.tableView.hidden = NO;
+            [weakSelf.tableView reloadData];
+            [weakSelf becomeFirstResponder];
         }
     };
     
     self.callBarView.endCallButtonActionHandler = ^(UIButton *sender) {
         
         [[LinphoneManager instance] terminateCurrentCall];
-        if(linphone_core_get_calls_nb([LinphoneManager getLc]) == 0){
-            [self close];
+        if(linphone_core_get_calls_nb([LinphoneManager getLc]) == 0) {
+            [weakSelf close];
         }
+    };
+    
+    self.callBarView.moreButtonActionHandler = ^(UIButton *sender) {
+        
+        if (sender.selected) {
+            
+            [weakSelf.view bringSubviewToFront:weakSelf.callBarView];
+        }
+        else {
+            
+            [weakSelf.view bringSubviewToFront:weakSelf.videoPreviewView];
+        }
+        
     };
 }
 
@@ -1047,6 +1062,8 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
     __weak InCallViewControllerNew *weakSelf = self;
     self.statusBar.statusBarActionHandler = ^(UIButton *sender) {
         if (weakSelf.callInfoView.viewState == VS_Closed) {
+            
+            [weakSelf.view bringSubviewToFront:weakSelf.callInfoView];
             [weakSelf.callInfoView showWithAnimation:YES completion:nil];
         }
         else if (weakSelf.callInfoView.viewState == VS_Opened) {
@@ -1189,6 +1206,17 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
             [self.callInfoView hideWithAnimation:YES completion:nil];
         }
     }
+}
+
+- (IBAction)videoPreviewPanGestureHandler:(UIPanGestureRecognizer *)sender {
+    
+    CGPoint translation = [sender translationInView:self.view];
+    sender.view.center = CGPointMake(sender.view.center.x + translation.x,
+                                     sender.view.center.y + translation.y);
+    [sender setTranslation:CGPointMake(0, 0) inView:self.view];
+    
+    self.videoPreviewViewBottomConstraint.constant += -translation.y;
+    self.videoPreviewViewTrailingConstraint.constant += -translation.x;
 }
 
 - (IBAction)closeButtonAction:(id)sender {
