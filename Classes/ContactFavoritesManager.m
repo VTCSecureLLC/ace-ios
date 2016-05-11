@@ -18,6 +18,7 @@ static NSString *favoritesID = @"ACE_FAVORITES";
     }
     return favorites;
 }
+
 +(BOOL)addFavorite:(ABRecordID)recordID{
     NSMutableArray *favorites = [[self getFavorites] mutableCopy];
     if([favorites containsObject:[NSNumber numberWithInt:recordID]]){
@@ -38,5 +39,13 @@ static NSString *favoritesID = @"ACE_FAVORITES";
         return TRUE;
     }
     return FALSE;
+}
+
++ (BOOL)isContactFavorite:(ABRecordID)recordID {
+    NSMutableArray *favorites = [[self getFavorites] mutableCopy];
+    if([favorites containsObject:[NSNumber numberWithInt:recordID]]){
+        return YES;
+    }
+    return NO;
 }
 @end

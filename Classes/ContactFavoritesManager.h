@@ -12,4 +12,5 @@
 +(NSArray*)getFavorites;
 +(BOOL)addFavorite:(ABRecordID)recordID;
 +(BOOL)removeFavorite:(ABRecordID)recordID;
++(BOOL)isContactFavorite:(ABRecordID)recordID;
 @end
