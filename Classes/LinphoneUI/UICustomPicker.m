@@ -3,7 +3,7 @@
 //  amTaxi
 //
 //  Created by Ruben Semerjyan on 4/27/15.
-//  Copyright (c) 2015 VTCSecure. All rights reserved.
+//  Developed pursuant to contract FCC15C0008 as open source software under GNU General Public License version 2
 //
 
 #import "UICustomPicker.h"
