@@ -455,7 +455,7 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_realm"];
 }
 
-+ (NSString*)cardDAVServerPath {
++ (NSString*)cardDAVServerDomain {
     
     NSString *serverPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"carddav_path"];
     if ([serverPath length] <= 7) {
@@ -463,8 +463,8 @@ void linphone_iphone_log_handler(const char *domain, OrtpLogLevel lev, const cha
     } else {
         NSString *withoutHTTP = [serverPath substringFromIndex:7];
         NSArray* separatedStrings = [withoutHTTP componentsSeparatedByString:@"/"];
-        NSString *serverName = [separatedStrings objectAtIndex:0];
-        return serverName;
+        NSString *serverDomain = [separatedStrings objectAtIndex:0];
+        return serverDomain;
     }
     
     return serverPath;
