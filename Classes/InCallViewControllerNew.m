@@ -322,7 +322,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallOutgoingRinging:
         {
-            self.callStateLabel.text = @"Ringing...";
+            NSString *ringingText = @"Ringing...\n";
+            NSString *remoteAddr = [[NSString alloc] initWithUTF8String:linphone_call_get_remote_address_as_string(call) ];
+
+            if(remoteAddr) ringingText = [ringingText stringByAppendingString:remoteAddr];
+
+            [self.callStateLabel setNumberOfLines:4];
+            self.callStateLabel.text = ringingText;
             self.callStateLabel.hidden = NO;
             
             if(!self.ringIncrementTimer){
@@ -338,7 +344,13 @@ typedef NS_ENUM(NSInteger, CallQualityStatus) {
         }
         case LinphoneCallOutgoingProgress: {
 
-            self.callStateLabel.text = @"Connecting...";
+            NSString *ringingText = @"Connecting...\n";
+            NSString *remoteAddr = [[NSString alloc] initWithUTF8String:linphone_call_get_remote_address_as_string(call) ];
+            
+            if(remoteAddr) ringingText = [ringingText stringByAppendingString:remoteAddr];
+            
+            [self.callStateLabel setNumberOfLines:4];
+            self.callStateLabel.text = ringingText;
             self.callStateLabel.hidden = NO;
             
             break;
