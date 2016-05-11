@@ -58,7 +58,8 @@
 }
 
 - (void)updateData {
-	if (!chatRoom)
+    LinphoneCore *lc = [LinphoneManager getLc];
+	if (!chatRoom && !lc)
 		return;
 	[self clearMessageList];
 	self->messageList = linphone_chat_room_get_history(chatRoom, 0);
