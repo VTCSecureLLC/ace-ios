@@ -189,6 +189,8 @@ UILongPressGestureRecognizer *lpgr;
 - (BOOL)contactHasValidSipDomain:(ABRecordRef)person {
 	// Check if one of the contact' sip URI matches the expected SIP filter
 	ABMultiValueRef personSipAddresses = ABRecordCopyValue(person, kABPersonInstantMessageProperty);
+
+/*
 	BOOL match = false;
 	NSString *filter = [ContactSelection getSipFilter];
    
@@ -220,8 +222,11 @@ UILongPressGestureRecognizer *lpgr;
         }
 		CFRelease(lDict);
 	}
-	CFRelease(personSipAddresses);
 	return match;
+*/
+	CFRelease(personSipAddresses);
+
+	return true;
 }
 
 static int ms_strcmpfuz(const char *fuzzy_word, const char *sentence) {

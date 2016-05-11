@@ -28,7 +28,7 @@
     NSMutableArray *sipURIs = [self contactSipURIsFrom:abRecord];
     NSString *nameSurnameOrg = [self contactNameSurnameOrganizationFrom:abRecord];
     LinphoneFriend *friend = NULL;
-    if (sipURIs.count > 1) {
+    if (sipURIs.count >= 1) {
         friend = [self createFriendFromName:nameSurnameOrg withPhoneNumbers:phoneNumbers andSipURIs:sipURIs];
     } else {
         return @"";
