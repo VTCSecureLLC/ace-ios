@@ -1,58 +1,12 @@
 This is Linphone, a free (GPL) video softphone based on the SIP protocol  
 
 
-******************Building linphone ***********************************
-
-- Install build time dependencies
-	- libtool
-	- intltool
-
-- you need at least:
- 	- belle-sip>=1.3.0
-	- speex>=1.2.0 (including libspeexdsp part)
-	- libxml2
-
-	+ if you want the gtk/glade interface:
-		- libgtk >=2.16.0
-	+ if you want video support:
-		- libvpx (VP8 codec)
-		- libavcodec (ffmpeg)
-		- libswscale (part of ffmpeg too) for better scaling performance
-		- libxv (x11 video extension)
-		- libgl1-mesa (OpenGL API -- GLX development files)
-		- libglew (OpenGL Extension Wrangler library)
-		- libv4l (Video for linux)
-		- libx11 (x11)
-		- theora (optional)
-	+ gsm codec (gsm source package or libgsm-dev or gsm-devel) (optional)
-	+ libreadline (optional: for convenient command line in linphonec)
-	+ libsqlite3 (optional : for a local history of chat messages)
-	+ if you want uPnP support (optional):
-		- libupnp (version 1.6 branch (not patched with 18-url-upnpstrings.patch))
-
-	Here is the command line to get these dependencies installed for Ubuntu && Debian
-
-	$ sudo apt-get install libtool intltool libgtk2.0-dev libspeexdsp-dev \
-libavcodec-dev libswscale-dev libx11-dev libxv-dev libgl1-mesa-dev \
-libglew1.6-dev libv4l-dev libxml2-dev
-
-	+ for optional library
-	$ sudo apt-get install libreadline-dev libgsm1-dev libtheora-dev \
-libsqlite3-dev libupnp4-dev libsrtp-dev
-
-	+ Install zrtp (optional), for unbreakable call encryption
-		$ git clone git://git.linphone.org:bzrtp
-		$ cd bzrtp && ./autogen.sh && ./configure && make
-		$ sudo make install
+******************Build Process ***********************************
 
 - Compile linphone
-
- $ ./autogen.sh
- $ ./configure
- $ make && sudo make install
- $ sudo ldconfig
-
-
+ $ git submodule update --init --recursive
+ $ ./Tools/dependencies.sh
+ $ ./Tools/build.sh
 
 For windows compilation see README.mingw.
 For macOS X, see README.macos
