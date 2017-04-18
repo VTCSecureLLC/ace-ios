@@ -43,6 +43,7 @@
 @property (nonatomic, strong) IBOutlet UISwipeGestureRecognizer *detailsLeftSwipeGestureRecognizer;
 @property (nonatomic, strong) IBOutlet UISwipeGestureRecognizer *detailsRightSwipeGestureRecognizer;
 @property (nonatomic, strong) NSTimer *updateTimer;
+@property (nonatomic) BOOL initial_call_update_sent;
 
 @end
 
@@ -58,6 +59,7 @@
 #pragma mark - Instance Methods
 - (void)setupView {
     
+    _initial_call_update_sent = NO;
     [self.avatarView setHidden:NO];
     [self.audioStatsView setHidden:YES];
     [self.videoStatsView setHidden:YES];
@@ -249,6 +251,12 @@
             [self.videoSentSizeFPSLabel setText:@"0x0"];
             [self.videoRecvSizeFPSLabel setText:@"0x0"];
         }
+    }
+
+    // Send a re-INVITE _once_ at the beginning of a call to establish video outbound
+    if (call != NULL && ! _initial_call_update_sent ) {
+        linphone_core_update_call([LinphoneManager getLc], call, NULL);
+        _initial_call_update_sent = YES;
     }
 }
 
